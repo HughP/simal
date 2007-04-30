@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Require-Bundle: org.eclipse.rap.ui.workbench,
+ org.eclipse.rap.rwt,
+ org.eclipse.rap.w4t,
+ org.eclipse.rap.jface,
+ javax.servlet,
+ uk.ac.osswatch.simal.model
+Bundle-Vendor: %Bundle-Vendor
+Bundle-Version: 0.0.1
+Bundle-Localization: plugin
+Bundle-Name: %Bundle-Name
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: uk.ac.osswatch.simal.webGUI;singleton:=true
+Bundle-Activator: uk.ac.osswatch.simal.webGUI.GUIActivator
+
