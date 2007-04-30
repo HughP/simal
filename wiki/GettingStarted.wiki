@@ -1,6 +1,4 @@
 #labels Featured,Phase-Support
-#A Quick Guide to getting started
-
 = Pre-Requisites =
 
  * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.4 - 1.5 (1.6 currently unsupported)
