@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/elp_aled.aspx">
+<shortdesc>The key aim of the project is to implement and evaluate tools and systems that support Design for Learning within post-16 education. This will be achieved by embedding existing tools (i.e. LAMS and Moodle) within teaching and learning in all partner institutions.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>ALED (Authoring using Learning Design)</name>
+<homepage rdf:resource="http://aled.swancoll.ac.uk/"/>
+</Project>

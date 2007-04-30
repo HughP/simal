@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_ccp.aspx">
+<shortdesc>The Collaborative Computational projects (CCPs) bring together leading UK expertise in key fields of research to tackle large-scale scientific software development, maintenance and distribution.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>CCP Source Forge Like Facility for the CCP Community</name>
+<homepage rdf:resource="http://www.softeng.cse.clrc.ac.uk/CCPForge/index.html"/>
+</Project>

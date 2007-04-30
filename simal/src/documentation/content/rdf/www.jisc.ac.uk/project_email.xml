@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm/project_email.aspx">
+<shortdesc>The business of HE/FE institutions is increasingly transacted by email and the management and preservation of stored email is an important part of an institution's records management process.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Records management and email</name>
+<homepage rdf:resource="http://www.lboro.ac.uk/computing/irm/"/>
+</Project>

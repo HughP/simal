@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani/project_il3r.aspx">
+<shortdesc>This project will implement IMS Learner Information and Competency Definition specifications within a new 'Personal Development Record', currently being developed to support the online delivery of vocational training within Wales and, in partnership with the vendors, investigate and recommend the appropriate implementation of those specifications within the Learndirect Lifelong Learning Log and the Teknical VLE, operating within the FE sector.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>IL3R (SWaNI)</name>
+<homepage rdf:resource="http://www.learningindustries.com/"/>
+</Project>

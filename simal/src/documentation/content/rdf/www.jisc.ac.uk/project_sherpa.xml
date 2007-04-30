@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair/project_sherpa.aspx">
+<shortdesc>Project SHERPA aims to create a substantial corpus of research papers from several of the leading research institutions in the UK by establishing e-print archives which comply with the OAI PMH using eprints.org software.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>SHERPA: Securing a Hybrid Environment for Research, Preservation and Access</name>
+<homepage rdf:resource="http://www.sherpa.ac.uk/"/>
+</Project>

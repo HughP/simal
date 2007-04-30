@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 Oxford University
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Simal - Quick Start</title>
+  </header>
+  <body>
+    <warning>This is very early days and very experimental. There are things that don't work, broken
+      links in generated content etc.</warning>
+
+    <note>Since there is nothing in this code base that we hold dear (yet). we welcome constructive
+      criticism about any aspect of the project, its outputs, its direction, its intentions or
+      anything you feel is relevant.</note>
+
+    <section>
+      <title>Getting the Source</title>
+
+      <p>The source can be checked out from SVN with:</p>
+
+      <source>svn co https://svn.oucs.ox.ac.uk/projects/oss-watch/simal simal</source>
+    </section>
+
+    <section>
+      <title>Building from Source</title>
+
+      <p>There are two parts to Simal, an <a href="http://forrest.apache.org">Apache Forrest</a>
+        generated Catalogue site and an <a href="http://incubator.apache.org/wicket">Apache
+        Wicket</a> web application. For now the web application can be ignored by the average user
+        since it does not do anything particularly useful. If you want to work on it then join our
+        mailing lists.</p>
+
+      <p>To work with the catalogue you will need to checkout an build Apache Forrest 0.8-dev (that
+        is Forrest's current SVN head). The Forrest project has some excellent <a
+          href="http://forrest.apache.org/docs_0_80/build.html">documentation</a> for this (it's
+        easy, honest).</p>
+
+    </section>
+
+    <section>
+      <title>Running the Catalogue Application</title>
+
+      <p>Once you have Forrest installed change to your Simal directory and run the command
+          <code>forrest run</code>. Now point your browser at <a href="http://localhost:8089"
+          >http:localhost:8089</a> - that's it.</p>
+
+      <note>We use a different port to the default Forrest port.</note>
+
+      <p>You are now running the catalogue in dynamic mode. You can edit content files (stored in
+        src/documentation/content/xdcos) and then refresh your browser to see the changes
+        immediately. It's worth noting that this version of the catalogue also includes all the
+        project documentation. So you can help us improve the documentation by running the catalogue
+        and editing the files whilst you experiment. Use the Contributor tab above to be taken to
+        the <a href="contributor/index.html">contributor section</a> where you will find more
+        information on how to help Simal improve.</p>
+
+      <section>
+        <title>Static Content Generation</title>
+
+        <p>It is possible to generate the catalogue as a static snapshot suitable for hosting on a
+          normal web server or distributing via CD or other such means. To do this simply run the
+          command <code>forrest site</code>.</p>
+      </section>
+    </section>
+
+    <section>
+      <title>Current Status</title>
+
+      <p>To view the current catalogue functionality follow the links in the catalogue menu on the
+        left of the above linked page. For more information about the current status and recent
+        changes in the catalogue code see the recent changes document.</p>
+    </section>
+
+    <section>
+      <title>What Needs to be Done</title>
+
+      <p>In the contributor section of the catalogue site (see the "Contributor" tab above) you will
+        find a "To Do" menu item this will give an indication of some of the tasks that we need to
+        tackle. However, if you want to contribute in some other way, please feel free to make
+        proposals on our mailing list.</p>
+    </section>
+
+    <section>
+      <title>Getting Help/Providing Feedback</title>
+
+      <p>We do not have a permanent home for this project yet. So the OSS Watch list is our mailing
+        list for now. We are still deciding where it should live permanently - suggestions welcome.</p>
+    </section>
+
+    <section>
+      <title>Open Source?</title>
+      <p>Whilst this will be an open source project it is not one at this time because we have not
+        addressed the IPR and licensing issues, nor have we started to think about what licence is most
+        appropriate.</p>
+
+      <p>Therefore, if you do contribute to the project in any way it is assumed that you do so
+        under your contract with Oxford University and therefore Oxford University owns the copyright
+        to those contributions. If you are not an employee of Oxford university then I am afraid we
+        are unable to accept your contributions at this time. We will resolve this very soon before
+        the project goes public.</p>
+    </section>
+
+  </body>
+</document>

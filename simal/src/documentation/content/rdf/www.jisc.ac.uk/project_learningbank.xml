@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_learningbank.aspx">
+<shortdesc>The aim of the Project is to re-purpose, package and tag existing and newly developed electronic materials. The materials will be made available to the FE/HE community via nationally developed repositories.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Learning Bank</name>
+<homepage rdf:resource="http://moodle.sbc.ac.uk:81/thelearningbank/"/>
+</Project>

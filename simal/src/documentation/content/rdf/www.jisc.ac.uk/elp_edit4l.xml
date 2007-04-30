@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/elp_edit4l.aspx">
+<shortdesc>The EDIT4L project will address the development of design for learning skills in several scenarios, taking existing tools and integrating them into pedagogic design workshops for teachers and other interested educational professionals.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>EDIT4L</name>
+<homepage rdf:resource="http://www.edit4l.soton.ac.uk:8081/"/>
+</Project>

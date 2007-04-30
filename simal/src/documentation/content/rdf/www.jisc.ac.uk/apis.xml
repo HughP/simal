@@ -1,0 +1,5 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/projects/apis.aspx">
+<shortdesc>APIS aims to increase interoperability in practice by providing liberally licence open source implementations of non-controversial elements of the specification to the community as a whole.</shortdesc>
+<name>APIS (Assessment Provision through Interoperable Segments)</name>
+<homepage rdf:resource="http://ford.ces.strath.ac.uk/APIS"/>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_political_discourse.aspx">
+<shortdesc>The project aims to develop a virtual research and research skills development environment, capable of expansion and of facilitating multiple participation in the rapidly evolving field of the history of political discourse.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>Virtual Research Environment for the History of Political Discourse 1500-1800</name>
+<homepage rdf:resource="http://www.uea.ac.uk/his/research/projects/vre/"/>
+</Project>

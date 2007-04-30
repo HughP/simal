@@ -1,0 +1,5 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_versions.aspx">
+<shortdesc>The project addresses the issues and uncertainties relating to versions of academic papers in digital repositories.  By including a user requirements study, the project will clarify the needs of researchers for deposit, storage and accessibility of different versions in the lifecycle of a digital resource.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
+<name>Versions</name>
+</Project>

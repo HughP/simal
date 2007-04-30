@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_cheshire_shiboleth.aspx">
+<shortdesc>This project intends to implement Shibboleth within the Cheshire3 framework enabling Cheshire3 based services to interact with the home institutions of users in order to determine assigned access permissions.  Shibboleth provides the means of transporting assertions from a users home organisation, via a remote resource, thereby providing authorisations for actions upon a resource. Once authorisation has been established Cheshire3 provides a framework in which content based services can be deployed, this enables efficient information retrieval and text mining processes to be performed on the managed information.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>Cheshire 3 Shibboleth</name>
+</Project>

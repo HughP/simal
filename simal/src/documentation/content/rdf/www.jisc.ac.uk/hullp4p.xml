@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/hullp4p.aspx">
+<shortdesc>Pathways for Progression will identify the applicability of curricula mapping to progression routes and produce a repository of searchable curricula from compulsory education through to HE, including vocational routes.  The intention is to develop tools for institutions to identify gaps in provision and to allow learners to plan for lifelong learning pathways.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>P4P:  Pathways for Progression: Mapping Curricula to Facilitate Student Progression</name>
+<homepage rdf:resource="http://www.hull.ac.uk/cld/research/p4p"/>
+</Project>

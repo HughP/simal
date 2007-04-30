@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/welshjournals.aspx">
+<shortdesc>All academically significant Welsh periodicals published since 1900 are being digitised by the National Library of Wales, to provide, for the first time, a substantial corpus of material in the Welsh language freely available online, in perpetuity, to readers in all parts of the world.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
+<name>Modern Welsh journals online</name>
+</Project>

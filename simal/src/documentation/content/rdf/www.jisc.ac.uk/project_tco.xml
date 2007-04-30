@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/project_tco.aspx">
+<shortdesc>Total Cost of Ownership is a method of identifying and understanding all of the costs associated with the acquisition, use and support of ICT, with the aim of improving decision-making about future ICT investment and deployment.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"/>
+<name>Total Cost of Ownership</name>
+</Project>

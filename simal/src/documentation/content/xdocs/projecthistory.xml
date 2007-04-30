@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 Oxford University
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE howto PUBLIC "-//APACHE//DTD How-to V2.0//EN"
+"http://forrest.apache.org/dtd/howto-v20.dtd">
+<howto>
+  <header>
+    <title>History of the Simal project</title>
+
+    <version>0.01</version>
+
+    <abstract>This document describes the steps taken to set up and maintain the Simal project.</abstract>
+
+    <last-modified-content-date date="2007-03-04"/>
+  </header>
+
+  <audience title="Intended Audience">
+    <p>Anyone interested in the history of the Simal project.</p>
+  </audience>
+
+  <purpose title="Purpose">
+    <p>This document should not be misconstrued as the definitive history of the Simal project.
+      Rather it attempts to take account of each significant decision-point as it came along. Our
+      memories are faulty at best, and we hope this is a way to provide some guidance for other
+      projects that might wish to go down a similar path; guidance both for what to do, and for what
+      not to do.</p>
+  </purpose>
+
+  <steps title="Steps">
+    <p>How the Simal project developed</p>
+
+    <section id="initiation">
+      <title>Initial discussion of possible project for OSS Watch</title>
+
+      <p>Although members of the OSS Watch team had bandied the idea of setting up an open source
+        development project themselves for some time, discussion in earnest did not begin until the
+        addition of Ross Gardler to the team in January 2007. Ross' experience as a member of The
+        Apache Software Foundation, his concerted focus on the need to develop a community around
+        any open development project, and his practical suggestion of a framework for building a DOAP
+        catalogue solidified our wishful thinking into something more like the seed of a project.</p>
+
+      <p>However, even with the seed of a project in place, we faced a set of immediate decisions:</p>
+
+      <ul>
+        <li>should this project be set within Oxford University Computing Services (where the OSS
+          Watch team is located)</li>
+        <li>should we use an established open source project hosting site, such as SourceForge or
+          Google Code</li>
+        <li>would this project be intended to serve more than just the end of producing a particular
+          software application <ul>
+            <li>the project could be a means of developing reusable documentation for other open
+              development projects</li>
+            <li>the project could be a means of establishing a new practice of open development at
+              Oxford University Computing Services</li>
+            <li>the project could be a means for OSS Watch staff to <em>learn by doing</em> through
+              participation in an open development project</li>
+          </ul></li>
+        <li>what licence should we choose for our code and our documentation</li>
+        <li>how would we get other user/developers involved</li>
+        <li>what steps could we take now to make the project sustainable in the long run</li>
+      </ul>
+      <p>There were other considerations as well but the above probably constitute the most
+        significant points. With so many decision points the project could easily have turned into a
+        talking point rather than an actual open development project. Fortunately that did not turn
+        out to be the case.</p>
+    </section>
+
+    <section id="first-codebase">
+      <title>First Codebase</title>
+
+      <p>On Friday, 2 March 2007, Ross Gardler sent an email to the other members of the OSS Watch
+        team entitled: <em>Simal is born (DOAP catalogue)</em>. In that email, Ross outlined the
+        initial thrust of the project, where the codebase for the project was located, and how we
+        could each begin contributing.</p>
+
+      <source>
+        <![CDATA[
+      I just committed Simal to our new projects svn space.
+      
+      Simal is the current working title for the DOAP catalogue. If you want to suggest a real name please 
+      go ahead - however names should not reflect what the project does, things tend to go in unexpected 
+      directions in open source.
+      
+      Current Status
+      ==============
+      
+      The catalogue is currently in an early prototype stage. To view the current 
+      catalogue functionality follow the links in the catalogue menu on the left of 
+      the above linked page. For more information about the current status and 
+      recent changes in the catalogue code see the recent changes  document 
+      (you can subscribe to a changes RSS feed if you prefer - note this is a 
+      temporary location for the feed).
+      
+      What Needs to be Done
+      =====================
+      
+      In order to move forward with the development of the catalogue we need 
+      to increase the number of projects represented with DOAP files, and we 
+      need to extend the information stored in current projects files. The files 
+      are stored at \src\documentation\content\rdf feel free to edit them (until 
+      the project finds a permanent home I'm happy for everyone to have commit 
+      access to the code base).
+      
+      Since Ramon showed some interest, it would also be really cool if we could 
+      have a package for Simal and for Forrest to make the getting start part even 
+      easier. I have no idea how to do this but there are plenty of people in the 
+      building who can help. It would be great if Ramon could also donate the 
+      config for doing the Forrest part back to the Forrest community.
+      
+      Getting Started
+      ===============
+      
+      Try this document for size [with a link to the Quick Start doc on the seed 
+      project site]
+      ]]>
+      </source>
+
+      <p>The initial codebase was deposited in an OSS Watch projects subversion repository. That was
+        always meant to be a temporary holding point until we made some early decisions.</p>
+
+      <p>With a subversion repository accessible to the OSS Watch team, the project could be said to
+        have officially started.</p>
+
+
+    </section>
+
+    <section id="initial-discussion">
+      <title>Initial discussion</title>
+
+      <p>Throughout those first few days the team engaged in wide-spread discussion about a number
+        of issues. More than 50 emails were exchanged on the team email list.</p>
+
+      <ul>
+        <li>which licence should the project adopt?</li>
+        <li>the project name - what does Simal mean?; nothing, it's just a name</li>
+        <li>what is a meritocracy?</li>
+        <li>what do we do if we want to contribute a patch to the Apache Forrest project? 
+          <ul>
+            <li>the initial project site and codebase for Simal drew heavily on the achievements of
+              the Apache Forrest project. It was perfectly natural therefore that participants in
+              Simal might also find opportunities to contribute to the Apache Forrest project. In
+              order for that to take place, however, since the team members were all employees of
+              the University of Oxford, an Apache Coporate Contributor License Agreement would need
+              to be signed on our behalf by someone with the authority to do so, in this case the
+              Director of Oxford University Computing Services.</li>
+            
+          </ul>
+        </li>
+        <li>have we set up the initial subversion repository correctly?</li>
+      </ul>
+      <p>Lots to think about and lots to decide.</p>
+    </section>
+    
+    <section id="firstContributions">
+      <title>First Contributions</title>
+      
+      <p>Within days of being started the Simal project recieved important contributions
+      from other OSS Watch members. Many of these contributions were not
+      technical in nature, but are good examples of the non-technical contributions
+      new users of a project can make quickly and easily. These contributions included:</p>
+      
+      <ul>
+        <li>Testing and bug reporting</li>
+        <li>Documentation corrections</li>
+        <li>New documentation (this document for example)</li>
+        <li>Expansion of DOAP data available to the system</li>
+        <li>Contribution of an external DOAP file from a third party project, in this case WebPA at Loughborough University</li>
+      </ul>
+      
+      <p>These contributions show the value of the release early, release often
+      approach commonly found in open source software development. Early releases
+      enable early feedback and contributions from interested parties. As long
+      as user expectations are managed correctly, for example known bugs are
+      clearly identified in the release documentation, exposing your early work,
+      "warts and all" is the start to building an early community.</p>
+    </section>
+    <section id="earlydescisions">
+      <title>Early decisions</title>
+      <p>Before one month had passed the team discussion had reached consensus on two important points:</p>
+      <ul>
+        <li>licence: Apache License, version 2.0
+        <ul>
+          <li>After intensively exploring a number of options the consensus was that Simal should be released 
+            under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License, version 2.0</a>.
+            This licence was chosen as we believe that it provides the most flexibility
+            for likely downstream projects wishing to utilise the Simal outputs. In addition it also address a possible 
+          long term plan for the <a href="sustainabilityplan.html">sustainability</a> of the project</li>
+        
+          
+        </ul>
+          
+        </li>
+        <li>project home: Google Code
+        <ul>
+          <li>Hosting the project on Google Code serves a number of ends. Google Code has many of the advantages 
+          of SourceForge without the association with more than 100,000 moribund projects. It has Google behind it, which 
+          bodes well for the ongoing development of its facilities. No one in the team had used it before (other than to 
+          explore its feature set), so it would provide a learning opportunity for everyone. Plus we thought it would be fun.</li>
+        </ul>
+        </li>
+      </ul>
+      
+    </section>
+    
+    <section id="approval">
+      <title>Agreement of plans from copyright holders and funding bodies</title>
+      
+      <p>OSS Watch, who are the first intended users of the Simal system, are
+      a part of Research Technologies Service at Oxford University Computing
+      Services (OUCS). Since OSS Watch time will be donated to this project 
+      it was necessary to get approval from OSS Watch's Director at OUCS before making this project
+      public.</p>
+      
+      <p>To this end Ross Gardler and Randy Metcalfe of OSS Watch created a
+      project description brief that looked at the immediate benefits to OSS Watch, JISC (the Joint 
+      Information Systems Committee) - OSS Watch's funder, and OUCS.
+      This was submitted to Mike Fraser, Director of OSS Watch who approved the
+      allocation of 0.1 FTE to the project over 4 months. Not much, but enough
+      to get things going.</p>
+      
+      <p>Next stage is to take this project description to Ann Borda, OSS Watch's 
+        JISC Programme Manager. </p>
+    </section>
+      
+  </steps>
+
+  <!--
+  <extension title="Extension">
+    <p>Solutions can be extended to cover many different problem domains. A nearly unlimited number
+      of potential How-To topics, from simple to complex, are available right now, limited only by
+      your imagination.</p>
+  </extension>
+
+  <faqs id="faqs">
+    <title>Frequently Asked Questions</title>
+    <faqsection id="faq-general">
+      <title>General issues</title>
+      <faq id="faq-difference">
+        <question>What is the difference between a How-To and a tutorial?</question>
+
+        <answer>
+          <p>The goal of a How-To is to help the reader to accomplish a specific task with clear and
+            consise instructions. While tutorials may contain How-To-like instructions and content,
+            they also include additional background and conceptual content to help teach their
+            readers higher order concepts along the way. How-Tos are concerned about filling an
+            immediate, short-term need. Tutorials often provide long-term knowledge which can be
+            applied across a range of needs.</p>
+        </answer>
+      </faq>
+    </faqsection>
+
+    <faqsection id="faq-style">
+      <title>Style issues</title>
+      <faq id="spelling">
+        <question>What spelling convention should I follow?</question>
+
+        <answer>
+          <p>Use whatever spelling convention (American, British, etc.) that is most intuitive to
+            you.</p>
+        </answer>
+      </faq>
+    </faqsection>
+  </faqs>
+
+  <tips title="Tips">
+    <section id="tip-dtd">
+      <title>How-To dtd</title>
+
+      <p>The document structure is likely to change at some time. Please note that this HOWTO page
+        is likely to change as well.</p>
+    </section>
+  </tips>
+
+  <references title="References">
+    <p>This is not the first, nor will it be the last, How-To on writing How-Tos. For other ideas
+      and opinions on the matter, check out the following sources.</p>
+
+    <ul>
+      <li>Joel D. Canfield's <a
+          href="http://www.evolt.org/article/How_To_Write_A_How_To/9741/18250/index.html">How to
+          Write a How-To</a> on evolt.org.</li>
+
+      <li>The Linux Documentation Project's <a
+          href="http://www.tldp.org/HOWTO/HOWTO-INDEX/index.html">HOWTO</a> index page provides many
+        excellent How-To documents to inspire your efforts.</li>
+    </ul>
+  </references>
+  -->
+</howto>

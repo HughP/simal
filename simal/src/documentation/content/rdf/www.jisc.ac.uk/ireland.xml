@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/ireland.aspx">
+<shortdesc>The digitisation of 100 key journals, 205 monographs and 2,500 manuscript pages from core Irish Studies collections makes this comprehensive, multi-disciplinary digital library the first point of contact for scholars and students seeking a convenient and comprehensive one stop shop for e-resources relating to Ireland.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
+<name>A digital library of core e-resources on Ireland</name>
+</Project>

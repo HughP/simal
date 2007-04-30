@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/project_historical_census.aspx">
+<shortdesc>The aim of the project is to digitise all UK census reports 1801-1937 (109,000 pages), Registrar General(s) reports 1801-1921 (70,000 pages) and ancillary material (13,000 pages). The project will work closely with The National Archives.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
+<name>Online historical population reports</name>
+<homepage rdf:resource="http://www.histpop.org/"/>
+</Project>

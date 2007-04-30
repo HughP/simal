@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle/project_linker.aspx">
+<shortdesc>The overall aim of the project is to provide formative evaluation and review of the technical, pedagogical and organisational issues emerging from the The overall aim of the project is to provide formative evaluation and review of the technical, pedagogical and organisational issues emerging from the Linking Digital Libraries with VLEs programme.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Linking Digital Libraries and Virtual Learning Environments: Evaluation and Review</name>
+<homepage rdf:resource="http://www.cerlim.ac.uk/projects/linker.html"/>
+</Project>
