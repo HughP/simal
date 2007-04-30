@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+  <extension
+      id="org.eclipse.rap.demo.demoentrypoint"
+      point="org.eclipse.rap.ui.workbench.entrypoint">
+    <entrypoint
+        class="uk.ac.osswatch.simal.webGUI.AdminWorkbench"
+        parameter="default"/>
+  </extension>
+  
+  <extension
+      point="org.eclipse.rap.ui.workbench.perspectives">
+    <perspective
+        name="Project Perspective"
+        class="uk.ac.osswatch.simal.webGUI.ProjectPerspective"
+        id="uk.ac.osswatch.simal.webGUI.projectPerspective">
+    </perspective>
+  </extension>
+  
+  <extension point="org.eclipse.rap.ui.workbench.views"> 
+      <!-- category 
+         id="com.xyz.views.XYZviews" 
+         name="XYZ"/--> 
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.ProjectTreeViewPart"
+            icon="icons/project.gif"
+            id="uk.ac.osswatch.simal.webGUI.ProjectTreeViewPart"
+            name="Projects"/> 
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.ContributorTreeViewPart"
+            icon="icons/contributor.gif"
+            id="uk.ac.osswatch.simal.webGUI.ContributorTreeViewPart"
+            name="Contributor"/> 
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.EventTreeViewPart"
+            icon="icons/event.gif"
+            id="uk.ac.osswatch.simal.webGUI.EventTreeViewPart"
+            name="Event"/> 
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.ProjectEditorViewPart"
+            icon="icons/project.gif"
+            id="uk.ac.osswatch.simal.webGUI.ProjectEditorViewPart"
+            name="Project"/> 
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.BrowserViewPart"
+            icon="icons/internal_browser.gif"
+            id="uk.ac.osswatch.simal.webGUI.BrowserViewPart"
+            name="Browser"/>
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.ContributorEditorViewPart"
+            icon="icons/contributor.gif"
+            id="uk.ac.osswatch.simal.webGUI.controls.ContributorEditorViewPart"
+            name="Contributor"/>
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.EventEditorViewPart"
+            icon="icons/event.gif"
+            id="uk.ac.osswatch.simal.webGUI.controls.EventEditorViewPart"
+            name="Event"/>
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.LanguageEditorViewPart"
+            icon="icons/language.gif"
+            id="uk.ac.osswatch.simal.webGUI.controls.LanguageEditorViewPart"
+            name="Language"/>
+      <view
+            class="uk.ac.osswatch.simal.webGUI.controls.LanguageTreeViewPart"
+            icon="icons/language.gif"
+            id="uk.ac.osswatch.simal.webGUI.LanguageTreeViewPart"
+            name="Language"/>  
+   </extension> 
+  
+</plugin>
