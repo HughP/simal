@@ -6,24 +6,31 @@
 
 = Get Source Files =
 
-svn co https://simal.googlecode.com/svn/trunk/simal [PROJECT_HOME]/simal
+{{{
+svn co http://simal.googlecode.com/svn/trunk/simal $PROJECT_HOME/simal
+}}}
 
-where [PROJECT_HOME] is your chosen project directory
+where $PROJECT_HOME is your chosen project directory
+
+(use https rather than http if you are a committer)
 
 = Set up =
 
-Create an SIMAL_HOME environment variable with the value [PROJECT_HOME]/simal
+Create an SIMAL_HOME environment variable with the value $PROJECT_HOME/simal
 
-Add SIMAL_HOME/bin to your PATH environment variable
+Add $SIMAL_HOME/bin to your PATH environment variable
 
 = Running =
 
 The Simal source code contains all the documentation for Simal and a demonstration catalogue, so all you need to do to see it is:
 
+{{{
+cd $SIMAL_HOME
 simal run
 http://localhost:8089
+}}}
 
-= What Happened =
+= What Happened? =
 
 You are now running the catalogue in dynamic mode. You can edit content files, which are stored in SIMAL_HOME/src/documentation/content/xdcos and then refresh your browser to see the changes immediately. 
 
@@ -34,3 +41,4 @@ Since we use Forrest to create our catalogues like this, you can find out more f
 This version of Simal includes all the project documentation. So you can learn more and, at the same time, help us improve the documentation by reading the docs and im,proving them as you experiment.
 
 Use the Contributor tab in your local version of the docs to be taken to the contributor section where you will find more information on how to contribute to Simal.
+
