@@ -1,0 +1,21 @@
+
+AL-20 = Apache License 2.0 with original Copyright line.
+AL-20a = Apache License 2.0 with original Copyright line and "or its licensors".
+AL-20b = Apache License 2.0 with no Copyright line, i.e. the current style.
+----------------------
+
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/.classpath, extension=.classpath, fileType=unknown, File type '.classpath' is not recognised so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/.project, extension=.project, fileType=unknown, ignored, File type '.project' is not recognised so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/build.properties, extension=.properties, fileType=properties, WARN: Found existing license (licenseType=F-AL-20) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/LICENSE.txt, extension=.txt, fileType=unknown, WARN: Found existing license (licenseType=Other) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/NOTICE.txt, extension=.txt, fileType=unknown, WARN: Found existing license (licenseType=Other) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/plugin.xml, extension=.xml, fileType=xml, WARN: Found existing license (licenseType=F-AL-20) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/.settings/org.eclipse.pde.core.prefs, extension=.prefs, fileType=properties, WARN: Found existing license (licenseType=F-AL-20) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/etc/relicence/insert_license.pl, extension=.pl, fileType=sh, Found existing license (licenseType=AL-20b) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/etc/relicence/relicense.log, extension=.log, fileType=unknown, WARN: Found existing license (licenseType=Other) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/etc/relicence/relicense.txt, extension=.txt, fileType=unknown, ignored, File type '.txt' is not recognised so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/etc/relicence/rest-avoid.txt, extension=.txt, fileType=unknown, ignored, File type '.txt' is not recognised so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/META-INF/MANIFEST.MF, extension=.MF, fileType=unknown, File type '.MF' is not recognised so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/src/uk/ac/osswatch/simal/rest/Activator.java, extension=.java, fileType=C, WARN: Found existing license (licenseType=F-AL-20) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/src/uk/ac/osswatch/simal/rest/RESTServlet.java, extension=.java, fileType=C, WARN: Found existing license (licenseType=F-AL-20) so skipping
+/cygdrive/c/projects/uk.ac.osswatch.simal.rest/web-files/test.xml, extension=.xml, fileType=xml, WARN: Found existing license (licenseType=F-AL-20) so skipping
