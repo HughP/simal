@@ -38,7 +38,14 @@ Since we use Forrest to create our catalogues like this, you can find out more f
 
 = Whats Next? =
 
+== Static Content Generation ==
+
+It is possible to generate the catalogue as a static snapshot suitable for hosting on a normal web server or distributing via CD or other such means. To do this simply run the command:
+
+{{{simal site}}}
+
+== More Information ==
+
 This version of Simal includes all the project documentation. So you can learn more and, at the same time, help us improve the documentation by reading the docs and im,proving them as you experiment.
 
 Use the Contributor tab in your local version of the docs to be taken to the contributor section where you will find more information on how to contribute to Simal.
-
