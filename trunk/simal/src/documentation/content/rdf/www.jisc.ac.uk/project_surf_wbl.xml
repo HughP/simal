@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_surf_wbl.aspx">
+<shortdesc>This project aims to examine the resourcing and support of work-based learning in applied technology, early years, care management and teaching assistant foundation degrees, and deposit learning objects produced in JORUM.  Embedding procedures developed in the current X4L project will be used to ensure that policy, procedures, roles and responsibilities for the support of work-based learning are effective.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>SURF WBL</name>
+</Project>

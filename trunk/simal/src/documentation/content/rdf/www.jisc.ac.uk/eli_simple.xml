@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation/eli_simple.aspx">
+<shortdesc>This project will create the second iteration of an environment for professional learning  an open-source, open-standards transactional learning environment (TLE 2.0)  and will engage in large-scale evaluation of the implementation of this environment.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>SIMPLE (Simulated Professional Learning)</name>
+<homepage rdf:resource="http://technologies.law.strath.ac.uk/tle2"/>
+</Project>

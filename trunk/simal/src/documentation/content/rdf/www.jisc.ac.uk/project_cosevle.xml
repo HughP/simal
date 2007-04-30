@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals/project_cosevle.aspx">
+<shortdesc>The project aims to intergrate searching of e-nooks and other e-resources into a VLE to provide reusable and searchable reference objects which draw seemlessly on the referenced resources and which could be packaged and exported with other content.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Interoperation of COSE VLE with E-Resources</name>
+</Project>

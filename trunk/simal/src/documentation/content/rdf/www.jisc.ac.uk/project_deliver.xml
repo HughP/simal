@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle/project_deliver.aspx">
+<shortdesc>The overall aim of the project is to create a series of library tools that will allow access to a range of library systems and services on a course-specific basis from within a VLE.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>DELIVER: Digital Electronic Library Integration within Virtual EnviRonments</name>
+<homepage rdf:resource="http://www.angel.ac.uk/DELIVER/"/>
+</Project>

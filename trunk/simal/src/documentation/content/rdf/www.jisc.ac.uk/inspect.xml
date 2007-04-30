@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres/inspect.aspx">
+<shortdesc>Its purpose is to develop and expound the concept of "significant properties" (or characteristics) of digital objects, and to analyse a range of digital objects in order to develop a generalised methodology for determining the significant properties of digital object types.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Investigating the Significant Properties of Electronic Content Over Time (INSPECT)</name>
+</Project>

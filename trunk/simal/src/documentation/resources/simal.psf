@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<psf version="2.0">
+	<provider id="org.tigris.subversion.subclipse.core.svnnature">
+		<project reference="0.9.3,https://svn.oucs.ox.ac.uk/projects/oss-watch/simal,simal"/>
+		<project reference="0.9.3,https://svn.oucs.ox.ac.uk/projects/oss-watch/uk.ac.osswatch.simal.model,uk.ac.osswatch.simal.model"/>
+		<project reference="0.9.3,https://svn.oucs.ox.ac.uk/projects/oss-watch/uk.ac.osswatch.simal.webGUI,uk.ac.osswatch.simal.webGUI"/>
+	</provider>
+</psf>

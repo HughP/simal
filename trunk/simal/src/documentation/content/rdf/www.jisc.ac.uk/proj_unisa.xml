@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_unisa.aspx">
+<shortdesc>Information Services currently maintain separate ATHENS usernames and passwords for all students by automatically generating bulk upload requests from our user registration database. We had been looking to use the ATHENS devolved authentication mechanism to enable staff and students to use their local (eDirectory) usernames, but are now planning to use Shibboleth for this instead.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<name>UNISA: University of Nottingham Implementation of Shibboleth for Athens</name>
+<homepage rdf:resource="http://www.nottingham.ac.uk/is/about/projects/unisa"/>
+</Project>

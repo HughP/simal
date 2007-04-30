@@ -1,0 +1,806 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 Oxford University
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE howto PUBLIC "-//APACHE//DTD How-to V2.0//EN"
+"http://forrest.apache.org/dtd/howto-v20.dtd">
+<howto>
+    <header>
+        <title>How to add a new data object and form</title>
+
+        <version>0.1</version>
+
+        <abstract>
+            This How-To describes the steps necessary to add a new data
+            object to the Simal web application. It covers the addition
+            of a java object to capture data, the linking of this object
+            to the database and the creation of an HTML form for the
+            display and editing of the data object.
+        </abstract>
+
+        <last-modified-content-date date="2007-03-17" />
+    </header>
+
+    <audience title="Intended Audience">
+        <p>
+            Simal developers with an understanding of Java and Eclipse
+            RAP.
+        </p>
+    </audience>
+
+    <purpose title="Purpose">
+        <p>
+            To allow a new Simal developer to add additional data object
+            to the Simal project. We will add a new data bean, link it
+            to the database and provide a self-populating form for
+            editing the data.
+        </p>
+    </purpose>
+
+    <prerequisites title="Prerequisites">
+        <ul>
+            <li>
+                Understand the basic functionality of the Simal data
+                entry user interface
+            </li>
+            <li>
+                A basic understanding of the
+                <a href="http://www.eclipse.org/rap">
+                    Rich Ajax Platform (RAP)
+                </a>
+            </li>
+        </ul>
+
+        <warning>
+            This How To is an in-progress document. It contains many
+            snippets of code that are being developed as the Simal
+            framework is being developed. Therefore readers should
+            cross-reference the content in this document with the actual
+            source code fround in the Simal project. If you find any
+            discrepencies please be sure to submit a patch for this
+            document.
+        </warning>
+    </prerequisites>
+
+    <steps title="Add Data Object">
+        <section>
+            <title>Initial Planning</title>
+            <p>
+                Planning is an important part of any development
+                process. However, too much planning will result in
+                little real work being done. This set of steps should be
+                sufficient to get us started on development.
+            </p>
+
+            <section id="decideOnData">
+                <title>Add what data, where?</title>
+
+                <p>
+                    What data do we want to capture? Is there an
+                    existing object that should contain the data?
+                </p>
+
+                <p>
+                    For example, suppose we wish to add details of a
+                    contributor to a project. We will need to capture a
+                    number of details about the contributor, such as
+                    their name and email address. Each project will have
+                    multiple contributors. Therefore, we need a
+                    contributor object to capture this data. The project
+                    object will have a collection of these objects.
+                </p>
+
+                <p>
+                    In this how-to we will be adding a
+                    <code>Contributor</code>
+                    data object and linking it to the
+                    <code>Project</code>
+                    data object.
+                </p>
+            </section>
+        </section>
+
+        <section>
+            <title>Form for Contributor Editing</title>
+
+            <p>
+                Having identified what we need to create, lets get
+                started with the implementation. You'll have noticed in
+                that in our design we have only started to think about
+                what we need to add. We've not gone into any detail at
+                this stage. Simal uses a set of tools that make it easy
+                to change the structure of the database, so we don't
+                worry too much about getting the design right first
+                time. We'll tweak as we go along.
+            </p>
+
+            <section id="createForm">
+                <title>The form interface</title>
+
+                <note>
+                    Technical notes relevant to this section can be
+                    found in the
+                    <a href="implementationNotes/editorForms.html">
+                        Editor Forms Implementation Note
+                    </a>
+                    .
+                </note>
+
+                <p>
+                    We need a form for editing our data object. We start
+                    with this step as creating the form provides us with
+                    a visual representation of the data object. We can
+                    show this to the users before we do any real
+                    implementation work, this means we can get very
+                    quick feedback from our user community. This kind of
+                    early feedback is likely to be something like
+                    "heh, where do I add detail XYZ", just what we need
+                    before building data structures and any complex
+                    relationships they may contain.
+                </p>
+
+                <p>
+                    To create the form we must create a
+                    <code>
+                        uk.ac.osswatch.simal.webGUI.controls.ContributorEditorViewPart
+                    </code>
+                    class. The skeleton for this class looks like this:
+                </p>
+
+                <source>
+                    package uk.ac.osswatch.simal.webGUI.controls;
+
+                    import org.eclipse.rap.rwt.widgets.Composite;
+                    import org.eclipse.rap.ui.part.ViewPart;
+
+                    public class ContributorEditorViewPart extends ViewPart { 
+                      public static final String ID =
+                        "uk.ac.osswatch.simal.webGUI.controls.ContributorEditorViewPart";
+
+                      public void createPartControl(final Composite parent) { }
+
+                      public void setFocus() { } 
+                    }
+                </source>
+
+                <p>
+                    The ID constant is used by the Eclipse plugin
+                    framework to refer to the editor elsewhere. It needs
+                    to be unique accross the application, but does not
+                    have to be the same as the class name. Nevertheless,
+                    we find it convenient for it to be the class name.
+                </p>
+
+                <p>
+                    Now we have the outline of the form class we need to
+                    create the actual form. First we need to create a
+                    class level variable for each editable data field.
+                    These variables will hold a reference to the GUI
+                    component that will be used for displaying and
+                    editing the data field. For this initial Contributor
+                    fields we need:
+                </p>
+
+                <source>
+
+                    import org.eclipse.rap.rwt.widgets.Composite;
+                    import org.eclipse.rap.rwt.widgets.List; 
+                    import org.eclipse.rap.rwt.widgets.Text;
+
+                    ...
+
+                    private Composite form = null; 
+                    private Text id;
+                    private Text name; 
+                    private Text email; 
+                    private Text url; 
+                    private List projects;
+                </source>
+
+                <p>
+                    The
+                    <code>form</code>
+                    variable is the top level contained for the form.
+                    This is the complete form, other variables represent
+                    individual components in the form.
+                </p>
+
+                <p>
+                    The next stage is to create these form elements and
+                    add them to the form itself. This is done in the
+                    <code>
+                        public void createPartControl(final Composite parent)
+                    </code>
+                    method. We will use the helper methods in
+                    <code>
+                        uk.ac.osswatch.simal.webGUI.controls.ViewPartHelper
+                    </code>
+                    to do the element creation. The additional code
+                    needed is:
+                </p>
+
+                <source>
+                    import org.eclipse.rap.rwt.RWT;
+                    import org.eclipse.rap.rwt.layout.GridLayout;
+
+                    ...
+
+                    public void createPartControl(final Composite
+                    parent) { GridLayout gridLayout = new GridLayout();
+                    gridLayout.numColumns = 2; form = new
+                    Composite(parent, RWT.NONE);
+                    form.setLayout(gridLayout);
+
+                    id = ViewPartHelper.addText("ID:", form); name =
+                    ViewPartHelper.addText("Name:", form); email =
+                    ViewPartHelper.addText("Email:", form); url =
+                    ViewPartHelper.addText("URL:", form); projects =
+                    ViewPartHelper.addList("projects", projectItems,
+                    form); }
+                </source>
+
+                <p>
+                    There is a problem with the above code. It uses a
+                    variable called
+                    <code>projectItems</code>
+                    to populate the projects list. In the working
+                    application this will contain a list of all the
+                    projects that this contributor is associated with.
+                    However, in this first iteration we are not using
+                    real data, so there are no projects to list. For now
+                    we will just create a dummy list so that we can
+                    proceed. Add the following class level variable:
+                </p>
+
+                <source>
+                    String[] projectItems = {"Project 1", "project 2",
+                    "Project 3"};
+                </source>
+
+                <p>
+                    We now have a form definition, but it the Simal
+                    application does not know when or where to display
+                    this form. That brings us to the next stage.
+                </p>
+
+                <section>
+                    <title>Display the form in the application</title>
+
+                    <p>
+                        The first thing to do is make the plugin
+                        framework aware of the fact this new form
+                        exists. We need to add a view extension to the
+                        Simal webGUI plugin. Do do this open the
+                        <code>plugin.xml</code>
+                        file in the
+                        <code>uk.ac.osswatch.simal.webGUI</code>
+                        plugin. In the editor that is displayed select
+                        the
+                        <code>Extensions</code>
+                        tab and expand the
+                        <code>org.eclipse.rap.ui.workbench.views</code>
+                        node in the tree. You will now see a list of the
+                        know views in the web GUI plugin. We need to add
+                        our new form here. To add the form right click
+                        on the
+                        <code>org.eclipse.rap.ui.workbench.views</code>
+                        node and select
+                        <code>New -> View</code>
+                        .
+                    </p>
+
+                    <p>
+                        Now you need to define, at least, the following
+                        properties:
+                    </p>
+
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <td>
+                                The ID must be the same as defined in
+                                the
+                                <code>ID</code>
+                                variable in the form class (see above).
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Name</th>
+                            <td>
+                                The name of the editor view as displayed
+                                in the application.
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Class</th>
+                            <td>
+                                The implementing class, in this case
+                                <code>
+                                    uk.ac.osswatch.simal.webGUI.controls.ContributorEditorViewPart
+                                </code>
+                                .
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Icon</th>
+                            <td>
+                                The location of the icon to be used for
+                                this view.
+                            </td>
+                        </tr>
+                    </table>
+
+                    <p>
+                        Now that the application is aware of the
+                        existence of the form we must decide where
+                        and when we want is to be displayed. At the time
+                        of writing there is only one perspective in the
+                        Simal application, so working out where to put
+                        it is not hard, there is only one
+                        candidate, the Project Perspective. The make-up
+                        of this perspective is defined in
+                        <code>
+                            uk.ac.osswatch.simal.webGUI.ProjectPerspective
+                        </code>
+                        , in particular within
+                        <code>
+                            public void createInitialLayout( final
+                            IPageLayout layout )
+                        </code>
+                        . All we need to do is decide what part of the
+                        perspective layout we want our form to appear
+                        and add it at the appropriate place, just add
+                        the following line in your chosen location
+                        (don't forget to import the
+                        <code>ContributorEditorViewPart</code>
+                        class:
+                    </p>
+
+                    <source>
+                        topRight.addView( ContributorEditorViewPart.ID
+                        );
+                    </source>
+
+                    <p>
+                        You should now be able to run the application
+                        and see your new form. At present it does not
+                        display any data, but at least we can now show
+                        the seek user acceptance.
+                    </p>
+                </section>                
+                
+            </section>
+
+            <section id="userAcceptance">
+                <title>User acceptance</title>
+
+                <p>
+                    As discussed previously, creating the HTML templates
+                    allows us to get early feedback from the
+                    users. So, now is the time to show what we have to
+                    the user. Of course, there will be no data in there,
+                    but at least they can see what data will be required
+                    for contributor records.
+                </p>
+                
+                <p>To get your users feedback a
+                screenshot of the form should be posted as part of a blog item
+                describing the proposed functionality. Feedback should be 
+                elicited through comments on the blog, or the user mailing
+                lists if more appropriate (i.e. discussion is required).</p>
+
+                <p>
+                    Once we have got this feedback, incorporated any
+                    requested changes and finally been encouraged to
+                    continue we are almost ready to write the necessary java
+                    code to support these forms, but first we need some tests.
+                </p>
+                
+                
+              <section>
+                <title>Testing the basic editor</title>
+                
+                <fixme author="rdg">Document the process for 
+                testing to ensure the GUI behaves as expected.</fixme>
+              </section>
+              
+            </section>
+          </section>
+
+          <section>
+            <title>The model</title>
+            
+            <p>
+                There are a number of java objects required to make
+                these forms work. We'll start with the data bean, then
+                we'll implement the data access objects.
+            </p>
+
+            <section>
+                <title>Data bean</title>
+
+                <p>
+                    The data bean stores and manages the data that
+                    represents the contributor. We already know what
+                    data needs to be stored, it was defined in the forms
+                    for editing the bean. Our initial
+                    <code>Contributor</code> class looks like this. Note that
+                    this class contains Java Persistence API (JPA) annotations.
+                    These control the way the bean is persisted. It is outside
+                    the scope of this how-to to describe their precise function.
+                    There is plenty of documentation on the web, such as this
+                    <a href="http://www.oracle.com/technology/products/ias/toplink/jpa/resources/toplink-jpa-annotations.html">reference manual</a>.
+                </p>
+                
+                <source>
+package uk.ac.osswatch.simal.model;
+
+import java.io.Serializable;
+import java.sql.Date;
+import java.util.Collection;
+import java.util.HashSet;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.CascadeType;
+
+@Entity
+public class Contributor implements Serializable {
+    private static final long serialVersionUID = -8215136669662516435L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(updatable = false)
+    private long id;
+    private String name;
+    private String email;
+    private String url;
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, targetEntity=uk.ac.osswatch.simal.model.Project.class)
+    private Collection&lt;Project> projects = new HashSet&lt;Project>();
+    private Date created;
+    
+    public Contributor() {
+        setCreated(new Date(System.currentTimeMillis()));
+    }
+    
+    /**
+     * Minimal constructor.
+     *
+     */
+    public Contributor(String name, String email) {
+        this();
+        setName(name);
+        setEmail(email);
+    }
+    
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+    public String getName() {
+        if (name == null || name.length() == 0 ) {
+            return null;
+        }
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public String getUrl() {
+        return url;
+    }
+    public void setUrl(String url) {
+        this.url = url;
+    }
+    
+    public Collection&lt;Project> getProjects() {
+        return projects;
+    }
+    public void setProjects(Collection&lt;Project> projects) {
+        this.projects = projects;
+    }
+    
+    public String toString() {
+        if (getName() != null) {
+            return name;
+        } else {
+            return "UNDEFINED";
+        }
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+    protected void setCreated(Date created) {
+        this.created = created;
+    }
+}
+                </source>
+            </section>
+
+            <section>
+                <title>Data Access Object</title>
+                
+                <p>Simal uses <a href="http://www.oracle.com/technology/products/ias/toplink/jpa/index.html">TopLink Essentials</a>
+                to persist our data in a relational database. As we saw 
+                in the previous section data beans are marked up with JPA
+                annotations. Now we need to create the necessary services
+                for working with the persistence layer. First we need a service
+                interface:</p>
+
+                <source>
+package uk.ac.osswatch.simal.service;
+
+import java.util.Set;
+
+import uk.ac.osswatch.simal.model.Contributor;
+
+public interface IContributorService {
+    public Contributor findContributor(long id);
+    public int save(Contributor contributor);
+    public boolean delete(Contributor contributor);
+    public boolean update(Contributor contributor);
+    /**
+     * Find all contributors known in the system
+     * @return
+     */
+    public Collection&lt;Contributor> findAll();
+
+}
+                </source>
+
+                <p>And, of course, we will need an implementation of this
+                interface. Simal, by default, uses Apache Derby as its
+                relational database, so we need the following class.</p>
+    
+                <source>
+package uk.ac.osswatch.simal.service.derby;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+
+import uk.ac.osswatch.simal.model.Contributor;
+import uk.ac.osswatch.simal.service.IContributorService;
+
+public class ManagedContributorBean implements IContributorService {
+    Set&lt;Contributor> contributors;
+    
+    public boolean delete(Contributor contributor) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public Contributor findContributor(long id) {
+        EntityManager em = JPAResourceBean.getEMF().createEntityManager();
+        try {
+            return em.find(Contributor.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public int save(Contributor contributor) {
+        EntityManager em = JPAResourceBean.getEMF().createEntityManager();
+        em.getTransaction().begin();
+        if (contributor.getId() != 0) {
+            em.merge(contributor);
+        } else {
+            em.persist(contributor);
+        }
+        em.getTransaction().commit();
+        return 1;
+    }
+
+    public boolean update(Contributor contributor) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    public Collection&lt;Contributor> findAll() {
+        // TODO Auto-generated method stub
+        return contributors;
+    }
+}
+                </source>
+
+                <p>
+                    Now we need to make the persistence layer aware of this
+                    new data object. This means the class needs to be added
+                    to the <code>src/META-INF/persistence.xml</code> in the
+                    <code>uk.ac.osswatch.simal.model</code> project. The easiest
+                    way to do this (if using our recomended IDE, Eclipse) is to
+                    right click on the file and select <code>Java Persistence ->
+                    Synchronize Classes</code>.
+                </p>
+
+                <p>
+                    Finally we need to make the application aware of these new
+                    persistance services. This is done in the OSGI activator
+                    <code>uk.ac.osswatch.simal.model.Activator</code>. Add the 
+                    following two lines to the
+                    <code>start(BundleContext context)</code> method.
+                </p>
+
+                <source>
+ManagedContributorBean contributorBean = new ManagedContributorBean();
+context.registerService(IProjectService.class.getName(), contributorBean, null);
+                </source>
+
+                <p>So that's the model code complete. Now we need to write some
+                tests for what we have so far.</p>
+
+            </section>
+
+
+            <section>
+                <title>Testing the model</title>
+                
+                <p>Test code for the model is stored in the 
+                <code>uk.ac.osswatch.simal.model.test</code> project. We 
+                need to test two classes, the <code>Contributor</code> 
+                data bean and the <code>ManagedContributorBean</code>.</p>
+                
+                <p>Lets do the data bean first, we'll assume you are using
+                our recommended IDE setup. Right click on the
+                <code>uk.ac.osswatch.simal.model</code> package in
+                <code>src/test</code> and select <code>New -> JUnit Test 
+                Case</code>. In the resulting dialog ensure the Junit4 option
+                is checked, and provide a class name of <code>TestContributor</code>.
+                Now, set the "Class unde test" to <code>uk.ac.osswatch.simal.model.Contributor</code>
+                and click the <code>Next</code> button.
+                </p>
+                
+                <p>On the next screen select all the methods in the data bean
+                and click <code>Finish</code> button. Eclipse will now generate
+                a test class for you, complete with test methods for all the methods
+                and constructors in your data bean. We'll not go into the details of
+                how to write the tests here, as they are pretty simple at this stage.</p>
+                
+                <warning>Note that code will not be accepted into Simal unless it somes with a
+                complete test suite.</warning>
+                
+                <p>To create the test class for the <code>ManagedContributorBean</code>
+                the process is exactly the same, only class names need to change. Again,
+                we will not detail the full tests here, take a look at one of the existing
+                test cases for guidance.</p>
+                
+                <p>You can now run a test of the persistence layer. If using Eclipse
+                all you need to do now is right click on your new data bean test class and
+                select <code>Run As -> JUnit Test</code>. Assuming you have written your
+                test code and the implementation code correctly all tests should pass.
+                Once they do pass, do the same to run the ManagedContributorBean 
+                test case.</p> 
+                
+                <p>Although there should be no reason for this new code to affect other 
+                aspects of the persistence layer it is good practice to run the full suite
+                of tests before contributing new code. So, right click on the 
+                <code>src/test</code> and select <code>Run As -> JUnit Test</code>.</p>
+                
+                <note>If you
+                don't do this you may contribute a bug to the code base, and this will
+                show up once the autoamted tests kick in. It's much less embarrassing to
+                catch the bug before you contribute, so get into the habit of testing
+                before contributing.</note>
+                
+                <p>Assuming that all tests pass it is now time to create and submit
+                a patch, or if you have commit access, commit your code.</p>
+                
+                
+            </section>
+          </section>
+            
+            <section>
+              <title>Linking the model to the GUI</title>
+              
+              <p>So, we have now implemented the model, its persistence layer
+              and a GUI. Next we need to plug them together.</p>
+              
+              <warning>At the time of writing the Eclipse RAP framework had not
+              not implemented the DataBinding available in the SWT framework.
+              Therefore, this section does not provide any detail, it will be
+              filled when the databinding framework is in place. For now, take
+              a look at the code currently in Simal to figure out how it is done.
+              You'll also find plenty of help on the dev lists.</warning> 
+              
+              <section>
+                <title>Testing the final editor</title>
+                
+                <fixme author="rdg">Document the process for 
+                augmenting the early tests to ensure the
+                GUI + persistence works as expected.</fixme>
+              </section>
+          
+        </section>
+
+    </steps>
+    <!-- 
+        <extension title="Presenting the data in read only mode">
+        <fixme author="rdg">Describe how to display the data element in a read
+        only page as opposed to a form.</fixme>
+        </extension>
+        
+        <faqs id="faqs">
+        <title>Frequently Asked Questions</title>
+        <faqsection id="faq-general">
+        <title>General issues</title>
+        <faq id="faq-difference">
+        <question>What is the difference between a How-To and a
+        tutorial?</question>
+        
+        <answer>
+        <p>The goal of a How-To is to help the reader to accomplish a specific
+        task with clear and consise instructions. While tutorials may contain
+        How-To-like instructions and content, they also include additional
+        background and conceptual content to help teach their readers higher
+        order concepts along the way. How-Tos are concerned about filling an
+        immediate, short-term need. Tutorials often provide long-term
+        knowledge which can be applied across a range of needs.</p>
+        </answer>
+        </faq>
+        </faqsection>
+        
+        <faqsection id="faq-style">
+        <title>Style issues</title>
+        <faq id="spelling">
+        <question>What spelling convention should I follow?</question>
+        
+        <answer>
+        <p>Use whatever spelling convention (American, British, etc.) that is
+        most intuitive to you.</p>
+        </answer>
+        </faq>
+        </faqsection>
+        </faqs>
+        
+        <tips title="Tips">
+        <section id="tip-dtd">
+        <title>How-To dtd</title>
+        
+        <p>The document structure is likely to change at some time. Please note that
+        this HOWTO page is likely to change as well.</p>
+        </section>
+        </tips>
+        
+        <references title="References">
+        <p>This is not the first, nor will it be the last, How-To on writing
+        How-Tos. For other ideas and opinions on the matter, check out the
+        following sources.</p>
+        
+        <ul>
+        <li>Joel D. Canfield's <a
+        href="http://www.evolt.org/article/How_To_Write_A_How_To/9741/18250/index.html">How
+        to Write a How-To</a> on evolt.org.</li>
+        
+        <li>The Linux Documentation Project's <a
+        href="http://www.tldp.org/HOWTO/HOWTO-INDEX/index.html">HOWTO</a>
+        index page provides many excellent How-To documents to inspire your
+        efforts.</li>
+        </ul>
+        </references>
+    -->
+</howto>

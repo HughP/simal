@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres/cairo.aspx">
+<shortdesc>Development of a tool for ingesting complex collections of born-digital materials, with basic descriptive, preservation and relationship metadata, into a preservation repository.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Complex Archive Ingest for Repository Objects (CAIRO)</name>
+<homepage rdf:resource="http://cairo.paradigm.ac.uk/about/index.html"/>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation/programme_404/project_espida.aspx">
+<shortdesc>This two-year project seeks to develop and implement a sustainable business focused model for digital preservation, as part of a knowledge management agenda in higher education institutions.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>eSPIDA: An effective Strategic model for the Preservation &amp; disposal of Institutional Digital Assets</name>
+<homepage rdf:resource="http://www.gla.ac.uk/espida/"/>
+</Project>

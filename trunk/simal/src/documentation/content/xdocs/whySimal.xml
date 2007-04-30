@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 Oxford University
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document> 
+  <header> 
+    <title>Why Simal?</title> 
+  </header> 
+  <body> 
+    <p>A Simal is an East Indian silk cotton tree of the Bombax genus.
+    These trees have extremely large root and branch systems and strong, 
+    but short trunks.</p>
+    
+    <p>We felt that Simal, the software project, was somewhat like the
+    trunk of these trees. That is, Simal channels the goodness available
+    in fertile planting grounds to the projects that bear fruit up in the
+    branches of the tree.</p>
+    
+    <p>We also felt that as Simal (the project) matures it is likely to
+    develop a numbr of strong supporting branches for specific community
+    types.</p> 
+    
+    <p>For more information (and a picture) see the wikipedia entry
+    on <a href="http://en.wikipedia.org/wiki/Simal">Bombax</a>.</p>    
+
+  </body>
+</document>

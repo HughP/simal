@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/project_elearn_ped_practitioners_study.aspx">
+<shortdesc>The purpose of this study is to evaluate practitioner needs in relation to the application of e-learning pedagogy and expertise. The outcomes of this work will be used to inform the design of a series of practitioner-focused resources, drawing on the findings of the overall e-learning and pedagogy programme.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Study on designing and delivering e-learning</name>
+</Project>

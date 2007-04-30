@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc/sfc_tsep.aspx">
+<shortdesc>The TESEP project is a partnership of Napier University, Lauder College and Edinburgh's Telford College. These Partner Institutions share a vision of transforming learning and teaching practices. The vision is to transform learning and teaching practice, and substitute new practice for old.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>TESEP:Transforming and enhancing the student experience through Pedagogy</name>
+<homepage rdf:resource="http://extranet.lauder.ac.uk/tesep"/>
+</Project>

@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/filepass.aspx">
+<shortdesc>This project aims to evaluate the potential of ePortfolios to facilitate and encourage isolated learners to engage with the lifelong learning agenda and to gain access to the opportunities provided by HEIs for personal and work-related development.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>FILE-PASS - Facilitating Independent Learning using E-Portfolio and Associated Support Systems</name>
+</Project>

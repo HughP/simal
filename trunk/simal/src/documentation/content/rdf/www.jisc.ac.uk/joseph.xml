@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital/el_xinstit/joseph.aspx">
+<shortdesc>JOSEPH will explore the use of ePortfolio and e-Portfolio-enabled services, specifically in the area of information, advice and guidance, to support learners following Engineering pathways both during their course and at points of transition.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>JOSEPH: Joining up Organisations to Support new Engineering Pathways into Higher Education</name>
+<homepage rdf:resource="http://www.nottingham.ac.uk/eportfolio/JOSEPH"/>
+</Project>

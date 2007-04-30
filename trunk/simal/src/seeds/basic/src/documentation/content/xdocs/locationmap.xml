@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 Oxford University
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<locationmap xmlns="http://apache.org/forrest/locationmap/1.0">
+
+  <components>
+    <matchers default="lm">
+      <matcher 
+        name="lm" 
+        src="org.apache.forrest.locationmap.WildcardLocationMapHintMatcher"/>
+    </matchers>
+  </components>
+  
+  <locator>
+
+<!-- these were generated with:
+
+ for file in *.xml ; do echo " <match pattern=\"doap.descriptor.jisc/"${file%.*}"\"><location src=\"{properties:content}rdf/www.jisc.ac.uk/"$file"\"/></match>" ; done 
+
+-->
+    
+    
+    <match pattern="doap.descriptor.jisc/apis">
+      <location src="{properties:content}rdf/www.jisc.ac.uk/apis.xml"/>
+    </match>
+<!--
+ <match pattern="doap.descriptor.jisc/apuregional"><location src="{properties:content}rdf/www.jisc.ac.uk/apuregional.xml"/></match>
+ <match pattern="doap.descriptor.jisc/asr2"><location src="{properties:content}rdf/www.jisc.ac.uk/asr2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/boundaries"><location src="{properties:content}rdf/www.jisc.ac.uk/boundaries.xml"/></match>
+ <match pattern="doap.descriptor.jisc/bradfordelp"><location src="{properties:content}rdf/www.jisc.ac.uk/bradfordelp.xml"/></match>
+ <match pattern="doap.descriptor.jisc/cabinet"><location src="{properties:content}rdf/www.jisc.ac.uk/cabinet.xml"/></match>
+-->
+    
+<match pattern="doap.descriptor.jisc/cairo"><location src="{properties:content}rdf/www.jisc.ac.uk/cairo.xml"/></match>
+<match pattern="doap.descriptor.jisc/elfdemo_uhi"><location src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_uhi.xml"/></match>
+
+<!--
+    <match pattern="doap.descriptor.jisc/cartoons"><location src="{properties:content}rdf/www.jisc.ac.uk/cartoons.xml"/></match>
+ <match pattern="doap.descriptor.jisc/cetis_ple"><location src="{properties:content}rdf/www.jisc.ac.uk/cetis_ple.xml"/></match>
+ <match pattern="doap.descriptor.jisc/cheshire3_vre"><location src="{properties:content}rdf/www.jisc.ac.uk/cheshire3_vre.xml"/></match>
+ <match pattern="doap.descriptor.jisc/claret"><location src="{properties:content}rdf/www.jisc.ac.uk/claret.xml"/></match>
+ <match pattern="doap.descriptor.jisc/defining_image_access"><location src="{properties:content}rdf/www.jisc.ac.uk/defining_image_access.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletacademictalk"><location src="{properties:content}rdf/www.jisc.ac.uk/deletacademictalk.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletasap"><location src="{properties:content}rdf/www.jisc.ac.uk/deletasap.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletassis"><location src="{properties:content}rdf/www.jisc.ac.uk/deletassis.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletbod3ple"><location src="{properties:content}rdf/www.jisc.ac.uk/deletbod3ple.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletdelta"><location src="{properties:content}rdf/www.jisc.ac.uk/deletdelta.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deleteaws"><location src="{properties:content}rdf/www.jisc.ac.uk/deleteaws.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletepet"><location src="{properties:content}rdf/www.jisc.ac.uk/deletepet.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletgrouplog"><location src="{properties:content}rdf/www.jisc.ac.uk/deletgrouplog.xml"/></match>
+ <match pattern="doap.descriptor.jisc/delethorus"><location src="{properties:content}rdf/www.jisc.ac.uk/delethorus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletil"><location src="{properties:content}rdf/www.jisc.ac.uk/deletil.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletjsmirk"><location src="{properties:content}rdf/www.jisc.ac.uk/deletjsmirk.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletom"><location src="{properties:content}rdf/www.jisc.ac.uk/deletom.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletpetal"><location src="{properties:content}rdf/www.jisc.ac.uk/deletpetal.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletramble"><location src="{properties:content}rdf/www.jisc.ac.uk/deletramble.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletshellfish"><location src="{properties:content}rdf/www.jisc.ac.uk/deletshellfish.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletsm"><location src="{properties:content}rdf/www.jisc.ac.uk/deletsm.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletspws"><location src="{properties:content}rdf/www.jisc.ac.uk/deletspws.xml"/></match>
+ <match pattern="doap.descriptor.jisc/delettip"><location src="{properties:content}rdf/www.jisc.ac.uk/delettip.xml"/></match>
+ <match pattern="doap.descriptor.jisc/delettrics"><location src="{properties:content}rdf/www.jisc.ac.uk/delettrics.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletvl"><location src="{properties:content}rdf/www.jisc.ac.uk/deletvl.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletvmap"><location src="{properties:content}rdf/www.jisc.ac.uk/deletvmap.xml"/></match>
+ <match pattern="doap.descriptor.jisc/deletwcker"><location src="{properties:content}rdf/www.jisc.ac.uk/deletwcker.xml"/></match>
+ <match pattern="doap.descriptor.jisc/demo_designshare"><location src="{properties:content}rdf/www.jisc.ac.uk/demo_designshare.xml"/></match>
+ <match pattern="doap.descriptor.jisc/demo_frockle"><location src="{properties:content}rdf/www.jisc.ac.uk/demo_frockle.xml"/></match>
+ <match pattern="doap.descriptor.jisc/demo_resourcebrowser"><location src="{properties:content}rdf/www.jisc.ac.uk/demo_resourcebrowser.xml"/></match>
+ <match pattern="doap.descriptor.jisc/dext"><location src="{properties:content}rdf/www.jisc.ac.uk/dext.xml"/></match>
+ <match pattern="doap.descriptor.jisc/digital_dialogue_games"><location src="{properties:content}rdf/www.jisc.ac.uk/digital_dialogue_games.xml"/></match>
+ <match pattern="doap.descriptor.jisc/digitisation_bln"><location src="{properties:content}rdf/www.jisc.ac.uk/digitisation_bln.xml"/></match>
+ <match pattern="doap.descriptor.jisc/dplus"><location src="{properties:content}rdf/www.jisc.ac.uk/dplus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/ebank3"><location src="{properties:content}rdf/www.jisc.ac.uk/ebank3.xml"/></match>
+ <match pattern="doap.descriptor.jisc/eells"><location src="{properties:content}rdf/www.jisc.ac.uk/eells.xml"/></match>
+ <match pattern="doap.descriptor.jisc/eern"><location src="{properties:content}rdf/www.jisc.ac.uk/eern.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfdemo_brock"><location src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_brock.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfdemo_dld"><location src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_dld.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfdemo_hull"><location src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_hull.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfdemo_hw"><location src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_hw.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfdemo_kingston"><location src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_kingston.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfdemo_livhope"><location src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_livhope.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfdemo_staffs"><location src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_staffs.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfref_frema"><location src="{properties:content}rdf/www.jisc.ac.uk/elfref_frema.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfref_mmu"><location src="{properties:content}rdf/www.jisc.ac.uk/elfref_mmu.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfref_notts"><location src="{properties:content}rdf/www.jisc.ac.uk/elfref_notts.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfref_southhampton"><location src="{properties:content}rdf/www.jisc.ac.uk/elfref_southhampton.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elfref_tvu"><location src="{properties:content}rdf/www.jisc.ac.uk/elfref_tvu.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elf_review_mapping"><location src="{properties:content}rdf/www.jisc.ac.uk/elf_review_mapping.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elftoolkit_brock"><location src="{properties:content}rdf/www.jisc.ac.uk/elftoolkit_brock.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elftoolkit_ou"><location src="{properties:content}rdf/www.jisc.ac.uk/elftoolkit_ou.xml"/></match>
+ <match pattern="doap.descriptor.jisc/eli_melas"><location src="{properties:content}rdf/www.jisc.ac.uk/eli_melas.xml"/></match>
+ <match pattern="doap.descriptor.jisc/eli_oucasestudies"><location src="{properties:content}rdf/www.jisc.ac.uk/eli_oucasestudies.xml"/></match>
+ <match pattern="doap.descriptor.jisc/eli_proj_landscape"><location src="{properties:content}rdf/www.jisc.ac.uk/eli_proj_landscape.xml"/></match>
+ <match pattern="doap.descriptor.jisc/eli_racing"><location src="{properties:content}rdf/www.jisc.ac.uk/eli_racing.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elisa"><location src="{properties:content}rdf/www.jisc.ac.uk/elisa.xml"/></match>
+ <match pattern="doap.descriptor.jisc/eli_simple"><location src="{properties:content}rdf/www.jisc.ac.uk/eli_simple.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_aled"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_aled.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_constructing2learn"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_constructing2learn.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_d4ld"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_d4ld.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_designsonlearning"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_designsonlearning.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_desila"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_desila.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_edit4l"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_edit4l.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_elidacamel"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_elidacamel.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_evaluatepractice"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_evaluatepractice.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_ld4p"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_ld4p.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_ldevalgoldsmiths"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_ldevalgoldsmiths.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_ldevaloxford"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_ldevaloxford.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_learnerxp"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_learnerxp.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_lex"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_lex.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_mod4l"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_mod4l.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_phoebe"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_phoebe.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_sharingtheload"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_sharingtheload.xml"/></match>
+ <match pattern="doap.descriptor.jisc/elp_support"><location src="{properties:content}rdf/www.jisc.ac.uk/elp_support.xml"/></match>
+ <match pattern="doap.descriptor.jisc/ephemera"><location src="{properties:content}rdf/www.jisc.ac.uk/ephemera.xml"/></match>
+ <match pattern="doap.descriptor.jisc/epics"><location src="{properties:content}rdf/www.jisc.ac.uk/epics.xml"/></match>
+ <match pattern="doap.descriptor.jisc/epistle"><location src="{properties:content}rdf/www.jisc.ac.uk/epistle.xml"/></match>
+ <match pattern="doap.descriptor.jisc/escience_in_education_review"><location src="{properties:content}rdf/www.jisc.ac.uk/escience_in_education_review.xml"/></match>
+ <match pattern="doap.descriptor.jisc/esloa"><location src="{properties:content}rdf/www.jisc.ac.uk/esloa.xml"/></match>
+ <match pattern="doap.descriptor.jisc/filepass"><location src="{properties:content}rdf/www.jisc.ac.uk/filepass.xml"/></match>
+ <match pattern="doap.descriptor.jisc/g4l"><location src="{properties:content}rdf/www.jisc.ac.uk/g4l.xml"/></match>
+ <match pattern="doap.descriptor.jisc/helm"><location src="{properties:content}rdf/www.jisc.ac.uk/helm.xml"/></match>
+ <match pattern="doap.descriptor.jisc/hullp4p"><location src="{properties:content}rdf/www.jisc.ac.uk/hullp4p.xml"/></match>
+ <match pattern="doap.descriptor.jisc/ibvre"><location src="{properties:content}rdf/www.jisc.ac.uk/ibvre.xml"/></match>
+ <match pattern="doap.descriptor.jisc/identity"><location src="{properties:content}rdf/www.jisc.ac.uk/identity.xml"/></match>
+ <match pattern="doap.descriptor.jisc/imagesarchiving"><location src="{properties:content}rdf/www.jisc.ac.uk/imagesarchiving.xml"/></match>
+-->
+    <!--
+    <match pattern="doap.descriptor.jisc/inspect"><location src="{properties:content}rdf/www.jisc.ac.uk/inspect.xml"/></match>
+ <match pattern="doap.descriptor.jisc/ioNW2"><location src="{properties:content}rdf/www.jisc.ac.uk/ioNW2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/ireland"><location src="{properties:content}rdf/www.jisc.ac.uk/ireland.xml"/></match>
+ <match pattern="doap.descriptor.jisc/isis"><location src="{properties:content}rdf/www.jisc.ac.uk/isis.xml"/></match>
+ <match pattern="doap.descriptor.jisc/joseph"><location src="{properties:content}rdf/www.jisc.ac.uk/joseph.xml"/></match>
+ <match pattern="doap.descriptor.jisc/kentplpp"><location src="{properties:content}rdf/www.jisc.ac.uk/kentplpp.xml"/></match>
+ <match pattern="doap.descriptor.jisc/l2o"><location src="{properties:content}rdf/www.jisc.ac.uk/l2o.xml"/></match>
+ <match pattern="doap.descriptor.jisc/l4all"><location src="{properties:content}rdf/www.jisc.ac.uk/l4all.xml"/></match>
+ <match pattern="doap.descriptor.jisc/learningmatrix"><location src="{properties:content}rdf/www.jisc.ac.uk/learningmatrix.xml"/></match>
+ <match pattern="doap.descriptor.jisc/life2"><location src="{properties:content}rdf/www.jisc.ac.uk/life2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/mansle"><location src="{properties:content}rdf/www.jisc.ac.uk/mansle.xml"/></match>
+ <match pattern="doap.descriptor.jisc/mdc"><location src="{properties:content}rdf/www.jisc.ac.uk/mdc.xml"/></match>
+ <match pattern="doap.descriptor.jisc/myplan"><location src="{properties:content}rdf/www.jisc.ac.uk/myplan.xml"/></match>
+ <match pattern="doap.descriptor.jisc/myworld"><location src="{properties:content}rdf/www.jisc.ac.uk/myworld.xml"/></match>
+ <match pattern="doap.descriptor.jisc/newspapers2"><location src="{properties:content}rdf/www.jisc.ac.uk/newspapers2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/news_pr250107"><location src="{properties:content}rdf/www.jisc.ac.uk/news_pr250107.xml"/></match>
+ <match pattern="doap.descriptor.jisc/pamphlets"><location src="{properties:content}rdf/www.jisc.ac.uk/pamphlets.xml"/></match>
+ <match pattern="doap.descriptor.jisc/pdp4life"><location src="{properties:content}rdf/www.jisc.ac.uk/pdp4life.xml"/></match>
+ <match pattern="doap.descriptor.jisc/PDP4XL2"><location src="{properties:content}rdf/www.jisc.ac.uk/PDP4XL2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/poets"><location src="{properties:content}rdf/www.jisc.ac.uk/poets.xml"/></match>
+ <match pattern="doap.descriptor.jisc/polar"><location src="{properties:content}rdf/www.jisc.ac.uk/polar.xml"/></match>
+ <match pattern="doap.descriptor.jisc/programme_jiscsurfipr"><location src="{properties:content}rdf/www.jisc.ac.uk/programme_jiscsurfipr.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_adams"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_adams.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_asmima"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_asmima.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_cheshire_shiboleth"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_cheshire_shiboleth.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_ecw"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_ecw.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_liverpool"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_liverpool.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_loucoll"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_loucoll.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_muscle"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_muscle.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_nottingham"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_nottingham.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_qmul"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_qmul.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_support"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_support.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_ucw"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_ucw.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_0103_ueo"><location src="{properties:content}rdf/www.jisc.ac.uk/project_0103_ueo.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_4i"><location src="{properties:content}rdf/www.jisc.ac.uk/project_4i.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_a2z"><location src="{properties:content}rdf/www.jisc.ac.uk/project_a2z.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_certificate"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_certificate.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_imperial"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_imperial.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_kent"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_kent.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_leeds"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_leeds.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_london"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_london.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_publication"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_publication.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_southampton"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_southampton.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_ties"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_ties.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aaa_warwick"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aaa_warwick.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_acets"><location src="{properties:content}rdf/www.jisc.ac.uk/project_acets.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_acldevoffprtf"><location src="{properties:content}rdf/www.jisc.ac.uk/project_acldevoffprtf.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_affirm"><location src="{properties:content}rdf/www.jisc.ac.uk/project_affirm.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aimss"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aimss.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_akenti_permis"><location src="{properties:content}rdf/www.jisc.ac.uk/project_akenti_permis.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_amie"><location src="{properties:content}rdf/www.jisc.ac.uk/project_amie.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_api"><location src="{properties:content}rdf/www.jisc.ac.uk/project_api.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_arches"><location src="{properties:content}rdf/www.jisc.ac.uk/project_arches.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_aria"><location src="{properties:content}rdf/www.jisc.ac.uk/project_aria.xml"/></match>
+ -->
+ <match pattern="doap.descriptor.jisc/project_ask"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ask.xml"/></match>
+ <!--
+ <match pattern="doap.descriptor.jisc/project_avm"><location src="{properties:content}rdf/www.jisc.ac.uk/project_avm.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_balsa"><location src="{properties:content}rdf/www.jisc.ac.uk/project_balsa.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_bathprofile"><location src="{properties:content}rdf/www.jisc.ac.uk/project_bathprofile.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_bay"><location src="{properties:content}rdf/www.jisc.ac.uk/project_bay.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_big_blue"><location src="{properties:content}rdf/www.jisc.ac.uk/project_big_blue.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_biomedone"><location src="{properties:content}rdf/www.jisc.ac.uk/project_biomedone.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_bl_sound_archive"><location src="{properties:content}rdf/www.jisc.ac.uk/project_bl_sound_archive.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_british_official_publications"><location src="{properties:content}rdf/www.jisc.ac.uk/project_british_official_publications.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_bufvc"><location src="{properties:content}rdf/www.jisc.ac.uk/project_bufvc.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_business_english"><location src="{properties:content}rdf/www.jisc.ac.uk/project_business_english.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_career"><location src="{properties:content}rdf/www.jisc.ac.uk/project_career.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_cats"><location src="{properties:content}rdf/www.jisc.ac.uk/project_cats.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ccinterop"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ccinterop.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ccp"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ccp.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_cdfocus"><location src="{properties:content}rdf/www.jisc.ac.uk/project_cdfocus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_cdi"><location src="{properties:content}rdf/www.jisc.ac.uk/project_cdi.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_cdlor"><location src="{properties:content}rdf/www.jisc.ac.uk/project_cdlor.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_citscapes"><location src="{properties:content}rdf/www.jisc.ac.uk/project_citscapes.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_claddier"><location src="{properties:content}rdf/www.jisc.ac.uk/project_claddier.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_clusters"><location src="{properties:content}rdf/www.jisc.ac.uk/project_clusters.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_coleg_menai"><location src="{properties:content}rdf/www.jisc.ac.uk/project_coleg_menai.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_colossus"><location src="{properties:content}rdf/www.jisc.ac.uk/project_colossus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_community_eprints"><location src="{properties:content}rdf/www.jisc.ac.uk/project_community_eprints.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_coode"><location src="{properties:content}rdf/www.jisc.ac.uk/project_coode.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_cosevle"><location src="{properties:content}rdf/www.jisc.ac.uk/project_cosevle.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_counter"><location src="{properties:content}rdf/www.jisc.ac.uk/project_counter.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_cra"><location src="{properties:content}rdf/www.jisc.ac.uk/project_cra.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_cree"><location src="{properties:content}rdf/www.jisc.ac.uk/project_cree.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_daat"><location src="{properties:content}rdf/www.jisc.ac.uk/project_daat.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_daedalus"><location src="{properties:content}rdf/www.jisc.ac.uk/project_daedalus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_daepp"><location src="{properties:content}rdf/www.jisc.ac.uk/project_daepp.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_dcc"><location src="{properties:content}rdf/www.jisc.ac.uk/project_dcc.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_deliver"><location src="{properties:content}rdf/www.jisc.ac.uk/project_deliver.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_devil"><location src="{properties:content}rdf/www.jisc.ac.uk/project_devil.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_dialogplus"><location src="{properties:content}rdf/www.jisc.ac.uk/project_dialogplus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_dictate"><location src="{properties:content}rdf/www.jisc.ac.uk/project_dictate.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_dl_design_engineering"><location src="{properties:content}rdf/www.jisc.ac.uk/project_dl_design_engineering.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_dptp"><location src="{properties:content}rdf/www.jisc.ac.uk/project_dptp.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_dycom"><location src="{properties:content}rdf/www.jisc.ac.uk/project_dycom.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_dyvose"><location src="{properties:content}rdf/www.jisc.ac.uk/project_dyvose.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ebankuk"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ebankuk.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ebusiness"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ebusiness.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_eenvironment"><location src="{properties:content}rdf/www.jisc.ac.uk/project_eenvironment.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_efx"><location src="{properties:content}rdf/www.jisc.ac.uk/project_efx.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elearn_ped_ed"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elearn_ped_ed.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elearn_ped_learning_design_tools"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elearn_ped_learning_design_tools.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elearn_ped_ltri"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elearn_ped_ltri.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elearn_ped_models_desk_study"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elearn_ped_models_desk_study.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elearn_ped_netskills"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elearn_ped_netskills.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elearn_ped_open"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elearn_ped_open.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elearn_ped_practitioners_study"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elearn_ped_practitioners_study.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elearn_ped_xube"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elearn_ped_xube.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elecresearch"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elecresearch.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elo"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elo.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_elti"><location src="{properties:content}rdf/www.jisc.ac.uk/project_elti.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_email"><location src="{properties:content}rdf/www.jisc.ac.uk/project_email.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_employeerecs"><location src="{properties:content}rdf/www.jisc.ac.uk/project_employeerecs.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_emusic"><location src="{properties:content}rdf/www.jisc.ac.uk/project_emusic.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_encore"><location src="{properties:content}rdf/www.jisc.ac.uk/project_encore.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_engineeringrss"><location src="{properties:content}rdf/www.jisc.ac.uk/project_engineeringrss.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_enigmaperth"><location src="{properties:content}rdf/www.jisc.ac.uk/project_enigmaperth.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_epidemiology"><location src="{properties:content}rdf/www.jisc.ac.uk/project_epidemiology.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_eprints_pres"><location src="{properties:content}rdf/www.jisc.ac.uk/project_eprints_pres.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_eprints_uk"><location src="{properties:content}rdf/www.jisc.ac.uk/project_eprints_uk.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_eprofile"><location src="{properties:content}rdf/www.jisc.ac.uk/project_eprofile.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_epub_archiving"><location src="{properties:content}rdf/www.jisc.ac.uk/project_epub_archiving.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ermpackage"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ermpackage.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_escience"><location src="{properties:content}rdf/www.jisc.ac.uk/project_escience.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_espgridjuly04"><location src="{properties:content}rdf/www.jisc.ac.uk/project_espgridjuly04.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_espida"><location src="{properties:content}rdf/www.jisc.ac.uk/project_espida.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_estar"><location src="{properties:content}rdf/www.jisc.ac.uk/project_estar.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ethos"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ethos.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_evalkit"><location src="{properties:content}rdf/www.jisc.ac.uk/project_evalkit.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_evalmedi"><location src="{properties:content}rdf/www.jisc.ac.uk/project_evalmedi.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_evocational"><location src="{properties:content}rdf/www.jisc.ac.uk/project_evocational.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_fabrics"><location src="{properties:content}rdf/www.jisc.ac.uk/project_fabrics.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_fair_romeo"><location src="{properties:content}rdf/www.jisc.ac.uk/project_fair_romeo.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_falkirk"><location src="{properties:content}rdf/www.jisc.ac.uk/project_falkirk.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_fasttrack"><location src="{properties:content}rdf/www.jisc.ac.uk/project_fasttrack.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_fileformat"><location src="{properties:content}rdf/www.jisc.ac.uk/project_fileformat.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_flowtalk"><location src="{properties:content}rdf/www.jisc.ac.uk/project_flowtalk.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_fly"><location src="{properties:content}rdf/www.jisc.ac.uk/project_fly.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_gems"><location src="{properties:content}rdf/www.jisc.ac.uk/project_gems.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_gogeo3"><location src="{properties:content}rdf/www.jisc.ac.uk/project_gogeo3.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_goodferm"><location src="{properties:content}rdf/www.jisc.ac.uk/project_goodferm.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_grade"><location src="{properties:content}rdf/www.jisc.ac.uk/project_grade.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_groups_manager"><location src="{properties:content}rdf/www.jisc.ac.uk/project_groups_manager.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_guanxi"><location src="{properties:content}rdf/www.jisc.ac.uk/project_guanxi.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_hairst"><location src="{properties:content}rdf/www.jisc.ac.uk/project_hairst.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_hci_design"><location src="{properties:content}rdf/www.jisc.ac.uk/project_hci_design.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_healthier"><location src="{properties:content}rdf/www.jisc.ac.uk/project_healthier.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_hhdocument"><location src="{properties:content}rdf/www.jisc.ac.uk/project_hhdocument.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_hilt2"><location src="{properties:content}rdf/www.jisc.ac.uk/project_hilt2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_historical_census"><location src="{properties:content}rdf/www.jisc.ac.uk/project_historical_census.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_iamsect"><location src="{properties:content}rdf/www.jisc.ac.uk/project_iamsect.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ict_access"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ict_access.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_iesr"><location src="{properties:content}rdf/www.jisc.ac.uk/project_iesr.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_il3r"><location src="{properties:content}rdf/www.jisc.ac.uk/project_il3r.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_image_portal"><location src="{properties:content}rdf/www.jisc.ac.uk/project_image_portal.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_impetus"><location src="{properties:content}rdf/www.jisc.ac.uk/project_impetus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_informs"><location src="{properties:content}rdf/www.jisc.ac.uk/project_informs.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_inlei"><location src="{properties:content}rdf/www.jisc.ac.uk/project_inlei.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_investguideoss"><location src="{properties:content}rdf/www.jisc.ac.uk/project_investguideoss.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_iriscotland"><location src="{properties:content}rdf/www.jisc.ac.uk/project_iriscotland.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_irra"><location src="{properties:content}rdf/www.jisc.ac.uk/project_irra.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_irs"><location src="{properties:content}rdf/www.jisc.ac.uk/project_irs.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_jisc_fair_fitz_htf"><location src="{properties:content}rdf/www.jisc.ac.uk/project_jisc_fair_fitz_htf.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_jmef"><location src="{properties:content}rdf/www.jisc.ac.uk/project_jmef.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_joinin"><location src="{properties:content}rdf/www.jisc.ac.uk/project_joinin.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_kcrolo"><location src="{properties:content}rdf/www.jisc.ac.uk/project_kcrolo.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_km_roadmap"><location src="{properties:content}rdf/www.jisc.ac.uk/project_km_roadmap.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_lams"><location src="{properties:content}rdf/www.jisc.ac.uk/project_lams.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_landt_portal"><location src="{properties:content}rdf/www.jisc.ac.uk/project_landt_portal.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_lawpaths"><location src="{properties:content}rdf/www.jisc.ac.uk/project_lawpaths.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_learner_records_legal_study"><location src="{properties:content}rdf/www.jisc.ac.uk/project_learner_records_legal_study.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_learning2learn"><location src="{properties:content}rdf/www.jisc.ac.uk/project_learning2learn.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_learning_bank2"><location src="{properties:content}rdf/www.jisc.ac.uk/project_learning_bank2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_learningbank"><location src="{properties:content}rdf/www.jisc.ac.uk/project_learningbank.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_learningstars"><location src="{properties:content}rdf/www.jisc.ac.uk/project_learningstars.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_learnjourn"><location src="{properties:content}rdf/www.jisc.ac.uk/project_learnjourn.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_libportal"><location src="{properties:content}rdf/www.jisc.ac.uk/project_libportal.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_lichen"><location src="{properties:content}rdf/www.jisc.ac.uk/project_lichen.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_lifecycle_revision"><location src="{properties:content}rdf/www.jisc.ac.uk/project_lifecycle_revision.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_life"><location src="{properties:content}rdf/www.jisc.ac.uk/project_life.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_linker"><location src="{properties:content}rdf/www.jisc.ac.uk/project_linker.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_lipid"><location src="{properties:content}rdf/www.jisc.ac.uk/project_lipid.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_litobjects"><location src="{properties:content}rdf/www.jisc.ac.uk/project_litobjects.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_malaria"><location src="{properties:content}rdf/www.jisc.ac.uk/project_malaria.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_managingrisk"><location src="{properties:content}rdf/www.jisc.ac.uk/project_managingrisk.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mapfe"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mapfe.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mapsandguides"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mapsandguides.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mco"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mco.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_medical_journals"><location src="{properties:content}rdf/www.jisc.ac.uk/project_medical_journals.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mereview"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mereview.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_metadata_plus"><location src="{properties:content}rdf/www.jisc.ac.uk/project_metadata_plus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mets"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mets.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_midess"><location src="{properties:content}rdf/www.jisc.ac.uk/project_midess.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_minted"><location src="{properties:content}rdf/www.jisc.ac.uk/project_minted.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mle_activity_repeat"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mle_activity_repeat.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mle_activity"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mle_activity.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mlell_evaluation"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mlell_evaluation.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_movingimagesound"><location src="{properties:content}rdf/www.jisc.ac.uk/project_movingimagesound.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_mregistry"><location src="{properties:content}rdf/www.jisc.ac.uk/project_mregistry.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_network_security"><location src="{properties:content}rdf/www.jisc.ac.uk/project_network_security.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ngs"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ngs.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_nimle"><location src="{properties:content}rdf/www.jisc.ac.uk/project_nimle.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_northumbria1a"><location src="{properties:content}rdf/www.jisc.ac.uk/project_northumbria1a.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_nortonradstockfairenough"><location src="{properties:content}rdf/www.jisc.ac.uk/project_nortonradstockfairenough.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_nwconsortium"><location src="{properties:content}rdf/www.jisc.ac.uk/project_nwconsortium.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_oairepositry"><location src="{properties:content}rdf/www.jisc.ac.uk/project_oairepositry.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_oais"><location src="{properties:content}rdf/www.jisc.ac.uk/project_oais.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_olive"><location src="{properties:content}rdf/www.jisc.ac.uk/project_olive.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_onixlt1"><location src="{properties:content}rdf/www.jisc.ac.uk/project_onixlt1.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_onixlt2"><location src="{properties:content}rdf/www.jisc.ac.uk/project_onixlt2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_opendoar"><location src="{properties:content}rdf/www.jisc.ac.uk/project_opendoar.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_partial_deposit"><location src="{properties:content}rdf/www.jisc.ac.uk/project_partial_deposit.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_personalise"><location src="{properties:content}rdf/www.jisc.ac.uk/project_personalise.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_perx"><location src="{properties:content}rdf/www.jisc.ac.uk/project_perx.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_pilot"><location src="{properties:content}rdf/www.jisc.ac.uk/project_pilot.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_planstrat"><location src="{properties:content}rdf/www.jisc.ac.uk/project_planstrat.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_portahead"><location src="{properties:content}rdf/www.jisc.ac.uk/project_portahead.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_portal_casestudies"><location src="{properties:content}rdf/www.jisc.ac.uk/project_portal_casestudies.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_portal"><location src="{properties:content}rdf/www.jisc.ac.uk/project_portal.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_portole"><location src="{properties:content}rdf/www.jisc.ac.uk/project_portole.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_preserv"><location src="{properties:content}rdf/www.jisc.ac.uk/project_preserv.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_prowe"><location src="{properties:content}rdf/www.jisc.ac.uk/project_prowe.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_r2q2"><location src="{properties:content}rdf/www.jisc.ac.uk/project_r2q2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_r4l"><location src="{properties:content}rdf/www.jisc.ac.uk/project_r4l.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_raiie"><location src="{properties:content}rdf/www.jisc.ac.uk/project_raiie.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_rdn_fe"><location src="{properties:content}rdf/www.jisc.ac.uk/project_rdn_fe.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_realm"><location src="{properties:content}rdf/www.jisc.ac.uk/project_realm.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_redress"><location src="{properties:content}rdf/www.jisc.ac.uk/project_redress.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_reload"><location src="{properties:content}rdf/www.jisc.ac.uk/project_reload.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_repomman"><location src="{properties:content}rdf/www.jisc.ac.uk/project_repomman.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_repository_bridge"><location src="{properties:content}rdf/www.jisc.ac.uk/project_repository_bridge.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_researchdata"><location src="{properties:content}rdf/www.jisc.ac.uk/project_researchdata.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_researchrecs"><location src="{properties:content}rdf/www.jisc.ac.uk/project_researchrecs.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_reset"><location src="{properties:content}rdf/www.jisc.ac.uk/project_reset.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_retasking"><location src="{properties:content}rdf/www.jisc.ac.uk/project_retasking.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_rgu_etd"><location src="{properties:content}rdf/www.jisc.ac.uk/project_rgu_etd.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_rights_and_rewards"><location src="{properties:content}rdf/www.jisc.ac.uk/project_rights_and_rewards.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_rminfe"><location src="{properties:content}rdf/www.jisc.ac.uk/project_rminfe.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_rmuwe"><location src="{properties:content}rdf/www.jisc.ac.uk/project_rmuwe.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_rosa"><location src="{properties:content}rdf/www.jisc.ac.uk/project_rosa.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_sakai_edu_research"><location src="{properties:content}rdf/www.jisc.ac.uk/project_sakai_edu_research.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_saw_geo"><location src="{properties:content}rdf/www.jisc.ac.uk/project_saw_geo.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_sdss"><location src="{properties:content}rdf/www.jisc.ac.uk/project_sdss.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_secur"><location src="{properties:content}rdf/www.jisc.ac.uk/project_secur.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_see_geo"><location src="{properties:content}rdf/www.jisc.ac.uk/project_see_geo.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_shell"><location src="{properties:content}rdf/www.jisc.ac.uk/project_shell.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_sherpa2"><location src="{properties:content}rdf/www.jisc.ac.uk/project_sherpa2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_sherpa_plus"><location src="{properties:content}rdf/www.jisc.ac.uk/project_sherpa_plus.xml"/></match>
+ -->
+    
+    <match pattern="doap.descriptor.jisc/project_sherpa"><location src="{properties:content}rdf/www.jisc.ac.uk/project_sherpa.xml"/></match>
+<!--
+    <match pattern="doap.descriptor.jisc/project_sips"><location src="{properties:content}rdf/www.jisc.ac.uk/project_sips.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_sirgar"><location src="{properties:content}rdf/www.jisc.ac.uk/project_sirgar.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_siss"><location src="{properties:content}rdf/www.jisc.ac.uk/project_siss.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_skillnet"><location src="{properties:content}rdf/www.jisc.ac.uk/project_skillnet.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_smirkboard"><location src="{properties:content}rdf/www.jisc.ac.uk/project_smirkboard.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_socket"><location src="{properties:content}rdf/www.jisc.ac.uk/project_socket.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_spd"><location src="{properties:content}rdf/www.jisc.ac.uk/project_spd.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_spectra"><location src="{properties:content}rdf/www.jisc.ac.uk/project_spectra.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_spie"><location src="{properties:content}rdf/www.jisc.ac.uk/project_spie.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_spire"><location src="{properties:content}rdf/www.jisc.ac.uk/project_spire.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_spoken_word"><location src="{properties:content}rdf/www.jisc.ac.uk/project_spoken_word.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_spp2"><location src="{properties:content}rdf/www.jisc.ac.uk/project_spp2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_stargate"><location src="{properties:content}rdf/www.jisc.ac.uk/project_stargate.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_store"><location src="{properties:content}rdf/www.jisc.ac.uk/project_store.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_studentrecord"><location src="{properties:content}rdf/www.jisc.ac.uk/project_studentrecord.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_study_picsounds"><location src="{properties:content}rdf/www.jisc.ac.uk/project_study_picsounds.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_suncat"><location src="{properties:content}rdf/www.jisc.ac.uk/project_suncat.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_surf_wbl"><location src="{properties:content}rdf/www.jisc.ac.uk/project_surf_wbl.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_surfx4l"><location src="{properties:content}rdf/www.jisc.ac.uk/project_surfx4l.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_surf"><location src="{properties:content}rdf/www.jisc.ac.uk/project_surf.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_talkingsystems"><location src="{properties:content}rdf/www.jisc.ac.uk/project_talkingsystems.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_tardis"><location src="{properties:content}rdf/www.jisc.ac.uk/project_tardis.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_tco"><location src="{properties:content}rdf/www.jisc.ac.uk/project_tco.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_thesis_alive"><location src="{properties:content}rdf/www.jisc.ac.uk/project_thesis_alive.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_tiis"><location src="{properties:content}rdf/www.jisc.ac.uk/project_tiis.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_tla"><location src="{properties:content}rdf/www.jisc.ac.uk/project_tla.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_tl_geography"><location src="{properties:content}rdf/www.jisc.ac.uk/project_tl_geography.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_tmc"><location src="{properties:content}rdf/www.jisc.ac.uk/project_tmc.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_tocross"><location src="{properties:content}rdf/www.jisc.ac.uk/project_tocross.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_toia"><location src="{properties:content}rdf/www.jisc.ac.uk/project_toia.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_trecx"><location src="{properties:content}rdf/www.jisc.ac.uk/project_trecx.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_trustdr"><location src="{properties:content}rdf/www.jisc.ac.uk/project_trustdr.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_tso"><location src="{properties:content}rdf/www.jisc.ac.uk/project_tso.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_ukcdr"><location src="{properties:content}rdf/www.jisc.ac.uk/project_ukcdr.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_uklight"><location src="{properties:content}rdf/www.jisc.ac.uk/project_uklight.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_uksurvey"><location src="{properties:content}rdf/www.jisc.ac.uk/project_uksurvey.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_unpupr"><location src="{properties:content}rdf/www.jisc.ac.uk/project_unpupr.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_usability1"><location src="{properties:content}rdf/www.jisc.ac.uk/project_usability1.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_validation"><location src="{properties:content}rdf/www.jisc.ac.uk/project_validation.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_versions"><location src="{properties:content}rdf/www.jisc.ac.uk/project_versions.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_visualization"><location src="{properties:content}rdf/www.jisc.ac.uk/project_visualization.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_vsmportal"><location src="{properties:content}rdf/www.jisc.ac.uk/project_vsmportal.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_vts4acl"><location src="{properties:content}rdf/www.jisc.ac.uk/project_vts4acl.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_warwick"><location src="{properties:content}rdf/www.jisc.ac.uk/project_warwick.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_webarchiving"><location src="{properties:content}rdf/www.jisc.ac.uk/project_webarchiving.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_webrm"><location src="{properties:content}rdf/www.jisc.ac.uk/project_webrm.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_wheatley"><location src="{properties:content}rdf/www.jisc.ac.uk/project_wheatley.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_wsgaf"><location src="{properties:content}rdf/www.jisc.ac.uk/project_wsgaf.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_x4l_westmid"><location src="{properties:content}rdf/www.jisc.ac.uk/project_x4l_westmid.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_xgrain2"><location src="{properties:content}rdf/www.jisc.ac.uk/project_xgrain2.xml"/></match>
+ <match pattern="doap.descriptor.jisc/project_xwalk3"><location src="{properties:content}rdf/www.jisc.ac.uk/project_xwalk3.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_fame"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_fame.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_fear"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_fear.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_gilead"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_gilead.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_glass"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_glass.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_kusp"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_kusp.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_lsip"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_lsip.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_metalith"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_metalith.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_nabatea"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_nabatea.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_safari"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_safari.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_sapir"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_sapir.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_serapis"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_serapis.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_shebangs"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_shebangs.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_shibboleap"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_shibboleap.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_shibgrid"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_shibgrid.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_shore"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_shore.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_surpas"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_surpas.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_swish"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_swish.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_unisa"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_unisa.xml"/></match>
+ <match pattern="doap.descriptor.jisc/proj_walrus"><location src="{properties:content}rdf/www.jisc.ac.uk/proj_walrus.xml"/></match>
+ <match pattern="doap.descriptor.jisc/pse"><location src="{properties:content}rdf/www.jisc.ac.uk/pse.xml"/></match>
+ <match pattern="doap.descriptor.jisc/radionews"><location src="{properties:content}rdf/www.jisc.ac.uk/radionews.xml"/></match>
+ <match pattern="doap.descriptor.jisc/raphaelite"><location src="{properties:content}rdf/www.jisc.ac.uk/raphaelite.xml"/></match>
+ <match pattern="doap.descriptor.jisc/rehash"><location src="{properties:content}rdf/www.jisc.ac.uk/rehash.xml"/></match>
+ <match pattern="doap.descriptor.jisc/reps_support"><location src="{properties:content}rdf/www.jisc.ac.uk/reps_support.xml"/></match>
+ <match pattern="doap.descriptor.jisc/rich_tags"><location src="{properties:content}rdf/www.jisc.ac.uk/rich_tags.xml"/></match>
+ -->
+    <match pattern="doap.descriptor.jisc/rioja"><location src="{properties:content}rdf/www.jisc.ac.uk/rioja.xml"/></match>
+
+    
+    <!--
+    
+    <match pattern="doap.descriptor.jisc/rippll"><location src="{properties:content}rdf/www.jisc.ac.uk/rippll.xml"/></match>
+ <match pattern="doap.descriptor.jisc/road"><location src="{properties:content}rdf/www.jisc.ac.uk/road.xml"/></match>
+ <match pattern="doap.descriptor.jisc/sblds"><location src="{properties:content}rdf/www.jisc.ac.uk/sblds.xml"/></match>
+ <match pattern="doap.descriptor.jisc/sfc_blended"><location src="{properties:content}rdf/www.jisc.ac.uk/sfc_blended.xml"/></match>
+ <match pattern="doap.descriptor.jisc/sfc_cells"><location src="{properties:content}rdf/www.jisc.ac.uk/sfc_cells.xml"/></match>
+ <match pattern="doap.descriptor.jisc/sfc_econstruction"><location src="{properties:content}rdf/www.jisc.ac.uk/sfc_econstruction.xml"/></match>
+ <match pattern="doap.descriptor.jisc/sfc_isle"><location src="{properties:content}rdf/www.jisc.ac.uk/sfc_isle.xml"/></match>
+ <match pattern="doap.descriptor.jisc/sfc_reap"><location src="{properties:content}rdf/www.jisc.ac.uk/sfc_reap.xml"/></match>
+ <match pattern="doap.descriptor.jisc/sfc_tsep"><location src="{properties:content}rdf/www.jisc.ac.uk/sfc_tsep.xml"/></match>
+ <match pattern="doap.descriptor.jisc/SOLVS"><location src="{properties:content}rdf/www.jisc.ac.uk/SOLVS.xml"/></match>
+ <match pattern="doap.descriptor.jisc/source"><location src="{properties:content}rdf/www.jisc.ac.uk/source.xml"/></match>
+ <match pattern="doap.descriptor.jisc/speccoll"><location src="{properties:content}rdf/www.jisc.ac.uk/speccoll.xml"/></match>
+ <match pattern="doap.descriptor.jisc/ssirmtip"><location src="{properties:content}rdf/www.jisc.ac.uk/ssirmtip.xml"/></match>
+ <match pattern="doap.descriptor.jisc/staff_development"><location src="{properties:content}rdf/www.jisc.ac.uk/staff_development.xml"/></match>
+ <match pattern="doap.descriptor.jisc/suniwe"><location src="{properties:content}rdf/www.jisc.ac.uk/suniwe.xml"/></match>
+ <match pattern="doap.descriptor.jisc/SURFWBLWAY"><location src="{properties:content}rdf/www.jisc.ac.uk/SURFWBLWAY.xml"/></match>
+ <match pattern="doap.descriptor.jisc/sweetnet"><location src="{properties:content}rdf/www.jisc.ac.uk/sweetnet.xml"/></match>
+ <match pattern="doap.descriptor.jisc/theatre"><location src="{properties:content}rdf/www.jisc.ac.uk/theatre.xml"/></match>
+ <match pattern="doap.descriptor.jisc/theses"><location src="{properties:content}rdf/www.jisc.ac.uk/theses.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_cam"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_cam.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_edin"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_edin.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_efsce"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_efsce.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_gcws"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_gcws.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_mathtran"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_mathtran.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_mcqfm"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_mcqfm.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_strath1"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_strath1.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_strath"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_strath.xml"/></match>
+ <match pattern="doap.descriptor.jisc/toolkit_xmarks"><location src="{properties:content}rdf/www.jisc.ac.uk/toolkit_xmarks.xml"/></match>
+ <match pattern="doap.descriptor.jisc/voices"><location src="{properties:content}rdf/www.jisc.ac.uk/voices.xml"/></match>
+    <match pattern="doap.descriptor.jisc/vre_access_grid"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_access_grid.xml"/></match>
+-->
+    <match pattern="doap.descriptor.jisc/vre_bvreh"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_bvreh.xml"/></match>
+
+<!--
+  <match pattern="doap.descriptor.jisc/vre_core"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_core.xml"/></match>
+ <match pattern="doap.descriptor.jisc/vre_elvi"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_elvi.xml"/></match>
+ <match pattern="doap.descriptor.jisc/vre_evie"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_evie.xml"/></match>
+ <match pattern="doap.descriptor.jisc/vre_growl"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_growl.xml"/></match>
+ <match pattern="doap.descriptor.jisc/vre_interoperability"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_interoperability.xml"/></match>
+ <match pattern="doap.descriptor.jisc/vre_isme"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_isme.xml"/></match>
+ <match pattern="doap.descriptor.jisc/vre_iugo"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_iugo.xml"/></match>
+ <match pattern="doap.descriptor.jisc/vre_political_discourse"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_political_discourse.xml"/></match>
+ <match pattern="doap.descriptor.jisc/vre_sage"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_sage.xml"/></match>
+-->
+
+ <match pattern="doap.descriptor.jisc/vre_sakai_portal"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_sakai_portal.xml"/></match>
+
+<!--
+ <match pattern="doap.descriptor.jisc/vre_silchester"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_silchester.xml"/></match>
+--> 
+ <match pattern="doap.descriptor.jisc/webpa"><location src="http://webpaproject.lboro.ac.uk/doap.rdf"/></match>
+<!--
+  <match pattern="doap.descriptor.jisc/welshjournals"><location src="{properties:content}rdf/www.jisc.ac.uk/welshjournals.xml"/></match>
+ <match pattern="doap.descriptor.jisc/wmshare"><location src="{properties:content}rdf/www.jisc.ac.uk/wmshare.xml"/></match>
+ <match pattern="doap.descriptor.jisc/ws4rl"><location src="{properties:content}rdf/www.jisc.ac.uk/ws4rl.xml"/></match>
+-->
+  </locator>
+</locationmap>
