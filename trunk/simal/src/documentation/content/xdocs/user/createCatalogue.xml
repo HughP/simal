@@ -51,7 +51,6 @@ mkdir [PROJECT_HOME]
 cd [PROJECT_HOME]
 forrest seed-catalogue
       </source>
-      
-      <p>This 
+    </section>
   </body>
 </document>
