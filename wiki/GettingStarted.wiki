@@ -7,7 +7,7 @@
 = Get Source Files =
 
 {{{
-svn co http://simal.googlecode.com/svn/trunk/simal $PROJECT_HOME/simal
+svn checkout http://simal.googlecode.com/svn/trunk/simal $PROJECT_HOME/simal
 }}}
 
 where $PROJECT_HOME is your chosen project directory
