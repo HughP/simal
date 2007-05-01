@@ -90,7 +90,7 @@ AL-20b = Apache License 2.0 with no Copyright line, i.e. the current style.
 
 #--------------------------------------------------
 # do some configuration
-my $license = qq!Copyright 2007 Oxford University
+my $license = qq!Copyright 2007 University of Oxford
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
