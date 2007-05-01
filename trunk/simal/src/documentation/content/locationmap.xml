@@ -32,7 +32,13 @@
  for file in *.xml ; do echo " <match pattern=\"doap.descriptor.jisc/"${file%.*}"\"><location src=\"{properties:content}rdf/www.jisc.ac.uk/"$file"\"/></match>" ; done 
 
 -->
+    <match pattern="project.quickstart.wiki">
+      <location src="http://simal.googlecode.com/svn/wiki/GettingStarted.wiki"/>
+    </match>
     
+    <!-- ===============================================================
+         DOAP Files
+         =============================================================== -->
     
     <match pattern="doap.descriptor.jisc/apis">
       <location src="{properties:content}rdf/www.jisc.ac.uk/apis.xml"/>
