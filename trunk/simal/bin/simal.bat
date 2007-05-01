@@ -1,5 +1,5 @@
 @echo off
-rem Copyright 2007 Oxford University
+rem Copyright 2007 University of Oxford
 rem
 rem Licensed under the Apache License, Version 2.0 (the "License");
 rem you may not use this file except in compliance with the License.
