@@ -1,0 +1,34 @@
+This is an example procedure for the Apache Forrest project.
+Others may find it useful.
+
+------------------------------------------------------------------------
+The relicense task is described at
+http://issues.apache.org/jira/browse/FOR-123
+
+Before commencing, do 'tree -d > relicense-tree.txt' which will form
+a listing of what sections have already been done and the issues that remain.
+
+------------------------------------------------------------------------
+* Do the whole tree, a section at a time, using insert_license.pl script.
+* cd to a directory as high as you dare, e.g. src/documentation/
+* In another window, do a practice run:
+insert_license.pl -p \
+/path/to/svn/forrest/src/documentation forrest-avoid.txt > relicense.log
+* Review the summary output and grep the relicence.log file.
+* Investigate the files that are listed as having problems.
+* grep for special patterns like "WARN" and "dual license", etc.
+* grep "Insert new license" to see which files would have a license inserted.
+* You may need to add more filename patterns to your *-avoid.txt file.
+* Do more practice runs.
+* When happy, do a production run by ommitting the -p practice mode.
+* Again review the summary output and grep the relicence.log file.
+* Some files may need to be fixed by hand.
+* Note sections that are finished and remaining issues in relicense-tree.txt
+* Do a 'svn diff' and make sure it is what you expected, then 'svn commit'.
+
+* If the log reveals that there are old Apache Licenses, then use the
+  script ./update_AL20.pl
+
+* Tweak the insert_license.pl script to address new issues.
+
+------------------------------------------------------------------------
