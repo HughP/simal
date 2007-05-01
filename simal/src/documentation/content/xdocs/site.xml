@@ -50,12 +50,6 @@ See http://forrest.apache.org/docs/linking.html for more info
     <credits label="Credits" href="credites.html" description="Simal would not exist without these people..."/>
   </about>
   
-  <sections label="Site Sections" tab="home">
-    <catalogue label="Catalogue" href="projectDetails/" description="A catalogue of Open Source projects"/>
-    <user label="User Docs" href="user/" description="Documentation aimed at users of the Simal framework"/>
-    <contributor label="Contributor Docs" href="contributor/" description="Documentation aimed at contributors to the SImal framework"/>
-  </sections>
-  
   <projects label="Catalogue" href="projectDetails/" tab="catalogue">
       <languages label="Index by Language" href="index/byLang.html"
         description="A list of all projects, indexed by language"/>
