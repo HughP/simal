@@ -1,0 +1,4 @@
+|| Version || Date       || Description ||
+|| 0.1     || 2007-05-21 || Static catalogue generation ||
+|| 0.2     || 2007-06-25 || Basic DOAP management within webapp ||
+|| 0.3     || 2007-07-23 || Integration of locally and remotely hosted DOAP files ||
