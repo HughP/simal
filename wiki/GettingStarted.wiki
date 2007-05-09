@@ -16,7 +16,7 @@ where $PROJECT_HOME is your chosen project directory
 
 = Set up =
 
-Create an SIMAL_HOME environment variable with the value $PROJECT_HOME/simal
+Create a SIMAL_HOME environment variable with the value $PROJECT_HOME/simal
 
 Add $SIMAL_HOME/bin to your PATH environment variable
 
@@ -32,7 +32,7 @@ http://localhost:8089
 
 = What Happened? =
 
-You are now running the catalogue in dynamic mode. You can edit content files, which are stored in SIMAL_HOME/src/documentation/content/xdcos and then refresh your browser to see the changes immediately. 
+You are now running the catalogue in dynamic mode. You can edit content files, which are stored in SIMAL_HOME/src/documentation/content/xdocs and then refresh your browser to see the changes immediately. 
 
 Since we use Forrest to create our catalogues like this, you can find out more from the [http://forrest.apache.org Forrest] website.
 
@@ -46,6 +46,6 @@ It is possible to generate the catalogue as a static snapshot suitable for hosti
 
 == More Information ==
 
-This version of Simal includes all the project documentation. So you can learn more and, at the same time, help us improve the documentation by reading the docs and im,proving them as you experiment.
+This version of Simal includes all the project documentation. So you can learn more and, at the same time, help us improve the documentation by reading the docs and improving them as you experiment.
 
 Use the Contributor tab in your local version of the docs to be taken to the contributor section where you will find more information on how to contribute to Simal.
