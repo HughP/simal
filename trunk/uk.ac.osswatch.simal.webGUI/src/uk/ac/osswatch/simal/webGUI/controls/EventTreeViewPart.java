@@ -18,13 +18,13 @@ package uk.ac.osswatch.simal.webGUI.controls;
 import java.util.Collection;
 import java.util.Set;
 
-import org.eclipse.rap.jface.viewers.IStructuredContentProvider;
-import org.eclipse.rap.jface.viewers.ITreeContentProvider;
-import org.eclipse.rap.jface.viewers.TreeViewer;
-import org.eclipse.rap.jface.viewers.Viewer;
-import org.eclipse.rap.rwt.widgets.Composite;
-import org.eclipse.rap.ui.IViewPart;
-import org.eclipse.rap.ui.part.ViewPart;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.part.ViewPart;
 import org.osgi.framework.BundleException;
 
 import uk.ac.osswatch.simal.model.Event;

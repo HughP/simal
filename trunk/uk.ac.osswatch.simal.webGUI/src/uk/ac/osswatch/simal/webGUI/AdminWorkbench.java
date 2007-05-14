@@ -15,9 +15,10 @@
 */
 package uk.ac.osswatch.simal.webGUI;
 
-import org.eclipse.rap.rwt.lifecycle.IEntryPoint;
-import org.eclipse.rap.rwt.widgets.Display;
-import org.eclipse.rap.ui.PlatformUI;
+import org.eclipse.swt.lifecycle.IEntryPoint;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.PlatformUI;
+
 
 
 public class AdminWorkbench implements IEntryPoint {

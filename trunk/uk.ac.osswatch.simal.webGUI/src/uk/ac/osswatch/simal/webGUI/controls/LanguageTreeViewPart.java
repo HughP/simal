@@ -17,22 +17,22 @@ package uk.ac.osswatch.simal.webGUI.controls;
 
 import java.util.Collection;
 
-import org.eclipse.rap.jface.viewers.ISelection;
-import org.eclipse.rap.jface.viewers.IStructuredContentProvider;
-import org.eclipse.rap.jface.viewers.IStructuredSelection;
-import org.eclipse.rap.jface.viewers.ITreeContentProvider;
-import org.eclipse.rap.jface.viewers.StructuredSelection;
-import org.eclipse.rap.jface.viewers.TreeViewer;
-import org.eclipse.rap.jface.viewers.Viewer;
-import org.eclipse.rap.rwt.widgets.Composite;
-import org.eclipse.rap.ui.ISelectionListener;
-import org.eclipse.rap.ui.ISelectionService;
-import org.eclipse.rap.ui.IViewPart;
-import org.eclipse.rap.ui.IWorkbench;
-import org.eclipse.rap.ui.IWorkbenchPart;
-import org.eclipse.rap.ui.IWorkbenchWindow;
-import org.eclipse.rap.ui.PlatformUI;
-import org.eclipse.rap.ui.part.ViewPart;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.StructuredSelection;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.IViewPart;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.ViewPart;
 import org.osgi.framework.BundleException;
 
 import uk.ac.osswatch.simal.model.Language;
