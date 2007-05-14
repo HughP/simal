@@ -1,0 +1,36 @@
+#summary How to upgrade the Forrest instance in Simal
+#labels Phase-Implementation,Phase-Support
+
+Simal use [http://forrest.apache.org Apache Forrest]. Since we use some cutting edge features of Apache Forrest we use a snapshot build. This document describes how to upgrade the version in use within Simal.
+
+= Preparation =
+
+You must have the latest development version of Apache Forrest available. You can check it out from SVN using the commands:
+
+{{{
+svn co http://svn.apache.org/repos/asf/forrest/trunk forrest
+}}}
+
+For more information see the [http://forrest.apache.org/contrib.html Forrest developer documentation].
+
+You must set the environment variable {{{FORREST_HOME}}} to point to the Forrest checkout directory.
+
+= Build Apache Forrest =
+
+From within the Apache Forrest checkout directory run the following commands:
+
+{{{
+cd main
+./build clean
+./build
+}}}
+
+= Copy Apache Forrest to Simal =
+
+*FIXME:* The following is not implemented yet, these are just notes about a work in progress
+
+From within the Simal project directory run the following commands:
+
+{{{
+simal upgrade-forrest
+}}}
