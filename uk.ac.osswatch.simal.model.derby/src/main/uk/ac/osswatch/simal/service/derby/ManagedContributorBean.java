@@ -29,7 +29,7 @@ public class ManagedContributorBean implements IContributorService {
         return false;
     }
 
-    public Contributor findContributor(Integer id) {
+    public Contributor findContributor(long id) {
         // TODO Auto-generated method stub
         return null;
     }
