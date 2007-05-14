@@ -15,26 +15,26 @@
 */
 package uk.ac.osswatch.simal.webGUI;
 
-import org.eclipse.rap.jface.action.Action;
-import org.eclipse.rap.jface.action.ICoolBarManager;
-import org.eclipse.rap.jface.action.IMenuManager;
-import org.eclipse.rap.jface.action.IToolBarManager;
-import org.eclipse.rap.jface.action.MenuManager;
-import org.eclipse.rap.jface.action.ToolBarContributionItem;
-import org.eclipse.rap.jface.action.ToolBarManager;
-import org.eclipse.rap.jface.dialogs.MessageDialog;
-import org.eclipse.rap.jface.resource.ImageDescriptor;
-import org.eclipse.rap.jface.window.IWindowCallback;
-import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.ui.IWorkbench;
-import org.eclipse.rap.ui.IWorkbenchActionConstants;
-import org.eclipse.rap.ui.IWorkbenchWindow;
-import org.eclipse.rap.ui.PlatformUI;
-import org.eclipse.rap.ui.actions.ActionFactory;
-import org.eclipse.rap.ui.actions.ActionFactory.IWorkbenchAction;
-import org.eclipse.rap.ui.entrypoint.ActionBarAdvisor;
-import org.eclipse.rap.ui.entrypoint.IActionBarConfigurer;
-import org.eclipse.rap.ui.plugin.AbstractUIPlugin;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.ICoolBarManager;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.ToolBarContributionItem;
+import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.window.IWindowCallback;
+import org.eclipse.swt.SWT;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchActionConstants;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.actions.ActionFactory;
+import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
+import org.eclipse.ui.entrypoint.ActionBarAdvisor;
+import org.eclipse.ui.entrypoint.IActionBarConfigurer;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import uk.ac.osswatch.simal.model.Contributor;
 import uk.ac.osswatch.simal.model.Language;
@@ -202,7 +202,7 @@ public class ProjectActionBarAdvisor extends ActionBarAdvisor {
     }
 
     protected void fillCoolBar(ICoolBarManager coolBar) {
-        IToolBarManager toolbar = new ToolBarManager(RWT.FLAT | RWT.RIGHT);
+        IToolBarManager toolbar = new ToolBarManager(SWT.FLAT | SWT.RIGHT);
         coolBar.add(new ToolBarContributionItem(toolbar, "main"));
         toolbar.add(exitAction);
         toolbar.add(newProjectAction);

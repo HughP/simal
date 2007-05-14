@@ -15,14 +15,14 @@
 */
 package uk.ac.osswatch.simal.webGUI;
 
-import org.eclipse.rap.rwt.graphics.Point;
-import org.eclipse.rap.ui.IWorkbench;
-import org.eclipse.rap.ui.IWorkbenchWindow;
-import org.eclipse.rap.ui.PlatformUI;
-import org.eclipse.rap.ui.entrypoint.ActionBarAdvisor;
-import org.eclipse.rap.ui.entrypoint.IActionBarConfigurer;
-import org.eclipse.rap.ui.entrypoint.IWorkbenchWindowConfigurer;
-import org.eclipse.rap.ui.entrypoint.WorkbenchWindowAdvisor;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.entrypoint.ActionBarAdvisor;
+import org.eclipse.ui.entrypoint.IActionBarConfigurer;
+import org.eclipse.ui.entrypoint.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.entrypoint.WorkbenchWindowAdvisor;
 
 public class ProjectWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 

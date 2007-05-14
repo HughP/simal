@@ -17,18 +17,18 @@ package uk.ac.osswatch.simal.webGUI.controls;
 
 import java.net.URL;
 
-import org.eclipse.rap.jface.viewers.ISelection;
-import org.eclipse.rap.jface.viewers.IStructuredSelection;
-import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.browser.Browser;
-import org.eclipse.rap.rwt.widgets.Composite;
-import org.eclipse.rap.ui.ISelectionListener;
-import org.eclipse.rap.ui.ISelectionService;
-import org.eclipse.rap.ui.IWorkbench;
-import org.eclipse.rap.ui.IWorkbenchPart;
-import org.eclipse.rap.ui.IWorkbenchWindow;
-import org.eclipse.rap.ui.PlatformUI;
-import org.eclipse.rap.ui.part.ViewPart;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.ViewPart;
 
 import uk.ac.osswatch.simal.model.Project;
 
@@ -39,7 +39,7 @@ public class BrowserViewPart extends ViewPart {
     private static String NO_PROJECT_SELECTED_URL = "http://www.oss-watch.ac.uk";
 
     public void createPartControl(final Composite parent) {
-        browser = new Browser(parent, RWT.NONE);
+        browser = new Browser(parent, SWT.NONE);
         IWorkbench workbench = PlatformUI.getWorkbench();
         IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
         ISelection selection = window.getSelectionService().getSelection();

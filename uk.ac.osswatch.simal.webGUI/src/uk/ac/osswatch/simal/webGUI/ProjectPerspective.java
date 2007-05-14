@@ -15,9 +15,9 @@
 */
 package uk.ac.osswatch.simal.webGUI;
 
-import org.eclipse.rap.ui.IFolderLayout;
-import org.eclipse.rap.ui.IPageLayout;
-import org.eclipse.rap.ui.IPerspectiveFactory;
+import org.eclipse.ui.IFolderLayout;
+import org.eclipse.ui.IPageLayout;
+import org.eclipse.ui.IPerspectiveFactory;
 
 import uk.ac.osswatch.simal.webGUI.controls.ContributorEditorViewPart;
 import uk.ac.osswatch.simal.webGUI.controls.EventEditorViewPart;

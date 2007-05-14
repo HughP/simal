@@ -17,20 +17,20 @@ package uk.ac.osswatch.simal.webGUI.controls;
 
 import java.net.MalformedURLException;
 
-import org.eclipse.rap.jface.viewers.ISelection;
-import org.eclipse.rap.jface.viewers.IStructuredSelection;
-import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.layout.GridLayout;
-import org.eclipse.rap.rwt.widgets.Composite;
-import org.eclipse.rap.rwt.widgets.List;
-import org.eclipse.rap.rwt.widgets.Text;
-import org.eclipse.rap.ui.ISelectionListener;
-import org.eclipse.rap.ui.ISelectionService;
-import org.eclipse.rap.ui.IWorkbench;
-import org.eclipse.rap.ui.IWorkbenchPart;
-import org.eclipse.rap.ui.IWorkbenchWindow;
-import org.eclipse.rap.ui.PlatformUI;
-import org.eclipse.rap.ui.part.ViewPart;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.ui.ISelectionListener;
+import org.eclipse.ui.ISelectionService;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.ViewPart;
 
 import uk.ac.osswatch.simal.model.Contributor;
 
@@ -56,7 +56,7 @@ public class ContributorEditorViewPart extends ViewPart {
     public void createPartControl(final Composite parent) {
         GridLayout gridLayout = new GridLayout();
         gridLayout.numColumns = 2;
-        form = new Composite(parent, RWT.NONE);
+        form = new Composite(parent, SWT.NONE);
         form.setLayout(gridLayout);
 
         id = ViewPartHelper.addText("ID:", form);

@@ -17,12 +17,12 @@ package uk.ac.osswatch.simal.webGUI.controls;
 
 import java.util.Date;
 
-import org.eclipse.rap.rwt.RWT;
-import org.eclipse.rap.rwt.layout.GridData;
-import org.eclipse.rap.rwt.widgets.Composite;
-import org.eclipse.rap.rwt.widgets.Label;
-import org.eclipse.rap.rwt.widgets.List;
-import org.eclipse.rap.rwt.widgets.Text;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.List;
+import org.eclipse.swt.widgets.Text;
 
 public class ViewPartHelper {
 
@@ -34,9 +34,9 @@ public class ViewPartHelper {
      * @return
      */
     protected static Text addText(String labeltxt, Composite parent) {
-        Label label = new Label(parent, RWT.NONE);
+        Label label = new Label(parent, SWT.NONE);
         label.setText(labeltxt);
-        Text text = new Text(parent, RWT.BORDER);
+        Text text = new Text(parent, SWT.BORDER);
         text.setLayoutData(getGridData());
         return text;
     }
@@ -52,9 +52,9 @@ public class ViewPartHelper {
      * @return
      */
     protected static List addList(String labeltxt, String[] listItems, Composite parent) {
-        Label label = new Label(parent, RWT.NONE);
+        Label label = new Label(parent, SWT.NONE);
         label.setText(labeltxt);
-        List list = new List(parent, RWT.BORDER);
+        List list = new List(parent, SWT.BORDER);
         list.setLayoutData(getGridData());
         list.setItems(listItems);
         return list;
