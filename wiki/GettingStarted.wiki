@@ -1,8 +1,9 @@
+#summary Basic getting started instructions
 #labels Featured,Phase-Support
+
 = Pre-Requisites =
 
  * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.4 - 1.5 (1.6 currently unsupported)
- * [http://forrest.apache.org/mirrors.cgi Apache Forrest] 0.8 or later
 
 = Get Source Files =
 
@@ -19,6 +20,13 @@ where $PROJECT_HOME is your chosen project directory
 Create a SIMAL_HOME environment variable with the value $PROJECT_HOME/simal
 
 Add $SIMAL_HOME/bin to your PATH environment variable
+
+Run the following commands:
+
+{{{
+cd $SIMAL_HOME
+ant install
+}}}
 
 = Running =
 
