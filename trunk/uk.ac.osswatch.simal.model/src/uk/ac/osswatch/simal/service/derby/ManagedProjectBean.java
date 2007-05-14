@@ -65,4 +65,9 @@ public class ManagedProjectBean implements IProjectService {
         }
     }
 
+    public Project findProjectByShortName(String string) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
