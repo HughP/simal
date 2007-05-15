@@ -1,9 +1,12 @@
 #summary Steps to go through for a release
 #labels Phase-Support,Phase-Implementation
 
-= Change src version numbers =
+= Change src version numbers to reflect release candidate build =
 
- * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}} to the correct version number (usually this will mean changing the postfix from "-dev" to "-rc1", "-rc2", "rc3" etc.)
+We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-dev" to "-rc1", "-rc2", "rc3" etc.
+
+ * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
+ * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
 = Build the release candidate installer =
 
@@ -22,7 +25,11 @@ Upload to the downloads section of Google Code, making the release candidate a f
 
 = Change src version numbers =
 
- * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}} to the correct version number (usually this will mean removing the postfix)
+We must now build a release package. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-rc*" to "-ga"
+
+ * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
+ * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
+
 
 = Package for release =
 
@@ -34,4 +41,7 @@ Upload to the downloads section of Google Code, making the release candidate a f
 
 = Change src version numbers =
 
- * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}} to the correct version number (usually this will be the next minor version number with the postfix "-dev")
+We must now build a release package. To do this we need to correctly set the version number. Usually this will mean incrementing the minor version number and changing the postfix from "-ga" to "-dev"
+
+ * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
+ * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
