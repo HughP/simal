@@ -14,58 +14,88 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project default="seed-basic" basedir="." name="simal">
+<project default="install" basedir="." name="simal">
 
     <property environment="env" />
 
-    <property name="forrest.home" location="${env.FORREST_HOME}" />
+    <property name="forrest.src.home" location="${env.FORREST_HOME}" />
+    <property name="forrest.src.plugins.dir" location="${forrest.src.home}/plugins"/>
     <property name="simal.home"   location="${env.SIMAL_HOME}"/>
     <property name="simal.seeds"  location="${simal.home}/src/seeds"/>
+    <property name="simal.tools.dir" location="${simal.home}/tools"/>
+    <property name="simal.build.dir" location="${simal.home}/build"/>
+    <property name="simal.forrest.build.dir" location="${simal.build.dir}/forrest"/>
 
-    <import file="${forrest.home}/main/forrest.build.xml" />
+    <target name="upgrade-forrest" depends="clean">    
+      <echo>Copy Forrest core files from ${forrest.src.home}</echo>
+      <copy todir="${simal.forrest.build.dir}">
+        <fileset dir="${forrest.src.home}" >
+          <exclude name="admin/**"/>
+          <exclude name="build/**"/>
+    	  <exclude name="etc/**"/>
+          <exclude name="plugins/**"/>
+          <exclude name="site-author/**"/>
+  <!-- exclude some tools that are not yet ready to be bundled -->
+          <exclude name="tools/eclipse/**"/>
+          <exclude name="tools/logos/**"/>
+          <exclude name="whiteboard/**"/>
+        </fileset>
+      </copy>
 
-    <target name="seed-basic" depends="ensure-nocontent" 
-      description="* Seeds a basic example (1 file) and structure">
-        <copy todir="${project.home}" overwrite="false">
-            <fileset dir="${simal.seeds}/basic" />
-        </copy>
-        <loadfile property="template-project-created-message" srcFile="${forrest.core}/var/template-project-created-message-basic.txt">
-            <filterchain>
-                <expandproperties />
-            </filterchain>
-        </loadfile>
-        <echo>${template-project-created-message}</echo>
+      <echo>Copy plugin related files from ${forrest.src.plugins.dir}</echo>
+      <copy todir="${simal.forrest.build.dir}/plugins">
+        <fileset dir="${forrest.src.plugins.dir}" >
+          <include name="plugins.xml"/>
+          <include name="build.xml"/>
+          <include name="pluginTemplate/**"/>
+          <include name="org.apache.forrest.plugin.output.pdf/**"/>
+        </fileset>
+      </copy>
+    
+      <echo>Copy whiteboard plugin related files</echo>
+      <copy todir="${simal.forrest.build.dir}/whiteboard/plugins">
+        <fileset dir="${forrest.src.home}/whiteboard/plugins" >
+          <include name="whiteboard-plugins.xml"/>
+          <include name="build.xml"/>
+          <include name="org.apache.forrest.plugin.input.doap/**"/>
+          <include name="org.apache.forrest.plugin.internal.dispatcher/**"/>
+          <include name="org.apache.forrest.themes.core/**"/>
+        </fileset>
+      </copy>
+    
+      <echo>Copy forrest.jar</echo>
+      <copy todir="${simal.forrest.build.dir}">
+        <fileset dir="${forrest.src.home}" >
+          <include name="build/xml-forrest.jar"/>
+        </fileset>
+      </copy>
+    
+  <!-- Fix bin/ permissions -->
+      <fixcrlf eol="crlf" srcdir="${simal.forrest.build.dir}/bin" includes="*.bat"/>
+      <fixcrlf eol="lf" srcdir="${simal.forrest.build.dir}/bin" excludes="*.bat"/>
+      <chmod dir="${simal.forrest.build.dir}/bin" perm="ugo+rx" excludes="*.bat"/>
+    
+  <!-- Fix ant/bin/ permissions -->
+      <fixcrlf eol="crlf" srcdir="${simal.forrest.build.dir}/tools/ant/bin" includes="*.bat"/>
+      <fixcrlf eol="lf" srcdir="${simal.forrest.build.dir}/tools/ant/bin" excludes="*.bat"/>
+      <chmod dir="${simal.forrest.build.dir}/tools/ant/bin" perm="ugo+rx" excludes="*.bat"/>
+    
+  <!-- Create the zip -->
+      <zip
+        file="${simal.tools.dir}/forrest-simal-snapshot.zip" >
+        <zipfileset dir="${simal.forrest.build.dir}"/>
+      </zip>
     </target>
-
-    <target name="seed-theme" depends="init-props"
-      description="* Adds the Simal theme to the current project">
-        <copy todir="${project.home}" overwrite="true">
-            <fileset dir="${simal.seeds}/theme" />
-        </copy>
-        <echo>Updated theme in this catalogue</echo>
+    
+    <target name="clean" description="Install simal">
+            <delete dir="${simal.forrest.build.dir}" />
+            <mkdir dir="${simal.forrest.build.dir}" />
     </target>
-
-    <target name="seed-event" depends="seed-basic, seed-theme" 
-      description="* Seeds an example intended to capture details of an event with  multiple projects">
-        <copy todir="${project.home}" overwrite="true">
-            <fileset dir="${simal.seeds}/event" />
-        </copy>
-        <loadfile property="template-project-created-message" srcFile="${forrest.core}/var/template-project-created-message-basic.txt">
-            <filterchain>
-                <expandproperties />
-            </filterchain>
-        </loadfile>
-        <echo>${template-project-created-message}</echo>
-    </target>
-
-    <target name="ensure-nocontent" depends="check-contentdir" if="project.content.present" unless="skip.contentcheck">
-        <fail>
-  ------------------------------------------------
-  This project already has content in ${content-dir}.
-
-  Run with '-Dskip.contentcheck=yes' to ignore existing content.
-  ------------------------------------------------
-      </fail>
+    
+    <target name="install" description="Install simal">
+      <delete dir="${simal.forrest.build.dir}" />
+      <mkdir dir="${simal.forrest.build.dir}" />
+      <unzip src="${simal.tools.dir}/forrest-simal-snapshot.zip" dest="${simal.forrest.build.dir}"/>
     </target>
 
 </project>

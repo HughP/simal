@@ -73,6 +73,14 @@
       </action>
       -->
       <action context="catalogue" dev="RDG" type="add" importance="high">
+        Configured an IzPack installer for easy installation of Simal. See
+        the simalInstaller module in SVN. Configuration is in simal/etc/installer.
+      </action>
+      <action context="catalogue" dev="RDG" type="add" importance="high">
+        Apache Forrest is now bundled with Simal, there is no need to install it
+        separately.
+      </action>
+      <action context="catalogue" dev="RDG" type="add" importance="high">
         Add a simal theme (found in the <code>/seed/theme</code> directory).
         This is still very rough and has some glaring problems with it, but
         it's a start and makes things easier for those not used to Forrest.<br/>

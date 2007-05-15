@@ -31,7 +31,7 @@ if "%OS%"=="WINNT" call "%FORREST_HOME%\bin\setpwdvar.bat"
 set PROJECT_HOME=%PWD%
 
 rem ----- set the ant file to use --------------------------------------
-set ANTFILE=%SIMAL_HOME%\build.xml
+set ANTFILE=%SIMAL_HOME%\simal-build.xml
 
 rem ----- Save old ANT_HOME --------------------------------------------
 set OLD_ANT_HOME=%ANT_HOME%
