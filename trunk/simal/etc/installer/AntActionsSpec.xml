@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<antactions>
+ <pack name="Catalogue">
+  <antcall buildfile="$INSTALL_PATH/build.xml"
+   order="afterpack"
+   verbose="yes"
+   logfile="$INSTALL_PATH/log/antlog_installer.txt"
+   messageid="AntAction.unpackingForrest"> 
+   <property name="simal.home" value="$INSTALL_PATH"/>
+   <target name="install"/>
+   <uninstalltarget name="clean"/>
+  </antcall>
+ </pack>
+</antactions>
