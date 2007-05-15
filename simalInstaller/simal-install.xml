@@ -34,8 +34,8 @@
     </locale>
     <resources>
         <res src="install-readme.html" id="HTMLInfoPanel.info" />
-        <res src="Licence.txt" id="LicencePanel.licence" />
-        <res src="langsel.jpg" id="installer.langsel.img" />
+        <res src="LICENSE.txt" id="LicencePanel.licence" />
+        <!-- <res src="langsel.jpg" id="installer.langsel.img" /> -->
     </resources>
     <panels>
         <panel classname="HelloPanel" />
@@ -50,9 +50,10 @@
         <pack name="Catalogue" required="yes">
             <description>Catalogue generation system.</description>
             <fileset dir="../simal" targetdir="$INSTALL_PATH">
-                <include name="*.txt" />
+                <include name="*" />
                 <include name="bin/**/*" />
-                <include name="lib/**/*" />
+                <include name="src/**/*" />
+                <include name="tools/**/*" />
             </fileset>
         </pack>
         (...)

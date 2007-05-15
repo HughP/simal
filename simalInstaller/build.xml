@@ -16,13 +16,18 @@
 -->
 <project default="build" basedir="." name="simal-installer">
 
-    <taskdef name="izpack" classpath="${izpack.dir}/lib/compiler.jar" classname="com.izforge.izpack.ant.IzPackTask" />
+    <property file="local.build.properties" />
+    <property file="build.properties" />
 
-    <target name="build" description="Build the Simal installer">
-        <izpack input="MyApp-install.xml" 
-                output="${dist.dir}/MyApp-install-${ver}.${rel}.jar" 
-                installerType="standard" 
-                basedir="${dist.dir}" 
-                izPackDir="${izpack.dir}/" />
+    <taskdef name="izpack" classname="com.izforge.izpack.ant.IzPackTask" />
+
+    <target name="clean" description="Clean the build targets">
+        <delete dir="${dist.dir}" failonerror="false" />
+
+        <mkdir dir="${dist.dir}" />
+    </target>
+
+    <target name="build" description="Build the Simal installer" depends="clean">
+        <izpack input="simal-install.xml" output="${dist.dir}/simal-${simal.version}.jar" installerType="standard" basedir="${simal.dir}" izPackDir="${izpack.dir}/" />
     </target>
 </project>
