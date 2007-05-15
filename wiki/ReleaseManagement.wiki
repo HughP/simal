@@ -1,0 +1,37 @@
+#summary Steps to go through for a release
+#labels Phase-Support,Phase-Implementation
+
+= Change src version numbers =
+
+ * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}} to the correct version number (usually this will mean changing the postfix from "-dev" to "-rc1", "-rc2", "rc3" etc.)
+
+= Build the release candidate installer =
+
+*FIXME:* Note that this is not working yet, this page documents the process as it is intended to be.
+
+ * run {{{ant build}}} in the {{{simal-sintall/simal-install.xml}}}
+
+= Upload to Google Code =
+
+Upload to the downloads section of Google Code, making the release candidate a featured download
+
+= Test =
+
+ * notify users/developers of new release candidate
+ * as many people as possible should test the release candidate
+
+= Change src version numbers =
+
+ * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}} to the correct version number (usually this will mean removing the postfix)
+
+= Package for release =
+
+ * run {{{ant build}}} in the {{{simal-sintall/simal-install.xml}}}
+
+= Upload to Google Code =
+
+Upload to the downloads section of Google Code, making the release candidate a featured download
+
+= Change src version numbers =
+
+ * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}} to the correct version number (usually this will be the next minor version number with the postfix "-dev")
