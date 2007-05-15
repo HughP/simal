@@ -33,7 +33,7 @@
         <langpack iso3="eng" />
     </locale>
     <resources>
-        <res src="install-readme.html" id="HTMLInfoPanel.info" />
+        <res src="etc/install-readme.html" id="HTMLInfoPanel.info" />
         <res src="LICENSE.txt" id="LicencePanel.licence" />
         <!-- <res src="langsel.jpg" id="installer.langsel.img" /> -->
     </resources>
