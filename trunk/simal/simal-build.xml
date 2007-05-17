@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project default="seed-basic" basedir="." name="simal">
+<project default="run" basedir="." name="simal">
 
     <property environment="env" />
 
