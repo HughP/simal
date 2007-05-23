@@ -68,6 +68,12 @@
                 <include name="src/**/*" />
                 <include name="tools/**/*" />
             </fileset>
+            <executable stage="never" targetfile="$INSTALL_PATH/bin/appendcp.bat"/>
+            <executable stage="never" targetfile="$INSTALL_PATH/bin/setpwdvar.bat"/>
+            <executable stage="never" targetfile="$INSTALL_PATH/bin/setpwdvar98.bat"/>
+            <executable stage="never" targetfile="$INSTALL_PATH/bin/simal"/>
+            <executable stage="never" targetfile="$INSTALL_PATH/bin/simal.bat"/>
+            <executable stage="never" targetfile="$INSTALL_PATH/build/forrest/tools/ant/bin/ant"/>
         </pack>
     </packs>
     <listeners>
