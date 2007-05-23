@@ -27,7 +27,7 @@
   
   <!-- CSS View of the request e.g. index.dispatcher.css -->
   <forrest:view type="css" hooksXpath="/">
-    <jx:import uri="cocoon://prepare.panels.pelt-css"/>
+    <jx:import uri="cocoon://prepare.panels.simal-css"/>
   </forrest:view>
   
  <forrest:view type="html" hooksXpath="/html/body">    
