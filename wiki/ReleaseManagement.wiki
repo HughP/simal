@@ -5,18 +5,18 @@
 
 We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-dev" to "-rc1", "-rc2", "rc3" etc.
 
- * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
+ * in {{{simalIntaller/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
  * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
 = Build the release candidate installer =
 
-*FIXME:* Note that this is not working yet, this page documents the process as it is intended to be.
+ * run {{{ant build}}} in the {{{simalIntaller}}} directory
 
- * run {{{ant build}}} in the {{{simal-sintall/simal-install.xml}}}
+This will build the installer, which can be found in {{{simal-Intaller/dist/simal-x.y-POSTFIX.jar}}}
 
 = Upload to Google Code =
 
-Upload to the downloads section of Google Code, making the release candidate a featured download
+Upload the installer to the downloads section of Google Code, making the release candidate a featured download.
 
 = Test =
 
