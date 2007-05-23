@@ -22,6 +22,7 @@ Upload the installer to the downloads section of Google Code, making the release
 
  * notify users/developers of new release candidate
  * as many people as possible should test the release candidate
+ * all [http://code.google.com/p/simal/issues/list?can=6 closed issues awaiting] QA approval should be verified
 
 = Change src version numbers =
 
