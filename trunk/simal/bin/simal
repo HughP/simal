@@ -34,9 +34,7 @@ else
 fi
 
 if [ -z "$FORREST_HOME" ] ; then
-  # FORREST_HOME must be set
-  echo FORREST_HOME environment variable must point to your Apache Forrest install
-  exit 1
+  FORREST_HOME=$SIMAL_HOME/build/forrest
 fi
 
 # Save old ANT_HOME
@@ -55,7 +53,7 @@ else
 fi
 
 # set the ant file to use
-ANTFILE="$SIMAL_HOME\simal-build.xml"
+ANTFILE="$SIMAL_HOME/simal-build.xml"
 
 CP="$CLASSPATH"
 export CP
