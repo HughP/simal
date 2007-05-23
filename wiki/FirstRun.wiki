@@ -1,0 +1,33 @@
+#summary How to run Simal for the first time (and see the project documentation)
+#labels Phase-Support,Phase-Deploy
+
+
+== Running ==
+
+The Simal source code contains all the documentation for Simal and a demonstration catalogue, so all you need to do to see it is:
+
+{{{
+cd $SIMAL_HOME
+simal run
+http://localhost:8089
+}}}
+
+= What Happened? =
+
+You are now running the catalogue in dynamic mode. You can edit content files, which are stored in SIMAL_HOME/src/documentation/content/xdocs and then refresh your browser to see the changes immediately. 
+
+Since we use Forrest to create our catalogues like this, you can find out more from the [http://forrest.apache.org Forrest] website.
+
+= Whats Next? =
+
+== Static Content Generation ==
+
+It is possible to generate the catalogue as a static snapshot suitable for hosting on a normal web server or distributing via CD or other such means. To do this simply run the command:
+
+{{{simal site}}}
+
+== More Information ==
+
+This version of Simal includes all the project documentation. So you can learn more and, at the same time, help us improve the documentation by reading the docs and improving them as you experiment.
+
+Use the Contributor tab in your local version of the docs to be taken to the contributor section where you will find more information on how to contribute to Simal.
