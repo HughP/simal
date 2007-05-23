@@ -1,11 +1,46 @@
 #summary Basic getting started instructions
 #labels Featured,Phase-Support
 
-= Pre-Requisites =
+You can get started from the latest binary release or the development source code. Both are fairly easy to get going with, but the binary install has less pre-requisities (although you don't need anything an average Java develop has already)
+
+= Binary Release =
+
+== Pre-Requisites ==
 
  * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.4 - 1.5 (1.6 currently unsupported)
 
-= Get Source Files =
+== Get the Binary Download ==
+
+Get the latest binary download from the [http://code.google.com/p/simaldownloads/list project downloads page].
+
+The download is an executable jar, on most operating systems you can simply double click on the downloaded file. If this does not work then run the command (replacing x.y.z) with the relevant version number for your download:
+
+{{{
+java -jar simal-x.y.z.jar
+}}}
+
+This will run a cross platform installer, so just follow the instructions on screen.
+
+== Set up ==
+
+Create a SIMAL_HOME environment variable with the value $PROJECT_HOME/simal
+
+Add $SIMAL_HOME/bin to your PATH environment variable
+
+== Running ==
+
+That's it you have installed Simal. Time to perform your FirstRun.
+
+= Latest Developer Sources =
+
+
+== Pre-Requisites ==
+
+ * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.4 - 1.5 (1.6 currently unsupported)
+ * [http://subversion.tigris.org/ Subversion]
+ * [http://ant.apache.org Apache Ant]
+
+== Get Source Files ==
 
 {{{
 svn checkout http://simal.googlecode.com/svn/trunk/simal $PROJECT_HOME/simal
@@ -15,7 +50,7 @@ where $PROJECT_HOME is your chosen project directory
 
 (use https rather than http if you are a committer)
 
-= Set up =
+== Set up ==
 
 Create a SIMAL_HOME environment variable with the value $PROJECT_HOME/simal
 
@@ -28,32 +63,7 @@ cd $SIMAL_HOME
 ant install
 }}}
 
-= Running =
 
-The Simal source code contains all the documentation for Simal and a demonstration catalogue, so all you need to do to see it is:
+== Running ==
 
-{{{
-cd $SIMAL_HOME
-simal run
-http://localhost:8089
-}}}
-
-= What Happened? =
-
-You are now running the catalogue in dynamic mode. You can edit content files, which are stored in SIMAL_HOME/src/documentation/content/xdocs and then refresh your browser to see the changes immediately. 
-
-Since we use Forrest to create our catalogues like this, you can find out more from the [http://forrest.apache.org Forrest] website.
-
-= Whats Next? =
-
-== Static Content Generation ==
-
-It is possible to generate the catalogue as a static snapshot suitable for hosting on a normal web server or distributing via CD or other such means. To do this simply run the command:
-
-{{{simal site}}}
-
-== More Information ==
-
-This version of Simal includes all the project documentation. So you can learn more and, at the same time, help us improve the documentation by reading the docs and improving them as you experiment.
-
-Use the Contributor tab in your local version of the docs to be taken to the contributor section where you will find more information on how to contribute to Simal.
+That's it you have installed Simal. Time to perform your FirstRun.
