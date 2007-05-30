@@ -28,6 +28,14 @@ The RoadMap indicates the status of each release. Once an release candidate has 
  * as many people as possible should test the release candidate
  * all [http://code.google.com/p/simal/issues/list?can=6 closed issues awaiting] QA approval should be verified
 
+= Vote =
+
+Assuming that no critical errors are discovered during the testing phase we can now proceed with getting approval for the release.
+
+A vote on the release is called on the contributor mailing list.
+
+Assuming that the vote passes we can proceed. If it does not pass the reason(s) for the negative votes must be addressed.
+
 = Change src version numbers =
 
 We must now build a release package. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-rc*" to "-ga"
