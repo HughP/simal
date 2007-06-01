@@ -67,7 +67,7 @@
       OSS Watch provides guidance to projects wishing
       to create open source projects. It is useful for
       OSS Watch to illustrate key aspects of consensus-based open source software development 
-      in practice. Simal will serve both as opportunity for OSS Watch to explore the practicialities of 
+      in practice. Simal will serve both as opportunity for OSS Watch to explore the practicalities of 
       this form of open source development, while at the same time providing an exemplar for JISC 
       projects with respect to typical governance models, community building, release management,
       quality assurance, user support and documentation. It will involve a commitment of approximately 
@@ -76,7 +76,7 @@
       <p>However, Simal is no mere project <em>template</em>. OSS Watch fully intend to deploy the outputs 
         from Simal, i.e. a project catalogue, in order to serve as a means of building community relationships <em>between</em> 
         JISC development projects. This is a task OSS Watch had set itself previously and Simal will help fulfil it. Simal itself, of course, draws upon significant work done by other open source projects, e.g. 
-        Apache Forrest, Apache Wicket, Databinder and Hibernate, and its own entry in the catalogue will reflect this.</p>
+        Apache Forrest, Eclipse, Apache Derby and Oracle Toplink. Simals own entry in the catalogue will reflect this.</p>
 
       <p>To summarize, the benefits to OSS Watch in leading Simal are:</p>
         
