@@ -63,7 +63,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   <users label="In Use" href="user/" tab="user">
     <index label="About" href="index.html"/>
     <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>
-    <createDOAP label="Create DOAP" href="/doap/create.html"/>  
+  
 
     <docs label="Docs" href="doap/">
       <createCatalogue label="Create Catalogue" href="createCatalogue.html"/>
