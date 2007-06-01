@@ -48,7 +48,7 @@ See http://forrest.apache.org/docs/linking.html for more info
     <projecthistory label="Project History" href="projecthistory.html" description="History of the Simal project"/>
     <sustainabilityplan label="Sustainability Plan" href="sustainabilityplan.html" description="Sustainability plan for Simal project"/>
     <whySimal label="Why Simal?" href="whySimal.html" description="What does the name Simal mean?"/>
-    <credits label="Credits" href="credites.html" description="Simal would not exist without these people..."/>
+    <credits label="Credits" href="credits.html" description="Simal would not exist without these people..."/>
   </about>
   
   <projects label="Catalogue" href="projectDetails/" tab="catalogue">
