@@ -1,0 +1,18 @@
+#summary Some notes on how we use the issue tracker
+#labels Featured,Phase-QA
+
+We use the issue tracker to help us track bugs and feature requests. It is also used to help prioritise work and to indicate that someone is working on a specific issue.
+
+Adding something to the issue tracker is not an instruction for someone to do the work described, it is merely a record that some work needs to be done.
+
+It is up to the Simal community as a whole to ensure that issues important to them get addressed. Issue tracker entries are not an instruction to do a specific task, they are merely a request that a task be tackled by the community. The only way to be certain a task is addressed is to do it yourself (well you may be able to pay someone to do it I suppose).
+
+That being said, the priority assigned to an issue is a good indicator of what the project community feel is an important issue. The higher the priority the more likely it is that we will eventually tackle a given issue.
+
+We do not use the issue tracker to discuss the issue, that is what the mailing list is for. We may link back to the list archives from the issue tracker in order to ensure knowledge about an issue does not get lost.
+
+= Users and the issue tracker =
+
+Users are the most valued members of our community. Without users there is not need for the project. All our developers are also users, so without users we have no developers.
+
+If you are a user and would like to see a new feature, or you find a bug you should add it to the issue tracker. This ensures the developer community is aware of what the users want and also prevents the need for others to report bugs we are already aware of.
