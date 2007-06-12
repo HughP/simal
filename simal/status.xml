@@ -153,12 +153,8 @@
       <action dev="RMM" type="add" context="docs" importance="medium"> Added a <link
           href="projecthistory.html">project history</link> page. </action>
       <action dev="RDG" type="add" context="docs" importance="medium"> Added a <link
-          href="/user/doap/create.html">Quick Start</link> page to describe how to get Simal up and
+          href="/quickstart.html">Quick Start</link> page to describe how to get Simal up and
         running. </action>
-      <action dev="RDG" type="add" context="catalogue" importance="high"> First stab at a javascript
-        based <link href="/doap/create.html">DOAPiser</link>. This is currently focussed on JISC
-        projects and should probably separate out the JISC stuff when the project is not a JISC
-        project. </action>
       <action dev="RDG" type="update" context="docs" importance="low"> Improved the index page to
         describe the project in more detail and provide links into the community sections of the
         site. </action>
