@@ -82,7 +82,7 @@
       <title>Add a Field to the editing field</title>
       
       <note>Technical notes relevant to this section can be found in the
-      <a href="../implementationNotes/editorForms.html">Editor Forms Implementation Note</a>.</note>
+      <a href="/implementationNotes/editorForms.html">Editor Forms Implementation Note</a>.</note>
       
       <p>We want to add a text field
       for editing a URL. So we will use the most appropriate helper method,
