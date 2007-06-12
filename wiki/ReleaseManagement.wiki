@@ -18,6 +18,10 @@ This will build the installer, which can be found in {{{simal-Intaller/dist/sima
 
 Upload the installer to the downloads section of Google Code, making the release candidate a featured download.
 
+If this is a RC release then previous RC releases should be deleted (they use up the storage quota and can be rebuilt from SVN if people need to do so).
+
+If this is a full release then deprecate the previous release.
+
 = Update RoadMap =
 
 The RoadMap indicates the status of each release. Once an release candidate has been built this should be noted in the status column of the RoadMap table. typically the entry will read something like "RC1 in testing".
