@@ -153,7 +153,7 @@
       <action dev="RMM" type="add" context="docs" importance="medium"> Added a <link
           href="projecthistory.html">project history</link> page. </action>
       <action dev="RDG" type="add" context="docs" importance="medium"> Added a <link
-          href="/doap/create.html">Quick Start</link> page to describe how to get Simal up and
+          href="/user/doap/create.html">Quick Start</link> page to describe how to get Simal up and
         running. </action>
       <action dev="RDG" type="add" context="catalogue" importance="high"> First stab at a javascript
         based <link href="/doap/create.html">DOAPiser</link>. This is currently focussed on JISC
