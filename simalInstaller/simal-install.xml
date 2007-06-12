@@ -17,11 +17,11 @@
 <installation version="1.0">
     <info>
         <appname>Simal</appname>
-        <appversion>0.1-dev</appversion>
+        <appversion>0.1-rc1</appversion>
         <authors>
             <author name="OSS Watch" email="info@oss-watch.ac.uk" />
         </authors>
-        <url>http://simal.oss-watch.ac.uk</url>
+        <url>http://code.google.com/p/simal</url>
         <javaversion>1.5</javaversion>
     </info>
     <guiprefs height="600" resizable="yes" width="800">
