@@ -30,7 +30,8 @@
     <jx:import uri="cocoon://prepare.panels.simal-css"/>
   </forrest:view>
   
- <forrest:view type="html" hooksXpath="/html/body">    
+ <forrest:view type="html" hooksXpath="/html/body">       
     <jx:import uri="cocoon://prepare.panels.simal-projectPage-html"/>
+    <!-- <jx:import uri="cocoon://prepare.panels.simal-commonPage-html"/> -->
   </forrest:view>
 </forrest:views>
