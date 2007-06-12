@@ -22,7 +22,7 @@
   <jx:set var="getRequestExtension" value="#{$cocoon/parameters/getRequestExtension}" />
   
   <forrest:view type="fo" hooksXpath="/">
-    <jx:import uri="cocoon://prepare.panels.common-fo"/>
+    <jx:import uri="cocoon://prepare.panels.simal-fo"/>
   </forrest:view>
   
   <!-- CSS View of the request e.g. index.dispatcher.css -->
