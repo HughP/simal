@@ -14,6 +14,12 @@ We must first build a release candidate for testing. To do this we need to corre
 
 This will build the installer, which can be found in {{{simal-Intaller/dist/simal-x.y-POSTFIX.jar}}}
 
+= Tag SVN =
+
+SVN should be tagged with the release number in the format x_y_z_POSTFIX
+
+Note you should tag both the simal and the simal-installer trees.
+
 = Upload to Google Code =
 
 Upload the installer to the downloads section of Google Code, making the release candidate a featured download.
@@ -54,9 +60,11 @@ We must now build a release package. To do this we need to correctly set the ver
 
 = Tag SVN =
 
-SVN needs to be tagged with the releae information, typically, this will look something like:
+SVN needs to be tagged with the release information, typically, this will look something like:
 
-"release-0.1"
+"x_y_z"
+
+Note you should tag both the simal and the simal-installer trees.
 
 = Upload to Google Code =
 
