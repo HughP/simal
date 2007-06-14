@@ -2,6 +2,7 @@
   xmlns="http://usefulinc.com/ns/doap#"
   xmlns:foaf="http://xmlns.com/foaf/0.1/"
   xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:projects="http://projects.apache.org/ns/asfext#">
 
 <Project rdf:about="http://www.oss-watch.ac.uk/"> 
