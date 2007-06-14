@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_sage.aspx">
-<shortdesc>The project will have two main objectives; the first part building a portable hardware and software extension to the Access Grid for full-sized stereo viewing, and a second part to construct a lightweight framework for storing and editing the performances.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>CSAGE: Collaborative Stereoscopic Access Grid Environment</name>
-<homepage rdf:resource="http://kato.mvc.mcc.ac.uk/sve-wiki/SAGE"/>
-</Project>

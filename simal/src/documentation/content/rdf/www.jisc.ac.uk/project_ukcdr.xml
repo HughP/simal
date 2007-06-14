@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_ukcdr.aspx">
-<shortdesc>This project will develop, evaluate and document a practical approach, building on existing tools and good practice, to implement a UK-wide infrastructure for collaborating to develop and share high quality, high-stakes assessment items involving a range of agencies and institutions in the UK and with substantial potential benefits to individual learners.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>UK Collaboration for a Digital Repository</name>
-<homepage rdf:resource="http://www.ukcdr.manchester.ac.uk/"/>
-</Project>

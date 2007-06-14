@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/elfref_mmu.aspx">
-<shortdesc>The overall aim of XCRI is to define a vocabulary and appropriate technology bindings (e.g. XML, RDF) for describing course-related information that encompasses course marketing, course quality assurance, enrolment and reporting requirements.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>XCRI: eXchanging Course-Related Information</name>
-<homepage rdf:resource="http://www.elframework.org/projects/xcri"/>
-</Project>

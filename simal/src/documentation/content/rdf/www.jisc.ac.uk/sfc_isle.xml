@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc/sfc_isle.aspx">
-<shortdesc>The ISLE project seeks to develop a sustainable model of effective FE/HE collaboration, to improve the education experience and to considerably reduce current problems in widening access such as retention and progression.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>ISLE: Individualised Support for Learning through ePortfolios</name>
-<homepage rdf:resource="http://isle.paisley.ac.uk/"/>
-</Project>

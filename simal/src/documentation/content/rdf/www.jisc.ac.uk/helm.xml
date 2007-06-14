@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital/el_xinstit/helm.aspx">
-<shortdesc>This project is being conducted by the team that developed Horus, an e-technology to help doctors-in-training learn in workplaces. HeLM is an implementation project, which aims to increase the range of Horus services available to undergraduate medical students across a wider range of hospitals and other clinical workplaces. It will strengthen Horus support to in-depth reflective learning, extend the support to teachers as well as students, scope the application of Horus services to other higher education courses, and draw together learning and assessment within a single virtual learning environment.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>HeLM: HORUS e-Learning Management</name>
-</Project>
