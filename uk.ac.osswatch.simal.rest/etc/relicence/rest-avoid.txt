@@ -1,5 +1,0 @@
-LICENSE.txt
-NOTICE.txt
-bin/
-etc/relicence/
-lib/
