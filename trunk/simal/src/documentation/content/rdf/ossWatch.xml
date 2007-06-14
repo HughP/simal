@@ -23,7 +23,7 @@ advice and guidance to UK higher and further education.</description>
 
   <created>2007-1-16</created>
 
-  <foaf:seeAlso rdf:resource="http://www.oss-watch.ac.uk/rss/summary.rss" dc:format="application/rdf+xml" />
+  <foaf:seeAlso rdf:resource="http://www.oss-watch.ac.uk/rss/summary.rss" dc:format="application/rss+xml" />
 
   <maintainer> 
     <foaf:Person rdf:about="http://people.apache.org/~randolph.metcalfe@oucs.ox.ac.uk/#me">
