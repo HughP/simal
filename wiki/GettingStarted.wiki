@@ -23,7 +23,7 @@ This will run a cross platform installer, so just follow the instructions on scr
 
 == Set up ==
 
-Create a SIMAL_HOME environment variable with the value $PROJECT_HOME/simal
+Create a SIMAL_HOME environment to point at the directory where you installed the Siaml software.
 
 Add $SIMAL_HOME/bin to your PATH environment variable
 
