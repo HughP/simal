@@ -16,7 +16,7 @@ This will build the installer, which can be found in {{{simal-Intaller/dist/sima
 
 = Tag SVN =
 
-SVN should be tagged with the release number in the format x_y_z_POSTFIX
+SVN should be tagged with the release number in the format simal_x_y_z_POSTFIX
 
 Note you should tag both the simal and the simal-installer trees.
 
@@ -62,7 +62,7 @@ We must now build a release package. To do this we need to correctly set the ver
 
 SVN needs to be tagged with the release information, typically, this will look something like:
 
-"x_y_z"
+"simal_x_y_z"
 
 Note you should tag both the simal and the simal-installer trees.
 
