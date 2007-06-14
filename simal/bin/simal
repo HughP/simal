@@ -33,6 +33,12 @@ else
   PROJECT_HOME=`pwd`
 fi
 
+if [ -z "$SIMAL_HOME" ] ; then
+  echo `basename $0`: SIMAL_HOME not set.
+  echo see http://code.google.com/p/simal/wiki/GettingStarted
+  exit 1
+fi
+
 if [ -z "$FORREST_HOME" ] ; then
   FORREST_HOME=$SIMAL_HOME/build/forrest
 fi
