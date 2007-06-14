@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_escience_in_education/project_eenvironment.aspx">
+<shortdesc>This pilot project seeks to explore the links between e-Science and e-Learning in the classroom in order to provide teachers and students with increased accessibility to scientific resources, enable them to appreciate the scientific process, and promote an understanding of the role of science in their everyday lives.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>e-Environment Learning Facility for Schools</name>
+</Project>

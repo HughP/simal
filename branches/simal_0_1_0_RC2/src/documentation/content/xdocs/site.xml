@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!--
+Forrest site.xml
+
+This file contains an outline of the site's information content.  It is used to:
+- Generate the website menus (though these can be overridden - see docs)
+- Provide semantic, location-independent aliases for internal 'site:' URIs, eg
+<link href="site:changes"> links to changes.html (or ../changes.html if in
+  subdir).
+- Provide aliases for external URLs in the external-refs section.  Eg, <link
+  href="ext:cocoon"> links to http://cocoon.apache.org/ 
+
+See http://forrest.apache.org/docs/linking.html for more info
+-->
+
+<!-- The label attribute of the outer "site" element will only show
+  in the linkmap (linkmap.html).
+  Use elements project-name and group-name in skinconfig to change name of 
+  your site or project that is usually shown at the top of page.
+  No matter what you configure for the href attribute, Forrest will
+  always use index.html when you request http://yourHost/
+  See FAQ: "How can I use a start-up-page other than index.html?"
+-->
+
+<site label="MyProj" href=""  tab=""
+  xmlns="http://apache.org/forrest/linkmap/1.0"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+  <about label="About" tab="home">
+    <index label="Index" href="index.html" description="Welcome to MyProj"/>
+    <quickstart label="Quick Start" href="quickstart.html" description="The minimum you need to get started"/>
+    <changes label="Changes" href="changes.html" description="Recent changes"/>
+    <governance label="Governance" href="governance.html" description="How the proejct is run"/>
+    <projecthistory label="Project History" href="projecthistory.html" description="History of the Simal project"/>
+    <sustainabilityplan label="Sustainability Plan" href="sustainabilityplan.html" description="Sustainability plan for Simal project"/>
+    <whySimal label="Why Simal?" href="whySimal.html" description="What does the name Simal mean?"/>
+    <credits label="Credits" href="credits.html" description="Simal would not exist without these people..."/>
+  </about>
+  
+  <projects label="Catalogue" href="projectDetails/" tab="catalogue">
+      <languages label="Index by Language" href="index/byLang.html"
+        description="A list of all projects, indexed by language"/>
+      <languages label="Java Index" href="index/byLang/Java.html"
+        description="A list of Jave projects"/>
+      <languages label="Index by Category" href="index/byCategory.html"
+        description="A list of all projects, indexed by language"/>
+  </projects>
+  
+  <users label="In Use" href="user/" tab="user">
+    <index label="About" href="index.html"/>
+    <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>
+  
+
+    <docs label="Docs" href="doap/">
+      <createCatalogue label="Create Catalogue" href="createCatalogue.html"/>
+    </docs>
+  </users>
+    
+  <useCases label="Use Cases" href="docs/" tab="user">
+    <doapUser label="DOAP Management" href="user/useCases/doapManagement.html"/>
+  </useCases>
+  
+  <contributors label="Contributors" href="contributor/" tab="contributor">
+    <index label="Index" href="index.html"/>
+    <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>
+    
+    <community label="Community" tab="contributor">
+      <developing label="Developing Community" href="developingCommunity.html"/>
+    </community>
+    
+    <howto label="How To" href="how-to/" tab="contributor">
+      <index label="What is a  How To?" href="index.html"/>
+      <developSimal label="Configure Eclipse for Development" href="developSimal.html"/>
+      <addField label="Add Field to Object" href="addFieldToObject.html" description="Add a field to an existing object and provide a means to edit it."/>
+      <addDataObject label="Add New Data Object" href="addNewDataObject.html" description="Add a new data object and provide a means to edit it."/>
+    </howto>
+    
+    <implementation label="Developer Notes" href="implementationNotes/" tab="contributor">
+      <index label="Overview" description="What are Implmentation Notes" href="index.html"/>
+      <editorForms label="Editor Forms" href="editorForms.html" description="How are data editor forms created and managed?"/>
+    </implementation>
+    
+    <changes label="Changes" href="/changes.html"/>
+    <changes-rss href="/changes.rss"/>
+    
+    <todo label="Todo" href="todo.html"/>
+    
+    <governance label="Governance" href="governance/" tab="contributor">
+      <index label="Index" href="index.html"/>
+    </governance>
+  </contributors>
+    
+  <useCases label="Use Cases" href="docs/" tab="contributor">
+    <doapUser label="DOAP Management" href="developer/useCases/doapManagement.html"/>
+  </useCases>
+  
+  <external-refs>
+    <forrest href="http://forrest.apache.org/">
+      <linking href="docs/linking.html"/>
+    </forrest>
+  </external-refs>
+
+</site>

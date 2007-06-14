@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/project_career.aspx">
+<shortdesc>The learning technology career development scoping study was an extensive study of learning technology staff, their roles, skills and related institutional factors.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"/>
+<name>Learning Technology Career Development Scoping Study</name>
+</Project>

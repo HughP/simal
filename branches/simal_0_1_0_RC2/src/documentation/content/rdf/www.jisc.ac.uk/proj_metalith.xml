@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_metalith.aspx">
+<shortdesc>Metaleth will be a test bed for the integration of Shibboleth with a third party software product widely used in HE. The lessons should prove valuable to Bristol and many other Universities.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>Metaleth: University of Bristol Shibboleth Early Adoption</name>
+</Project>

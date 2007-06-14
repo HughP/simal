@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_iamsect.aspx">
+<shortdesc>This project will develop, test and disseminate a practical approach for implementing inter-institutional authentication and authorisation management services for e-learning which can be replicated elsewhere in the education sector.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>IAMSECT</name>
+<homepage rdf:resource="http://iamsect.ncl.ac.uk/"/>
+</Project>

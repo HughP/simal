@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document> 
+  <header> 
+    <title>Create a catalogue</title> 
+  </header> 
+  <body> 
+    <p>Simal is a system to enable you to build your own catalogue for your own purposes.
+    This document describes how to do this by following through a single example.</p>
+    
+    <section>
+      <title>A workshop attendee list</title>
+      <p>We are going to build a catalogue that will assist in the organising and support
+      of a workshop that will involve a subset of projects in the central Simal 
+      catalogue. This catalogue will go through a number of iterations as the workshop
+      goes through the planning stages and on into the implementation stages. In summary
+      it will follow the following life cycle:</p>
+      
+      <ul>
+        <li>Planning: list of potential attendees</li>
+        <li>Confirmations: list of projects will be reduced as confirmation of 
+        attendance is recived</li>
+        <li>Attendee list: the final list of attending proejcts</li>
+      </ul>
+    </section>
+    
+    <section>
+      <title>Planning</title>
+      
+      <p>In this first iteration we need to create a list of all projects that we
+      intend to invite to the workshop. The first thing to do is create your Forrest
+      content object for planning the workshop. From the command line run the following:</p>
+      
+      <source>
+mkdir [PROJECT_HOME]
+cd [PROJECT_HOME]
+forrest seed-catalogue
+      </source>
+    </section>
+  </body>
+</document>

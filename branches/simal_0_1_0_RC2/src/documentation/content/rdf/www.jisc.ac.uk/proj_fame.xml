@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/proj_fame.aspx">
+<shortdesc>The overall aim of the project is to design and develop middleware extensions to facilitate multi-factor authentication and authentication strength linked fine-grained access control supporting a wide range of authentication methods including IP addresses, username and password pairs, and certificate-based soft as well as hard tokens such as smart/Java cards.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>FAME - PERMIS: Flexible Access Middleware Extensions to PERMIS</name>
+<homepage rdf:resource="http://www.cs.man.ac.uk/fame-permis/"/>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/project_sakai_edu_research.aspx">
+<shortdesc>This project intends to provide and support the Sakai platform for large, distributed social sciences research projects.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>Sakai VRE for Educational Research</name>
+<homepage rdf:resource="http://www.caret.cam.ac.uk/projects/jiscvre.html"/>
+</Project>

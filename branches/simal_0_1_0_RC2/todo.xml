@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<todo>
+  <contributors>
+    <contributor id="RDG">
+      <name>Ross Gardler</name>
+    </contributor>
+  </contributors>
+
+  <section>
+    <title>Framework</title>
+    
+    <task>
+      <title>Add Forrest2 for documentation</title>
+      <risk>3</risk>
+      <priority>
+        <user>1</user>
+        <tech>2</tech>
+      </priority>
+    </task>
+  </section>
+    
+  <section id="dashboard">
+    <title>Dashboard</title>
+    
+    <task id="dashboard-eventProject">
+      <title>Add project name (and link) to Events due list</title>
+      <owner refid="RDG"/>
+      <status>complete</status>
+      <depends>events-project</depends>
+      <risk>1</risk>
+      <priority>
+        <user>2</user>
+        <tech>1</tech>
+      </priority>
+    </task>
+  </section>
+  
+  <section id="events">
+    <title>Events</title>
+    
+    <task id="events-longDescription">
+      <title>Add long description</title>
+      <risk>1</risk>
+      <priority>
+        <user>3</user>
+        <tech>1</tech>
+      </priority>
+    </task>
+    
+    <task id="events-project">
+      <title>Add link to project</title>
+      <owner refid="RDG"/>
+      <status>complete</status>
+      <risk>2</risk>
+      <priority>
+        <user>3</user>
+        <tech>2</tech>
+      </priority>
+    </task>
+  </section>
+  
+  <section id="projects">
+    <title>Projects</title>
+    
+    <task id="projects-doapGeneration">
+      <title>Generate a DOAP file</title>
+      <owner refid="RDG"/>
+      <status>waiting</status>
+      <depends refid="projects-doapProperties"/>
+      <risk>1</risk>
+      <priority>
+        <user>3</user>
+        <tech>3</tech>
+      </priority>
+    </task>
+    
+    <task id="projects-doapProperties">
+      <title>Add all DOAP details to project</title>
+      <owner refid="RDG"/>
+      <status>InProgress - Up to repository in the Kizzer create.html file</status>
+      <risk>1</risk>
+      <priority>
+        <user>1</user>
+        <tech>3</tech>
+      </priority>
+    </task>
+  </section>
+</todo>
+
+

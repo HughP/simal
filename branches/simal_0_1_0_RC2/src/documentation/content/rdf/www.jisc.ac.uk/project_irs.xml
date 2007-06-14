@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_irs.aspx">
+<shortdesc>This project will investigate the requirements for UK and international stakeholders and build generic collection and distribution software to create an interoperable usage statistics service for all OAI-PMH-compliant repositories.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>IRS: Interoperable Repository Statistics</name>
+<homepage rdf:resource="http://irs.eprints.org/"/>
+</Project>

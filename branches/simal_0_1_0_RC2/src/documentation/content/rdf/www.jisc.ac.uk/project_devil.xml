@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle/project_devil.aspx">
+<shortdesc>This pilot project will examine the means for identifying resources of interests to tutors in creating courses, and will build on existing work to provide academic staff with tools to permit dynamic data integration between library and other resources and VLE based courses, for a variety of media.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>DEVIL: Dynamically Enhancing VLE Information from the Library</name>
+<homepage rdf:resource="http://srv1.mvm.ed.ac.uk/devilweb/index.asp"/>
+</Project>

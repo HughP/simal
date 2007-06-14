@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE howto PUBLIC "-//APACHE//DTD How-to V2.0//EN"
+"http://forrest.apache.org/dtd/howto-v20.dtd">
+<howto>
+  <header>
+    <title>How to add a field to a form</title>
+
+    <version>0.2</version>
+
+    <abstract>This How-To describes the steps necessary to add a field to a
+    an object in the Simal web application. It covers the addition of a data
+    field to the java object, the linking of this object to the database and
+    the creation of an HTML element in the relevant edit form for the display 
+    and editing of the field data.</abstract>
+
+    <last-modified-content-date date="2007-04-01" />
+  </header>
+
+  <audience title="Intended Audience">
+    <p>Simal developers with an understanding of Java and Eclipse RAP.</p>
+  </audience>
+
+  <purpose title="Purpose">
+    <p>To allow a new Simal developer to add additional data to 
+    and existing object in the Simal project. We will add a field to 
+    the data bean, link it to the database and provide a self-populating 
+    form for editing the data.</p>
+  </purpose>
+
+  <prerequisites title="Prerequisites">
+    <p>Readers should</p>
+
+    <ul>
+      <li>Understand the basic functionality of the Simal data entry user 
+      interface</li>
+      <li>A basic understanding of the <a href="http://www.eclipse.org/rap">Rich Ajax Platform (RAP)</a></li>
+    </ul>
+
+  </prerequisites>
+
+  <steps title="Add Field">
+    <p>Planning is an important part of any development process. However, too
+    much planning will result in little real work being done. This set of
+    steps should be sufficient to get us started on development.</p>
+
+    <section id="decideOnData">
+      <title>Add what data, where?</title>
+
+      <p>What data do we want to add and where to? Is there an existing object
+      that should contain the data?</p>
+      
+      <p>For example, suppose we wish to add information about a mailing list
+      to a project. It is likely that, in the future we will want to add
+      multiple mailing lists with lots of details about each one. However, in
+      this first iteration we will simply record the URL of a web page 
+      describing the available mailing lists.</p>
+      
+      <p>In this how-to we will be adding a <code>mailListURL</code> field
+      to the existing <code>Project</code> object.</p>
+      
+      <p>If you find that you need to add a new data object to Simal then
+      this document is not for you, instead you should read the how to on
+      <a href="addNewDataObject.html">adding a new data object</a>.</p>
+    </section>
+    
+    <section id="addHTMLFormField">
+      <title>Add a Field to the editing field</title>
+      
+      <note>Technical notes relevant to this section can be found in the
+      <a href="/contributor/implementationNotes/editorForms.html">Editor Forms Implementation Note</a>.</note>
+      
+      <p>We want to add a text field
+      for editing a URL. So we will use the most appropriate helper method,
+      which, at the time of writing is 
+      <code>protected static Text addText(String labeltxt, Composite parent)</code>.
+      Select the best place to add your field in the form and insert the
+      following into the <code>createPartControl</code> method.</p>
+            
+      <source>
+        mailingListURL = ViewPartHelper.addText("Mailing List URL:", top);
+      </source>
+      
+      <p>The <code>mailingListURL</code> variable is a class level variable
+      for manipulating the form data elsewhere in the class. The <code>top</code>
+      variable is created earlier in this method and represents the container
+      that will hold the form.</p>
+    </section>
+    
+    <section id="addJavabeanField">
+      <title>Add Field to Java Class</title>
+      <p>In your data class you will need to add a field to store the new data,
+      for example:</p>
+      
+      <source><![CDATA[      
+      private URL mailingListURL;
+      
+      public URL getMailingListURL() {
+          return mailingListURL;
+      }
+      
+      public void setMailingListURL(URL mailingListURL) {
+          this.mailingListURL = mailingListURL;
+      }
+      ]]></source>
+    </section>
+    
+    <section id="bindHTMLFormField">
+      <title>Bind the HTML form field to the data object</title>
+      
+      <warning>At the time of writing (April 2007) Eclipse RAP had not implemented
+      the Databinding code, however, it is due within a month. Therefore,
+      rather than writing code that will be replaced shortly we are
+      postponing this stage. For now see the save() and populate() methods
+      in the GUI control class.</warning>
+    </section>
+    
+    <section id="test">
+      <title>Test</title>
+      <fixme author="RDG">write this step</fixme> 
+    </section>
+    
+  </steps>
+
+  <extension title="Presenting the field as read only data">
+    <fixme author="rdg">Describe how to display the data element in a read
+    only page as opposed to a form.</fixme>
+  </extension>
+
+<!-- 
+  <faqs id="faqs">
+    <title>Frequently Asked Questions</title>
+    <faqsection id="faq-general">
+      <title>General issues</title>
+      <faq id="faq-difference">
+        <question>What is the difference between a How-To and a
+        tutorial?</question>
+
+        <answer>
+          <p>The goal of a How-To is to help the reader to accomplish a specific
+          task with clear and consise instructions. While tutorials may contain
+          How-To-like instructions and content, they also include additional
+          background and conceptual content to help teach their readers higher
+          order concepts along the way. How-Tos are concerned about filling an
+          immediate, short-term need. Tutorials often provide long-term
+          knowledge which can be applied across a range of needs.</p>
+        </answer>
+      </faq>
+    </faqsection>
+
+    <faqsection id="faq-style">
+      <title>Style issues</title>
+      <faq id="spelling">
+        <question>What spelling convention should I follow?</question>
+
+        <answer>
+          <p>Use whatever spelling convention (American, British, etc.) that is
+          most intuitive to you.</p>
+        </answer>
+      </faq>
+    </faqsection>
+  </faqs>
+
+  <tips title="Tips">
+    <section id="tip-dtd">
+      <title>How-To dtd</title>
+
+      <p>The document structure is likely to change at some time. Please note that
+      this HOWTO page is likely to change as well.</p>
+    </section>
+  </tips>
+ 
+  <references title="References">
+    <p>This is not the first, nor will it be the last, How-To on writing
+    How-Tos. For other ideas and opinions on the matter, check out the
+    following sources.</p>
+
+    <ul>
+      <li>Joel D. Canfield's <a
+      href="http://www.evolt.org/article/How_To_Write_A_How_To/9741/18250/index.html">How
+      to Write a How-To</a> on evolt.org.</li>
+
+      <li>The Linux Documentation Project's <a
+      href="http://www.tldp.org/HOWTO/HOWTO-INDEX/index.html">HOWTO</a>
+      index page provides many excellent How-To documents to inspire your
+      efforts.</li>
+    </ul>
+  </references>
+-->
+</howto>

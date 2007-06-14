@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document> 
+  <header> 
+    <title>Creating this Database</title> 
+  </header> 
+  <body> 
+    <p>This document outlines how this project database was
+    created.</p>
+
+    <section id="setup">
+      <title>Setup</title>
+      <p class="instruction">Install Apache Forrest</p>
+      <p class="instruction">Create a project folder</p>
+      <p class="instruction">Seed the project folder</p>
+      <p class="instruction">Edit index.xml</p>
+      <p class="instruction">Add
+      org.apache.forrest.plugin.input.projectInfo to
+      forrest.properties</p>
+      <p class="instruction">Run Apache Forrest</p>
+      <p class="instruction">Check everything is running OK -
+      <a href="http://localhost:8888">http://localhost:8888</a></p>
+    </section>
+    <section id="localDOAPFiles">
+      <title>Local DOAP Files</title>
+      <p>Since we intend to store some of our DOAP files locally we
+      will need to configure Forrest to find them.</p>
+      <p class="instruction">Create a project DOAP directory. For
+      example <code>mkdir rdf</code></p>
+      <p class="instruction">Add a DOAP file to this directory. For
+      example <code>foo.xml</code></p>
+      <p class="instruction">Add an entry to the locationmap.xml so
+      that Forrest can find this DOAP file. For example: <code>
+      <![CDATA[
+    <match pattern="project.descriptor.*">
+      <location src="{properties:content}/xdocs/rdf/{1}.xml"/>
+    </match>  
+      ]]></code></p>
+      <p class="instruction">Restart Forrest (required as we edited
+      the locationmap)</p>
+      <p class="instruction">Check everything is running OK -
+      <a href="http://localhost:8888/projectDetails/projectDetails.foo.html">http://localhost:8888/projectDetails/projectDetails.foo.html</a></p>
+    </section>
+    
+    <section>
+      <title>Remote DOAP files</title>
+      <p>DOAP files may be retrieved from remote locations.</p>
+      <p class="instruction">Add an entry to the locationmap for the
+      project in question. For example: <code>
+      <![CDATA[
+    <match pattern="project.descriptor.forrest">
+      <location src="http://svn.apache.org/repos/asf/forrest/trunk/site-author/content/doap.xml"/>
+    </match>
+       ]]></code>
+      </p>
+      <p class="instruction">Restart Forrest (required as we edited
+      the locationmap)</p>
+      <p class="instruction">Check everything is running OK -
+      <a
+      href="http://localhost:8888/projectDetails/projectDetails.forrest.html">http://localhost:8888/projectDetails/projectDetails.forrest.html</a></p>
+      
+    </section>
+
+    <section>
+      <title>Project Indexes</title>
+    </section>
+  </body>
+</document>

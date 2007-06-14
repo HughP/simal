@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project default="run" basedir="." name="simal">
+
+    <property environment="env" />
+
+    <property name="simal.home"   location="${env.SIMAL_HOME}"/>
+    <property name="simal.seeds"  location="${simal.home}/src/seeds"/>
+    <property name="simal.tools.dir" location="${simal.home}/tools"/>
+    <property name="simal.build.dir" location="${simal.home}/build"/>
+    <property name="simal.forrest.build.dir" location="${simal.build.dir}/forrest"/>
+
+    <property name="forrest.home"   location="${simal.forrest.build.dir}"/>
+    
+    <import file="${simal.forrest.build.dir}/main/forrest.build.xml" />
+
+    <target name="seed-basic" depends="ensure-nocontent" 
+      description="* Seeds a basic example (1 file) and structure">
+        <copy todir="${project.home}" overwrite="false">
+            <fileset dir="${simal.seeds}/basic" />
+        </copy>
+        <loadfile property="template-project-created-message" srcFile="${simal.forrest.build.dir}/main/var/template-project-created-message-basic.txt">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </loadfile>
+        <echo>${template-project-created-message}</echo>
+    </target>
+
+    <target name="seed-theme" depends="init-props"
+      description="* Adds the Simal theme to the current project">
+        <copy todir="${project.home}" overwrite="true">
+            <fileset dir="${simal.seeds}/theme" />
+        </copy>
+        <echo>Updated theme in this catalogue</echo>
+    </target>
+
+    <target name="seed-event" depends="seed-basic, seed-theme" 
+      description="* Seeds an example intended to capture details of an event with  multiple projects">
+        <copy todir="${project.home}" overwrite="true">
+            <fileset dir="${simal.seeds}/event" />
+        </copy>
+        <loadfile property="template-project-created-message" srcFile="${simal.forrest.build.dir}/main/var/template-project-created-message-basic.txt">
+            <filterchain>
+                <expandproperties />
+            </filterchain>
+        </loadfile>
+        <echo>${template-project-created-message}</echo>
+    </target>
+
+    <target name="ensure-nocontent" depends="check-contentdir" if="project.content.present" unless="skip.contentcheck">
+        <fail>
+  ------------------------------------------------
+  This project already has content in ${content-dir}.
+
+  Run with '-Dskip.contentcheck=yes' to ignore existing content.
+  ------------------------------------------------
+      </fail>
+    </target>
+
+</project>
