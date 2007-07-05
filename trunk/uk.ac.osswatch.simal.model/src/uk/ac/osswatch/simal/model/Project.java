@@ -46,7 +46,7 @@ public class Project implements Serializable {
     @Column(updatable = false)
     private long id;
 
-    private String shortName;
+    private String shortName = "undefined";
 
     private String name;
 
