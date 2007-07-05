@@ -1,19 +1,5 @@
--- Copyright 2007 University of Oxford
---
--- Licensed under the Apache License, Version 2.0 (the "License");
--- you may not use this file except in compliance with the License.
--- You may obtain a copy of the License at
---
---     http://www.apache.org/licenses/LICENSE-2.0
---
--- Unless required by applicable law or agreed to in writing, software
--- distributed under the License is distributed on an "AS IS" BASIS,
--- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
--- See the License for the specific language governing permissions and
--- limitations under the License.
-
 CREATE TABLE Project (
-		id BIGINT NOT NULL generated always as identity,
+		id BIGINT NOT NULL,
 		shortName VARCHAR(255) NOT NULL,
 		name VARCHAR(255) NOT NULL,
 		shortDesc VARCHAR(255) NOT NULL,
@@ -23,8 +9,53 @@ CREATE TABLE Project (
 		mailingListURL VARCHAR(255) NOT NULL,
 		wikiURL VARCHAR(255) NOT NULL,
 		downloadURL VARCHAR(255) NOT NULL,
-		issueTrackerURL VARCHAR(255) NOT NULL
+		issueTrackerURL VARCHAR(255) NOT NULL,
+		doapURL VARCHAR(255) NOT NULL
+	);
+
+CREATE TABLE Contributor (
+		id BIGINT NOT NULL,
+		name VARCHAR(255) NOT NULL,
+		email VARCHAR(255) NOT NULL,
+		url VARCHAR(255) NOT NULL,
+		created DATE NOT NULL
+	);
+
+CREATE TABLE Event (
+		id BIGINT NOT NULL,
+		name VARCHAR(255) NOT NULL,
+		shortDesc VARCHAR(255) NOT NULL,
+		created DATE NOT NULL,
+		startDate DATE NOT NULL,
+		endDate DATE NOT NULL
+	);
+
+CREATE TABLE Event_Project (
+		contributors_id BIGINT,
+		projects_id BIGINT
+	);
+
+CREATE TABLE Project_Language (
+		Project_id BIGINT,
+		languages_id BIGINT
+	);
+
+CREATE TABLE Contributor_Project (
+		contributors_id BIGINT,
+		projects_id BIGINT
+	);
+
+CREATE TABLE Language (
+		id BIGINT NOT NULL,
+		name VARCHAR(255) NOT NULL,
+		created DATE NOT NULL
 	);
 
 ALTER TABLE Project ADD CONSTRAINT Project_PK PRIMARY KEY (id);
+
+ALTER TABLE Contributor ADD CONSTRAINT Contributor_PK PRIMARY KEY (id);
+
+ALTER TABLE Event ADD CONSTRAINT Event_PK PRIMARY KEY (id);
+
+ALTER TABLE Language ADD CONSTRAINT Language_PK PRIMARY KEY (id);
 
