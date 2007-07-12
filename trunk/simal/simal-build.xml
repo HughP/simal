@@ -41,7 +41,7 @@
         <echo>${template-project-created-message}</echo>
     </target>
 
-    <target name="seed-event" depends="seed-basic, seed-theme" 
+    <target name="seed-event" depends="seed-basic" 
       description="* Seeds an example intended to capture details of an event with  multiple projects">
         <copy todir="${project.home}" overwrite="true">
             <fileset dir="${simal.seeds}/event" />
