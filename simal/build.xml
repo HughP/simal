@@ -62,6 +62,13 @@
           <include name="org.apache.forrest.themes.core/**"/>
         </fileset>
       </copy>
+        
+      <echo>Copy Simal theme</echo>
+      <copy todir="${simal.forrest.build.dir}/whiteboard/plugins">
+        <fileset dir="../uk.ac.osswatch.forrest.plugins" >
+          <include name="uk.ac.osswatch.forrest.themes/**"/>
+        </fileset>
+      </copy>
     
       <echo>Copy forrest.jar</echo>
       <copy todir="${simal.forrest.build.dir}">
