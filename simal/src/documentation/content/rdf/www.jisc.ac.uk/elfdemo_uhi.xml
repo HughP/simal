@@ -13,8 +13,8 @@
 
 
   <!--  the blog / homepage as three different forms of rss --> 
-    <foaf:seeAlso  rdf:resource="http://www.weblogs.uhi.ac.uk/bewt/?feed=rss2" dc:format="application/rss+xml" />
-    <foaf:seeAlso  rdf:resource="http://www.weblogs.uhi.ac.uk/bewt/?feed=atom" dc:format="application/atom+xml" />
+    <foaf:seeAlso  rdf:resource="http://www.weblogs.uhi.ac.uk/bewt/?feed=rss2" dc:format="application/rss+xml" dc:title="Blog (RSS)"/>
+    <foaf:seeAlso  rdf:resource="http://www.weblogs.uhi.ac.uk/bewt/?feed=atom" dc:format="application/atom+xml" dc:title="Blog (ATOM)"/>
     <foaf:seeAlso
 	rdf:resource="http://www.weblogs.uhi.ac.uk/bewt/?feed=rdf"
 	dc:format="application/rdf+xml" />
