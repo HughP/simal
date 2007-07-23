@@ -35,7 +35,9 @@
        <location src="{properties:forrest.plugins}/uk.ac.osswatch.forrest.themes" />
    </match>
  
- 
+    <match pattern="doap.categoryDefinitions">
+      <location src="{properties:content}rdf/categoryDefinitions.xml" />
+    </match>
 <!-- these were generated with:
 
  for file in *.xml ; do echo " <match pattern=\"doap.descriptor.jisc/"${file%.*}"\"><location src=\"{properties:content}rdf/www.jisc.ac.uk/"$file"\"/></match>" ; done 
