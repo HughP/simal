@@ -21,7 +21,7 @@
         <authors>
             <author name="OSS Watch" email="info@oss-watch.ac.uk" />
         </authors>
-        <url>http://simal.osswatch.ac.uk</url>
+        <url>http://simal.oss-watch.ac.uk</url>
         <javaversion>1.5</javaversion>
     </info>
     <guiprefs height="600" resizable="yes" width="800">
