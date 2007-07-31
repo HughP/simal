@@ -29,5 +29,13 @@
   <doap:category rdf:resource="http://projects.apache.org/category/web-framework" dc:title="Web Framework"/>
   
   <!-- JISC Categories -->
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" dc:title="ELearning Frameworks and Tools"/>        
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" dc:title="ELearning Frameworks and Tools"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx" dc:title="Digital Repositories Programme 2005-7"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx" dc:title="E-Learning Capital Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx" dc:title="Focus on Access to Institutional Resources (FAIR) Programme"/>        
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx" dc:title="Repositories and Preservation Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_shared_services.aspx" dc:title="Shared Infrastructure Services Strand"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx" dc:title="Virtual Research Environments Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx" dc:title="E-Research"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" dc:title="Information Environment"/>
 </categories>
