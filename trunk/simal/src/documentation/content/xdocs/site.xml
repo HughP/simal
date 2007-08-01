@@ -51,13 +51,17 @@ See http://forrest.apache.org/docs/linking.html for more info
     <credits label="Credits" href="credits.html" description="Simal would not exist without these people..."/>
   </about>
   
-  <projects label="Catalogue" href="projectDetails/" tab="catalogue">
+  <projects label="Catalogue" href="projectDetails/" tab="catalogue">    
+      <exhibit label="Browser" href="../catalogueBrowser.html"
+        description="Browse all projects"/>
       <languages label="Index by Language" href="index/byLang.html"
         description="A list of all projects, indexed by language"/>
       <languages label="Java Index" href="index/byLang/Java.html"
         description="A list of Jave projects"/>
       <languages label="Index by Category" href="index/byCategory.html"
         description="A list of all projects, indexed by language"/>
+      <JSON label="JSON" href="allProjects.json"
+        description="All projects as a JSON file"/>
   </projects>
   
   <users label="In Use" href="user/" tab="user">

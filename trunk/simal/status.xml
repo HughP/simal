@@ -41,24 +41,8 @@
 
   <changes>
 
-    <release version="0.1" date="unreleased">
-      <notes>
-        <section>
-          <title>What is Simal?</title>
-
-          <p>Simal is a framework for building systems for use by organisations that need to inform
-            the communities around a group of related projects. The project is very young at this
-            time, as such we welcome input into the requirements and design of the initial prototype
-            system.</p>
-        </section>
-      </notes>
-
+    <release version="0.2" date="unreleased">
       <!--  
-      <action dev="DEV-ID" type="fix" context="code" importance="high|medium|low"
-       fixes-bug="FOR-564" due-to="Contributor (if diff from dev">
-        Description
-      </action>
-      
       This action is in progress:
       
       <action context="rest" dev="RDG" type="add" importance="medium">
@@ -72,6 +56,47 @@
         of the project.
       </action>
       -->
+      <notes>
+        <section>
+          <title>What is Simal?</title>
+
+          <p>Simal is a framework for building systems for use by organisations that need to inform
+            the communities around a group of related projects. The project is very young at this
+            time, as such we welcome input into the requirements and design of the initial prototype
+            system.</p>
+        </section>
+      </notes>
+
+      <action context="catalogue" dev="RDG" type="add" importance="high">
+        Added mapping from category URIs to real names. See 
+        <code>src/documentation/content/rdf/categoryDefinitions.xml</code>.
+        This document is used to present the category information in a more 
+        meaningful way within the catalogue.
+      </action>
+            
+      <action context="catalogue" dev="RDG" type="add" importance="high">
+        Added an <link href="/catalogueBrowser.html">AJAX browser</link> to the cataglogue using the Exhibit browser from
+        the MIT Simile project.
+      </action>
+      
+      <action context="rest" dev="RDG" type="add" importance="medium">
+        Added a <link href="/projectDetails/allProjects.json">JSON</link> file containing
+        all projects.
+      </action>
+    </release>
+
+    <release version="0.1" date="unreleased">
+      <notes>
+        <section>
+          <title>What is Simal?</title>
+
+          <p>Simal is a framework for building systems for use by organisations that need to inform
+            the communities around a group of related projects. The project is very young at this
+            time, as such we welcome input into the requirements and design of the initial prototype
+            system.</p>
+        </section>
+      </notes>
+
       <action context="admin" dev="RDG" type="update" importance="low">
         Extracted Simal theme into a standalone plugin (uk.ac.osswatch.forrest.themes).
       </action>
