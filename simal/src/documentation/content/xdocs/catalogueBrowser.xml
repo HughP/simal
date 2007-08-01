@@ -20,20 +20,26 @@
     </header>
     <body>
         <table>
-            <tr>              
+            <tr> 
                 <td>
-                    <div id="exhibit-browse-panel" ex:facets=".Category"></div>
+                    <div id="exhibit-browse-panel" ex:facets=".category, .person"></div>
                 </td>
-            </tr>
-            <tr>
                 <td>
                     <div id="exhibit-control-panel">
-                        <p>Loading Exhibit Browser...</p>
                     </div>
                     <div id="exhibit-view-panel">
+                       <p>Loading Exhibit Browser...</p>
                        <p>Note, you must be connected to the Internet for this to work.</p>
+                           <div ex:role="exhibit-view"
+                               ex:viewClass="Exhibit.TabularView"
+                               ex:columns=".name, .homepage, .category"
+                               ex:columnLabels="Name, Home Page, Categories"
+                               ex:columnFormats="text, url, list"
+                               ex:sortColumn="0"
+                               ex:sortAscending="true">
+                           </div>
                     </div>
-                </td>
+                </td>       
             </tr>
         </table>
     </body>
