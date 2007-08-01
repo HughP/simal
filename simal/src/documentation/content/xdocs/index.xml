@@ -20,7 +20,29 @@
     <title>Simal - A Project Support Framework</title> 
   </header> 
   <body> 
-    <p>Simal is an open source framework for building systems for use by those
+  
+    <p>Simal is a tool for building and tracking projects and the people involved in
+      those projects. Simal is very young at this time. As
+      such, <a href="http://code.google.com/p/simal">we welcome input</a>
+      into the requirements and design of the initial prototype system.</p>
+    
+    <section>
+      <title>Quick Start</title>
+      
+      <p>This site provides a small project catalogue as an example of Simal can do.
+      The catalogue is generated from RDF documents maintained and hosted by
+      the projects themselves or, where no such document exists, by the Simal project.
+      View the catalogue by clicking on the catalogue link above, or by using our
+      <a href="catalogueBrowser.html">AJAX powered browser</a>.</p>
+      
+      <p>Want to get at the code? The impatient may like our 
+      <a href="quickstart.html">quick start</a> documentation.</p>
+    </section>
+    
+    <section>
+      <title>Introduction</title>
+      
+      <p>Simal is an open source framework for building systems for use by those
     who need to inform a community about the activities of multiple projects
     that may be hosted in multiple locations. Each project maintains an entry 
     within the Simal project catalogue by means of an RDF/XML file. This entry 
@@ -44,12 +66,7 @@
       <p>The project is very young at this time. As
       such, we welcome input into the requirements and design of the
       initial prototype system.</p>
-    
-    <section>
-      <title>Quick Start</title>
-      <p>The impatient may like our <a href="quickstart.html">quick start</a> 
-        documentation.</p>
-    </section>
+  </section>
     
     <section>
       <title>Overview</title>
