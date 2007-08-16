@@ -24,33 +24,66 @@
     This document describes how to do this by following through a single example.</p>
     
     <section>
-      <title>A workshop attendee list</title>
-      <p>We are going to build a catalogue that will assist in the organising and support
-      of a workshop that will involve a subset of projects in the central Simal 
-      catalogue. This catalogue will go through a number of iterations as the workshop
-      goes through the planning stages and on into the implementation stages. In summary
-      it will follow the following life cycle:</p>
+      <title>A Catalogue of Social Network Tools</title>
       
-      <ul>
-        <li>Planning: list of potential attendees</li>
-        <li>Confirmations: list of projects will be reduced as confirmation of 
-        attendance is recived</li>
-        <li>Attendee list: the final list of attending proejcts</li>
-      </ul>
+      <p>We are going to build a catalogue that contains tools that are of interest
+      to those working in the Social Networking domain.</p>
+    </section>
+    <section id="setup">
+      <title>Setup</title>
+      <p class="instruction">Install Apache Forrest</p>
+      <p class="instruction">Create a project folder</p>
+      <p class="instruction">Seed the project folder</p>
+      <p class="instruction">Edit index.xml</p>
+      <p class="instruction">Add
+      org.apache.forrest.plugin.input.projectInfo to
+      forrest.properties</p>
+      <p class="instruction">Run Apache Forrest</p>
+      <p class="instruction">Check everything is running OK -
+      <a href="http://localhost:8888">http://localhost:8888</a></p>
+    </section>
+    <section id="localDOAPFiles">
+      <title>Local DOAP Files</title>
+      <p>Since we intend to store some of our DOAP files locally we
+      will need to configure Forrest to find them.</p>
+      <p class="instruction">Create a project DOAP directory. For
+      example <code>mkdir rdf</code></p>
+      <p class="instruction">Add a DOAP file to this directory. For
+      example <code>foo.xml</code></p>
+      <p class="instruction">Add an entry to the locationmap.xml so
+      that Forrest can find this DOAP file. For example: <code>
+      <![CDATA[
+    <match pattern="project.descriptor.*">
+      <location src="{properties:content}/xdocs/rdf/{1}.xml"/>
+    </match>  
+      ]]></code></p>
+      <p class="instruction">Restart Forrest (required as we edited
+      the locationmap)</p>
+      <p class="instruction">Check everything is running OK -
+      <a href="http://localhost:8888/projectDetails/projectDetails.foo.html">http://localhost:8888/projectDetails/projectDetails.foo.html</a></p>
     </section>
     
     <section>
-      <title>Planning</title>
+      <title>Remote DOAP files</title>
+      <p>DOAP files may be retrieved from remote locations.</p>
+      <p class="instruction">Add an entry to the locationmap for the
+      project in question. For example: <code>
+      <![CDATA[
+    <match pattern="project.descriptor.forrest">
+      <location src="http://svn.apache.org/repos/asf/forrest/trunk/site-author/content/doap.xml"/>
+    </match>
+       ]]></code>
+      </p>
+      <p class="instruction">Restart Forrest (required as we edited
+      the locationmap)</p>
+      <p class="instruction">Check everything is running OK -
+      <a
+      href="http://localhost:8888/projectDetails/projectDetails.forrest.html">http://localhost:8888/projectDetails/projectDetails.forrest.html</a></p>
       
-      <p>In this first iteration we need to create a list of all projects that we
-      intend to invite to the workshop. The first thing to do is create your Forrest
-      content object for planning the workshop. From the command line run the following:</p>
-      
-      <source>
-mkdir [PROJECT_HOME]
-cd [PROJECT_HOME]
-forrest seed-catalogue
-      </source>
+    </section>
+
+    <section>
+      <title>Project Indexes</title>
     </section>
   </body>
 </document>

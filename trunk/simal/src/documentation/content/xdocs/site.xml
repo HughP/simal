@@ -64,14 +64,10 @@ See http://forrest.apache.org/docs/linking.html for more info
         description="All projects as a JSON file"/>
   </projects>
   
-  <users label="In Use" href="user/" tab="user">
+  <users label="Using Simal" href="user/" tab="user">
     <index label="About" href="index.html"/>
     <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>
-  
-
-    <docs label="Docs" href="doap/">
-      <createCatalogue label="Create Catalogue" href="createCatalogue.html"/>
-    </docs>
+    <createCatalogue label="Create A Catalogue" href="createCatalogue.html"/>
   </users>
     
   <useCases label="Use Cases" href="docs/" tab="user">
