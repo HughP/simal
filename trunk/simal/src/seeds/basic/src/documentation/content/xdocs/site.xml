@@ -20,10 +20,6 @@
   </about>
   
   <projects label="Catalogue" href="projectDetails/" tab="home">
-      <languages label="Index by Language" href="index/byLang.html"
-        description="A list of all projects, indexed by language"/>
-      <languages label="Java Index" href="index/byLang/Java.html"
-        description="A list of Jave projects"/>
       <languages label="Index by Category" href="index/byCategory.html"
         description="A list of all projects, indexed by language"/>
   </projects>

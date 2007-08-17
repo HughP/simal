@@ -15,11 +15,14 @@
   limitations under the License.
 -->
 <properties>
-<!--
+  <!--
     # codename: Dispatcher
     # Dispatcher is using a fallback mechanism for theming.
     # You can configure the theme name and its extension here
     -->
-  <property name="dispatcher.theme" value="pelt"/>
+  <property name="dispatcher.theme" value="simal"/>
   <property name="dispatcher.theme-ext" value=".fv"/>
+  
+  <!--  TEXT Output Plugin  -->
+  <property name="text.page.width" value="66"/>
 </properties>
