@@ -112,6 +112,10 @@ See http://forrest.apache.org/docs/linking.html for more info
     <forrest href="http://forrest.apache.org/">
       <linking href="docs/linking.html"/>
     </forrest>
+    <simal href="http://simal.oss-watch.ac.uk">
+      <devList href="http://groups.google.com/group/simal-contributors"/>
+      <userList href="http://groups.google.com/group/simal-contributors"/>
+    </simal>
   </external-refs>
 
 </site>
