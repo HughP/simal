@@ -22,7 +22,7 @@
         <table>
             <tr> 
                 <td>
-                    <div id="exhibit-browse-panel" ex:facets=".category, .person"></div>
+                    <div id="exhibit-browse-panel" ex:facets=".category, .person, .programming-language"></div>
                 </td>
                 <td>
                     <div id="exhibit-control-panel">
