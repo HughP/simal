@@ -31,59 +31,91 @@
     </section>
     <section id="setup">
       <title>Setup</title>
-      <p class="instruction">Install Apache Forrest</p>
-      <p class="instruction">Create a project folder</p>
-      <p class="instruction">Seed the project folder</p>
-      <p class="instruction">Edit index.xml</p>
-      <p class="instruction">Add
-      org.apache.forrest.plugin.input.projectInfo to
-      forrest.properties</p>
-      <p class="instruction">Run Apache Forrest</p>
+      <p class="instruction"><a href="/quickstart.html">Install Simal</a></p>
+      <p class="instruction">Create a project folder <source>mkdir catalogue</source></p>
+      <p class="instruction">Seed the project folder 
+        <source>cd catalogue
+simal seed-catalogue</source></p>
+      <p class="instruction">Edit <code>src/documentation/content/xdocs/index.xml</code></p>
+      <p class="instruction">Run Simal <source>simal run</source></p>
       <p class="instruction">Check everything is running OK -
       <a href="http://localhost:8888">http://localhost:8888</a></p>
-    </section>
-    <section id="localDOAPFiles">
-      <title>Local DOAP Files</title>
-      <p>Since we intend to store some of our DOAP files locally we
-      will need to configure Forrest to find them.</p>
-      <p class="instruction">Create a project DOAP directory. For
-      example <code>mkdir rdf</code></p>
-      <p class="instruction">Add a DOAP file to this directory. For
-      example <code>foo.xml</code></p>
-      <p class="instruction">Add an entry to the locationmap.xml so
-      that Forrest can find this DOAP file. For example: <code>
-      <![CDATA[
-    <match pattern="project.descriptor.*">
-      <location src="{properties:content}/xdocs/rdf/{1}.xml"/>
-    </match>  
-      ]]></code></p>
-      <p class="instruction">Restart Forrest (required as we edited
-      the locationmap)</p>
-      <p class="instruction">Check everything is running OK -
-      <a href="http://localhost:8888/projectDetails/projectDetails.foo.html">http://localhost:8888/projectDetails/projectDetails.foo.html</a></p>
+      <p>At this point you have a very basic catalogue that contains a single project descriptor.</p>
     </section>
     
     <section>
-      <title>Remote DOAP files</title>
-      <p>DOAP files may be retrieved from remote locations.</p>
-      <p class="instruction">Add an entry to the locationmap for the
-      project in question. For example: <code>
-      <![CDATA[
-    <match pattern="project.descriptor.forrest">
-      <location src="http://svn.apache.org/repos/asf/forrest/trunk/site-author/content/doap.xml"/>
-    </match>
-       ]]></code>
-      </p>
-      <p class="instruction">Restart Forrest (required as we edited
-      the locationmap)</p>
-      <p class="instruction">Check everything is running OK -
-      <a
-      href="http://localhost:8888/projectDetails/projectDetails.forrest.html">http://localhost:8888/projectDetails/projectDetails.forrest.html</a></p>
+      <title>Add Projects</title>
       
+        <p>Now it is time to add your porojects to the catalogue. These are added by
+        creating editing a <code>locationmap</code> file that describes the location
+        of project descriptors. These descriptors can either be stored as a part of
+        your local catalogue or they can be stored on some remotely accesible server.</p>
+      
+        <section id="localDescriptors">
+          <title>Local project descriptors</title>
+          <p>by default your local descriptor files are located in 
+          <code>src/documentation/content/rdf</code>. To add a new project:</p>
+          
+          <p class="instruction">Add a DOAP file to this directory. For
+          example <code>sample.xml</code></p>
+          
+          <p class="instruction">Add an entry to the locationmap.xml so
+          that Simal can find this DOAP file. For example: 
+          <source>
+          <![CDATA[
+<match pattern="project.descriptor.foo">
+  <location src="{properties:content}rdf/foo.xml"/>
+</match>  
+          ]]></source></p>
+          
+          <p class="instruction">Restart Simal (only required if you have
+          not turned off the locationmap cache)</p>
+          
+          <p class="instruction">Check everything is running OK -
+          <a href="http://localhost:8888/projectDetails/sample.html">http://localhost:8888/projectDetails/sample.html</a></p>
+        </section>
+        
+        <section>
+          <title>Remote descriptor files</title>
+          
+          <p>To add a project that maintains its own descriptor file:</p>
+          
+          <p class="instruction">Add an entry to the locationmap for the
+          project in question. For example: 
+          <source>
+          <![CDATA[
+<match pattern="project.descriptor.simal">
+  <location src="http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/simal.xml"/>
+</match>
+           ]]></source>
+          </p>
+          
+          <p class="instruction">Restart Simal (only required if you have
+          not turned off the locationmap cache)</p>
+          
+          <p class="instruction">Check everything is running OK -
+          <a
+          href="http://localhost:8888/projectDetails/simal.html">http://localhost:8888/projectDetails/simal.html</a></p>
+          
+        </section>
+    </section>
+    
+    <section>
+      <title>Project Indexes</title>
+      <fixme author="rdg">Document creation of project indexes. If you need help before this
+      is documented ask for help on the <a href="ext:simal/userList">mailing list</a>.</fixme>
     </section>
 
     <section>
-      <title>Project Indexes</title>
+      <title>Exhibit Browser</title>
+      <fixme author="rdg">Document use of the Exhibit Browser. If you need help before this
+      is documented ask for help on the <a href="ext:simal/userList">mailing list</a>.</fixme>
+    </section>
+    
+    <section>
+      <title>Categories</title>
+      <fixme author="rdg">Document location of categories definitions. If you need help before this
+      is documented ask for help on the <a href="ext:simal/userList">mailing list</a>.</fixme>
     </section>
   </body>
 </document>
