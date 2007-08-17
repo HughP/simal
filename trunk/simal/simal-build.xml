@@ -28,8 +28,8 @@
     
     <import file="${simal.forrest.build.dir}/main/forrest.build.xml" />
 
-    <target name="seed-basic" depends="ensure-nocontent" 
-      description="* Seeds a basic example (1 file) and structure">
+    <target name="seed-catalogue" depends="ensure-nocontent" 
+      description="* Seeds a basic Simal catalogue">
         <copy todir="${project.home}" overwrite="false">
             <fileset dir="${simal.seeds}/basic" />
         </copy>
