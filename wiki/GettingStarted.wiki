@@ -11,7 +11,7 @@ You can get started from the latest binary release or the development source cod
 
 == Get the Binary Download ==
 
-Get the latest binary download from the [http://code.google.com/p/simaldownloads/list project downloads page].
+Get the latest binary download from the [http://code.google.com/p/simaldown/loads/list project downloads page].
 
 The download is an executable jar, on most operating systems you can simply double click on the downloaded file. If this does not work then run the command (replacing x.y.z) with the relevant version number for your download:
 
