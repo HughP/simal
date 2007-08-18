@@ -19,6 +19,13 @@
   xmlns:doap="http://usefulinc.com/ns/doap#"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  
+  <!-- Simal Categories -->
+  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialNews" dc:title="Social News"/>
+  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialNetworking" dc:title="Social Networking"/>
+  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialBookmarking" dc:title="Social Bookmarking"/>
+  
+  <!-- Apache Categories -->
   <doap:category rdf:resource="http://projects.apache.org/category/build-management" dc:title="Build Management"/>
   <doap:category rdf:resource="http://projects.apache.org/category/xml" dc:title="XML"/>
   <doap:category rdf:resource="http://projects.apache.org/category/database" dc:title="Database"/>
