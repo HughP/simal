@@ -12,6 +12,19 @@ simal run
 http://localhost:8089
 }}}
 
+=== What could go wrong ===
+{{{
+simal: 83: <...>/build/forrest/tools/ant/bin/ant: Permission denied
+}}}
+
+The {{{ant}}} script is not marked as an executable file. Fix it with:
+
+{{{
+cd $SIMAL_HOME
+chmod a+x build/forrest/tools/ant/bin/ant
+}}}
+
+
 = What Happened? =
 
 You are now running the catalogue in dynamic mode. You can edit content files, which are stored in SIMAL_HOME/src/documentation/content/xdocs and then refresh your browser to see the changes immediately. 
