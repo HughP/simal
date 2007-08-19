@@ -32,12 +32,12 @@
     <section id="setup">
       <title>Setup</title>
       <p class="instruction"><a href="/quickstart.html">Install Simal</a></p>
-      <p class="instruction">Create a project folder <source>mkdir catalogue</source></p>
+      <p class="instruction">Create a project folder <code>mkdir catalogue</code></p>
       <p class="instruction">Seed the project folder 
-        <source>cd catalogue
-simal seed-catalogue</source></p>
+        <code>cd catalogue
+simal seed-catalogue</code></p>
       <p class="instruction">Edit <code>src/documentation/content/xdocs/index.xml</code></p>
-      <p class="instruction">Run Simal <source>simal run</source></p>
+      <p class="instruction">Run Simal <code>simal run</code></p>
       <p class="instruction">Check everything is running OK -
       <a href="http://localhost:8888">http://localhost:8888</a></p>
       <p>At this point you have a very basic catalogue that contains a single project descriptor.</p>
@@ -61,12 +61,12 @@ simal seed-catalogue</source></p>
           
           <p class="instruction">Add an entry to the locationmap.xml so
           that Simal can find this DOAP file. For example: 
-          <source>
+          <code>
           <![CDATA[
 <match pattern="project.descriptor.foo">
   <location src="{properties:content}rdf/foo.xml"/>
 </match>  
-          ]]></source></p>
+          ]]></code></p>
           
           <p class="instruction">Restart Simal (only required if you have
           not turned off the locationmap cache)</p>
@@ -82,12 +82,12 @@ simal seed-catalogue</source></p>
           
           <p class="instruction">Add an entry to the locationmap for the
           project in question. For example: 
-          <source>
+          <code>
           <![CDATA[
 <match pattern="project.descriptor.simal">
   <location src="http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/simal.xml"/>
 </match>
-           ]]></source>
+           ]]></code>
           </p>
           
           <p class="instruction">Restart Simal (only required if you have
