@@ -60,13 +60,13 @@ simal seed-catalogue</code></p>
           example <code>sample.xml</code></p>
           
           <p class="instruction">Add an entry to the locationmap.xml so
-          that Simal can find this DOAP file. For example: 
-          <code>
+          that Simal can find this DOAP file. For example:</p> 
+          <source>
           <![CDATA[
 <match pattern="project.descriptor.foo">
   <location src="{properties:content}rdf/foo.xml"/>
 </match>  
-          ]]></code></p>
+          ]]></source>
           
           <p class="instruction">Restart Simal (only required if you have
           not turned off the locationmap cache)</p>
@@ -81,14 +81,14 @@ simal seed-catalogue</code></p>
           <p>To add a project that maintains its own descriptor file:</p>
           
           <p class="instruction">Add an entry to the locationmap for the
-          project in question. For example: 
-          <code>
+          project in question. For example:</p>
+           
+          <source>
           <![CDATA[
 <match pattern="project.descriptor.simal">
   <location src="http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/simal.xml"/>
 </match>
-           ]]></code>
-          </p>
+           ]]></source>
           
           <p class="instruction">Restart Simal (only required if you have
           not turned off the locationmap cache)</p>
