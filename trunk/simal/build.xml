@@ -105,7 +105,7 @@
       <unzip src="${simal.tools.dir}/forrest-simal-snapshot.zip" dest="${simal.forrest.build.dir}"/>
       <chmod perm="a+x">
         <fileset dir="${simal.forrest.build.dir}/tools/ant/bin"/>
-        <fileset dir="${simal.forrest.build.dir}/main/build"/>
+        <fileset file="${simal.forrest.build.dir}/main/build.sh"/>
         <fileset dir="${simal.forrest.build.dir}/bin"/>
       </chmod>
     </target>
