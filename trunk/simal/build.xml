@@ -94,7 +94,7 @@
       </zip>
     </target>
     
-    <target name="clean" description="Install simal">
+    <target name="clean" description="celan simal install">
             <delete dir="${simal.forrest.build.dir}" />
             <mkdir dir="${simal.forrest.build.dir}" />
     </target>
@@ -103,6 +103,11 @@
       <delete dir="${simal.forrest.build.dir}" />
       <mkdir dir="${simal.forrest.build.dir}" />
       <unzip src="${simal.tools.dir}/forrest-simal-snapshot.zip" dest="${simal.forrest.build.dir}"/>
+      <chmod perm="a+x">
+        <fileset dir="${simal.forrest.build.dir}/tools/ant/bin"/>
+        <fileset dir="${simal.forrest.build.dir}/main/build"/>
+        <fileset dir="${simal.forrest.build.dir}/bin"/>
+      </chmod>
     </target>
 
 </project>
