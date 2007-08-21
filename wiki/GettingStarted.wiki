@@ -1,7 +1,7 @@
 #summary Basic getting started instructions
 #labels Featured,Phase-Support
 
-You can get started from the latest binary release or the development source code. Both are fairly easy to get going with, but the binary install has less pre-requisities (although for the source releases you don't need anything an average Java develop has already).
+You can get started from the latest binary release or the development source code. Both are fairly easy to get going with, but the binary install has less pre-requisities (although for the source releases you don't need anything an average Java developer has already).
 
 If you have any problems you could try looking at our [FAQ].
 
@@ -24,7 +24,7 @@ java -jar simal-x.y.z.jar
 This will run a cross platform installer, so just follow the instructions on screen.
 == Set up ==
 
-Create a SIMAL_HOME environment to point at the directory where you installed the Siaml software.
+Create a SIMAL_HOME environment to point at the directory where you installed the Simal software.
 
 Add $SIMAL_HOME/bin to your PATH environment variable
 
@@ -68,6 +68,5 @@ ant install
 == Running ==
 
 That's it you have installed Simal. Time to perform your FirstRun.
-
 
 
