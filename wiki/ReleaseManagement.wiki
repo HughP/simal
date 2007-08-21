@@ -5,14 +5,14 @@
 
 We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-dev" to "-rc1", "-rc2", "rc3" etc.
 
- * in {{{simalIntaller/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
+ * in {{{simalInstaller/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
  * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
 = Build the release candidate installer =
 
- * run {{{ant build}}} in the {{{simalIntaller}}} directory
+ * run {{{ant build}}} in the {{{simalInstaller}}} directory
 
-This will build the installer, which can be found in {{{simal-Intaller/dist/simal-x.y-POSTFIX.jar}}}
+This will build the installer, which can be found in {{{simal-Installer/dist/simal-x.y-POSTFIX.jar}}}
 
 = Tag SVN =
 
@@ -50,7 +50,7 @@ Assuming that the vote passes we can proceed. If it does not pass the reason(s) 
 
 We must now build a release package. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-rc*" to "-ga"
 
- * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
+ * in {{{simal-install/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
  * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
 
