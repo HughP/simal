@@ -52,6 +52,10 @@
       <location src="{properties:content}rdf/simal.xml"/>
     </match>
     
+    <match pattern="doap.descriptor.codegoo">
+      <location src="cocoon://doap/ohloh/7742.xml"/>
+    </match>
+    
     <match pattern="doap.descriptor.jisc/apis">
       <location src="{properties:content}rdf/www.jisc.ac.uk/apis.xml"/>
     </match>
