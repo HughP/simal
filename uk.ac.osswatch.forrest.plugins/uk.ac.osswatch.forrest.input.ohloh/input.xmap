@@ -19,18 +19,18 @@
   <map:pipelines>
     <map:pipeline>
 
-      <map:match pattern="stats/ohloh/*.source.xml">
+      <map:match pattern="project/ohloh/*.source.xml">
         <map:generate src="http://www.ohloh.net/projects/{1}.xml?api_key=c6dee1294dc2178c3b1bdcb7395bf2e17362ee1b&amp;v=1"/>
         <map:serialize type="xml"/>
       </map:match>
 
-      <map:match pattern="stats/ohloh/*.xml">
+      <map:match pattern="project/ohloh/*.xml">
         <map:generate src="cocoon:/stats/ohloh/{1}.source.xml"/>
         <map:serialize/>
       </map:match>
 
       <map:match pattern="doap/ohloh/*.xml">
-        <map:generate src="cocoon:/stats/ohloh/{1}.source.xml"/>
+        <map:generate src="cocoon:/project/ohloh/{1}.source.xml"/>
         <map:transform src="{lm:ohloh.transform.ohloh.doap}"/>
         <map:serialize type="xml"/>
       </map:match>
