@@ -20,7 +20,6 @@ Simal also provides a web application for the creation and management of RDF/XML
 
   <created>2007-03-02</created>
 
-  <homepage rdf:resource="http://simal.oss-watch.ac.uk/"/>
   <mailing-list rdf:resource="http://groups.google.com/group/simal-contributors" />
   <wiki rdf:resource="http://code.google.com/p/simal/w/list"/>
   <download-page rdf:resource="http://code.google.com/p/simal/downloads/list"/>
