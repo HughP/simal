@@ -67,6 +67,7 @@
       <copy todir="${simal.forrest.build.dir}/whiteboard/plugins">
         <fileset dir="../uk.ac.osswatch.forrest.plugins" >
           <include name="uk.ac.osswatch.forrest.themes/**"/>
+          <include name="uk.ac.osswatch.forrest.input.features/**"/>
         </fileset>
       </copy>
     
