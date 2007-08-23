@@ -44,5 +44,13 @@
       </doap:doanload-page>
     </xsl:template>
     
+    <xsl:template match="analysis">
+      <xsl:apply-templates/>
+    </xsl:template>
+    
+    <xsl:template match="main_language_name">
+      <doap:programming-language><xsl:value-of select="."/></doap:programming-language>
+    </xsl:template>
+    
     <xsl:template match="*"/>
 </xsl:stylesheet>
