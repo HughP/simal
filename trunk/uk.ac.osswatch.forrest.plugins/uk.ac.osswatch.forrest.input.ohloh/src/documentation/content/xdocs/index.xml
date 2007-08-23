@@ -46,10 +46,34 @@
         you require further help please ask on the user mailing list.
       </p>
       <ul>
-        <li><a href="project/ohloh/7712.source.xml">Raw OhLoh XML from Simal project</a></li>
-        <li><a href="doap/ohloh/7712.xml">DOAP generated from Simal project entry on OhLoh</a>
-          <note>This DOAP file may not be as complete as the any official DOAP file 
-          maintained by the project as it is limited by data held by OhLoh</note></li>
+        <li>Raw Ohloh data
+          <ul>
+            <li><a href="project/ohloh/7712.source.xml">Raw OhLoh XML from Simal project</a></li>
+            <li><a href="stats/ohloh/summary/7712.source.xml">Statistical summary</a> of the Simal project in XML</li>
+          </ul>
+        </li>
+        
+        <li>XDocs
+          <ul>
+            <li><a href="project/ohloh/7712.xml">Overview</a> of the Simal project in XDoc</li>
+            <li><a href="stats/ohloh/summary/7712.xml">Statistical summary</a> of the Simal project in XDoc</li>
+          </ul>        
+        </li>
+        
+        <li>HTML
+          <ul>
+            <li><a href="project/ohloh/7712.html">Overview</a> of the Simal project in HTML</li>
+            <li><a href="stats/ohloh/summary/7712.html">Statistical summary</a> of the Simal project in HTML</li>
+          </ul>        
+        </li>
+        
+        <li>RDF/XML data
+          <ul>
+            <li><a href="doap/ohloh/7712.xml">DOAP generated from Simal project entry on OhLoh</a>
+              <note>This DOAP file may not be as complete as the any official DOAP file 
+              maintained by the project as it is limited by data held by OhLoh</note></li>
+          </ul>
+        </li>
       </ul>
     </section>
   </body>
