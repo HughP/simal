@@ -51,6 +51,10 @@
           <td><a href="http://www.famfamfam.com/lab/icons/silk/">FamFamFam</a></td>
           <td>Icons used in Simal are provided by Mark James of FamFamFam.</td>
         </tr>
+        <tr>
+          <td><a href="http://www,ohloh.net">Ohloh</a></td>
+          <td>Simal catalogues can (and our demos do) include content from OhLoh.</td>
+        </tr>
     </table>
   </body>
 </document>
