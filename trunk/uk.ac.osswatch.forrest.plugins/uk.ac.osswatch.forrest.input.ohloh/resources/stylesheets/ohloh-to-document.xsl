@@ -40,6 +40,13 @@
         </table>
     </xsl:template>
 
+    <xsl:template match="account">
+        <table>
+            <caption>Account</caption>
+            <xsl:apply-templates />
+        </table>
+    </xsl:template>
+
     <xsl:template match="name">
         <tr>
             <th>Name</th>
@@ -67,6 +74,15 @@
         </tr>
     </xsl:template>
 
+    <xsl:template match="updated_at">
+        <tr>
+            <th>Updated</th>
+            <td>
+                <xsl:value-of select="." />
+            </td>
+        </tr>
+    </xsl:template>
+
     <xsl:template match="homepage_url">
         <tr>
             <th>Homepage</th>
@@ -77,6 +93,19 @@
                     </xsl:attribute>
                     <xsl:value-of select="." />
                 </a>
+            </td>
+        </tr>
+    </xsl:template>
+
+    <xsl:template match="avatar_url">
+        <tr>
+            <th>Avatar</th>
+            <td>
+                <img>
+                    <xsl:attribute name="src">
+                        <xsl:value-of select="." />
+                    </xsl:attribute>
+                </img>
             </td>
         </tr>
     </xsl:template>
@@ -140,6 +169,41 @@
     <xsl:template match="total_code_lines">
       <tr>
         <th>Total code lines</th>
+        <td><xsl:value-of select="."/></td>
+      </tr>
+    </xsl:template>
+    
+    <xsl:template match="posts_count">
+      <tr>
+        <th>Posts count</th>
+        <td><xsl:value-of select="."/></td>
+      </tr>
+    </xsl:template>
+    
+    <xsl:template match="location">
+      <tr>
+        <th>Location</th>
+        <td><xsl:value-of select="."/></td>
+      </tr>
+    </xsl:template>
+    
+    <xsl:template match="country_code">
+      <tr>
+        <th>Country code</th>
+        <td><xsl:value-of select="."/></td>
+      </tr>
+    </xsl:template>
+    
+    <xsl:template match="latitude">
+      <tr>
+        <th>Latitude</th>
+        <td><xsl:value-of select="."/></td>
+      </tr>
+    </xsl:template>
+    
+    <xsl:template match="longitude">
+      <tr>
+        <th>Longitude</th>
         <td><xsl:value-of select="."/></td>
       </tr>
     </xsl:template>

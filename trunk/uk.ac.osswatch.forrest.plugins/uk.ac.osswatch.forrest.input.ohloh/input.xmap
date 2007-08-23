@@ -28,15 +28,14 @@
         <map:generate src="http://www.ohloh.net/projects/{1}/analyses/latest.xml?api_key=c6dee1294dc2178c3b1bdcb7395bf2e17362ee1b&amp;v=1"/>
         <map:serialize type="xml"/>
       </map:match>
-
-      <map:match pattern="project/ohloh/*.xml">
-        <map:generate src="cocoon:/project/ohloh/{1}.source.xml"/>
-        <map:transform src="{lm:ohloh.transform.ohloh.document}"/>
-        <map:serialize/>
+      
+      <map:match pattern="account/ohloh/*.source.xml">
+        <map:generate src="http://www.ohloh.net/accounts/{1}.xml?api_key=c6dee1294dc2178c3b1bdcb7395bf2e17362ee1b&amp;v=1"/>
+        <map:serialize type="xml"/>
       </map:match>
 
-      <map:match pattern="stats/ohloh/summary/*.xml">
-        <map:generate src="cocoon:/stats/ohloh/{1}.source.xml"/>
+      <map:match pattern="*/ohloh/*.xml">
+        <map:generate src="cocoon:/{1}/ohloh/{2}.source.xml"/>
         <map:transform src="{lm:ohloh.transform.ohloh.document}"/>
         <map:serialize/>
       </map:match>
