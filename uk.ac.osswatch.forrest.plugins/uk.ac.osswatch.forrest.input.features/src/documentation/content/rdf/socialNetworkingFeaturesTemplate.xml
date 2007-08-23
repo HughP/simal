@@ -1,0 +1,71 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:sf="http://simal.oss-watch.ac.uk/ns/softwareFeatures#"
+    xmlns:snf="http://simal.oss-watch.ac.uk/ns/socialNetworkFeatures#">
+    <sf:Features>
+      <sfn:Features>
+        <!-- ======================================================== -->
+        <!-- Social News                                              -->
+        <!-- ======================================================== -->
+              
+        <!-- Does it allow trackbacks from items in this network to external items -->
+        <sfn:Trackback/>
+        
+        <!-- Does the system seamlessly integrate external RSS feeds -->
+        <sfn:RSSImport/>
+        
+        <!-- Does it allow members to point to and rank external items -->
+        <sfn:externalStoryRanking/>
+        
+        <!-- Does it allow members to point to and rank internal items -->
+        <sfn:internalStoryRanking/>
+        
+        <!-- ======================================================== -->
+        <!-- Social Networking                                        -->
+        <!-- ======================================================== -->
+              
+        <!-- Does it allow members to maintain reading lists -->
+        <sfn:readingList/>
+        
+        <!-- Does it allow members to maintain listening lists -->
+        <sfn:listeningList/>
+        
+        <!-- Does it allow members to maintain viewing lists -->
+        <sfn:viewingList/>
+        
+        <!-- ======================================================== -->
+        <!-- Social Bookmarking                                       -->
+        <!-- ======================================================== -->
+              
+        <!-- Does it allow members to maintain bookmark lists -->
+        <sfn:bookmarkList/>
+        
+        <!-- ======================================================== -->
+        <!-- Social Content                                           -->
+        <!-- ======================================================== -->
+              
+        <!-- Is there a mini blog? -->
+        <sfn:miniblog/>
+        
+        <!-- Is there a blog? -->
+        <sfn:blog/>
+        
+        <!-- Is there a wiki? -->
+        <sfn:wiki/>
+        
+        <!-- Is there a worflow engine for content management? -->
+        <sfn:contentWorkflow/>
+        
+        <!-- ======================================================== -->
+        <!-- Discussion                                               -->
+        <!-- ======================================================== -->
+        
+        <!-- Is there a forum facility? -->
+        <sfn:forum/>
+        
+        <!-- Is there an embedded mail list facility? -->
+        <sfn:maillist/>
+          
+      </sfn:Features>
+    </sf:Features>
+</rdf:RDF>
