@@ -34,6 +34,11 @@ That's it you have installed Simal. Time to perform your FirstRun.
 
 = Latest Developer Sources =
 
+== Eclipse Development ==
+
+If you use Eclipse as your development environment you may want to start with our [http://simal.oss-watch.ac.uk/contributor/how-to/developSimal.html "Configuring Eclipse"] document, this describes how to set up Eclipse for Simal development.
+
+Otherwise you will need to read the information below. we welcome documentation on how to set up other development environments.
 
 == Pre-Requisites ==
 
@@ -68,4 +73,3 @@ ant install
 == Running ==
 
 That's it you have installed Simal. Time to perform your FirstRun.
-
