@@ -24,16 +24,14 @@ import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.window.IWindowCallback;
 import org.eclipse.swt.SWT;
-import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
-import org.eclipse.ui.entrypoint.ActionBarAdvisor;
-import org.eclipse.ui.entrypoint.IActionBarConfigurer;
+import org.eclipse.ui.application.ActionBarAdvisor;
+import org.eclipse.ui.application.IActionBarConfigurer;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 
 import uk.ac.osswatch.simal.model.Contributor;
@@ -92,21 +90,11 @@ public class ProjectActionBarAdvisor extends ActionBarAdvisor {
 
         aboutAction = new Action() {
             public void run() {
-                showAboutDialog();
-            }
-
-            private void showAboutDialog() {
-                String title = "Information";
-                String mesg = "Simal (c) Oxford University 2007\nFor more information see http://simal.osswatch.ac.uk";
-                IWindowCallback callback = new IWindowCallback() {
-                    public void windowClosed(final int returnCode) {
-
-                    }
-                };
-                IWorkbench workbench = PlatformUI.getWorkbench();
-                IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
-                MessageDialog.openInformation(window.getShell(), title, mesg,
-                        callback);
+                  String title = "Information";
+                  String msg = "Simal (c) Oxford University 2007\nFor more information see http://simal.osswatch.ac.uk";
+                  MessageDialog.openInformation( window.getShell(),
+                                                 title,
+                                                 msg );
             }
         };
         aboutAction.setText("About");

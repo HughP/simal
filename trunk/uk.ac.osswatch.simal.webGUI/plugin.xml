@@ -18,9 +18,10 @@
 <plugin>
   <extension
       id="org.eclipse.rap.demo.demoentrypoint"
-      point="org.eclipse.rap.ui.workbench.entrypoint">
+      point="org.eclipse.rap.ui.entrypoint">
     <entrypoint
         class="uk.ac.osswatch.simal.webGUI.AdminWorkbench"
+        id="uk.ac.osswatch.simal.webGUI.defaultEntryPoint"
         parameter="default"/>
   </extension>
   
