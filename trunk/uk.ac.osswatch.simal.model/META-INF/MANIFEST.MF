@@ -15,3 +15,4 @@ Bundle-ClassPath: lib/glassfish-persistence/toplink-essentials.jar,
  .,
  lib/db-derby-10.2.2.0-lib/derbyclient.jar,
  lib/stax-api-1.0.1.jar
+Require-Bundle: org.apache.derby.core
