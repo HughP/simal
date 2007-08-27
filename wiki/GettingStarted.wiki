@@ -38,8 +38,8 @@ That's it you have installed Simal. Time to perform your FirstRun.
 == Pre-Requisites ==
 
  * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.4 - 1.5 (1.6 currently unsupported)
- * [http://subversion.tigris.org/ Subversion] (on !RedHat run {{{yum install subversion}}})
- * [http://ant.apache.org Apache Ant] (on !RedHat run {{{yum install ant}}})
+ * [http://subversion.tigris.org/project_packages.html Subversion] (on !RedHat run {{{yum install subversion}}})
+ * [http://ant.apache.org/bindownload.cgi Apache Ant] (on !RedHat run {{{yum install ant}}})
 
 == Get Source Files ==
 
@@ -68,5 +68,4 @@ ant install
 == Running ==
 
 That's it you have installed Simal. Time to perform your FirstRun.
-
 
