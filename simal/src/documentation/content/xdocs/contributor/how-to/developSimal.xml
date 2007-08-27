@@ -18,7 +18,7 @@
 "http://forrest.apache.org/dtd/howto-v20.dtd">
 <howto>
   <header>
-    <title>How to develop with Simal</title>
+    <title>How to develop Simal</title>
 
     <version>0.1</version>
 
@@ -135,19 +135,31 @@
       <fixme author="rdg">The simal configuration described in this section
       is not brought across as part of the import, neither is the model.test
       plugin.</fixme>
+      
+      <section>
+        <title>Start Derby Database</title>
     
-      <p>During development we use an embedded Apache Derby database. This
-      enables you to do development work independently of any production
-      database. The first thing you need to do is start the databse server.
-      to do this right click on the <em>uk.ac.osswatch.simal.model.test</em>
-      project and select <em>Apache Derby -> Start Network Server</em>.</p>
+	      <p>During development we use an embedded Apache Derby database. This
+	      enables you to do development work independently of any production
+	      database. The first thing you need to do is start the databse server.</p>
+	      
+	      <p class="instruction">right click on the <em>uk.ac.osswatch.simal.model.derby</em>
+	      project</p>
+	      <p class="instruction">select <em>Apache Derby -> Start Network Server</em></p>
+      </section>
+      
+      <section>
+        <title>Run the Simal Management Webapp</title>
         
-      <p>Now you should now be able to run the Simal web application. Open the <em>Run</em>
-      wizard by selecting <em>Run --> Run</em> from the Eclipse menu. In the wizard 
-      choose <em>Equinox OSGi Framework -> Simal RAP (Test Database)</em> and after that click <em>run</em>.
-      Some messages in the console view should indicate that the http service was started 
-      at port 100080. Now open a browser and type navigate to 
-      <em>http://localhost:100080/rap</em> to access the Simal application.</p>
+	      <p>Now you should now be able to run the Simal web application.</p>
+	      
+	      <p class="instruction">Open the <em>Run</em>
+	      wizard by selecting <em>Run --> Run</em> from the Eclipse menu. In the wizard 
+	      choose <em>Equinox OSGi Framework -> Simal RAP (Test Database)</em> and after that click <em>run</em>.
+	      Some messages in the console view should indicate that the http service was started 
+	      at port 9090. Now open a browser and type navigate to 
+	      <em>http://localhost:9090/rap</em> to access the Simal application.</p>
+	  </section>
     </section>
     
     
