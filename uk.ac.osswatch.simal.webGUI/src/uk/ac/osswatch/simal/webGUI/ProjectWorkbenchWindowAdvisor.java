@@ -15,14 +15,15 @@
 */
 package uk.ac.osswatch.simal.webGUI;
 
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.entrypoint.ActionBarAdvisor;
-import org.eclipse.ui.entrypoint.IActionBarConfigurer;
-import org.eclipse.ui.entrypoint.IWorkbenchWindowConfigurer;
-import org.eclipse.ui.entrypoint.WorkbenchWindowAdvisor;
+import org.eclipse.ui.application.ActionBarAdvisor;
+import org.eclipse.ui.application.IActionBarConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.application.WorkbenchWindowAdvisor;
 
 public class ProjectWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
 
@@ -40,7 +41,10 @@ public class ProjectWorkbenchWindowAdvisor extends WorkbenchWindowAdvisor {
         IWorkbenchWindowConfigurer configurer = getWindowConfigurer();
         configurer.setInitialSize(new Point(800, 600));
         configurer.setShowCoolBar(true);
+        configurer.setShowPerspectiveBar( true );
         configurer.setTitle("Simal Administration Workbench");
+        configurer.setShellStyle( SWT.TITLE | SWT.MAX | SWT.RESIZE );
+        configurer.setShowProgressIndicator( true );
     }
 
     public void postWindowOpen() {

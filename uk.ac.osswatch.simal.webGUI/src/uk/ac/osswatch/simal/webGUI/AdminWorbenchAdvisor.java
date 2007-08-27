@@ -15,9 +15,10 @@
  */
 package uk.ac.osswatch.simal.webGUI;
 
-import org.eclipse.ui.entrypoint.IWorkbenchWindowConfigurer;
-import org.eclipse.ui.entrypoint.WorkbenchAdvisor;
-import org.eclipse.ui.entrypoint.WorkbenchWindowAdvisor;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.application.WorkbenchAdvisor;
+import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+
 
 public class AdminWorbenchAdvisor extends WorkbenchAdvisor {
 
