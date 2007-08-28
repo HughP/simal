@@ -26,23 +26,6 @@
 
         <forrest:hook name="page">
 
-            <forrest:hook name="leftbar">
-                <forrest:contract name="nav-section"
-                    dataURI="cocoon://#{$getRequest}.navigation.xml">
-                    <forrest:property name="nav-section-toc"
-                        nugget="get.tov">
-                        <jx:import
-                            uri="cocoon://#{$cocoon/parameters/getRequest}.toc.xml" />
-                    </forrest:property>
-                    <forrest:property name="expanding">
-                        false
-                    </forrest:property>
-                </forrest:contract>
-
-            </forrest:hook>
-
-            <forrest:hook name="content">
-
                 <forrest:hook name="export-link">
                     <forrest:contract name="content-pdf-link" />
                     <forrest:contract name="content-doap-link" />
@@ -66,8 +49,6 @@
                         <headings type="underlined" />
                     </forrest:property>
                 </forrest:contract>
-
-            </forrest:hook>
 
         </forrest:hook>
 
