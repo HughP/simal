@@ -55,9 +55,16 @@
       <title>Essential Plugins</title>
         
       <section>
-        <title>Eclipse 3.2 + Web Tools Project 1.5</title>
-        <p>Download and unpack the 
-        <a href="http://download.eclipse.org/webtools/downloads/drops/R1.5/R-1.5.0-200606281455/">Eclipse + WTP</a>.</p> 
+        <title>Eclipse 3.3 + Web Tools Project 2.0</title>
+        
+        <p>If you do not currently have eclipse installed we recomend that you 
+        download and unpack the 
+        <a href="http://download.eclipse.org/webtools/downloads/">Eclipse + WTP</a> All in one
+        package.</p>
+        
+        <p>If you already have eclipse then you will need to ensure that you also
+        have the <a href="http://download.eclipse.org/webtools/downloads/">WTP</a>
+        plugins installed.</p> 
       </section>
       
       <section>
