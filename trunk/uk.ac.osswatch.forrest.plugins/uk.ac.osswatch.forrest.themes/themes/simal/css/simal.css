@@ -286,3 +286,10 @@ pre {
     border: 2px solid #bbbbbb;
     white-space: pre;
 }
+
+p.instruction {
+    display:list-item;
+    list-style-image:url(../images/instruction_arrow.png);
+    list-style-position:outside;
+    margin-left:2em;
+}
