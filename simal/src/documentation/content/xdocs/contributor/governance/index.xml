@@ -325,10 +325,7 @@
         
         <section>
           <title>Action</title>
-          
-          <section>
-            <title>Required Votes</title>
-          
+                    
           <p>This section describes some of the actions that will require a vote, all
           other actions are assumed to require lazy approval, that is no vote is required
           unless a binding -1 is cast. In the event of an undefined action requiring a vote
