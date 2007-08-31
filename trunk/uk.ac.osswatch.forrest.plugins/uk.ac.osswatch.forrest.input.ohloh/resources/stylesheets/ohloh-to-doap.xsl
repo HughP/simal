@@ -39,9 +39,9 @@
     </xsl:template>
     
     <xsl:template match="download_url">
-      <doap:doanload-page>
+      <doap:download-page>
         <xsl:attribute name="rdf:resource"><xsl:value-of select="."/></xsl:attribute>
-      </doap:doanload-page>
+      </doap:download-page>
     </xsl:template>
     
     <xsl:template match="analysis">
