@@ -25,7 +25,7 @@ advice and guidance to UK higher and further education.</description>
 
   <foaf:seeAlso rdf:resource="http://www.oss-watch.ac.uk/rss/osswatchnews.rss" dc:format="application/rss+xml" dc:title="News"/>
   <foaf:seeAlso rdf:resource="http://www.oss-watch.ac.uk/rss/events.rss" dc:format="application/rss+xml" dc:title="Events"/>
-  <foaf:seeAlso rdf:resource="http://www.oss-watch.ac.uk/rss/briefings.rss" dc:format="application/rss+xml" dc:title="Breifings"/>
+  <foaf:seeAlso rdf:resource="http://www.oss-watch.ac.uk/rss/briefings.rss" dc:format="application/rss+xml" dc:title="Briefings"/>
   <foaf:seeAlso rdf:resource="http://www.oss-watch.ac.uk/rss/communitynews.rss" dc:format="application/rss+xml" dc:title="Community"/>
 
   <maintainer> 

@@ -70,7 +70,7 @@
         <result>The user has a completed and valid form.</result>
 
         <fixme priority="High">Create Javascript code to validate the form
-        as valiues are entered.</fixme>
+        as values are entered.</fixme>
 
       </step>
       

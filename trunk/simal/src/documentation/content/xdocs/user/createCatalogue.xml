@@ -47,7 +47,7 @@ simal seed-catalogue</code></p>
       <title>Add Projects</title>
       
         <p>Now it is time to add your porojects to the catalogue. These are added by
-        creating editing a <code>locationmap</code> file that describes the location
+        creating/editing a <code>locationmap</code> file that describes the location
         of project descriptors. These descriptors can either be stored as a part of
         your local catalogue or they can be stored on some remotely accesible server.</p>
       
