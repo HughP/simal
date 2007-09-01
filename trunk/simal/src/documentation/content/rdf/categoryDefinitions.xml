@@ -40,7 +40,6 @@
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" dc:title="E-Learning Frameworks and Tools"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx" dc:title="E-Learning Innovation Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx " dc:title="E-Learning Pedagogy Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx" dc:title="E-Learning pedagogy Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx" dc:title="SFC E-Learning Transformation Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/eresearch_grid_ogc_collision.aspx" dc:title="Grid OGC Collision Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx" dc:title="Authentication, Authorisation and Accounting Programme"/>
@@ -58,7 +57,6 @@
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx" dc:title="Focus on Access to Institutional Resources (FAIR) Programme"/>        
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx" dc:title="JISC Organisational Support Work Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx" dc:title="Core Middleware: Technology Development Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals.aspx" dc:title=""/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals.aspx" dc:title="PALS Metadata and Interoperability Programme phase one"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals2.aspx" dc:title="PALS Metadata and Interoperability Programme phase two"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_portals.aspx" dc:title="Portals Programme"/>
@@ -71,10 +69,10 @@
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx" dc:title="Virtual Research Environments Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx" dc:title="Exchange for Learning (X4L) Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx" dc:title="Access Management"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx" dc:title="E-Administration"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx" dc:title="E-Learning"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx" dc:title="E-Research"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" dc:title="E-Resources"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" dc:title="Information Environment"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx" dc:title="E-Administration Theme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx" dc:title="E-Learning Theme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx" dc:title="E-Research Theme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" dc:title="E-Resources Theme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" dc:title="Information Environment Theme"/>
 
 </categories>
