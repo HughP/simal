@@ -69,6 +69,7 @@
           <include name="uk.ac.osswatch.forrest.themes/**"/>
           <include name="uk.ac.osswatch.forrest.input.features/**"/>
           <include name="uk.ac.osswatch.forrest.input.ohloh/**"/>
+          <include name="uk.ac.osswatch.forrest.input.sourceforge/**"/>
         </fileset>
       </copy>
     

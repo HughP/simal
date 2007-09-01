@@ -75,6 +75,14 @@
       </action>
             
       <action context="catalogue" dev="RDG" type="add" importance="high">
+        Added the ability to pull data from Sourceforge
+      </action>
+            
+      <action context="catalogue" dev="RDG" type="add" importance="high">
+        Added the ability to pull data from OhLoh
+      </action>
+
+      <action context="catalogue" dev="RDG" type="add" importance="high">
         Added an <link href="/catalogueBrowser.html">AJAX browser</link> to the cataglogue using the Exhibit browser from
         the MIT Simile project.
       </action>
