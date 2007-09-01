@@ -6,7 +6,7 @@
   xmlns:projects="http://projects.apache.org/ns/asfext#">
 
 <Project rdf:about="http://simal.oss-watch.ac.uk/"> 
-  <name>Simal Project Catagloue System</name>
+  <name>Simal Project Catalogue System</name>
 
   <shortname>Simal</shortname>
 

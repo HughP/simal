@@ -21,19 +21,19 @@
   </header> 
   <body> 
     <p>Welcome to the contributor section of the Simal website. In this section
-    you will find useful materials that are intended to help an intested party,
-    like you, become involved with the improvemnt of the Simal project. We
+    you will find useful materials that are intended to help an interested party,
+    like you, become involved with the improvement of the Simal project. We
     are always looking for people to contribute, we need people with all sorts
-    of skills including user testing, documentation wrtiting, programming and
+    of skills including user testing, documentation writing, programming and
     marketing.</p>
     
     <p>In this section you will find various types of information. Such as:</p>
     
     <ul>
-      <li><a href="how-to/index.html">How To</a> documents describing a specific development tasks</li>
+      <li><a href="how-to/index.html">How To</a> documents describing specific development tasks</li>
       
       <li><a href="implementationNotes/index.html">Implementation Notes</a> are
-      technical documents that desribe how Simal is built. They are intended to
+      technical documents that describe how Simal is built. They are intended to
       allow new developers to find out where they need to work to achieve their
       aims.</li>
       
