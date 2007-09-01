@@ -36,13 +36,45 @@
   <doap:category rdf:resource="http://projects.apache.org/category/web-framework" dc:title="Web Framework"/>
   
   <!-- JISC Categories -->
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" dc:title="ELearning Frameworks and Tools"/>
+  <doap:category rdf:resource="" dc:title="unknown category"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" dc:title="E-Learning Frameworks and Tools"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx" dc:title="E-Learning Innovation Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx " dc:title="E-Learning Pedagogy Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx" dc:title="E-Learning pedagogy Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx" dc:title="SFC E-Learning Transformation Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/eresearch_grid_ogc_collision.aspx" dc:title="Grid OGC Collision Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx" dc:title="Authentication, Authorisation and Accounting Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx" dc:title="MLEs for Lifelong Learning: building MLEs across HE and FE"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx" dc:title="Core Middleware Infrastructure Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx" dc:title="Digital Repositories Programme 2005-7"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx" dc:title="Digitisation Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx" dc:title="Linking Digital Libraries with VLEs Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlip.aspx" dc:title="Digital Library Infrastructure Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlitc.aspx" dc:title="Digital Libraries in the Classroom Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx" dc:title="Distributed E-Learning Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_einfrastructure.aspx" dc:title="E-Infrastructure Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx" dc:title="E-Learning Capital Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx" dc:title="Support for e-research"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx" dc:title="Focus on Access to Institutional Resources (FAIR) Programme"/>        
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx" dc:title="JISC Organisational Support Work Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx" dc:title="Core Middleware: Technology Development Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals.aspx" dc:title=""/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals.aspx" dc:title="PALS Metadata and Interoperability Programme phase one"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals2.aspx" dc:title="PALS Metadata and Interoperability Programme phase two"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_portals.aspx" dc:title="Portals Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_presentation.aspx" dc:title="Presentation Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation.aspx" dc:title="Digital Preservation and Records Management Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx" dc:title="Repositories and Preservation Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_shared_services.aspx" dc:title="Shared Infrastructure Services Strand"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm.aspx" dc:title="Supporting Institutional Records Management Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx" dc:title="SWaNI interoperability pilots 2 programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx" dc:title="Virtual Research Environments Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx" dc:title="Exchange for Learning (X4L) Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx" dc:title="Access Management"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx" dc:title="E-Administration"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx" dc:title="E-Learning"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx" dc:title="E-Research"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" dc:title="E-Resources"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" dc:title="Information Environment"/>
+
 </categories>
