@@ -137,6 +137,12 @@
 
 }
 
+#export-link img {
+display: block;
+border: none;
+}
+
+
 .menupagetitle {
     color: #013396;
     display: inline;
