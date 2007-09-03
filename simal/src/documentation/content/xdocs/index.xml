@@ -23,21 +23,20 @@
   
     <p>Simal is a tool for building and tracking projects and the people involved in
       those projects. Simal is very young at this time. As
-      such, <a href="http://code.google.com/p/simal">we welcome input</a>
+      such, we welcome input
       into the requirements and design of the initial prototype system.</p>
     
-    <section>
-      <title>Quick Start</title>
+   
       
-      <p>This site provides a small project catalogue as an example of Simal can do.
-      The catalogue is generated from RDF documents maintained and hosted by
-      the projects themselves or, where no such document exists, by the Simal project.
-      View the catalogue by clicking on the catalogue link above, or by using our
-      <a href="catalogueBrowser.html">AJAX powered browser</a>.</p>
+      <p>This is the main project site for Simal. It describes the project's history, its goals, and most importantly 
+        how you can get involved. It also provides a small project catalogue as a demonstration of what Simal can do.
+      The catalogue is generated from RDF/XML documents called DOAP files (DOAP stands for Description Of A Project) maintained and hosted by
+      the projects themselves or, where no such document exists, by the Simal project for purposes of the demo.
+      You can view the catalogue by following the catalogue link above.</p>
       
-      <p>Want to get at the code? The impatient may like our 
-      <a href="quickstart.html">quick start</a> documentation.</p>
-    </section>
+      <p>For the impatient who want to go straight to the code, you may prefer our 
+      <a href="quickstart.html">Quick Start</a> documentation.</p>
+
     
     <section>
       <title>Introduction</title>
@@ -59,7 +58,7 @@
       <p>The generated catalogues present a useful community 
       development and support tool. They enable users to 
       quickly and easily track activity in multiple related projects from 
-      a single location. Thus a projects outputs are visible beyond its
+      a single location. Thus a project's outputs are visible beyond its
       immediate community. By exposing relevant outputs to a wider community
       we hope to increase the level of interaction between related projects.</p>
       
@@ -89,7 +88,7 @@
           
           <p>In order to move forward with the development of the catalogue we
             need to increase the number of projects represented with DOAP files, and
-            we need to extend the information stored in current projects files.</p>
+            we need to extend the information stored in current projects' files.</p>
         </section>
       </section>
       
