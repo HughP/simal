@@ -234,7 +234,27 @@
       <p>Next stage is to take this project description to Ann Borda, OSS Watch's 
         JISC Programme Manager. </p>
     </section>
-      
+
+    <section id="website">
+      <title>Creation of Simal Website on OSS Watch</title>
+
+      <p>In August 2007, Stuart Yeates set up the <a href="ext:simal">simal.oss-watch.ac.uk</a> website.</p>
+
+    </section>
+    <section id="newcommitter">
+      <title>New Committer voted in to the Simal Project</title>
+
+      <p>On 31st August 2007 a vote was started to add a new committer to the Simal project. The vote ran
+              for 1 week and ended with Gavin McDonald (<a href="http://www.ohloh.net/accounts/5121">ipv6guru</a>) being accepted as a committer.</p>
+
+      <p>Details of what it means to be a committer can be found on <a href="http://simal.oss-watch.ac.uk/contributor/governance/index.html#Committer">the
+       committer section</a> of the governance page.</p>
+
+      <p>The voting process itself is made transparent by being held on a public mailing list, the vote can
+      be seen from <a href="http://groups.google.com/group/simal-contributors/browse_thread/thread/737aa7669f230e42">the Simal Contributors list.</a> 
+      Details of the voting process and how it works is on the <a href="http://simal.oss-watch.ac.uk/contributor/governance/index.html#Decision-making">decision making section</a> of the governance page.</p>
+
+    </section>
   </steps>
 
   <!--
