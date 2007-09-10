@@ -45,11 +45,24 @@
 -->
     
     <!-- ===============================================================
+         FOAF Files
+         =============================================================== -->
+    
+    <match pattern="foaf.descriptor.allMaintainers">
+      <location src="cocoon://projectDetails/allMaintainers.rdf"/>
+    </match>
+    
+    <!-- ===============================================================
          DOAP Files
          =============================================================== -->
     
     <match pattern="doap.descriptor.simal">
       <location src="{properties:content}rdf/simal.xml"/>
+    </match>
+
+
+    <match pattern="doap.descriptor.foafExplorer">
+      <location src="http://xml.mfd-consult.dk/foaf/explorer/explorer.rdf"/>
     </match>
 
     <match pattern="doap.descriptor.codegoo">

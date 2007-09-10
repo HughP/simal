@@ -68,6 +68,11 @@
       </notes>
 
       <action context="catalogue" dev="RDG" type="add" importance="high">
+        Add initial support for a <link href="/personDetails/allMaintainers.html">catalogue 
+        of maintainers</link>.        
+      </action>
+
+      <action context="catalogue" dev="RDG" type="add" importance="high">
         Added mapping from category URIs to real names. See 
         <code>src/documentation/content/rdf/categoryDefinitions.xml</code>.
         This document is used to present the category information in a more 
