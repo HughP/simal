@@ -58,6 +58,7 @@
           <include name="whiteboard-plugins.xml"/>
           <include name="build.xml"/>
           <include name="org.apache.forrest.plugin.input.doap/**"/>
+            <include name="org.apache.forrest.plugin.input.foaf/**"/>
           <include name="org.apache.forrest.plugin.internal.dispatcher/**"/>
           <include name="org.apache.forrest.themes.core/**"/>
         </fileset>

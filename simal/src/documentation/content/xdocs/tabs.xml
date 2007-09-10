@@ -33,7 +33,8 @@
   -->
 
   <tab id="home" label="Home" dir="" indexfile="index.html"/>
-  <tab id="catalogue" label="Catalogue" dir="projectDetails" indexfile="index/byCategory.html"/>
+  <tab id="projectCatalogue" label="Projects"  dir="projectDetails" indexfile="index/byCategory.html"/>
+  <tab id="peopleCatalogue" label="People"  dir="personDetails" indexfile="allMaintainers.html"/>
   <tab id="user" label="User" dir="user"/>
   <tab id="contributor" label="Contributor" dir="contributor"/>
   <!-- Add new tabs here, eg:
