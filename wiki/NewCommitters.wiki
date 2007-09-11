@@ -12,11 +12,11 @@ The rest of this document describes a few small tasks you need to undertake as a
 
 = Familiarisation =
 
-You are probably already familiar with our projects [http://simal.oss-watch.ac.uk/contributor/governance/index.html governance model], however, we recommend that you review it again. It is this governance model that ensures each member of our community is adequately represented and that the project is managed in an open and transparent way.
+You are probably already familiar with our project's [http://simal.oss-watch.ac.uk/contributor/governance/index.html governance model], however, we recommend that you review it again. It is this governance model that ensures each member of our community is adequately represented and that the project is managed in an open and transparent way.
 
 = Documentation =
 
-There are a few files you should edit as soon as you commit privileges have been granted.
+There are a few files you should edit as soon as your commit privileges have been granted.
 
 You should add yourself to the [http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/simal.xml Simal DOAP file]
 
