@@ -50,7 +50,17 @@ Simal also provides a web application for the creation and management of RDF/XML
     
     <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~stuart.yeates/#me">
       <foaf:name>Stuart Yeates</foaf:name>
-    </foaf:Person>  
+    </foaf:Person>
+
+    <foaf:Person rdf:about="http://people.apache.org/~gmcdonald/">
+      <foaf:name>Gavin McDonald</foaf:name>
+      <foaf:homepage rdf:resource="http://www.ohloh.net/accounts/5121/"/>
+      <foaf:givenname>Gavin</foaf:givenname>
+      <foaf:family_name>McDonald</foaf:family_name>
+
+      <foaf:mbox rdf:resource="mailto:gmcdonald@apache.org"/>
+    </foaf:Person>
+
   </maintainer> 
 </Project>
 </rdf:RDF>
