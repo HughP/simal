@@ -22,6 +22,7 @@
     <person name="Ross Gardler" email="ross.gardler@oucs.ox.ac.uk" id="RDG"/>
     <person name="Stuart Yeates" email="stuart.yeates@oucs.ox.ac.uk" id="SY"/>
     <person name="Randy Metcalfe" email="randolph.metcalfe@oucs.ox.ac.uk" id="RMM"/>
+    <person name="Gavin McDonald" email="ipv6guru@gmail.com" id ="GM"/>
     <person name="We Need You" email="info@oss-watch.ac.uk" id="open"/>
   </developers>
 
@@ -66,6 +67,11 @@
             system.</p>
         </section>
       </notes>
+
+      <action context="admin" dev"GM" type="update" importance="high">
+        Gavin McDonald added in as a Committer to the Simal project. The project DOAP file
+        and project history has been updated to reflect this addition.
+      <action>
 
       <action context="catalogue" dev="RDG" type="add" importance="high">
         Add initial support for a <link href="/personDetails/allMaintainers.html">catalogue 
