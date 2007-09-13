@@ -228,22 +228,15 @@
       this HOWTO page is likely to change as well.</p>
     </section>
   </tips>
+  -->
  
   <references title="References">
-    <p>This is not the first, nor will it be the last, How-To on writing
-    How-Tos. For other ideas and opinions on the matter, check out the
-    following sources.</p>
-
-    <ul>
-      <li>Joel D. Canfield's <a
-      href="http://www.evolt.org/article/How_To_Write_A_How_To/9741/18250/index.html">How
-      to Write a How-To</a> on evolt.org.</li>
-
-      <li>The Linux Documentation Project's <a
-      href="http://www.tldp.org/HOWTO/HOWTO-INDEX/index.html">HOWTO</a>
-      index page provides many excellent How-To documents to inspire your
-      efforts.</li>
+        <ul>
+      <li>An introduction to working with Deby in Eclipse <a
+      href="http://www.eclipse.org/articles/Article-EclipseDbWebapps/article.html">Creating 
+      Database Web Applications with Eclipse</a></li>
+      
     </ul>
   </references>
--->
+
 </howto>
