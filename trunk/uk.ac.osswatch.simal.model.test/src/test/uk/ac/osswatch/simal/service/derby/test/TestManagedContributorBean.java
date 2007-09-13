@@ -26,16 +26,6 @@ import uk.ac.osswatch.simal.service.derby.ManagedContributorBean;
 public class TestManagedContributorBean {
 
     @Test
-    public void testDelete() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testFindProject() {
-        fail("Not yet implemented");
-    }
-
-    @Test
     public void testSave() {
         Contributor contributor = createContributor();
         ManagedContributorBean cb = new ManagedContributorBean();
@@ -47,17 +37,7 @@ public class TestManagedContributorBean {
         readContributor = cb.findContributor(contributor.getId());
         assertEquals(readContributor.getName(), "Edited Conributor");
     }
-
-    @Test
-    public void testUpdate() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testFindAll() {
-        fail("Not yet implemented");
-    }
-
+    
     @Test
     public void testCreateNewContributor() {
         Contributor contributor = createContributor();
