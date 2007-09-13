@@ -1,5 +1,6 @@
 connect 'jdbc:derby://localhost:1527/simal;create=true;user=simal;password=simal';
 
+DROP TABLE Project;
 CREATE TABLE Project (
 		id BIGINT NOT NULL,
 		shortName VARCHAR(255) NOT NULL,
@@ -15,6 +16,7 @@ CREATE TABLE Project (
 		doapURL VARCHAR(255) NOT NULL
 	);
 
+DROP TABLE Contributor;
 CREATE TABLE Contributor (
 		id BIGINT NOT NULL,
 		name VARCHAR(255) NOT NULL,
@@ -23,6 +25,7 @@ CREATE TABLE Contributor (
 		created DATE NOT NULL
 	);
 
+DROP TABLE Event;
 CREATE TABLE Event (
 		id BIGINT NOT NULL,
 		name VARCHAR(255) NOT NULL,
@@ -32,21 +35,25 @@ CREATE TABLE Event (
 		endDate DATE NOT NULL
 	);
 
+DROP TABLE Event_Project;
 CREATE TABLE Event_Project (
 		contributors_id BIGINT,
 		projects_id BIGINT
 	);
 
+DROP TABLE Project_Language;
 CREATE TABLE Project_Language (
 		Project_id BIGINT,
 		languages_id BIGINT
 	);
 
+DROP TABLE Contributor_Project;
 CREATE TABLE Contributor_Project (
 		contributors_id BIGINT,
 		projects_id BIGINT
 	);
 
+DROP TABLE Language;
 CREATE TABLE Language (
 		id BIGINT NOT NULL,
 		name VARCHAR(255) NOT NULL,
@@ -61,6 +68,8 @@ ALTER TABLE Event ADD CONSTRAINT Event_PK PRIMARY KEY (id);
 
 ALTER TABLE Language ADD CONSTRAINT Language_PK PRIMARY KEY (id);
 
+CREATE TABLE SEQUENCE (SEQ_NAME VARCHAR(50), SEQ_COUNT DECIMAL(15));
+INSERT INTO SEQUENCE(SEQ_NAME, SEQ_COUNT) values ('SEQ_GEN', 0);
 
 disconnect;
 exit;
