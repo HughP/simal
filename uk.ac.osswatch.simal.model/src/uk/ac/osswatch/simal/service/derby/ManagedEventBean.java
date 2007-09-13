@@ -15,6 +15,7 @@
 */
 package uk.ac.osswatch.simal.service.derby;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,17 +55,20 @@ public class ManagedEventBean implements IEventService {
 
         Event event = new Event(
                 "Event 1",
-                "This is event 1");
+                "This is event 1",
+                new Date());
         events.add(event);
         
         event = new Event(
                 "Event 2",
-                "This is event 2");
+                "This is event 2",
+                new Date());
         events.add(event);
         
         event = new Event(
                 "Event 3",
-                "This is event 3");
+                "This is event 3",
+                new Date());
         events.add(event);
     }
 

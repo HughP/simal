@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SQLPage nameConnection="SimalTest">
-<Statement><![CDATA[select * from project p
-
-
-
-]]></Statement>
+<Statement><![CDATA[select * from project]]></Statement>
 </SQLPage>
