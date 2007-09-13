@@ -1,3 +1,5 @@
+connect 'jdbc:derby://localhost:1527/simal;create=true;user=simal;password=simal';
+
 CREATE TABLE Project (
 		id BIGINT NOT NULL,
 		shortName VARCHAR(255) NOT NULL,
@@ -58,4 +60,8 @@ ALTER TABLE Contributor ADD CONSTRAINT Contributor_PK PRIMARY KEY (id);
 ALTER TABLE Event ADD CONSTRAINT Event_PK PRIMARY KEY (id);
 
 ALTER TABLE Language ADD CONSTRAINT Language_PK PRIMARY KEY (id);
+
+
+disconnect;
+exit;
 
