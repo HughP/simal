@@ -27,18 +27,10 @@ import uk.ac.osswatch.simal.service.derby.ManagedProjectBean;
 public class TestManagedProjectBean {
 
     @Test
-    public void testDelete() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testFindProject() {
-        fail("Not yet implemented");
-    }
-
-    @Test
     public void testFindProjectByShortName() {
         ManagedProjectBean pb = new ManagedProjectBean();
+        // FIXME: the following method fails because Toplink 
+        // does not know how to serialise a string as a URL
         Project p = pb.findProjectByShortName("Test1");
         assertEquals(p.getName(), "Test 1");
     }
@@ -57,16 +49,6 @@ public class TestManagedProjectBean {
     }
 
     @Test
-    public void testUpdate() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testFindAll() {
-        fail("Not yet implemented");
-    }
-
-    @Test
     public void testCreateNewProject() {
         Project project = createProject();
         ManagedProjectBean pb = new ManagedProjectBean();
@@ -78,7 +60,8 @@ public class TestManagedProjectBean {
     
     private Project createProject() {
         Contributor contributor = new Contributor("Contributor 1", "cont1@test.com");
-        Event event = new Event("Event 1", "The first event");
+        Event event = new Event("Event 1", "The first event",
+                new java.util.Date());
         Project project = new Project("Test1", "Test 1", "First Test Project", contributor);
         project.addEvent(event);
         ManagedProjectBean pb = new ManagedProjectBean();

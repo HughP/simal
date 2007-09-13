@@ -54,17 +54,20 @@ public class ManagedEvenBean implements IEventService {
 
         Event event = new Event(
                 "Event 1",
-                "This is event 1");
+                "This is event 1",
+                new java.util.Date());
         events.add(event);
         
         event = new Event(
                 "Event 2",
-                "This is event 2");
+                "This is event 2",
+                new java.util.Date());
         events.add(event);
         
         event = new Event(
                 "Event 3",
-                "This is event 3");
+                "This is event 3",
+                new java.util.Date());
         events.add(event);
     }
 
