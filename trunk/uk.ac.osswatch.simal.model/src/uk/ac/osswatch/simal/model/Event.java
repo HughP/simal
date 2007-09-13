@@ -57,10 +57,11 @@ public class Event implements Serializable {
      * @param name
      * @param shortDesc
      */
-    public Event (String name, String shortDesc) {
+    public Event (String name, String shortDesc, java.util.Date startDate) {
         setName(name);
         setShortDesc(shortDesc);
         setCreated(new Date(System.currentTimeMillis()));
+        setStartDate(new Date(startDate.getTime()));
     }
 
     public long getId() {
