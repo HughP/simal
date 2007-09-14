@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.service.derby;
 import java.util.Collection;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import uk.ac.osswatch.simal.model.Project;
 import uk.ac.osswatch.simal.service.IProjectService;
@@ -59,15 +60,21 @@ public class ManagedProjectBean implements IProjectService {
     public Collection<Project> findAll() {
         EntityManager em = JPAResourceBean.getEMF().createEntityManager();
         try {
-           return em. createQuery("SELECT p FROM Project p").getResultList();
+           return em.createQuery("SELECT p FROM Project p").getResultList();
         } finally {
             em.close();
         }
     }
 
-    public Project findProjectByShortName(String string) {
-        // TODO Auto-generated method stub
-        return null;
+    public Project findProjectByShortName(String name) {
+        EntityManager em = JPAResourceBean.getEMF().createEntityManager();
+        try {
+           Query q = em.createQuery("SELECT p FROM Project p WHERE p.shortName = :name");
+           q.setParameter("name", name);
+           return (Project)q.getSingleResult();
+        } finally {
+            em.close();
+        }
     }
 
 }

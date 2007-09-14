@@ -54,19 +54,19 @@ public class Project implements Serializable {
 
     private String description;
 
-    private URL url;
+    private String url;
 
     private Date created;
 
-    private URL mailingListURL;
+    private String mailingListURL;
 
-    private URL wikiURL;
+    private String wikiURL;
 
-    private URL downloadURL;
+    private String downloadURL;
 
-    private URL issueTrackerURL;
+    private String issueTrackerURL;
     
-    private URL doapURL;
+    private String doapURL;
 
     @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     private Collection<Language> languages = new Vector<Language>();
@@ -102,32 +102,32 @@ public class Project implements Serializable {
         addContributor(contributor);
     }
 
-    public URL getDownloadURL() {
+    public String getDownloadURL() {
         return downloadURL;
     }
 
     public void setDownloadURL(URL downloadURL) {
-        this.downloadURL = downloadURL;
+        this.downloadURL = downloadURL.toExternalForm();
     }
 
-    public URL getIssueTrackerURL() {
+    public String getIssueTrackerURL() {
         return issueTrackerURL;
     }
 
     public void setIssueTrackerURL(URL issueTrackerURL) {
-        this.issueTrackerURL = issueTrackerURL;
+        this.issueTrackerURL = issueTrackerURL.toExternalForm();
     }
 
     public long getId() {
         return id;
     }
 
-    public URL getURL() {
+    public String getURL() {
         return url;
     }
 
     public void setURL(URL url) {
-        this.url = url;
+        this.url = url.toExternalForm();
     }
 
     /**
@@ -192,20 +192,20 @@ public class Project implements Serializable {
         this.description = description;
     }
 
-    public URL getMailingListURL() {
+    public String getMailingListURL() {
         return mailingListURL;
     }
 
     public void setMailingListURL(URL mailingListURL) {
-        this.mailingListURL = mailingListURL;
+        this.mailingListURL = mailingListURL.toExternalForm();
     }
 
-    public URL getWikiURL() {
+    public String getWikiURL() {
         return wikiURL;
     }
 
     public void setWikiURL(URL wikiURL) {
-        this.wikiURL = wikiURL;
+        this.wikiURL = wikiURL.toExternalForm();
     }
 
     public Collection<Language> getLanguages() {
@@ -286,8 +286,7 @@ public class Project implements Serializable {
 
             if (getURL() != null) {
                 writer.writeStartElement("homepage");
-                writer.writeAttribute(rdfURI, "resource", getURL()
-                        .toExternalForm());
+                writer.writeAttribute(rdfURI, "resource", getURL());
                 writer.writeEndElement();
             }
 
@@ -321,7 +320,7 @@ public class Project implements Serializable {
      * 
      * @return
      */
-    public URL getDoapURL() {
+    public String getDoapURL() {
         return doapURL;
     }
 
@@ -330,6 +329,6 @@ public class Project implements Serializable {
      * 
      */
     public void setDoapURL(URL doapURL) {
-        this.doapURL = doapURL;
+        this.doapURL = doapURL.toExternalForm();
     }
 }
