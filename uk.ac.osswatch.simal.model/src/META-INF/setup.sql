@@ -60,7 +60,7 @@ CREATE TABLE Contributor (
 	);
 
 CREATE TABLE Event_Project (
-		contributors_id BIGINT,
+		events_id BIGINT,
 		projects_id BIGINT
 	);
 
