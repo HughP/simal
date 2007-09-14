@@ -29,10 +29,8 @@ public class TestManagedProjectBean {
     @Test
     public void testFindProjectByShortName() {
         ManagedProjectBean pb = new ManagedProjectBean();
-        // FIXME: the following method fails because Toplink 
-        // does not know how to serialise a string as a URL
         Project p = pb.findProjectByShortName("Test1");
-        assertEquals(p.getName(), "Test 1");
+        assertEquals("Test 1", p.getName());
     }
 
     @Test
@@ -46,6 +44,11 @@ public class TestManagedProjectBean {
         pb.save(project);
         readProject = pb.findProject(project.getId());
         assertEquals(readProject.getName(), "Edited Project");
+        
+        project.setName("Test 1");
+        pb.save(project);
+        readProject = pb.findProject(project.getId());
+        assertEquals(readProject.getName(), "Test 1");
     }
 
     @Test
