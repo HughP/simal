@@ -68,10 +68,15 @@
         </section>
       </notes>
 
-      <action context="admin" dev"GM" type="update" importance="high">
+      <action context="rest" dev="RDG" type="add" importance="high">
+        Add a documentation page for the <link href="/user/restAPI.html">REST API 
+        </link>.        
+      </action>
+
+      <action context="admin" dev="GM" type="update" importance="high">
         Gavin McDonald added in as a Committer to the Simal project. The project DOAP file
         and project history has been updated to reflect this addition.
-      <action>
+      </action>
 
       <action context="catalogue" dev="RDG" type="add" importance="high">
         Add initial support for a <link href="/personDetails/allMaintainers.html">catalogue 
