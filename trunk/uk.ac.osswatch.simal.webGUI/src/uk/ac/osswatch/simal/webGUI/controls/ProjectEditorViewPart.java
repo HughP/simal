@@ -168,21 +168,20 @@ public class ProjectEditorViewPart extends ViewPart {
         shortDesc.setText(project.getShortDesc());
         description.setText(project.getDescription());
         if (project.getURL() != null) {
-            url.setText(project.getURL().toExternalForm());
+            url.setText(project.getURL());
         }
         if (project.getMailingListURL() != null) {
             mailingListURL
-                    .setText(project.getMailingListURL().toExternalForm());
+                    .setText(project.getMailingListURL());
         }
         if (project.getWikiURL() != null) {
-            wikiURL.setText(project.getWikiURL().toExternalForm());
+            wikiURL.setText(project.getWikiURL());
         }
         if (project.getDownloadURL() != null) {
-            downloadURL.setText(project.getDownloadURL().toExternalForm());
+            downloadURL.setText(project.getDownloadURL());
         }
         if (project.getIssueTrackerURL() != null) {
-            issueTrackerURL.setText(project.getIssueTrackerURL()
-                    .toExternalForm());
+            issueTrackerURL.setText(project.getIssueTrackerURL());
         }
     }
 
