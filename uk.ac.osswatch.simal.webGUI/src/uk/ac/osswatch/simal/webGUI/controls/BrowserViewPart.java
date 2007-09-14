@@ -70,9 +70,9 @@ public class BrowserViewPart extends ViewPart {
             IStructuredSelection sselection = (IStructuredSelection) selection;
             Object firstElement = sselection.getFirstElement();
             if (firstElement instanceof Project) {
-                URL location = ((Project) firstElement).getURL();
+                String location = ((Project) firstElement).getURL();
                 if (location != null) {
-                    browser.setUrl(location.toExternalForm());
+                    browser.setUrl(location);
                 }
             }
         }
