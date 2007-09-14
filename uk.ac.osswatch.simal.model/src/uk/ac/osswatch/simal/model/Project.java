@@ -98,6 +98,7 @@ public class Project implements Serializable {
         setShortName(shortName);
         setName(name);
         setShortDesc(shortDesc);
+        setDescription(shortDesc);
         addContributor(contributor);
     }
 
