@@ -104,6 +104,13 @@ See http://forrest.apache.org/docs/linking.html for more info
       <index label="Index" href="index.html"/>
     </governance>
   </contributors>
+  
+  <externalResources label="External Resources" tab="home">    
+    <devSite label="Developer Site" href="ext:simal/devSite"/>
+    <mailingList label="Mailing List" href="ext:simal/devList"/>
+    <issueTracker label="Issue Tracker" href="ext:simal/issueTracker"/>
+    <svn label="SVN" href="ext:simal/svn"/>
+  </externalResources>
     
   <useCases label="Use Cases" href="docs/" tab="contributor">
     <doapUser label="DOAP Management" href="developer/useCases/doapManagement.html"/>
@@ -114,8 +121,11 @@ See http://forrest.apache.org/docs/linking.html for more info
       <linking href="docs/linking.html"/>
     </forrest>
     <simal href="http://simal.oss-watch.ac.uk">
+      <devSite href="http://code.google.com/p/simal"/>
       <devList href="http://groups.google.com/group/simal-contributors"/>
       <userList href="http://groups.google.com/group/simal-contributors"/>
+      <issueTracker href="http://code.google.com/p/simal/issues/list"/>
+      <svn href="http://code.google.com/p/simal/source"/>
     </simal>
   </external-refs>
 
