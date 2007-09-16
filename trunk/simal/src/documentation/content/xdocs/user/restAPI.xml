@@ -32,6 +32,22 @@
       <title>Catalogue Generation Tool API</title>
       
       <section>
+        <title>DOAP</title>
+        <ul>
+          <li>Retrieve a single projects details 
+          as a DOAP file <code>http://domain.org:8089/projectDetails/**.rdf</code></li>
+        </ul>
+      </section>
+      
+      <section>
+        <title>FOAF</title>
+        <ul>
+          <li>Retrieve a complete list of all known contributors as a FOAF file
+          <code>http://domain:8089/personDetails/allMaintainers.rdf</code></li>
+        </ul>
+      </section>
+      
+      <section>
         <title>JSON</title>
         
         <ul>
