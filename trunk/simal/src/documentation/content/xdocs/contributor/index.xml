@@ -22,7 +22,8 @@
   <body> 
     <p>Welcome to the contributor section of the Simal website. In this section
     you will find useful materials that are intended to help an interested party,
-    like you, become involved with the improvement of the Simal project. We
+    like you, become involved with the improvement of the Simal project. Simal is
+    open source software (using the Apache Software License V2). We
     are always looking for people to contribute, we need people with all sorts
     of skills including user testing, documentation writing, programming and
     marketing.</p>
@@ -43,5 +44,15 @@
       
       <li>Documents describing our <a href="governance/index.html">governance model</a></li>
    </ul>
+   
+   <p>The actual development work for this project occurs over on <a href="ext:simal/devSite">Google Code</a>,
+   where you can find things like:</p>
+   
+   <ul>
+     <li><a href="ext:simal/devList">Mailing Lists</a></li>
+     <li><a href="ext:simal/issueTracker">Issue Tracker</a></li>
+     <li><a href="ext:simal/svn">SVN</a></li>
+   </ul>
+   
   </body>
 </document>
