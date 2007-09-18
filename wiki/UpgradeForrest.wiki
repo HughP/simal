@@ -1,7 +1,7 @@
 #summary How to upgrade the Forrest instance in Simal
 #labels Phase-Implementation,Phase-Support
 
-Simal use [http://forrest.apache.org Apache Forrest]. Since we use some cutting edge features of Apache Forrest we use a snapshot build. This document describes how to upgrade the version in use within Simal.
+Simal depends on [http://forrest.apache.org Apache Forrest]. Since we use some cutting edge features of Apache Forrest we use a snapshot build. This document describes how to upgrade the version in use within Simal.
 
 = Preparation =
 
@@ -29,8 +29,24 @@ cd main
 
 = Upgrade Apache Forrest in Simal =
 
-From within the Simal project directory run the following commands:
+The full upgrade process takes a couple of minutes, so we provide shortcut that will work in most circumstances for testing. However, once testing is complete you must always do the full upgrade.
+
+== Upgrade for testing ==
+
+To test recent changes within Forrest you should run the following command:
+
+
+{{{
+ant upgrade-forrest-local
+}}}
+
+This does not clean out the old version of Forrest and so you are not guaranteed that all updates will be brought across. However, it will work in most cases. If you get some unexpected behaviour we recommend you follow the process for upgrading for release, see below.
+
+== Upgrade for release ==
+
+Once you have tested your new version of Forrest you will need to upgrade the Forrest zip as bundled with a Simal release. From within the Simal project directory run the following commands:
 
 {{{
 ant upgrade-forrest
 }}}
+ 
