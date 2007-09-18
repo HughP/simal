@@ -26,7 +26,7 @@
     <property name="simal.build.dir" location="${simal.home}/build"/>
     <property name="simal.forrest.build.dir" location="${simal.build.dir}/forrest"/>
 
-    <target name="upgrade-forrest" depends="clean">    
+    <target name="upgrade-forrest">    
       <echo>Copy Forrest core files from ${forrest.src.home}</echo>
       <copy todir="${simal.forrest.build.dir}">
         <fileset dir="${forrest.src.home}" >
