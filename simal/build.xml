@@ -26,7 +26,7 @@
     <property name="simal.build.dir" location="${simal.home}/build"/>
     <property name="simal.forrest.build.dir" location="${simal.build.dir}/forrest"/>
 
-    <target name="upgrade-forrest">    
+    <target name="upgrade-forrest-local">    
       <echo>Copy Forrest core files from ${forrest.src.home}</echo>
       <copy todir="${simal.forrest.build.dir}">
         <fileset dir="${forrest.src.home}" >
@@ -90,8 +90,11 @@
       <fixcrlf eol="crlf" srcdir="${simal.forrest.build.dir}/tools/ant/bin" includes="*.bat"/>
       <fixcrlf eol="lf" srcdir="${simal.forrest.build.dir}/tools/ant/bin" excludes="*.bat"/>
       <chmod dir="${simal.forrest.build.dir}/tools/ant/bin" perm="ugo+rx" excludes="*.bat"/>
-    
-  <!-- Create the zip -->
+
+    </target>
+        
+    <target name="upgrade-forrest" depends="clean, upgrade-forrest-local"
+        description="Upgrades the forrest zip file distirbuted with Simal">
       <zip
         file="${simal.tools.dir}/forrest-simal-snapshot.zip" >
         <zipfileset dir="${simal.forrest.build.dir}"/>
