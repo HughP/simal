@@ -34,12 +34,7 @@ Simal also provides a web application for the creation and management of RDF/XML
   <maintainer> 
     <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
       <foaf:name>Ross Gardler</foaf:name>
-      <foaf:homepage rdf:resource="http://www.ohloh.net/accounts/2313/"/>
-      <foaf:givenname>Ross</foaf:givenname>
-      <foaf:family_name>Gardler</foaf:family_name>
-
-      <foaf:mbox rdf:resource="mailto:ross.gardler@oucs.ox.ac.uk"/>
-      <foaf:workplaceHomepage rdf:resource="http://www.oss-watch.ac.uk"/>
+      <rdf:seeAlso rdf:resource="http://people.apache.org/~rgardler/foaf.rdf.xml"/>
     </foaf:Person> 
     
     <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~randolph.metcalfe/#me">
@@ -50,6 +45,7 @@ Simal also provides a web application for the creation and management of RDF/XML
     
     <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~stuart.yeates/#me">
       <foaf:name>Stuart Yeates</foaf:name>
+      <rdf:seeAlso rdf:resource="http://users.ox.ac.uk/~syeates/foaf-main.rdf"/>
     </foaf:Person>
 
     <foaf:Person rdf:about="http://people.apache.org/~gmcdonald/">

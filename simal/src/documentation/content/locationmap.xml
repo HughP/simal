@@ -60,6 +60,9 @@
       <location src="{properties:content}rdf/simal.xml"/>
     </match>
 
+    <match pattern="doap.descriptor.ossWatch">
+      <location src="{properties:content}rdf/ossWatch.xml"/>
+    </match>
 
     <match pattern="doap.descriptor.foafExplorer">
       <location src="http://xml.mfd-consult.dk/foaf/explorer/explorer.rdf"/>

@@ -29,11 +29,26 @@ advice and guidance to UK higher and further education.</description>
   <foaf:seeAlso rdf:resource="http://www.oss-watch.ac.uk/rss/communitynews.rss" dc:format="application/rss+xml" dc:title="Community"/>
 
   <maintainer> 
-    <foaf:Person rdf:about="http://people.apache.org/~randolph.metcalfe@oucs.ox.ac.uk/#me">
-      <foaf:name>Randy Metcalfe</foaf:name>
-      <foaf:homepage rdf:resource="http://randymetcalfe.blogspot.com/"/>
-      <foaf:mbox_sha1sum>3aaaf44003f0ee3e7eab9211119fe58ea32a883c</foaf:mbox_sha1sum>
-    </foaf:Person> 
+    <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
+      <foaf:name>Ross Gardler</foaf:name>
+      <rdf:seeAlso rdf:resource="http://people.apache.org/~rgardler/foaf.rdf.xml"/>
+    </foaf:Person>
+    <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~michael.fraser/#me">
+      <foaf:name>Michael Fraser</foaf:name>
+    </foaf:Person>  
+    <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~stuart.yeates/#me">
+      <foaf:name>Stuart Yeates</foaf:name>
+      <rdf:seeAlso rdf:resource="http://users.ox.ac.uk/~syeates/foaf-main.rdf"/>
+    </foaf:Person>  
+    <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~rowan.wilson/#me">
+      <foaf:name>Rowan Wilson</foaf:name>
+    </foaf:Person>  
+    <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~ramon.casero/#me">
+      <foaf:name>Ramón Casero</foaf:name>
+    </foaf:Person>  
+    <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~elena.blanco/#me">
+      <foaf:name>Elena Blanco</foaf:name>
+    </foaf:Person>  
   </maintainer> 
 </Project>
 </rdf:RDF>
