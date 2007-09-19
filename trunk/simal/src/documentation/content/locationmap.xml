@@ -560,11 +560,10 @@
 
 <!--
  <match pattern="doap.descriptor.jisc/vre_silchester"><location src="{properties:content}rdf/www.jisc.ac.uk/vre_silchester.xml"/></match>
- -->
  <match pattern="doap.descriptor.jisc/webpa"><location src="cocoon://doap/sourceforge/194016.xml"/></match>
- <!--
+ -->
  <match pattern="doap.descriptor.jisc/webpa"><location src="http://webpaproject.lboro.ac.uk/doap.rdf"/></match>
-
+<!--
  <match pattern="doap.descriptor.jisc/welshjournals"><location src="{properties:content}rdf/www.jisc.ac.uk/welshjournals.xml"/></match>
  <match pattern="doap.descriptor.jisc/wmshare"><location src="{properties:content}rdf/www.jisc.ac.uk/wmshare.xml"/></match>
  <match pattern="doap.descriptor.jisc/ws4rl"><location src="{properties:content}rdf/www.jisc.ac.uk/ws4rl.xml"/></match>
