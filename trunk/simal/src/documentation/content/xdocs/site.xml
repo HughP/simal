@@ -51,7 +51,7 @@ See http://forrest.apache.org/docs/linking.html for more info
     <credits label="Credits" href="credits.html" description="Simal would not exist without these people..."/>
   </about>
   
-  <projects label="Catalogue" href="projectDetails/" tab="catalogue">    
+  <projects label="Demo Project Catalogue" href="projectDetails/" tab="catalogue">    
       <exhibit label="Browser" href="../catalogueBrowser.html"
         description="Browse all projects"/>
       <languages label="Index by Language" href="index/byLang.html"
@@ -61,8 +61,13 @@ See http://forrest.apache.org/docs/linking.html for more info
       <languages label="Index by Category" href="index/byCategory.html"
         description="A list of all projects, indexed by language"/>
       <JSON label="JSON" href="allProjects.json"
-        description="All projects as a JSON file"/>
+      description="All projects as a JSON file"/>
+       
   </projects>
+  
+  <people label="People Catalogue" tab="catalogue">    
+    <peopleCatalogue label="People Catalogue" href="personDetails/allMaintainers.html"/>
+  </people>
   
   <users label="Using Simal" href="user/" tab="user">
     <index label="About" href="index.html"/>
