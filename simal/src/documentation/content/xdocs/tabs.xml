@@ -33,10 +33,9 @@
   -->
 
   <tab id="home" label="Home" dir="" indexfile="index.html"/>
-  <tab id="projectCatalogue" label="Projects"  dir="projectDetails" indexfile="index/byCategory.html"/>
-  <tab id="peopleCatalogue" label="People"  dir="personDetails" indexfile="allMaintainers.html"/>
-  <tab id="user" label="User" dir="user"/>
+   <tab id="user" label="User" dir="user"/>
   <tab id="contributor" label="Contributor" dir="contributor"/>
+  <tab id="projectCatalogue" label="Demo Project Catalogue"  dir="projectDetails" indexfile="index/byCategory.html"/>
   <!-- Add new tabs here, eg:
   <tab id="contribute" label="Contributre" dir="" indexfile="index.html"/>
   <tab label="How-Tos" dir="community/howto/"/>
