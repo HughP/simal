@@ -59,6 +59,13 @@
     <match pattern="doap.descriptor.simal">
       <location src="{properties:content}rdf/simal.xml"/>
     </match>
+    
+    
+    <!-- FIXME: awaiting sourcekibitzer code modifications that allow us to access thier DOAP files
+    <match pattern="doap.descriptor.sakai">
+      <location src="http://www.sourcekibitzer.org/ProjectDOAP.ext?sp=Ssakai"/>
+    </match>
+    -->
 
     <match pattern="doap.descriptor.ossWatch">
       <location src="{properties:content}rdf/ossWatch.xml"/>
