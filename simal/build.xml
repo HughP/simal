@@ -49,6 +49,7 @@
           <include name="build.xml"/>
           <include name="pluginTemplate/**"/>
           <include name="org.apache.forrest.plugin.output.pdf/**"/>
+            <include name="org.apache.forrest.plugin.input.feeder/**"/>
         </fileset>
       </copy>
     

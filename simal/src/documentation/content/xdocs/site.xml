@@ -69,6 +69,10 @@ See http://forrest.apache.org/docs/linking.html for more info
     <peopleCatalogue label="People Catalogue" href="personDetails/allMaintainers.html"/>
   </people>
   
+  <tagFeeds label="Tagged Info" tab="catalogue">    
+    <taggedBookmarks label="JISCCommunityDevelopment bookmarks" href="JISCCommunityDevelopment.tagFeed.rss.html"/>
+  </tagFeeds>
+  
   <users label="Using Simal" href="user/" tab="user">
     <index label="About" href="index.html"/>
     <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>

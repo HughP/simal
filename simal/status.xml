@@ -68,6 +68,29 @@
         </section>
       </notes>
 
+      
+      <!-- FIXME: awaiting sourcekibitzer code modifications that allow us to access thier DOAP files
+      <action context="catalogue" dev="RDG" type="add" importance="high">
+        Added <link href="">Sakai project</link> as an example of retriving DOAP data from 
+        <link href="http://www.sourcekbitzer.com">SourceKibitzer</link>.        
+      </action>
+      -->
+      
+      <action context="admin" dev="RDG" type="update" importance="high">
+        By popular request we moved the commit messages to their own list.
+        Those wishing to get a notification of key changes in the project were encouraged to
+        subscribe to the changes <link href="http://simal.oss-watch.ac.uk/changes.rss">RSS feed</link>. Those
+        wishing to track code level changes need to subscribe to the 
+        <link href="http://groups.google.com/group/simal-commits">commit mailing list</link>.
+      </action>
+      
+      <action context="catalogue" dev="RDG" type="add" importance="high">
+        Added <link href="http://forrest.apache.org/pluginDocs/plugins_0_80/org.apache.forrest.plugin.input.feeder/">feeder</link> plugin from from Forrest this allows a crude 
+        form of RSS aggregation and thus allows us to do things like
+        <link href="http://www.sourcekbitzer.com">Social Bookmark Aggregation</link>.
+        Now we have something to build on.        
+      </action>
+
       <action context="rest" dev="RDG" type="add" importance="high">
         Add a documentation page for the <link href="/user/restAPI.html">REST API 
         </link>.        
