@@ -55,6 +55,10 @@
           <td><a href="http://www.ohloh.net">Ohloh</a></td>
           <td>Simal catalogues can (and our demos do) include content from OhLoh.</td>
         </tr>
+        <tr>
+          <td><a href="http://www.sourcekibitzer.com">SourceKibitzer</a></td>
+          <td>Simal catalogues can (and our demos do) include content from SourceKibitzer.</td>
+        </tr>
     </table>
   </body>
 </document>
