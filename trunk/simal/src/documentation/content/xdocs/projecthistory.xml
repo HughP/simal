@@ -241,7 +241,7 @@
       <p>In August 2007, Stuart Yeates set up the <a href="ext:simal">simal.oss-watch.ac.uk</a> website.</p>
 
     </section>
-    <section id="newcommitter">
+    <section id="gavin-newcommitter">
       <title>New Committer voted in to the Simal Project</title>
 
       <p>On 31st August 2007 a vote was started to add a new committer to the Simal project. The vote ran
@@ -255,6 +255,24 @@
       Details of the voting process and how it works is on the <a href="http://simal.oss-watch.ac.uk/contributor/governance/index.html#Decision-making">decision making section</a> of the governance page.</p>
 
     </section>
+    
+    <section id="svnlist">
+      <title>SVN Commit messages split to own list</title>
+      
+      <p>By popular request we moved the commit messages to their own list on 3 October 2007.</p>
+      
+      <p>Initially we set
+      these up to go to the contributors list, the intention was to show a heartbeat for the project
+      whilst there were few people to talk to one another. However, as the project grew 
+      the commit messages became more annoying than useful for newcomers searching the archives and 
+      lurkers only interesting in design discussion and announcements.</p>
+      
+      <p>Those wishing to get a notification of key changes in the project were encouraged to
+      subscribe to the changes <a href="http://simal.oss-watch.ac.uk/changes.rss">RSS feed</a>. Those
+      wishing to track code level changes need to subscribe to the 
+      <a href="http://groups.google.com/group/simal-commits">commit mailing list</a>.</p>
+    </section>
+    
   </steps>
 
   <!--
