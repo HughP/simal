@@ -69,12 +69,10 @@
       </notes>
 
       
-      <!-- FIXME: awaiting sourcekibitzer code modifications that allow us to access thier DOAP files
       <action context="catalogue" dev="RDG" type="add" importance="high">
-        Added <link href="">Sakai project</link> as an example of retriving DOAP data from 
+        Added <link href="/projectDetails/sakai.html">Sakai project</link> as an example of retriving DOAP data from 
         <link href="http://www.sourcekbitzer.com">SourceKibitzer</link>.        
       </action>
-      -->
       
       <action context="admin" dev="RDG" type="update" importance="high">
         By popular request we moved the commit messages to their own list.
