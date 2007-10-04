@@ -15,6 +15,17 @@
   limitations under the License.
 -->
 <properties>
+  <!-- ProjectInfo plugin -->  
+  <property name="projectInfo.changes.includeCommitterList" value="true"/>
+  <property name="projectInfo.changes.includeContributorList" value="true"/>
+  <property name="projectInfo.changes.sort" value="type"/>
+  <property name="projectInfo.project.fullname" value="Simal"/>
+  <property name="projectInfo.project.url" value="http://simal.oss-watch.ac.uk/"/>
+  <property name="projectInfo.url" value="http://simal.oss-watch.ac.uk"/>
+  <property name="projectInfo.svn.ext" value=".svn.xml"/>
+  <property name="projectInfo.svn.path-prefix" value="src/documentation/content/svn-log/simal-"/>
+  <property name="projectInfo.rss.language" value="en-gb"/>
+  
   <!--
     # codename: Dispatcher
     # Dispatcher is using a fallback mechanism for theming.
