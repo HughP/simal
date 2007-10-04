@@ -42,7 +42,7 @@
 
   <changes>
 
-    <release version="0.2" date="unreleased">
+    <release version="0.2-dev" date="unreleased">
       <!--  
       This action is in progress:
       
@@ -69,6 +69,10 @@
       </notes>
 
       
+      <action context="catalogue" dev="RDG" type="update" importance="low">
+            Fixed links in <link href="/changes.rss">changes RSS</link> feed and improved content displayed.
+      </action>
+      
       <action context="catalogue" dev="RDG" type="add" importance="high">
         Added <link href="/projectDetails/sakai.html">Sakai project</link> as an example of retriving DOAP data from 
         <link href="http://www.sourcekbitzer.com">SourceKibitzer</link>.        
@@ -76,7 +80,7 @@
       
       <action context="admin" dev="RDG" type="update" importance="high">
         By popular request we moved the commit messages to their own list.
-        Those wishing to get a notification of key changes in the project were encouraged to
+        Those wishing to get a notification of key changes in the project are encouraged to
         subscribe to the changes <link href="http://simal.oss-watch.ac.uk/changes.rss">RSS feed</link>. Those
         wishing to track code level changes need to subscribe to the 
         <link href="http://groups.google.com/group/simal-commits">commit mailing list</link>.
