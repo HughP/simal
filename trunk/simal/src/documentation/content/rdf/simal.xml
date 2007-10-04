@@ -56,6 +56,8 @@ Simal also provides a web application for the creation and management of RDF/XML
 
       <foaf:mbox rdf:resource="mailto:gmcdonald@apache.org"/>
     </foaf:Person>
+    
+    <foaf:seeAlso rdf:resource="http://simal.oss-watch.ac.uk/changes.rss" dc:format="application/rss+xml" dc:title="Recent Changes"/>
 
   </maintainer> 
 </Project>
