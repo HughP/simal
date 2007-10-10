@@ -17,6 +17,16 @@ You must set the environment variable {{{FORREST_HOME}}} to point to the Forrest
 
 You need Apache ANT installed (it comes with Forrest, see FORREST_HOME/tools/ant) and in your path.
 
+Your simal svn must be checked out with the command:
+
+{{{
+svn checkout https://simal.googlecode.com/svn/trunk/ simal
+}}}
+
+Note that this differs in two respects from the command given in GettingStarted:
+ * *using https:// rather than http:// * this is to allow for authentication to be performed
+ * *checking out {{{.../svn/trunk/}}} rather than {{{.../svn/trunk/simal}}}* because the extra files are needed
+
 = Build Apache Forrest =
 
 From within the Apache Forrest checkout directory run the following commands:
