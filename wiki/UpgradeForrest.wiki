@@ -25,7 +25,6 @@ svn checkout https://simal.googlecode.com/svn/trunk/ simal
 
 Note that this differs in two respects from the command given in GettingStarted:
  * *using https:// rather than http:// * this is to allow for authentication to be performed
- * *checking out {{{.../svn/trunk/}}} rather than {{{.../svn/trunk/simal}}}* because the extra files are needed
 
 = Build Apache Forrest =
 
