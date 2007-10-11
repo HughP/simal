@@ -49,7 +49,7 @@ Otherwise you will need to read the information below. we welcome documentation 
 == Get Source Files ==
 
 {{{
-svn checkout http://simal.googlecode.com/svn/trunk/simal $PROJECT_HOME/simal
+svn checkout http://simal.googlecode.com/svn/trunk/ $PROJECT_HOME/simal-trunk
 }}}
 
 where $PROJECT_HOME is your chosen project directory
@@ -58,7 +58,7 @@ where $PROJECT_HOME is your chosen project directory
 
 == Set up ==
 
-Create a SIMAL_HOME environment variable with the value $PROJECT_HOME/simal
+Create a SIMAL_HOME environment variable with the value $PROJECT_HOME/simal-trunk/simal
 
 Add $SIMAL_HOME/bin to your PATH environment variable
 
