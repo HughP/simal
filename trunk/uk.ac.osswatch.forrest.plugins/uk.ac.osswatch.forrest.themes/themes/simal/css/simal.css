@@ -299,3 +299,11 @@ p.instruction {
     list-style-position:outside;
     margin-left:2em;
 }
+
+/*
+ * MIT Exhibit browser styling (used in catalogue browser)
+ */
+.exhibit-viewPanel {
+  overflow: auto;
+  height:34em;
+}
