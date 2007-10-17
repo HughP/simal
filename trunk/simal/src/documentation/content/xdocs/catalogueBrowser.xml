@@ -20,13 +20,13 @@
     </header>
     <body>
         <table>
-            <tr> 
+            <tr valign="top"> 
                 <td>
                     <div id="exhibit-browse-panel" ex:facets=".category, .person, .programming-language"></div>
                 </td>
                 <td>
                     <div id="exhibit-control-panel">
-                    </div>
+                    </div> 
                     <div id="exhibit-view-panel">
                        <p>Loading Exhibit Browser...</p>
                        <p>Note, you must be connected to the Internet for this to work.</p>
