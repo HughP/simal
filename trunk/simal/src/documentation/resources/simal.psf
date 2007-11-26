@@ -9,5 +9,6 @@
 		<project reference="0.9.3,https://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.model.test,uk.ac.osswatch.simal.model.test"/>
 		<project reference="0.9.3,https://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.rest,uk.ac.osswatch.simal.rest"/>
 		<project reference="0.9.3,https://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.webGUI,uk.ac.osswatch.simal.webGUI"/>
+		<project reference="0.9.3,https://simal.googlecode.com/svn/trunk/uk.ac.osswatch.forrest.plugins,uk.ac.osswatch.forrest.plugins"/>
 	</provider>
 </psf>
