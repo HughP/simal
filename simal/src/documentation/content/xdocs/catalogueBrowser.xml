@@ -22,12 +22,12 @@
         <table>
             <tr valign="top"> 
                 <td>
-                    <div id="exhibit-browse-panel" ex:facets=".category, .person, .programming-language"></div>
+                    <div ex:role="facet" ex:expression=".category" ex:facetLabel="Category"></div>
+   					<div ex:role="facet" ex:expression=".person" ex:facetLabel="Person"></div>
+   					<div ex:role="facet" ex:expression=".programming-language" ex:facetLabel="Programming Language"></div>
                 </td>
                 <td>
-                    <div id="exhibit-control-panel">
-                    </div> 
-                    <div id="exhibit-view-panel">
+                    <div ex:role="viewPanel">
                        <p>Loading Exhibit Browser...</p>
                        <p>Note, you must be connected to the Internet for this to work.</p>
                            <div ex:role="exhibit-view"
