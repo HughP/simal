@@ -62,6 +62,9 @@
 			<location src="{properties:content}rdf/simal.xml" />
 		</match>
 
+		<match pattern="doap.descriptor.forrest">
+		  <location src="http://forrest.apache.org/doap.xml"/>
+		</match>
 
 		<match pattern="doap.descriptor.sakai">
 			<location
