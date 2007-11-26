@@ -144,7 +144,7 @@
       plugin.</fixme>
       
       <section>
-        <title>Start Derby Database</title>
+        <title>Start Derby Database Server</title>
     
 	      <p>During development we use an embedded Apache Derby database. This
 	      enables you to do development work independently of any production
@@ -155,6 +155,31 @@
 	      <p class="instruction">select <em>Apache Derby -> Start Network Server</em></p>
       </section>
       
+      <section>
+        <title>Create Database</title>
+    
+	      <p>A script to create the Simal database is provided in 
+	      <code>uk.ac.osswatch.simal.model.derby/src/META-INF/setup.sql</code>.
+	      This script creates the structure of the database, but it does not 
+	      populate it with any data. In order to run it you must:</p>
+	      
+	      <p class="instruction">right click on the <em>uk.ac.osswatch.simal.model.derby/src/META-INF/setup.sql</em>
+	      project</p>
+	      <p class="instruction">select <em>Apache Derby -> Run SQL Script using 'ij'</em></p>
+      </section>
+      
+      <section>
+        <title>Testing the database setup</title>
+        
+        <p>You should now be able to run the complete database test suite.</p>
+      
+        <p class="instruction">right click on <em>uk.ac.osswatch.simal.model.derby/src/test/uk.ac.osswatch.simal.service.derby/TestManagedProjectBean</em></p>
+        <p class="instruction">select 'Run As' -> 'JUnit Test'</p>
+        
+        <p>In the JUnit test results page you should see 100% sucess.
+        If you do not then please contact the Simal developers list for
+        assistance.</p>
+      </section>
       <section>
         <title>Run the Simal Management Webapp</title>
         
