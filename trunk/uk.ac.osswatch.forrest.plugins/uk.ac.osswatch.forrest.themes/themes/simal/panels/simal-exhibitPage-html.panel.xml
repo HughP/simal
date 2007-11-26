@@ -18,7 +18,7 @@
     xmlns:forrest="http://apache.org/forrest/templates/1.0"
     xmlns:jx="http://apache.org/cocoon/templates/jx/1.0">
     
-    <forrest:contract name="doap-exhibit"/>
+    <forrest:contract name="doap-exhibit2"/>
 
     <jx:import uri="cocoon://prepare.panels.simal-commonCSS-html" />
     <jx:import uri="cocoon://prepare.panels.simal-commonMeta-html" />
