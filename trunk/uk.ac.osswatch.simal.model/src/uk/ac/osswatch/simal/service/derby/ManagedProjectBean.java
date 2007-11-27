@@ -57,6 +57,7 @@ public class ManagedProjectBean implements IProjectService {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     public Collection<Project> findAll() {
         EntityManager em = JPAResourceBean.getEMF().createEntityManager();
         try {
@@ -66,12 +67,13 @@ public class ManagedProjectBean implements IProjectService {
         }
     }
 
-    public Project findProjectByShortName(String name) {
+    @SuppressWarnings("unchecked")
+    public Collection<Project> findProjectByShortName(String name) {
         EntityManager em = JPAResourceBean.getEMF().createEntityManager();
         try {
            Query q = em.createQuery("SELECT p FROM Project p WHERE p.shortName = :name");
            q.setParameter("name", name);
-           return (Project)q.getSingleResult();
+           return q.getResultList();
         } finally {
             em.close();
         }
