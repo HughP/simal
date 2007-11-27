@@ -6,17 +6,17 @@
     name="Simal Documentation"
     type="Link" 
     target="http://simal.oss-watch.ac.uk"
-    programGroup="no" />
+    programGroup="yes" />
     
   <shortcut 
     name="Simal Developer Site"
     type="Link" 
     target="http://code.google.com/p/simal"
-    programGroup="no" />
+    programGroup="yes" />
     
     <shortcut
      name="Uninstall Simal"
-     programGroup="no"
+     programGroup="yes"
      desktop="no"
      applications="no"
      startMenu="no"
