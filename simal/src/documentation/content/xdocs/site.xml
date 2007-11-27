@@ -94,7 +94,7 @@ See http://forrest.apache.org/docs/linking.html for more info
     
     <howto label="How To" href="how-to/" tab="contributor">
       <index label="What is a  How To?" href="index.html"/>
-      <developSimal label="Develop Simal" href="developSimal.html"/ description="How to get started on developing Simal">
+      <developSimal label="Develop Simal" href="developSimal.html" description="How to get started on developing Simal"/>
       <addField label="Add Field to Object" href="addFieldToObject.html" description="Add a field to an existing object and provide a means to edit it."/>
       <addDataObject label="Add New Data Object" href="addNewDataObject.html" description="Add a new data object and provide a means to edit it."/>
     </howto>
