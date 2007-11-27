@@ -1,12 +1,22 @@
 <?xml version="1.0"?>
 <shortcuts>
   <programGroup defaultName="Simal" location="applications"/>
-  <shortcut name="Simal Developer Site" target="http://code.google.com/p/simal"
-    programGroup="yes" />
+  
+  <shortcut 
+    name="Simal Documentation"
+    type="Link" 
+    target="http://simal.oss-watch.ac.uk"
+    programGroup="no" />
+    
+  <shortcut 
+    name="Simal Developer Site"
+    type="Link" 
+    target="http://code.google.com/p/simal"
+    programGroup="no" />
     
     <shortcut
-     name="Uninstaller"
-     programGroup="yes"
+     name="Uninstall Simal"
+     programGroup="no"
      desktop="no"
      applications="no"
      startMenu="no"
