@@ -164,10 +164,6 @@
     <section>
       <title>Test Setup So Far</title>
       
-      <fixme author="rdg">The simal configuration described in this section
-      is not brought across as part of the import, neither is the model.test
-      plugin.</fixme>
-      
       <section>
         <title>Start Derby Database Server</title>
     
@@ -207,6 +203,10 @@
       </section>
       <section>
         <title>Run the Simal Management Webapp</title>
+      
+          <fixme author="rdg">The simal configuration described in this section
+          is not brought across as part of the import, neither is the model.test
+          plugin.</fixme>
         
 	      <p>Now you should now be able to run the Simal web application.</p>
 	      
