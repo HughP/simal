@@ -34,9 +34,7 @@ else
 fi
 
 if [ -z "$SIMAL_HOME" ] ; then
-  echo `basename $0`: SIMAL_HOME not set.
-  echo see http://code.google.com/p/simal/wiki/GettingStarted
-  exit 1
+  SIMAL_HOME=$INSTALL_PATH
 fi
 
 if [ -z "$FORREST_HOME" ] ; then
