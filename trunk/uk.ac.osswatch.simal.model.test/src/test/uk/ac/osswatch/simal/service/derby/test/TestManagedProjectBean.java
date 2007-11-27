@@ -15,8 +15,14 @@
 */
 package uk.ac.osswatch.simal.service.derby.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.Contributor;
@@ -24,18 +30,21 @@ import uk.ac.osswatch.simal.model.Event;
 import uk.ac.osswatch.simal.model.Project;
 import uk.ac.osswatch.simal.service.derby.ManagedProjectBean;
 
-public class TestManagedProjectBean {
+public class TestManagedProjectBean  {
+    
+    
 
     @Test
     public void testFindProjectByShortName() {
+        createProjectTestData();
         ManagedProjectBean pb = new ManagedProjectBean();
-        Project p = pb.findProjectByShortName("Test1");
-        assertEquals("Test 1", p.getName());
+        Collection<Project> p = pb.findProjectByShortName("Test1");
+        assertNotNull(p);
     }
 
     @Test
     public void testSave() {
-        Project project = createProject();
+        Project project = createProjectTestData();
         ManagedProjectBean pb = new ManagedProjectBean();
         Project readProject = pb.findProject(project.getId());
         assertNotNull(readProject);
@@ -53,7 +62,7 @@ public class TestManagedProjectBean {
 
     @Test
     public void testCreateNewProject() {
-        Project project = createProject();
+        Project project = createProjectTestData();
         ManagedProjectBean pb = new ManagedProjectBean();
         Project readProject = pb.findProject(project.getId());
         assertNotNull(readProject);
@@ -61,7 +70,7 @@ public class TestManagedProjectBean {
         assert(readProject.getEvents().size() == 1);
     }
     
-    private Project createProject() {
+    private Project createProjectTestData() {
         Contributor contributor = new Contributor("Contributor 1", "cont1@test.com");
         Event event = new Event("Event 1", "The first event",
                 new java.util.Date());
@@ -71,5 +80,12 @@ public class TestManagedProjectBean {
         pb.save(project);
         return project;
     }
-
+    
+    @BeforeClass
+    public static void populateTestData() {
+    }
+    
+    @AfterClass
+    public static void cleanTestData() {
+    }
 }
