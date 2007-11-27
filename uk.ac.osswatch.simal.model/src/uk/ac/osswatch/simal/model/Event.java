@@ -62,6 +62,7 @@ public class Event implements Serializable {
         setShortDesc(shortDesc);
         setCreated(new Date(System.currentTimeMillis()));
         setStartDate(new Date(startDate.getTime()));
+        setEndDate(new Date(startDate.getTime()));
     }
 
     public long getId() {
