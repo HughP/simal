@@ -15,6 +15,9 @@
     limitations under the License.
 -->
 <installation version="1.0">
+	<variables>
+	  <variable name="app-version" value="0.1-rc2"/>
+	</variables>
     <info>
         <appname>Simal</appname>
         <appversion>0.1-rc2</appversion>
@@ -68,6 +71,10 @@
                 <include name="src/**/*" />
                 <include name="tools/**/*" />
             </fileset>
+            
+            <parsable targetfile="$INSTALL_PATH/bin/simal"/>
+            <parsable targetfile="$INSTALL_PATH/bin/simal.bat"/>
+            
             <executable stage="never" targetfile="$INSTALL_PATH/bin/appendcp.bat"/>
             <executable stage="never" targetfile="$INSTALL_PATH/bin/setpwdvar.bat"/>
             <executable stage="never" targetfile="$INSTALL_PATH/bin/setpwdvar98.bat"/>
