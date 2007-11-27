@@ -57,25 +57,50 @@
       <section>
         <title>Eclipse 3.3 + Web Tools Project 2.0</title>
         
-        <p>If you do not currently have eclipse installed we recomend that you 
+        <p class="instruction">If you do not currently have eclipse installed we recomend that you 
         download and unpack the 
         <a href="http://download.eclipse.org/webtools/downloads/">Eclipse + WTP</a> All in one
         package.</p>
         
-        <p>If you already have eclipse then you will need to ensure that you also
+        <p class="instruction">If you already have eclipse then you will need to ensure that you also
         have the <a href="http://download.eclipse.org/webtools/downloads/">WTP</a>
         plugins installed.</p> 
       </section>
       
       <section>
         <title>Apache Derby</title>
-        <p>Download the Derby Core and Derby UI Plugins <a href="http://db.apache.org/derby/derby_downloads.html">Derby 
+        <p>Apache Derby, an <a href="http://db.apache.org/">Apache DB subproject</a>,
+        is an open source relational database implemented entirely in Java.
+        Some key advantages include:</p>
+        
+        <ul>  
+          <li>small footprint</li>  
+          <li>implments JDBC, and
+            <a href="http://wiki.apache.org/db-derby/SQLvsDerbyFeatures">SQL</a> standards.
+          </li>
+          <li>embedded JDBC driver that lets you embed 
+          Derby in any Java-based solution.</li>
+          <li>supports the more familiar client/server mode with the
+          Derby Network Client JDBC 
+          driver and Derby Network Server.</li>
+          <li> Derby is easy to install, deploy, and use.</li>
+       </ul>
+
+        <p class="instruction">Download the Derby Core and Derby UI Plugins <a href="http://db.apache.org/derby/derby_downloads.html">Derby 
         downloads page</a> and unpack them into your Eclipse directory.</p>
       </section>
       
       <section>
         <title>Dali</title>
-        <p>Download <a href="http://www.eclipse.org/dali/downloads.html">Dali</a> and
+        <p>The goal of the Dali JPA Tools Project, a sub-project of the  Web Tools 
+        Platform Project, is to build extensible frameworks and exemplary tools for 
+        the definition and editing of Object-Relational (O/R) mappings for EJB 3.0 
+        Java Persistence API (JPA) Entities. JPA mapping support focuses on 
+        minimising the complexity of mapping by providing creation and automated 
+        initial mapping wizards, and programming assistance such as dynamic problem 
+        identification. </p>
+        
+        <p class="instruction">Download <a href="http://www.eclipse.org/dali/downloads.html">Dali</a> and
         unpack it in the Eclipse directory created in the previous section.</p>
       </section>
           
