@@ -21,8 +21,15 @@
   </header> 
   <body> 
     <p>This section of the site contains a number of how-to documents aimed at
-    contributors of all types. See the links in the menu on the left for more
-    details.</p>
+    contributors of all types. There are two applications within the Simal project:</p>
+    
+    <ul>
+      <li>A project registry generator</li>
+      <li>A managment web application</li>
+    </ul> 
+    
+    <p>See the links in the menu on the left for more
+    details of how to's for each of these applications.</p>
     
     <p>A how to document describes how to perform a specific task. 
     It is not intended to provide the reader with in-depth
