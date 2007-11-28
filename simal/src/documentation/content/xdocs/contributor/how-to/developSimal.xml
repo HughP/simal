@@ -65,6 +65,7 @@
         <p class="instruction">If you already have eclipse then you will need to ensure that you also
         have the <a href="http://download.eclipse.org/webtools/downloads/">WTP</a>
         plugins installed.</p> 
+        
       </section>
       
       <section>
@@ -204,18 +205,24 @@
       <section>
         <title>Run the Simal Management Webapp</title>
       
-          <fixme author="rdg">The simal configuration described in this section
-          is not brought across as part of the import, neither is the model.test
-          plugin.</fixme>
-        
-	      <p>Now you should now be able to run the Simal web application.</p>
+          <p>Now you should now be able to run the Simal web application.</p>
 	      
-	      <p class="instruction">Open the <em>Run</em>
-	      wizard by selecting <em>Run --> Run</em> from the Eclipse menu. In the wizard 
-	      choose <em>Equinox OSGi Framework -> Simal RAP (Test Database)</em> and after that click <em>run</em>.
-	      Some messages in the console view should indicate that the http service was started 
-	      at port 9090. Now open a browser and type navigate to 
+	      <p class="instruction">Open the <em>Run Dialogue</em>
+	      wizard by selecting <em>Run --> Open Run Dialog</em> from the Eclipse menu.</p>
+	       
+	      <p class="instruction">Expand the <em>Equinox OSGI</em> node in the tree on the left</p>
+	      
+	      <p class="instruction">Select the <em>Simal WebGUI</em> node.</p>
+	      
+	      <p class="instruction">Click the Run button on the right.</p>
+	      
+	      <p>Some messages in the console view should indicate that the 
+	      http service was started on port 9090. A bunch of other
+	      Simal services will also be mentioned in the console output.</p>
+	      
+	      <p class="instruction">Now open a browser and type navigate to 
 	      <em>http://localhost:9090/rap</em> to access the Simal application.</p>
+	      
 	  </section>
     </section>
     
