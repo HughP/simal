@@ -21,8 +21,10 @@
   </header> 
   <body> 
   
-    <p>Simal is a tool for building and tracking projects and the people involved in
-      those projects. Simal is very young at this time. As
+    <p>Simal is an open source tool for building and tracking projects and the people involved in
+      those projects. Simal is released under the Apache License V2.</p>
+      
+      <p>Simal is very young at this time. As
       such, we welcome input
       into the requirements and design of the initial prototype system.</p>
     
