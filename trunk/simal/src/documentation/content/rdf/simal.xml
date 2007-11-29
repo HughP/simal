@@ -64,6 +64,8 @@ Simal also provides a web application for the creation and management of RDF/XML
     </foaf:Person>
   </developer>
     
-  <foaf:seeAlso rdf:resource="http://simal.oss-watch.ac.uk/changes.rss" dc:format="application/rss+xml" dc:title="Recent Changes"/> 
+  <foaf:seeAlso rdf:resource="http://simal.oss-watch.ac.uk/changes.rss" dc:format="application/rss+xml" dc:title="Recent Changes"/>
+  
+  <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_einfrastructure.aspx"/> 
 </Project>
 </rdf:RDF>
