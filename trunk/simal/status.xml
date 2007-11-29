@@ -75,8 +75,8 @@
             
       <action context="docs" dev="RDG" type="add" importance="high">
             Added a new how to document describing how to 
-            <a href="/contributor/how-to/managementWebapp/addMenuItem.html#Adding%20the%20action%20to%20a%20toolbar">add
-             a new menu item</a> to the management webapp.
+            <link href="/contributor/how-to/managementWebapp/addMenuItem.html">add
+             a new menu item</link> to the management webapp.
       </action>
       
       <action context="catalogue" dev="RDG" type="add" importance="high">
