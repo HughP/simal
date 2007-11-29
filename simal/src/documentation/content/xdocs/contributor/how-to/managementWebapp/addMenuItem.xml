@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE howto PUBLIC "-//APACHE//DTD How-to V2.0//EN"
+"http://forrest.apache.org/dtd/howto-v20.dtd">
+<howto>
+  <header>
+    <title>Adding a menu item to the Simal Catalogue Management Webapp</title>
+
+    <version>$Rev$</version>
+
+    <abstract>This How-To describes how to add a new menu item to the
+    catalogue management webapp. This how-to explains how to add the menu
+    item, but does not describe how to implement any specific commands.</abstract>
+
+    <last-modified-content-date date="$LastChangedDate$" />
+  </header>
+
+  <audience title="Intended Audience">
+    <p>People wishing to add a new command to the Simal catalogue management 
+    webapp.</p>
+  </audience>
+
+  <purpose title="Purpose">
+    <p>To provide a basic understanding of how to add a menu item.</p>
+  </purpose>
+
+  <prerequisites title="Prerequisites">
+    <p>Readers should</p>
+
+    <ul>
+      <li>Have at least a basic understanding of Java development in Eclipse</li>
+      <li>Have set up their <a href="developSimal.html">development environment</a></li>
+    </ul>
+
+  </prerequisites>
+
+  <steps title="Add the menu item">
+    <section>
+      <title>Background and Preparation</title>
+      
+      <p>As always it is important to have an idea of what you want to achieve.
+      In this how to we will add a menu item to the "Project" menu. This item
+      will not do anything useful, instead, we'll just open a message box whenever
+      the item is selected.</p>
+    </section>
+    
+    <section>
+      <title>Creating the Action</title>
+      
+      <p>In Eclipse menu commands call actions, we therefore need to create an action
+      that will be performed when the menu item is selected. Actions are generally
+      created in classes called <code>*ActionBarAdvisor</code> where '*' is replaced
+      by the name of the action bar the action is related to. In this case, 
+      "Project".</p>
+      
+      <p>Each action has a unique (to the application) ID string.</p>
+      
+      <p class="instruction">select the module <code>uk.ac.osswatch.simal.webGUI</code></p>
+      <p class="instruction">open the class <code>uk.ac.osswatch.simal.webGUI.ProjectActionBarAdvisor</code></p>
+      <p class="instruction">add an ID for the action as follows:</p>
+      <source>      
+private static final String MY_NEW_ACTION_ID = AdminWorkbench.getID()
+    + ".action.myNew";
+      </source>
+      <p class="instruction">add a variable to hold the action configuration:</p>
+      <source>
+private Action myNewAction;
+      </source>
+      <p class="instruction">define the action icon by adding
+      the following code in the appropriate place in the 
+      <code>makeActions(final IWorkbenchWindow window)</code>,
+      method, or an appropriate method called from there</p>
+      <source>
+ImageDescriptor myNewActionImage = AbstractUIPlugin
+        .imageDescriptorFromPlugin(AdminWorkbench.getID(),
+                "icons/myNewAction.gif");
+      </source>
+      <p class="instruction">Create the action by adding the following code to the 
+      <code>makeActions(final IWorkbenchWindow window)</code> method, or an 
+      appropriate method called from there</p>
+      <source>
+myNewAction = new Action() {
+    public void run() {
+        myNewAction();
+    }
+
+    private void myNewAction() {
+      final IInputValidator val = new IInputValidator() {
+          public String isValid( String newText ) {
+            String result = null;
+            if( newText.length() &lt; 2 ) {
+              result = "Text must be at least 2 characters";
+            }
+            return result;
+          }
+        };
+        String title = "A basic input dialoh";
+        String mesg = "Please enter at least 2 characters";
+        String def = "This default text is already long enough";
+        final InputDialog dlg;
+        dlg = new InputDialog( getShell(), title, mesg, def, val );
+        int returnCode = dlg.open();
+        if( returnCode == InputDialog.OK ) {
+          System.out.println( "User input: " + dlg.getValue() );
+        } else {
+            System.out.println( "User cancelled" );
+        }
+    }
+};
+myNewAction.setText("Import Project");
+myNewAction.setId(MY_NEW_ACTION_ID);
+myNewAction.setImageDescriptor(myNewActionImage);
+register(myNewAction);
+      </source>  
+      
+      <p class="instruction">Tell the application which menur to display the new 
+      action in by adding the code like the following to the 
+      <code>fillMenuBar(final IMenuManager menuBar)</code>
+      method</p>
+      
+      <source>
+projectMenu.add(myNewAction);
+      </source>
+    </section>
+  </steps>
+  
+  <extension title="Adding the action to a toolbar">
+  <p>If you want to add the same action to a toolbar it's really easy.</p>
+  
+  <p class="instruction">add code something like the following to the
+  <code>fillCoolBar(ICoolBarManager coolBar)</code> method.</p>
+  <source>
+toolbar.add(myNewAction);
+  </source>
+  </extension>
+</howto>
