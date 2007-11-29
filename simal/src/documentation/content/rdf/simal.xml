@@ -35,19 +35,25 @@ Simal also provides a web application for the creation and management of RDF/XML
     <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
       <foaf:name>Ross Gardler</foaf:name>
       <rdf:seeAlso rdf:resource="http://people.apache.org/~rgardler/foaf.rdf.xml"/>
-    </foaf:Person> 
-    
+    </foaf:Person>
+  </maintainer> 
+  
+  <documentor> 
     <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~randolph.metcalfe/#me">
       <foaf:name>Randy Metcalfe</foaf:name>
       <foaf:homepage rdf:resource="http://randymetcalfe.blogspot.com/"/>
       <foaf:mbox_sha1sum>3aaaf44003f0ee3e7eab9211119fe58ea32a883c</foaf:mbox_sha1sum>
     </foaf:Person>
-    
+  </documentor>
+  
+  <maintainer>
     <foaf:Person rdf:about="http://people.oss-watch.ac.uk/~stuart.yeates/#me">
       <foaf:name>Stuart Yeates</foaf:name>
       <rdf:seeAlso rdf:resource="http://users.ox.ac.uk/~syeates/foaf-main.rdf"/>
     </foaf:Person>
+  </maintainer>
 
+  <developer>
     <foaf:Person rdf:about="http://people.apache.org/~gmcdonald/">
       <foaf:name>Gavin McDonald</foaf:name>
       <foaf:homepage rdf:resource="http://www.ohloh.net/accounts/5121/"/>
@@ -56,9 +62,10 @@ Simal also provides a web application for the creation and management of RDF/XML
 
       <foaf:mbox rdf:resource="mailto:gmcdonald@apache.org"/>
     </foaf:Person>
+  </developer>
     
-    <foaf:seeAlso rdf:resource="http://simal.oss-watch.ac.uk/changes.rss" dc:format="application/rss+xml" dc:title="Recent Changes"/>
-
-  </maintainer> 
+  </maintainer>
+  
+  <foaf:seeAlso rdf:resource="http://simal.oss-watch.ac.uk/changes.rss" dc:format="application/rss+xml" dc:title="Recent Changes"/> 
 </Project>
 </rdf:RDF>
