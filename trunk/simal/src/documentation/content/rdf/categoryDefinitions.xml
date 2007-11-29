@@ -39,7 +39,7 @@
   <doap:category rdf:resource="" dc:title="unknown category"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" dc:title="E-Learning Frameworks and Tools"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx" dc:title="E-Learning Innovation Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx " dc:title="E-Learning Pedagogy Programme"/>
+  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx" dc:title="E-Learning Pedagogy Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx" dc:title="SFC E-Learning Transformation Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/eresearch_grid_ogc_collision.aspx" dc:title="Grid OGC Collision Programme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx" dc:title="Authentication, Authorisation and Accounting Programme"/>
