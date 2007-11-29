@@ -8,7 +8,7 @@
 <Project rdf:about="http://www.oss-watch.ac.uk/"> 
   <name>OSS Watch open source advisory service</name>
 
-  <shortname>OSSWatch</shortname>
+  <shortname>OSS Watch</shortname>
 
   <shortdesc xml:lang="en">Unbiased advice and guidance to UK higher and further
 education</shortdesc> 
