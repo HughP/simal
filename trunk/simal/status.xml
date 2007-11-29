@@ -72,6 +72,12 @@
       <action context="catalogue" dev="RDG" type="update" importance="low">
             Fixed links in <link href="/changes.rss">changes RSS</link> feed and improved content displayed.
       </action>
+            
+      <action context="docs" dev="RDG" type="add" importance="high">
+            Added a new how to document describing how to 
+            <a href="/contributor/how-to/managementWebapp/addMenuItem.html#Adding%20the%20action%20to%20a%20toolbar">add
+             a new menu item</a> to the management webapp.
+      </action>
       
       <action context="catalogue" dev="RDG" type="add" importance="high">
         Added <link href="/projectDetails/sakai.html">Sakai project</link> as an example of retriving DOAP data from 
