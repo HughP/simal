@@ -22,9 +22,13 @@ import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.ToolBarContributionItem;
 import org.eclipse.jface.action.ToolBarManager;
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
@@ -49,6 +53,9 @@ public class ProjectActionBarAdvisor extends ActionBarAdvisor {
     private static final String NEW_PROJECT_ACTION_ID = AdminWorkbench.getID()
             + ".action.newProject";
 
+    private static final String IMPORT_PROJECT_ACTION_ID = AdminWorkbench.getID()
+            + ".action.importProject";
+
     private static final String NEW_CONTRIBUTOR_ACTION_ID = AdminWorkbench.getID()
             + ".action.newContributor";
 
@@ -61,6 +68,8 @@ public class ProjectActionBarAdvisor extends ActionBarAdvisor {
 
     private Action newProjectAction;
 
+    private Action importProjectAction;
+    
     private Action newContributorAction;
 
     private Action newLanguageAction;
@@ -77,6 +86,9 @@ public class ProjectActionBarAdvisor extends ActionBarAdvisor {
         ImageDescriptor newProjectImage = AbstractUIPlugin
                 .imageDescriptorFromPlugin(AdminWorkbench.getID(),
                         "icons/newProject.gif");
+        ImageDescriptor importProjectImage = AbstractUIPlugin
+                .imageDescriptorFromPlugin(AdminWorkbench.getID(),
+                    "icons/importProject.gif");
         ImageDescriptor newContributorImage = AbstractUIPlugin
                 .imageDescriptorFromPlugin(AdminWorkbench.getID(),
                         "icons/newContributor.gif");
@@ -120,6 +132,39 @@ public class ProjectActionBarAdvisor extends ActionBarAdvisor {
         newProjectAction.setId(NEW_PROJECT_ACTION_ID);
         newProjectAction.setImageDescriptor(newProjectImage);
         register(newProjectAction);
+        
+        importProjectAction = new Action() {            
+            public void run() {
+                importProject();
+            }
+
+            private void importProject() {
+                final IInputValidator val = new IInputValidator() {
+                    public String isValid( String newText ) {
+                      String result = null;
+                      if( newText.length() < 2 ) {
+                        result = "Text must be at least 2 characters";
+                      }
+                      return result;
+                    }
+                  };
+                  String title = "Import Project";
+                  String mesg = "FIXME: This doesn't actually do anything yet, it's a placeholder for work in progress";
+                  String def = "http://";
+                  final InputDialog dlg;
+                  dlg = new InputDialog( getShell(), title, mesg, def, val );
+                  int returnCode = dlg.open();
+                  if( returnCode == InputDialog.OK ) {
+                    System.out.println( "User input: " + dlg.getValue() );
+                  } else {
+                      System.out.println( "User cancelled" );
+                  }
+            }
+        };
+        importProjectAction.setText("Import Project");
+        importProjectAction.setId(IMPORT_PROJECT_ACTION_ID);
+        importProjectAction.setImageDescriptor(importProjectImage);
+        register(importProjectAction);        
 
         newContributorAction = new Action() {
             public void run() {
@@ -181,6 +226,7 @@ public class ProjectActionBarAdvisor extends ActionBarAdvisor {
 
         menuBar.add(projectMenu);
         projectMenu.add(newProjectAction);
+        projectMenu.add(importProjectAction);
         
         menuBar.add(contributorMenu);
         contributorMenu.add(newContributorAction);
@@ -194,7 +240,16 @@ public class ProjectActionBarAdvisor extends ActionBarAdvisor {
         coolBar.add(new ToolBarContributionItem(toolbar, "main"));
         toolbar.add(exitAction);
         toolbar.add(newProjectAction);
+        toolbar.add(importProjectAction);
         toolbar.add(newContributorAction);
         toolbar.add(aboutAction);
+    }
+    
+
+    
+    private Shell getShell() {
+        Shell shell = PlatformUI
+        .getWorkbench().getActiveWorkbenchWindow().getShell();
+        return shell;
     }
 }
