@@ -3,7 +3,7 @@
   xmlns:foaf="http://xmlns.com/foaf/0.1/"
   xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
-  xmlns:projects="http://projects.apache.org/ns/asfext#">
+  xmlns:asfext="http://projects.apache.org/ns/asfext#">
 
 <Project rdf:about="http://www.oss-watch.ac.uk/"> 
   <name>OSS Watch open source advisory service</name>
@@ -74,5 +74,9 @@ advice and guidance to UK higher and further education.</description>
   </documentor> 
   
   <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_einfrastructure.aspx"/>
+  
+  <asfext:relatedTo>
+    <Project rdf:resource="http://simal.oss-watch.ac.uk//"/>
+  </asfext:relatedTo>
 </Project>
 </rdf:RDF>

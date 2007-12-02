@@ -3,7 +3,7 @@
   xmlns:foaf="http://xmlns.com/foaf/0.1/"
   xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
-  xmlns:projects="http://projects.apache.org/ns/asfext#">
+  xmlns:asfext="http://projects.apache.org/ns/asfext#">
 
 <Project rdf:about="http://simal.oss-watch.ac.uk/"> 
   <name>Simal Project Catalogue System</name>
@@ -67,5 +67,9 @@ Simal also provides a web application for the creation and management of RDF/XML
   <foaf:seeAlso rdf:resource="http://simal.oss-watch.ac.uk/changes.rss" dc:format="application/rss+xml" dc:title="Recent Changes"/>
   
   <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_einfrastructure.aspx"/> 
+  
+  <asfext:relatedTo>
+    <Project rdf:resource="http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/simal.xml"/>
+  </asfext:relatedTo>
 </Project>
 </rdf:RDF>
