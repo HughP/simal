@@ -54,7 +54,7 @@ svn checkout http://simal.googlecode.com/svn/trunk/ $PROJECT_HOME/simal-trunk
 
 where $PROJECT_HOME is your chosen project directory
 
-*NOTE*: Use https rather than http if you are a committer
+NOTE: Use https rather than http if you are a committer
 
 == Set up ==
 
