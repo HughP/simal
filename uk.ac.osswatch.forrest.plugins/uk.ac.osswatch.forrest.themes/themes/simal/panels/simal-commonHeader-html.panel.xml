@@ -66,7 +66,9 @@
     <forrest:hook name="tabStrip">          
         <forrest:hook name="nav-main-hook">
             <forrest:contract name="nav-main"
-                dataURI="cocoon://#{$getRequest}.navigation.xml" />
+                dataURI="cocoon://#{$getRequest}.navigation.xml" />            
+            <forrest:contract name="nav-main-sub" 
+              dataURI="cocoon://#{$getRequest}.navigation.xml"/>
         </forrest:hook>
     </forrest:hook>
 </forrest:template>
