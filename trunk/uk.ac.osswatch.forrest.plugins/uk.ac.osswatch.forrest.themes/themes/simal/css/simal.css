@@ -43,22 +43,53 @@
 
 /* menu */
 
+
+#nav-section ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+#leftbar a {  font-weight: normal; text-decoration: none;}
+#leftbar a:hover { color: #FF0000; text-decoration: underline; }
+
+
+
+.pagegroup {
+        display: block;
+        cursor:pointer;
+}
+
+#nav-section span {
+}
+
+#nav-section .menuitemgroup {
+        margin: 0px 0px 6px 8px;
+        padding: 0px;
+}
+
+#nav-section .menupagetitle {
+	font-weight: normal;
+	color: #000000;
+}
+
+#nav-section .menupagetitle:before {
+    content: "[ "
+}
+
+#nav-section .menupagetitle:after {
+    content: " ]"
+}
+
 #nav-section ul {
     padding-left: 5px;
     margin : 5px 0px 5px 5px;
-
-}
-
-#nav-section li {
-    list-style-type : none;
 }
 
 #nav-section li li {
     padding-left : 5px;
     margin : 0px 5px;
     list-style-type : disc;
-    list-style : inside;
-
 }
 
 /* Tabs */
@@ -77,6 +108,14 @@
 }
 
 
+#nav-section {
+}
+
+
+#nav-section li{
+    margin-left: -10px;
+    padding-left:-10px;
+}
 
 #nav-main li { 
 
@@ -126,9 +165,46 @@
 }
 
 
+#nav-main-sub {
+    font-size:80%;
+    margin-left: 100px;
+}
+
+#nav-main-sub a {
+	text-decoration: none;
+}
+
+#nav-main-sub a.base-selected {
+}
+
+#nav-main-sub a.base-selected:before {
+    content: "   [ ";
+}
+
+#nav-main-sub a.base-selected:after {
+    content: " ]   ";
+}
+
 #export-link {
     float:right;
 }
+
+#nav-section{
+    position: relative;
+    float: left;
+    width: 160px;
+    padding-top: 0px;
+    top:-18px;
+    left:0px;
+    z-index: 20;
+    font-size : 85%;    
+}
+
+#nav-section .menuitem {
+    font-weight : normal;
+}
+
+
 
 
 #export-link a {
@@ -299,6 +375,14 @@ p.instruction {
     list-style-position:outside;
     margin-left:2em;
 }
+
+ul.minitoc {
+    list-style: none;
+	margin-left: 0;
+	padding-left: 1em;
+	text-indent: -1em;
+}
+
 
 /*
  * MIT Exhibit browser styling (used in catalogue browser)
