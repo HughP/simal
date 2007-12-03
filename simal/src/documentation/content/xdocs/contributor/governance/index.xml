@@ -138,7 +138,7 @@
                 </p>
 
                 <fixme author="rdg">
-                    Need to define this additional responsibilities
+                    Need to define these additional responsibilities
                 </fixme>
             </section>
         </section>
@@ -316,58 +316,50 @@
 
             <section>
                 <title>When is a vote required?</title>
-                <fixme author="rdg">
-                    We need to enumerate the circumstances in which a
-                    vote is requried.
-                </fixme>
-            </section>
-        </section>
-        
-        <section>
-          <title>Action</title>
-                    
-          <p>This section describes some of the actions that will require a vote, all
+                
+                <p>This section describes some of the actions that will require a vote, all
           other actions are assumed to require lazy consensus, that is no vote is required
           unless a binding -1 is cast. In the event of an undefined action requiring a vote
           the type of vote shall be determined by the PMC through lazy consensus.</p>
           
-          <table>
-            <tr>
-            <th>Action</th>
-            <th>Description</th>
-            <th>Approval Type</th>
-            </tr>
-            <tr>
-              <th>Release Plan</th>
-              <td>Defines the timetable and actions for a release. A release plan cannot be vetoed (hence lazy majority).</td>
-              <td>Lazy Majority</td>
-            </tr>
-            <tr>
-              <th>Product Release</th>
-              <td>When a release of one of the project's products is ready, a vote is required to accept the release as an official release of the project. A release cannot be vetoed (hence lazy majority).</td>
-              <td>Lazy Majority</td>
-            </tr>
-            <tr>
-              <th>New Committer</th>
-              <td>A new committer has been proposed.</td>
-              <td>Consensus Approval</td>
-            </tr>
-            <tr>
-              <th>New PMC member</th>
-              <td>A new PMC member has been proposed.</td>
-              <td>Consensus Approval</td>
-            </tr>
-            <tr>
-              <th>Committer Removal</th>
-              <td>When removal of commit privileges is sought.</td>
-              <td>Unanimous consensus</td>
-            </tr>
-            <tr>
-              <th>PMC Member Removal</th>
-              <td>When removal of PMC membership is sought.</td>
-              <td>Unanimous consensus</td>
-            </tr>
-          </table> 
+		          <table>
+		            <tr>
+		            <th>Action</th>
+		            <th>Description</th>
+		            <th>Approval Type</th>
+		            </tr>
+		            <tr>
+		              <th>Release Plan</th>
+		              <td>Defines the timetable and actions for a release. A release plan cannot be vetoed (hence lazy majority).</td>
+		              <td>Lazy Majority</td>
+		            </tr>
+		            <tr>
+		              <th>Product Release</th>
+		              <td>When a release of one of the project's products is ready, a vote is required to accept the release as an official release of the project. A release cannot be vetoed (hence lazy majority).</td>
+		              <td>Lazy Majority</td>
+		            </tr>
+		            <tr>
+		              <th>New Committer</th>
+		              <td>A new committer has been proposed.</td>
+		              <td>Consensus Approval</td>
+		            </tr>
+		            <tr>
+		              <th>New PMC member</th>
+		              <td>A new PMC member has been proposed.</td>
+		              <td>Consensus Approval</td>
+		            </tr>
+		            <tr>
+		              <th>Committer Removal</th>
+		              <td>When removal of commit privileges is sought.</td>
+		              <td>Unanimous consensus</td>
+		            </tr>
+		            <tr>
+		              <th>PMC Member Removal</th>
+		              <td>When removal of PMC membership is sought.</td>
+		              <td>Unanimous consensus</td>
+		            </tr>
+		          </table>
+            </section>
         </section>
 
         <section>
