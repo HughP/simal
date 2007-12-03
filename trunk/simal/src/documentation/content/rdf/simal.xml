@@ -20,7 +20,9 @@ Simal also provides a web application for the creation and management of RDF/XML
 
   <created>2007-03-02</created>
 
-  <mailing-list rdf:resource="http://groups.google.com/group/simal-contributors" />
+  <mailing-list rdf:resource="http://groups.google.com/group/simal-contributors" dc:title="Users/Contributors"/>
+  <mailing-list rdf:resource="http://groups.google.com/group/simal-commits" dc:title="Commits"/>
+  
   <wiki rdf:resource="http://code.google.com/p/simal/w/list"/>
   <download-page rdf:resource="http://code.google.com/p/simal/downloads/list"/>
   <bug-database rdf:resource="http://code.google.com/p/simal/issues/list"/>

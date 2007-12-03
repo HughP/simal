@@ -20,6 +20,9 @@ free and open source software. It does this by providing unbiased
 advice and guidance to UK higher and further education.</description>
 
   <homepage rdf:resource="http://www.oss-watch.ac.uk/"/>
+  
+  <mailing-list rdf:resource="http://www.oss-watch.ac.uk/join/" dc:title="Announcements"/>
+  <mailing-list rdf:resource="http://wiki.oss-watch.ac.uk/community-development_mailing_list" dc:title="Community Development"/>
 
   <created>2007-1-16</created>
 
