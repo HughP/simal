@@ -86,13 +86,29 @@ See http://forrest.apache.org/docs/linking.html for more info
   
   <contributors label="Contributors" href="contributor/" tab="contributor">
     <index label="Index" href="index.html"/>
-    <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>
     
     <community label="Community" tab="contributor">
       <developing label="Developing Community" href="developingCommunity.html"/>
     </community>
     
-    <howto label="How To" href="how-to/" tab="contributor">
+    <changes label="Changes" href="/changes.html"/>
+    <changes-rss href="/changes.rss"/>
+    
+    <governance label="Governance" href="governance/" tab="contributor">
+      <index label="Index" href="index.html"/>
+    </governance>
+    
+  </contributors>
+  
+  <registryContributors label="Registry Application" href="contributor/registryApp/" tab="registryAppContributor">
+    <index label="Index" href="index.html"/>
+    <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>
+  </registryContributors>
+  
+  <managementAppContributors label="Management Application" href="contributor/managementApp/" tab="managementAppContributor">
+    <index label="Index" href="index.html"/>
+        
+    <howto label="How To" href="how-to/">
       <index label="Overview" href="index.html"/>
       <managementWebapp label="Management Webapp" href="managementWebapp/">
 	      <developSimal label="Develop Simal" href="developSimal.html" description="How to get started on developing Simal"/>
@@ -102,20 +118,11 @@ See http://forrest.apache.org/docs/linking.html for more info
       </managementWebapp>
     </howto>
     
-    <implementation label="Developer Notes" href="implementationNotes/" tab="contributor">
+    <implementation label="Developer Notes" href="implementationNotes/">
       <index label="Overview" description="What are Implmentation Notes" href="index.html"/>
       <editorForms label="Editor Forms" href="editorForms.html" description="How are data editor forms created and managed?"/>
     </implementation>
-    
-    <changes label="Changes" href="/changes.html"/>
-    <changes-rss href="/changes.rss"/>
-    
-    <todo label="Todo" href="todo.html"/>
-    
-    <governance label="Governance" href="governance/" tab="contributor">
-      <index label="Index" href="index.html"/>
-    </governance>
-  </contributors>
+  </managementAppContributors>
   
   <externalResources label="External Resources" tab="home">    
     <devSite label="Developer Site" href="ext:simal/devSite"/>

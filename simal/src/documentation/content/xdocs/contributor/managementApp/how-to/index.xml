@@ -17,20 +17,13 @@
 <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
 <document> 
   <header> 
-    <title>Simal - Contributor How-To's</title> 
+    <title>Simal Management Webapp - Contributor How-To's</title> 
   </header> 
   <body> 
     <p>This section of the site contains a number of how-to documents aimed at
-    contributors of all types. There are two applications within the Simal project:</p>
-    
-    <ul>
-      <li>A project registry generator</li>
-      <li>A managment web application</li>
-    </ul> 
-    
-    <p>See the links in the menu on the left for more
-    details of how to's for each of these applications.</p>
-    
+    contributors of all types. There are two applications within the Simal project,
+    this section is concerned with the managment web application.</p>
+        
     <p>A how to document describes how to perform a specific task. 
     It is not intended to provide the reader with in-depth
     knowledge about that task, instead it provides a step-by-step guide
@@ -38,5 +31,7 @@
     reader at more detailed documentation wherever possible, thus allowing
     a reader to choose between understanding how to achieve a task and
     fully understanding why each step is required.</p>
+    
+    <p>See the menu on the left for a list of How-To's available here.</p>
   </body>
 </document>
