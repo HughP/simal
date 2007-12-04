@@ -17,7 +17,7 @@
 <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
 <document> 
   <header> 
-    <title>Simal - Contributor How-To's</title> 
+    <title>Simal - Management Webapp Implementation Notes</title> 
   </header> 
   <body> 
     <p>This section of the site contains a number of documents that

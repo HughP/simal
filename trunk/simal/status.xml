@@ -79,7 +79,7 @@
             
       <action context="docs" dev="RDG" type="add" importance="high">
             Added a new how to document describing how to 
-            <link href="/contributor/how-to/managementWebapp/addMenuItem.html">add
+            <link href="/contributor/managementApp/how-to/addMenuItem.html">add
              a new menu item</link> to the management webapp.
       </action>
       
@@ -211,7 +211,7 @@
       <action context="docs" dev="RMM" type="add" importance="high"> Added a <link
           href="sustainabilityplan.html">sustainability plan</link> page. </action>
       <action context="docs" dev="RDG" type="add" importance="high"> Added how-to on <link
-          href="contributor/how-to/addNewDataObject.html">adding a new data object</link>. </action>
+          href="contributor/managementApp/how-to/addNewDataObject.html">adding a new data object</link>. </action>
       <action context="webapp" dev="RDG" type="add" importance="medium"> Added Contributor data object
         and related editing form. </action>
       <action context="webapp" dev="RDG" type="update" importance="medium"> Improved build system so
@@ -219,7 +219,7 @@
         your browser at <link href="http://localhost:8080/simal">http://localhost:8080/simal</link>
         to view the management webapplication. </action>
       <action context="docs" dev="RDG" type="add" importance="medium"> Added a contributors how-to
-        section at <link href="contributor/how-to/index.html">contributor/how-to</link>. </action>
+        section at <link href="contributor/managementApp/how-to/index.html">contributor/managementApp/how-to</link>. </action>
       <action context="catalogue" dev="RDG" type="add" importance="low"> Added readme.txt to get
         people started. </action>
       <action context="catalogue" dev="RDG" type="add" importance="medium"> Moved to dispatcher and

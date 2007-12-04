@@ -31,12 +31,9 @@
     <p>In this section you will find various types of information. Such as:</p>
     
     <ul>
-      <li><a href="how-to/index.html">How To</a> documents describing specific development tasks</li>
+      <li>contributor documentation for the <a href="managementApp/index.html">management application</a></li>
       
-      <li><a href="implementationNotes/index.html">Implementation Notes</a> are
-      technical documents that describe how Simal is built. They are intended to
-      allow new developers to find out where they need to work to achieve their
-      aims.</li>
+      <li>contributor documentation for the <a href="registryApp/index.html">registry application</a></li>
       
       <li>Use Case descriptions covering use cases the Simal project 
       hopes to address (complete with an indication of how much of the use 

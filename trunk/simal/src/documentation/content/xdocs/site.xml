@@ -110,12 +110,10 @@ See http://forrest.apache.org/docs/linking.html for more info
         
     <howto label="How To" href="how-to/">
       <index label="Overview" href="index.html"/>
-      <managementWebapp label="Management Webapp" href="managementWebapp/">
-	      <developSimal label="Develop Simal" href="developSimal.html" description="How to get started on developing Simal"/>
-	      <addMenuItem label="Add menu item" href="addMenuItem.html" description="How to add a menu item to the GUI"/>
-	      <addField label="Add Field to Object" href="addFieldToObject.html" description="Add a field to an existing object and provide a means to edit it."/>
-	      <addDataObject label="Add New Data Object" href="addNewDataObject.html" description="Add a new data object and provide a means to edit it."/>
-      </managementWebapp>
+      <developSimal label="Develop Simal" href="developSimal.html" description="How to get started on developing Simal"/>
+      <addMenuItem label="Add menu item" href="addMenuItem.html" description="How to add a menu item to the GUI"/>
+      <addField label="Add Field to Object" href="addFieldToObject.html" description="Add a field to an existing object and provide a means to edit it."/>
+      <addDataObject label="Add New Data Object" href="addNewDataObject.html" description="Add a new data object and provide a means to edit it."/>
     </howto>
     
     <implementation label="Developer Notes" href="implementationNotes/">
