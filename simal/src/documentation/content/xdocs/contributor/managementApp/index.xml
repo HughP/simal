@@ -33,7 +33,7 @@
     <p>In this section you will find various types of information. Such as:</p>
     
     <ul>
-      <li><a href="how-to/index.html">How To</a> documents describing specific development tasks</li>
+      <li><a href="how-to/index.html">How To</a> documents describing specific development tasks for the management application.</li>
       
       <li><a href="implementationNotes/index.html">Implementation Notes</a> are
       technical documents that describe how Simal is built. They are intended to
