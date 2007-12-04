@@ -79,7 +79,7 @@ advice and guidance to UK higher and further education.</description>
   <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_einfrastructure.aspx"/>
   
   <asfext:relatedTo>
-    <Project rdf:resource="http://simal.oss-watch.ac.uk//"/>
+    <Project rdf:resource="http://simal.oss-watch.ac.uk/projectDetails/simal.rdf"/>
   </asfext:relatedTo>
 </Project>
 </rdf:RDF>
