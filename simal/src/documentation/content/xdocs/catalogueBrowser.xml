@@ -22,11 +22,6 @@
         <table>
             <tr valign="top"> 
                 <td>
-                    <div ex:role="facet" ex:expression=".category" ex:facetLabel="Category"></div>
-   					<div ex:role="facet" ex:expression=".person" ex:facetLabel="Person"></div>
-   					<div ex:role="facet" ex:expression=".programming-language" ex:facetLabel="Programming Language"></div>
-                </td>
-                <td>
                     <div ex:role="viewPanel">
                        <p>Loading Exhibit Browser...</p>
                        <p>Note, you must be connected to the Internet for this to work.</p>
@@ -39,7 +34,12 @@
                                ex:sortAscending="true">
                            </div>
                     </div>
-                </td>       
+                </td>      
+                <td width="25%">
+                    Search: <div ex:role="facet" ex:facetClass="TextSearch">Search Box...</div>
+                    <div ex:role="facet" ex:expression=".category" ex:facetLabel="Category">Category Facet...</div>
+   					<div ex:role="facet" ex:expression=".person" ex:facetLabel="Person">Person facet...</div>
+                </td> 
             </tr>
         </table>
     </body>
