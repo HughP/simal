@@ -39,6 +39,7 @@ To test recent changes within Forrest you should run the following command:
 
 
 {{{
+cd $SIMAL_HOME
 ant upgrade-forrest-local
 }}}
 
@@ -49,6 +50,7 @@ This does not clean out the old version of Forrest and so you are not guaranteed
 Once you have tested your new version of Forrest you will need to upgrade the Forrest zip as bundled with a Simal release. From within the Simal project directory run the following commands:
 
 {{{
+cd $SIMAL_HOME
 ant upgrade-forrest
 }}}
  
