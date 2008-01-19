@@ -90,20 +90,6 @@
         <p class="instruction">Download the Derby Core and Derby UI Plugins <a href="http://db.apache.org/derby/derby_downloads.html">Derby 
         downloads page</a> and unpack them into your Eclipse directory.</p>
       </section>
-      
-      <section>
-        <title>Dali</title>
-        <p>The goal of the Dali JPA Tools Project, a sub-project of the  Web Tools 
-        Platform Project, is to build extensible frameworks and exemplary tools for 
-        the definition and editing of Object-Relational (O/R) mappings for EJB 3.0 
-        Java Persistence API (JPA) Entities. JPA mapping support focuses on 
-        minimising the complexity of mapping by providing creation and automated 
-        initial mapping wizards, and programming assistance such as dynamic problem 
-        identification. </p>
-        
-        <p class="instruction">Download <a href="http://www.eclipse.org/dali/downloads.html">Dali</a> and
-        unpack it in the Eclipse directory created in the previous section.</p>
-      </section>
           
       <section>
         <title>Subclipse</title>
