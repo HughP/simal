@@ -43,7 +43,7 @@ public class ManagedProjectBean implements IProjectService {
                 "This is the first test project",
                 (Contributor)contributors.toArray()[0]);
         try {
-            project.setURL(new URL("http://www.google.com"));
+            project.setHomepageURL(new URL("http://www.google.com"));
         } catch (MalformedURLException e) {
             // Shouldn't be thrown as we hard coded the URL
             e.printStackTrace();
