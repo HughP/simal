@@ -15,8 +15,6 @@
 */
 package uk.ac.osswatch.simal.webGUI.controls;
 
-import java.net.URL;
-
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.SWT;
@@ -70,7 +68,7 @@ public class BrowserViewPart extends ViewPart {
             IStructuredSelection sselection = (IStructuredSelection) selection;
             Object firstElement = sselection.getFirstElement();
             if (firstElement instanceof Project) {
-                String location = ((Project) firstElement).getURL();
+                String location = ((Project) firstElement).getHomepageURL();
                 if (location != null) {
                     browser.setUrl(location);
                 }
