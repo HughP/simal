@@ -1,0 +1,13 @@
+<mapping>
+     <class name="uk.ac.osswatch.simal.model.Project">
+      <map-to xml="Project" ns-prefix="doap" ns-uri="http://usefulinc.com/ns/doap#"/>
+      <!--  <map-to xml="RDF" ns-prefix="rdf" ns-uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/> -->
+      <field name="Project" transient="true"/>
+      <field name="name">
+         <bind-xml name="doap:name" node="element" xmlns:doap="http://usefulinc.com/ns/doap#" type="string"/>
+      </field>
+      <field name="shortName">
+         <bind-xml name="shortname" node="element"/>
+      </field>
+   </class>
+</mapping>

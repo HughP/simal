@@ -16,13 +16,15 @@
 package uk.ac.osswatch.simal.model;
 
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStreamReader;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.net.URL;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Set;
 import java.util.Vector;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.CascadeType;
@@ -33,24 +35,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamWriter;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import org.exolab.castor.mapping.Mapping;
+import org.exolab.castor.mapping.MappingException;
+import org.exolab.castor.xml.MarshalException;
+import org.exolab.castor.xml.Marshaller;
+import org.exolab.castor.xml.Unmarshaller;
+import org.exolab.castor.xml.ValidationException;
+import org.exolab.castor.xml.XMLContext;
 import org.xml.sax.helpers.DefaultHandler;
 
 @Entity
 public class Project extends DefaultHandler implements Serializable {
 	private static final long serialVersionUID = -6496895896500052023L;
-	private static Logger logger = Logger.getLogger("uk.ac.osswatch.simal.model.Project");
-	
+	private static Logger logger = Logger
+			.getLogger("uk.ac.osswatch.simal.model.Project");
+
 	private static final int NAME = 0;
 
 	@Id
@@ -114,46 +114,33 @@ public class Project extends DefaultHandler implements Serializable {
 		addContributor(contributor);
 	}
 
-	public Project(URL url) throws ParserConfigurationException, SAXException, IOException {
-    	String doapNS = "http://usefulinc.com/ns/doap#";
-    	String rdfNS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-		factory.setNamespaceAware(true);
-		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document document = builder.parse(url.openStream());
-		Node root;
-		NodeList elements;
-		
-		if (document.getDocumentElement().getLocalName().equals("RDF") && document.getDocumentElement().getNamespaceURI().equals(rdfNS)) {
-			elements = document.getDocumentElement().getElementsByTagNameNS(doapNS, "Project");
-			root = elements.item(0);
-		} else {
-			root = document.getDocumentElement();
-		}
-				
-		if (root.getLocalName().equals("Project") && root.getNamespaceURI().equals(doapNS)) {
-			for (Node childNode = root.getFirstChild(); childNode != null; childNode = childNode.getNextSibling()) {
-		      if (childNode.getNamespaceURI() == doapNS) {
-		        if (childNode.getLocalName() == "name") {
-					setName(childNode.getTextContent());
-		        } else if (childNode.getLocalName() == "shortname") {
-					setShortName(childNode.getTextContent());
-		        } else if (childNode.getLocalName() == "shortdesc") {
-					setShortDesc(childNode.getTextContent());
-		        } else if (childNode.getLocalName() == "description") {
-					setDescription(childNode.getTextContent());
-		        } else if (childNode.getLocalName() == "homepage") {
-					setHomepageURL(new URL(childNode.getTextContent()));
-		        } else {
-		            logger.warning("Not handling DOAP file elements with the local name " + childNode.getLocalName() + " in the namespace " + childNode.getNamespaceURI());
-		        }
-		      } else if (childNode.getNodeType() == Node.ELEMENT_NODE) {
-		    	  logger.warning("Not handling elements in DOAP files with the namesspace " + childNode.getNamespaceURI() + " e.g. " + childNode.getLocalName());
-		      }
-		    }
-		} else {
-			throw new SAXException("Unrecognised XML document schema at " + url.toString());
-		}
+	/**
+	 * Read an XML document reading a project. The XML document should be a DOAP
+	 * document.
+	 * 
+	 * @param url
+	 *            location of the XML document to read
+	 * @return
+	 * @throws MappingException 
+	 * @throws IOException 
+	 * @throws ValidationException 
+	 * @throws MarshalException 
+	 */
+	public static Project readProject(URL url) throws IOException, MappingException, MarshalException, ValidationException {
+		Project project = new Project();
+		Mapping mapping = XMLContext.createMapping();
+		mapping.loadMapping(project.getClass().getResource("xmlMapping.xml"));
+		XMLContext context = new XMLContext();
+		context.addMapping(mapping);
+
+		Unmarshaller unmarshaller = context.createUnmarshaller();
+		unmarshaller.setClass(Project.class);
+		unmarshaller.setIgnoreExtraElements(true);
+
+		project = (Project) unmarshaller.unmarshal(new InputStreamReader(url
+				.openStream()));
+
+		return project;
 	}
 
 	public String getDownloadURL() {
@@ -318,57 +305,6 @@ public class Project extends DefaultHandler implements Serializable {
 		this.shortName = shortName;
 	}
 
-	public void writeDOAP(OutputStream outputStream) {
-		String rdfURI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-		String rdfsURI = "http://www.w3.org/2000/01/rdf-schema#";
-		String foafURI = "http://xmlns.com/foaf/0.1/";
-
-		try {
-			XMLStreamWriter writer = XMLOutputFactory.newInstance()
-					.createXMLStreamWriter(outputStream);
-			writer.writeStartDocument();
-
-			writer.writeStartElement("Project");
-			writer.setPrefix("rdf", rdfURI);
-			writer.setPrefix("rdfs", rdfsURI);
-			writer.setPrefix("foaf", foafURI);
-			writer.setDefaultNamespace("http://usefulinc.com/ns/doap#");
-
-			writer.writeStartElement("name");
-			writer.writeCharacters(getName());
-			writer.writeEndElement();
-
-			if (getHomepageURL() != null) {
-				writer.writeStartElement("homepage");
-				writer.writeAttribute(rdfURI, "resource", getHomepageURL());
-				writer.writeEndElement();
-			}
-
-			writer.writeStartElement("created");
-			writer.writeCharacters(getCreated().toString());
-			writer.writeEndElement();
-
-			writer.writeStartElement("shortDesc");
-			writer.writeCharacters(getShortDesc());
-			writer.writeEndElement();
-
-			if (getDescription() != null) {
-				writer.writeStartElement("description");
-				writer.writeCharacters(getDescription());
-				writer.writeEndElement();
-			}
-
-			writer.writeEndElement();
-
-			writer.writeEndDocument();
-			writer.flush();
-			writer.close();
-		} catch (XMLStreamException e) {
-			// TODO: handle exception properly
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * Get the location of the doap file maintained by this project.
 	 * 
@@ -384,6 +320,31 @@ public class Project extends DefaultHandler implements Serializable {
 	 */
 	public void setDoapURL(URL doapURL) {
 		this.doapURL = doapURL.toExternalForm();
+	}
+
+	public String toXML() {
+		StringWriter sw = new StringWriter();
+		XMLContext context = new XMLContext();
+		Mapping mapping = XMLContext.createMapping();
+
+		try {
+			mapping.loadMapping(this.getClass().getResource("xmlMapping.xml"));
+			context.addMapping(mapping);
+
+			Marshaller marshaller = context.createMarshaller();
+			marshaller.setWriter(sw);
+			marshaller.marshal(this);
+		} catch (IOException e) {
+			logger.log(Level.SEVERE, "Unable to unmarshal Project", e);
+		} catch (MarshalException e) {
+			logger.log(Level.SEVERE, "Unable to unmarshal Project", e);
+		} catch (ValidationException e) {
+			logger.log(Level.SEVERE, "Unable to unmarshal Project", e);
+		} catch (MappingException e) {
+			logger.log(Level.SEVERE, "Unable to unmarshal Project", e);
+		}
+
+		return sw.toString();
 	}
 
 }
