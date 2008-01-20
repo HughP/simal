@@ -59,7 +59,8 @@ public class RESTServlet extends HttpServlet {
         ManagedProjectBean pb = new ManagedProjectBean();
         try {
             p = pb.findProject(new Long(id));
-            p.writeDOAP(resp.getOutputStream());
+            String xml = p.toXML();
+            resp.getOutputStream().write(xml.getBytes());
         } catch (NumberFormatException e) {
             // FIXME: handle searching by shortname
             //p = pb.findProjectByShortName(id);
