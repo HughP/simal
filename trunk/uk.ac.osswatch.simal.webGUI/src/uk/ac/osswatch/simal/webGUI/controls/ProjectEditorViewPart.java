@@ -134,7 +134,7 @@ public class ProjectEditorViewPart extends ViewPart {
             currentProject.setShortDesc(shortDesc.getText());
             currentProject.setDescription(description.getText());
             if (url.getText() != "")
-                currentProject.setURL(new URL(url.getText()));
+                currentProject.setHomepageURL(new URL(url.getText()));
             if (mailingListURL.getText() != "")
                 currentProject.setMailingListURL(new URL(mailingListURL
                         .getText()));
@@ -167,8 +167,8 @@ public class ProjectEditorViewPart extends ViewPart {
         }
         shortDesc.setText(project.getShortDesc());
         description.setText(project.getDescription());
-        if (project.getURL() != null) {
-            url.setText(project.getURL());
+        if (project.getHomepageURL() != null) {
+            url.setText(project.getHomepageURL());
         }
         if (project.getMailingListURL() != null) {
             mailingListURL
