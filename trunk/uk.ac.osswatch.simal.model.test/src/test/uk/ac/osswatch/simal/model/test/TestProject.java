@@ -23,15 +23,19 @@ import java.net.URL;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.exolab.castor.mapping.MappingException;
+import org.exolab.castor.xml.MarshalException;
+import org.exolab.castor.xml.ValidationException;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.model.Contributor;
 import uk.ac.osswatch.simal.model.Event;
 import uk.ac.osswatch.simal.model.Project;
-import uk.ac.osswatch.simal.service.derby.ManagedProjectBean;
 
 public class TestProject {
+	
+	String doapNS = "http://usefulinc.com/ns/doap#";
 
 	private Project createProject() {
 		Contributor contributor = new Contributor("Contributor 1",
@@ -51,18 +55,29 @@ public class TestProject {
 	}
 
 	@Test
-	public void testCreateProjectFromDOAPURL() throws ParserConfigurationException, SAXException, IOException {
-		URL simalURL = null;
+	public void testCreateProjectFromDOAPURL() throws ParserConfigurationException, SAXException, IOException, MarshalException, ValidationException, MappingException {
+		URL doapURL = null;
 		try {
-			simalURL = new URL(
-					"http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/simal.xml");
+			doapURL = new URL(
+					"http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/www.jisc.ac.uk/webpa.xml");
 		} catch (MalformedURLException e1) {
 			fail("Unable to create DOAP URL");
 		}
 		Project project = null;
-		project = new Project(simalURL);
+		project = Project.readProject(doapURL);
 		assertEquals("Project name is incorrect",
-				"Simal Project Catalogue System", project.getName());
+				"WebPA online peer- and self-assessment application", project.getName());
+		assertEquals("Project short name is incorrect",
+						"undefined", project.getShortName());
+	}
+	
+	@Test
+	public void testToXML() throws MarshalException, ValidationException, MappingException {
+		Project project = createProject();
+		String xml = project.toXML();
+		System.out.println(xml);
+		assertTrue("Project XML does not contain DOAP namespace", xml.contains(doapNS));
+		assertTrue("Project XML does not contain shortname element", xml.contains("<doap:shortname"));
 	}
 
 }
