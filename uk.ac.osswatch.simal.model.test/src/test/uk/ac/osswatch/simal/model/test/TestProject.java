@@ -56,19 +56,14 @@ public class TestProject {
 
 	@Test
 	public void testCreateProjectFromDOAPURL() throws ParserConfigurationException, SAXException, IOException, MarshalException, ValidationException, MappingException {
-		URL doapURL = null;
-		try {
-			doapURL = new URL(
-					"http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/www.jisc.ac.uk/webpa.xml");
-		} catch (MalformedURLException e1) {
-			fail("Unable to create DOAP URL");
-		}
+		URL doapURL = this.getClass().getResource("testDOAP.xml");
 		Project project = null;
 		project = Project.readProject(doapURL);
 		assertEquals("Project name is incorrect",
-				"WebPA online peer- and self-assessment application", project.getName());
+				"Simal DOAP Test", project.getName());
 		assertEquals("Project short name is incorrect",
 						"undefined", project.getShortName());
+		assertEquals("Homepage URL is incorrect", new URL("http://simal.oss-watch.ac.uk"), project.getHomepageURL());
 	}
 	
 	@Test
