@@ -70,6 +70,7 @@ public class TestProject {
 		assertEquals("Homepage URL is incorrect", "http://simal.oss-watch.ac.uk", project.getHomepageURL());
 		assertEquals("Categories are not corect, we should have 2", 2, project.getCategories().size());
 		assertEquals("Mailing lists are not corect, we should have 2", 2, project.getMailingLists().size());
+		assertEquals("Programming languages are not correct, we should have 2", 2, project.getLanguages().size());
 	}
 	
 	@Test
