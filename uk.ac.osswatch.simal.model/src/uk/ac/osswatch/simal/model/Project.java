@@ -150,7 +150,11 @@ public class Project extends DefaultHandler implements Serializable {
 	}
 
 	public void setDownloadURL(URL downloadURL) {
-		this.downloadURL = downloadURL.toExternalForm();
+		setDownloadURL(downloadURL.toExternalForm());
+	}
+
+	public void setDownloadURL(String url) {
+		this.downloadURL = url;
 	}
 
 	public String getIssueTrackerURL() {
@@ -158,7 +162,11 @@ public class Project extends DefaultHandler implements Serializable {
 	}
 
 	public void setIssueTrackerURL(URL issueTrackerURL) {
-		this.issueTrackerURL = issueTrackerURL.toExternalForm();
+		setIssueTrackerURL(issueTrackerURL.toExternalForm());
+	}
+
+	public void setIssueTrackerURL(String url) {
+		this.issueTrackerURL = url;
 	}
 
 	public long getId() {
@@ -256,6 +264,10 @@ public class Project extends DefaultHandler implements Serializable {
 
 	public void setWikiURL(URL wikiURL) {
 		this.wikiURL = wikiURL.toExternalForm();
+	}
+
+	public void setWikiURL(String url) {
+		this.wikiURL = url;
 	}
 
 	public Collection<Language> getLanguages() {
