@@ -79,6 +79,8 @@ public class Project extends DefaultHandler implements Serializable {
 	private String issueTrackerURL;
 
 	private String doapURL;
+	
+	private Vector<Category> categories = new Vector<Category>();
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Collection<Language> languages = new Vector<Language>();
@@ -135,7 +137,7 @@ public class Project extends DefaultHandler implements Serializable {
 
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 		unmarshaller.setClass(Project.class);
-		unmarshaller.setIgnoreExtraElements(true);
+		//unmarshaller.setIgnoreExtraElements(true);
 
 		project = (Project) unmarshaller.unmarshal(new InputStreamReader(url
 				.openStream()));
@@ -169,6 +171,13 @@ public class Project extends DefaultHandler implements Serializable {
 
 	public void setHomepageURL(URL url) {
 		this.homepageURL = url.toExternalForm();
+	}
+
+	/**
+	 * @deprecated use setHomepageURL(URL url) instead (Note this is currently needed by Castor as the type for this field is currently String)
+	 */
+	public void setHomepageURL(String url) {
+		this.homepageURL = url;
 	}
 
 	/**
@@ -332,7 +341,9 @@ public class Project extends DefaultHandler implements Serializable {
 			context.addMapping(mapping);
 
 			Marshaller marshaller = context.createMarshaller();
+			marshaller.setNamespaceMapping("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 			marshaller.setWriter(sw);
+			
 			marshaller.marshal(this);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, "Unable to unmarshal Project", e);
@@ -345,6 +356,18 @@ public class Project extends DefaultHandler implements Serializable {
 		}
 
 		return sw.toString();
+	}
+
+	public Vector<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(Vector<Category> categories) {
+		this.categories = categories;
+	}
+
+	public void addCategory(Category category) {
+		getCategories().add(category);
 	}
 
 }
