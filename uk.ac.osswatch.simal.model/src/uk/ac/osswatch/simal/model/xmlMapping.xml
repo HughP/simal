@@ -23,6 +23,10 @@
          <bind-xml name="category"/>
       </field>
       
+      <field name="mailingLists" type="uk.ac.osswatch.simal.model.MailingList" collection="vector">
+         <bind-xml name="mailing-list"/>
+      </field>
+      
       <field name="homepageURL">
          <bind-xml name="rdf:resource" location="homepage" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
       </field>
@@ -31,6 +35,18 @@
    <class name="uk.ac.osswatch.simal.model.Category">
      <map-to xml="category" ns-prefix="doap" ns-uri="http://usefulinc.com/ns/doap#"/>
       
+     <field name="resourceURL">
+       <bind-xml name="rdf:resource" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+     </field>
+   </class>
+   
+   <class name="uk.ac.osswatch.simal.model.MailingList">
+     <map-to xml="mailing-list" ns-prefix="doap" ns-uri="http://usefulinc.com/ns/doap#"/>
+      
+     <field name="title">
+       <bind-xml name="dc:title" node="attribute" xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+     </field>
+     
      <field name="resourceURL">
        <bind-xml name="rdf:resource" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
      </field>

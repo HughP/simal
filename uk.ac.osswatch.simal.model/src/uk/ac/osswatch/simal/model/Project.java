@@ -70,7 +70,7 @@ public class Project extends DefaultHandler implements Serializable {
 
 	private Date created;
 
-	private String mailingListURL;
+	private Vector<MailingList> mailingLists = new Vector<MailingList>();
 
 	private String wikiURL;
 
@@ -242,12 +242,12 @@ public class Project extends DefaultHandler implements Serializable {
 		this.description = description;
 	}
 
-	public String getMailingListURL() {
-		return mailingListURL;
+	public Vector<MailingList> getMailingLists() {
+		return mailingLists;
 	}
 
-	public void setMailingListURL(URL mailingListURL) {
-		this.mailingListURL = mailingListURL.toExternalForm();
+	public void setMailingLists(Vector<MailingList> lists) {
+		this.mailingLists = lists;
 	}
 
 	public String getWikiURL() {
@@ -342,6 +342,7 @@ public class Project extends DefaultHandler implements Serializable {
 
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setNamespaceMapping("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
+			marshaller.setNamespaceMapping("dc", "http://purl.org/dc/elements/1.1/");
 			marshaller.setWriter(sw);
 			
 			marshaller.marshal(this);
@@ -368,6 +369,10 @@ public class Project extends DefaultHandler implements Serializable {
 
 	public void addCategory(Category category) {
 		getCategories().add(category);
+	}
+
+	public void addMailingList(MailingList mailingList) {
+		getMailingLists().add(mailingList);
 	}
 
 }

@@ -9,7 +9,11 @@
 	<name>Simal DOAP Test</name>
 	<homepage rdf:resource="http://simal.oss-watch.ac.uk" />
 	
+	<mailing-list rdf:resource="http://foo.org/mailingList1" dc:title="Mailing List 1"/>
+    <mailing-list rdf:resource="http://foo.org/mailingList2" dc:title="Mailing List 2"/>
+  	
 	<category
-		rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" /><category
+		rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" />
+    <category
 		rdf:resource="http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#" />
 </Project>
