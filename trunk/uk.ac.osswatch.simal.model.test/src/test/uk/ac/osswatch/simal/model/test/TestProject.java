@@ -32,6 +32,7 @@ import org.xml.sax.SAXException;
 import uk.ac.osswatch.simal.model.Category;
 import uk.ac.osswatch.simal.model.Contributor;
 import uk.ac.osswatch.simal.model.Event;
+import uk.ac.osswatch.simal.model.MailingList;
 import uk.ac.osswatch.simal.model.Project;
 
 public class TestProject {
@@ -49,6 +50,7 @@ public class TestProject {
 		try {
 			project.addCategory(new Category(new URL("http://simal.oss-watch.ac.uk/category/doapTest#")));
 			project.addCategory(new Category(new URL("http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#")));
+			project.addMailingList(new MailingList("Mailing List 1", "http://foo.org/mailingList1"));
 			project.setHomepageURL(new URL("http://www.test.com"));
 		} catch (MalformedURLException e) {
 			throw new RuntimeException("Malformed URL in creating a project in the tests - thought to be impossible as the URL is hard coded", e);
@@ -67,6 +69,7 @@ public class TestProject {
 						"undefined", project.getShortName());
 		assertEquals("Homepage URL is incorrect", "http://simal.oss-watch.ac.uk", project.getHomepageURL());
 		assertEquals("Categories are not corect, we should have 2", 2, project.getCategories().size());
+		assertEquals("Mailing lists are not corect, we should have 2", 2, project.getMailingLists().size());
 	}
 	
 	@Test
@@ -78,6 +81,8 @@ public class TestProject {
 		assertTrue("Project XML does not contain shortname element", xml.contains("<doap:shortname"));
 		assertTrue("Project XML does not contain the relevant categories", xml.contains("http://simal.oss-watch.ac.uk/category/doapTest#"));
 		assertTrue("Project XML does not contain the relevant categories", xml.contains("http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#"));
+		assertTrue("Project XML does not contain the right mailing lists", xml.contains("http://foo.org/mailingList1"));
+		assertTrue("Project XML does not contain the right mailing list title", xml.contains("dc:title=\"Mailing List 1\""));
 	}
 
 }
