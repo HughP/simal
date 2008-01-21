@@ -30,6 +30,18 @@
       <field name="homepageURL">
          <bind-xml name="rdf:resource" location="homepage" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
       </field>
+      
+      <field name="wikiURL">
+         <bind-xml name="rdf:resource" location="wiki" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      </field>
+      
+      <field name="downloadURL">
+         <bind-xml name="rdf:resource" location="download-page" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      </field>
+      
+      <field name="issueTrackerURL">
+         <bind-xml name="rdf:resource" location="bug-database" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      </field>
    </class>
    
    <class name="uk.ac.osswatch.simal.model.Category">
