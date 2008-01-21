@@ -27,6 +27,14 @@
          <bind-xml name="mailing-list"/>
       </field>
       
+      <field name="languages" type="string" collection="vector">
+         <bind-xml name="programming-language"/>
+      </field>
+      
+      <field name="licences" type="uk.ac.osswatch.simal.model.Licence" collection="vector">
+         <bind-xml name="license"/>
+      </field>
+      
       <field name="homepageURL">
          <bind-xml name="rdf:resource" location="homepage" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
       </field>
