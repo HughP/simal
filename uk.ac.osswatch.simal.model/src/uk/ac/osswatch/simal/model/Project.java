@@ -89,7 +89,7 @@ public class Project extends DefaultHandler implements Serializable {
 	private Collection<String> operatingSystems = new Vector<String>();
 
 	@Transient
-	private Collection<String> licences = new Vector<String>();
+	private Collection<Licence> licences = new Vector<Licence>();
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, mappedBy = "projects")
 	private Collection<Contributor> contributors = new Vector<Contributor>();
@@ -286,11 +286,11 @@ public class Project extends DefaultHandler implements Serializable {
 		this.operatingSystems = operatingSystems;
 	}
 
-	public Collection<String> getLicence() {
+	public Collection<Licence> getLicences() {
 		return licences;
 	}
 
-	public void setLicence(Collection<String> licences) {
+	public void setLicences(Collection<Licence> licences) {
 		this.licences = licences;
 	}
 
