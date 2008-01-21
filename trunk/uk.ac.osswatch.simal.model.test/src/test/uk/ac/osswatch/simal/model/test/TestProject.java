@@ -29,6 +29,7 @@ import org.exolab.castor.xml.ValidationException;
 import org.junit.Test;
 import org.xml.sax.SAXException;
 
+import uk.ac.osswatch.simal.model.Category;
 import uk.ac.osswatch.simal.model.Contributor;
 import uk.ac.osswatch.simal.model.Event;
 import uk.ac.osswatch.simal.model.Project;
@@ -46,10 +47,11 @@ public class TestProject {
 				contributor);
 		project.addEvent(event);
 		try {
+			project.addCategory(new Category(new URL("http://simal.oss-watch.ac.uk/category/doapTest#")));
+			project.addCategory(new Category(new URL("http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#")));
 			project.setHomepageURL(new URL("http://www.test.com"));
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Malformed URL in creating a project in the tests - thought to be impossible as the URL is hard coded", e);
 		}
 		return project;
 	}
@@ -63,7 +65,8 @@ public class TestProject {
 				"Simal DOAP Test", project.getName());
 		assertEquals("Project short name is incorrect",
 						"undefined", project.getShortName());
-		assertEquals("Homepage URL is incorrect", new URL("http://simal.oss-watch.ac.uk"), project.getHomepageURL());
+		assertEquals("Homepage URL is incorrect", "http://simal.oss-watch.ac.uk", project.getHomepageURL());
+		assertEquals("Categories are not corect, we should have 2", 2, project.getCategories().size());
 	}
 	
 	@Test
@@ -73,6 +76,8 @@ public class TestProject {
 		System.out.println(xml);
 		assertTrue("Project XML does not contain DOAP namespace", xml.contains(doapNS));
 		assertTrue("Project XML does not contain shortname element", xml.contains("<doap:shortname"));
+		assertTrue("Project XML does not contain the relevant categories", xml.contains("http://simal.oss-watch.ac.uk/category/doapTest#"));
+		assertTrue("Project XML does not contain the relevant categories", xml.contains("http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#"));
 	}
 
 }
