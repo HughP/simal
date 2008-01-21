@@ -2,12 +2,38 @@
      <class name="uk.ac.osswatch.simal.model.Project">
       <map-to xml="Project" ns-prefix="doap" ns-uri="http://usefulinc.com/ns/doap#"/>
       <!--  <map-to xml="RDF" ns-prefix="rdf" ns-uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/> -->
-      <field name="Project" transient="true"/>
+      
       <field name="name">
-         <bind-xml name="doap:name" node="element" xmlns:doap="http://usefulinc.com/ns/doap#" type="string"/>
+         <bind-xml name="doap:name" node="element" xmlns:doap="http://usefulinc.com/ns/doap#"/>
       </field>
+      
       <field name="shortName">
          <bind-xml name="shortname" node="element"/>
       </field>
+      
+      <field name="shortDesc">
+         <bind-xml name="shortdesc" node="element"/>
+      </field>
+      
+      <field name="description">
+         <bind-xml name="description" node="element"/>
+      </field>
+      
+      <field name="categories" type="uk.ac.osswatch.simal.model.Category" collection="vector">
+         <bind-xml name="category"/>
+      </field>
+      
+      <field name="homepageURL">
+         <bind-xml name="rdf:resource" location="homepage" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      </field>
    </class>
+   
+   <class name="uk.ac.osswatch.simal.model.Category">
+     <map-to xml="category" ns-prefix="doap" ns-uri="http://usefulinc.com/ns/doap#"/>
+      
+     <field name="resourceURL">
+       <bind-xml name="rdf:resource" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+     </field>
+   </class>
+      
 </mapping>
