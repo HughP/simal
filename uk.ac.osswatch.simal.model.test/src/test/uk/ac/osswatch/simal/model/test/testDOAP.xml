@@ -6,8 +6,10 @@
 	<shortdesc>
 		A simple DOAP file used during automated testing.
 	</shortdesc>
-	<category
-		rdf:resource="http://simal.oss-watch.ac.uk/doapTest#" />
 	<name>Simal DOAP Test</name>
 	<homepage rdf:resource="http://simal.oss-watch.ac.uk" />
+	
+	<category
+		rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" /><category
+		rdf:resource="http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#" />
 </Project>
