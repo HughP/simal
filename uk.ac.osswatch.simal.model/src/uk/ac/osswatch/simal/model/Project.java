@@ -81,6 +81,14 @@ public class Project extends DefaultHandler implements Serializable {
 	private String doapURL;
 	
 	private Vector<Category> categories = new Vector<Category>();
+	
+	private Vector<Person> maintainers = new Vector<Person>();
+	
+	private Vector<Person> developers = new Vector<Person>();
+	
+	private Vector<Person> documentors = new Vector<Person>();
+	
+	private Vector<Person> helpers = new Vector<Person>();
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	private Collection<Language> languages = new Vector<Language>();
@@ -355,6 +363,7 @@ public class Project extends DefaultHandler implements Serializable {
 			Marshaller marshaller = context.createMarshaller();
 			marshaller.setNamespaceMapping("rdf", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 			marshaller.setNamespaceMapping("dc", "http://purl.org/dc/elements/1.1/");
+			marshaller.setNamespaceMapping("foaf", "http://xmlns.com/foaf/0.1/");
 			marshaller.setWriter(sw);
 			
 			marshaller.marshal(this);
@@ -385,6 +394,54 @@ public class Project extends DefaultHandler implements Serializable {
 
 	public void addMailingList(MailingList mailingList) {
 		getMailingLists().add(mailingList);
+	}
+
+	public Vector<Person> getMaintainers() {
+		return maintainers;
+	}
+
+	public void setMaintainers(Vector<Person> maintainers) {
+		this.maintainers = maintainers;
+	}
+
+	public void addMaintainer(Person person) {
+		this.getMaintainers().add(person);
+	}
+
+	public Vector<Person> getDevelopers() {
+		return developers;
+	}
+
+	public void setDevelopers(Vector<Person> developers) {
+		this.developers = developers;
+	}
+
+	public void addDeveloper(Person person) {
+		this.getDevelopers().add(person);
+	}
+
+	public Vector<Person> getDocumentors() {
+		return documentors;
+	}
+
+	public void setDocumentors(Vector<Person> documentors) {
+		this.documentors = documentors;
+	}
+
+	public void addDocumentors(Person person) {
+		this.getDocumentors().add(person);
+	}
+
+	public Vector<Person> getHelpers() {
+		return helpers;
+	}
+
+	public void setHelpers(Vector<Person> helpers) {
+		this.helpers = helpers;
+	}
+
+	public void addHelpers(Person person) {
+		this.getHelpers().add(person);
 	}
 
 }

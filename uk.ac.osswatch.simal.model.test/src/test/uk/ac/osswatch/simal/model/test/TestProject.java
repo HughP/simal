@@ -33,6 +33,7 @@ import uk.ac.osswatch.simal.model.Category;
 import uk.ac.osswatch.simal.model.Contributor;
 import uk.ac.osswatch.simal.model.Event;
 import uk.ac.osswatch.simal.model.MailingList;
+import uk.ac.osswatch.simal.model.Person;
 import uk.ac.osswatch.simal.model.Project;
 
 public class TestProject {
@@ -52,6 +53,8 @@ public class TestProject {
 			project.addCategory(new Category(new URL("http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#")));
 			project.addMailingList(new MailingList("Mailing List 1", "http://foo.org/mailingList1"));
 			project.setHomepageURL(new URL("http://www.test.com"));
+			project.addMaintainer(new Person("Joe Blogs Maintainer"));
+			project.addMaintainer(new Person("Jane Blogs Maintainer"));
 		} catch (MalformedURLException e) {
 			throw new RuntimeException("Malformed URL in creating a project in the tests - thought to be impossible as the URL is hard coded", e);
 		}
@@ -71,6 +74,9 @@ public class TestProject {
 		assertEquals("Categories are not corect, we should have 2", 2, project.getCategories().size());
 		assertEquals("Mailing lists are not corect, we should have 2", 2, project.getMailingLists().size());
 		assertEquals("Programming languages are not correct, we should have 2", 2, project.getLanguages().size());
+		
+		assertEquals("maintainers are not correct, we should have 2", 2, project.getMaintainers().size());
+		assertEquals("maintainers are not correct", "Joe Blogs Maintainer", project.getMaintainers().get(0).getFullName());
 	}
 	
 	@Test
@@ -84,6 +90,10 @@ public class TestProject {
 		assertTrue("Project XML does not contain the relevant categories", xml.contains("http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#"));
 		assertTrue("Project XML does not contain the right mailing lists", xml.contains("http://foo.org/mailingList1"));
 		assertTrue("Project XML does not contain the right mailing list title", xml.contains("dc:title=\"Mailing List 1\""));
+		
+
+		assertTrue("Does not contain foaf:Person element", xml.contains("<foaf:Person>"));
+		assertTrue("Project XML does not contain the right maintainers", xml.contains("Joe Blogs Maintainer"));
 	}
 
 }
