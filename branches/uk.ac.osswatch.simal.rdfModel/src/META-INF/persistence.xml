@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+    <persistence-unit name="default">
+<class>uk.ac.osswatch.simal.model.Contributor</class>
+<class>uk.ac.osswatch.simal.model.Event</class>
+<class>uk.ac.osswatch.simal.model.Language</class>
+<class>uk.ac.osswatch.simal.model.Project</class>
+        <properties>
+            <property name="toplink.logging.level" value="FINEST"/>
+            <property name="toplink.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+            <property name="toplink.jdbc.url" value="jdbc:derby://localhost:1527/simal;create=true"/>
+            <property name="toplink.jdbc.user" value="simal"/>
+            <property name="toplink.jdbc.password" value="simal"/>
+            
+            <!--  WARNING
+                  The following should not be used in production environments 
+                  It will result in existing data being deleted -->
+            <property name="toplink.ddl-generation" value="create-and-update-tables"/>
+            <property name="toplink.create-ddl-jdbc-file-name" value="create_ora.jdbc"/>
+            <property name="toplink.drop-ddl-jdbc-file-name" value="drop_ora.jdbc"/>
+        </properties>
+    </persistence-unit>
+</persistence>

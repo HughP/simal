@@ -1,0 +1,103 @@
+<mapping>
+     <class name="uk.ac.osswatch.simal.model.Project">
+      <map-to xml="Project" ns-prefix="doap" ns-uri="http://usefulinc.com/ns/doap#"/>
+      <!--  <map-to xml="RDF" ns-prefix="rdf" ns-uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/> -->
+      
+      <field name="name">
+         <bind-xml name="doap:name" node="element" xmlns:doap="http://usefulinc.com/ns/doap#"/>
+      </field>
+      
+      <field name="shortName">
+         <bind-xml name="shortname" node="element"/>
+      </field>
+      
+      <field name="shortDesc">
+         <bind-xml name="shortdesc" node="element"/>
+      </field>
+      
+      <field name="description">
+         <bind-xml name="description" node="element"/>
+      </field>
+      
+      <field name="categories" type="uk.ac.osswatch.simal.model.Category" collection="vector">
+         <bind-xml name="category"/>
+      </field>
+      
+      <field name="mailingLists" type="uk.ac.osswatch.simal.model.MailingList" collection="vector">
+         <bind-xml name="mailing-list"/>
+      </field>
+      
+      <field name="languages" type="string" collection="vector">
+         <bind-xml name="programming-language"/>
+      </field>
+      
+      <field name="licences" type="uk.ac.osswatch.simal.model.Licence" collection="vector">
+         <bind-xml name="license"/>
+      </field>
+      
+      <field name="homepageURL">
+         <bind-xml name="rdf:resource" location="homepage" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      </field>
+      
+      <field name="wikiURL">
+         <bind-xml name="rdf:resource" location="wiki" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      </field>
+      
+      <field name="downloadURL">
+         <bind-xml name="rdf:resource" location="download-page" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      </field>
+      
+      <field name="issueTrackerURL">
+         <bind-xml name="rdf:resource" location="bug-database" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+      </field>
+      
+      <field name="maintainers" type="uk.ac.osswatch.simal.model.Person" collection="vector">
+         <bind-xml name="foaf:Person" location="maintainer" xmlns:foaf="http://xmlns.com/foaf/0.1/"/>
+      </field>
+      
+      <field name="developers" type="uk.ac.osswatch.simal.model.Person" collection="vector">
+         <bind-xml name="foaf:Person" location="developer" xmlns:foaf="http://xmlns.com/foaf/0.1/"/>
+      </field>
+      
+      <field name="documentors" type="uk.ac.osswatch.simal.model.Person" collection="vector">
+         <bind-xml name="foaf:Person" location="documentor" xmlns:foaf="http://xmlns.com/foaf/0.1/"/>
+      </field>
+      
+      <field name="helpers" type="uk.ac.osswatch.simal.model.Person" collection="vector">
+         <bind-xml name="foaf:Person" location="helper" xmlns:foaf="http://xmlns.com/foaf/0.1/"/>
+      </field>
+   </class>
+   
+   <class name="uk.ac.osswatch.simal.model.Category">
+     <map-to xml="category" ns-prefix="doap" ns-uri="http://usefulinc.com/ns/doap#"/>
+      
+     <field name="resourceURL">
+       <bind-xml name="rdf:resource" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+     </field>
+   </class>
+   
+   <class name="uk.ac.osswatch.simal.model.MailingList">
+     <map-to xml="mailing-list" ns-prefix="doap" ns-uri="http://usefulinc.com/ns/doap#"/>
+      
+     <field name="title">
+       <bind-xml name="dc:title" node="attribute" xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+     </field>
+     
+     <field name="resourceURL">
+       <bind-xml name="rdf:resource" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+     </field>
+   </class>
+   
+   <class name="uk.ac.osswatch.simal.model.Person">
+     <map-to xml="Person" ns-prefix="foaf" ns-uri="http://xmlns.com/foaf/0.1/"/>
+           
+     <field name="fullName">
+       <bind-xml name="name" node="element"/>
+     </field>
+     
+     <field name="seeAlso">
+       <bind-xml name="rdf:resource" location="seeAlso" node="attribute" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+     </field>
+   </class>
+      
+</mapping>

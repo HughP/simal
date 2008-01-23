@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Simal Model
+Bundle-SymbolicName: uk.ac.osswatch.simal.model;singleton:=true
+Bundle-Version: 0.1.0
+Bundle-Vendor: OSS Watch
+Bundle-Localization: plugin
+Import-Package: org.apache.commons.logging,
+ org.apache.xerces.parsers,
+ org.osgi.framework;version="1.3.0"
+Bundle-Activator: uk.ac.osswatch.simal.model.Activator
+Export-Package: javax.xml.stream,
+ uk.ac.osswatch.simal.model,
+ uk.ac.osswatch.simal.service,
+ uk.ac.osswatch.simal.service.derby
+Bundle-ClassPath: lib/glassfish-persistence/toplink-essentials.jar,
+ .,
+ lib/db-derby-10.2.2.0-lib/derbyclient.jar,
+ lib/stax-api-1.0.1.jar
+Require-Bundle: org.apache.derby.core
