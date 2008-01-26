@@ -1,0 +1,33 @@
+/******************************************************
+ Colour scheme
+ =============
+ 
+ Please restrict the use of colours to the following:
+ 
+ #000000 - Black
+ #008F00 - Dark Green
+ #00CC00
+ #80FF80
+ #BFFFBF - Light Green
+ #FFFFFF - White
+ 
+ See http://www.wellstyled.com/tools/colorscheme2/index-en.html?mono;36;0;180;0.25;1;0.5;1;-1;-1;1;-0.7;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;0
+********************************************************/
+.widget {
+  clear:right;
+  border: solid black 1px;
+  margin: 1em 3em 3em 1em;
+  background: #BFFFBF;}
+
+.widget .title {
+  background:  #008F00;
+  color: white;
+  font-weight: bold;
+  padding: 5px 10px 10px 5px;
+}
+
+.widget .content {
+  line-height: 120%;
+  font-size: 90%;
+}
+
