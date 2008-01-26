@@ -1,0 +1,305 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>uk.ac.osswatch</groupId>
+  <artifactId>simal-core</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Simal core</name>
+  <url>http://simal.oss-watch.ac.uk</url>
+  <description>
+    Simal is a framework and web application for the creation,
+    management and querying of project registries.
+  </description>
+  <inceptionYear>2007</inceptionYear>
+
+  <organization>
+    <name>The University of Oxford</name>
+    <url>http://www.oss-watch.ac.uk</url>
+  </organization>
+
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <distributionManagement>
+    <site>
+      <id>simal-website</id>
+      <name>Simal Website</name>
+      <url>file:/Users/rgardler/tmp/</url>
+    </site>
+  </distributionManagement>
+
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/simal/issues</url>
+  </issueManagement>
+
+  <mailingLists>
+    <mailingList>
+      <name>Contributores</name>
+      <subscribe>
+        http://groups.google.com/group/simal-contributors
+      </subscribe>
+      <unsubscribe>
+        http://groups.google.com/group/simal-contributors
+      </unsubscribe>
+      <post>simal-contributors@googlegroups.com</post>
+      <archive>
+        http://groups.google.com/group/simal-contributors
+      </archive>
+    </mailingList>
+
+    <mailingList>
+      <name>SVN Commits</name>
+      <subscribe>
+        http://groups.google.com/group/simal-commits
+      </subscribe>
+      <unsubscribe>
+        http://groups.google.com/group/simal-commits
+      </unsubscribe>
+      <post>simal-commits@googlegroups.com</post>
+      <archive>http://groups.google.com/group/simal-commits</archive>
+    </mailingList>
+  </mailingLists>
+
+  <scm>
+    <connection>scm:svn:http://simal.googlecode.com/svn/</connection>
+    <developerConnection>
+      scm:svn:https://simal.googlecode.com/svn/
+    </developerConnection>
+    <url>http://simal.googlecode.com/svn/</url>
+  </scm>
+
+  <dependencies>
+    <!-- SESAME DEPENDENCIES -->
+    <!-- FIXME: look out for sesame 2.0 making it into the maven repository and use it from there -->
+
+    <dependency>
+      <groupId>org.openrdf</groupId>
+      <artifactId>sesame-onejar</artifactId>
+      <version>2.0</version>
+    </dependency>
+
+    <!-- ELMO DEPENDENCIES -->
+    <!-- FIXME: look out for this version making it into the maven repository and use it from there -->
+
+    <dependency>
+      <groupId>org.openrdf</groupId>
+      <artifactId>elmo</artifactId>
+      <version>1.0-beta2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openrdf</groupId>
+      <artifactId>elmo-concepts</artifactId>
+      <version>1.0-beta2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.persistence</groupId>
+      <artifactId>persistence-api</artifactId>
+      <version>1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javassist</groupId>
+      <artifactId>javassist</artifactId>
+      <version>3.4.ga</version>
+    </dependency>
+
+    <!-- XML DEPENDENCIES -->
+
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+      <version>2.7.0</version>
+    </dependency>
+
+    <!-- LOGGING DEPENDENCIES - LOG4J -->
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.4.3</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+    </dependency>
+
+    <!--  JUNIT DEPENDENCY FOR TESTING -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <resources>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <filtering>false</filtering>
+        <directory>src/test/java</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <compilerVersion>1.5</compilerVersion>
+        </configuration>
+      </plugin>
+
+      <!--  FIXME: this throws a NPE at present (26 Jan 2008)
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-doap-plugin</artifactId>
+        <configuration>
+        <category>build-management</category>
+        <language>Intercal</language>
+        </configuration>
+        </plugin>
+      -->
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clover-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/integrationTest/**/*.java</exclude>
+            <exclude>**/test/**/*.java</exclude>
+          </excludes>
+          <jdk>1.5</jdk>
+          <targetPercentage>90%</targetPercentage>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>pre-site</phase>
+            <goals>
+              <goal>instrument</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clover-plugin</artifactId>
+        <configuration>
+          <jdk>1.5</jdk>
+          <targetPercentage>90%</targetPercentage>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+              <report>summary</report>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>project-team</report>
+              <report>mailing-list</report>
+              <!--  <report>cim</report>  -->
+              <report>issue-tracking</report>
+              <report>license</report>
+              <report>scm</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clover-plugin</artifactId>
+      </plugin>
+
+    </plugins>
+  </reporting>
+
+  <!-- Developers listed alphabetically -->
+  <developers>
+    <developer>
+      <id>rgardler</id>
+      <name>Ross Gardler</name>
+      <email>rgardler@apache.org</email>
+      <organization>OSS Watch</organization>
+      <organizationUrl>http://www.oss-watch.ac.uk</organizationUrl>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <!-- TODO: Add all developers here (developers should do it themselves) -->
+  </developers>
+</project>

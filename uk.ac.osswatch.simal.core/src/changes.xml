@@ -1,0 +1,19 @@
+<document>
+  <properties>
+    <title>Simal Core</title>
+    <!-- <author email="rgardler@apache.org">Ross Gardler</author> -->
+  </properties>
+  <body>
+    <release version="0.1" date="unreleased"
+      description="An early, feature poor, release">
+      <action dev="rgardler" type="add">
+        Setup reporting modules using Maven.
+      </action>
+      <action dev="rgardler" type="add">
+        Create the RDF repository allow projects to be edited and
+        retrieved using DOAP.
+      </action>
+    </release>
+
+  </body>
+</document>
