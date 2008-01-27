@@ -60,7 +60,6 @@ public class TestProject {
 	 */
 	private SimalRepository getTestRepo() throws SimalRepositoryException {
 		SimalRepository repo = new SimalRepository();
-		repo.addProject(this.getClass().getResource("testDOAP.xml"), "http://exmple.org/baseURI");
 		return repo;
 	}
 }
