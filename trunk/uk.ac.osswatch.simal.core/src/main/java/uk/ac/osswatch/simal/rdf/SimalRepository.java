@@ -2,6 +2,7 @@ package uk.ac.osswatch.simal.rdf;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.xml.namespace.QName;
@@ -29,6 +30,13 @@ import org.openrdf.sail.memory.MemoryStore;
 public class SimalRepository {
 	private static SailRepository _repository;
 
+	/**
+	 * Create a default repository.
+	 * Currently this creates a volatile repository populaed with
+	 * test data.
+	 * 
+	 * @throws SimalRepositoryException
+	 */
 	public SimalRepository() throws SimalRepositoryException {
 		_repository = new SailRepository(new MemoryStore());
 		try {
@@ -37,6 +45,8 @@ public class SimalRepository {
 			throw new SimalRepositoryException(
 					"Unable to intialise the repository", e);
 		}
+		
+    	addTestData();
 	}
 
 	public RepositoryConnection getConnection() throws SimalRepositoryException {
@@ -135,5 +145,22 @@ public class SimalRepository {
 
 	public void close() {
 		getManager().close();
+	}
+	
+	/**
+	 * Adds test data to the repo. be careful to only use this when
+	 * the repo in use is a test repository.
+	 * 
+	 * @throws SimalRepositoryException
+	 */
+	private void addTestData() throws SimalRepositoryException {
+		// Local test file
+		addProject(SimalRepository.class.getResource("testDOAP.xml"), "http://exmple.org/baseURI");
+		// WebPA project file
+		try {
+			addProject(new URL("http://webpaproject.lboro.ac.uk/doap.rdf"), "http://webpaproject.lboro.ac.uk");
+		} catch (MalformedURLException e) {
+			throw new SimalRepositoryException("Unable to add WebPA as test data", e);
+		}
 	}
 }
