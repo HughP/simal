@@ -15,12 +15,12 @@
       <item name="OSS Watch" href="http://www.oss-watch.ac.uk/" />
     </links>
     
-    <menu name="Maven 2.0">
-      <item name="APT Format" href="format.html"/>
-      <item name="FAQ" href="faq.html"/>
-      <item name="Xdoc Example" href="xdoc.html"/>      
+    <menu name="Simal Web">
+      <item name="Home" href="index.html"/>
+      <item name="Download" href="download.html"/>   
+      <item name="Developing" href="developing.html"/>  
     </menu>
-
+    
     <menu ref="reports" />
   </body>
 </project>

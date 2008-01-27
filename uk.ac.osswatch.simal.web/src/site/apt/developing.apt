@@ -1,0 +1,95 @@
+          ----------------------
+          Developing Simal Web
+          ----------------------
+ 
+Prerequisites
+
+ You must have set up the {{{download.html} prerequisites and downloaded}}
+ the source for Simal Web.
+ 
+Building with Maven
+
+ To build Simal Web application with Maven all you need to do is 
+ (from within your Simal Web home directory):
+ 
+-----------
+mvn war:war
+-----------
+
+ this will build a war file in your SIMAL_WEB/target directory.
+
+ Simal Web comes complete with a test suite, to run it you need:
+
+------------
+mvn test
+------------
+
+* Building Documentation and Reports
+
+ If you are working on the code or the documentation of Simal Web
+ then you will want to build the documentation and reports to check
+ everything is OK, simply use:
+ 
+--------
+mvn site
+--------
+
+ The site will be built in SIMAL_WEB/target/site.
+ 
+ When working on documentation it can be useful to run the site in
+ dynamic mode, however, be aware that not all changes to documentation
+ are shown in dynamic mode, you may need to restart the server with:
+ 
+------------
+mvn site:run
+------------
+
+Using Eclipse
+
+ If you use Eclipse as your IDE then you can set up an Eclipse project
+ with the command:
+ 
+-------------------
+mvn eclipse:eclipse
+-------------------
+
+ We also recommend that you install the 
+ {{{http://code.google.com/p/q4e/} Q4e}} plugin and enable 
+ Maven Dependency Management to simplfy the management of your
+ classpath within Eclipse.
+ 
+* Mylyn and Google Code
+
+ Eclipse 3.3 and onwards includes the excellent Mylyn task 
+ management tool. You may want to configure Mylyn to work with our
+ Issue Tracker, in which case you will find this 
+ {{{http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code} blog}}
+ from Alex Ruiz very useful (well I did anyway).
+ 
+Running Simal Web
+
+ To run the Simal Web application you can either use the Maven Jetty
+ plugin to run locally or you can deploy the war generated above in
+ your favourite servlet engine. The later is outside the scope of this
+ document, instead we will focus on running locally as part of your 
+ development cycle. To start the server run the following command:
+
+-------------
+mvn jetty:run
+-------------
+
+ Now point your browser at 
+ {{{http://localhost:8080/simal-webapp/} http://localhost:8080/simal-webapp/}}
+ 
+ NOTE - at the time of writing this starts Simal Web in test mode. The
+ repository will not retain data between executions and will be
+ re-populated with test data each time you run. Obviously this will
+ change - it will change faster if you {{{mail-lists.html} help}}.
+ 
+Now What?
+
+ So you have Simal Web installed, now what?
+  
+ Simal is a very early stage project, we need your help.
+ We encourage you to join our {{{mail-lists.html} mailing list}}. 
+
