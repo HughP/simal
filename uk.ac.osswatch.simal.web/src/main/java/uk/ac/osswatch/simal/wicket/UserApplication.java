@@ -29,7 +29,8 @@ public class UserApplication extends WebApplication {
 	private static boolean isTest = true;
 	
     public UserApplication() {
-    	isTest = false;
+    	// FIXME: when we go to a non-volatile repo we need to set
+    	// isTest = false;
     }
 
     public void init() {
