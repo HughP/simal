@@ -72,11 +72,11 @@
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://simal.googlecode.com/svn/</connection>
+    <connection>scm:svn:http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/</connection>
     <developerConnection>
-      scm:svn:https://simal.googlecode.com/svn/
+      scm:svn:https://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/
     </developerConnection>
-    <url>http://simal.googlecode.com/svn/</url>
+    <url>http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/</url>
   </scm>
 
   <dependencies>
