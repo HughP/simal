@@ -16,7 +16,9 @@
     </links>
     
     <menu name="Simal">
-      <item name="Home" href="index.html"/>      
+      <item name="Home" href="index.html"/>
+      <item name="Download" href="download.html"/>   
+      <item name="Developing" href="developing.html"/>  
     </menu>
     
     <menu ref="reports" />
