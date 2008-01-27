@@ -25,6 +25,47 @@
 		</license>
 	</licenses>
 
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/simal/issues</url>
+  </issueManagement>
+
+  <mailingLists>
+    <mailingList>
+      <name>Contributores</name>
+      <subscribe>
+        http://groups.google.com/group/simal-contributors
+      </subscribe>
+      <unsubscribe>
+        http://groups.google.com/group/simal-contributors
+      </unsubscribe>
+      <post>simal-contributors@googlegroups.com</post>
+      <archive>
+        http://groups.google.com/group/simal-contributors
+      </archive>
+    </mailingList>
+
+    <mailingList>
+      <name>SVN Commits</name>
+      <subscribe>
+        http://groups.google.com/group/simal-commits
+      </subscribe>
+      <unsubscribe>
+        http://groups.google.com/group/simal-commits
+      </unsubscribe>
+      <post>simal-commits@googlegroups.com</post>
+      <archive>http://groups.google.com/group/simal-commits</archive>
+    </mailingList>
+  </mailingLists>
+
+  <scm>
+    <connection>scm:svn:http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/</connection>
+    <developerConnection>
+      scm:svn:https://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/
+    </developerConnection>
+    <url>http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/</url>
+  </scm>
+
 	<dependencies>
     <!--  SIMAL DEPENDENCIES -->
     
@@ -170,4 +211,20 @@
 		<jetty.version>6.1.4</jetty.version>
 	</properties>
 
+
+  <!-- Developers listed alphabetically -->
+  <developers>
+    <developer>
+      <id>rgardler</id>
+      <name>Ross Gardler</name>
+      <email>rgardler@apache.org</email>
+      <organization>OSS Watch</organization>
+      <organizationUrl>http://www.oss-watch.ac.uk</organizationUrl>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <!-- TODO: Add all developers here (developers should do it themselves) -->
+  </developers>
 </project>
