@@ -18,7 +18,7 @@ public class Start {
 
 		WebAppContext bb = new WebAppContext();
 		bb.setServer(server);
-		bb.setContextPath("/");
+		bb.setContextPath("/simal-webapp");
 		bb.setWar("src/main/webapp");
 
 		
