@@ -2,9 +2,6 @@
           Developing Simal Core
           ----------------------
 
-
- At present Simal Core is only avaiable in source format. 
- There will be a binary release in the near future.
  
 Prerequisites
 
@@ -37,7 +34,7 @@ mvn test
 
  If you are working on the code or the documentation of Simal Core
  then you will want to build the documentation and reports to check
- everything is OK, simoply use:
+ everything is OK, simply use:
  
 --------
 mvn site
