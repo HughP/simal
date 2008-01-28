@@ -1,6 +1,7 @@
 package uk.ac.osswatch.simal.rdf.integrationTest;
 
 import java.io.StringWriter;
+import java.util.Set;
 
 import javax.xml.namespace.QName;
 
@@ -53,6 +54,14 @@ public class TestProject {
 		repo.writeXML(sw, qname);
 		String xml = sw.toString();
 		Assert.assertTrue("XML does not contain the QName expected", xml.contains("rdf:about=\"http://simal.oss-watch.ac.uk/simalTest#\""));
+	}
+	
+	@Test
+	public void testGetAllProjects() throws SimalRepositoryException {
+		SimalRepository repo = getTestRepo();
+		
+		Set<Project> projects = repo.getAllProjects();
+		Assert.assertEquals(2, projects.size());
 	}
 
 	/*
