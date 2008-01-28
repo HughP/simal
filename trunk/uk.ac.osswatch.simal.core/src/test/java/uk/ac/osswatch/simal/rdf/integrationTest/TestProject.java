@@ -61,7 +61,7 @@ public class TestProject {
 		SimalRepository repo = getTestRepo();
 		
 		Set<Project> projects = repo.getAllProjects();
-		Assert.assertEquals(2, projects.size());
+		Assert.assertEquals(3, projects.size());
 	}
 
 	/*
