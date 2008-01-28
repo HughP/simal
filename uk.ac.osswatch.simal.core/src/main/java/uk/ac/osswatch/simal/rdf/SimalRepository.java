@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Set;
 
 import javax.xml.namespace.QName;
 
@@ -113,6 +114,10 @@ public class SimalRepository {
 	 */
 	public Project getProject(QName qname) {
 		return getManager().find(Project.class, qname);
+	}
+	
+	public Set<Project> getAllProjects() {
+		return getManager().findAll(Project.class);
 	}
 
 	/**
