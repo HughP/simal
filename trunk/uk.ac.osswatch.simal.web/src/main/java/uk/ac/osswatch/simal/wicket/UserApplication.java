@@ -15,9 +15,6 @@
  */
 package uk.ac.osswatch.simal.wicket;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.apache.wicket.protocol.http.WebApplication;
 
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -29,8 +26,6 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public class UserApplication extends WebApplication {
 	private static SimalRepository repo;
-	// When isTest is set to true the repo is populated with test data
-	private static boolean isTest = true;
 	
     public UserApplication() {
     	// FIXME: when we go to a non-volatile repo we need to set
