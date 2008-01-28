@@ -28,7 +28,6 @@ public class TestProjectSummaryPanel extends TestCase {
 		                return new ProjectSummaryPanel(panelId, qname);
 		        }
 		 });
-		 // path = 1:panel:projectName.Label
 		tester.assertVisible("panel:projectName");
 		tester.assertLabel("panel:projectName", "Simal DOAP Test");
 	}
