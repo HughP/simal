@@ -15,6 +15,9 @@
  */
 package uk.ac.osswatch.simal.wicket;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import org.apache.wicket.protocol.http.WebApplication;
 
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -26,10 +29,12 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public class UserApplication extends WebApplication {
 	private static SimalRepository repo;
+	// When isTest is set to true the repo is populated with test data
 	private static boolean isTest = true;
 	
     public UserApplication() {
     	// FIXME: when we go to a non-volatile repo we need to set
+    	// When isTest is set to true the repo is populated with test data
     	// isTest = false;
     }
 
@@ -51,14 +56,12 @@ public class UserApplication extends WebApplication {
 		if (repo == null) {
 	    	try {
 				repo = new SimalRepository();
-				if (isTest) {
-					repo.addProject(UserApplication.class.getResource("testDOAP.xml"), "http://exmple.org/baseURI");
-				}
 			} catch (SimalRepositoryException e) {
 				throw new RuntimeException("Unable to create repository", e);
 			}
 		}
 		return repo;
 	}
+
 }
   
