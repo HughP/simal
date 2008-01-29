@@ -17,7 +17,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * test common activities relating to Projects.
  * 
  */
-public class TestProject {
+public class TestRepository extends BaseRepositoryTest {
 
 	@Test
 	public void testAddProject() throws SimalRepositoryException {
@@ -62,13 +62,5 @@ public class TestProject {
 		
 		Set<Project> projects = repo.getAllProjects();
 		Assert.assertEquals(4, projects.size());
-	}
-
-	/*
-	 * Create a test repo and populate it with test data.
-	 */
-	private SimalRepository getTestRepo() throws SimalRepositoryException {
-		SimalRepository repo = new SimalRepository();
-		return repo;
 	}
 }
