@@ -8,8 +8,8 @@ import javax.xml.namespace.QName;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.openrdf.concepts.doap.Project;
 
+import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -22,12 +22,13 @@ public class TestRepository extends BaseRepositoryTest {
 	@Test
 	public void testAddProject() throws SimalRepositoryException {
 		SimalRepository repo = getTestRepo();
+		// The default test repository adds projects when it is instantiated
 		Assert.assertNotNull(repo);
 	}
 
 	@Test
 	public void testFindProject() throws SimalRepositoryException {
-		SimalRepository repo = getTestRepo();
+		SimalRepository repo = getTestRepo(true);
 		
 		QName qname = new QName("http://foo.org/nonExistent");
 		try {
@@ -35,11 +36,9 @@ public class TestRepository extends BaseRepositoryTest {
 		Assert.assertNull(project);
 
 		// test a known valid file
-		qname = new QName("http://simal.oss-watch.ac.uk/simalTest#");
-		project = repo.getProject(qname);
-		Assert.assertTrue(project.getDoapNames().size() == 1);
+		project = getSimalTestProject();
 		Assert.assertEquals("Simal DOAP Test",
-				project.getDoapNames().toArray()[0]);
+				project.getName());
 		} finally {
 			repo.close();
 		}		
@@ -48,7 +47,7 @@ public class TestRepository extends BaseRepositoryTest {
 	@Test
 	public void testGetRdfXml() throws SimalRepositoryException {
 		SimalRepository repo = getTestRepo();
-		QName qname = new QName("http://simal.oss-watch.ac.uk/simalTest#");
+		QName qname = new QName(QNAME_SIMAL_TEST);
 		
 		StringWriter sw = new StringWriter();
 		repo.writeXML(sw, qname);

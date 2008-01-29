@@ -4,11 +4,12 @@ import java.io.IOException;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.openrdf.concepts.doap.Project;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
@@ -23,6 +24,8 @@ import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
 import org.openrdf.rio.rdfxml.util.RDFXMLPrettyWriter;
 import org.openrdf.sail.memory.MemoryStore;
+
+import uk.ac.osswatch.simal.model.elmo.Project;
 
 /**
  * A class for handling common repository actions.
@@ -113,11 +116,20 @@ public class SimalRepository {
 	 * @return the project, or if no project with the given QName exists Null
 	 */
 	public Project getProject(QName qname) {
-		return getManager().find(Project.class, qname);
+		org.openrdf.concepts.doap.Project elmoProject = getManager().find(org.openrdf.concepts.doap.Project.class, qname);
+		if (elmoProject == null) {
+			return null;
+		}
+		return new Project(elmoProject);
 	}
 	
 	public Set<Project> getAllProjects() {
-		return getManager().findAll(Project.class);
+		HashSet<Project> result = new HashSet<Project>();
+		Iterator<org.openrdf.concepts.doap.Project> elmoProjects = getManager().findAll(org.openrdf.concepts.doap.Project.class).iterator();
+		while (elmoProjects.hasNext()) {
+			result.add(new Project(elmoProjects.next()));
+		}
+		return result;
 	}
 
 	/**
@@ -165,8 +177,8 @@ public class SimalRepository {
 		try {
 			// WebPA project file
 			addProject(new URL("http://webpaproject.lboro.ac.uk/doap.rdf"), "http://webpaproject.lboro.ac.uk");
-			// Add Sakai from sourceKibitzer
-			addProject(new URL("http://www.sourcekibitzer.org/ProjectDOAP.ext?sp=Ssakai"), "http://www.sourcekibitzer.org/ProjectDOAP.ext");
+			// Add OSS Watch from Simal demo site
+			addProject(new URL("http://simal.oss-watch.ac.uk/projectDetails/ossWatch.rdf"), "http://simal.oss-watch.ac.uk");
 		} catch (MalformedURLException e) {
 			throw new SimalRepositoryException("Unable to add WebPA as test data", e);
 		}
