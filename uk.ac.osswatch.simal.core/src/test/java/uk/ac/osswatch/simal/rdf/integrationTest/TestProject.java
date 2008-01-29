@@ -34,6 +34,7 @@ public class TestProject {
 		Project project = repo.getProject(qname);
 		Assert.assertNull(project);
 
+		// test a known valid file
 		qname = new QName("http://simal.oss-watch.ac.uk/simalTest#");
 		project = repo.getProject(qname);
 		Assert.assertTrue(project.getDoapNames().size() == 1);
@@ -41,8 +42,7 @@ public class TestProject {
 				project.getDoapNames().toArray()[0]);
 		} finally {
 			repo.close();
-		}
-		
+		}		
 	}
 
 	@Test
@@ -61,7 +61,7 @@ public class TestProject {
 		SimalRepository repo = getTestRepo();
 		
 		Set<Project> projects = repo.getAllProjects();
-		Assert.assertEquals(3, projects.size());
+		Assert.assertEquals(4, projects.size());
 	}
 
 	/*

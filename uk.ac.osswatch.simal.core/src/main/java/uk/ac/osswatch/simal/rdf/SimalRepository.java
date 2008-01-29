@@ -159,11 +159,14 @@ public class SimalRepository {
 	 * @throws SimalRepositoryException
 	 */
 	private void addTestData() throws SimalRepositoryException {
-		// Local test file
+		// Local test files
 		addProject(SimalRepository.class.getResource("testDOAP.xml"), "http://exmple.org/baseURI");
-		// WebPA project file
+		addProject(SimalRepository.class.getResource("testNoRDFAboutDOAP.xml"), "http://exmple.org/baseURI");
 		try {
+			// WebPA project file
 			addProject(new URL("http://webpaproject.lboro.ac.uk/doap.rdf"), "http://webpaproject.lboro.ac.uk");
+			// Add Sakai from sourceKibitzer
+			addProject(new URL("http://www.sourcekibitzer.org/ProjectDOAP.ext?sp=Ssakai"), "http://www.sourcekibitzer.org/ProjectDOAP.ext");
 		} catch (MalformedURLException e) {
 			throw new SimalRepositoryException("Unable to add WebPA as test data", e);
 		}
