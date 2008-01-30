@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.model.elmo.ProjectException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.integrationTest.BaseRepositoryTest;
 
 public class TestProject extends BaseRepositoryTest {
@@ -15,11 +16,16 @@ public class TestProject extends BaseRepositoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		project1 = getSimalTestProject();
+		resetTestData();
+	}
+
+	private static void resetTestData() throws SimalRepositoryException {
+		project1 = getSimalTestProject(true);
 	}
 
 	@Test
-	public void testGetName() {
+	public void testGetName() throws SimalRepositoryException {
+		resetTestData();
 		assertEquals(TEST_SIMAL_NAME, project1.getName());
 	}
 

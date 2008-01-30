@@ -58,17 +58,24 @@ public abstract class BaseRepositoryTest {
 
 	/**
 	 * Get the default test project. This is generated from the testDOAP.xml
-	 * file.
+	 * file. you should reset the data is you are testing any of the following
+	 * fields:
+	 * 
+	 * <ul>
+	 *   <li>name</li>
+	 * </ul>
+	 * 
+	 * @param reset true if the data is to be reset
 	 * 
 	 * @param repo
 	 * @return
 	 * @throws SimalRepositoryException 
 	 */
-	protected static Project getSimalTestProject() throws SimalRepositoryException {
+	protected static Project getSimalTestProject(boolean reset) throws SimalRepositoryException {
 		QName qname;
 		Project project;
 		qname = new QName(QNAME_SIMAL_TEST);
-		project = getTestRepo().getProject(qname);
+		project = getTestRepo(reset).getProject(qname);
 		return project;
 	}
 
