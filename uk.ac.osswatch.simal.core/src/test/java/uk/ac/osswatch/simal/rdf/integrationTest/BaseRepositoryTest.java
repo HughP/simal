@@ -1,6 +1,11 @@
 package uk.ac.osswatch.simal.rdf.integrationTest;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.xml.namespace.QName;
+
+import org.openrdf.elmo.sesame.SesameManager;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -16,7 +21,7 @@ public abstract class BaseRepositoryTest {
 	
 	static SimalRepository repo;
 
-	protected static final String QNAME_SIMAL_TEST = "http://simal.oss-watch.ac.uk/simalTest#";
+	protected static final String TEST_SIMAL_QNAME = "http://simal.oss-watch.ac.uk/simalTest#";
 
 	protected static final String TEST_SIMAL_NAME = "Simal DOAP Test";
 
@@ -74,9 +79,10 @@ public abstract class BaseRepositoryTest {
 	protected static Project getSimalTestProject(boolean reset) throws SimalRepositoryException {
 		QName qname;
 		Project project;
-		qname = new QName(QNAME_SIMAL_TEST);
+		qname = new QName(TEST_SIMAL_QNAME);
 		project = getTestRepo(reset).getProject(qname);
 		return project;
 	}
 
 }
+	
