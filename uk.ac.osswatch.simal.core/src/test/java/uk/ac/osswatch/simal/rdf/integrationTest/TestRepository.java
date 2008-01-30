@@ -36,7 +36,7 @@ public class TestRepository extends BaseRepositoryTest {
 		Assert.assertNull(project);
 
 		// test a known valid file
-		project = getSimalTestProject();
+		project = getSimalTestProject(true);
 		Assert.assertEquals("Simal DOAP Test",
 				project.getName());
 		} finally {
