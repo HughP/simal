@@ -48,7 +48,8 @@ public class Elmo {
 		names.add("project 2");
 		names.add("project3");
 		
-		QName qname = new QName("http:example.org/doap");
+		//QName qname = new QName("http:example.org/doap");
+		QName qname = null;
 		Project project = manager.designate(Project.class, qname);
 		project.setDoapNames(names);
 	
