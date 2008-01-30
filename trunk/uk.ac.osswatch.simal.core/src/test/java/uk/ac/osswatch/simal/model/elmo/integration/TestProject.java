@@ -47,5 +47,10 @@ public class TestProject extends BaseRepositoryTest {
 		project1.setShortDesc(newDesc);
 		assertEquals(newDesc, project1.getShortDesc());
 	}
+	
+	@Test
+	public void testGetQName() {
+		assertEquals(TEST_SIMAL_QNAME, project1.getQName().toString());
+	}
 
 }

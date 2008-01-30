@@ -47,7 +47,7 @@ public class TestRepository extends BaseRepositoryTest {
 	@Test
 	public void testGetRdfXml() throws SimalRepositoryException {
 		SimalRepository repo = getTestRepo();
-		QName qname = new QName(QNAME_SIMAL_TEST);
+		QName qname = new QName(TEST_SIMAL_QNAME);
 		
 		StringWriter sw = new StringWriter();
 		repo.writeXML(sw, qname);
