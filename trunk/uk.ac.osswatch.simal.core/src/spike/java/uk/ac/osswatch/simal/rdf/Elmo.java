@@ -1,4 +1,4 @@
-package uk.ac.osswatch.sial.rdf;
+package uk.ac.osswatch.simal.rdf;
 
 import java.util.HashSet;
 import java.util.Iterator;
