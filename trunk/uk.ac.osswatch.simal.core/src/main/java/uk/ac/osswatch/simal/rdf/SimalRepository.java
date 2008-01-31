@@ -35,9 +35,8 @@ public class SimalRepository {
 	private static SailRepository _repository;
 
 	/**
-	 * Create a default repository.
-	 * Currently this creates a volatile repository populaed with
-	 * test data.
+	 * Create a default repository. Currently this creates a volatile repository
+	 * populaed with test data.
 	 * 
 	 * @throws SimalRepositoryException
 	 */
@@ -49,17 +48,12 @@ public class SimalRepository {
 			throw new SimalRepositoryException(
 					"Unable to intialise the repository", e);
 		}
-		
-    	addTestData();
+
+		addTestData();
 	}
 
-	public RepositoryConnection getConnection() throws SimalRepositoryException {
-		try {
-			return _repository.getConnection();
-		} catch (RepositoryException e) {
-			throw new SimalRepositoryException(
-					"Unable to get a connection to the repository", e);
-		}
+	public RepositoryConnection getConnection() {
+		return getManager().getConnection();
 	}
 
 	/**
@@ -102,6 +96,7 @@ public class SimalRepository {
 	 */
 	public SesameManager getManager() {
 		ElmoModule module = new ElmoModule();
+		module.recordRole(org.openrdf.concepts.doap.Project.class);
 
 		SesameManagerFactory factory = new SesameManagerFactory(module,
 				_repository);
@@ -116,16 +111,18 @@ public class SimalRepository {
 	 * @return the project, or if no project with the given QName exists Null
 	 */
 	public Project getProject(QName qname) {
-		org.openrdf.concepts.doap.Project elmoProject = getManager().find(org.openrdf.concepts.doap.Project.class, qname);
+		org.openrdf.concepts.doap.Project elmoProject = getManager().find(
+				org.openrdf.concepts.doap.Project.class, qname);
 		if (elmoProject == null) {
 			return null;
 		}
 		return new Project(elmoProject);
 	}
-	
+
 	public Set<Project> getAllProjects() {
 		HashSet<Project> result = new HashSet<Project>();
-		Iterator<org.openrdf.concepts.doap.Project> elmoProjects = getManager().findAll(org.openrdf.concepts.doap.Project.class).iterator();
+		Iterator<org.openrdf.concepts.doap.Project> elmoProjects = getManager()
+				.findAll(org.openrdf.concepts.doap.Project.class).iterator();
 		while (elmoProjects.hasNext()) {
 			result.add(new Project(elmoProjects.next()));
 		}
@@ -138,13 +135,12 @@ public class SimalRepository {
 	 * 
 	 * @param writer
 	 * @param qname
-	 * @throws SimalRepositoryException 
+	 * @throws SimalRepositoryException
 	 * @throws RepositoryException
 	 * @throws RDFHandlerException
 	 */
-	public void writeXML(Writer writer, QName qname) throws SimalRepositoryException {
-		SesameManager manager = getManager();
-		manager.find(Project.class, qname);
+	public void writeXML(Writer writer, QName qname)
+			throws SimalRepositoryException {
 		getProject(qname);
 		RDFXMLPrettyWriter XMLWriter = new RDFXMLPrettyWriter(writer);
 		try {
@@ -157,30 +153,36 @@ public class SimalRepository {
 			throw new SimalRepositoryException(
 					"Unable to handle the generated RDF/XML", e);
 		}
-		manager.close();
 	}
 
 	public void close() {
 		getManager().close();
 	}
-	
+
 	/**
-	 * Adds test data to the repo. be careful to only use this when
-	 * the repo in use is a test repository.
+	 * Adds test data to the repo. be careful to only use this when the repo in
+	 * use is a test repository.
 	 * 
 	 * @throws SimalRepositoryException
 	 */
 	private void addTestData() throws SimalRepositoryException {
 		// Local test files
-		addProject(SimalRepository.class.getResource("testDOAP.xml"), "http://exmple.org/baseURI");
-		addProject(SimalRepository.class.getResource("testNoRDFAboutDOAP.xml"), "http://exmple.org/baseURI");
+		addProject(SimalRepository.class.getResource("testDOAP.xml"),
+				"http://exmple.org/baseURI");
+		addProject(SimalRepository.class.getResource("testNoRDFAboutDOAP.xml"),
+				"http://exmple.org/baseURI");
 		try {
 			// WebPA project file
-			addProject(new URL("http://webpaproject.lboro.ac.uk/doap.rdf"), "http://webpaproject.lboro.ac.uk");
+			addProject(new URL("http://webpaproject.lboro.ac.uk/doap.rdf"),
+					"http://webpaproject.lboro.ac.uk");
 			// Add OSS Watch from Simal demo site
-			addProject(new URL("http://simal.oss-watch.ac.uk/projectDetails/ossWatch.rdf"), "http://simal.oss-watch.ac.uk");
+			addProject(
+					new URL(
+							"http://simal.oss-watch.ac.uk/projectDetails/ossWatch.rdf"),
+					"http://simal.oss-watch.ac.uk");
 		} catch (MalformedURLException e) {
-			throw new SimalRepositoryException("Unable to add WebPA as test data", e);
+			throw new SimalRepositoryException(
+					"Unable to add WebPA as test data", e);
 		}
 	}
 }
