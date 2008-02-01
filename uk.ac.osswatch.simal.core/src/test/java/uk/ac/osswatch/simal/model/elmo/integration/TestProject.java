@@ -50,7 +50,7 @@ public class TestProject extends BaseRepositoryTest {
 	
 	@Test
 	public void testGetQName() {
-		assertEquals(TEST_SIMAL_QNAME, project1.getQName().toString());
+		assertEquals(TEST_SIMAL_QNAME, project1.getQName().getNamespaceURI());
 	}
 
 }
