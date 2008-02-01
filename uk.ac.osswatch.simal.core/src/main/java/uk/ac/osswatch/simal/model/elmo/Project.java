@@ -4,11 +4,7 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.openrdf.elmo.sesame.SesameManager;
-import org.openrdf.elmo.sesame.roles.SesameEntity;
-
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 
 /**
  * This is a wrapper around an Elmo Project class.
@@ -16,7 +12,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepository;
  * @see org.openrdf.concepts.doap.Project
  */
 public class Project implements IProject {
-
+	private static final long serialVersionUID = -7610178891247360114L;
 	private org.openrdf.concepts.doap.Project elmoProject;
 
 	/**
@@ -65,14 +61,7 @@ public class Project implements IProject {
 	}
 
 	public QName getQName() {
-		// Sesame or Elmo is adding curly brackets around the QName, why?
-		// HACK: trip them manually and create a new QName
-		if (elmoProject.getQName() != null) {
-			String str = elmoProject.getQName().toString();
-			return new QName(str.substring(1, str.length() - 1));
-		} else {
-			return null;
-		}
+		return elmoProject.getQName();
 	}
 	
 	public String toString() {
