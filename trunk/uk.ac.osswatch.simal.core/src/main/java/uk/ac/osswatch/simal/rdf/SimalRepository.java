@@ -2,7 +2,6 @@ package uk.ac.osswatch.simal.rdf;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -22,10 +21,13 @@ import org.openrdf.repository.sail.SailRepository;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
+import org.openrdf.rio.RDFParser;
+import org.openrdf.rio.rdfxml.RDFXMLParser;
 import org.openrdf.rio.rdfxml.util.RDFXMLPrettyWriter;
 import org.openrdf.sail.memory.MemoryStore;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.rdf.io.ValidatingRDFXMLHandler;
 
 /**
  * A class for handling common repository actions.
@@ -67,8 +69,25 @@ public class SimalRepository {
 	 */
 	public void addProject(URL url, String baseURI)
 			throws SimalRepositoryException {
+		RDFParser parser = new RDFXMLParser();
+		parser.setRDFHandler(new ValidatingRDFXMLHandler());
+		parser.setVerifyData(true);
+
 		RepositoryConnection con = this.getConnection();
 		try {
+			try {
+				parser.parse(url.openStream(), baseURI);
+			} catch (RDFHandlerException e) {
+				if (e.getMessage().equals(
+						ValidatingRDFXMLHandler.NO_QNAME_PRESENT)) {
+					throw new SimalRepositoryException(
+							"The RDF/XML representation does not appear to have a QName, Simal will not handle anonymous projects",
+							e);
+				} else {
+					throw new SimalRepositoryException(
+							"Unable to access the repository", e);
+				}
+			}
 			con.add(url, baseURI, RDFFormat.RDFXML);
 		} catch (RDFParseException e) {
 			throw new SimalRepositoryException(
@@ -165,24 +184,55 @@ public class SimalRepository {
 	 * 
 	 * @throws SimalRepositoryException
 	 */
-	private void addTestData() throws SimalRepositoryException {
-		// Local test files
-		addProject(SimalRepository.class.getResource("testDOAP.xml"),
-				"http://exmple.org/baseURI");
-		addProject(SimalRepository.class.getResource("testNoRDFAboutDOAP.xml"),
-				"http://exmple.org/baseURI");
+	private void addTestData() {
 		try {
-			// WebPA project file
-			addProject(new URL("http://webpaproject.lboro.ac.uk/doap.rdf"),
-					"http://webpaproject.lboro.ac.uk");
-			// Add OSS Watch from Simal demo site
+			addProject(SimalRepository.class.getResource("testNoRDFAboutDOAP.xml"),
+			"http://exmple.org/baseURI");
+		} catch (SimalRepositoryException e2) {
+			// Yes, we expected that
+			// This is here so that the relevant test will fail 
+			// if this entity makes it into the repo.
+		}
+
+		// Local test files
+		try {
+			addProject(SimalRepository.class.getResource("testDOAP.xml"),
+					"http://exmple.org/baseURI");
+
+			addProject(SimalRepository.class.getResource("ossWatchDOAP.xml"),
+					"http://exmple.org/baseURI");
+			
 			addProject(
 					new URL(
 							"http://simal.oss-watch.ac.uk/projectDetails/ossWatch.rdf"),
 					"http://simal.oss-watch.ac.uk");
-		} catch (MalformedURLException e) {
-			throw new SimalRepositoryException(
-					"Unable to add WebPA as test data", e);
+		} catch (Exception e) {
+			throw new RuntimeException("Can't add the test data, there's no point in carrying on", e);
 		}
+	}
+
+	/**
+	 * Get the default QName for a Project. The default QName should be used if
+	 * the original resource does not provide a QName.
+	 * 
+	 * @param project
+	 *            the project for which we need a QName
+	 * @return
+	 */
+	public static QName getDefaultQName(
+			org.openrdf.concepts.doap.Project project) {
+		String strQName;
+		if (project.getDoapHomepages() == null
+				|| project.getDoapHomepages().size() == 0) {
+			strQName = "http://simal.oss-watch.ac.uk/project/unkownSource/"
+					+ (String) project.getDoapNames().toArray()[0];
+		} else {
+			strQName = project.getDoapHomepages().toArray()[0].toString();
+			if (!strQName.endsWith("/")) {
+				strQName = strQName + "/";
+			}
+			strQName = strQName + (String) project.getDoapNames().toArray()[0];
+		}
+		return new QName(strQName);
 	}
 }

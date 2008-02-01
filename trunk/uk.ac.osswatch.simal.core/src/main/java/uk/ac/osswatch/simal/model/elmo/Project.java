@@ -4,7 +4,11 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.openrdf.elmo.sesame.SesameManager;
+import org.openrdf.elmo.sesame.roles.SesameEntity;
+
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 
 /**
  * This is a wrapper around an Elmo Project class.
