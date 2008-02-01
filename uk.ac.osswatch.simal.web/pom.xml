@@ -1,29 +1,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>uk.ac.osswatch</groupId>
-	<artifactId>simal-webapp</artifactId>
-	<packaging>war</packaging>
-	<version>0.1-SNAPSHOT</version>
-	<name>Web Application</name>
-	<description>
-		A web application for viewing and manipulating a Simal registry.
-	</description>
+  <groupId>uk.ac.osswatch</groupId>
+  <artifactId>simal-webapp</artifactId>
+  <packaging>war</packaging>
+  <version>0.1-SNAPSHOT</version>
+  <name>Web Application</name>
+  <description>
+    A web application for viewing and manipulating a Simal registry.
+  </description>
 
   <organization>
     <name>The University of Oxford</name>
     <url>http://www.ox.ac.uk</url>
   </organization>
 
-	<licenses>
-		<license>
-			<name>The Apache Software License, Version 2.0</name>
-			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <issueManagement>
     <system>Google Code</system>
@@ -59,135 +59,138 @@
   </mailingLists>
 
   <scm>
-    <connection>scm:svn:http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/</connection>
+    <connection>
+      scm:svn:http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/
+    </connection>
     <developerConnection>
       scm:svn:https://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/
     </developerConnection>
-    <url>http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/</url>
+    <url>
+      http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/
+    </url>
   </scm>
 
-	<dependencies>
+  <dependencies>
     <!--  SIMAL DEPENDENCIES -->
-    
+
     <dependency>
       <groupId>uk.ac.osswatch</groupId>
       <artifactId>simal-core</artifactId>
       <version>0.1-SNAPSHOT</version>
     </dependency>
-    
-		<!--  WICKET DEPENDENCIES -->
 
-		<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket</artifactId>
-			<version>${wicket.version}</version>
-		</dependency>
-		<!-- OPTIONAL 
-			<dependency>
-			<groupId>org.apache.wicket</groupId>
-			<artifactId>wicket-extensions</artifactId>
-			<version>${wicket.version}</version>
-			</dependency>
-		-->
-    
+    <!--  WICKET DEPENDENCIES -->
+
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.wicket</groupId>
+      <artifactId>wicket-extensions</artifactId>
+      <version>${wicket.version}</version>
+    </dependency>
+
     <!-- ELMO DEPENDENCIES -->
     <!-- FIXME: look out for this version making it into the maven repository and use it from there -->
     <!-- 
-    <dependency>
+      <dependency>
       <groupId>org.openrdf</groupId>
       <artifactId>elmo</artifactId>
       <version>1.0-beta2</version>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>org.openrdf</groupId>
       <artifactId>elmo-concepts</artifactId>
       <version>1.0-beta2</version>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>persistence-api</artifactId>
       <version>1.0</version>
-    </dependency>
-    <dependency>
+      </dependency>
+      <dependency>
       <groupId>javassist</groupId>
       <artifactId>javassist</artifactId>
       <version>3.4.ga</version>
+      </dependency>
+    -->
+
+    <!-- LOGGING DEPENDENCIES - LOG4J -->
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.4.3</version>
     </dependency>
-     -->
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+    </dependency>
 
-		<!-- LOGGING DEPENDENCIES - LOG4J -->
+    <!--  JUNIT DEPENDENCY FOR TESTING -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.4.3</version>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.14</version>
-		</dependency>
+    <!--  JETTY DEPENDENCIES FOR TESTING  -->
 
-		<!--  JUNIT DEPENDENCY FOR TESTING -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.4</version>
-			<scope>test</scope>
-		</dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty</artifactId>
+      <version>${jetty.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty-util</artifactId>
+      <version>${jetty.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mortbay.jetty</groupId>
+      <artifactId>jetty-management</artifactId>
+      <version>${jetty.version}</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
 
-		<!--  JETTY DEPENDENCIES FOR TESTING  -->
+  <build>
+    <resources>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/resources</directory>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <filtering>false</filtering>
+        <directory>src/test/java</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
 
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty</artifactId>
-			<version>${jetty.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty-util</artifactId>
-			<version>${jetty.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty-management</artifactId>
-			<version>${jetty.version}</version>
-			<scope>provided</scope>
-		</dependency>
-	</dependencies>
-
-	<build>
-		<resources>
-			<resource>
-				<filtering>false</filtering>
-				<directory>src/main/resources</directory>
-			</resource>
-			<resource>
-				<filtering>false</filtering>
-				<directory>src/main/java</directory>
-				<includes>
-					<include>**</include>
-				</includes>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<filtering>false</filtering>
-				<directory>src/test/java</directory>
-				<includes>
-					<include>**</include>
-				</includes>
-				<excludes>
-					<exclude>**/*.java</exclude>
-				</excludes>
-			</testResource>
-		</testResources>
-    
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -198,18 +201,18 @@
           <compilerVersion>1.5</compilerVersion>
         </configuration>
       </plugin>
-      
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
-	<properties>
-		<wicket.version>1.3.0</wicket.version>
-		<jetty.version>6.1.4</jetty.version>
-	</properties>
+      <plugin>
+        <groupId>org.mortbay.jetty</groupId>
+        <artifactId>maven-jetty-plugin</artifactId>
+      </plugin>
+    </plugins>
+  </build>
+
+  <properties>
+    <wicket.version>1.3.0</wicket.version>
+    <jetty.version>6.1.4</jetty.version>
+  </properties>
 
 
   <!-- Developers listed alphabetically -->
