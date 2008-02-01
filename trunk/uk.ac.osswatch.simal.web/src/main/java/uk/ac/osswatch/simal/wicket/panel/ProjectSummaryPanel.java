@@ -19,8 +19,8 @@ import javax.xml.namespace.QName;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.openrdf.concepts.doap.Project;
 
+import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
@@ -42,9 +42,8 @@ public class ProjectSummaryPanel extends Panel {
 
 			if (project != null) {
 				add(new Label("widgetTitle", "Featured Project"));
-				add(new Label("projectName", (String) project.getDoapNames()
-						.toArray()[0]));
-				add(new Label("shortDesc", project.getDoapShortdesc()));
+				add(new Label("projectName", project.getName()));
+				add(new Label("shortDesc", project.getShortDesc()));
 			} else {
 				add(new Label("widgetTitle", "Featured Project"));
 				add(new Label("projectName", "Error"));

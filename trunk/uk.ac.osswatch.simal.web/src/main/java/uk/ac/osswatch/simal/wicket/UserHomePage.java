@@ -22,6 +22,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
+import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 
 public class UserHomePage extends WebPage {
@@ -32,6 +33,8 @@ public class UserHomePage extends WebPage {
 	public UserHomePage() {
 		add(HeaderContributor.forCss( DEFAULT_CSS ));
 		add(new Label("message", "It works, but it doesn't do much yet."));
+		
+		add(new ProjectListPanel("projectList"));
 		add(new ProjectSummaryPanel("featuredProject", new QName("http://simal.oss-watch.ac.uk/simalTest#")));
 	}
 }
