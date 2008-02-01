@@ -17,6 +17,7 @@ public class TestUserHomePage extends TestCase {
 		tester.startPage(UserHomePage.class);
 		tester.assertRenderedPage(UserHomePage.class);
 		tester.assertVisible("message");
+		tester.assertVisible("projectList");
 		tester.assertVisible("featuredProject");
 	}
 }
