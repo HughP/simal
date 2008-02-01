@@ -142,8 +142,10 @@ public class SimalRepository {
 		HashSet<Project> result = new HashSet<Project>();
 		Iterator<org.openrdf.concepts.doap.Project> elmoProjects = getManager()
 				.findAll(org.openrdf.concepts.doap.Project.class).iterator();
+		org.openrdf.concepts.doap.Project project;
 		while (elmoProjects.hasNext()) {
-			result.add(new Project(elmoProjects.next()));
+			project = elmoProjects.next();
+			result.add(new Project(project));
 		}
 		return result;
 	}
@@ -204,7 +206,7 @@ public class SimalRepository {
 			
 			addProject(
 					new URL(
-							"http://simal.oss-watch.ac.uk/projectDetails/ossWatch.rdf"),
+							"http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
 					"http://simal.oss-watch.ac.uk");
 		} catch (Exception e) {
 			throw new RuntimeException("Can't add the test data, there's no point in carrying on", e);
