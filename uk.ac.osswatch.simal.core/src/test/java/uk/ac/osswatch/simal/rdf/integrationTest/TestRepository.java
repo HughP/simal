@@ -61,6 +61,22 @@ public class TestRepository extends BaseRepositoryTest {
 		SimalRepository repo = getTestRepo();
 
 		Set<Project> projects = repo.getAllProjects();
-		assertEquals(4, projects.size());
+		assertEquals(3, projects.size());
+	}
+	
+
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testNullQNamehandling() throws SimalRepositoryException {
+		SimalRepository repo = getTestRepo();
+		Set<Project> projects = repo.getAllProjects();
+		
+		Iterator itrProjects = projects.iterator();
+		Project project;
+		while (itrProjects.hasNext()) {
+			project = (Project) itrProjects.next();
+			assertNotNull("All projects must have a QName", project.getQName());
+		}
 	}
 }
