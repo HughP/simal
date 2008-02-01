@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.model;
 
+import java.io.Serializable;
+
 import uk.ac.osswatch.simal.model.elmo.ProjectException;
 
 /**
@@ -10,7 +12,7 @@ import uk.ac.osswatch.simal.model.elmo.ProjectException;
  *
  * @see uk.ac.osswatch.simal.model.elmo.Project
  */
-public interface IProject {	
+public interface IProject extends Serializable {	
   public String getName() throws ProjectException;
   public void setName(String name) throws ProjectException;
   
