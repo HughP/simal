@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.rdf.integrationTest;
 
+import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.Set;
@@ -57,11 +58,18 @@ public class TestRepository extends BaseRepositoryTest {
 	}
 
 	@Test
-	public void testGetAllProjects() throws SimalRepositoryException {
+	public void testGetAllProjects() throws SimalRepositoryException, IOException {
 		SimalRepository repo = getTestRepo();
 
 		Set<Project> projects = repo.getAllProjects();
-		assertEquals(3, projects.size());
+		assertEquals(3, projects.size());	
+		
+		Iterator<Project> itrProjects = projects.iterator();
+		Project project;
+		while (itrProjects.hasNext()) {
+			project = itrProjects.next();
+			assertNotNull(project.getName());
+		}
 	}
 	
 
