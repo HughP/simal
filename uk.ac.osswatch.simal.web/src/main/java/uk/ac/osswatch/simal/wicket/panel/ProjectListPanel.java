@@ -23,36 +23,43 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColu
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
+import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.data.SortableProjectDataProvider;
+import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
  * A panel that will list all the Projects in the repository.
  */
 public class ProjectListPanel extends Panel {
 	private static final long serialVersionUID = -890741585742505383L;
-	
+
 	@SuppressWarnings("serial")
 	public ProjectListPanel(String id) {
 		super(id);
 		
 		List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
 /*
-        columns.add(new AbstractColumn(new Model("Actions"))
-        {
-            public void populateItem(Item cellItem, String componentId, IModel model)
-            {
-                cellItem.add(new ActionPanel(componentId, model));
-            }
+ * columns.add(new AbstractColumn(new Model("Actions")) { public void
+ * populateItem(Item cellItem, String componentId, IModel model) {
+ * cellItem.add(new ActionPanel(componentId, model)); } });
+ */
+        columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
+			@Override
+			public void onClick(Item item, String componentId, IModel model) {
+			       Project project = (Project)model.getObject();
+			       getRequestCycle().setResponsePage(new ProjectDetailPage(project));
+			}
+        
         });
-*/
-        columns.add(new PropertyColumn(new Model("Name"), "name", "name"));
         columns.add(new PropertyColumn(new Model("Description"), "shortDesc", "shortDesc"));
         
         SortableDataProvider dataProvider = new SortableProjectDataProvider();
         dataProvider.setSort("name", true);
         add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
 	}
-
 }

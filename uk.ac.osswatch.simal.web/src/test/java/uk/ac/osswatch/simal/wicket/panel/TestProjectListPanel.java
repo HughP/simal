@@ -6,6 +6,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.TestPanelSource;
 import org.apache.wicket.util.tester.WicketTester;
 
+import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
+
 /**
  * Simple test using the WicketTester
  */
@@ -29,6 +31,9 @@ public class TestProjectListPanel extends TestCase {
 		tester.assertVisible("panel:dataTable:rows:1");
 		tester.assertVisible("panel:dataTable:rows:2");
 		tester.assertVisible("panel:dataTable:rows:3");
-		tester.assertLabel("panel:dataTable:rows:1:cells:1:cell", "CodeGoo");
+		tester.assertLabel("panel:dataTable:rows:1:cells:1:cell:link:label", "CodeGoo");
+		
+		tester.clickLink("panel:dataTable:rows:1:cells:1:cell:link");
+		tester.assertRenderedPage(ProjectDetailPage.class);
 	}
 }
