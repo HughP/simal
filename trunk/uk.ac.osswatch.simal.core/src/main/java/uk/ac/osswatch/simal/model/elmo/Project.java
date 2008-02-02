@@ -68,4 +68,13 @@ public class Project implements IProject {
 		return getName();
 	}
 
+	public String toJSON() {
+		StringBuffer json = new StringBuffer();
+		json.append("{ \"projects\": [{");
+		json.append("\"name\":\"" + getName() + "\",");
+		json.append("\"shortdesc\":\"" + getShortDesc() + "\"");
+		json.append("}]}");
+		return json.toString();
+	}
+
 }
