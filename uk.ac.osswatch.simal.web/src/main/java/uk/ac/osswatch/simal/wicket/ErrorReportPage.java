@@ -3,6 +3,7 @@ package uk.ac.osswatch.simal.wicket;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.Model;
 
@@ -43,6 +44,6 @@ public class ErrorReportPage extends BasePage {
 			e.printStackTrace(new PrintWriter(sw));
 			sb.append(sw.getBuffer());
 		}
-		add(new TextArea("errorDetails", new Model(sb.toString())));
+		add(new Label("errorDetails", new Model(sb.toString())));
 	}
 }

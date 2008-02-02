@@ -1,8 +1,8 @@
 package uk.ac.osswatch.simal.wicket;
 
 import junit.framework.TestCase;
-import static junit.framework.Assert.*;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.util.tester.WicketTester;
 
@@ -22,7 +22,7 @@ public class TestErrorReportPage extends TestCase {
 		tester.assertVisible("errorDetails");
 		tester.assertVisible("footer");
 		
-		TextArea details = (TextArea) tester.getComponentFromLastRenderedPage("errorDetails");
+		Label details = (Label) tester.getComponentFromLastRenderedPage("errorDetails");
 		String strDetails = (String)details.getModel().getObject();
 		assertTrue("Error report does not appear to contain the error message", strDetails.contains("Just testing"));
 		assertTrue("Error report does not appear to contain the reporting class details", strDetails.contains("ErrorReportPage"));
