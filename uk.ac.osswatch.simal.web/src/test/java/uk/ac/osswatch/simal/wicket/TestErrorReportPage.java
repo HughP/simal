@@ -13,9 +13,10 @@ public class TestErrorReportPage extends TestCase {
 		tester = new WicketTester();
 	}
 
-	public void testRenderUserHomePage() {
+	public void testRenderPage() {
 		tester.startPage(ErrorReportPage.class);
 		tester.assertRenderedPage(ErrorReportPage.class);
 		tester.assertVisible("errorDetails");
+		tester.assertVisible("footer");
 	}
 }

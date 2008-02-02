@@ -1,13 +1,12 @@
 package uk.ac.osswatch.simal.wicket;
 
 import org.apache.wicket.Page;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
 
-public class ProjectDetailPage extends WebPage {
+public class ProjectDetailPage extends BasePage {
 	private static final long serialVersionUID = 8719708525508677833L;
 
 	public ProjectDetailPage() {

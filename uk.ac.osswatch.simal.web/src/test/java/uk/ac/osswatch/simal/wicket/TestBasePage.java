@@ -6,7 +6,7 @@ import org.apache.wicket.util.tester.WicketTester;
 /**
  * Simple test using the WicketTester
  */
-public class TestProjectDetailPage extends TestCase {
+public class TestBasePage extends TestCase {
 	private WicketTester tester;
 
 	public void setUp() {
@@ -14,10 +14,8 @@ public class TestProjectDetailPage extends TestCase {
 	}
 
 	public void testRenderPage() {
-		tester.startPage(ProjectDetailPage.class);
-		tester.assertRenderedPage(ProjectDetailPage.class);
-		tester.assertVisible("projectName");
-		tester.assertVisible("shortDesc");
+		tester.startPage(BasePage.class);
+		tester.assertRenderedPage(BasePage.class);
 		tester.assertVisible("footer");
 	}
 }

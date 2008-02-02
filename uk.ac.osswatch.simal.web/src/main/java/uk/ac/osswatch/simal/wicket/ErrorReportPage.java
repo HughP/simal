@@ -1,6 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
 
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.Model;
 
@@ -10,7 +9,7 @@ import org.apache.wicket.model.Model;
  * provide as much information as possible about the problem that
  * they encountered.
  */
-public class ErrorReportPage extends WebPage {
+public class ErrorReportPage extends BasePage {
 	private static final long serialVersionUID = -8879369835743158631L;
 
 	/**
