@@ -1,0 +1,48 @@
+package uk.ac.osswatch.simal.wicket;
+
+import org.apache.wicket.Page;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.IPageLink;
+
+import uk.ac.osswatch.simal.model.elmo.Project;
+
+public class ProjectDetailPage extends WebPage {
+	private static final long serialVersionUID = 8719708525508677833L;
+
+	public ProjectDetailPage() {
+		final Project project = UserApplication
+				.getProject(UserApplication.DEFAULT_PROJECT_QNAME);
+		populatePage(project);
+	}
+
+	public ProjectDetailPage(Project project) {
+		populatePage(project);
+	}
+
+	private void populatePage(Project project) {
+		add(new Label("projectName", project.getName()));
+		add(new Label("shortDesc", project.getShortDesc()));
+	}
+
+	/**
+	 * Get a link to a ProjectDetailPage for a project.
+	 * 
+	 * @param project
+	 *            the project we want a detail page link for
+	 * @return
+	 */
+	@SuppressWarnings("serial")
+	public static IPageLink getLink(final Project project) {
+		IPageLink link = new IPageLink() {
+			public Page getPage() {
+				return new ProjectDetailPage(project);
+			}
+
+			public Class<ProjectDetailPage> getPageIdentity() {
+				return ProjectDetailPage.class;
+			}
+		};
+		return link;
+	}
+}
