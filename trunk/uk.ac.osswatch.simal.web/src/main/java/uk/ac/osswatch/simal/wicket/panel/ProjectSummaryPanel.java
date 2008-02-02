@@ -15,13 +15,17 @@
  */
 package uk.ac.osswatch.simal.wicket.panel;
 
-import javax.xml.namespace.QName;
-
+import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.IPageLink;
+import org.apache.wicket.markup.html.link.PageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
-import uk.ac.osswatch.simal.wicket.UserApplication;
+import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
+import uk.ac.osswatch.simal.wicket.UserReportableException;
 
 /**
  * A panel for displaying project information.
@@ -30,28 +34,43 @@ public class ProjectSummaryPanel extends Panel {
 	private static final long serialVersionUID = -6078043900380156791L;
 
 	/**
-	 * Create a summary panel for a specific project.
+	 * Create a summary page for a specific project.
 	 * 
-	 * @param id
-	 * @param qname
+	 * @param panelID
+	 * @param project
+	 *            the project to display in this panel
 	 */
-	public ProjectSummaryPanel(String id, QName qname) {
-		super(id);
-		try {
-			Project project = UserApplication.getRepository().getProject(qname);
+	public ProjectSummaryPanel(String panelID, Project project) {
+		super(panelID);
+		populatePage(project);
+	}
 
-			if (project != null) {
-				add(new Label("widgetTitle", "Featured Project"));
-				add(new Label("projectName", project.getName()));
-				add(new Label("shortDesc", project.getShortDesc()));
-			} else {
-				add(new Label("widgetTitle", "Featured Project"));
-				add(new Label("projectName", "Error"));
-				add(new Label("shortDesc", "Requested project QName '" + qname
-						+ "' does not exist in the repository"));
-			}
-		} finally {
-			// UserApp.getRepository().close();
+	private void populatePage(final Project project) {
+		if (project != null) {
+			add(new Label("widgetTitle", "Featured Project"));
+			add(new Label("projectName", project.getName()));
+			add(new Label("shortDesc", project.getShortDesc()));
+			add(new PageLink("projectDetailLink", ProjectDetailPage.getLink(project)));
+		} else {
+			String msg = "Requested project QName '" + project.getQName()
+					+ "' does not exist in the repository";
+
+			add(new Label("widgetTitle", "Featured Project"));
+			add(new Label("projectName", "Error"));
+			add(new Label("shortDesc", msg));
+
+			final UserReportableException exception = new UserReportableException(msg, ProjectSummaryPanel.class);
+			IPageLink link = new IPageLink() {
+				public Page getPage() {
+					return new ErrorReportPage(exception);
+				}
+
+				public Class<ErrorReportPage> getPageIdentity() {
+					return ErrorReportPage.class;
+				}
+			};
+			add(new PageLink("projectDetailLink", link));
+
 		}
 	}
 
