@@ -15,8 +15,6 @@
  */
 package uk.ac.osswatch.simal.wicket;
 
-import javax.xml.namespace.QName;
-
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -35,6 +33,6 @@ public class UserHomePage extends WebPage {
 		add(new Label("message", "It works, but it doesn't do much yet."));
 		
 		add(new ProjectListPanel("projectList"));
-		add(new ProjectSummaryPanel("featuredProject", new QName("http://simal.oss-watch.ac.uk/simalTest#")));
+		add(new ProjectSummaryPanel("featuredProject", UserApplication.getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
 	}
 }

@@ -15,8 +15,11 @@
  */
 package uk.ac.osswatch.simal.wicket;
 
+import javax.xml.namespace.QName;
+
 import org.apache.wicket.protocol.http.WebApplication;
 
+import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -25,6 +28,10 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * allows users to view Simal registries.
  */
 public class UserApplication extends WebApplication {
+	/**
+	 * The qname for the project to use if no other project is specified. 
+	 */
+	public static final QName DEFAULT_PROJECT_QNAME = new QName("http://simal.oss-watch.ac.uk/simalTest#");
 	private static SimalRepository repo;
 	
     public UserApplication() {
@@ -56,6 +63,16 @@ public class UserApplication extends WebApplication {
 			}
 		}
 		return repo;
+	}
+
+	/**
+	 * Get a project from the repository.
+	 * 
+	 * @param qname the qname of the project to retrieve.
+	 * @return the required project or null if it cannot be retrieved
+	 */
+	public static Project getProject(QName qname) {
+		return getRepository().getProject(qname);
 	}
 
 }
