@@ -13,10 +13,20 @@
  
  See http://www.wellstyled.com/tools/colorscheme2/index-en.html?mono;36;0;180;0.25;1;0.5;1;-1;-1;1;-0.7;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;0
 ********************************************************/
+#header {
+  border-bottom: solid black 1px;
+  padding: 5px 10px 10px 5px;
+  margin-bottom: 10px;
+}
 
+#footer {
+  border-top: solid black 1px;
+  padding: 5px 10px 10px 5px;
+  margin-top: 10px;
+}
 
 .title {
-  background:  #008F00;
+  background: #008F00;
   color: white;
   font-weight: bold;
   font-size: 120%;
@@ -36,26 +46,15 @@ tr.even {
 tr.odd {
   background: #80FF80;
 }
-  }
-
-tr.even {
-  background: #BFFFBF;
-}
-
-tr.odd {
-  background: #80FF80;
-}
 
 .widget {
-  clear:right;
-  border: solid black 1px;
+  clear: right;
+  border: solid #008F00 1px;
   margin: 1em 3em 3em 1em;
   background: #BFFFBF;
 }
 
-
 .widget .content {
-  line-height: 120%;
   font-size: 90%;
+  margin: 5px 5px 5px 5px;
 }
-
