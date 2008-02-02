@@ -188,11 +188,12 @@ public class SimalRepository {
 	 */
 	private void addTestData() {
 		try {
-			addProject(SimalRepository.class.getResource("testNoRDFAboutDOAP.xml"),
-			"http://exmple.org/baseURI");
+			addProject(SimalRepository.class
+					.getResource("testNoRDFAboutDOAP.xml"),
+					"http://exmple.org/baseURI");
 		} catch (SimalRepositoryException e2) {
 			// Yes, we expected that
-			// This is here so that the relevant test will fail 
+			// This is here so that the relevant test will fail
 			// if this entity makes it into the repo.
 		}
 
@@ -203,13 +204,14 @@ public class SimalRepository {
 
 			addProject(SimalRepository.class.getResource("ossWatchDOAP.xml"),
 					"http://exmple.org/baseURI");
-			
-			addProject(
-					new URL(
-							"http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
+
+			addProject(new URL(
+					"http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
 					"http://simal.oss-watch.ac.uk");
 		} catch (Exception e) {
-			throw new RuntimeException("Can't add the test data, there's no point in carrying on", e);
+			throw new RuntimeException(
+					"Can't add the test data, there's no point in carrying on",
+					e);
 		}
 	}
 
@@ -236,5 +238,24 @@ public class SimalRepository {
 			strQName = strQName + (String) project.getDoapNames().toArray()[0];
 		}
 		return new QName(strQName);
+	}
+
+	/**
+	 * Get all the projects in the repository and return them in a
+	 * single JSON file.
+	 * 
+	 * @return
+	 */
+	public String getAllProjectsAsJSON() {
+		StringBuffer json = new StringBuffer("{ \"projects\": [");
+		Iterator<Project> projects = this.getAllProjects().iterator();
+		while (projects.hasNext()) {
+			json.append(projects.next().toJSON(true));
+			if (projects.hasNext()) {
+				json.append(",");
+			}
+		}
+		json.append("]}");
+		return json.toString();
 	}
 }

@@ -87,4 +87,12 @@ public class TestRepository extends BaseRepositoryTest {
 			assertNotNull("All projects must have a QName", project.getQName());
 		}
 	}
+	
+	@Test
+	public void testGetAllProjectsAsJSON() throws SimalRepositoryException {
+		SimalRepository repo = getTestRepo();
+		String json = repo.getAllProjectsAsJSON();
+		assertTrue("JSON file does not appear to be correct", json.startsWith("{ \"projects\": ["));
+		assertTrue("JSON file does not appear to be correct", json.endsWith("]}"));
+	}
 }
