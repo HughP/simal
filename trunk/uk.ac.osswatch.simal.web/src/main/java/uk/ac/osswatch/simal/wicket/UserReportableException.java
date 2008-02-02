@@ -9,6 +9,13 @@ public class UserReportableException extends Exception {
 		this.reportingClass = reportingClass;
 	}
 	
+	public UserReportableException(String message,
+			Class<?> reportingClass, 
+			Throwable e) {
+		super(message, e);
+		this.reportingClass = reportingClass;
+	}
+
 	public Class<?> getReportingClass() {
 		return reportingClass;
 	}
