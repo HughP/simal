@@ -63,17 +63,23 @@ public class Project implements IProject {
 	public QName getQName() {
 		return elmoProject.getQName();
 	}
-	
+
 	public String toString() {
 		return getName();
 	}
 
-	public String toJSON() {
+	public String toJSON(boolean asRecord) {
 		StringBuffer json = new StringBuffer();
-		json.append("{ \"projects\": [{");
+		if (!asRecord) {
+			json.append("{ \"projects\": [");
+		}
+		json.append("{");
 		json.append("\"name\":\"" + getName() + "\",");
 		json.append("\"shortdesc\":\"" + getShortDesc() + "\"");
-		json.append("}]}");
+		json.append("}");
+		if (!asRecord) {
+			json.append("]}");
+		}
 		return json.toString();
 	}
 
