@@ -52,5 +52,13 @@ public class TestProject extends BaseRepositoryTest {
 	public void testGetQName() {
 		assertEquals(TEST_SIMAL_QNAME, project1.getQName().getNamespaceURI());
 	}
+	
+	@Test 
+	public void testToJSON() throws SimalRepositoryException {
+		resetTestData();
+		String json = project1.toJSON();
+		String simalTestJSON = "{ \"projects\": [{\"name\":\"" + TEST_SIMAL_NAME + "\",\"shortdesc\":\"" + TEST_SIMAL_SHORT_DESC + "\"}]}";
+		assertTrue("JSON file does not contain correct JSON representation of the Simal test project", json.equals(simalTestJSON));
+	}
 
 }

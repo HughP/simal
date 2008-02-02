@@ -18,4 +18,10 @@ public interface IProject extends Serializable {
   
   public String getShortDesc() throws ProjectException;
   public void setShortDesc(String shortDesc) throws ProjectException;
+  
+  /**
+   * Get a JSON representation of this project.
+   * @return
+   */
+  public String toJSON();
 }
