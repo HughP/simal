@@ -47,18 +47,28 @@ public class TestProject extends BaseRepositoryTest {
 		project1.setShortDesc(newDesc);
 		assertEquals(newDesc, project1.getShortDesc());
 	}
-	
+
 	@Test
 	public void testGetQName() {
 		assertEquals(TEST_SIMAL_QNAME, project1.getQName().getNamespaceURI());
 	}
-	
-	@Test 
+
+	@Test
 	public void testToJSON() throws SimalRepositoryException {
 		resetTestData();
-		String json = project1.toJSON();
-		String simalTestJSON = "{ \"projects\": [{\"name\":\"" + TEST_SIMAL_NAME + "\",\"shortdesc\":\"" + TEST_SIMAL_SHORT_DESC + "\"}]}";
-		assertTrue("JSON file does not contain correct JSON representation of the Simal test project", json.equals(simalTestJSON));
+		String simalTestJSONRecord = "{\"name\":\"" + TEST_SIMAL_NAME
+				+ "\",\"shortdesc\":\"" + TEST_SIMAL_SHORT_DESC + "\"}";
+		String simalTestJSON = "{ \"projects\": [" + simalTestJSONRecord + "]}";
+		
+		String json = project1.toJSON(true);
+		assertTrue(
+				"JSON file does not contain correct JSON representation of the Simal test record",
+				json.equals(simalTestJSONRecord));
+		
+		json = project1.toJSON(false);
+		assertTrue(
+				"JSON file does not contain correct JSON representation of the Simal test project",
+				json.equals(simalTestJSON));
 	}
 
 }
