@@ -1,8 +1,10 @@
 package uk.ac.osswatch.simal.wicket;
 
+import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
 /**
  * The base page for a standard simal web page. It contains the
@@ -11,9 +13,11 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
  */
 public class BasePage extends WebPage {
 	private static final long serialVersionUID = 7789964685286908825L;
-
+	private static final CompressedResourceReference DEFAULT_CSS = new CompressedResourceReference(UserApplication.class, "default.css");
+	
 	public BasePage() {
-		add(new BookmarkablePageLink("projectDetailLink", ProjectDetailPage.class));
+		add(HeaderContributor.forCss( DEFAULT_CSS ));
+		add(new BookmarkablePageLink("exhibitBrowserLink", ExhibitProjectBrowserPage.class));
 		add(new Label("footer", "This is in the footer"));
 	}
 }
