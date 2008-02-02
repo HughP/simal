@@ -17,5 +17,8 @@ public class TestBasePage extends TestCase {
 		tester.startPage(BasePage.class);
 		tester.assertRenderedPage(BasePage.class);
 		tester.assertVisible("footer");
+		
+		tester.clickLink("exhibitBrowserLink");
+		tester.assertRenderedPage(ExhibitProjectBrowserPage.class);
 	}
 }

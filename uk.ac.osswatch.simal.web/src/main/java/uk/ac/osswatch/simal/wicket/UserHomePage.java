@@ -15,9 +15,7 @@
  */
 package uk.ac.osswatch.simal.wicket;
 
-import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
@@ -25,10 +23,7 @@ import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 public class UserHomePage extends BasePage {
 	private static final long serialVersionUID = -8125606657250912738L;
 	
-	private static final CompressedResourceReference DEFAULT_CSS = new CompressedResourceReference(UserApplication.class, "default.css");
-	
 	public UserHomePage() {
-		add(HeaderContributor.forCss( DEFAULT_CSS ));
 		add(new Label("message", "It works, but it doesn't do much yet."));
 		
 		add(new ProjectListPanel("projectList"));
