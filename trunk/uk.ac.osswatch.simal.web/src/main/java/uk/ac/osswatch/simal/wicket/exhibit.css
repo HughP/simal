@@ -1,0 +1,24 @@
+/******************************************************
+ Colour scheme
+ =============
+ 
+ Please restrict the use of colours to the following:
+ 
+ #000000 - Black
+ #008F00 - Dark Green
+ #00CC00
+ #80FF80
+ #BFFFBF - Light Green
+ #FFFFFF - White
+ 
+ See http://www.wellstyled.com/tools/colorscheme2/index-en.html?mono;36;0;180;0.25;1;0.5;1;-1;-1;1;-0.7;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;0
+********************************************************/
+table.projectList {
+  border: 1px solid #80FF80;
+  padding: 0.5em;
+}
+
+div.name {
+  font-weight: bold;
+  font-size: 120%;
+}
