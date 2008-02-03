@@ -92,7 +92,7 @@ public class TestRepository extends BaseRepositoryTest {
 	public void testGetAllProjectsAsJSON() throws SimalRepositoryException {
 		SimalRepository repo = getTestRepo();
 		String json = repo.getAllProjectsAsJSON();
-		assertTrue("JSON file does not appear to be correct", json.startsWith("{ \"projects\": ["));
+		assertTrue("JSON file does not appear to be correct", json.startsWith("{ \"items\": ["));
 		assertTrue("JSON file does not appear to be correct", json.endsWith("]}"));
 	}
 }

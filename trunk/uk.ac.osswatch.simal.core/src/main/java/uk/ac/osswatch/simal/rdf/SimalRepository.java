@@ -247,7 +247,7 @@ public class SimalRepository {
 	 * @return
 	 */
 	public String getAllProjectsAsJSON() {
-		StringBuffer json = new StringBuffer("{ \"projects\": [");
+		StringBuffer json = new StringBuffer("{ \"items\": [");
 		Iterator<Project> projects = this.getAllProjects().iterator();
 		while (projects.hasNext()) {
 			json.append(projects.next().toJSON(true));
