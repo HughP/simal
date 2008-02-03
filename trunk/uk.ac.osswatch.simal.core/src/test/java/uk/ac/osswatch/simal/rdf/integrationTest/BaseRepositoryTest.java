@@ -1,11 +1,6 @@
 package uk.ac.osswatch.simal.rdf.integrationTest;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.xml.namespace.QName;
-
-import org.openrdf.elmo.sesame.SesameManager;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
