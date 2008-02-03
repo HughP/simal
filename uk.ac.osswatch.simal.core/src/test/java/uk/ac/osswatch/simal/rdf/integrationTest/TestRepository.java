@@ -1,13 +1,16 @@
 package uk.ac.osswatch.simal.rdf.integrationTest;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertTrue;
+
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
-
-import static junit.framework.Assert.*;
 
 import org.junit.Test;
 

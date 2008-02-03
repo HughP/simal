@@ -1,13 +1,11 @@
 package uk.ac.osswatch.simal.rdf;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
 import org.openrdf.concepts.doap.Project;
-import org.openrdf.concepts.rdf.Seq;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
