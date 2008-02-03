@@ -56,9 +56,10 @@ public class TestProject extends BaseRepositoryTest {
 	@Test
 	public void testToJSON() throws SimalRepositoryException {
 		resetTestData();
-		String simalTestJSONRecord = "{\"name\":\"" + TEST_SIMAL_NAME
+		String simalTestJSONRecord = "{\"id\":\"http://simal.oss-watch.ac.uk/simalTest#\",\"label\":\"Simal DOAP Test\"," 
+				+ "\"name\":\"" + TEST_SIMAL_NAME
 				+ "\",\"shortdesc\":\"" + TEST_SIMAL_SHORT_DESC + "\"}";
-		String simalTestJSON = "{ \"projects\": [" + simalTestJSONRecord + "]}";
+		String simalTestJSON = "{ \"items\": [" + simalTestJSONRecord + "]}";
 		
 		String json = project1.toJSON(true);
 		assertTrue(

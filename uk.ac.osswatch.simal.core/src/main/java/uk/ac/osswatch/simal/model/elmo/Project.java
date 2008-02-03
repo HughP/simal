@@ -71,9 +71,11 @@ public class Project implements IProject {
 	public String toJSON(boolean asRecord) {
 		StringBuffer json = new StringBuffer();
 		if (!asRecord) {
-			json.append("{ \"projects\": [");
+			json.append("{ \"items\": [");
 		}
 		json.append("{");
+		json.append("\"id\":\"" + getQName().getNamespaceURI() + "\",");
+		json.append("\"label\":\"" + getName() + "\",");
 		json.append("\"name\":\"" + getName() + "\",");
 		json.append("\"shortdesc\":\"" + getShortDesc() + "\"");
 		json.append("}");
