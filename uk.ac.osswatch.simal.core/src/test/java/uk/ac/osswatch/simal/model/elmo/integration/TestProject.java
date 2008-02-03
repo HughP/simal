@@ -34,96 +34,96 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetIssueTracker() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_ISSUE_TRACKER, project1.getIssueTracker().toString());
 	}
 	
 	@Test
 	public void testGetCategories() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_CATEGORIES, project1.getCategories().toString());
 	}
 	
 	@Test
 	public void testGetDevelopers() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_DEVELOPERS, project1.getDevelopers().toString());
 	}
 	
 	@Test
 	public void testGetDocumentors() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_DOCUMENTORS, project1.getDocumentors().toString());
 	}
 	
 	@Test
 	public void testGetDownloadMirrors() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS, project1.getDownloadMirrors().toString());
 	}
 	
 	@Test
 	public void testGetDownloadPages() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_DOWNLOAD_PAGES, project1.getDownloadPages().toString());
 	}
 	
 	@Test
 	public void testGetHelpers() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_HELPERS, project1.getHelpers().toString());
 	}
 	
 	@Test
 	public void testGetHomepages() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_HOMEPAGES, project1.getHomepages().toString());
 	}
 	
 	@Test
 	public void testGetMailingLists() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_MAILING_LISTS, project1.getMailingLists().toString());
 	}
 	
 	@Test
 	public void testGetMaintainers() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_MAINTAINERS, project1.getMaintainers().toString());
 	}
 	
 	@Test
 	public void testGetOldHomepages() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_OLD_HOMEPAGES, project1.getOldHomepages().toString());
 	}
 	
 	@Test
 	public void testGetOSes() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_OS, project1.getOSes().toString());
 	}
 	
 	@Test
 	public void testGetProgrammingLangauges() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGES, project1.getProgrammingLangauges().toString());
 	}
 	
 	@Test
 	public void testGetReleases() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_RELEASES, project1.getReleases().toString());
 	}
 	
 	@Test
 	public void testGetRepositories() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_REPOSITORIES, project1.getRepositories().toString());
 	}
 	
 	@Test
 	public void testGetScreenshots() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_SCREENSHOTS, project1.getScreenshots().toString());
 	}
 	
 	@Test
 	public void testGetTesters() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_TESTERS, project1.getTesters().toString());
 	}
 	
 	@Test
 	public void testGetTranslators() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_TRANSLATORS, project1.getTranslators().toString());
 	}
 	
 	@Test
 	public void testGetWikis() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_WIKIS, project1.getWikis().toString());
 	}
 }
