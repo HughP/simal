@@ -58,3 +58,10 @@ tr.odd {
   font-size: 90%;
   margin: 5px 5px 5px 5px;
 }
+
+pre {
+  padding: 5px 10px 10px 5px;
+  margin-left: 5em;
+  margin-right:5em;
+  background: #BFFFBF;
+}
