@@ -16,11 +16,15 @@ public abstract class BaseRepositoryTest {
 	
 	static SimalRepository repo;
 
-	protected static final String TEST_SIMAL_QNAME = "http://simal.oss-watch.ac.uk/simalTest#";
+	protected static final String TEST_SIMAL_PROJECT_QNAME = "http://simal.oss-watch.ac.uk/simalTest#";
 
-	protected static final String TEST_SIMAL_NAME = "Simal DOAP Test";
+	protected static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
 
-	protected static final String TEST_SIMAL_SHORT_DESC = "A simple DOAP file used during automated testing.";
+	protected static final String TEST_SIMAL_PROJECT_SHORT_DESC = "A simple DOAP file used during automated testing.";
+	
+	protected static final String TEST_SIMAL_PROJECT_CREATED = "2007-08-08";
+	protected static final String TEST_SIMAL_PROJECT_DESCRIPTION = "This is the full description of this DOAP file that is used during automated testing of Simal. It contains examples of all the DOAP elements that are currently in use within Simal.";
+	protected static final String TEST_SIMAL_PROJECT_LICENCES = "[http://usefulinc.com/doap/licenses/asl20]";
 
 	public BaseRepositoryTest() {
 		super();
@@ -74,7 +78,7 @@ public abstract class BaseRepositoryTest {
 	protected static Project getSimalTestProject(boolean reset) throws SimalRepositoryException {
 		QName qname;
 		Project project;
-		qname = new QName(TEST_SIMAL_QNAME);
+		qname = new QName(TEST_SIMAL_PROJECT_QNAME);
 		project = getTestRepo(reset).getProject(qname);
 		return project;
 	}

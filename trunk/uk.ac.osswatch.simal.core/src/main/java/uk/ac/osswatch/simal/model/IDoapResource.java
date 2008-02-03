@@ -1,6 +1,7 @@
 package uk.ac.osswatch.simal.model;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import uk.ac.osswatch.simal.model.elmo.ProjectException;
 
@@ -21,7 +22,22 @@ public interface IDoapResource extends Serializable {
 	public abstract String getShortDesc() throws ProjectException;
 
 	public abstract void setShortDesc(String shortDesc) throws ProjectException;
-
+	
+	
+	public abstract String getCreated();
+	
+	
+	public abstract void setCreated(String newCreated) throws ProjectException;
+	
+	
+	public abstract String getDescription();
+	
+	
+	public abstract void setDescription(String newDescription);
+	
+	
+	public abstract Set<String> getLicences() throws ProjectException ;
+	
 	/**
 	 * Get a JSON representation of this project.
 	 * 

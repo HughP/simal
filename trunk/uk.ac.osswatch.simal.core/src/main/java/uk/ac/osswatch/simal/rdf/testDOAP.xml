@@ -19,11 +19,20 @@
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns="http://usefulinc.com/ns/doap#"
 	rdf:about="http://simal.oss-watch.ac.uk/simalTest#">
+  
+  <created>2007-08-08</created>
+  
+  <name>Simal DOAP Test</name>
+  
 	<shortdesc>
 		A simple DOAP file used during automated testing.
 	</shortdesc>
-	<name>Simal DOAP Test</name>
-	<homepage rdf:resource="http://simal.oss-watch.ac.uk" />
+	
+  <description>
+    This is the full description of this DOAP file that is used during automated testing of Simal. It contains examples of all the DOAP elements that are currently in use within Simal. 
+  </description>
+  
+  <homepage rdf:resource="http://simal.oss-watch.ac.uk" />
 
 	<mailing-list rdf:resource="http://foo.org/mailingList1"
 		dc:title="Mailing List 1" />
