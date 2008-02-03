@@ -10,15 +10,15 @@ public class TestProject extends AbstractTestDOAP {
 
 	@Test
 	public void testGetQName() {
-		assertEquals(TEST_SIMAL_QNAME, project1.getQName().getNamespaceURI());
+		assertEquals(TEST_SIMAL_PROJECT_QNAME, project1.getQName().getNamespaceURI());
 	}
 
 	@Test
 	public void testToJSON() throws SimalRepositoryException {
 		resetTestData();
 		String simalTestJSONRecord = "{\"id\":\"http://simal.oss-watch.ac.uk/simalTest#\",\"label\":\"Simal DOAP Test\"," 
-				+ "\"name\":\"" + TEST_SIMAL_NAME
-				+ "\",\"shortdesc\":\"" + TEST_SIMAL_SHORT_DESC + "\"}";
+				+ "\"name\":\"" + TEST_SIMAL_PROJECT_NAME
+				+ "\",\"shortdesc\":\"" + TEST_SIMAL_PROJECT_SHORT_DESC + "\"}";
 		String simalTestJSON = "{ \"items\": [" + simalTestJSONRecord + "]}";
 		
 		String json = project1.toJSON(true);

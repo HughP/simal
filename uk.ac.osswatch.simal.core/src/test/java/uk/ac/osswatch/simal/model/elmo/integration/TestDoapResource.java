@@ -12,12 +12,12 @@ public class TestDoapResource extends AbstractTestDOAP {
 	@Test
 	public void testGetName() throws SimalRepositoryException {
 		resetTestData();
-		assertEquals(TEST_SIMAL_NAME, project1.getName());
+		assertEquals(TEST_SIMAL_PROJECT_NAME, project1.getName());
 	}
 
 	@Test
 	public void testGetShortDesc() {
-		assertEquals(TEST_SIMAL_SHORT_DESC, project1.getShortDesc());
+		assertEquals(TEST_SIMAL_PROJECT_SHORT_DESC, project1.getShortDesc());
 	}
 
 	@Test
@@ -36,32 +36,31 @@ public class TestDoapResource extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetCreated() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_CREATED, project1.getCreated());
 	}
 	
 	@Test
-	public void testSetCreated() {
-		fail("Not implemented yet");
+	public void testSetCreated() throws ProjectException {
+		String newCreated = "2020-20-01";
+		project1.setCreated(newCreated);
+		assertEquals(newCreated, project1.getCreated());
 	}
 	
 	@Test
 	public void testGetDescription() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_DESCRIPTION, project1.getDescription());
 	}
 	
 	@Test
 	public void testSetDescription() {
-		fail("Not implemented yet");
+		String newDesc = "modified description";
+		project1.setDescription(newDesc);
+		assertEquals(newDesc, project1.getDescription());
 	}
 	
 	@Test
 	public void testGetLicences() {
-		fail("Not implemented yet");
-	}
-	
-	@Test
-	public void testSetLicencesd() {
-		fail("Not implemented yet");
+		assertEquals(TEST_SIMAL_PROJECT_LICENCES, project1.getLicences().toString());
 	}
 
 }

@@ -1,8 +1,14 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
+
+import org.openrdf.concepts.rdfs.Resource;
+
+import uk.ac.osswatch.simal.model.IDoapResource;
 
 
 /**
@@ -10,7 +16,7 @@ import javax.xml.namespace.QName;
  * 
  * @see org.openrdf.concepts.doap.DoapResource
  */
-public class DoapResource {
+public class DoapResource implements IDoapResource {
 
 	private static final long serialVersionUID = -7610178891247360114L;
 	protected org.openrdf.concepts.doap.Project elmoProject;
@@ -43,7 +49,7 @@ public class DoapResource {
 		if (elmoProject.getDoapNames() != null) {
 			if (elmoProject.getDoapNames().size() != 1) {
 				throw new ProjectException(
-						"At present the Project wrapper can only handle a single project name.");
+						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
 			}
 			Set<Object> names = elmoProject.getDoapNames();
 			names.remove(names.toArray()[0]);
@@ -78,6 +84,46 @@ public class DoapResource {
 			json.append("]}");
 		}
 		return json.toString();
+	}
+
+	public String getCreated() {
+		return (String) elmoProject.getDoapCreated().toArray()[0];
+	}
+
+	public String getDescription() {
+		return elmoProject.getDoapDescription();
+	}
+
+	@SuppressWarnings("unchecked")
+	public Set<String> getLicences() {
+		Iterator<Resource> licences = ((Set) elmoProject.getDoapLicenses()).iterator();
+		Resource licence;
+		String ns;
+		String local;
+		Set<String> result = new HashSet<String>(elmoProject.getDoapLicenses().size());
+	    while (licences.hasNext()) {
+	    	licence = licences.next();
+			ns = licence.getQName().getNamespaceURI();
+			local = licence.getQName().getLocalPart();
+			result.add(ns + local);
+	    }
+		return result;
+	}
+
+	public void setCreated(String created) throws ProjectException {
+		if (elmoProject.getDoapCreated() != null) {
+			if (elmoProject.getDoapCreated().size() != 1) {
+				throw new ProjectException(
+						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
+			}
+			Set<Object> dates = elmoProject.getDoapCreated();
+			dates.remove(dates.toArray()[0]);
+			dates.add(created);
+		}
+	}
+
+	public void setDescription(String newDesc) {
+		elmoProject.setDoapDescription(newDesc);
 	}
 
 }
