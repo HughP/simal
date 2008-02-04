@@ -33,6 +33,7 @@ public class ValidatingRDFXMLHandler implements RDFHandler {
 			// looks like we have no QName
 			throw new RDFHandlerException(NO_QNAME_PRESENT);
 		}
+		//System.out.println(statement.toString());
 	}
 
 	public void startRDF() throws RDFHandlerException {

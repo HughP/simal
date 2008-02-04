@@ -39,17 +39,18 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetCategories() {
-		assertEquals(TEST_SIMAL_PROJECT_CATEGORIES, project1.getCategories().toString());
+		assertTrue(project1.getCategories().toString().contains(TEST_SIMAL_PROJECT_CATEGORY_ONE));
+		assertTrue(project1.getCategories().toString().contains(TEST_SIMAL_PROJECT_CATEGORY_TWO));
 	}
 	
 	@Test
-	public void testGetDevelopers() {
+	public void testGetDevelopers() throws SimalRepositoryException {
 		assertEquals(TEST_SIMAL_PROJECT_DEVELOPERS, project1.getDevelopers().toString());
 	}
 	
 	@Test
-	public void testGetDocumentors() {
-		assertEquals(TEST_SIMAL_PROJECT_DOCUMENTORS, project1.getDocumentors().toString());
+	public void testGetDocumentors() throws SimalRepositoryException {
+		assertEquals(TEST_SIMAL_PROJECT_DOCUMENTORS, project1.getDocumenters().toString());
 	}
 	
 	@Test
@@ -63,7 +64,7 @@ public class TestProject extends AbstractTestDOAP {
 	}
 	
 	@Test
-	public void testGetHelpers() {
+	public void testGetHelpers() throws SimalRepositoryException {
 		assertEquals(TEST_SIMAL_PROJECT_HELPERS, project1.getHelpers().toString());
 	}
 	
@@ -74,12 +75,14 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetMailingLists() {
-		assertEquals(TEST_SIMAL_PROJECT_MAILING_LISTS, project1.getMailingLists().toString());
+		assertTrue(project1.getMailingLists().toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_ONE));
+		assertTrue(project1.getMailingLists().toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_TWO));
 	}
 	
 	@Test
-	public void testGetMaintainers() {
-		assertEquals(TEST_SIMAL_PROJECT_MAINTAINERS, project1.getMaintainers().toString());
+	public void testGetMaintainers() throws SimalRepositoryException {
+		assertTrue(project1.getMaintainers().toString().contains(TEST_SIMAL_PROJECT_MAINTAINER_ONE));
+		assertTrue(project1.getMaintainers().toString().contains(TEST_SIMAL_PROJECT_MAINTAINER_TWO));
 	}
 	
 	@Test
@@ -94,16 +97,17 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetProgrammingLangauges() {
-		assertEquals(TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGES, project1.getProgrammingLangauges().toString());
+		assertTrue(project1.getProgrammingLangauges().toString().contains(TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE));
+		assertTrue(project1.getProgrammingLangauges().toString().contains(TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO));
 	}
 	
 	@Test
-	public void testGetReleases() {
+	public void testGetReleases() throws SimalRepositoryException {
 		assertEquals(TEST_SIMAL_PROJECT_RELEASES, project1.getReleases().toString());
 	}
 	
 	@Test
-	public void testGetRepositories() {
+	public void testGetRepositories() throws SimalRepositoryException {
 		assertEquals(TEST_SIMAL_PROJECT_REPOSITORIES, project1.getRepositories().toString());
 	}
 	
@@ -113,12 +117,12 @@ public class TestProject extends AbstractTestDOAP {
 	}
 	
 	@Test
-	public void testGetTesters() {
+	public void testGetTesters() throws SimalRepositoryException {
 		assertEquals(TEST_SIMAL_PROJECT_TESTERS, project1.getTesters().toString());
 	}
 	
 	@Test
-	public void testGetTranslators() {
+	public void testGetTranslators() throws SimalRepositoryException {
 		assertEquals(TEST_SIMAL_PROJECT_TRANSLATORS, project1.getTranslators().toString());
 	}
 	

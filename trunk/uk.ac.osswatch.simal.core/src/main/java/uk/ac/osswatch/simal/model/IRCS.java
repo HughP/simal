@@ -5,6 +5,6 @@ package uk.ac.osswatch.simal.model;
  * repository.
  *
  */
-public interface IRepository {
+public interface IRCS {
 
 }

@@ -2,12 +2,20 @@ package uk.ac.osswatch.simal.model.elmo;
 
 
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+
+import javax.xml.namespace.QName;
+
+import org.openrdf.concepts.rdfs.Resource;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.IRepository;
+import uk.ac.osswatch.simal.model.IRCS;
 import uk.ac.osswatch.simal.model.IVersion;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * This is a wrapper around an Elmo Project class.
@@ -26,99 +34,184 @@ public class Project extends DoapResource implements IProject {
 		this.elmoProject = elmoProject;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getCategories() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapCategories();
+		return getResourceURIs(resources);
 	}
 
-	public Set<IPerson> getDevelopers() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<IPerson> getDevelopers() throws SimalRepositoryException {
+		Set<Resource> resources = (Set) elmoProject.getDoapDevelopers();
+		HashSet<IPerson> people = findPeople(resources);
+		return people;
 	}
 
-	public Set<IPerson> getDocumentors() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<IPerson> getDocumenters()  throws SimalRepositoryException {
+		Set<Resource> resources = (Set) elmoProject.getDoapDocumenters();
+		HashSet<IPerson> people = findPeople(resources);
+		return people;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getDownloadMirrors() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapDownloadMirrors();
+		return getResourceURIs(resources);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getDownloadPages() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapDownloadPages();
+		return getResourceURIs(resources);
 	}
 
-	public Set<IPerson> getHelpers() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<IPerson> getHelpers() throws SimalRepositoryException {
+		Set<Resource> resources = (Set) elmoProject.getDoapHelpers();
+		HashSet<IPerson> people = findPeople(resources);
+		return people;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getHomepages() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapHomepages();
+		return getResourceURIs(resources);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getIssueTracker() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapBugDatabases();
+		return getResourceURIs(resources);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getMailingLists() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapMailingLists();
+		return getResourceURIs(resources);
 	}
 
-	public Set<IPerson> getMaintainers() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<IPerson> getMaintainers() throws SimalRepositoryException {
+		Set<Resource> resources = (Set) elmoProject.getDoapMaintainers();
+		HashSet<IPerson> people = findPeople(resources);
+		return people;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getOSes() {
-		// TODO Auto-generated method stub
-		return null;
+		return (Set) elmoProject.getDoapOses();
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getOldHomepages() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapOldHomepages();
+		return getResourceURIs(resources);
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getProgrammingLangauges() {
-		// TODO Auto-generated method stub
-		return null;
+		return (Set) elmoProject.getDoapProgrammingLanguages();
 	}
 
-	public Set<IVersion> getReleases() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<IVersion> getReleases() throws SimalRepositoryException {
+		return findReleases((Set) elmoProject.getDoapReleases());
 	}
 
-	public Set<IRepository> getRepositories() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<IRCS> getRepositories() throws SimalRepositoryException {
+		return findRepositories((Set) elmoProject.getDoapRepositories());
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getScreenshots() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapScreenshots();
+		return getResourceURIs(resources);
 	}
 
-	public Set<IPerson> getTesters() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<IPerson> getTesters() throws SimalRepositoryException {
+		Set<Resource> resources = (Set) elmoProject.getDoapTesters();
+		HashSet<IPerson> people = findPeople(resources);
+		return people;
 	}
 
-	public Set<IPerson> getTranslators() {
-		// TODO Auto-generated method stub
-		return null;
+	@SuppressWarnings("unchecked")
+	public Set<IPerson> getTranslators() throws SimalRepositoryException {
+		Set<Resource> resources = (Set) elmoProject.getDoapTranslators();
+		HashSet<IPerson> people = findPeople(resources);
+		return people;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<String> getWikis() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Resource> resources = (Set) elmoProject.getDoapWikis();
+		return getResourceURIs(resources);
+	}
+
+	/**
+	 * Attempts to find people in the repository that are identified by
+	 * a given set of resources.
+	 *  
+	 * @param resources
+	 * @return
+	 * @throws SimalRepositoryException
+	 */
+	@SuppressWarnings("unchecked")
+	private HashSet<IPerson> findPeople(Set<Resource> resources)
+			throws SimalRepositoryException {
+		Iterator<String> uris = getResourceURIs(resources).iterator();
+		HashSet<IPerson> people = new HashSet(resources.size());
+		String uri;
+		while (uris.hasNext()) {
+			uri = uris.next();
+			people.add(SimalRepository.getPerson(new QName(uri)));			
+		}
+		return people;
+	}
+
+
+	/**
+	 * Attempts to find release versions in the repository that are identified by
+	 * a given set of resources.
+	 *  
+	 * @param resources
+	 * @return
+	 * @throws SimalRepositoryException
+	 */
+	@SuppressWarnings("unchecked")
+	private HashSet<IVersion> findReleases(Set<Resource> resources)
+			throws SimalRepositoryException {
+		Iterator<String> uris = getResourceURIs(resources).iterator();
+		HashSet<IVersion> versions = new HashSet(resources.size());
+		String uri;
+		while (uris.hasNext()) {
+			uri = uris.next();
+			versions.add(SimalRepository.getVersion(new QName(uri)));			
+		}
+		return versions;
+	}
+
+	/**
+	 * Attempts to find version control repository info in the repository that are identified by
+	 * a given set of resources.
+	 *  
+	 * @param resources
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * @throws SimalRepositoryException
+	 */
+	@SuppressWarnings("unchecked")
+	private Set<IRCS> findRepositories(Set<Resource> resources) throws SimalRepositoryException {
+		Iterator<String> uris = getResourceURIs(resources).iterator();
+		HashSet<IRCS> repos = new HashSet(resources.size());
+		String uri;
+		while (uris.hasNext()) {
+			uri = uris.next();
+			repos.add(SimalRepository.getRCS(new QName(uri)));			
+		}
+		return repos;
 	}
 
 }

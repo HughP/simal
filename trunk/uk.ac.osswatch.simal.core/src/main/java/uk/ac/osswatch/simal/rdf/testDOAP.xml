@@ -120,14 +120,14 @@
     </foaf:Person>
   </helper>
   
-  <documentor>
+  <documenter>
     <foaf:Person
       rdf:about="http://foo.org/~documentor/#me">
       <foaf:name>documentor</foaf:name>
       <rdf:seeAlso
         rdf:resource="http://foo.org/~documentor/foaf.rdf.xml" />
     </foaf:Person>
-  </documentor>
+  </documenter>
     
   <developer>
     <foaf:Person
