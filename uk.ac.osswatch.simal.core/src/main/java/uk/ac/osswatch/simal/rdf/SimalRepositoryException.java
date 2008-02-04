@@ -16,4 +16,8 @@ public class SimalRepositoryException extends Exception {
 		super(message, cause);
 	}
 
+	public SimalRepositoryException(String message) {
+		super(message);
+	}
+
 }

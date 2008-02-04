@@ -2,6 +2,8 @@ package uk.ac.osswatch.simal.model;
 
 import java.util.Set;
 
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
 /**
  * An interface for wrapping repository specific representations of a Project.
  * Other classes should not access the repository classes directly, instead they
@@ -15,21 +17,21 @@ public interface IProject extends IDoapResource {
 
 	public Set<String> getCategories();
 
-	public Set<IPerson> getDevelopers();
+	public Set<IPerson> getDevelopers() throws SimalRepositoryException;
 
-	public Set<IPerson> getDocumentors();
+	public Set<IPerson> getDocumenters() throws SimalRepositoryException;
 
 	public Set<String> getDownloadMirrors();
 
 	public Set<String> getDownloadPages();
 
-	public Set<IPerson> getHelpers();
+	public Set<IPerson> getHelpers() throws SimalRepositoryException;
 
 	public Set<String> getHomepages();
 
 	public Set<String> getMailingLists();
 
-	public Set<IPerson> getMaintainers();
+	public Set<IPerson> getMaintainers() throws SimalRepositoryException;
 
 	public Set<String> getOldHomepages();
 
@@ -37,15 +39,15 @@ public interface IProject extends IDoapResource {
 
 	public Set<String> getProgrammingLangauges();
 
-	public Set<IVersion> getReleases();
+	public Set<IVersion> getReleases() throws SimalRepositoryException;
 
-	public Set<IRepository> getRepositories();
+	public Set<IRCS> getRepositories() throws SimalRepositoryException;
 
 	public Set<String> getScreenshots();
 
-	public Set<IPerson> getTesters();
+	public Set<IPerson> getTesters() throws SimalRepositoryException;
 
-	public Set<IPerson> getTranslators();
+	public Set<IPerson> getTranslators() throws SimalRepositoryException;
 
 	public Set<String> getWikis();
 }

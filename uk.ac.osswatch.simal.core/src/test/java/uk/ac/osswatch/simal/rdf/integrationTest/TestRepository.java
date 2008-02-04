@@ -26,47 +26,43 @@ public class TestRepository extends BaseRepositoryTest {
 
 	@Test
 	public void testAddProject() throws SimalRepositoryException {
-		SimalRepository repo = getTestRepo();
+		initialiseRepository(true);
 		// The default test repository adds projects when it is instantiated
-		assertNotNull(repo);
+		assertTrue(SimalRepository.isInitialised());
 	}
 
 	@Test
 	public void testFindProject() throws SimalRepositoryException {
-		SimalRepository repo = getTestRepo(true);
+		initialiseRepository(true);
 
 		QName qname = new QName("http://foo.org/nonExistent");
-		try {
-			Project project = repo.getProject(qname);
-			assertNull(project);
+		Project project = SimalRepository.getProject(qname);
+		assertNull(project);
 
-			// test a known valid file
-			project = getSimalTestProject(true);
-			assertEquals("Simal DOAP Test", project.getName());
-		} finally {
-			repo.close();
-		}
+		// test a known valid file
+		project = getSimalTestProject(true);
+		assertEquals("Simal DOAP Test", project.getName());
 	}
 
 	@Test
 	public void testGetRdfXml() throws SimalRepositoryException {
-		SimalRepository repo = getTestRepo();
 		QName qname = new QName(TEST_SIMAL_PROJECT_QNAME);
 
 		StringWriter sw = new StringWriter();
-		repo.writeXML(sw, qname);
+		SimalRepository.writeXML(sw, qname);
 		String xml = sw.toString();
-		assertTrue("XML does not contain the QName expected",
-					xml.contains("rdf:about=\"http://simal.oss-watch.ac.uk/simalTest#\""));
+		assertTrue(
+				"XML does not contain the QName expected",
+				xml
+						.contains("rdf:about=\"http://simal.oss-watch.ac.uk/simalTest#\""));
 	}
 
 	@Test
-	public void testGetAllProjects() throws SimalRepositoryException, IOException {
-		SimalRepository repo = getTestRepo();
+	public void testGetAllProjects() throws SimalRepositoryException,
+			IOException {
+		Set<Project> projects = SimalRepository.getAllProjects();
+		assertEquals(3, projects.size());
 
-		Set<Project> projects = repo.getAllProjects();
-		assertEquals(3, projects.size());	
-		
 		Iterator<Project> itrProjects = projects.iterator();
 		Project project;
 		while (itrProjects.hasNext()) {
@@ -74,15 +70,12 @@ public class TestRepository extends BaseRepositoryTest {
 			assertNotNull(project.getName());
 		}
 	}
-	
-
 
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testNullQNamehandling() throws SimalRepositoryException {
-		SimalRepository repo = getTestRepo();
-		Set<Project> projects = repo.getAllProjects();
-		
+		Set<Project> projects = SimalRepository.getAllProjects();
+
 		Iterator itrProjects = projects.iterator();
 		Project project;
 		while (itrProjects.hasNext()) {
@@ -90,12 +83,13 @@ public class TestRepository extends BaseRepositoryTest {
 			assertNotNull("All projects must have a QName", project.getQName());
 		}
 	}
-	
+
 	@Test
 	public void testGetAllProjectsAsJSON() throws SimalRepositoryException {
-		SimalRepository repo = getTestRepo();
-		String json = repo.getAllProjectsAsJSON();
-		assertTrue("JSON file does not appear to be correct", json.startsWith("{ \"items\": ["));
-		assertTrue("JSON file does not appear to be correct", json.endsWith("]}"));
+		String json = SimalRepository.getAllProjectsAsJSON();
+		assertTrue("JSON file does not appear to be correct", json
+				.startsWith("{ \"items\": ["));
+		assertTrue("JSON file does not appear to be correct", json
+				.endsWith("]}"));
 	}
 }

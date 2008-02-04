@@ -96,15 +96,20 @@ public class DoapResource implements IDoapResource {
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getLicences() {
-		Iterator<Resource> licences = ((Set) elmoProject.getDoapLicenses()).iterator();
-		Resource licence;
+		Set<Resource> licences = (Set) elmoProject.getDoapLicenses();
+		return getResourceURIs(licences);
+	}
+
+	protected Set<String> getResourceURIs(Set<Resource> resources) {
+		Iterator<Resource> itr = resources.iterator();
+		Resource resource;
 		String ns;
 		String local;
 		Set<String> result = new HashSet<String>(elmoProject.getDoapLicenses().size());
-	    while (licences.hasNext()) {
-	    	licence = licences.next();
-			ns = licence.getQName().getNamespaceURI();
-			local = licence.getQName().getLocalPart();
+	    while (itr.hasNext()) {
+	    	resource = itr.next();
+			ns = resource.getQName().getNamespaceURI();
+			local = resource.getQName().getLocalPart();
 			result.add(ns + local);
 	    }
 		return result;

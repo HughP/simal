@@ -26,35 +26,29 @@ import org.openrdf.rio.rdfxml.RDFXMLParser;
 import org.openrdf.rio.rdfxml.util.RDFXMLPrettyWriter;
 import org.openrdf.sail.memory.MemoryStore;
 
+import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IRCS;
+import uk.ac.osswatch.simal.model.IVersion;
+import uk.ac.osswatch.simal.model.elmo.Person;
 import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.model.elmo.RCS;
+import uk.ac.osswatch.simal.model.elmo.Version;
 import uk.ac.osswatch.simal.rdf.io.ValidatingRDFXMLHandler;
 
 /**
- * A class for handling common repository actions.
+ * A class for handling common repository actions. Applications should
+ * not instantiate this class but should interact with it via its
+ * static methods.
  * 
  */
 public class SimalRepository {
 	private static SailRepository _repository;
-
-	/**
-	 * Create a default repository. Currently this creates a volatile repository
-	 * populaed with test data.
-	 * 
-	 * @throws SimalRepositoryException
-	 */
-	public SimalRepository() throws SimalRepositoryException {
-		_repository = new SailRepository(new MemoryStore());
-		try {
-			_repository.initialize();
-		} catch (RepositoryException e) {
-			throw new SimalRepositoryException(
-					"Unable to intialise the repository", e);
-		}
-
-		addTestData();
+	
+	private SimalRepository() {
+		super();
 	}
 
-	public RepositoryConnection getConnection() {
+	private static RepositoryConnection getConnection() throws SimalRepositoryException {
 		return getManager().getConnection();
 	}
 
@@ -67,13 +61,15 @@ public class SimalRepository {
 	 * @throws IOException
 	 * @throws RDFParseException
 	 */
-	public void addProject(URL url, String baseURI)
+	public static void addProject(URL url, String baseURI)
 			throws SimalRepositoryException {
+		verifyInitialised();
+		
 		RDFParser parser = new RDFXMLParser();
 		parser.setRDFHandler(new ValidatingRDFXMLHandler());
 		parser.setVerifyData(true);
 
-		RepositoryConnection con = this.getConnection();
+		RepositoryConnection con = getConnection();
 		try {
 			try {
 				parser.parse(url.openStream(), baseURI);
@@ -109,13 +105,30 @@ public class SimalRepository {
 	}
 
 	/**
+	 * Checks to see if the repository has been correctly initialised.
+	 * If it has not then an exception is thrown.
+	 * 
+	 * @throws SimalRepositoryException
+	 */
+	private static void verifyInitialised() throws SimalRepositoryException {
+		if (!isInitialised()) {
+			throw new SimalRepositoryException("SimalRepsotory has not been initialised. Call one of the initialise methods first.");
+		}
+	}
+
+	/**
 	 * Get a manager for concepts defined by Elmo.
 	 * 
 	 * @return
+	 * @throws SimalRepositoryException 
 	 */
-	public SesameManager getManager() {
+	private static SesameManager getManager() throws SimalRepositoryException {
+		verifyInitialised();
 		ElmoModule module = new ElmoModule();
 		module.recordRole(org.openrdf.concepts.doap.Project.class);
+		module.recordRole(org.openrdf.concepts.doap.Version.class);
+		module.recordRole(org.openrdf.concepts.doap.Repository.class);
+		module.recordRole(org.openrdf.concepts.foaf.Person.class);
 
 		SesameManagerFactory factory = new SesameManagerFactory(module,
 				_repository);
@@ -128,8 +141,11 @@ public class SimalRepository {
 	 * @param qname
 	 *            the QName of the project to retrieve
 	 * @return the project, or if no project with the given QName exists Null
+	 * @throws SimalRepositoryException 
 	 */
-	public Project getProject(QName qname) {
+	public static Project getProject(QName qname) throws SimalRepositoryException {
+		verifyInitialised();
+		
 		org.openrdf.concepts.doap.Project elmoProject = getManager().find(
 				org.openrdf.concepts.doap.Project.class, qname);
 		if (elmoProject == null) {
@@ -137,8 +153,69 @@ public class SimalRepository {
 		}
 		return new Project(elmoProject);
 	}
+	
+	/**
+	 * Get a release version from the repository.
+	 * 
+	 * @param qname
+	 *            the QName of the release version to retrieve
+	 * @return the release version, or if no release version with the given QName exists Null
+	 * @throws SimalRepositoryException 
+	 */
+	public static IVersion getVersion(QName qname) throws SimalRepositoryException {
+		verifyInitialised();
+		
+		org.openrdf.concepts.doap.Version elmoVersion = getManager().find(
+				org.openrdf.concepts.doap.Version.class, qname);
+		if (elmoVersion == null) {
+			return null;
+		}
+		return new Version(elmoVersion);
+	}
+	
+	/**
+	 * Get a version control repository from the repository.
+	 * 
+	 * @param qname
+	 *            the QName of the repository to retrieve
+	 * @return the repository or if no repository with the given QName exists Null
+	 * @throws SimalRepositoryException 
+	 * @throws SimalRepositoryException 
+	 */
+	public static IRCS getRCS(QName qname) throws SimalRepositoryException {
+		verifyInitialised();
+		
+		org.openrdf.concepts.doap.Repository elmoRepo = getManager().find(
+				org.openrdf.concepts.doap.Repository.class, qname);
+		if (elmoRepo == null) {
+			return null;
+		}
+		return new RCS(elmoRepo);
+	}
 
-	public Set<Project> getAllProjects() {
+	
+	/**
+	 * Get a person from the repository.
+	 * 
+	 * @param qname
+	 *            the QName of the repository to retrieve
+	 * @return the repository or if no repository with the given QName exists Null
+	 * @throws SimalRepositoryException 
+	 */
+	public static IPerson getPerson(QName qname) throws SimalRepositoryException {
+		verifyInitialised();
+		
+		org.openrdf.concepts.foaf.Person elmoPerson = getManager().find(
+				org.openrdf.concepts.foaf.Person.class, qname);
+		if (elmoPerson == null) {
+			return null;
+		}
+		return new Person(elmoPerson);
+	}
+
+	public static Set<Project> getAllProjects() throws SimalRepositoryException {
+		verifyInitialised();
+		
 		HashSet<Project> result = new HashSet<Project>();
 		Iterator<org.openrdf.concepts.doap.Project> elmoProjects = getManager()
 				.findAll(org.openrdf.concepts.doap.Project.class).iterator();
@@ -160,8 +237,10 @@ public class SimalRepository {
 	 * @throws RepositoryException
 	 * @throws RDFHandlerException
 	 */
-	public void writeXML(Writer writer, QName qname)
+	public static void writeXML(Writer writer, QName qname)
 			throws SimalRepositoryException {
+		verifyInitialised();
+		
 		getProject(qname);
 		RDFXMLPrettyWriter XMLWriter = new RDFXMLPrettyWriter(writer);
 		try {
@@ -176,17 +255,16 @@ public class SimalRepository {
 		}
 	}
 
-	public void close() {
-		getManager().close();
-	}
-
 	/**
 	 * Adds test data to the repo. be careful to only use this when the repo in
 	 * use is a test repository.
+	 * @throws SimalRepositoryException 
 	 * 
 	 * @throws SimalRepositoryException
 	 */
-	private void addTestData() {
+	private static void addTestData() throws SimalRepositoryException {
+		verifyInitialised();
+		
 		try {
 			addProject(SimalRepository.class
 					.getResource("testNoRDFAboutDOAP.xml"),
@@ -245,10 +323,11 @@ public class SimalRepository {
 	 * single JSON file.
 	 * 
 	 * @return
+	 * @throws SimalRepositoryException 
 	 */
-	public String getAllProjectsAsJSON() {
+	public static String getAllProjectsAsJSON() throws SimalRepositoryException {
 		StringBuffer json = new StringBuffer("{ \"items\": [");
-		Iterator<Project> projects = this.getAllProjects().iterator();
+		Iterator<Project> projects = getAllProjects().iterator();
 		while (projects.hasNext()) {
 			json.append(projects.next().toJSON(true));
 			if (projects.hasNext()) {
@@ -257,5 +336,55 @@ public class SimalRepository {
 		}
 		json.append("]}");
 		return json.toString();
+	}
+
+	/**
+	 * Return true if this repository has been successfully initialised
+	 * and is ready to be used, otherwise return false.
+	 * 
+	 * @return
+	 */
+	public static boolean isInitialised() {
+		return _repository != null;
+	}
+
+	/**
+	 * Shutdown the repository cleanly.
+	 * @throws SimalRepositoryException 
+     *
+	 * @throws RepositoryException
+	 */
+	public static void destroy() throws SimalRepositoryException {
+		verifyInitialised();
+		
+		try {
+			_repository.shutDown();
+			_repository = null;
+		} catch (RepositoryException e) {
+			throw new SimalRepositoryException("Unable to shutdown the repository, refusing to destroy it.");
+		}
+	}
+
+	/**
+	 * Initialise a default repository. Currently this creates a volatile repository
+	 * populated with test data.
+	 * @throws SimalRepositoryException 
+	 * 
+	 * @throws SimalRepositoryException
+	 */
+	public static void initialise() throws SimalRepositoryException {
+		if (_repository != null) {
+			throw new SimalRepositoryException("Illegal attempt to create a second SimalRepository in the same JAVA VM.");
+		}
+		
+		_repository = new SailRepository(new MemoryStore());
+		try {
+			_repository.initialize();
+		} catch (RepositoryException e) {
+			throw new SimalRepositoryException(
+					"Unable to intialise the repository", e);
+		}
+
+		addTestData();		
 	}
 }

@@ -60,7 +60,8 @@ public class TestDoapResource extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetLicences() {
-		assertEquals(TEST_SIMAL_PROJECT_LICENCES, project1.getLicences().toString());
+		assertTrue(project1.getLicences().toString().contains(TEST_SIMAL_PROJECT_LICENCE_ONE));
+		assertTrue(project1.getLicences().toString().contains(TEST_SIMAL_PROJECT_LICENCE_TWO));
 	}
 
 }
