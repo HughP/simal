@@ -191,6 +191,10 @@
         </plugin>
       -->
 
+<!--  Clover is not open source, but is free to open source projects.
+      It is supposed to provide a 30 day licence but mine has run out
+      already (only a few days in) and you can't get a free licence 
+      for OSS projects until your reports are published online - Duh!
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-clover-plugin</artifactId>
@@ -210,6 +214,7 @@
           </execution>
         </executions>
       </plugin>
+      -->
 
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
