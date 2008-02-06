@@ -10,7 +10,8 @@ import uk.ac.osswatch.simal.model.IPerson;
  * @see org.openrdf.concepts.foaf.Person
  * 
  */
-public class Person implements IPerson {
+public class Person extends FoafResource implements IPerson {
+	private static final long serialVersionUID = -6234779132155536113L;
 	private org.openrdf.concepts.foaf.Person elmoPerson;
 
 	/**

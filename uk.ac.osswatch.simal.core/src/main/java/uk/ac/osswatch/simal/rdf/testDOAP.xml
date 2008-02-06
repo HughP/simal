@@ -58,7 +58,7 @@
   <repository>
     <SVNRepository rdf:about="http://simal.oss-watch.ac.uk/simalTest#svnTrunk">
       <browse rdf:resource="http://svn.foo.org/viewvc/simal/trunk/"/>
-      <location rdf:resource="https://svn.foo.org/svnroot/webpa"/>
+      <location rdf:resource="https://svn.foo.org/svnroot/simalTest"/>
     </SVNRepository>
   </repository>
   

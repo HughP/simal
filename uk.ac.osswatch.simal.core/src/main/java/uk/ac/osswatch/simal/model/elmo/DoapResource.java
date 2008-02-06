@@ -13,28 +13,32 @@ import uk.ac.osswatch.simal.model.IDoapResource;
 
 /**
  * This is a wrapper around an Elmo DoapResource class.
+ * It should not be instatiated directly instances
+ * will be created by elmo as required when a concept
+ * extends DOAPResource. Wrappers for these more granular
+ * classes should be created that extend this class, when such
+ * wrappers are instantiated they should set the value of
+ * elmoResource to to wrapped elmo object.
  * 
  * @see org.openrdf.concepts.doap.DoapResource
  */
 public class DoapResource implements IDoapResource {
 
 	private static final long serialVersionUID = -7610178891247360114L;
-	protected org.openrdf.concepts.doap.Project elmoProject;
+	protected org.openrdf.concepts.doap.DoapResource elmoResource;
 
-	public DoapResource() {
-		super();
-	}
-
+	protected DoapResource() {};
+	
 	/**
 	 * Returns the first name in the set of names contained within the Elmo
 	 * Project class.
 	 */
 	public String getName() {
-		return (String) elmoProject.getDoapNames().toArray()[0];
+		return (String) elmoResource.getDoapNames().toArray()[0];
 	}
 
 	public String getShortDesc() {
-		return elmoProject.getDoapShortdesc();
+		return elmoResource.getDoapShortdesc();
 	}
 
 	/**
@@ -46,23 +50,23 @@ public class DoapResource implements IDoapResource {
 	 *             if the project has more than one name
 	 */
 	public void setName(String name) throws ProjectException {
-		if (elmoProject.getDoapNames() != null) {
-			if (elmoProject.getDoapNames().size() != 1) {
+		if (elmoResource.getDoapNames() != null) {
+			if (elmoResource.getDoapNames().size() != 1) {
 				throw new ProjectException(
 						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
 			}
-			Set<Object> names = elmoProject.getDoapNames();
+			Set<Object> names = elmoResource.getDoapNames();
 			names.remove(names.toArray()[0]);
 			names.add(name);
 		}
 	}
 
 	public void setShortDesc(String shortDesc) {
-		elmoProject.setDoapShortdesc(shortDesc);
+		elmoResource.setDoapShortdesc(shortDesc);
 	}
 
 	public QName getQName() {
-		return elmoProject.getQName();
+		return elmoResource.getQName();
 	}
 
 	public String toString() {
@@ -87,16 +91,16 @@ public class DoapResource implements IDoapResource {
 	}
 
 	public String getCreated() {
-		return (String) elmoProject.getDoapCreated().toArray()[0];
+		return (String) elmoResource.getDoapCreated().toArray()[0];
 	}
 
 	public String getDescription() {
-		return elmoProject.getDoapDescription();
+		return elmoResource.getDoapDescription();
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getLicences() {
-		Set<Resource> licences = (Set) elmoProject.getDoapLicenses();
+		Set<Resource> licences = (Set) elmoResource.getDoapLicenses();
 		return getResourceURIs(licences);
 	}
 
@@ -105,7 +109,7 @@ public class DoapResource implements IDoapResource {
 		Resource resource;
 		String ns;
 		String local;
-		Set<String> result = new HashSet<String>(elmoProject.getDoapLicenses().size());
+		Set<String> result = new HashSet<String>(elmoResource.getDoapLicenses().size());
 	    while (itr.hasNext()) {
 	    	resource = itr.next();
 			ns = resource.getQName().getNamespaceURI();
@@ -116,19 +120,28 @@ public class DoapResource implements IDoapResource {
 	}
 
 	public void setCreated(String created) throws ProjectException {
-		if (elmoProject.getDoapCreated() != null) {
-			if (elmoProject.getDoapCreated().size() != 1) {
+		if (elmoResource.getDoapCreated() != null) {
+			if (elmoResource.getDoapCreated().size() != 1) {
 				throw new ProjectException(
 						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
 			}
-			Set<Object> dates = elmoProject.getDoapCreated();
+			Set<Object> dates = elmoResource.getDoapCreated();
 			dates.remove(dates.toArray()[0]);
 			dates.add(created);
 		}
 	}
 
 	public void setDescription(String newDesc) {
-		elmoProject.setDoapDescription(newDesc);
+		elmoResource.setDoapDescription(newDesc);
+	}
+
+	protected Set<String> convertToSetOfStrings(Set<Object> sourceSet) {
+		Set<String> result = new HashSet<String>(sourceSet.size());
+		Iterator<Object> itr = sourceSet.iterator();
+		while (itr.hasNext()) {
+			result.add(itr.next().toString());
+		}
+		return result;
 	}
 
 }

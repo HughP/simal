@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import java.util.Set;
+
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IVersion;
@@ -10,7 +12,8 @@ import uk.ac.osswatch.simal.model.IVersion;
  * @see org.openrdf.concepts.doap.Version
  * 
  */
-public class Version implements IVersion {
+public class Version extends DoapResource implements IVersion {
+	private static final long serialVersionUID = 7979313699896399149L;
 	private org.openrdf.concepts.doap.Version elmoVersion;
 
 	/**
@@ -25,6 +28,14 @@ public class Version implements IVersion {
 	public String toString() {
 		QName qname = elmoVersion.getQName();
 		return qname.getNamespaceURI() + qname.getLocalPart();
+	}
+
+	public Set<String> getFileReleases() {
+		return convertToSetOfStrings(elmoVersion.getDoapFileReleases());
+	}
+
+	public Set<String> getRevisions() {
+		return convertToSetOfStrings(elmoVersion.getDoapRevisions());
 	}
 
 }
