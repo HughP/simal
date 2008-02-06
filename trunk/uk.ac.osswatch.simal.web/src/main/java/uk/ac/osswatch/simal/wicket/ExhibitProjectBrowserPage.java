@@ -8,6 +8,8 @@ import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+
 /**
  * Creates a page which contains an <a
  * href="http://simile.mit.edu/wiki/Exhibit">Exhibit 2.0</a> Browser. This is a
@@ -23,7 +25,7 @@ public class ExhibitProjectBrowserPage extends BasePage {
 		try {
 			File outFile = new File(new File(dir.toURI()).getParent() + File.separator + "projects.js");
 			FileWriter out = new FileWriter(outFile);
-			out.write(UserApplication.getRepository().getAllProjectsAsJSON());
+			out.write(SimalRepository.getAllProjectsAsJSON());
 			out.close();
 		} catch (Exception e) {
 			UserReportableException error = new UserReportableException("Unable to write JSON file", ExhibitProjectBrowserPage.class, e);

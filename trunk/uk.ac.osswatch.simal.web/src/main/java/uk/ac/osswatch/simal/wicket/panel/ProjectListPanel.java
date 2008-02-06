@@ -28,6 +28,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.data.SortableProjectDataProvider;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
@@ -39,7 +40,7 @@ public class ProjectListPanel extends Panel {
 	private static final long serialVersionUID = -890741585742505383L;
 
 	@SuppressWarnings("serial")
-	public ProjectListPanel(String id) {
+	public ProjectListPanel(String id) throws SimalRepositoryException {
 		super(id);
 		
 		List<AbstractColumn> columns = new ArrayList<AbstractColumn>();

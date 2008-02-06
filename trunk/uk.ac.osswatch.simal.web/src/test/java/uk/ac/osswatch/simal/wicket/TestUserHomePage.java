@@ -1,17 +1,11 @@
 package uk.ac.osswatch.simal.wicket;
 
-import junit.framework.TestCase;
 import org.apache.wicket.util.tester.WicketTester;
 
 /**
  * Simple test using the WicketTester
  */
-public class TestUserHomePage extends TestCase {
-	private WicketTester tester;
-
-	public void setUp() {
-		tester = new WicketTester();
-	}
+public class TestUserHomePage extends TestBase {
 
 	public void testRenderPage() {
 		tester.startPage(UserHomePage.class);

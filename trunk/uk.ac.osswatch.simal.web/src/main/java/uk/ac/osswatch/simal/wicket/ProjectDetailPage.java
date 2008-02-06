@@ -5,14 +5,21 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class ProjectDetailPage extends BasePage {
 	private static final long serialVersionUID = 8719708525508677833L;
 
 	public ProjectDetailPage() {
-		final Project project = UserApplication
-				.getProject(UserApplication.DEFAULT_PROJECT_QNAME);
-		populatePage(project);
+		Project project;
+		try {
+			project = SimalRepository.getProject(UserApplication.DEFAULT_PROJECT_QNAME);
+			populatePage(project);
+		} catch (SimalRepositoryException e) {
+			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
+			setResponsePage(new ErrorReportPage(error));
+		}
 	}
 
 	public ProjectDetailPage(Project project) {

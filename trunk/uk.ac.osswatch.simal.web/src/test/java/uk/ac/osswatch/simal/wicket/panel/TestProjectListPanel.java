@@ -1,22 +1,16 @@
 package uk.ac.osswatch.simal.wicket.panel;
 
-import junit.framework.TestCase;
-
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.TestPanelSource;
-import org.apache.wicket.util.tester.WicketTester;
 
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
+import uk.ac.osswatch.simal.wicket.TestBase;
 
 /**
  * Simple test using the WicketTester
  */
-public class TestProjectListPanel extends TestCase {
-	private WicketTester tester;
-
-	public void setUp() {
-		tester = new WicketTester();
-	}
+public class TestProjectListPanel extends TestBase {
 
 	@SuppressWarnings("serial")
 	public void testProjectListPanel() {
@@ -24,7 +18,12 @@ public class TestProjectListPanel extends TestCase {
 		 {
 		        public Panel getTestPanel(String panelId)
 		        {
-		                return new ProjectListPanel(panelId);
+		                try {
+							return new ProjectListPanel(panelId);
+						} catch (SimalRepositoryException e) {
+							fail(e.getMessage());
+							return null;
+						}
 		        }
 		 });
 		 

@@ -6,6 +6,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class DetachableProjectModel extends LoadableDetachableModel implements
@@ -27,7 +29,14 @@ public class DetachableProjectModel extends LoadableDetachableModel implements
 
 	@Override
 	protected Object load() {
-		return UserApplication.getRepository().getProject(qname);
+		Project project;
+		try {
+			project = SimalRepository.getProject(qname);
+		} catch (SimalRepositoryException e) {
+			e.printStackTrace();
+			project = null;
+		}
+		return project;
 	}
 
 }
