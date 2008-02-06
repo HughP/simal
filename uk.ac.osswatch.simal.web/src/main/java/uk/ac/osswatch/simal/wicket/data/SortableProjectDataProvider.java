@@ -10,6 +10,8 @@ import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvid
 import org.apache.wicket.model.IModel;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
@@ -30,9 +32,10 @@ public class SortableProjectDataProvider extends SortableDataProvider {
 	 * Create a SortableDataProvider containing all projects in the repository
 	 * 
 	 * @param size
+	 * @throws SimalRepositoryException 
 	 */
-	public SortableProjectDataProvider() {
-		projects = UserApplication.getRepository().getAllProjects();
+	public SortableProjectDataProvider() throws SimalRepositoryException {
+		projects = SimalRepository.getAllProjects();
 	}
 	
 	

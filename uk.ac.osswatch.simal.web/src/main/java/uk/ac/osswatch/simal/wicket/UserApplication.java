@@ -32,47 +32,27 @@ public class UserApplication extends WebApplication {
 	 * The qname for the project to use if no other project is specified. 
 	 */
 	public static final QName DEFAULT_PROJECT_QNAME = new QName("http://simal.oss-watch.ac.uk/simalTest#");
-	private static SimalRepository repo;
 	
     public UserApplication() {
     	// FIXME: when we go to a non-volatile repo we need to set
     	// When isTest is set to true the repo is populated with test data
     	// isTest = false;
+    	init();
     }
 
     public void init() {
-    
+    	try {
+			SimalRepository.initialise();
+		} catch (SimalRepositoryException e) {
+			e.printStackTrace();
+			System.exit(1);
+		}
     }
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public Class getHomePage() {
 		return UserHomePage.class;
-	}
-
-	/**
-	 * Get the repository that stores all the data.
-	 * @return
-	 */
-	public static SimalRepository getRepository() {
-		if (repo == null) {
-	    	try {
-				repo = new SimalRepository();
-			} catch (SimalRepositoryException e) {
-				throw new RuntimeException("Unable to create repository", e);
-			}
-		}
-		return repo;
-	}
-
-	/**
-	 * Get a project from the repository.
-	 * 
-	 * @param qname the qname of the project to retrieve.
-	 * @return the required project or null if it cannot be retrieved
-	 */
-	public static Project getProject(QName qname) {
-		return getRepository().getProject(qname);
 	}
 
 }

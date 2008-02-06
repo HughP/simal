@@ -1,20 +1,12 @@
 package uk.ac.osswatch.simal.wicket;
 
-import junit.framework.TestCase;
-
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.util.tester.WicketTester;
 
 /**
  * Simple test using the WicketTester
  */
-public class TestErrorReportPage extends TestCase {
-	private WicketTester tester;
-
-	public void setUp() {
-		tester = new WicketTester();
-	}
+public class TestErrorReportPage extends TestBase {
 
 	public void testRenderPage() {
 		tester.startPage(ErrorReportPage.class);

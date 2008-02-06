@@ -9,19 +9,20 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestSortableProjectDataProvider {
 
 	private static final int NUMBER_OF_TEST_PROJECTS = 3;
 
 	@Test
-	public void testSize() {
+	public void testSize() throws SimalRepositoryException {
 		SortableProjectDataProvider provider = new SortableProjectDataProvider();
 		assertEquals(NUMBER_OF_TEST_PROJECTS, provider.size());
 	}
 
 	@Test
-	public void testModel() {
+	public void testModel() throws SimalRepositoryException {
 		SortableProjectDataProvider provider = new SortableProjectDataProvider();
 		try {
 			provider.model("should throw an IllegalArgumentxception");
@@ -34,7 +35,7 @@ public class TestSortableProjectDataProvider {
 	}
 
 	@Test
-	public void testIterator() {
+	public void testIterator() throws SimalRepositoryException {
 		SortableProjectDataProvider provider = new SortableProjectDataProvider();
 		int pageSize = NUMBER_OF_TEST_PROJECTS - 1;
 

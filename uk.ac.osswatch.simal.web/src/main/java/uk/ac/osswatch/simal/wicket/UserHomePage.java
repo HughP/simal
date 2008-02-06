@@ -17,16 +17,24 @@ package uk.ac.osswatch.simal.wicket;
 
 import org.apache.wicket.markup.html.basic.Label;
 
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 
 public class UserHomePage extends BasePage {
 	private static final long serialVersionUID = -8125606657250912738L;
-	
+
 	public UserHomePage() {
-		add(new Label("message", "It works, but it doesn't do much yet."));
-		
-		add(new ProjectListPanel("projectList"));
-		add(new ProjectSummaryPanel("featuredProject", UserApplication.getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
+		try {
+			add(new Label("message", "It works, but it doesn't do much yet."));
+
+			add(new ProjectListPanel("projectList"));
+			add(new ProjectSummaryPanel("featuredProject", SimalRepository
+					.getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
+		} catch (SimalRepositoryException e) {
+			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
+			setResponsePage(new ErrorReportPage(error));
+		}
 	}
 }
