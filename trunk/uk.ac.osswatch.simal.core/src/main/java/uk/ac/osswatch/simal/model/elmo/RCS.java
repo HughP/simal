@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import java.util.Set;
+
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IRCS;
@@ -10,7 +12,8 @@ import uk.ac.osswatch.simal.model.IRCS;
  * @see org.openrdf.concepts.doap.Repository
  * 
  */
-public class RCS implements IRCS {
+public class RCS extends DoapResource implements IRCS {
+	private static final long serialVersionUID = 1383011087069487935L;
 	private org.openrdf.concepts.doap.Repository elmoRCS;
 
 	/**
@@ -23,8 +26,20 @@ public class RCS implements IRCS {
 	}
 	
 	public String toString() {
-		QName qname = elmoRCS.getQName();
+		QName qname = elmoRCS.getQName();		
 		return qname.getNamespaceURI() + qname.getLocalPart();
 	}
+	
+	 public Set<String> getAnonRoots() {
+		return convertToSetOfStrings(elmoRCS.getDoapAnonRoots());
+	 }
+     
+	 public Set<String> getBrowse() {
+			return convertToSetOfStrings(elmoRCS.getDoapBrowse());
+	 }
 
+	public Set<String> getLocations() {
+			return convertToSetOfStrings(elmoRCS.getDoapLocations());
+	 }
+     
 }

@@ -24,24 +24,41 @@ public abstract class BaseRepositoryTest {
 	protected static final String TEST_SIMAL_PROJECT_TRANSLATORS = "[http://foo.org/~translator/#me]";
 	protected static final String TEST_SIMAL_PROJECT_TESTERS = "[http://foo.org/~tester/#me]";
 	protected static final String TEST_SIMAL_PROJECT_SCREENSHOTS = "[http://www.foo.org/screenshots]";
+	
 	protected static final String TEST_SIMAL_PROJECT_REPOSITORIES = "[http://simal.oss-watch.ac.uk/simalTest#svnTrunk]";
+	protected static final String TEST_SIMAL_PROJECT_REPOSITORIES_ANON_ROOTS = "[]";
+	protected static final String TEST_SIMAL_PROJECT_REPOSITORIES_BROWSE_URL = "[http://svn.foo.org/viewvc/simal/trunk/]";
+	protected static final String TEST_SIMAL_PROJECT_REPOSITORIES_LOCATIONS = "[https://svn.foo.org/svnroot/simalTest]";
+		
 	protected static final String TEST_SIMAL_PROJECT_RELEASES = "[http://simal.oss-watch.ac.uk/simalTest#simal-0.1]";
+	protected static final String TEST_SIMAL_PROJECT_RELEASES_FILE_RELEASES = "[]";
+	protected static final String TEST_SIMAL_PROJECT_RELEASES_REVISIONS = "[0.1]";
+	
 	protected static final String TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE = "Java";
 	protected static final String TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO = "XML";
 	protected static final String TEST_SIMAL_PROJECT_OS = "Cross Platform";
 	protected static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "[http://www.oss-watch.ac.uk/simal]";
+	
 	protected static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "http://foo.org/~joeBlogs/#me";
 	protected static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "http://foo.org/~janeBlogs/#me";
+	
 	protected static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "http://foo.org/mailingList1";
 	protected static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "http://foo.org/mailingList2";
+	
 	protected static final String TEST_SIMAL_PROJECT_HOMEPAGES = "[http://simal.oss-watch.ac.uk]";
+	
 	protected static final String TEST_SIMAL_PROJECT_HELPERS = "[http://foo.org/~helper/#me]";
+	
 	protected static final String TEST_SIMAL_PROJECT_DOWNLOAD_PAGES = "[http://downlaod.foo.org]";
 	protected static final String TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS = "[http://downlaod.bar.org]";
+	
 	protected static final String TEST_SIMAL_PROJECT_DOCUMENTORS = "[http://foo.org/~documentor/#me]";
+	
 	protected static final String TEST_SIMAL_PROJECT_DEVELOPERS = "[http://foo.org/~developer/#me]";
+	
 	protected static final String TEST_SIMAL_PROJECT_CATEGORY_ONE = "http://simal.oss-watch.ac.uk/category/doapTest#";
 	protected static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#";
+	
 	protected static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "[http://issues.foo.org]";
 
 	public BaseRepositoryTest() {

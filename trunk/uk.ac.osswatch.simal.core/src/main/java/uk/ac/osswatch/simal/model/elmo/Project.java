@@ -31,122 +31,122 @@ public class Project extends DoapResource implements IProject {
 	 * @param simalTestProject
 	 */
 	public Project(org.openrdf.concepts.doap.Project elmoProject) {
-		this.elmoProject = elmoProject;
+		this.elmoResource = elmoProject;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getCategories() {
-		Set<Resource> resources = (Set) elmoProject.getDoapCategories();
+		Set<Resource> resources = (Set) getProject().getDoapCategories();
 		return getResourceURIs(resources);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IPerson> getDevelopers() throws SimalRepositoryException {
-		Set<Resource> resources = (Set) elmoProject.getDoapDevelopers();
+		Set<Resource> resources = (Set) getProject().getDoapDevelopers();
 		HashSet<IPerson> people = findPeople(resources);
 		return people;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IPerson> getDocumenters()  throws SimalRepositoryException {
-		Set<Resource> resources = (Set) elmoProject.getDoapDocumenters();
+		Set<Resource> resources = (Set) getProject().getDoapDocumenters();
 		HashSet<IPerson> people = findPeople(resources);
 		return people;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getDownloadMirrors() {
-		Set<Resource> resources = (Set) elmoProject.getDoapDownloadMirrors();
+		Set<Resource> resources = (Set) getProject().getDoapDownloadMirrors();
 		return getResourceURIs(resources);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getDownloadPages() {
-		Set<Resource> resources = (Set) elmoProject.getDoapDownloadPages();
+		Set<Resource> resources = (Set) getProject().getDoapDownloadPages();
 		return getResourceURIs(resources);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IPerson> getHelpers() throws SimalRepositoryException {
-		Set<Resource> resources = (Set) elmoProject.getDoapHelpers();
+		Set<Resource> resources = (Set) getProject().getDoapHelpers();
 		HashSet<IPerson> people = findPeople(resources);
 		return people;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getHomepages() {
-		Set<Resource> resources = (Set) elmoProject.getDoapHomepages();
+		Set<Resource> resources = (Set) getProject().getDoapHomepages();
 		return getResourceURIs(resources);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getIssueTracker() {
-		Set<Resource> resources = (Set) elmoProject.getDoapBugDatabases();
+		Set<Resource> resources = (Set) getProject().getDoapBugDatabases();
 		return getResourceURIs(resources);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getMailingLists() {
-		Set<Resource> resources = (Set) elmoProject.getDoapMailingLists();
+		Set<Resource> resources = (Set) getProject().getDoapMailingLists();
 		return getResourceURIs(resources);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IPerson> getMaintainers() throws SimalRepositoryException {
-		Set<Resource> resources = (Set) elmoProject.getDoapMaintainers();
+		Set<Resource> resources = (Set) getProject().getDoapMaintainers();
 		HashSet<IPerson> people = findPeople(resources);
 		return people;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getOSes() {
-		return (Set) elmoProject.getDoapOses();
+		return (Set) getProject().getDoapOses();
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getOldHomepages() {
-		Set<Resource> resources = (Set) elmoProject.getDoapOldHomepages();
+		Set<Resource> resources = (Set) getProject().getDoapOldHomepages();
 		return getResourceURIs(resources);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getProgrammingLangauges() {
-		return (Set) elmoProject.getDoapProgrammingLanguages();
+		return (Set) getProject().getDoapProgrammingLanguages();
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IVersion> getReleases() throws SimalRepositoryException {
-		return findReleases((Set) elmoProject.getDoapReleases());
+		return findReleases((Set) getProject().getDoapReleases());
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IRCS> getRepositories() throws SimalRepositoryException {
-		return findRepositories((Set) elmoProject.getDoapRepositories());
+		return findRepositories((Set) getProject().getDoapRepositories());
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getScreenshots() {
-		Set<Resource> resources = (Set) elmoProject.getDoapScreenshots();
+		Set<Resource> resources = (Set) getProject().getDoapScreenshots();
 		return getResourceURIs(resources);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IPerson> getTesters() throws SimalRepositoryException {
-		Set<Resource> resources = (Set) elmoProject.getDoapTesters();
+		Set<Resource> resources = (Set) getProject().getDoapTesters();
 		HashSet<IPerson> people = findPeople(resources);
 		return people;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IPerson> getTranslators() throws SimalRepositoryException {
-		Set<Resource> resources = (Set) elmoProject.getDoapTranslators();
+		Set<Resource> resources = (Set) getProject().getDoapTranslators();
 		HashSet<IPerson> people = findPeople(resources);
 		return people;
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getWikis() {
-		Set<Resource> resources = (Set) elmoProject.getDoapWikis();
+		Set<Resource> resources = (Set) getProject().getDoapWikis();
 		return getResourceURIs(resources);
 	}
 
@@ -212,6 +212,10 @@ public class Project extends DoapResource implements IProject {
 			repos.add(SimalRepository.getRCS(new QName(uri)));			
 		}
 		return repos;
+	}
+	
+	private org.openrdf.concepts.doap.Project getProject() {
+		return (org.openrdf.concepts.doap.Project)elmoResource;
 	}
 
 }

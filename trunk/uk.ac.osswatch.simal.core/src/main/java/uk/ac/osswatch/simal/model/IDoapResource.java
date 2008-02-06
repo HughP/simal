@@ -3,6 +3,8 @@ package uk.ac.osswatch.simal.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.xml.namespace.QName;
+
 import uk.ac.osswatch.simal.model.elmo.ProjectException;
 
 /**
@@ -23,6 +25,7 @@ public interface IDoapResource extends Serializable {
 
 	public abstract void setShortDesc(String shortDesc) throws ProjectException;
 	
+	public abstract QName getQName();
 	
 	public abstract String getCreated();
 	
