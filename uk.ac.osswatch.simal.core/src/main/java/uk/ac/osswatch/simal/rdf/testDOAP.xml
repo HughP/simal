@@ -41,8 +41,8 @@
 		dc:title="Mailing List 2" />
 
 	<wiki rdf:resource="http://wiki.foo.org" />
-	<download-page rdf:resource="http://downlaod.foo.org" />
-  <download-mirror rdf:resource="http://downlaod.bar.org" />
+	<download-page rdf:resource="http://download.foo.org" />
+  <download-mirror rdf:resource="http://download.bar.org" />
 	<bug-database rdf:resource="http://issues.foo.org" />
   
   <screenshots rdf:resource="http://www.foo.org/screenshots" />
