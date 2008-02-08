@@ -13,7 +13,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public interface IProject extends IDoapResource {
 
-	public Set<String> getIssueTracker();
+	public Set<String> getIssueTrackers();
 
 	public Set<String> getCategories();
 

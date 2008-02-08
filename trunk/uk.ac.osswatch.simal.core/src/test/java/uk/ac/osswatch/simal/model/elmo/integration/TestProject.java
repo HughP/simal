@@ -34,7 +34,7 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetIssueTracker() {
-		assertEquals(TEST_SIMAL_PROJECT_ISSUE_TRACKER, project1.getIssueTracker().toString());
+		assertEquals(TEST_SIMAL_PROJECT_ISSUE_TRACKER, project1.getIssueTrackers().toString());
 	}
 	
 	@Test
