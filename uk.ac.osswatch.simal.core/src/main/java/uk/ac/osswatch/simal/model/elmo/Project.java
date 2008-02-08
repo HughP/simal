@@ -80,7 +80,7 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<String> getIssueTracker() {
+	public Set<String> getIssueTrackers() {
 		Set<Resource> resources = (Set) getProject().getDoapBugDatabases();
 		return getResourceURIs(resources);
 	}
