@@ -49,8 +49,8 @@ public abstract class BaseRepositoryTest {
 	
 	protected static final String TEST_SIMAL_PROJECT_HELPERS = "[http://foo.org/~helper/#me]";
 	
-	protected static final String TEST_SIMAL_PROJECT_DOWNLOAD_PAGES = "[http://downlaod.foo.org]";
-	protected static final String TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS = "[http://downlaod.bar.org]";
+	protected static final String TEST_SIMAL_PROJECT_DOWNLOAD_PAGES = "[http://download.foo.org]";
+	protected static final String TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS = "[http://download.bar.org]";
 	
 	protected static final String TEST_SIMAL_PROJECT_DOCUMENTORS = "[http://foo.org/~documentor/#me]";
 	
