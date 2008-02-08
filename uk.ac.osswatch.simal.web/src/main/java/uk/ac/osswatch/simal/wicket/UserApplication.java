@@ -19,7 +19,6 @@ import javax.xml.namespace.QName;
 
 import org.apache.wicket.protocol.http.WebApplication;
 
-import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -41,12 +40,14 @@ public class UserApplication extends WebApplication {
     }
 
     public void init() {
+    	if (! SimalRepository.isInitialised()) {
     	try {
 			SimalRepository.initialise();
 		} catch (SimalRepositoryException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
+    	}
     }
 
 	@Override
