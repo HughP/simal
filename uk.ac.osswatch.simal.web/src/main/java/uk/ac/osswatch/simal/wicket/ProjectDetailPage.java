@@ -1,7 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
 
-
-import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
@@ -9,6 +7,7 @@ import org.apache.wicket.markup.html.link.IPageLink;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
 public class ProjectDetailPage extends BasePage {
 	private static final long serialVersionUID = 8719708525508677833L;
@@ -50,9 +49,9 @@ public class ProjectDetailPage extends BasePage {
 				.getMailingLists()));
 		add(getRepeatingLinks("wikis", "wiki", "Wiki", project.getWikis()));
 		try {
-			add(new Label("repositories", project.getRepositories().toString()));
+			add(new SourceRepositoriesPanel("sourceRepositories", project.getRepositories()));
 		} catch (SimalRepositoryException e) {
-			add(new Label("repositories", "Error retrieving repository details"));
+			add(new Label("sourceRepositories", "Error retrieving repository details"));
 		}
 		add(getRepeatingLinks("screenshots", "screenshot", "Screenshot", project.getScreenshots()));
 
