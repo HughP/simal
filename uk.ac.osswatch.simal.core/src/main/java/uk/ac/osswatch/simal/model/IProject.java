@@ -2,6 +2,7 @@ package uk.ac.osswatch.simal.model;
 
 import java.util.Set;
 
+import uk.ac.osswatch.simal.model.elmo.Resource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -29,7 +30,7 @@ public interface IProject extends IDoapResource {
 
 	public Set<String> getHomepages();
 
-	public Set<String> getMailingLists();
+	public Set<Resource> getMailingLists();
 
 	public Set<IPerson> getMaintainers() throws SimalRepositoryException;
 

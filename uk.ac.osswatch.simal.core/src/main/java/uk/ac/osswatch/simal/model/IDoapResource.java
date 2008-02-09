@@ -15,7 +15,7 @@ import uk.ac.osswatch.simal.model.elmo.ProjectException;
  *
  * @see uk.ac.osswatch.simal.model.elmo.DoapResource
  */
-public interface IDoapResource extends Serializable {
+public interface IDoapResource extends IResource, Serializable {
 
 	public abstract String getName() throws ProjectException;
 

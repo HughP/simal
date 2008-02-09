@@ -42,6 +42,7 @@ public abstract class BaseRepositoryTest {
 	protected static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "http://foo.org/~joeBlogs/#me";
 	protected static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "http://foo.org/~janeBlogs/#me";
 	
+	protected static final int TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST = 2;
 	protected static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "http://foo.org/mailingList1";
 	protected static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "http://foo.org/mailingList2";
 	

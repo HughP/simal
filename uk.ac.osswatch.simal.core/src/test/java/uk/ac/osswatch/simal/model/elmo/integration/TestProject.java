@@ -2,8 +2,11 @@ package uk.ac.osswatch.simal.model.elmo.integration;
 
 import static org.junit.Assert.*;
 
+import java.util.Set;
+
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.model.elmo.Resource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestProject extends AbstractTestDOAP {
@@ -75,8 +78,10 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetMailingLists() {
-		assertTrue(project1.getMailingLists().toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_ONE));
-		assertTrue(project1.getMailingLists().toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_TWO));
+		Set<Resource> lists = project1.getMailingLists();
+		assertEquals("Got incorrect number of mailing lists", TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST, lists.size());
+		assertTrue(lists.toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_ONE));
+		assertTrue(lists.toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_TWO));
 	}
 	
 	@Test
