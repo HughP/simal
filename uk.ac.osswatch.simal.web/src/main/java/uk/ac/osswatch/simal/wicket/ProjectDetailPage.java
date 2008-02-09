@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
@@ -11,6 +12,7 @@ import org.apache.wicket.markup.html.link.IPageLink;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.model.elmo.Resource;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -116,16 +118,26 @@ public class ProjectDetailPage extends BasePage {
 	 * @param resources the resources to be added to the list
 	 * @return
 	 */
-	private RepeatingView getRepeatingLinks(String repeaterWicketID, String itemWicketID, Set<?> resources) {
-		Iterator<?> itr = resources.iterator();
+	private RepeatingView getRepeatingLinks(String repeaterWicketID, String itemWicketID, Set<Resource> resources) {
+		Iterator<Resource> itr = resources.iterator();
 		RepeatingView repeating = new RepeatingView(repeaterWicketID);
 		WebMarkupContainer item;
-		Object resource;
+		Resource resource;
+		String label;
+		String comment;
+		String url;
+		ExternalLink link;
 		while (itr.hasNext()) {
 			item = new WebMarkupContainer(repeating.newChildId());
 		    repeating.add(item);
 		    resource = itr.next();
-		    item.add(new ExternalLink(itemWicketID, resource.toString()).add(new Label("label", resource.toString())));
+		    label = resource.getLabel();
+		    comment = resource.getComment();
+		    url = resource.toString();
+		    link = new ExternalLink(itemWicketID, url);
+		    link.add(new Label("label", label));
+		    link.add(new SimpleAttributeModifier("alt", comment));
+		    item.add(link);
 		}
 		return repeating;
 	}

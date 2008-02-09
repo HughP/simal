@@ -15,8 +15,8 @@ public class TestProjectDetailPage extends TestBase {
 		tester.assertVisible("description");
 		
 		tester.assertVisible("mailingLists");
-		tester.assertLabel("mailingLists:1:mailingList:label", "http://foo.org/mailingList1");
-		tester.assertLabel("mailingLists:2:mailingList:label", "http://foo.org/mailingList2");
+		tester.assertLabel("mailingLists:1:mailingList:label", "Mailing List 1");
+		tester.assertLabel("mailingLists:2:mailingList:label", "Mailing List 2");
 		
 		tester.assertVisible("footer");
 	}
