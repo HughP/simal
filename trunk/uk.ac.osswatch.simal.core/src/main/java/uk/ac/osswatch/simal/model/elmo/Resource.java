@@ -18,13 +18,17 @@ public class Resource implements IResource {
 
 	public String getLabel() {
 		String label = elmoResource.getRdfsLabel();
-		if (label.equals("")) {
+		if (label == null || label.equals("")) {
 			label = elmoResource.toString();
 		}
 		return label;
 	}
 
 	public String getComment() {
+		String comment = elmoResource.getRdfsComment();
+		if (comment == null) {
+			comment = "";
+		}
 		return elmoResource.getRdfsComment();
 	}
 
