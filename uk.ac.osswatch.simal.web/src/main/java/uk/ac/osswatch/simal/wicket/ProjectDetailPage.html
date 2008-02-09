@@ -26,25 +26,50 @@
   <div class="widget">
     <h2>Community Tools</h2>
     <div class="content">
-      <p wicket:id="issueTrackers">A list of issue trackers</p>
+      <div wicket:id="issueTrackers">
+        <a wicket:id="issueTracker" href="#"><span wicket:id="label">An Issue Tracker</span></a>
+      </div>
       
       <h3>Mailing Lists</h3>
       <ul wicket:id="mailingLists">
         <li><a wicket:id="mailingList" href="#"><span wicket:id="label">A mailing list</span></a></li>
       </ul>
+            
+      <div wicket:id="wikis">
+        <a wicket:id="wiki" href="#"><span wicket:id="label">A wiki</span></a>
+      </div>
       
-      <p wicket:id="wikis">A list of wikis</p>
       <p wicket:id="repositories">A list of repositories</p>
-      <p wicket:id="screenshots">A list of screenshots</p>
+      
+      <div wicket:id="screenshots">
+        <a wicket:id="screenshot" href="#"><span wicket:id="label">Screenshots</span></a>
+      </div>
     </div>
   </div>
   
   <div class="widget">
     <h2>Facets</h2>
     <div class="content">
-      <p wicket:id="categories">A list of categories</p>
-      <p wicket:id="OSes">A list of OSes</p>
-      <p wicket:id="programmingLanguages">A list of programming languages</p>
+      <h2>Categories</h2>
+      <div wicket:id="categories">
+        <ul>
+          <li><a wicket:id="category" href="#"><span wicket:id="label">Category</span></a></li>
+        </ul>
+      </div>
+      
+      <h2>Operating System(s)</h2>
+      <div wicket:id="OSes">
+        <ul>
+          <li wicket:id="OS">Operating System</li>
+        </ul>
+      </div>
+      
+      <h2>Programming Language(s)</h2>
+      <div wicket:id="programmingLanguages">
+        <ul>
+          <li wicket:id="programmingLanguage">Operating System</li>
+        </ul>
+      </div>
     </div>
   </div>
   
@@ -63,8 +88,17 @@
   <div class="widget">
     <h2>Downloads</h2>
     <div class="content">
-      <p wicket:id="downloadPages">A list of download pages</p>
-      <p wicket:id="downloadMirrors">A list of download mirrors</p>
+      <div wicket:id="downloadPages">
+        <ul>
+          <li><a wicket:id="downloadPage" href="#"><span wicket:id="label">Download Page</span></a></li>
+        </ul>
+      </div>
+      
+      <div wicket:id="downloadMirrors">
+        <ul>
+          <li><a wicket:id="downloadMirror" href="#"><span wicket:id="label">Download Mirror</span></a></li>
+        </ul>
+      </div>
     </div>
   </div>
   
