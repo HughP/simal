@@ -73,7 +73,9 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetHomepages() {
-		assertEquals(TEST_SIMAL_PROJECT_HOMEPAGES, project1.getHomepages().toString());
+		String homepages = project1.getHomepages().toString();
+		assertTrue(homepages.contains(TEST_SIMAL_PROJECT_HOMEPAGE_ONE));
+		assertTrue(homepages.contains(TEST_SIMAL_PROJECT_HOMEPAGE_TWO));
 	}
 	
 	@Test
