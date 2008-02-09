@@ -17,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.panel;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.IPageLink;
 import org.apache.wicket.markup.html.link.PageLink;
 import org.apache.wicket.markup.html.panel.Panel;
