@@ -46,7 +46,8 @@ public abstract class BaseRepositoryTest {
 	protected static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "http://foo.org/mailingList1";
 	protected static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "http://foo.org/mailingList2";
 	
-	protected static final String TEST_SIMAL_PROJECT_HOMEPAGES = "[http://simal.oss-watch.ac.uk]";
+	protected static final String TEST_SIMAL_PROJECT_HOMEPAGE_ONE = "http://simal.oss-watch.ac.uk";
+	protected static final String TEST_SIMAL_PROJECT_HOMEPAGE_TWO = "http://code.google.com/p/simal";
 	
 	protected static final String TEST_SIMAL_PROJECT_HELPERS = "[http://foo.org/~helper/#me]";
 	
