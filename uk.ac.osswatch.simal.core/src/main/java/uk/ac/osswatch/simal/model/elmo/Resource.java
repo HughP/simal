@@ -1,30 +1,52 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 import uk.ac.osswatch.simal.model.IResource;
 
 public class Resource implements IResource {
 	protected org.openrdf.concepts.rdfs.Resource elmoResource;
 
-	protected Resource() {};
-	
+	protected Resource() {
+	};
+
 	public Resource(org.openrdf.concepts.rdfs.Resource resource) {
 		this.elmoResource = resource;
 	}
 
 	public String getLabel() {
 		String label = elmoResource.getRdfsLabel();
-	    if (label.equals("")) {
-	    	label = elmoResource.toString();
-	    }
+		if (label.equals("")) {
+			label = elmoResource.toString();
+		}
 		return label;
 	}
 
 	public String getComment() {
 		return elmoResource.getRdfsComment();
 	}
-	
+
 	public String toString() {
 		return elmoResource.toString();
+	}
+
+	public static Set<Resource> createResourceSet(Set<Object> set) {
+		Iterator<Object> elmoResources = set.iterator();
+		HashSet<Resource> results = new HashSet<Resource>(set.size());
+		org.openrdf.concepts.rdfs.Resource resource;
+		while (elmoResources.hasNext()) {
+			resource = (org.openrdf.concepts.rdfs.Resource) elmoResources
+					.next();
+			if (resource instanceof org.openrdf.concepts.rdfs.Resource) {
+				results.add(new Resource(resource));
+			} else {
+				throw new IllegalArgumentException(
+						"Can only create resources from elmo resources.");
+			}
+		}
+		return results;
 	}
 
 }
