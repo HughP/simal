@@ -6,8 +6,6 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.openrdf.concepts.rdfs.Resource;
-
 import uk.ac.osswatch.simal.model.IDoapResource;
 
 
@@ -18,15 +16,14 @@ import uk.ac.osswatch.simal.model.IDoapResource;
  * extends DOAPResource. Wrappers for these more granular
  * classes should be created that extend this class, when such
  * wrappers are instantiated they should set the value of
- * elmoResource to to wrapped elmo object.
+ * getDoapResource() to to wrapped elmo object.
  * 
  * @see org.openrdf.concepts.doap.DoapResource
  */
-public class DoapResource implements IDoapResource {
+public class DoapResource extends Resource implements IDoapResource {
 
 	private static final long serialVersionUID = -7610178891247360114L;
-	protected org.openrdf.concepts.doap.DoapResource elmoResource;
-
+	
 	protected DoapResource() {};
 	
 	/**
@@ -34,11 +31,11 @@ public class DoapResource implements IDoapResource {
 	 * Project class.
 	 */
 	public String getName() {
-		return (String) elmoResource.getDoapNames().toArray()[0];
+		return (String) getDoapResource().getDoapNames().toArray()[0];
 	}
 
 	public String getShortDesc() {
-		return elmoResource.getDoapShortdesc();
+		return getDoapResource().getDoapShortdesc();
 	}
 
 	/**
@@ -50,23 +47,23 @@ public class DoapResource implements IDoapResource {
 	 *             if the project has more than one name
 	 */
 	public void setName(String name) throws ProjectException {
-		if (elmoResource.getDoapNames() != null) {
-			if (elmoResource.getDoapNames().size() != 1) {
+		if (getDoapResource().getDoapNames() != null) {
+			if (getDoapResource().getDoapNames().size() != 1) {
 				throw new ProjectException(
 						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
 			}
-			Set<Object> names = elmoResource.getDoapNames();
+			Set<Object> names = getDoapResource().getDoapNames();
 			names.remove(names.toArray()[0]);
 			names.add(name);
 		}
 	}
 
 	public void setShortDesc(String shortDesc) {
-		elmoResource.setDoapShortdesc(shortDesc);
+		getDoapResource().setDoapShortdesc(shortDesc);
 	}
 
 	public QName getQName() {
-		return elmoResource.getQName();
+		return getDoapResource().getQName();
 	}
 
 	public String toString() {
@@ -91,27 +88,27 @@ public class DoapResource implements IDoapResource {
 	}
 
 	public String getCreated() {
-		return (String) elmoResource.getDoapCreated().toArray()[0];
+		return (String) getDoapResource().getDoapCreated().toArray()[0];
 	}
 
 	public String getDescription() {
-		return elmoResource.getDoapDescription();
+		return getDoapResource().getDoapDescription();
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getLicences() {
-		Set<Resource> licences = (Set) elmoResource.getDoapLicenses();
+		Set<org.openrdf.concepts.rdfs.Resource> licences = (Set) getDoapResource().getDoapLicenses();
 		return getResourceURIs(licences);
 	}
 
-	protected Set<String> getResourceURIs(Set<Resource> resources) {
-		Iterator<Resource> itr = resources.iterator();
-		Resource resource;
+	protected Set<String> getResourceURIs(Set<org.openrdf.concepts.rdfs.Resource> resources) {
+		Iterator<org.openrdf.concepts.rdfs.Resource> itr = resources.iterator();
+		org.openrdf.concepts.rdfs.Resource resource;
 		String ns;
 		String local;
-		Set<String> result = new HashSet<String>(elmoResource.getDoapLicenses().size());
+		Set<String> result = new HashSet<String>(getDoapResource().getDoapLicenses().size());
 	    while (itr.hasNext()) {
-	    	resource = itr.next();
+	    	resource = (org.openrdf.concepts.rdfs.Resource) itr.next();
 			ns = resource.getQName().getNamespaceURI();
 			local = resource.getQName().getLocalPart();
 			result.add(ns + local);
@@ -120,19 +117,19 @@ public class DoapResource implements IDoapResource {
 	}
 
 	public void setCreated(String created) throws ProjectException {
-		if (elmoResource.getDoapCreated() != null) {
-			if (elmoResource.getDoapCreated().size() != 1) {
+		if (getDoapResource().getDoapCreated() != null) {
+			if (getDoapResource().getDoapCreated().size() != 1) {
 				throw new ProjectException(
 						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
 			}
-			Set<Object> dates = elmoResource.getDoapCreated();
+			Set<Object> dates = getDoapResource().getDoapCreated();
 			dates.remove(dates.toArray()[0]);
 			dates.add(created);
 		}
 	}
 
 	public void setDescription(String newDesc) {
-		elmoResource.setDoapDescription(newDesc);
+		getDoapResource().setDoapDescription(newDesc);
 	}
 
 	protected Set<String> convertToSetOfStrings(Set<Object> sourceSet) {
@@ -142,6 +139,10 @@ public class DoapResource implements IDoapResource {
 			result.add(itr.next().toString());
 		}
 		return result;
+	}
+	
+	public org.openrdf.concepts.doap.DoapResource getDoapResource() {
+		return (org.openrdf.concepts.doap.DoapResource) elmoResource;
 	}
 
 }
