@@ -14,27 +14,27 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public interface IProject extends IDoapResource {
 
-	public Set<String> getIssueTrackers();
+	public Set<Resource> getIssueTrackers();
 
-	public Set<String> getCategories();
+	public Set<Resource> getCategories();
 
 	public Set<IPerson> getDevelopers() throws SimalRepositoryException;
 
 	public Set<IPerson> getDocumenters() throws SimalRepositoryException;
 
-	public Set<String> getDownloadMirrors();
+	public Set<Resource> getDownloadMirrors();
 
-	public Set<String> getDownloadPages();
+	public Set<Resource> getDownloadPages();
 
 	public Set<IPerson> getHelpers() throws SimalRepositoryException;
 
-	public Set<String> getHomepages();
+	public Set<Resource> getHomepages();
 
 	public Set<Resource> getMailingLists();
 
 	public Set<IPerson> getMaintainers() throws SimalRepositoryException;
 
-	public Set<String> getOldHomepages();
+	public Set<Resource> getOldHomepages();
 
 	public Set<String> getOSes();
 
@@ -44,11 +44,11 @@ public interface IProject extends IDoapResource {
 
 	public Set<IRCS> getRepositories() throws SimalRepositoryException;
 
-	public Set<String> getScreenshots();
+	public Set<Resource> getScreenshots();
 
 	public Set<IPerson> getTesters() throws SimalRepositoryException;
 
 	public Set<IPerson> getTranslators() throws SimalRepositoryException;
 
-	public Set<String> getWikis();
+	public Set<Resource> getWikis();
 }
