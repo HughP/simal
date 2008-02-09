@@ -17,9 +17,17 @@ public class Resource implements IResource {
 	}
 
 	public String getLabel() {
+		return getLabel(null);
+	}
+
+	public String getLabel(String defaultLabel) {
 		String label = elmoResource.getRdfsLabel();
 		if (label == null || label.equals("")) {
-			label = elmoResource.toString();
+			if (defaultLabel != null) {
+				label = defaultLabel;
+			} else {
+				label = elmoResource.toString();
+			}
 		}
 		return label;
 	}
