@@ -32,8 +32,9 @@
     This is the full description of this DOAP file that is used during automated testing of Simal. It contains examples of all the DOAP elements that are currently in use within Simal. 
   </description>
   
-  <homepage rdf:resource="http://simal.oss-watch.ac.uk" />
-  <old-homepage rdf:resource="http://www.oss-watch.ac.uk/simal" />
+  <homepage rdfs:label="Project Home Page" rdf:resource="http://simal.oss-watch.ac.uk" />
+  <homepage rdfs:label="Developer Home Page" rdf:resource="http://code.google.com/p/simal" />
+  <old-homepage rdfs:label="Original home page at OSS Watch" rdf:resource="http://www.oss-watch.ac.uk/simal" />
 
 	<mailing-list rdf:resource="http://foo.org/mailingList1"
 		rdfs:label="Mailing List 1" rdfs:comment="This is the first mailing list"/>
