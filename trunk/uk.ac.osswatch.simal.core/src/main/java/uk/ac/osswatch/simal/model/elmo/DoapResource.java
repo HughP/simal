@@ -31,7 +31,11 @@ public class DoapResource extends Resource implements IDoapResource {
 	 * Project class.
 	 */
 	public String getName() {
-		return (String) getDoapResource().getDoapNames().toArray()[0];
+		Set<Object> names = getDoapResource().getDoapNames();
+		if (names == null) {
+			return "";
+		}
+		return (String) names.toArray()[0];
 	}
 
 	public String getShortDesc() {
