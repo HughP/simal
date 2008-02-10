@@ -16,6 +16,12 @@ public class TestProjectDetailPage extends TestBase {
 		
 		tester.assertVisible("mailingLists");
 		
+		tester.assertVisible("maintainers");
+		tester.assertVisible("maintainers:1:maintainer");
+		tester.assertVisible("maintainers:2:maintainer");
+		
+		tester.assertVisible("developers");
+		
 		tester.assertVisible("footer");
 	}
 }

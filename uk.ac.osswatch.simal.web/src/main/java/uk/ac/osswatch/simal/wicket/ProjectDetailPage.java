@@ -1,12 +1,19 @@
 package uk.ac.osswatch.simal.wicket;
 
+import java.util.Iterator;
+import java.util.Set;
+
+import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
 
+import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.elmo.Person;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
@@ -73,32 +80,38 @@ public class ProjectDetailPage extends BasePage {
 
 		// contributors
 		try {
-			add(new Label("maintainers", project.getMaintainers().toString()));
+			add(getRepeatingPersonPanel("maintainers", "maintainer", project
+					.getMaintainers()));
 		} catch (SimalRepositoryException e) {
 			add(new Label("maintainers", "Error retrieving maintainer details"));
 		}
 		try {
-			add(new Label("developers", project.getDevelopers().toString()));
+			add(getRepeatingPersonPanel("developers", "developer", project
+					.getDevelopers()));
 		} catch (SimalRepositoryException e) {
 			add(new Label("developers", "Error retrieving developer details"));
 		}
 		try {
-			add(new Label("testers", project.getTesters().toString()));
+			add(getRepeatingPersonPanel("testers", "tester", project
+					.getTesters()));
 		} catch (SimalRepositoryException e) {
 			add(new Label("testers", "Error retrieving tester details"));
 		}
 		try {
-			add(new Label("helpers", project.getHelpers().toString()));
+			add(getRepeatingPersonPanel("helpers", "helper", project
+					.getHelpers()));
 		} catch (SimalRepositoryException e) {
 			add(new Label("helpers", "Error retrieving helper details"));
 		}
 		try {
-			add(new Label("documenters", project.getDocumenters().toString()));
+			add(getRepeatingPersonPanel("documenters", "documenter", project
+					.getDocumenters()));
 		} catch (SimalRepositoryException e) {
 			add(new Label("documenters", "Error retrieving documenter details"));
 		}
 		try {
-			add(new Label("translators", project.getTranslators().toString()));
+			add(getRepeatingPersonPanel("translators", "translator", project
+					.getTranslators()));
 		} catch (SimalRepositoryException e) {
 			add(new Label("translators", "Error retrieving translator details"));
 		}

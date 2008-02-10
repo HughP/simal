@@ -13,7 +13,9 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.elmo.Resource;
+import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 
 /**
  * The base page for a standard simal web page. It contains the
@@ -117,6 +119,29 @@ public class BasePage extends WebPage {
 			repeating.add(item);
 			label = itr.next();
 			item.add(new Label(labelWicketID, label));
+		}
+		return repeating;
+	}
+
+	/**
+	 * Get a simple repeating view displaying a number of person summary panels.
+	 * 
+	 * @param repeaterWicketID the wicket ID of the repeating view
+	 * @param personWicketID the wicket ID for the repeating person panel
+	 * @param people the set of people to display in this repeating view
+	 * @return
+	 */
+	protected RepeatingView getRepeatingPersonPanel(String repeaterWicketID, String personWicketID,
+			Set<IPerson> people) {
+		Iterator<IPerson> itr = people.iterator();
+		RepeatingView repeating = new RepeatingView(repeaterWicketID);
+		WebMarkupContainer item;
+		IPerson person;
+		while (itr.hasNext()) {
+			item = new WebMarkupContainer(repeating.newChildId());
+			repeating.add(item);
+			person = itr.next();
+			item.add(new PersonSummaryPanel(personWicketID, person));
 		}
 		return repeating;
 	}
