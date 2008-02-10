@@ -1,6 +1,8 @@
 package uk.ac.osswatch.simal.model.elmo;
 
-import javax.xml.namespace.QName;
+import java.util.Set;
+
+import org.openrdf.concepts.foaf.Document;
 
 import uk.ac.osswatch.simal.model.IPerson;
 
@@ -12,20 +14,24 @@ import uk.ac.osswatch.simal.model.IPerson;
  */
 public class Person extends FoafResource implements IPerson {
 	private static final long serialVersionUID = -6234779132155536113L;
-	private org.openrdf.concepts.foaf.Person elmoPerson;
-
+	
 	/**
 	 * Create a new wrapper around an elmo Person object.
 	 * 
 	 * @param simalTestProject
 	 */
 	public Person(org.openrdf.concepts.foaf.Person elmoPerson) {
-		this.elmoPerson = elmoPerson;
+		super(elmoPerson);
 	}
 	
-	public String toString() {
-		QName qname = elmoPerson.getQName();
-		return qname.getNamespaceURI() + qname.getLocalPart();
+	/**
+	 * Get the home page of this person.
+	 */
+	public Set<Document> getHomepages() {
+		return getPerson().getFoafHomepages();
 	}
 
+	private org.openrdf.concepts.foaf.Person getPerson() {
+		return (org.openrdf.concepts.foaf.Person)elmoResource;
+	}
 }

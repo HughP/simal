@@ -17,6 +17,11 @@ public interface IFoafResource extends Serializable {
 	public abstract QName getQName();
 	
 	/**
+	 * Get the given names of the person.
+	 */
+    public String getGivennames();
+	
+	/**
 	 * Get a JSON representation of this project.
 	 * 
 	 * @param asRecord if set to true then only a single JSON record is returned,otherwie a complete JSON file is returned
