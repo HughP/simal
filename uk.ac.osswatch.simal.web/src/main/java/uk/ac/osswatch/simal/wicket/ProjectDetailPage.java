@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.link.IPageLink;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
 public class ProjectDetailPage extends BasePage {
@@ -37,28 +38,38 @@ public class ProjectDetailPage extends BasePage {
 		// details
 		add(new Label("description", project.getDescription()));
 		try {
-			add(new Label("releases", project.getReleases().toString()));
+			add(new ReleasesPanel("releases", project.getReleases()));
 		} catch (SimalRepositoryException e) {
-			add(new Label("releases", "Error retrieving release details"));
+			UserReportableException error = new UserReportableException(
+					"Unable to get project releases from the repository",
+					ExhibitProjectBrowserPage.class, e);
+			setResponsePage(new ErrorReportPage(error));
 		}
 		add(getRepeatingLinks("homepages", "homepage", project.getHomepages()));
 
 		// Community tools
-		add(getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker", project.getIssueTrackers()));
+		add(getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker",
+				project.getIssueTrackers()));
 		add(getRepeatingLinks("mailingLists", "mailingList", project
 				.getMailingLists()));
 		add(getRepeatingLinks("wikis", "wiki", "Wiki", project.getWikis()));
 		try {
-			add(new SourceRepositoriesPanel("sourceRepositories", project.getRepositories()));
+			add(new SourceRepositoriesPanel("sourceRepositories", project
+					.getRepositories()));
 		} catch (SimalRepositoryException e) {
-			add(new Label("sourceRepositories", "Error retrieving repository details"));
+			UserReportableException error = new UserReportableException(
+					"Unable to get project source repositories from the repository",
+					ExhibitProjectBrowserPage.class, e);
+			setResponsePage(new ErrorReportPage(error));
 		}
-		add(getRepeatingLinks("screenshots", "screenshot", "Screenshot", project.getScreenshots()));
+		add(getRepeatingLinks("screenshots", "screenshot", "Screenshot",
+				project.getScreenshots()));
 
 		// facets
 		add(getRepeatingLinks("categories", "category", project.getCategories()));
 		add(getRepeatingLabels("OSes", "OS", project.getOSes()));
-		add(getRepeatingLabels("programmingLanguages", "programmingLanguage", project.getProgrammingLangauges()));
+		add(getRepeatingLabels("programmingLanguages", "programmingLanguage",
+				project.getProgrammingLangauges()));
 
 		// contributors
 		try {
@@ -93,8 +104,10 @@ public class ProjectDetailPage extends BasePage {
 		}
 
 		// downlaod
-		add(getRepeatingLinks("downloadPages", "downloadPage", "Downloads", project.getDownloadPages()));
-		add(getRepeatingLinks("downloadMirrors", "downloadMirror", "Download Mirror", project.getDownloadMirrors()));
+		add(getRepeatingLinks("downloadPages", "downloadPage", "Downloads",
+				project.getDownloadPages()));
+		add(getRepeatingLinks("downloadMirrors", "downloadMirror",
+				"Download Mirror", project.getDownloadMirrors()));
 
 		add(new Label("created", project.getCreated()));
 	}
