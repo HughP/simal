@@ -6,8 +6,12 @@ import uk.ac.osswatch.simal.model.IFoafResource;
 
 public class FoafResource implements IFoafResource {
 	private static final long serialVersionUID = -3852417254318582808L;
-	protected org.openrdf.concepts.foaf.Person elmoPerson;
+	protected org.openrdf.concepts.foaf.FoafResource elmoResource;
 	
+	public FoafResource(org.openrdf.concepts.foaf.Person person) {
+		elmoResource = person;
+	}
+
 	public String toJSON(boolean asRecord) {
 		StringBuffer json = new StringBuffer();
 		if (!asRecord) {
@@ -25,6 +29,15 @@ public class FoafResource implements IFoafResource {
 
 	public QName getQName() {
 		return null;
+	}
+	
+	public String toString() {
+		QName qname = elmoResource.getQName();
+		return qname.getNamespaceURI() + qname.getLocalPart();
+	}
+
+	public String getGivennames() {
+		return elmoResource.getFoafGivennames().toString();
 	}
 
 }

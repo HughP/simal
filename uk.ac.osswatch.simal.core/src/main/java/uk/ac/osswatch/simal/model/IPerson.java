@@ -1,5 +1,9 @@
 package uk.ac.osswatch.simal.model;
 
+import java.util.Set;
+
+import org.openrdf.concepts.foaf.Document;
+
 /**
  * A wrapper around a repository representation of a foaf Person.
  * 
@@ -7,5 +11,9 @@ package uk.ac.osswatch.simal.model;
  *
  */
 public interface IPerson extends IFoafResource {
-
+	
+	/**
+	 * Get the home page of this person.
+	 */
+	public Set<Document> getHomepages();
 }

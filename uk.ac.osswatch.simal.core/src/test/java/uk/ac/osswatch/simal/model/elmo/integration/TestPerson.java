@@ -8,6 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.elmo.Person;
 
 public class TestPerson extends AbstractTestDOAP {
 
@@ -17,12 +18,16 @@ public class TestPerson extends AbstractTestDOAP {
 	private static Set<IPerson> helpers;
 	private static Set<IPerson> translators;
 	private static Set<IPerson> testers;
+	private static Person developer;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		project1 = getSimalTestProject(false);
 		maintainers = project1.getMaintainers();
+		
 		developers = project1.getDevelopers();
+		developer = (Person)developers.toArray()[0];
+		
 		helpers = project1.getHelpers();
 		documenters = project1.getHelpers();
 		translators = project1.getTranslators();
@@ -37,5 +42,15 @@ public class TestPerson extends AbstractTestDOAP {
 		assertEquals("Should have one documenters", 1, documenters.size());
 		assertEquals("Should have one translators", 1, translators.size());
 		assertEquals("Should have one testers", 1, testers.size());
+	}
+	
+	@Test
+	public void testNames() {
+		assertEquals("developer", developer.getGivennames());
+	}
+	
+	@Test
+	public void testHomePage() {
+		assertEquals("http://example.org/person/developer", developer.getHomepages().toString());
 	}
 }

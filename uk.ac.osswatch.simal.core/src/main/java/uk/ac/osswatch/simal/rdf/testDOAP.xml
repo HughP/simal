@@ -79,7 +79,7 @@
 	<maintainer>
 		<foaf:Person
 			rdf:about="http://foo.org/~joeBlogs/#me">
-			<foaf:name>Joe Blogs Maintainer</foaf:name>
+			<foaf:givenname>Joe Blogs Maintainer</foaf:givenname>
 			<rdf:seeAlso
 				rdf:resource="http://foo.org/~joeBlogs/foaf.rdf.xml" />
 		</foaf:Person>
@@ -88,7 +88,7 @@
 	<maintainer>
 		<foaf:Person
 			rdf:about="http://foo.org/~janeBlogs/#me">
-			<foaf:name>Jane Blogs Maintainer</foaf:name>
+			<foaf:givenname>Jane Blogs Maintainer</foaf:givenname>
 			<rdf:seeAlso
 				rdf:resource="http://foo.org/~janeBlogs/foaf.rdf.xml" />
 		</foaf:Person>
@@ -97,7 +97,7 @@
   <translator>
     <foaf:Person
       rdf:about="http://foo.org/~translator/#me">
-      <foaf:name>Translator</foaf:name>
+      <foaf:givenname>Translator</foaf:givenname>
       <rdf:seeAlso
         rdf:resource="http://foo.org/~translator/foaf.rdf.xml" />
     </foaf:Person>
@@ -106,7 +106,7 @@
   <tester>
     <foaf:Person
       rdf:about="http://foo.org/~tester/#me">
-      <foaf:name>Tester</foaf:name>
+      <foaf:givenname>Tester</foaf:givenname>
       <rdf:seeAlso
         rdf:resource="http://foo.org/~tester/foaf.rdf.xml" />
     </foaf:Person>
@@ -115,7 +115,7 @@
   <helper>
     <foaf:Person
       rdf:about="http://foo.org/~helper/#me">
-      <foaf:name>helper</foaf:name>
+      <foaf:givenname>helper</foaf:givenname>
       <rdf:seeAlso
         rdf:resource="http://foo.org/~helper/foaf.rdf.xml" />
     </foaf:Person>
@@ -124,7 +124,7 @@
   <documenter>
     <foaf:Person
       rdf:about="http://foo.org/~documentor/#me">
-      <foaf:name>documentor</foaf:name>
+      <foaf:givenname>documentor</foaf:givenname>
       <rdf:seeAlso
         rdf:resource="http://foo.org/~documentor/foaf.rdf.xml" />
     </foaf:Person>
@@ -133,9 +133,8 @@
   <developer>
     <foaf:Person
       rdf:about="http://foo.org/~developer/#me">
-      <foaf:name>developer</foaf:name>
-      <rdf:seeAlso
-        rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
+      <foaf:givenname>developer</foaf:givenname>
+      <foaf:homepage rdf:resource="http://example.org/person/developer" />
     </foaf:Person>
   </developer>
 </Project>
