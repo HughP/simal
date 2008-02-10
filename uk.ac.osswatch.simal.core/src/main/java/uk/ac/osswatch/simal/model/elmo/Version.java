@@ -2,6 +2,8 @@ package uk.ac.osswatch.simal.model.elmo;
 
 import java.util.Set;
 
+import javax.xml.namespace.QName;
+
 import uk.ac.osswatch.simal.model.IVersion;
 
 /**
@@ -32,6 +34,11 @@ public class Version extends DoapResource implements IVersion {
 
 	public Set<String> getRevisions() {
 		return convertToSetOfStrings(getVersion().getDoapRevisions());
+	}	
+	
+	public String toString() {
+		QName qname = getVersion().getQName();
+		return qname.getNamespaceURI() + qname.getLocalPart();
 	}
 
 }
