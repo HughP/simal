@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.model;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.elmo.Resource;
@@ -51,4 +52,12 @@ public interface IProject extends IDoapResource {
 	public Set<IPerson> getTranslators() throws SimalRepositoryException;
 
 	public Set<Resource> getWikis();
+
+	/**
+	 * Get all the people known to be engaged with this project.
+	 * 
+	 * @return
+	 * @throws SimalRepositoryException
+	 */
+	public HashSet<Resource> getAllPeople() throws SimalRepositoryException;
 }

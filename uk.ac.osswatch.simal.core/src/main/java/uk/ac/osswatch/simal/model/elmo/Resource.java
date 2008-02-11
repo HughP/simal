@@ -7,9 +7,10 @@ import java.util.Set;
 import uk.ac.osswatch.simal.model.IResource;
 
 public class Resource implements IResource {
-	protected org.openrdf.concepts.rdfs.Resource elmoResource;
+	protected final org.openrdf.concepts.rdfs.Resource elmoResource;
 
 	protected Resource() {
+		this.elmoResource = null;
 	};
 
 	public Resource(org.openrdf.concepts.rdfs.Resource resource) {

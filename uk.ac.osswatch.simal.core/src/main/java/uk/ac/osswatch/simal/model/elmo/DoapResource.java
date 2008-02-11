@@ -8,24 +8,26 @@ import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
 
-
 /**
- * This is a wrapper around an Elmo DoapResource class.
- * It should not be instatiated directly instances
- * will be created by elmo as required when a concept
- * extends DOAPResource. Wrappers for these more granular
- * classes should be created that extend this class, when such
- * wrappers are instantiated they should set the value of
- * getDoapResource() to to wrapped elmo object.
+ * This is a wrapper around an Elmo DoapResource class. It should not be
+ * instatiated directly instances will be created by elmo as required when a
+ * concept extends DOAPResource. Wrappers for these more granular classes should
+ * be created that extend this class, when such wrappers are instantiated they
+ * should set the value of getDoapResource() to to wrapped elmo object.
  * 
  * @see org.openrdf.concepts.doap.DoapResource
  */
 public class DoapResource extends Resource implements IDoapResource {
 
 	private static final long serialVersionUID = -7610178891247360114L;
+
+	protected DoapResource() {
+	};
 	
-	protected DoapResource() {};
-	
+	public DoapResource(org.openrdf.concepts.doap.DoapResource resource) {
+		super(resource);
+	}
+
 	/**
 	 * Returns the first name in the set of names contained within the Elmo
 	 * Project class.
@@ -74,20 +76,38 @@ public class DoapResource extends Resource implements IDoapResource {
 		return getName();
 	}
 
-	public String toJSON(boolean asRecord) {
+	/**
+	 * Get a JSON representation of this resource.
+	 * @return
+	 */
+	public String toJSON() {
 		StringBuffer json = new StringBuffer();
-		if (!asRecord) {
-			json.append("{ \"items\": [");
-		}
+		json.append("{ \"items\": [");
+		json.append(toJSONRecord());
+		json.append("]}");
+		return json.toString();
+	}
+
+	/**
+	 * Get a JSON representation of this resource as a record, i.e. one that is
+	 * suitable for inserting into a JSON file.
+	 * 
+	 * @param json
+	 */
+	public String toJSONRecord() {
+		StringBuffer json = new StringBuffer();
 		json.append("{");
+		json.append(toJSONRecordContent());
+		json.append("}");
+		return json.toString();
+	}
+
+	protected String toJSONRecordContent() {
+		StringBuffer json = new StringBuffer();
 		json.append("\"id\":\"" + getQName().getNamespaceURI() + "\",");
 		json.append("\"label\":\"" + getName() + "\",");
 		json.append("\"name\":\"" + getName() + "\",");
 		json.append("\"shortdesc\":\"" + getShortDesc() + "\"");
-		json.append("}");
-		if (!asRecord) {
-			json.append("]}");
-		}
 		return json.toString();
 	}
 
@@ -105,22 +125,25 @@ public class DoapResource extends Resource implements IDoapResource {
 
 	@SuppressWarnings("unchecked")
 	public Set<String> getLicences() {
-		Set<org.openrdf.concepts.rdfs.Resource> licences = (Set) getDoapResource().getDoapLicenses();
+		Set<org.openrdf.concepts.rdfs.Resource> licences = (Set) getDoapResource()
+				.getDoapLicenses();
 		return getResourceURIs(licences);
 	}
 
-	protected Set<String> getResourceURIs(Set<org.openrdf.concepts.rdfs.Resource> resources) {
+	protected Set<String> getResourceURIs(
+			Set<org.openrdf.concepts.rdfs.Resource> resources) {
 		Iterator<org.openrdf.concepts.rdfs.Resource> itr = resources.iterator();
 		org.openrdf.concepts.rdfs.Resource resource;
 		String ns;
 		String local;
-		Set<String> result = new HashSet<String>(getDoapResource().getDoapLicenses().size());
-	    while (itr.hasNext()) {
-	    	resource = (org.openrdf.concepts.rdfs.Resource) itr.next();
+		Set<String> result = new HashSet<String>(getDoapResource()
+				.getDoapLicenses().size());
+		while (itr.hasNext()) {
+			resource = (org.openrdf.concepts.rdfs.Resource) itr.next();
 			ns = resource.getQName().getNamespaceURI();
 			local = resource.getQName().getLocalPart();
 			result.add(ns + local);
-	    }
+		}
 		return result;
 	}
 
@@ -148,9 +171,8 @@ public class DoapResource extends Resource implements IDoapResource {
 		}
 		return result;
 	}
-	
+
 	public org.openrdf.concepts.doap.DoapResource getDoapResource() {
 		return (org.openrdf.concepts.doap.DoapResource) elmoResource;
 	}
-
 }

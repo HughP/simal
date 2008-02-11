@@ -4,12 +4,11 @@ import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IFoafResource;
 
-public class FoafResource implements IFoafResource {
+public class FoafResource extends Resource implements IFoafResource {
 	private static final long serialVersionUID = -3852417254318582808L;
-	protected org.openrdf.concepts.foaf.FoafResource elmoResource;
 	
 	public FoafResource(org.openrdf.concepts.foaf.Person person) {
-		elmoResource = person;
+		super(person);
 	}
 
 	public String toJSON(boolean asRecord) {
@@ -37,7 +36,11 @@ public class FoafResource implements IFoafResource {
 	}
 
 	public String getGivennames() {
-		return elmoResource.getFoafGivennames().toString();
+		return getFoafResource().getFoafGivennames().toString();
+	}
+	
+	public org.openrdf.concepts.foaf.FoafResource getFoafResource() {
+		return (org.openrdf.concepts.foaf.FoafResource)elmoResource;
 	}
 
 }
