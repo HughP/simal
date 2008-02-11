@@ -19,20 +19,22 @@ public class TestProject extends AbstractTestDOAP {
 	@Test
 	public void testToJSON() throws SimalRepositoryException {
 		resetTestData();
-		String simalTestJSONRecord = "{\"id\":\"http://simal.oss-watch.ac.uk/simalTest#\",\"label\":\"Simal DOAP Test\"," 
-				+ "\"name\":\"" + TEST_SIMAL_PROJECT_NAME
-				+ "\",\"shortdesc\":\"" + TEST_SIMAL_PROJECT_SHORT_DESC + "\"}";
-		String simalTestJSON = "{ \"items\": [" + simalTestJSONRecord + "]}";
 		
-		String json = project1.toJSON(true);
+		String json = project1.toJSONRecord();
 		assertTrue(
 				"JSON file does not contain correct JSON representation of the Simal test record",
-				json.equals(simalTestJSONRecord));
-		
-		json = project1.toJSON(false);
+				json.contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
+		assertTrue(
+				"JSON file does not contain correct JSON representation of the Simal test record",
+				json.contains("\",\"shortdesc\":\"" + TEST_SIMAL_PROJECT_SHORT_DESC));
 		assertTrue(
 				"JSON file does not contain correct JSON representation of the Simal test project",
-				json.equals(simalTestJSON));
+				!json.startsWith("{ \"items\": ["));
+		
+		json = project1.toJSON();
+		assertTrue(
+				"JSON file does not contain correct JSON representation of the Simal test project",
+				json.startsWith("{ \"items\": ["));
 	}
 	
 	@Test

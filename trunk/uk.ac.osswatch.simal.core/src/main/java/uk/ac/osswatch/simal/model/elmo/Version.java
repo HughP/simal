@@ -21,7 +21,7 @@ public class Version extends DoapResource implements IVersion {
 	 * @param simalTestProject
 	 */
 	public Version(org.openrdf.concepts.doap.Version elmoVersion) {
-		this.elmoResource = elmoVersion;
+		super(elmoVersion);
 	}
 
 	private org.openrdf.concepts.doap.Version getVersion() {

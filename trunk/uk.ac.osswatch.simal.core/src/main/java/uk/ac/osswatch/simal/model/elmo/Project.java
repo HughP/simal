@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -20,6 +21,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public class Project extends DoapResource implements IProject {
 	private static final long serialVersionUID = -1771017230656089944L;
+	
+	protected Project() {		
+	}
 
 	/**
 	 * Create a new wrapper around an elmo Project object.
@@ -27,7 +31,7 @@ public class Project extends DoapResource implements IProject {
 	 * @param simalTestProject
 	 */
 	public Project(org.openrdf.concepts.doap.Project elmoProject) {
-		this.elmoResource = elmoProject;
+		super(elmoProject);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -216,4 +220,80 @@ public class Project extends DoapResource implements IProject {
 		return (org.openrdf.concepts.doap.Project) elmoResource;
 	}
 
+	/**
+	 * Get a complete JSON file representing this project.
+	 * 
+	 * @return
+	 */
+	public String toJSON() {
+		StringBuffer json = new StringBuffer();
+		json.append("{ \"items\": [");
+		json.append(toJSONRecord());
+		json.append("]}");
+		return json.toString();
+	}
+
+	/**
+	 * Get a JSON representation of this project as a record, i.e. one that is
+	 * suitable for inserting into a JSON file.
+	 * 
+	 * @param json
+	 */
+	public String toJSONRecord() {
+		StringBuffer json = new StringBuffer();
+		json.append("{");
+		json.append(toJSONRecordContent());
+		json.append("}");
+		return json.toString();
+	}
+	
+	protected String toJSONRecordContent() {
+		StringBuffer json = new StringBuffer();
+		json.append(super.toJSONRecordContent());
+		
+		json.append(", \"category\":" + toJSONValues(getCategories()));
+		
+		HashSet<Resource> people;
+		try {
+			people = getAllPeople();
+			json.append(", \"person\":" + toJSONValues(people));
+		} catch (SimalRepositoryException e) {
+			json.append(", \"person\":\"\"" );
+		}
+		
+		json.append(", \"programmingLanguage\":" + toJSONValues(getProgrammingLangauges()));
+		return json.toString();
+	}
+
+	@SuppressWarnings("unchecked")
+	public HashSet<Resource> getAllPeople() throws SimalRepositoryException {
+		HashSet<Resource> people = new HashSet<Resource>();
+		people.addAll((Collection<? extends Resource>) getMaintainers());
+		people.addAll((Collection<? extends Resource>) getDevelopers());
+		people.addAll((Collection<? extends Resource>) getDocumenters());
+		people.addAll((Collection<? extends Resource>) getHelpers());
+		people.addAll((Collection<? extends Resource>) getTesters());
+		people.addAll((Collection<? extends Resource>) getTranslators());
+		return people;
+	}
+
+	private String toJSONValues(Set<?> resources) {
+		StringBuffer values = new StringBuffer();
+		Iterator<?> itr = resources.iterator();
+		Object resource;
+		values.append("[");
+		while (itr.hasNext()) {
+			resource = itr.next();
+			if (resource instanceof Resource) {
+			  values.append("\"" + ((Resource)resource).getLabel() + "\"");
+			} else {
+				values.append("\"" + resource.toString() + "\"");
+			}
+			if (itr.hasNext()) {
+				values.append(", ");
+			}
+		}
+		values.append("]");
+		return values.toString();
+	}
 }

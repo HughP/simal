@@ -329,7 +329,7 @@ public class SimalRepository {
 		StringBuffer json = new StringBuffer("{ \"items\": [");
 		Iterator<Project> projects = getAllProjects().iterator();
 		while (projects.hasNext()) {
-			json.append(projects.next().toJSON(true));
+			json.append(projects.next().toJSONRecord());
 			if (projects.hasNext()) {
 				json.append(",");
 			}

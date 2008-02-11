@@ -42,11 +42,19 @@ public interface IDoapResource extends IResource, Serializable {
 	public abstract Set<String> getLicences() throws ProjectException ;
 	
 	/**
-	 * Get a JSON representation of this project.
+	 * Get a JSON representation of this resource.
 	 * 
-	 * @param asRecord if set to true then only a single JSON record is returned,otherwie a complete JSON file is returned
 	 * @return
 	 */
-	public abstract String toJSON(boolean asRecord);
+	public abstract String toJSON();
+	
+	/**
+	 * Get a JSON representation of this resource as a JSON record, that
+	 * is a representation that is not a complete JSON file but is 
+	 * intended to be inserted into another JSON file.
+	 * 
+	 * @return
+	 */
+	public abstract String toJSONRecord();
 
 }
