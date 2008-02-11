@@ -32,7 +32,7 @@
        </table>
        <div ex:role="view"
          ex:orders=".name"
-         ex:possibleOrders=".name">
+         ex:possibleOrders=".name, .category">
        </div>
        <div ex:role="exhibit-view"
          ex:viewClass="Exhibit.TabularView"
@@ -45,8 +45,10 @@
     </td>
     <td width="25%">
       <p>Search: </p><div ex:role="facet" ex:facetClass="TextSearch"></div>
-      <div ex:role="facet" ex:expression=".name" ex:facetLabel="Name"></div>
-    </td>
+      <div ex:role="facet" ex:expression=".category, .person, .programmingLanguage" ex:facetLabel="Category"></div>
+      <div ex:role="facet" ex:expression=".person" ex:facetLabel="Person"></div>
+      <div ex:role="facet" ex:expression=".programmingLanguage" ex:facetLabel="Programming Language"></div>
+      </td>
   </tr>
 </table>
 </wicket:extend>
