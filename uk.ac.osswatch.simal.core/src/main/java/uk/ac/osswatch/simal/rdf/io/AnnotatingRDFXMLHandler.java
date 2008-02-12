@@ -5,12 +5,12 @@ import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
 
 /**
- * Validates an RDF/XML file for use within SIMAL.
- * Parsing an invalid RDF/XML file using this handler will
- * result in a RDFHandlerException being thrown.
+ * Validates and annotates an RDF/XML file for use within SIMAL.
+ * This handler does things like ensure a valid QName is present
+ * and key Simal information is captured.
  *  
  */
-public class ValidatingRDFXMLHandler implements RDFHandler {
+public class AnnotatingRDFXMLHandler implements RDFHandler {
 
 	public static final String NO_QNAME_PRESENT = "No valid QName present";
 
