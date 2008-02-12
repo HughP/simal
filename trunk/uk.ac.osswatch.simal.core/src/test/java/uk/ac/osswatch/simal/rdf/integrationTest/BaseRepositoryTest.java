@@ -83,7 +83,7 @@ public abstract class BaseRepositoryTest {
 		if (SimalRepository.isInitialised() && reset) {
 			SimalRepository.destroy();
 		}
-		if (reset) {
+		if (!SimalRepository.isInitialised()) {
 			SimalRepository.initialise();
 		}
 	}
@@ -109,7 +109,9 @@ public abstract class BaseRepositoryTest {
 		QName qname;
 		Project project;
 		qname = new QName(TEST_SIMAL_PROJECT_QNAME);
-		resetTestData();
+		if (reset) {
+		  resetTestData();
+		}
 		project = SimalRepository.getProject(qname);
 		return project;
 	}
