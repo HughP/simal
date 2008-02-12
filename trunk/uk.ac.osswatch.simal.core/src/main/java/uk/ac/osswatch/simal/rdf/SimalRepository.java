@@ -33,7 +33,7 @@ import uk.ac.osswatch.simal.model.elmo.Person;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.model.elmo.RCS;
 import uk.ac.osswatch.simal.model.elmo.Version;
-import uk.ac.osswatch.simal.rdf.io.ValidatingRDFXMLHandler;
+import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 /**
  * A class for handling common repository actions. Applications should
@@ -66,7 +66,7 @@ public class SimalRepository {
 		verifyInitialised();
 		
 		RDFParser parser = new RDFXMLParser();
-		parser.setRDFHandler(new ValidatingRDFXMLHandler());
+		parser.setRDFHandler(new AnnotatingRDFXMLHandler());
 		parser.setVerifyData(true);
 
 		RepositoryConnection con = getConnection();
@@ -75,7 +75,7 @@ public class SimalRepository {
 				parser.parse(url.openStream(), baseURI);
 			} catch (RDFHandlerException e) {
 				if (e.getMessage().equals(
-						ValidatingRDFXMLHandler.NO_QNAME_PRESENT)) {
+						AnnotatingRDFXMLHandler.NO_QNAME_PRESENT)) {
 					throw new SimalRepositoryException(
 							"The RDF/XML representation does not appear to have a QName, Simal will not handle anonymous projects",
 							e);
