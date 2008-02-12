@@ -1,19 +1,14 @@
 package uk.ac.osswatch.simal.wicket.data;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.util.Iterator;
 
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.TestBase;
 
-public class TestSortableProjectDataProvider {
-
-	private static final int NUMBER_OF_TEST_PROJECTS = 3;
+public class TestSortableProjectDataProvider extends TestBase{
 
 	@Test
 	public void testSize() throws SimalRepositoryException {
