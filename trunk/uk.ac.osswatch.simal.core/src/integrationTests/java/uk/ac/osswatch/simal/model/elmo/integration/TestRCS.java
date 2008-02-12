@@ -16,6 +16,7 @@ public class TestRCS extends AbstractTestDOAP {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		initialiseRepository(false);
 		project1 = getSimalTestProject(false);
 		repositories = project1.getRepositories();
 		repository = (IRCS) repositories.toArray()[0];
