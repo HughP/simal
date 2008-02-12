@@ -113,8 +113,8 @@ public class DoapResource extends Resource implements IDoapResource {
 
 	public String getCreated() {
 		Set<Object> created = getDoapResource().getDoapCreated();
-		if (created == null) {
-			return "";
+		if (created == null || created.size() == 0) {
+			return "Unknown";
 		}
 		return (String) created.toArray()[0];
 	}
