@@ -65,7 +65,7 @@ public class TestRepository extends BaseRepositoryTest {
 		initialiseRepository(false);
 		
 		Set<Project> projects = SimalRepository.getAllProjects();
-		assertEquals(3, projects.size());
+		assertEquals(4, projects.size());
 
 		Iterator<Project> itrProjects = projects.iterator();
 		Project project;
