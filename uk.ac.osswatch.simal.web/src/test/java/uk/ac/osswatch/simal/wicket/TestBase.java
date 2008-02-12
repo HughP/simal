@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 
 public abstract class TestBase extends TestCase {
 
+	protected static final int NUMBER_OF_TEST_PROJECTS = 4;
 	protected WicketTester tester;
 
 	public TestBase() {
