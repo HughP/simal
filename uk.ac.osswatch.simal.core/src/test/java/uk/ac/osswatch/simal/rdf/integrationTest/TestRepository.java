@@ -26,14 +26,14 @@ public class TestRepository extends BaseRepositoryTest {
 
 	@Test
 	public void testAddProject() throws SimalRepositoryException {
-		initialiseRepository(true);
+		initialiseRepository(false);
 		// The default test repository adds projects when it is instantiated
 		assertTrue(SimalRepository.isInitialised());
 	}
 
 	@Test
 	public void testFindProject() throws SimalRepositoryException {
-		initialiseRepository(true);
+		initialiseRepository(false);
 
 		QName qname = new QName("http://foo.org/nonExistent");
 		Project project = SimalRepository.getProject(qname);
@@ -46,6 +46,8 @@ public class TestRepository extends BaseRepositoryTest {
 
 	@Test
 	public void testGetRdfXml() throws SimalRepositoryException {
+		initialiseRepository(false);
+		
 		QName qname = new QName(TEST_SIMAL_PROJECT_QNAME);
 
 		StringWriter sw = new StringWriter();
@@ -60,6 +62,8 @@ public class TestRepository extends BaseRepositoryTest {
 	@Test
 	public void testGetAllProjects() throws SimalRepositoryException,
 			IOException {
+		initialiseRepository(false);
+		
 		Set<Project> projects = SimalRepository.getAllProjects();
 		assertEquals(3, projects.size());
 
@@ -74,6 +78,8 @@ public class TestRepository extends BaseRepositoryTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testNullQNamehandling() throws SimalRepositoryException {
+		initialiseRepository(false);
+		
 		Set<Project> projects = SimalRepository.getAllProjects();
 
 		Iterator itrProjects = projects.iterator();
@@ -86,6 +92,8 @@ public class TestRepository extends BaseRepositoryTest {
 
 	@Test
 	public void testGetAllProjectsAsJSON() throws SimalRepositoryException {
+		initialiseRepository(false);
+		
 		String json = SimalRepository.getAllProjectsAsJSON();
 		assertTrue("JSON file does not appear to be correct", json
 				.startsWith("{ \"items\": ["));
