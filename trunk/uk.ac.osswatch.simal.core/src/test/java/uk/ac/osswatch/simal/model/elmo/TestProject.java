@@ -23,26 +23,16 @@ public class TestProject {
 		MockProject project = new MockProject();
 
 		String json = project.toJSONRecord();
-		assertTrue(
-				"JSON file does not contain correct JSON representation of the Simal test record",
-				json
-						.contains(BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_ONE));
-		assertTrue(
-				"JSON file does not contain correct JSON representation of the Simal test record",
-				json
-						.contains(BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_TWO));
-		
-		assertTrue(
-				"JSON file does not contain correct JSON representation of the Simal test record",
-				!json.contains("[["));
-		assertTrue(
-				"JSON file does not contain correct JSON representation of the Simal test record",
-				json
-						.contains(BaseRepositoryTest.TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE));
-		assertTrue(
-				"JSON file does not contain correct JSON representation of the Simal test record",
-				json
-						.contains(BaseRepositoryTest.TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO));
+		assertTrue(json
+				.contains(BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_ONE));
+		assertTrue(json
+				.contains(BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_TWO));
+
+		assertTrue(!json.contains("[["));
+		assertTrue(json
+				.contains(BaseRepositoryTest.TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE));
+		assertTrue(json
+				.contains(BaseRepositoryTest.TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO));
 
 	}
 }
