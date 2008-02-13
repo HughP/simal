@@ -35,10 +35,24 @@ mvn test
  introduction to the CLI is useful at this point since it means you can 
  can start playing immediately.
  
+ To use the CLI you must first build a distribution with the following 
+ command.
+ 
 ------------
-TODO: create shell scripts to run the CLI 
-(right now it only works from within the IDE, not too useful!)
+mvn assembly:assembly
 ------------
+
+ Now you can run the CLI with a command such as
+ 
+------------
+java -cp target/simal-core-0.1-SNAPSHOT-jar-with-dependencies.jar uk.ac.osswatch.simal.Simal -h  
+------------
+
+ NOTE: You may need to change the version number ("0.1-SNAPSHOT" in 
+ the above example.
+ 
+ The above command displays CLI help message, try a few of the commands
+ out.
 
 * Building Documentation and Reports
 
