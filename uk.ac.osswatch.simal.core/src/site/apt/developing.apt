@@ -51,8 +51,8 @@ java -cp target/simal-core-0.1-SNAPSHOT-jar-with-dependencies.jar uk.ac.osswatch
  NOTE: You may need to change the version number ("0.1-SNAPSHOT" in 
  the above example.
  
- The above command displays CLI help message, try a few of the commands
- out.
+ The above command displays the CLI help message, try a few of the described
+ commands out.
 
 * Building Documentation and Reports
 
