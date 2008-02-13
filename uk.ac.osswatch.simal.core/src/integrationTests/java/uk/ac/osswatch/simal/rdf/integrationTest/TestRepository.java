@@ -4,6 +4,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -23,6 +24,29 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  */
 public class TestRepository extends BaseRepositoryTest {
+
+	@Test
+	public void testCreaterepository() throws SimalRepositoryException {
+		SimalRepository.setIsTest(false);
+		SimalRepository.initialise();
+		Set<Project> projects = SimalRepository.getAllProjects();
+		assertTrue("we seem unable to create a repository without test data",
+				projects.size() == 0);
+
+		try {
+			SimalRepository.setIsTest(true);
+			fail("We should not be able to change the SimalRepository.isTest value afte initialisation of the repository");
+		} catch (SimalRepositoryException e){
+			// that's fine we want the exception in this case
+		}
+		SimalRepository.destroy();
+
+		SimalRepository.setIsTest(true);
+		SimalRepository.initialise();
+		projects = SimalRepository.getAllProjects();
+		assertTrue("we seem unable to create a repository without test data",
+				projects.size() > 0);
+	}
 
 	@Test
 	public void testAddProject() throws SimalRepositoryException {
@@ -47,26 +71,25 @@ public class TestRepository extends BaseRepositoryTest {
 	@Test
 	public void testGetRdfXml() throws SimalRepositoryException {
 		initialiseRepository(false);
-		
+
 		QName qname = new QName(TEST_SIMAL_PROJECT_QNAME);
 
 		StringWriter sw = new StringWriter();
 		SimalRepository.writeXML(sw, qname);
 		String xml = sw.toString();
-		assertTrue(
-				"XML does not contain the QName expected",
-				xml
-						.contains("rdf:about=\"" + TEST_SIMAL_PROJECT_QNAME + "\""));
+		assertTrue("XML does not contain the QName expected", xml
+				.contains("rdf:about=\"" + TEST_SIMAL_PROJECT_QNAME + "\""));
 		int indexOf = xml.indexOf("<doap:Project");
 		int lastIndexOf = xml.lastIndexOf("<doap:Project");
-		assertTrue("XML appears to contain more than one project record", indexOf == lastIndexOf);
+		assertTrue("XML appears to contain more than one project record",
+				indexOf == lastIndexOf);
 	}
 
 	@Test
 	public void testGetAllProjects() throws SimalRepositoryException,
 			IOException {
 		initialiseRepository(false);
-		
+
 		Set<Project> projects = SimalRepository.getAllProjects();
 		assertEquals(4, projects.size());
 
@@ -82,7 +105,7 @@ public class TestRepository extends BaseRepositoryTest {
 	@Test
 	public void testNullQNamehandling() throws SimalRepositoryException {
 		initialiseRepository(false);
-		
+
 		Set<Project> projects = SimalRepository.getAllProjects();
 
 		Iterator itrProjects = projects.iterator();
@@ -96,7 +119,7 @@ public class TestRepository extends BaseRepositoryTest {
 	@Test
 	public void testGetAllProjectsAsJSON() throws SimalRepositoryException {
 		initialiseRepository(false);
-		
+
 		String json = SimalRepository.getAllProjectsAsJSON();
 		assertTrue("JSON file does not appear to be correct", json
 				.startsWith("{ \"items\": ["));
