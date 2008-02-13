@@ -17,6 +17,10 @@ Building with Maven
 mvn compile
 -----------------------------
 
+ The first time you run this command Maven will automatically download
+ all the dependencies needed for compilation. This means you must be 
+ connected to the Internet to run the command.
+
  In order to verify that your install has worked you can run the 
  test suite with:
 
@@ -24,15 +28,17 @@ mvn compile
 mvn test
 ------------
 
- In order to verify that Simal is correctly installed corectly 
- you can use command line interface. At the time of writing has
- minimal functionality, but it is enough for sanity checks. Run
- the following command from within the Simal core directory:
+ Simal provides a command line interface (CLI) for working with core, other
+ interfaces are possible, such as the separate web application found in
+ the module uk.ac.osswatch.simal.web. It is outside the scope of this 
+ document to discuss these other interfaces. However, a very brief
+ introduction to the CLI is useful at this point since it means you can 
+ can start playing immediately.
  
 ------------
-TODO: create shell scripts to run the CLI
+TODO: create shell scripts to run the CLI 
+(right now it only works from within the IDE, not too useful!)
 ------------
-
 
 * Building Documentation and Reports
 
@@ -44,8 +50,13 @@ TODO: create shell scripts to run the CLI
 mvn site
 --------
 
- The site will be built in SIMAL_CORE/target/site.
+ The site will be built in SIMAL_CORE/target/site. Point your browser
+ at the index.html file in this folder and you will see the full
+ range of documentation and reports available.
  
+ 
+** Dynamic Documentation (for developing docs	)
+
  When working on documentation it can be useful to run the site in
  dynamic mode, however, be aware that not all changes to documentation
  are shown in dynamic mode, you may need to restart the server with:
