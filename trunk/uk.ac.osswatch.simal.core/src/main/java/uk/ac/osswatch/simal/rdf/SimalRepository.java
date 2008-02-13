@@ -47,6 +47,7 @@ public class SimalRepository {
 	public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
 	public static final String DEFAULT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultNS#";
 	private static SailRepository _repository;
+	private static boolean isTest = true;
 
 	private SimalRepository() {
 		super();
@@ -75,11 +76,11 @@ public class SimalRepository {
 		File annotatedFile;
 		try {
 			annotatedFile = new File("annotatedRDFXML.xml");
-			parser.setRDFHandler(new AnnotatingRDFXMLHandler(
-					annotatedFile));
+			parser.setRDFHandler(new AnnotatingRDFXMLHandler(annotatedFile));
 		} catch (IOException e) {
 			throw new SimalRepositoryException(
-					"Unable to write the annotated RDF/XML file: " + e.getMessage(), e);
+					"Unable to write the annotated RDF/XML file: "
+							+ e.getMessage(), e);
 		}
 		parser.setVerifyData(true);
 
@@ -89,7 +90,8 @@ public class SimalRepository {
 			con.add(annotatedFile, baseURI, RDFFormat.RDFXML);
 		} catch (RDFParseException e) {
 			throw new SimalRepositoryException(
-					"Attempt to add unparseable RDF/XML to the repository: " + e.getMessage(), e);
+					"Attempt to add unparseable RDF/XML to the repository: "
+							+ e.getMessage(), e);
 		} catch (RepositoryException e) {
 			throw new SimalRepositoryException(
 					"Unable to access the repository: " + e.getMessage(), e);
@@ -97,7 +99,8 @@ public class SimalRepository {
 			throw new SimalRepositoryException(
 					"Unable to read the RDF/XML file: " + e.getMessage(), e);
 		} catch (RDFHandlerException e) {
-			throw new SimalRepositoryException("Problem handling RDF data: " + e.getMessage(), e);
+			throw new SimalRepositoryException("Problem handling RDF data: "
+					+ e.getMessage(), e);
 		} finally {
 			try {
 				con.close();
@@ -255,8 +258,8 @@ public class SimalRepository {
 		Resource resource = new URIImpl(qname.toString());
 		RDFXMLPrettyWriter XMLWriter = new RDFXMLPrettyWriter(writer);
 		try {
-			_repository.getConnection().exportStatements(resource,
-					(URI) null, (Value) null, true, XMLWriter);
+			_repository.getConnection().exportStatements(resource, (URI) null,
+					(Value) null, true, XMLWriter);
 		} catch (RepositoryException e) {
 			throw new SimalRepositoryException(
 					"Unable to connect to the repository", e);
@@ -400,6 +403,23 @@ public class SimalRepository {
 					"Unable to intialise the repository", e);
 		}
 
-		addTestData();
+		if (isTest ) {
+			addTestData();
+		}
+	}
+
+	/**
+	 * Set whether or not this repository is to be set up in test mode.
+	 * this method should be called before initialise if the default
+	 * behaviour is to be altered/
+	 * 
+	 * @param newValue true if this is to be a test repository
+	 * @throws SimalRepositoryException 
+	 */
+	public static void setIsTest(boolean newValue) throws SimalRepositoryException {
+		if (isInitialised() && isTest != newValue) {
+			throw new SimalRepositoryException("Unable to change the value of SimalRepository,isTest after initialisation.");
+		}
+		isTest = newValue;
 	}
 }
