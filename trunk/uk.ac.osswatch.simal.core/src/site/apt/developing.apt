@@ -24,11 +24,15 @@ mvn compile
 mvn test
 ------------
 
- At the time of writing there is no command line interface to Simal 
- Core although one is 
- {{{http://code.google.com/p/simal/issues/detail?id=68} planned}}. 
- We do provide a web application interface, however discussion of
- this is outside the scope of this document.
+ In order to verify that Simal is correctly installed corectly 
+ you can use command line interface. At the time of writing has
+ minimal functionality, but it is enough for sanity checks. Run
+ the following command from within the Simal core directory:
+ 
+------------
+TODO: create shell scripts to run the CLI
+------------
+
 
 * Building Documentation and Reports
 
