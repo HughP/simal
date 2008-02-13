@@ -56,7 +56,10 @@ public class TestRepository extends BaseRepositoryTest {
 		assertTrue(
 				"XML does not contain the QName expected",
 				xml
-						.contains("rdf:about=\"http://simal.oss-watch.ac.uk/simalTest#\""));
+						.contains("rdf:about=\"" + TEST_SIMAL_PROJECT_QNAME + "\""));
+		int indexOf = xml.indexOf("<doap:Project");
+		int lastIndexOf = xml.lastIndexOf("<doap:Project");
+		assertTrue("XML appears to contain more than one project record", indexOf == lastIndexOf);
 	}
 
 	@Test

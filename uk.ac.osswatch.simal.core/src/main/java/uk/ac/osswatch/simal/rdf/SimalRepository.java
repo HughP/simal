@@ -16,6 +16,7 @@ import org.openrdf.elmo.sesame.SesameManagerFactory;
 import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
+import org.openrdf.model.impl.URIImpl;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.sail.SailRepository;
@@ -78,7 +79,7 @@ public class SimalRepository {
 					annotatedFile));
 		} catch (IOException e) {
 			throw new SimalRepositoryException(
-					"Unable to write the annotated RDF/XML file", e);
+					"Unable to write the annotated RDF/XML file: " + e.getMessage(), e);
 		}
 		parser.setVerifyData(true);
 
@@ -88,22 +89,22 @@ public class SimalRepository {
 			con.add(annotatedFile, baseURI, RDFFormat.RDFXML);
 		} catch (RDFParseException e) {
 			throw new SimalRepositoryException(
-					"Attempt to add unparseable RDF/XML to the repository", e);
+					"Attempt to add unparseable RDF/XML to the repository: " + e.getMessage(), e);
 		} catch (RepositoryException e) {
 			throw new SimalRepositoryException(
-					"Unable to access the repository", e);
+					"Unable to access the repository: " + e.getMessage(), e);
 		} catch (IOException e) {
 			throw new SimalRepositoryException(
-					"Unable to read the RDF/XML file", e);
+					"Unable to read the RDF/XML file: " + e.getMessage(), e);
 		} catch (RDFHandlerException e) {
-			throw new SimalRepositoryException("Problem handling RDF data", e);
+			throw new SimalRepositoryException("Problem handling RDF data: " + e.getMessage(), e);
 		} finally {
 			try {
 				con.close();
 				annotatedFile.delete();
 			} catch (RepositoryException e) {
 				throw new SimalRepositoryException(
-						"Unable to close the connection", e);
+						"Unable to close the connection: " + e.getMessage(), e);
 			}
 		}
 	}
@@ -251,10 +252,10 @@ public class SimalRepository {
 			throws SimalRepositoryException {
 		verifyInitialised();
 
-		getProject(qname);
+		Resource resource = new URIImpl(qname.toString());
 		RDFXMLPrettyWriter XMLWriter = new RDFXMLPrettyWriter(writer);
 		try {
-			_repository.getConnection().exportStatements((Resource) null,
+			_repository.getConnection().exportStatements(resource,
 					(URI) null, (Value) null, true, XMLWriter);
 		} catch (RepositoryException e) {
 			throw new SimalRepositoryException(
