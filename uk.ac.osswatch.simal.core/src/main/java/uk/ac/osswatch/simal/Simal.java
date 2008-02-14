@@ -15,6 +15,9 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.PosixParser;
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -24,7 +27,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  */
 public class Simal {
-
+	private static final Logger logger = LoggerFactory.getLogger(Simal.class);
 	private static final String SIMAL_VERSION = "0.2-SNAPSHOT";
 
 	/**
@@ -57,22 +60,20 @@ public class Simal {
 		try {
 			cl = parser.parse(opts, args);
 		} catch (ParseException e) {
-			System.out.println(e.getMessage());
-			System.out
-					.println("Please use the \"--help\" option to see a list of valid commands and options");
+			logger.error(e.getMessage());
+			logger.error("Please use the \"--help\" option to see a list of valid commands and options");
 			System.exit(1);
 		}
+		
+		PropertyConfigurator.configure("log4j.properties");
 
-		System.out.println("=================================================");
-		System.out.println("NOTE: The repository is in test mode by default");
-		System.out
-				.println("This means all data is volotile and will be deleted");
-		System.out.println("after the CLI has completed execution.");
-		System.out
-				.println("If you want to do something more serious join the ");
-		System.out.println("developer mailing and help out.");
-		System.out.println("=================================================");
-		System.out.println();
+		logger.info("=================================================");
+		logger.info("NOTE: The repository is in test mode by default");
+		logger.info("This means all data is volotile and will be deleted");
+		logger.info("after the CLI has completed execution.");
+		logger.info("If you want to do something more serious join the ");
+		logger.info("developer mailing and help out.");
+		logger.info("=================================================");
 
 		if (cl.hasOption('h')) {
 			printHelp(opts);
@@ -86,19 +87,18 @@ public class Simal {
 				opt = options.next();
 				if (opt.equals(test)) {
 					try {
-						System.out.println("Setting repository to test mode");
+						logger.info("Setting repository to test mode");
 						SimalRepository.setIsTest(true);
 					} catch (SimalRepositoryException e) {
-						// should never be thrown since we are controlling when to start repo
-						e.printStackTrace();
+						logger.error("Weird, that shouldn't happen...", e);
 						System.exit(1);
 					}
 				}
 			}
 			
-			System.out.println("Initialising repository...");
+			logger.info("Initialising repository...");
 			initRepository();
-			System.out.println("Executing commands...");
+			logger.info("Executing commands...");
 
 			String[] cmds = cl.getArgs();
 			String cmd;
@@ -111,7 +111,7 @@ public class Simal {
 					writeXML(new QName((String)cmds[i+1]));
 					i++;
 				} else {
-					System.out.println("Ignoring unrecognised command: " + cmd);
+					logger.info("Ignoring unrecognised command: " + cmd);
 				}
 			}
 		}
@@ -123,12 +123,11 @@ public class Simal {
 	 * @param qname
 	 */
 	private static void writeXML(final QName qname) {
-		System.out.println("Writing XML for " + qname);
+		logger.info("Writing XML for " + qname);
 		try {
 			SimalRepository.writeXML(new OutputStreamWriter(System.out), qname);
-			System.out.println();
 		} catch (SimalRepositoryException e) {
-			System.out.println("Unable to write XML to standard out");
+			logger.error("Unable to write XML to standard out");
 			System.exit(1);
 		}
 	}
@@ -137,7 +136,7 @@ public class Simal {
 	 * Add an RDF/XML file to the repository.
 	 */
 	private static void addXMLFile(final String filenameOrURL) {
-		System.out.println("Adding XML from " + filenameOrURL);
+		logger.info("Adding XML from " + filenameOrURL);
 
 		try {
 			URL fileURL;
@@ -150,38 +149,35 @@ public class Simal {
 			try {
 				SimalRepository.addProject(fileURL, "");
 			} catch (SimalRepositoryException e) {
-				System.out.println("Unable to add an RDF/XML documet "
-						+ fileURL.toExternalForm());
-				System.out.println("Root cause: " + e.getMessage());
+				logger.error("Unable to add an RDF/XML documet {}",
+						fileURL.toExternalForm());
+				logger.error("Root cause: {}",  e.getMessage());
 				System.exit(1);
 			}
 		} catch (MalformedURLException e) {
-			System.out
-					.println("The URL specified in --addxml  is not a valid URL.");
+			logger.error("The URL specified in --addxml  is not a valid URL.");
 			System.exit(1);
 		}
-		System.out.println("Data added.");
+		logger.info("Data added.");
 	}
 
 	private static void initRepository() {
 		try {
 			SimalRepository.initialise();
 		} catch (SimalRepositoryException e) {
-			System.out.println("Unable to start repository: " + e.getMessage());
+			logger.error("Unable to start repository: {}", e.getMessage());
 			e.printStackTrace();
 		}
 	}
 
 	private static void printVersion() {
-		System.out.println("Simal version   : " + SIMAL_VERSION);
-		System.out.println("Java version    : "
+		logger.info("Simal version   : " + SIMAL_VERSION);
+		logger.info("Java version    : "
 				+ System.getProperty("java.version"));
-		System.out.println("Java vendor     : "
+		logger.info("Java vendor     : "
 				+ System.getProperty("java.vendor"));
-		System.out
-				.println("OS              : " + System.getProperty("os.name"));
-		System.out
-				.println("OS Architecture : " + System.getProperty("os.arch"));
+		logger.info("OS              : " + System.getProperty("os.name"));
+		logger.info("OS Architecture : " + System.getProperty("os.arch"));
 		System.exit(0);
 	}
 
