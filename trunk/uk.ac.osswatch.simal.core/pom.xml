@@ -163,6 +163,13 @@
           <exclude>**/*.java</exclude>
         </excludes>
       </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+      </resource>
     </resources>
     <testResources>
       <testResource>
@@ -177,7 +184,7 @@
       </testResource>
       <testResource>
         <filtering>false</filtering>
-        <directory>src/integrationTest/java</directory>
+        <directory>src/integrationTests/java</directory>
         <includes>
           <include>**</include>
         </includes>
