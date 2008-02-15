@@ -370,14 +370,14 @@ public class SimalRepository {
 	 * @throws RepositoryException
 	 */
 	public static void destroy() throws SimalRepositoryException {
-		verifyInitialised();
-
-		try {
-			_repository.shutDown();
-			_repository = null;
-		} catch (RepositoryException e) {
-			throw new SimalRepositoryException(
-					"Unable to shutdown the repository, refusing to destroy it.");
+		if (isInitialised()) {
+			try {
+				_repository.shutDown();
+				_repository = null;
+			} catch (RepositoryException e) {
+				throw new SimalRepositoryException(
+						"Unable to shutdown the repository, refusing to destroy it.");
+			}
 		}
 	}
 
@@ -403,22 +403,25 @@ public class SimalRepository {
 					"Unable to intialise the repository", e);
 		}
 
-		if (isTest ) {
+		if (isTest) {
 			addTestData();
 		}
 	}
 
 	/**
-	 * Set whether or not this repository is to be set up in test mode.
-	 * this method should be called before initialise if the default
-	 * behaviour is to be altered/
+	 * Set whether or not this repository is to be set up in test mode. this
+	 * method should be called before initialise if the default behaviour is to
+	 * be altered/
 	 * 
-	 * @param newValue true if this is to be a test repository
-	 * @throws SimalRepositoryException 
+	 * @param newValue
+	 *            true if this is to be a test repository
+	 * @throws SimalRepositoryException
 	 */
-	public static void setIsTest(boolean newValue) throws SimalRepositoryException {
+	public static void setIsTest(boolean newValue)
+			throws SimalRepositoryException {
 		if (isInitialised() && isTest != newValue) {
-			throw new SimalRepositoryException("Unable to change the value of SimalRepository,isTest after initialisation.");
+			throw new SimalRepositoryException(
+					"Unable to change the value of SimalRepository,isTest after initialisation.");
 		}
 		isTest = newValue;
 	}
