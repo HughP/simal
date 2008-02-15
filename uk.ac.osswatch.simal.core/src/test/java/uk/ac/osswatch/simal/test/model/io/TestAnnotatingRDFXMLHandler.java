@@ -1,6 +1,6 @@
-package uk.ac.osswatch.simal.rdf.io;
+package uk.ac.osswatch.simal.test.model.io;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.rdfxml.RDFXMLParser;
 
 import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 public class TestAnnotatingRDFXMLHandler {
 
