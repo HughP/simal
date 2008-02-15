@@ -27,6 +27,7 @@ public class TestRepository extends BaseRepositoryTest {
 
 	@Test
 	public void testCreaterepository() throws SimalRepositoryException {
+		SimalRepository.destroy();
 		SimalRepository.setIsTest(false);
 		SimalRepository.initialise();
 		Set<Project> projects = SimalRepository.getAllProjects();
