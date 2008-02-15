@@ -106,6 +106,7 @@ public abstract class BaseRepositoryTest {
 	 */
 	protected static Project getSimalTestProject(boolean reset)
 			throws SimalRepositoryException {
+		initialiseRepository(false);
 		QName qname;
 		Project project;
 		qname = new QName(TEST_SIMAL_PROJECT_QNAME);
