@@ -59,5 +59,5 @@ public interface IProject extends IDoapResource {
 	 * @return
 	 * @throws SimalRepositoryException
 	 */
-	public HashSet<Resource> getAllPeople() throws SimalRepositoryException;
+	public HashSet<IPerson> getAllPeople() throws SimalRepositoryException;
 }
