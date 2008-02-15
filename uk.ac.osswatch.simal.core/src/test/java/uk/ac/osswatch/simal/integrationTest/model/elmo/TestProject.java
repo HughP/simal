@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.model.elmo.integration;
+package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static org.junit.Assert.*;
 

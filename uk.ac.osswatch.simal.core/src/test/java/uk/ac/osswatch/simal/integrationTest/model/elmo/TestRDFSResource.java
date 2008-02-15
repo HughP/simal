@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.model.elmo.integration;
+package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static org.junit.Assert.*;
 
@@ -7,9 +7,9 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.elmo.Resource;
-import uk.ac.osswatch.simal.rdf.integrationTest.BaseRepositoryTest;
 
 public class TestRDFSResource extends BaseRepositoryTest {
 
