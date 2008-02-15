@@ -182,16 +182,6 @@
           <exclude>**/*.java</exclude>
         </excludes>
       </testResource>
-      <testResource>
-        <filtering>false</filtering>
-        <directory>src/integrationTests/java</directory>
-        <includes>
-          <include>**</include>
-        </includes>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
-      </testResource>
     </testResources>
 
     <plugins>
@@ -225,7 +215,6 @@
         <artifactId>maven-clover-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>**/integrationTest/**/*.java</exclude>
             <exclude>**/test/**/*.java</exclude>
           </excludes>
           <jdk>1.5</jdk>
