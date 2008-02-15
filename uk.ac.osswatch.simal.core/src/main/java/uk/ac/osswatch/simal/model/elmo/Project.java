@@ -10,6 +10,7 @@ import javax.xml.namespace.QName;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IRCS;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.IVersion;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -253,7 +254,7 @@ public class Project extends DoapResource implements IProject {
 		
 		json.append(", \"category\":" + toJSONValues(getCategories()));
 		
-		HashSet<Resource> people;
+		HashSet<IPerson> people;
 		try {
 			people = getAllPeople();
 			json.append(", \"person\":" + toJSONValues(people));
@@ -266,14 +267,14 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public HashSet<Resource> getAllPeople() throws SimalRepositoryException {
-		HashSet<Resource> people = new HashSet<Resource>();
-		people.addAll((Collection<? extends Resource>) getMaintainers());
-		people.addAll((Collection<? extends Resource>) getDevelopers());
-		people.addAll((Collection<? extends Resource>) getDocumenters());
-		people.addAll((Collection<? extends Resource>) getHelpers());
-		people.addAll((Collection<? extends Resource>) getTesters());
-		people.addAll((Collection<? extends Resource>) getTranslators());
+	public HashSet<IPerson> getAllPeople() throws SimalRepositoryException {
+		HashSet<IPerson> people = new HashSet<IPerson>();
+		people.addAll((Collection<? extends IPerson>) getMaintainers());
+		people.addAll((Collection<? extends IPerson>) getDevelopers());
+		people.addAll((Collection<? extends IPerson>) getDocumenters());
+		people.addAll((Collection<? extends IPerson>) getHelpers());
+		people.addAll((Collection<? extends IPerson>) getTesters());
+		people.addAll((Collection<? extends IPerson>) getTranslators());
 		return people;
 	}
 
