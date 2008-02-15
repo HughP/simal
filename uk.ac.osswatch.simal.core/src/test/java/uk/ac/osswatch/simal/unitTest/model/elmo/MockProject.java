@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.test.model.elmo;
+package uk.ac.osswatch.simal.unitTest.model.elmo;
 
 import java.util.HashSet;
 import java.util.Set;

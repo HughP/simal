@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.test.model.io;
+package uk.ac.osswatch.simal.unitTest.model.io;
 
 import static org.junit.Assert.assertTrue;
 
