@@ -6,8 +6,8 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.concepts.rdfs.Resource;
 
+import uk.ac.osswatch.simal.integrationTest.model.elmo.AbstractTestDOAP;
 import uk.ac.osswatch.simal.model.elmo.DoapResource;
-import uk.ac.osswatch.simal.model.elmo.integration.AbstractTestDOAP;
 
 public class MockDOAPResource extends DoapResource {
 	private static final long serialVersionUID = -5174587733994913681L;

@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.rdf.integrationTest;
+package uk.ac.osswatch.simal.integrationTest.rdf;
 
 import javax.xml.namespace.QName;
 

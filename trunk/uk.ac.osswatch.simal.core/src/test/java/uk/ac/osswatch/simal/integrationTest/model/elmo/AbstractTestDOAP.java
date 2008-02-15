@@ -1,10 +1,10 @@
-package uk.ac.osswatch.simal.model.elmo.integration;
+package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import org.junit.BeforeClass;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.integrationTest.BaseRepositoryTest;
 
 public abstract class AbstractTestDOAP extends BaseRepositoryTest {
 

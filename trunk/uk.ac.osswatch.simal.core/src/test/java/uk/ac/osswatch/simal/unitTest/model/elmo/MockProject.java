@@ -5,11 +5,11 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.model.elmo.Resource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.integrationTest.BaseRepositoryTest;
 
 public class MockProject extends Project {
 	private static final long serialVersionUID = 5055851775619447759L;

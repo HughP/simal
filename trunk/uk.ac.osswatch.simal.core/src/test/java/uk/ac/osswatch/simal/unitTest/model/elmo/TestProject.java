@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.rdf.integrationTest.BaseRepositoryTest;
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 
 public class TestProject {
 
