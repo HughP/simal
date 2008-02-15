@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.rdf.test;
+package uk.ac.osswatch.simal.test.rdf;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

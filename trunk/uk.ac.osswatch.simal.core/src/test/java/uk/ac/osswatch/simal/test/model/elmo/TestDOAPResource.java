@@ -1,6 +1,6 @@
-package uk.ac.osswatch.simal.model.elmo;
+package uk.ac.osswatch.simal.test.model.elmo;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 

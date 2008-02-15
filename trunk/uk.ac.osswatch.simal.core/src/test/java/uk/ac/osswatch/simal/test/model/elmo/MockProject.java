@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.model.elmo;
+package uk.ac.osswatch.simal.test.model.elmo;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.model.elmo.Resource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.integrationTest.BaseRepositoryTest;
 

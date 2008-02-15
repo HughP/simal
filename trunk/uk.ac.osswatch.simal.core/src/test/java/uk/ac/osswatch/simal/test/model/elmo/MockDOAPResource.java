@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.model.elmo;
+package uk.ac.osswatch.simal.test.model.elmo;
 
 import java.util.Set;
 
@@ -6,6 +6,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.concepts.rdfs.Resource;
 
+import uk.ac.osswatch.simal.model.elmo.DoapResource;
 import uk.ac.osswatch.simal.model.elmo.integration.AbstractTestDOAP;
 
 public class MockDOAPResource extends DoapResource {
