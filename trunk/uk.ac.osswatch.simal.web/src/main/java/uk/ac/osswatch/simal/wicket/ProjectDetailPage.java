@@ -1,19 +1,12 @@
 package uk.ac.osswatch.simal.wicket;
 
-import java.util.Iterator;
-import java.util.Set;
-
-import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
 
-import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.elmo.Person;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
