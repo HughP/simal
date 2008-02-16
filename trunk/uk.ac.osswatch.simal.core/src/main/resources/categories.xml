@@ -11,6 +11,7 @@
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
   
   <!-- Simal Categories -->
+  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest" rdfs:label="DOAP Test"/>
   <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialNews" rdfs:label="Social News"/>
   <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialNetworking" rdfs:label="Social Networking"/>
   <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialBookmarking" rdfs:label="Social Bookmarking"/>
