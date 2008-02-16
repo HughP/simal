@@ -229,6 +229,16 @@
           <address>ross.gardler@oucs.ox.ac.uk</address>
         </configuration>
       </notifier>
+      <notifier>
+        <type>mail</type>
+        <sendOnError>true</sendOnError>
+        <sendOnFailure>true</sendOnFailure>
+        <sendOnSuccess>true</sendOnSuccess>
+        <sendOnWarning>true</sendOnWarning>
+        <configuration>
+          <address>simal-contributors@googlegroups.com</address>
+        </configuration>
+      </notifier>
     </notifiers>
   </ciManagement>  
 
