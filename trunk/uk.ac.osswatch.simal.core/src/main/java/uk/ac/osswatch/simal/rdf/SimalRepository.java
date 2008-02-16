@@ -10,9 +10,11 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.openrdf.concepts.doap.DoapResource;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
+import org.openrdf.elmo.sesame.roles.SesameEntity;
 import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
@@ -283,14 +285,7 @@ public class SimalRepository {
 		try {
 			addProject(SimalRepository.class
 					.getResource(TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
-		} catch (SimalRepositoryException e2) {
-			// Yes, we expected that
-			// This is here so that the relevant test will fail
-			// if this entity makes it into the repo.
-		}
 
-		// Local test files
-		try {
 			addProject(SimalRepository.class.getResource("testDOAP.xml"),
 					TEST_FILE_BASE_URL);
 
@@ -424,5 +419,19 @@ public class SimalRepository {
 					"Unable to change the value of SimalRepository,isTest after initialisation.");
 		}
 		isTest = newValue;
+	}
+
+	/**
+	 * Get a human readable label for a category resource.
+	 * 
+	 * @param uri
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public static String getCategoryLabel(String uri) throws SimalRepositoryException {
+
+		SesameManager manager = getManager();
+		DoapResource category = manager.find(DoapResource.class, new QName(uri));
+		return category.getRdfsLabel();
 	}
 }
