@@ -14,7 +14,6 @@ import org.openrdf.concepts.doap.DoapResource;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
-import org.openrdf.elmo.sesame.roles.SesameEntity;
 import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
@@ -48,6 +47,7 @@ public class SimalRepository {
 	public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
 	public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
 	public static final String DEFAULT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultNS#";
+	private static final String CATEGORIES_RDF = "categories.xml";
 	private static SailRepository _repository;
 	private static boolean isTest = true;
 
@@ -89,14 +89,11 @@ public class SimalRepository {
 		RepositoryConnection con = getConnection();
 		try {
 			parser.parse(url.openStream(), baseURI);
-			con.add(annotatedFile, baseURI, RDFFormat.RDFXML);
+			addRDFXML(annotatedFile.toURL(), baseURI);
 		} catch (RDFParseException e) {
 			throw new SimalRepositoryException(
 					"Attempt to add unparseable RDF/XML to the repository: "
 							+ e.getMessage(), e);
-		} catch (RepositoryException e) {
-			throw new SimalRepositoryException(
-					"Unable to access the repository: " + e.getMessage(), e);
 		} catch (IOException e) {
 			throw new SimalRepositoryException(
 					"Unable to read the RDF/XML file: " + e.getMessage(), e);
@@ -291,6 +288,8 @@ public class SimalRepository {
 
 			addProject(SimalRepository.class.getResource("ossWatchDOAP.xml"),
 					TEST_FILE_BASE_URL);
+			
+			addRDFXML(SimalRepository.class.getClassLoader().getResource(CATEGORIES_RDF), TEST_FILE_BASE_URL);
 
 			addProject(new URL(
 					"http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
@@ -299,6 +298,38 @@ public class SimalRepository {
 			throw new RuntimeException(
 					"Can't add the test data, there's no point in carrying on",
 					e);
+		}
+	}
+
+	/**
+	 * Add an RDF/XML file, other than one supported by more
+	 * specialised methods, such as addProject(...).
+	 * 
+	 * @param categoriesRdf
+	 * @param testFileBaseUrl
+	 * @throws SimalRepositoryException 
+	 */
+	public static void addRDFXML(URL url, String baseURL) throws SimalRepositoryException {
+		RepositoryConnection con = getConnection();
+		try {
+			con.add(url, baseURL, RDFFormat.RDFXML);
+		} catch (RDFParseException e) {
+			throw new SimalRepositoryException(
+					"Attempt to add unparseable RDF/XML to the repository: "
+							+ e.getMessage(), e);
+		} catch (RepositoryException e) {
+			throw new SimalRepositoryException(
+					"Unable to access the repository: " + e.getMessage(), e);
+		} catch (IOException e) {
+			throw new SimalRepositoryException(
+					"Unable to read the RDF/XML file: " + e.getMessage(), e);
+		} finally {
+			try {
+				con.close();
+			} catch (RepositoryException e) {
+				throw new SimalRepositoryException(
+						"Unable to close the connection: " + e.getMessage(), e);
+			}
 		}
 	}
 

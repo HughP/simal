@@ -127,4 +127,13 @@ public class TestRepository extends BaseRepositoryTest {
 		assertTrue("JSON file does not appear to be correct", json
 				.endsWith("]}"));
 	}
+	
+	@Test
+	public void testGetCategoryLabel() throws SimalRepositoryException {
+		initialiseRepository(false);
+		
+		String uri = "http://simal.oss-watch.ac.uk/category/socialNews";
+		String label = SimalRepository.getCategoryLabel(uri);
+		assertEquals("Category Label is incorrect", "Social News", label);
+	}
 }
