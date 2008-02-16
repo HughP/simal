@@ -1,10 +1,7 @@
 package uk.ac.osswatch.simal.wicket.panel;
 
-import junit.framework.TestCase;
-
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.TestPanelSource;
-import org.apache.wicket.util.tester.WicketTester;
 
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;

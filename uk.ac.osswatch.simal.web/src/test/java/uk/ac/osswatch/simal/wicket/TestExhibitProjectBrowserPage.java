@@ -1,7 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
 
-import org.apache.wicket.util.tester.WicketTester;
-
 /**
  * Simple test using the WicketTester
  */
