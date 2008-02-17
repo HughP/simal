@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * This is a wrapper around an Elmo DoapResource class. It should not be
@@ -52,10 +53,10 @@ public class DoapResource extends Resource implements IDoapResource {
 	 * @throws ProjectException
 	 *             if the project has more than one name
 	 */
-	public void setName(String name) throws ProjectException {
+	public void setName(String name) throws SimalRepositoryException {
 		if (getDoapResource().getDoapNames() != null) {
 			if (getDoapResource().getDoapNames().size() != 1) {
-				throw new ProjectException(
+				throw new SimalRepositoryException(
 						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
 			}
 			Set<Object> names = getDoapResource().getDoapNames();
@@ -147,10 +148,10 @@ public class DoapResource extends Resource implements IDoapResource {
 		return result;
 	}
 
-	public void setCreated(String created) throws ProjectException {
+	public void setCreated(String created) throws SimalRepositoryException {
 		if (getDoapResource().getDoapCreated() != null) {
 			if (getDoapResource().getDoapCreated().size() != 1) {
-				throw new ProjectException(
+				throw new SimalRepositoryException(
 						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
 			}
 			Set<Object> dates = getDoapResource().getDoapCreated();

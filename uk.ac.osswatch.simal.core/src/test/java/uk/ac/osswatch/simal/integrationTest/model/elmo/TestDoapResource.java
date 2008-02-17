@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.model.elmo.ProjectException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestDoapResource extends AbstractTestDOAP {
@@ -21,7 +20,7 @@ public class TestDoapResource extends AbstractTestDOAP {
 	}
 
 	@Test
-	public void testSetName() throws ProjectException {
+	public void testSetName() throws SimalRepositoryException {
 		String newName = "modified name";
 		project1.setName(newName);
 		assertEquals(newName, project1.getName());
@@ -40,7 +39,7 @@ public class TestDoapResource extends AbstractTestDOAP {
 	}
 	
 	@Test
-	public void testSetCreated() throws ProjectException {
+	public void testSetCreated() throws SimalRepositoryException {
 		String newCreated = "2020-20-01";
 		project1.setCreated(newCreated);
 		assertEquals(newCreated, project1.getCreated());

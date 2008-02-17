@@ -5,7 +5,7 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import uk.ac.osswatch.simal.model.elmo.ProjectException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * An interface for wrapping repository specific representations of
@@ -17,20 +17,20 @@ import uk.ac.osswatch.simal.model.elmo.ProjectException;
  */
 public interface IDoapResource extends IResource, Serializable {
 
-	public abstract String getName() throws ProjectException;
+	public abstract String getName();
 
-	public abstract void setName(String name) throws ProjectException;
+	public abstract void setName(String name) throws SimalRepositoryException;
 
-	public abstract String getShortDesc() throws ProjectException;
+	public abstract String getShortDesc();
 
-	public abstract void setShortDesc(String shortDesc) throws ProjectException;
+	public abstract void setShortDesc(String shortDesc);
 	
 	public abstract QName getQName();
 	
 	public abstract String getCreated();
 	
 	
-	public abstract void setCreated(String newCreated) throws ProjectException;
+	public abstract void setCreated(String newCreated) throws SimalRepositoryException;
 	
 	
 	public abstract String getDescription();
@@ -39,7 +39,7 @@ public interface IDoapResource extends IResource, Serializable {
 	public abstract void setDescription(String newDescription);
 	
 	
-	public abstract Set<String> getLicences() throws ProjectException ;
+	public abstract Set<String> getLicences();
 	
 	/**
 	 * Get a JSON representation of this resource.
