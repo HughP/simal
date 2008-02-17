@@ -10,11 +10,10 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.openrdf.concepts.doap.DoapResource;
+import org.openrdf.concepts.rdfs.Resource;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
-import org.openrdf.model.Resource;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
 import org.openrdf.model.impl.URIImpl;
@@ -136,6 +135,9 @@ public class SimalRepository {
 		module.recordRole(org.openrdf.concepts.doap.Project.class);
 		module.recordRole(org.openrdf.concepts.doap.Version.class);
 		module.recordRole(org.openrdf.concepts.doap.Repository.class);
+		module.recordRole(org.openrdf.concepts.doap.DoapResource.class);
+		module.recordRole(org.openrdf.concepts.rdfs.Resource.class);
+		module.recordRole(org.openrdf.concepts.foaf.Person.class);
 		module.recordRole(org.openrdf.concepts.foaf.Person.class);
 
 		SesameManagerFactory factory = new SesameManagerFactory(module,
@@ -254,7 +256,7 @@ public class SimalRepository {
 			throws SimalRepositoryException {
 		verifyInitialised();
 
-		Resource resource = new URIImpl(qname.toString());
+		org.openrdf.model.Resource resource = new URIImpl(qname.toString());
 		RDFXMLPrettyWriter XMLWriter = new RDFXMLPrettyWriter(writer);
 		try {
 			_repository.getConnection().exportStatements(resource, (URI) null,
@@ -453,16 +455,20 @@ public class SimalRepository {
 	}
 
 	/**
-	 * Get a human readable label for a category resource.
+	 * Get a human readable label for a resource. If the
+	 * URI is for a resource that is not a DOAP resource null is
+	 * returned.
 	 * 
 	 * @param uri
 	 * @return
 	 * @throws SimalRepositoryException 
 	 */
-	public static String getCategoryLabel(String uri) throws SimalRepositoryException {
-
+	public static String getLabel(String uri) throws SimalRepositoryException {
 		SesameManager manager = getManager();
-		DoapResource category = manager.find(DoapResource.class, new QName(uri));
-		return category.getRdfsLabel();
+		Resource resource = manager.find(Resource.class, new QName(uri));
+		if (resource == null) {
+			return null;
+		}
+		return resource.getRdfsLabel();
 	}
 }
