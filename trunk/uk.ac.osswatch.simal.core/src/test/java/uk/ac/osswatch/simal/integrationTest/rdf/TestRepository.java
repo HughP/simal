@@ -133,7 +133,11 @@ public class TestRepository extends BaseRepositoryTest {
 		initialiseRepository(false);
 		
 		String uri = "http://simal.oss-watch.ac.uk/category/socialNews";
-		String label = SimalRepository.getCategoryLabel(uri);
+		String label = SimalRepository.getLabel(uri);
 		assertEquals("Category Label is incorrect", "Social News", label);
+		
+		uri = "http://example.org/does/not/exist";
+		label = SimalRepository.getLabel(uri);
+		assertNull("Somehow we have a label for a resource that does not exist", label);
 	}
 }
