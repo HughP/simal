@@ -45,14 +45,14 @@ public class ProjectDetailPage extends BasePage {
 					ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));
 		}
-		add(getRepeatingLinks("homepages", "homepage", project.getHomepages()));
+		add(getRepeatingLinks("homepages", "homepage", project.getHomepages(), false));
 
 		// Community tools
 		add(getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker",
-				project.getIssueTrackers()));
+				project.getIssueTrackers(), false));
 		add(getRepeatingLinks("mailingLists", "mailingList", project
-				.getMailingLists()));
-		add(getRepeatingLinks("wikis", "wiki", "Wiki", project.getWikis()));
+				.getMailingLists(), false));
+		add(getRepeatingLinks("wikis", "wiki", "Wiki", project.getWikis(), false));
 		try {
 			add(new SourceRepositoriesPanel("sourceRepositories", project
 					.getRepositories()));
@@ -63,10 +63,10 @@ public class ProjectDetailPage extends BasePage {
 			setResponsePage(new ErrorReportPage(error));
 		}
 		add(getRepeatingLinks("screenshots", "screenshot", "Screenshot",
-				project.getScreenshots()));
+				project.getScreenshots(), false));
 
 		// facets
-		add(getRepeatingLinks("categories", "category", project.getCategories()));
+		add(getRepeatingLinks("categories", "category", project.getCategories(), true));
 		add(getRepeatingLabels("OSes", "OS", project.getOSes()));
 		add(getRepeatingLabels("programmingLanguages", "programmingLanguage",
 				project.getProgrammingLangauges()));
@@ -111,9 +111,9 @@ public class ProjectDetailPage extends BasePage {
 
 		// downlaod
 		add(getRepeatingLinks("downloadPages", "downloadPage", "Downloads",
-				project.getDownloadPages()));
+				project.getDownloadPages(), false));
 		add(getRepeatingLinks("downloadMirrors", "downloadMirror",
-				"Download Mirror", project.getDownloadMirrors()));
+				"Download Mirror", project.getDownloadMirrors(), false));
 
 		add(new Label("created", project.getCreated()));
 	}

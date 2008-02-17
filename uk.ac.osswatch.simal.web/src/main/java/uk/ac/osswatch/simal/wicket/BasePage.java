@@ -15,6 +15,8 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.elmo.Resource;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 
 /**
@@ -50,10 +52,13 @@ public class BasePage extends WebPage {
 	 *            used.
 	 * @param resources
 	 *            the resources to be added to the list
+	 * @param fetchLabels
+	 *            If set to true attempt to fetch a label from
+	 *            the repository if one is not supplied by the resource.
 	 * @return
 	 */
 	protected RepeatingView getRepeatingLinks(String repeaterWicketID, String linkWicketID, String defaultLabel,
-			Set<Resource> resources) {
+			Set<Resource> resources, boolean fetchLabels) {
 				Iterator<Resource> itr = resources.iterator();
 				RepeatingView repeating = new RepeatingView(repeaterWicketID);
 				WebMarkupContainer item;
@@ -66,9 +71,20 @@ public class BasePage extends WebPage {
 					item = new WebMarkupContainer(repeating.newChildId());
 					repeating.add(item);
 					resource = itr.next();
-					label = resource.getLabel(defaultLabel);
 					comment = resource.getComment();
 					url = resource.toString();
+					label = resource.getLabel(defaultLabel);
+					if (label.equals(url)) {
+						try {
+							String newLabel = SimalRepository.getLabel(url);
+							if (newLabel != null) {
+								label = newLabel;
+							}
+						} catch (SimalRepositoryException e) {
+							// Oh well, we'll make do with what we have
+							e.printStackTrace();
+						}
+					}
 					link = new ExternalLink(linkWicketID, url);
 					link.add(new Label("label", label));
 					if (comment != null) {
@@ -93,8 +109,8 @@ public class BasePage extends WebPage {
 	 *            the resources to be added to the list
 	 * @return
 	 */
-	protected RepeatingView getRepeatingLinks(String repeaterWicketID, String linkWicketID, Set<Resource> resources) {
-		return getRepeatingLinks(repeaterWicketID, linkWicketID, null, resources);
+	protected RepeatingView getRepeatingLinks(String repeaterWicketID, String linkWicketID, Set<Resource> resources, boolean fetchLabels) {
+		return getRepeatingLinks(repeaterWicketID, linkWicketID, null, resources, fetchLabels);
 	}
 
 	/**
