@@ -13,8 +13,9 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.elmo.Resource;
+import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 
 /**
@@ -58,11 +59,11 @@ public class BasePage extends WebPage {
 	 * @return
 	 */
 	protected RepeatingView getRepeatingLinks(String repeaterWicketID, String linkWicketID, String defaultLabel,
-			Set<Resource> resources, boolean fetchLabels) {
-				Iterator<Resource> itr = resources.iterator();
+			SortableDoapResourceDataProvider resources, boolean fetchLabels) {
+				Iterator<IDoapResource> itr = resources.iterator();
 				RepeatingView repeating = new RepeatingView(repeaterWicketID);
 				WebMarkupContainer item;
-				Resource resource;
+				IDoapResource resource;
 				String label;
 				String comment;
 				String url;
@@ -98,7 +99,7 @@ public class BasePage extends WebPage {
 	 *            the resources to be added to the list
 	 * @return
 	 */
-	protected RepeatingView getRepeatingLinks(String repeaterWicketID, String linkWicketID, Set<Resource> resources, boolean fetchLabels) {
+	protected RepeatingView getRepeatingLinks(String repeaterWicketID, String linkWicketID, SortableDoapResourceDataProvider resources, boolean fetchLabels) {
 		return getRepeatingLinks(repeaterWicketID, linkWicketID, null, resources, fetchLabels);
 	}
 

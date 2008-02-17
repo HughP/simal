@@ -83,6 +83,16 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 		return result.iterator();
 	}
 
+	/**
+	 * Get an iterator over all resources. The resources will be sorted
+	 * accordingly.
+	 * 
+	 * @return
+	 */
+	public Iterator<IDoapResource> iterator() {
+		return iterator(0, resources.size());
+	}
+
 	public IModel model(Object object) {
 		if (!(object instanceof Project)) {
 			throw new IllegalArgumentException("sortableDoapResourceDataProvider only works for Project models - should it work for more? Your helpo appreciated.");

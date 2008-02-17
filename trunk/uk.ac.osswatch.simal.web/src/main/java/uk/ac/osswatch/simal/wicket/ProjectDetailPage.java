@@ -7,6 +7,7 @@ import org.apache.wicket.markup.html.link.IPageLink;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
@@ -45,14 +46,14 @@ public class ProjectDetailPage extends BasePage {
 					ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));
 		}
-		add(getRepeatingLinks("homepages", "homepage", project.getHomepages(), false));
+		add(getRepeatingLinks("homepages", "homepage", new SortableDoapResourceDataProvider(project.getHomepages()), false));
 
 		// Community tools
 		add(getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker",
-				project.getIssueTrackers(), false));
-		add(getRepeatingLinks("mailingLists", "mailingList", project
-				.getMailingLists(), false));
-		add(getRepeatingLinks("wikis", "wiki", "Wiki", project.getWikis(), false));
+				new SortableDoapResourceDataProvider(project.getIssueTrackers()), false));
+		add(getRepeatingLinks("mailingLists", "mailingList", new SortableDoapResourceDataProvider(project
+				.getMailingLists()), false));
+		add(getRepeatingLinks("wikis", "wiki", "Wiki", new SortableDoapResourceDataProvider(project.getWikis()), false));
 		try {
 			add(new SourceRepositoriesPanel("sourceRepositories", project
 					.getRepositories()));
@@ -63,10 +64,10 @@ public class ProjectDetailPage extends BasePage {
 			setResponsePage(new ErrorReportPage(error));
 		}
 		add(getRepeatingLinks("screenshots", "screenshot", "Screenshot",
-				project.getScreenshots(), false));
+				new SortableDoapResourceDataProvider(project.getScreenshots()), false));
 
 		// facets
-		add(getRepeatingLinks("categories", "category", project.getCategories(), true));
+		add(getRepeatingLinks("categories", "category", new SortableDoapResourceDataProvider(project.getCategories()), true));
 		add(getRepeatingLabels("OSes", "OS", project.getOSes()));
 		add(getRepeatingLabels("programmingLanguages", "programmingLanguage",
 				project.getProgrammingLangauges()));
@@ -111,9 +112,9 @@ public class ProjectDetailPage extends BasePage {
 
 		// downlaod
 		add(getRepeatingLinks("downloadPages", "downloadPage", "Downloads",
-				project.getDownloadPages(), false));
+				new SortableDoapResourceDataProvider(project.getDownloadPages()), false));
 		add(getRepeatingLinks("downloadMirrors", "downloadMirror",
-				"Download Mirror", project.getDownloadMirrors(), false));
+				"Download Mirror", new SortableDoapResourceDataProvider(project.getDownloadMirrors()), false));
 
 		add(new Label("created", project.getCreated()));
 	}
