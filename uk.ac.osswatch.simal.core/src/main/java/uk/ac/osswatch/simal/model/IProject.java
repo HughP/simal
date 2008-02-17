@@ -3,7 +3,6 @@ package uk.ac.osswatch.simal.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.elmo.Resource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -15,27 +14,27 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public interface IProject extends IDoapResource {
 
-	public Set<Resource> getIssueTrackers();
+	public Set<IDoapResource> getIssueTrackers();
 
-	public Set<Resource> getCategories();
+	public Set<IDoapResource> getCategories();
 
 	public Set<IPerson> getDevelopers() throws SimalRepositoryException;
 
 	public Set<IPerson> getDocumenters() throws SimalRepositoryException;
 
-	public Set<Resource> getDownloadMirrors();
+	public Set<IDoapResource> getDownloadMirrors();
 
-	public Set<Resource> getDownloadPages();
+	public Set<IDoapResource> getDownloadPages();
 
 	public Set<IPerson> getHelpers() throws SimalRepositoryException;
 
-	public Set<Resource> getHomepages();
+	public Set<IDoapResource> getHomepages();
 
-	public Set<Resource> getMailingLists();
+	public Set<IDoapResource> getMailingLists();
 
 	public Set<IPerson> getMaintainers() throws SimalRepositoryException;
 
-	public Set<Resource> getOldHomepages();
+	public Set<IDoapResource> getOldHomepages();
 
 	public Set<String> getOSes();
 
@@ -45,13 +44,13 @@ public interface IProject extends IDoapResource {
 
 	public Set<IRCS> getRepositories() throws SimalRepositoryException;
 
-	public Set<Resource> getScreenshots();
+	public Set<IDoapResource> getScreenshots();
 
 	public Set<IPerson> getTesters() throws SimalRepositoryException;
 
 	public Set<IPerson> getTranslators() throws SimalRepositoryException;
 
-	public Set<Resource> getWikis();
+	public Set<IDoapResource> getWikis();
 
 	/**
 	 * Get all the people known to be engaged with this project.

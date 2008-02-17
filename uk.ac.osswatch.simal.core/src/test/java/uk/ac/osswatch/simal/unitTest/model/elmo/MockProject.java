@@ -6,9 +6,9 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.elmo.Project;
-import uk.ac.osswatch.simal.model.elmo.Resource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class MockProject extends Project {
@@ -19,8 +19,8 @@ public class MockProject extends Project {
 		super();
 	}
 	
-	public Set<Resource> getCategories() {
-		HashSet<Resource> categories = new HashSet<Resource>();
+	public Set<IDoapResource> getCategories() {
+		HashSet<IDoapResource> categories = new HashSet<IDoapResource>();
 		categories.add(new MockDOAPResource(new QName(BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_ONE)));
 		categories.add(new MockDOAPResource(new QName(BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_TWO)));
 		return categories;		

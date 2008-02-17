@@ -8,6 +8,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.elmo.Resource;
 
@@ -17,7 +18,7 @@ public class TestRDFSResource extends BaseRepositoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		Set<Resource> lists = getSimalTestProject(true).getMailingLists();
+		Set<IDoapResource> lists = getSimalTestProject(true).getMailingLists();
 		maillistResource = (Resource) lists.toArray()[0];
 	}
 	

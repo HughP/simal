@@ -20,10 +20,10 @@ public abstract class BaseRepositoryTest {
 	public static final String TEST_SIMAL_PROJECT_DESCRIPTION = "This is the full description of this DOAP file that is used during automated testing of Simal. It contains examples of all the DOAP elements that are currently in use within Simal.";
 	public static final String TEST_SIMAL_PROJECT_LICENCE_ONE = "http://usefulinc.com/doap/licenses/gpl";
 	public static final String TEST_SIMAL_PROJECT_LICENCE_TWO = "http://usefulinc.com/doap/licenses/asl20";
-	public static final String TEST_SIMAL_PROJECT_WIKIS = "[http://wiki.foo.org]";
+	public static final String TEST_SIMAL_PROJECT_WIKIS = "http://wiki.foo.org";
 	public static final String TEST_SIMAL_PROJECT_TRANSLATORS = "[http://foo.org/~translator/#me]";
 	public static final String TEST_SIMAL_PROJECT_TESTERS = "[http://foo.org/~tester/#me]";
-	public static final String TEST_SIMAL_PROJECT_SCREENSHOTS = "[http://www.foo.org/screenshots]";
+	public static final String TEST_SIMAL_PROJECT_SCREENSHOTS = "http://www.foo.org/screenshots";
 	
 	public static final String TEST_SIMAL_PROJECT_REPOSITORIES = "[http://simal.oss-watch.ac.uk/simalTest#svnTrunk]";
 	public static final String TEST_SIMAL_PROJECT_REPOSITORIES_ANON_ROOTS = "[]";
@@ -37,31 +37,31 @@ public abstract class BaseRepositoryTest {
 	public static final String TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE = "Java";
 	public static final String TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO = "XML";
 	public static final String TEST_SIMAL_PROJECT_OS = "Cross Platform";
-	public static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "[http://www.oss-watch.ac.uk/simal]";
+	public static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "Original home page at OSS Watch";
 	
 	public static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "http://foo.org/~joeBlogs/#me";
 	public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "http://foo.org/~janeBlogs/#me";
 	
 	public static final int TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST = 2;
-	public static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "http://foo.org/mailingList1";
-	public static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "http://foo.org/mailingList2";
+	public static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "Mailing List 1";
+	public static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "Mailing List 2";
 	
-	public static final String TEST_SIMAL_PROJECT_HOMEPAGE_ONE = "http://simal.oss-watch.ac.uk";
-	public static final String TEST_SIMAL_PROJECT_HOMEPAGE_TWO = "http://code.google.com/p/simal";
+	public static final String TEST_SIMAL_PROJECT_HOMEPAGE_ONE = "Project Home Page";
+	public static final String TEST_SIMAL_PROJECT_HOMEPAGE_TWO = "Developer Home Page";
 	
 	public static final String TEST_SIMAL_PROJECT_HELPERS = "[http://foo.org/~helper/#me]";
 	
-	public static final String TEST_SIMAL_PROJECT_DOWNLOAD_PAGES = "[http://download.foo.org]";
-	public static final String TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS = "[http://download.bar.org]";
+	public static final String TEST_SIMAL_PROJECT_DOWNLOAD_PAGES = "http://download.foo.org";
+	public static final String TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS = "http://download.bar.org";
 	
 	public static final String TEST_SIMAL_PROJECT_DOCUMENTORS = "[http://foo.org/~documentor/#me]";
 	
 	public static final String TEST_SIMAL_PROJECT_DEVELOPERS = "[http://foo.org/~developer/#me]";
 	
-	public static final String TEST_SIMAL_PROJECT_CATEGORY_ONE = "http://simal.oss-watch.ac.uk/category/doapTest#";
+	public static final String TEST_SIMAL_PROJECT_CATEGORY_ONE = "DOAP Test";
 	public static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#";
 	
-	public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "[http://issues.foo.org]";
+	public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
 
 	public BaseRepositoryTest() {
 		super();

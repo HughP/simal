@@ -6,7 +6,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.model.elmo.Resource;
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestProject extends AbstractTestDOAP {
@@ -39,7 +39,8 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetIssueTracker() {
-		assertEquals(TEST_SIMAL_PROJECT_ISSUE_TRACKER, project1.getIssueTrackers().toString());
+		String issueTrackers = project1.getIssueTrackers().toString();
+		assertTrue(issueTrackers.contains(TEST_SIMAL_PROJECT_ISSUE_TRACKER));
 	}
 	
 	@Test
@@ -60,12 +61,14 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetDownloadMirrors() {
-		assertEquals(TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS, project1.getDownloadMirrors().toString());
+		String mirrors = project1.getDownloadMirrors().toString();
+		assertTrue(mirrors .contains(TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS));
 	}
 	
 	@Test
 	public void testGetDownloadPages() {
-		assertEquals(TEST_SIMAL_PROJECT_DOWNLOAD_PAGES, project1.getDownloadPages().toString());
+		String downloads = project1.getDownloadPages().toString();
+		assertTrue(downloads.contains(TEST_SIMAL_PROJECT_DOWNLOAD_PAGES));
 	}
 	
 	@Test
@@ -82,7 +85,7 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetMailingLists() {
-		Set<Resource> lists = project1.getMailingLists();
+		Set<IDoapResource> lists = project1.getMailingLists();
 		assertEquals("Got incorrect number of mailing lists", TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST, lists.size());
 		assertTrue(lists.toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_ONE));
 		assertTrue(lists.toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_TWO));
@@ -96,7 +99,8 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetOldHomepages() {
-		assertEquals(TEST_SIMAL_PROJECT_OLD_HOMEPAGES, project1.getOldHomepages().toString());
+		String oldHomes = project1.getOldHomepages().toString();
+		assertTrue(oldHomes.contains(TEST_SIMAL_PROJECT_OLD_HOMEPAGES));
 	}
 	
 	@Test
@@ -122,7 +126,8 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetScreenshots() {
-		assertEquals(TEST_SIMAL_PROJECT_SCREENSHOTS, project1.getScreenshots().toString());
+		String screenshots = project1.getScreenshots().toString();
+		assertTrue(screenshots.contains(TEST_SIMAL_PROJECT_SCREENSHOTS));
 	}
 	
 	@Test
@@ -137,6 +142,7 @@ public class TestProject extends AbstractTestDOAP {
 	
 	@Test
 	public void testGetWikis() {
-		assertEquals(TEST_SIMAL_PROJECT_WIKIS, project1.getWikis().toString());
+		String wikis = project1.getWikis().toString();
+		assertTrue(wikis.contains(TEST_SIMAL_PROJECT_WIKIS));
 	}
 }
