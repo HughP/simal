@@ -29,6 +29,7 @@ import org.openrdf.rio.rdfxml.util.RDFXMLPrettyWriter;
 import org.openrdf.sail.memory.MemoryStore;
 
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IRCS;
 import uk.ac.osswatch.simal.model.IVersion;
 import uk.ac.osswatch.simal.model.elmo.Person;
@@ -228,10 +229,10 @@ public class SimalRepository {
 		return new Person(elmoPerson);
 	}
 
-	public static Set<Project> getAllProjects() throws SimalRepositoryException {
+	public static Set<IProject> getAllProjects() throws SimalRepositoryException {
 		verifyInitialised();
 
-		HashSet<Project> result = new HashSet<Project>();
+		HashSet<IProject> result = new HashSet<IProject>();
 		Iterator<org.openrdf.concepts.doap.Project> elmoProjects = getManager()
 				.findAll(org.openrdf.concepts.doap.Project.class).iterator();
 		org.openrdf.concepts.doap.Project project;
@@ -369,7 +370,7 @@ public class SimalRepository {
 	 */
 	public static String getAllProjectsAsJSON() throws SimalRepositoryException {
 		StringBuffer json = new StringBuffer("{ \"items\": [");
-		Iterator<Project> projects = getAllProjects().iterator();
+		Iterator<IProject> projects = getAllProjects().iterator();
 		while (projects.hasNext()) {
 			json.append(projects.next().toJSONRecord());
 			if (projects.hasNext()) {

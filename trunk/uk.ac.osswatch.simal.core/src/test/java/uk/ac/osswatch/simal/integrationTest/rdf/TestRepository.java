@@ -15,6 +15,7 @@ import javax.xml.namespace.QName;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -30,7 +31,7 @@ public class TestRepository extends BaseRepositoryTest {
 		SimalRepository.destroy();
 		SimalRepository.setIsTest(false);
 		SimalRepository.initialise();
-		Set<Project> projects = SimalRepository.getAllProjects();
+		Set<IProject> projects = SimalRepository.getAllProjects();
 		assertTrue("we seem unable to create a repository without test data",
 				projects.size() == 0);
 
@@ -91,11 +92,11 @@ public class TestRepository extends BaseRepositoryTest {
 			IOException {
 		initialiseRepository(false);
 
-		Set<Project> projects = SimalRepository.getAllProjects();
+		Set<IProject> projects = SimalRepository.getAllProjects();
 		assertEquals(4, projects.size());
 
-		Iterator<Project> itrProjects = projects.iterator();
-		Project project;
+		Iterator<IProject> itrProjects = projects.iterator();
+		IProject project;
 		while (itrProjects.hasNext()) {
 			project = itrProjects.next();
 			assertNotNull(project.getName());
@@ -107,7 +108,7 @@ public class TestRepository extends BaseRepositoryTest {
 	public void testNullQNamehandling() throws SimalRepositoryException {
 		initialiseRepository(false);
 
-		Set<Project> projects = SimalRepository.getAllProjects();
+		Set<IProject> projects = SimalRepository.getAllProjects();
 
 		Iterator itrProjects = projects.iterator();
 		Project project;
