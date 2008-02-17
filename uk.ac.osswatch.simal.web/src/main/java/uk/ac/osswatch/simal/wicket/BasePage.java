@@ -15,8 +15,6 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.elmo.Resource;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 
 /**
@@ -55,6 +53,8 @@ public class BasePage extends WebPage {
 	 * @param fetchLabels
 	 *            If set to true attempt to fetch a label from
 	 *            the repository if one is not supplied by the resource.
+	 *            If set to false the label will be set to either the defaultLabel
+	 *            (if not null) or to the resource URI.
 	 * @return
 	 */
 	protected RepeatingView getRepeatingLinks(String repeaterWicketID, String linkWicketID, String defaultLabel,
@@ -73,18 +73,7 @@ public class BasePage extends WebPage {
 					resource = itr.next();
 					comment = resource.getComment();
 					url = resource.toString();
-					label = resource.getLabel(defaultLabel);
-					if (label.equals(url)) {
-						try {
-							String newLabel = SimalRepository.getLabel(url);
-							if (newLabel != null) {
-								label = newLabel;
-							}
-						} catch (SimalRepositoryException e) {
-							// Oh well, we'll make do with what we have
-							e.printStackTrace();
-						}
-					}
+					label = resource.getLabel(defaultLabel, fetchLabels);
 					link = new ExternalLink(linkWicketID, url);
 					link.add(new Label("label", label));
 					if (comment != null) {

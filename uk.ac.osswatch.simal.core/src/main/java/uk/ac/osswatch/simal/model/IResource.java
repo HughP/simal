@@ -11,20 +11,24 @@ public interface IResource {
 	/**
 	 * A label for representing the resource to humans.
 	 * If no label is defined (using rdfs:label) then 
-	 * the value of rdfs:resource is returned. 
+	 * an attempt is made to find a label in the repository
+	 * (if fetchLabels is set to true).
+	 * Otherwise the toString() value of rdfs:resource is returned. 
 	 * @return
 	 */
-	public String getLabel();
+	public String getLabel(boolean fetchLabel);
 
 
 	/**
 	 * A label for representing the resource to humans.
 	 * If no label is defined (using rdfs:label) then 
-	 * the value of defaultLabel is returned. If defaultLabel
-	 * is null then the value of rdfs:resource is returned.
+	 * an attempt is made to find a label in the repository
+	 * (if fetchLabels is set to true).
+	 * Otherwise, the value of defaultLabel is returned. If defaultLabel
+	 * is null then the to String() value of rdfs:resource is returned.
 	 * @return
 	 */
-	public String getLabel(String defaultLabel);
+	public String getLabel(String defaultLabel, boolean fetchLabel);
 	
 	/**
 	 * A human readable comment describing the resource.

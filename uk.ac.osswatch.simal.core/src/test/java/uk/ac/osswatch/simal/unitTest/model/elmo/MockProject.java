@@ -42,8 +42,8 @@ public class MockProject extends Project {
 	}
 	
 	@Override
-	public String getLabel(String defaultLabel) {
-		return resource.getLabel(defaultLabel);
+	public String getLabel(String defaultLabel, boolean fetchLabel) {
+		return resource.getLabel(defaultLabel, fetchLabel);
 	}
 	
 	@Override

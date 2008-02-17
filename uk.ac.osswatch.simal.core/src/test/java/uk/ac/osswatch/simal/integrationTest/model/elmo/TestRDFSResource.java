@@ -23,7 +23,7 @@ public class TestRDFSResource extends BaseRepositoryTest {
 	
 	@Test
 	public void testLabel() {
-		assertTrue("Label is incorrect", maillistResource.getLabel().contains("Mailing List"));
+		assertTrue("Label is incorrect", maillistResource.getLabel(false).contains("Mailing List"));
 	}
 	
 	@Test

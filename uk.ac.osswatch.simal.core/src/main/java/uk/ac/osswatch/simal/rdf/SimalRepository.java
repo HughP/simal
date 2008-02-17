@@ -463,12 +463,25 @@ public class SimalRepository {
 	 * @return
 	 * @throws SimalRepositoryException 
 	 */
-	public static String getLabel(String uri) throws SimalRepositoryException {
+	public static String getLabel(QName qname) throws SimalRepositoryException {
 		SesameManager manager = getManager();
-		Resource resource = manager.find(Resource.class, new QName(uri));
+		Resource resource = manager.find(Resource.class, qname);
 		if (resource == null) {
 			return null;
 		}
 		return resource.getRdfsLabel();
+	}
+
+	/**
+	 * Get a human readable label for a resource. If the
+	 * URI is for a resource that is not a DOAP resource null is
+	 * returned.
+	 * 
+	 * @param uri
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public static String getLabel(String uri) throws SimalRepositoryException {
+		return getLabel(new QName(uri));
 	}
 }
