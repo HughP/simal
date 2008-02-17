@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Resource implements IResource {
 	protected final org.openrdf.concepts.rdfs.Resource elmoResource;
@@ -17,12 +19,40 @@ public class Resource implements IResource {
 		this.elmoResource = resource;
 	}
 
-	public String getLabel() {
-		return getLabel(null);
+	/**
+	 * Get the label for this resource. If the resource does not have a defined
+	 * label and fetch label is set to true then attempt to find a label in the
+	 * repository, otherwise use the return value of the toString() method.
+	 * 
+	 * @param defaultLabel
+	 * @param fetchLabel
+	 * @return
+	 */
+	public String getLabel(boolean fetchLabel) {
+		return getLabel(null, fetchLabel);
 	}
 
-	public String getLabel(String defaultLabel) {
+	/**
+	 * Get the label for this resource. If the resource does not have a defined
+	 * label and fetch label is set to true then attempt to find a label in the
+	 * repository, otherwise use the supplied default label (if not null) or the
+	 * resource return value of the toString() method.
+	 * 
+	 * @param defaultLabel
+	 * @param fetchLabel
+	 * @return
+	 */
+	public String getLabel(String defaultLabel, boolean fetchLabel) {
 		String label = elmoResource.getRdfsLabel();
+		if (label == null || label == "") {
+			try {
+				label = SimalRepository.getLabel(elmoResource.getQName());
+			} catch (SimalRepositoryException e) {
+				// Oh well, that didn't work, it'll be dealt with later in this method, 
+				// but we need to log the problem.
+				e.printStackTrace();
+			}
+		}
 		if (label == null || label.equals("")) {
 			if (defaultLabel != null) {
 				label = defaultLabel;

@@ -60,7 +60,7 @@ public class MockDOAPResource extends DoapResource {
 	}
 	
 	@Override
-	public String getLabel(String defaultLabel) {
+	public String getLabel(String defaultLabel, boolean fetchLabel) {
 		return getQName().toString();
 	}
 }

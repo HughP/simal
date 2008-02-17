@@ -10,7 +10,6 @@ import javax.xml.namespace.QName;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IRCS;
-import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.IVersion;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -286,7 +285,7 @@ public class Project extends DoapResource implements IProject {
 		while (itr.hasNext()) {
 			resource = itr.next();
 			if (resource instanceof Resource) {
-			  values.append("\"" + ((Resource)resource).getLabel() + "\"");
+			  values.append("\"" + ((Resource)resource).getLabel(true) + "\"");
 			} else {
 				values.append("\"" + resource.toString() + "\"");
 			}
