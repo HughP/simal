@@ -9,7 +9,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
 import uk.ac.osswatch.simal.model.IVersion;
-import uk.ac.osswatch.simal.model.elmo.ProjectException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -35,20 +34,15 @@ public class ReleasesPanel extends Panel {
 			item = new WebMarkupContainer(repeating.newChildId());
 			repeating.add(item);
 			release = itr.next();
-			try {
-				label = new Label("name", release.getName());
-			} catch (ProjectException e) {
-				throw new SimalRepositoryException("Unable to get release name", e);
-			}
+			label = new Label("name", release.getName());
 			item.add(label);
-			item.add(getRepeatingLabels("revisions", "revision", release.getRevisions()));
+			item.add(getRepeatingLabels("revisions", "revision", release
+					.getRevisions()));
 			label = new Label("created", release.getCreated().toString());
 			item.add(label);
 		}
 		add(repeating);
 	}
-	
-
 
 	/**
 	 * Get a simple repeating view. Each resource in the supplied set will be
@@ -62,7 +56,8 @@ public class ReleasesPanel extends Panel {
 	 *            the resources to be added to the list
 	 * @return
 	 */
-	protected RepeatingView getRepeatingLabels(String repeaterWicketID, String labelWicketID, Set<String> labels) {
+	protected RepeatingView getRepeatingLabels(String repeaterWicketID,
+			String labelWicketID, Set<String> labels) {
 		Iterator<String> itr = labels.iterator();
 		RepeatingView repeating = new RepeatingView(repeaterWicketID);
 		WebMarkupContainer item;
