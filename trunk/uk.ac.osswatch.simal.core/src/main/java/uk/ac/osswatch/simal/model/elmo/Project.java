@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IRCS;
@@ -35,8 +36,8 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getCategories() {
-		return Resource.createResourceSet(getProject().getDoapCategories());
+	public Set<IDoapResource> getCategories() {
+		return DoapResource.createResourceSet(getProject().getDoapCategories());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -56,14 +57,14 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getDownloadMirrors() {
-		return Resource
+	public Set<IDoapResource> getDownloadMirrors() {
+		return DoapResource
 				.createResourceSet(getProject().getDoapDownloadMirrors());
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getDownloadPages() {
-		return Resource.createResourceSet(getProject().getDoapDownloadPages());
+	public Set<IDoapResource> getDownloadPages() {
+		return DoapResource.createResourceSet(getProject().getDoapDownloadPages());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -75,18 +76,18 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getHomepages() {
-		return Resource.createResourceSet(getProject().getDoapHomepages());
+	public Set<IDoapResource> getHomepages() {
+		return DoapResource.createResourceSet(getProject().getDoapHomepages());
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getIssueTrackers() {
-		return Resource.createResourceSet(getProject().getDoapBugDatabases());
+	public Set<IDoapResource> getIssueTrackers() {
+		return DoapResource.createResourceSet(getProject().getDoapBugDatabases());
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getMailingLists() {
-		return Resource.createResourceSet(getProject().getDoapMailingLists());
+	public Set<IDoapResource> getMailingLists() {
+		return DoapResource.createResourceSet(getProject().getDoapMailingLists());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -103,8 +104,8 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getOldHomepages() {
-		return Resource.createResourceSet(getProject().getDoapOldHomepages());
+	public Set<IDoapResource> getOldHomepages() {
+		return DoapResource.createResourceSet(getProject().getDoapOldHomepages());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -123,8 +124,8 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getScreenshots() {
-		return Resource.createResourceSet(getProject().getDoapScreenshots());
+	public Set<IDoapResource> getScreenshots() {
+		return DoapResource.createResourceSet(getProject().getDoapScreenshots());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -144,8 +145,8 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	@SuppressWarnings("unchecked")
-	public Set<Resource> getWikis() {
-		return Resource.createResourceSet(getProject().getDoapWikis());
+	public Set<IDoapResource> getWikis() {
+		return DoapResource.createResourceSet(getProject().getDoapWikis());
 
 	}
 

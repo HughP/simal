@@ -30,13 +30,14 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 
 	/**
-	 * Returns the first name in the set of names contained within the Elmo
-	 * Project class.
+	 * Returns the first name in the set of names contained within the resource.
+	 * 
+	 * If no names are supplied then the return value of getLabel() is returned.
 	 */
 	public String getName() {
 		Set<Object> names = getDoapResource().getDoapNames();
-		if (names == null) {
-			return "";
+		if (names == null || names.size() == 0) {
+			return this.getLabel(true);
 		}
 		return (String) names.toArray()[0];
 	}
@@ -74,7 +75,7 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 
 	public String toString() {
-		return getName();
+		return getLabel(true) + " (" + getName() + ")";
 	}
 
 	/**
@@ -175,5 +176,28 @@ public class DoapResource extends Resource implements IDoapResource {
 
 	public org.openrdf.concepts.doap.DoapResource getDoapResource() {
 		return (org.openrdf.concepts.doap.DoapResource) elmoResource;
+	}
+
+	/**
+	 * Convert a set of objects returned by Elmo
+	 * to a set of IDoapResource objects.
+	 * 
+	 * @param set
+	 * @return
+	 */
+	public static Set<IDoapResource> createResourceSet(Set<Object> set) {
+		Iterator<Object> elmoResources = set.iterator();
+		HashSet<IDoapResource> results = new HashSet<IDoapResource>(set.size());
+		Object resource;
+		while (elmoResources.hasNext()) {
+			resource = elmoResources.next();
+			if (resource instanceof org.openrdf.concepts.doap.DoapResource) {
+				results.add(new DoapResource((org.openrdf.concepts.doap.DoapResource)resource));
+			} else {
+				throw new IllegalArgumentException(
+						"Can only create ResourceSets from elmo DoapResources. you just tried to create one containing " + resource.toString());
+			}
+		}
+		return results;
 	}
 }
