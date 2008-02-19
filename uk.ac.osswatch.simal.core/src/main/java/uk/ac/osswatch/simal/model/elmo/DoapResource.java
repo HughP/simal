@@ -40,7 +40,7 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 	
 	/**
-	 * Get the names for this project.
+	 * Get all the names for this resource.
 	 */
 	public Set<String> getNames() {
 		Set<String> names = convertToSetOfStrings(getDoapResource().getDoapNames());
