@@ -99,7 +99,7 @@ public class TestRepository extends BaseRepositoryTest {
 		IProject project;
 		while (itrProjects.hasNext()) {
 			project = itrProjects.next();
-			assertNotNull(project.getName());
+			assertNotNull(project.getNames());
 		}
 	}
 

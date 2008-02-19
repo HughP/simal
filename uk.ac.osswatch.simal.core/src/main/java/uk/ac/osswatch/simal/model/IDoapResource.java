@@ -16,10 +16,23 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * @see uk.ac.osswatch.simal.model.elmo.DoapResource
  */
 public interface IDoapResource extends IResource, Serializable {
-
-	public abstract String getName();
-
-	public abstract void setName(String name) throws SimalRepositoryException;
+	/**
+	 * Returns the default name for this resource/
+	 * 
+	 * If no names are supplied then the return value of 
+	 * getLabel() is returned.
+	 */
+	public String getName();
+	
+	/**
+	 * Return all names associated with this resource.
+	 * If no names are available then a set containing a single
+	 * value is returned. this value is generated using a
+	 * getLabel(true) method call.
+	 * 
+	 * @return
+	 */
+	public abstract Set<String> getNames();
 
 	public abstract String getShortDesc();
 
