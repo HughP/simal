@@ -12,10 +12,14 @@ public abstract class AbstractTestDOAP extends BaseRepositoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		resetTestData();
+		initialiseRepository(false);
+		rollbackAndStartTransaction();
+
+		project1 = getSimalTestProject(false);
 	}
 
 	protected static void resetTestData() throws SimalRepositoryException {
+		rollbackAndStartTransaction();
 		project1 = getSimalTestProject(true);
 	}
 
