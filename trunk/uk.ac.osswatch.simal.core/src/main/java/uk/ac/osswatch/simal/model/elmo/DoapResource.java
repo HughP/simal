@@ -30,40 +30,29 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 
 	/**
-	 * Returns the first name in the set of names contained within the resource.
+	 * Returns the default name for this resource/
 	 * 
-	 * If no names are supplied then the return value of getLabel() is returned.
+	 * If no names are supplied then the return value of 
+	 * getLabel() is returned.
 	 */
 	public String getName() {
-		Set<Object> names = getDoapResource().getDoapNames();
+		return (String) getNames().toArray()[0];
+	}
+	
+	/**
+	 * Get the names for this project.
+	 */
+	public Set<String> getNames() {
+		Set<String> names = convertToSetOfStrings(getDoapResource().getDoapNames());
 		if (names == null || names.size() == 0) {
-			return this.getLabel(true);
+			names = new HashSet<String>();
+			names.add(this.getLabel(true));
 		}
-		return (String) names.toArray()[0];
+		return names;
 	}
 
 	public String getShortDesc() {
 		return getDoapResource().getDoapShortdesc();
-	}
-
-	/**
-	 * Sets the name of the project. Note that this assumes that there is only
-	 * one name. In the event of there being more than one name it throws an
-	 * exception.
-	 * 
-	 * @throws ProjectException
-	 *             if the project has more than one name
-	 */
-	public void setName(String name) throws SimalRepositoryException {
-		if (getDoapResource().getDoapNames() != null) {
-			if (getDoapResource().getDoapNames().size() != 1) {
-				throw new SimalRepositoryException(
-						"Cannot set*(newValue) on values with more than one existing value, use add*(newValue) instead");
-			}
-			Set<Object> names = getDoapResource().getDoapNames();
-			names.remove(names.toArray()[0]);
-			names.add(name);
-		}
 	}
 
 	public void setShortDesc(String shortDesc) {
@@ -75,7 +64,7 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 
 	public String toString() {
-		return getLabel(true) + " (" + getName() + ")";
+		return getLabel(true) + " (" + getNames() + ")";
 	}
 
 	/**
@@ -107,7 +96,7 @@ public class DoapResource extends Resource implements IDoapResource {
 	protected String toJSONRecordContent() {
 		StringBuffer json = new StringBuffer();
 		json.append("\"id\":\"" + getQName().getNamespaceURI() + "\",");
-		json.append("\"label\":\"" + getName() + "\",");
+		json.append("\"label\":\"" + getLabel(true) + "\",");
 		json.append("\"name\":\"" + getName() + "\",");
 		json.append("\"shortdesc\":\"" + getShortDesc() + "\"");
 		return json.toString();

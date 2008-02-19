@@ -20,13 +20,6 @@ public class TestDoapResource extends AbstractTestDOAP {
 	}
 
 	@Test
-	public void testSetName() throws SimalRepositoryException {
-		String newName = "modified name";
-		project1.setName(newName);
-		assertEquals(newName, project1.getName());
-	}
-
-	@Test
 	public void testSetShortDesc() {
 		String newDesc = "New short description";
 		project1.setShortDesc(newDesc);
