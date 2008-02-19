@@ -13,8 +13,10 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.integrationTest.model.elmo.AbstractTestDOAP;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -24,31 +26,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * test common activities relating to Projects.
  * 
  */
-public class TestRepository extends BaseRepositoryTest {
-
-	@Test
-	public void testCreaterepository() throws SimalRepositoryException {
-		SimalRepository.destroy();
-		SimalRepository.setIsTest(false);
-		SimalRepository.initialise();
-		Set<IProject> projects = SimalRepository.getAllProjects();
-		assertTrue("we seem unable to create a repository without test data",
-				projects.size() == 0);
-
-		try {
-			SimalRepository.setIsTest(true);
-			fail("We should not be able to change the SimalRepository.isTest value afte initialisation of the repository");
-		} catch (SimalRepositoryException e){
-			// that's fine we want the exception in this case
-		}
-		SimalRepository.destroy();
-
-		SimalRepository.setIsTest(true);
-		SimalRepository.initialise();
-		projects = SimalRepository.getAllProjects();
-		assertTrue("we seem unable to create a repository without test data",
-				projects.size() > 0);
-	}
+public class TestRepository extends AbstractTestDOAP {
 
 	@Test
 	public void testAddProject() throws SimalRepositoryException {

@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.persistence.EntityTransaction;
 import javax.xml.namespace.QName;
 
 import org.openrdf.concepts.rdfs.Resource;
@@ -229,7 +230,8 @@ public class SimalRepository {
 		return new Person(elmoPerson);
 	}
 
-	public static Set<IProject> getAllProjects() throws SimalRepositoryException {
+	public static Set<IProject> getAllProjects()
+			throws SimalRepositoryException {
 		verifyInitialised();
 
 		HashSet<IProject> result = new HashSet<IProject>();
@@ -291,8 +293,9 @@ public class SimalRepository {
 
 			addProject(SimalRepository.class.getResource("ossWatchDOAP.xml"),
 					TEST_FILE_BASE_URL);
-			
-			addRDFXML(SimalRepository.class.getClassLoader().getResource(CATEGORIES_RDF), TEST_FILE_BASE_URL);
+
+			addRDFXML(SimalRepository.class.getClassLoader().getResource(
+					CATEGORIES_RDF), TEST_FILE_BASE_URL);
 
 			addProject(new URL(
 					"http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
@@ -305,14 +308,15 @@ public class SimalRepository {
 	}
 
 	/**
-	 * Add an RDF/XML file, other than one supported by more
-	 * specialised methods, such as addProject(...).
+	 * Add an RDF/XML file, other than one supported by more specialised
+	 * methods, such as addProject(...).
 	 * 
 	 * @param categoriesRdf
 	 * @param testFileBaseUrl
-	 * @throws SimalRepositoryException 
+	 * @throws SimalRepositoryException
 	 */
-	public static void addRDFXML(URL url, String baseURL) throws SimalRepositoryException {
+	public static void addRDFXML(URL url, String baseURL)
+			throws SimalRepositoryException {
 		RepositoryConnection con = getConnection();
 		try {
 			con.add(url, baseURL, RDFFormat.RDFXML);
@@ -456,13 +460,12 @@ public class SimalRepository {
 	}
 
 	/**
-	 * Get a human readable label for a resource. If the
-	 * URI is for a resource that is not a DOAP resource null is
-	 * returned.
+	 * Get a human readable label for a resource. If the URI is for a resource
+	 * that is not a DOAP resource null is returned.
 	 * 
 	 * @param uri
 	 * @return
-	 * @throws SimalRepositoryException 
+	 * @throws SimalRepositoryException
 	 */
 	public static String getLabel(QName qname) throws SimalRepositoryException {
 		SesameManager manager = getManager();
@@ -474,15 +477,62 @@ public class SimalRepository {
 	}
 
 	/**
-	 * Get a human readable label for a resource. If the
-	 * URI is for a resource that is not a DOAP resource null is
-	 * returned.
+	 * Get a human readable label for a resource. If the URI is for a resource
+	 * that is not a DOAP resource null is returned.
 	 * 
 	 * @param uri
 	 * @return
-	 * @throws SimalRepositoryException 
+	 * @throws SimalRepositoryException
 	 */
 	public static String getLabel(String uri) throws SimalRepositoryException {
 		return getLabel(new QName(uri));
+	}
+
+	/**
+	 * Start a transaction.
+	 * 
+	 * @throws SimalRepositoryException If there is a problem communicating with the repository
+	 * @throws TransactionException
+	 *             If a transaction is already in progress. Applications should
+	 *             decide whether or not to treat this as an error or to
+	 *             continue within the existing transaction.
+	 */
+	public static void startTransaction() throws SimalRepositoryException,
+			TransactionException {
+		EntityTransaction transaction = getManager().getTransaction();
+		if (transaction.isActive()) {
+			throw new TransactionException(
+					"Attempt to start a new transaction when one is already active.");
+		}
+		transaction.begin();
+	}
+
+	/**
+	 * End a transaction.
+	 * @throws SimalRepositoryException 
+	 * @throws TransactionException If no transaction is active.
+	 */
+	public static void commitTransaction() throws SimalRepositoryException, TransactionException {
+		EntityTransaction transaction = getManager().getTransaction();
+		if (!transaction.isActive()) {
+			throw new TransactionException(
+					"Attempt to commit a transaction when there is not one active.");
+		}
+		transaction.commit();
+	}
+
+	/**
+	 * Rollback a transaction.
+	 * 
+	 * @throws SimalRepositoryException 
+	 * @throws TransactionException If no transaction is active
+	 */
+	public static void rollback() throws SimalRepositoryException, TransactionException {
+		EntityTransaction transaction = getManager().getTransaction();
+		if (!transaction.isActive()) {
+			throw new TransactionException(
+					"Attempt to roll back a transaction when there is not one active.");
+		}
+		transaction.rollback();
 	}
 }

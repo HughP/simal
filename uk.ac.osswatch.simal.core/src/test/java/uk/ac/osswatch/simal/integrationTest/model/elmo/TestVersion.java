@@ -8,36 +8,35 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.IVersion;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestVersion extends AbstractTestDOAP {
 
-	private static Set<IVersion> versions;
-	private static IVersion version;
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		project1 = getSimalTestProject(false);
-		versions = project1.getReleases();
-		version = (IVersion) versions.toArray()[0];
+	private Set<IVersion> getVersions() throws SimalRepositoryException {
+		return project1.getReleases();
+	}
+	
+	private IVersion getVersion() throws SimalRepositoryException {
+		return (IVersion) getVersions().toArray()[0];
 	}
 
 	@Test
-	public void testVersionsLoaded() {
-		assertEquals("Should have one version defined", 1, versions
+	public void testVersionsLoaded() throws SimalRepositoryException {
+		assertEquals("Should have one version defined", 1, getVersions()
 				.size());
 	}
 
 	@Test
-	public void testGetFileReleases() {
+	public void testGetFileReleases() throws SimalRepositoryException {
 		assertEquals("File releases are not correct",
-				TEST_SIMAL_PROJECT_RELEASES_FILE_RELEASES, version
+				TEST_SIMAL_PROJECT_RELEASES_FILE_RELEASES, getVersion()
 						.getFileReleases().toString());
 	}
 
 	@Test
-	public void testGetRevisions() {
+	public void testGetRevisions() throws SimalRepositoryException {
 		assertEquals("Revisions are not correct",
-				TEST_SIMAL_PROJECT_RELEASES_REVISIONS, version
+				TEST_SIMAL_PROJECT_RELEASES_REVISIONS, getVersion()
 						.getRevisions().toString());
 	}
 }
