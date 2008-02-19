@@ -6,7 +6,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Resource implements IResource {
 	protected final org.openrdf.concepts.rdfs.Resource elmoResource;
-	private String cachedLabel;
+	protected String cachedLabel;
 
 	protected Resource() {
 		this.elmoResource = null;

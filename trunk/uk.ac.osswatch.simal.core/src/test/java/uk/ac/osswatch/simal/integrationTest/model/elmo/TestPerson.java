@@ -53,4 +53,10 @@ public class TestPerson extends AbstractTestDOAP {
 	public void testHomePage() {
 		assertEquals("http://example.org/person/developer", developer.getHomepages().toString());
 	}
+	
+	@Test
+	public void testToJSON() {
+		String json = developer.toJSON(false);
+		assertTrue("JSON does not include person name: JSON = " + json , json.contains("\"label\":\"" + developer.getGivennames() + "\""));
+	}
 }
