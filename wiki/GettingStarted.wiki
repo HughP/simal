@@ -1,6 +1,8 @@
 #summary Basic getting started instructions
 #labels Featured,Phase-Support
 
+*NOTE* After an initial prototype that demonstrated the potential direction for Simal (release 0.1) we started development of 0.2 using a more suitable underlying framework. We are currently in the process of moving from the old system to the new. this document addresses 0.1. The notes on the binry release are still correct, but the source release information is not currently accurate. We'll address that one the move is complete, if you can't wait, joing our mailing list and we'll help,
+
 You can get started from the latest binary release or the development source code. Both are fairly easy to get going with, but the binary install has less pre-requisities (although for the source releases you don't need anything an average Java developer has already).
 
 If you have any problems you could try looking at our [FAQ].
