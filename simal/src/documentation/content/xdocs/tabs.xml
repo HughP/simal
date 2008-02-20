@@ -38,7 +38,6 @@
     <tab id="registryAppContributor" label="Registry Application" dir="contributor/registryApp"/>
     <tab id="managementAppContributor" label="Management Application" dir="contributor/managementApp"/>
   </tab>
-  <tab id="projectCatalogue" label="Demo Project Catalogue"  dir="projectDetails" indexfile="index/byCategory.html"/>
   <!-- Add new tabs here, eg:
   <tab id="contribute" label="Contributre" dir="" indexfile="index.html"/>
   <tab label="How-Tos" dir="community/howto/"/>

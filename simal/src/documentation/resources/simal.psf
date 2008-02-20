@@ -4,11 +4,9 @@
 		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/simal,simal"/>
 		<project reference="0.9.3,http://simal.googlecode.com/svn/wiki,simal-wiki"/>
 		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/simalInstaller,simalInstaller"/>
-		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.model,uk.ac.osswatch.simal.model"/>
-		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.model.derby,uk.ac.osswatch.simal.model.derby"/>
-		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.model.test,uk.ac.osswatch.simal.model.test"/>
 		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.rest,uk.ac.osswatch.simal.rest"/>
-		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.webGUI,uk.ac.osswatch.simal.webGUI"/>
+    <project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.webGUI,uk.ac.osswatch.simal.core"/>
+		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.webGUI,uk.ac.osswatch.simal.webapp"/>
 		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.forrest.plugins,uk.ac.osswatch.forrest.plugins"/>
 	</provider>
 </psf>
