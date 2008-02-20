@@ -47,14 +47,6 @@
 		-->
 
 		<!-- ===============================================================
-			FOAF Files
-			=============================================================== -->
-
-		<match pattern="foaf.descriptor.allMaintainers">
-			<location src="cocoon://projectDetails/allMaintainers.rdf" />
-		</match>
-
-		<!-- ===============================================================
 			DOAP Files
 			=============================================================== -->
 
@@ -62,65 +54,5 @@
 			<location src="{properties:content}rdf/simal.xml" />
 		</match>
 
-		<match pattern="doap.descriptor.forrest">
-		  <location src="http://forrest.apache.org/doap.xml"/>
-		</match>
-
-		<match pattern="doap.descriptor.sakai">
-			<location
-				src="http://www.sourcekibitzer.org/ProjectDOAP.ext?sp=Ssakai" />
-		</match>
-
-		<match pattern="doap.descriptor.ossWatch">
-			<location src="{properties:content}rdf/ossWatch.xml" />
-		</match>
-
-		<match pattern="doap.descriptor.foafExplorer">
-			<location
-				src="http://xml.mfd-consult.dk/foaf/explorer/explorer.rdf" />
-		</match>
-<!-- 
-		<match pattern="doap.descriptor.codegoo">
-			<location src="cocoon://doap/ohloh/7742.xml" />
-		</match>
--->
-
-		<match pattern="doap.descriptor.jisc/apis">
-			<location
-				src="{properties:content}rdf/www.jisc.ac.uk/apis.xml" />
-		</match>
-
-		<match pattern="doap.descriptor.jisc/cairo">
-			<location
-				src="{properties:content}rdf/www.jisc.ac.uk/cairo.xml" />
-		</match>
-		<match pattern="doap.descriptor.jisc/elfdemo_uhi">
-			<location
-				src="{properties:content}rdf/www.jisc.ac.uk/elfdemo_uhi.xml" />
-		</match>
-
-		<match pattern="doap.descriptor.jisc/project_ask">
-			<location
-				src="{properties:content}rdf/www.jisc.ac.uk/project_ask.xml" />
-		</match>
-		<match pattern="doap.descriptor.jisc/project_sherpa">
-			<location
-				src="{properties:content}rdf/www.jisc.ac.uk/project_sherpa.xml" />
-		</match>
-		<match pattern="doap.descriptor.jisc/rioja">
-			<location
-				src="{properties:content}rdf/www.jisc.ac.uk/rioja.xml" />
-		</match>
-		<match pattern="doap.descriptor.jisc/vre_bvreh">
-			<location
-				src="{properties:content}rdf/www.jisc.ac.uk/vre_bvreh.xml" />
-		</match>
-		<match pattern="doap.descriptor.jisc/vre_sakai_portal">
-			<location
-				src="{properties:content}rdf/www.jisc.ac.uk/vre_sakai_portal.xml" />
-		</match>
-		<match pattern="doap.descriptor.jisc/webpa">
-			<location src="http://webpaproject.lboro.ac.uk/doap.rdf" />
-		</match>
 	</locator>
 </locationmap>

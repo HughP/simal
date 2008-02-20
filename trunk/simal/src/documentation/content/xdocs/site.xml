@@ -65,10 +65,6 @@ See http://forrest.apache.org/docs/linking.html for more info
        
   </projects>
   
-  <people label="People Catalogue" tab="catalogue">    
-    <peopleCatalogue label="People Catalogue" href="personDetails/allMaintainers.html"/>
-  </people>
-  
   <tagFeeds label="Tagged Info" tab="catalogue">    
     <taggedBookmarks label="JISCCommunityDevelopment bookmarks" href="JISCCommunityDevelopment.tagFeed.rss.html"/>
   </tagFeeds>
@@ -122,7 +118,8 @@ See http://forrest.apache.org/docs/linking.html for more info
     </implementation>
   </managementAppContributors>
   
-  <externalResources label="External Resources" tab="home">    
+  <externalResources label="Developer Resources" tab="home">    
+    <devDocs label="Developer Docs" href="contributor/index.html"/>
     <devSite label="Developer Site" href="ext:simal/devSite"/>
     <mailingList label="Mailing List" href="ext:simal/devList"/>
     <issueTracker label="Issue Tracker" href="ext:simal/issueTracker"/>

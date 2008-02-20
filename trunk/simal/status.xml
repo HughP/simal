@@ -68,6 +68,11 @@
         </section>
       </notes>
 
+      <action context="design" dev="RDG" type="add" importance="medium">
+            Deprecated 0.1 Forrest based prototype in favour of an RDF/XMl
+            based solution. See <link href="http://groups.google.com/group/simal-contributors/browse_thread/thread/524e7fa478dc4aaf/8eb2b1af39eac273">Vote thread</link>. 
+      </action>
+
       <action context="catalogue" dev="RDG" type="add" importance="medium">
             Ability to record relationships between projects using the relatedTo
             property.
