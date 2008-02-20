@@ -43,7 +43,8 @@ public class UserApplication extends WebApplication {
 	public void init() {
 		if (!SimalRepository.isInitialised()) {
 			try {
-				SimalRepository.setIsTest(true);
+                // Why does this cause tests to fail on the CI repo.
+				//SimalRepository.setIsTest(true);
 				SimalRepository.initialise();
 			} catch (SimalRepositoryException e) {
 				e.printStackTrace();
