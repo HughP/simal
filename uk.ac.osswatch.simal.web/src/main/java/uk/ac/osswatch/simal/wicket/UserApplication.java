@@ -23,32 +23,34 @@ import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
- * The UserApp is the main user facing appliation. This application
- * allows users to view Simal registries.
+ * The UserApp is the main user facing appliation. This application allows users
+ * to view Simal registries.
  */
 public class UserApplication extends WebApplication {
 	/**
-	 * The qname for the project to use if no other project is specified. 
+	 * The qname for the project to use if no other project is specified.
 	 */
-	public static final QName DEFAULT_PROJECT_QNAME = new QName("http://simal.oss-watch.ac.uk/simalTest#");
-	
-    public UserApplication() {
-    	// FIXME: when we go to a non-volatile repo we need to set
-    	// When isTest is set to true the repo is populated with test data
-    	// isTest = false;
-    	init();
-    }
+	public static final QName DEFAULT_PROJECT_QNAME = new QName(
+			"http://simal.oss-watch.ac.uk/simalTest#");
 
-    public void init() {
-    	if (! SimalRepository.isInitialised()) {
-    	try {
-			SimalRepository.initialise();
-		} catch (SimalRepositoryException e) {
-			e.printStackTrace();
-			System.exit(1);
+	public UserApplication() {
+		// FIXME: when we go to a non-volatile repo we need to set
+		// When isTest is set to true the repo is populated with test data
+		// isTest = false;
+		init();
+	}
+
+	public void init() {
+		if (!SimalRepository.isInitialised()) {
+			try {
+				SimalRepository.setIsTest(true);
+				SimalRepository.initialise();
+			} catch (SimalRepositoryException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
 		}
-    	}
-    }
+	}
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -57,4 +59,3 @@ public class UserApplication extends WebApplication {
 	}
 
 }
-  
