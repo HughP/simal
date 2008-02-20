@@ -87,6 +87,7 @@ public abstract class BaseRepositoryTest {
 				SimalRepository.startTransaction();
 			}
 			if (!SimalRepository.isInitialised()) {
+				SimalRepository.setIsTest(true);
 				SimalRepository.initialise();
 				SimalRepository.startTransaction();
 			}

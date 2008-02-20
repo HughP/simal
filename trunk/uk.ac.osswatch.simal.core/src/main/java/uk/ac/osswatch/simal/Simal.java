@@ -47,7 +47,7 @@ public class Simal {
 		opts.addOption(version);
 
 		Option test = new Option("t", "test", false,
-				"Start the repository in test mode");
+				"Start the repository in test mode, the repository is populated with some test data, all changes are lost when the CLI commands have been executed");
 		opts.addOption(test);
 
 		Option property = OptionBuilder.withArgName("property=value").hasArg()
@@ -66,14 +66,6 @@ public class Simal {
 		}
 		
 		PropertyConfigurator.configure("log4j.properties");
-
-		logger.info("=================================================");
-		logger.info("NOTE: The repository is in test mode by default");
-		logger.info("This means all data is volotile and will be deleted");
-		logger.info("after the CLI has completed execution.");
-		logger.info("If you want to do something more serious join the ");
-		logger.info("developer mailing and help out.");
-		logger.info("=================================================");
 
 		if (cl.hasOption('h')) {
 			printHelp(opts);
