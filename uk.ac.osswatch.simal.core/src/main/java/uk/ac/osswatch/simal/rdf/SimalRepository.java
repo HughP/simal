@@ -45,12 +45,13 @@ import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
  * 
  */
 public class SimalRepository {
+	private static final String SIMAL_REPOSITORY_DIR = "simalRepository";
 	public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
 	public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
 	public static final String DEFAULT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultNS#";
 	private static final String CATEGORIES_RDF = "categories.xml";
 	private static SailRepository _repository;
-	private static boolean isTest = true;
+	private static boolean isTest = false;
 
 	private SimalRepository() {
 		super();
@@ -427,8 +428,13 @@ public class SimalRepository {
 			throw new SimalRepositoryException(
 					"Illegal attempt to create a second SimalRepository in the same JAVA VM.");
 		}
+		
+		if (isTest) {
+			_repository = new SailRepository(new MemoryStore());
+			} else {
+			_repository = new SailRepository(new MemoryStore(getPersistentStoreFile()));
+			}
 
-		_repository = new SailRepository(new MemoryStore());
 		try {
 			_repository.initialize();
 		} catch (RepositoryException e) {
@@ -439,6 +445,19 @@ public class SimalRepository {
 		if (isTest) {
 			addTestData();
 		}
+	}
+
+	/**
+	 * Get the directory in which the Simal repository data should be
+	 * saved.
+	 * 
+	 * @return
+	 */
+	private static File getPersistentStoreFile() {
+		String path = System.getProperty("user.dir");
+		path = path + File.separator + SIMAL_REPOSITORY_DIR;
+		File file = new File(path);
+		return file;
 	}
 
 	/**
