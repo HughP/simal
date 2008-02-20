@@ -23,6 +23,7 @@ public abstract class TestBase extends TestCase {
 	public void setUp() {
 		try {
 			if (!SimalRepository.isInitialised()) {
+				SimalRepository.setIsTest(true);
 				SimalRepository.initialise();
 			}
 		} catch (SimalRepositoryException e) {

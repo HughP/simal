@@ -34,17 +34,13 @@ public class UserApplication extends WebApplication {
 			"http://simal.oss-watch.ac.uk/simalTest#");
 
 	public UserApplication() {
-		// FIXME: when we go to a non-volatile repo we need to set
-		// When isTest is set to true the repo is populated with test data
-		// isTest = false;
 		init();
 	}
 
 	public void init() {
 		if (!SimalRepository.isInitialised()) {
 			try {
-                // Why does this cause tests to fail on the CI repo.
-				//SimalRepository.setIsTest(true);
+                SimalRepository.setIsTest(true);
 				SimalRepository.initialise();
 			} catch (SimalRepositoryException e) {
 				e.printStackTrace();
