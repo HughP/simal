@@ -4,7 +4,6 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -13,26 +12,23 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.integrationTest.model.elmo.AbstractTestDOAP;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.Project;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * test common activities relating to Projects.
  * 
  */
-public class TestRepository extends AbstractTestDOAP {
+public class TestRepository extends BaseRepositoryTest {
 
 	@Test
 	public void testAddProject() throws SimalRepositoryException {
 		initialiseRepository(false);
 		// The default test repository adds projects when it is instantiated
-		assertTrue(SimalRepository.isInitialised());
+		assertTrue(repository.isInitialised());
 	}
 
 	@Test
@@ -40,7 +36,7 @@ public class TestRepository extends AbstractTestDOAP {
 		initialiseRepository(false);
 
 		QName qname = new QName("http://foo.org/nonExistent");
-		Project project = SimalRepository.getProject(qname);
+		Project project = repository.getProject(qname);
 		assertNull(project);
 
 		// test a known valid file
@@ -55,7 +51,7 @@ public class TestRepository extends AbstractTestDOAP {
 		QName qname = new QName(TEST_SIMAL_PROJECT_QNAME);
 
 		StringWriter sw = new StringWriter();
-		SimalRepository.writeXML(sw, qname);
+		repository.writeXML(sw, qname);
 		String xml = sw.toString();
 		assertTrue("XML does not contain the QName expected", xml
 				.contains("rdf:about=\"" + TEST_SIMAL_PROJECT_QNAME + "\""));
@@ -70,7 +66,7 @@ public class TestRepository extends AbstractTestDOAP {
 			IOException {
 		initialiseRepository(false);
 
-		Set<IProject> projects = SimalRepository.getAllProjects();
+		Set<IProject> projects = repository.getAllProjects();
 		assertEquals(4, projects.size());
 
 		Iterator<IProject> itrProjects = projects.iterator();
@@ -86,7 +82,7 @@ public class TestRepository extends AbstractTestDOAP {
 	public void testNullQNamehandling() throws SimalRepositoryException {
 		initialiseRepository(false);
 
-		Set<IProject> projects = SimalRepository.getAllProjects();
+		Set<IProject> projects = repository.getAllProjects();
 
 		Iterator itrProjects = projects.iterator();
 		Project project;
@@ -100,7 +96,7 @@ public class TestRepository extends AbstractTestDOAP {
 	public void testGetAllProjectsAsJSON() throws SimalRepositoryException {
 		initialiseRepository(false);
 
-		String json = SimalRepository.getAllProjectsAsJSON();
+		String json = repository.getAllProjectsAsJSON();
 		assertTrue("JSON file does not appear to be correct", json
 				.startsWith("{ \"items\": ["));
 		assertTrue("JSON file does not appear to be correct", json
@@ -112,11 +108,11 @@ public class TestRepository extends AbstractTestDOAP {
 		initialiseRepository(false);
 		
 		String uri = "http://simal.oss-watch.ac.uk/category/socialNews";
-		String label = SimalRepository.getLabel(uri);
+		String label = repository.getLabel(uri);
 		assertEquals("Category Label is incorrect", "Social News", label);
 		
 		uri = "http://example.org/does/not/exist";
-		label = SimalRepository.getLabel(uri);
+		label = repository.getLabel(uri);
 		assertNull("Somehow we have a label for a resource that does not exist", label);
 	}
 }

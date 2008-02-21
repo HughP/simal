@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.model;
 
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+
 /**
  * A wrapper for an RDFS Resource in Elmo.
  * 
@@ -35,4 +37,10 @@ public interface IResource {
 	 * @return
 	 */
 	public String getComment();
+	
+	/**
+	 * Return the repository that this resource belongs to.
+	 * @return
+	 */
+	public SimalRepository getRepository();
 }

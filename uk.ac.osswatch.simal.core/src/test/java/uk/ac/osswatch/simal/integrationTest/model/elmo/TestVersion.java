@@ -6,10 +6,15 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IVersion;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class TestVersion extends AbstractTestDOAP {
+public class TestVersion extends BaseRepositoryTest {
+
+	public TestVersion() throws SimalRepositoryException {
+		super();
+	}
 
 	private Set<IVersion> getVersions() throws SimalRepositoryException {
 		return project1.getReleases();

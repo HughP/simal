@@ -4,9 +4,14 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class TestDoapResource extends AbstractTestDOAP {
+public class TestDoapResource extends BaseRepositoryTest {
+
+	public TestDoapResource() throws SimalRepositoryException {
+		super();
+	}
 
 	@Test
 	public void testGetName() throws SimalRepositoryException {

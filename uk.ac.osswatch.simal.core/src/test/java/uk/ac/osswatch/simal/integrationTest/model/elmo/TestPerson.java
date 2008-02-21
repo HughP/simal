@@ -7,10 +7,13 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.elmo.Person;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class TestPerson extends AbstractTestDOAP {
+public class TestPerson extends BaseRepositoryTest {
 
 	private static Set<IPerson> maintainers;
 	private static Set<IPerson> developers;
@@ -22,6 +25,8 @@ public class TestPerson extends AbstractTestDOAP {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		createRepository();
+
 		project1 = getSimalTestProject(false);
 		maintainers = project1.getMaintainers();
 		

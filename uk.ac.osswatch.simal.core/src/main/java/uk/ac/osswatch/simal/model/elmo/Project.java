@@ -31,13 +31,13 @@ public class Project extends DoapResource implements IProject {
 	 * 
 	 * @param simalTestProject
 	 */
-	public Project(org.openrdf.concepts.doap.Project elmoProject) {
-		super(elmoProject);
+	public Project(org.openrdf.concepts.doap.Project elmoProject, SimalRepository repository) {
+		super(elmoProject, repository);
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getCategories() {
-		return DoapResource.createResourceSet(getProject().getDoapCategories());
+		return createResourceSet(getProject().getDoapCategories());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -58,13 +58,12 @@ public class Project extends DoapResource implements IProject {
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getDownloadMirrors() {
-		return DoapResource
-				.createResourceSet(getProject().getDoapDownloadMirrors());
+		return createResourceSet(getProject().getDoapDownloadMirrors());
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getDownloadPages() {
-		return DoapResource.createResourceSet(getProject().getDoapDownloadPages());
+		return createResourceSet(getProject().getDoapDownloadPages());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -77,17 +76,17 @@ public class Project extends DoapResource implements IProject {
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getHomepages() {
-		return DoapResource.createResourceSet(getProject().getDoapHomepages());
+		return createResourceSet(getProject().getDoapHomepages());
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getIssueTrackers() {
-		return DoapResource.createResourceSet(getProject().getDoapBugDatabases());
+		return createResourceSet(getProject().getDoapBugDatabases());
 	}
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getMailingLists() {
-		return DoapResource.createResourceSet(getProject().getDoapMailingLists());
+		return createResourceSet(getProject().getDoapMailingLists());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -105,7 +104,7 @@ public class Project extends DoapResource implements IProject {
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getOldHomepages() {
-		return DoapResource.createResourceSet(getProject().getDoapOldHomepages());
+		return createResourceSet(getProject().getDoapOldHomepages());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -125,7 +124,7 @@ public class Project extends DoapResource implements IProject {
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getScreenshots() {
-		return DoapResource.createResourceSet(getProject().getDoapScreenshots());
+		return createResourceSet(getProject().getDoapScreenshots());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -146,7 +145,7 @@ public class Project extends DoapResource implements IProject {
 
 	@SuppressWarnings("unchecked")
 	public Set<IDoapResource> getWikis() {
-		return DoapResource.createResourceSet(getProject().getDoapWikis());
+		return createResourceSet(getProject().getDoapWikis());
 
 	}
 
@@ -167,7 +166,7 @@ public class Project extends DoapResource implements IProject {
 		String uri;
 		while (uris.hasNext()) {
 			uri = uris.next();
-			people.add(SimalRepository.getPerson(new QName(uri)));
+			people.add(getRepository().getPerson(new QName(uri)));
 		}
 		return people;
 	}
@@ -189,7 +188,7 @@ public class Project extends DoapResource implements IProject {
 		String uri;
 		while (uris.hasNext()) {
 			uri = uris.next();
-			versions.add(SimalRepository.getVersion(new QName(uri)));
+			versions.add(getRepository().getVersion(new QName(uri)));
 		}
 		return versions;
 	}
@@ -212,7 +211,7 @@ public class Project extends DoapResource implements IProject {
 		String uri;
 		while (uris.hasNext()) {
 			uri = uris.next();
-			repos.add(SimalRepository.getRCS(new QName(uri)));
+			repos.add(getRepository().getRCS(new QName(uri)));
 		}
 		return repos;
 	}

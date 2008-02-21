@@ -3,6 +3,7 @@ package uk.ac.osswatch.simal.model.elmo;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IFoafResource;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 
 public class FoafResource extends Resource implements IFoafResource {
 	private static final long serialVersionUID = -3852417254318582808L;
@@ -11,8 +12,8 @@ public class FoafResource extends Resource implements IFoafResource {
 		super();
 	}
 	
-	public FoafResource(org.openrdf.concepts.foaf.Person person) {
-		super(person);
+	public FoafResource(org.openrdf.concepts.foaf.Person person, SimalRepository repository) {
+		super(person, repository);
 	}
 
 	/**

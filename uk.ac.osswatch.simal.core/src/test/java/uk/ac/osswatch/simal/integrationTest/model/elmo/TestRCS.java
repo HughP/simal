@@ -7,16 +7,17 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IRCS;
 
-public class TestRCS extends AbstractTestDOAP {
+public class TestRCS extends BaseRepositoryTest {
 
 	private static Set<IRCS> repositories;
 	private static IRCS repository;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		initialiseRepository(false);
+		createRepository();
 		project1 = getSimalTestProject(false);
 		repositories = project1.getRepositories();
 		repository = (IRCS) repositories.toArray()[0];

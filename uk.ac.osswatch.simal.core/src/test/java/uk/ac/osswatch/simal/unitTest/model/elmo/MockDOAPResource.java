@@ -6,7 +6,7 @@ import javax.xml.namespace.QName;
 
 import org.openrdf.concepts.rdfs.Resource;
 
-import uk.ac.osswatch.simal.integrationTest.model.elmo.AbstractTestDOAP;
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.elmo.DoapResource;
 
 public class MockDOAPResource extends DoapResource {
@@ -40,7 +40,7 @@ public class MockDOAPResource extends DoapResource {
 
 	@Override
 	public String getName() {
-		return AbstractTestDOAP.TEST_SIMAL_PROJECT_NAME;
+		return BaseRepositoryTest.TEST_SIMAL_PROJECT_NAME;
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class MockDOAPResource extends DoapResource {
 
 	@Override
 	public String getShortDesc() {
-		return AbstractTestDOAP.TEST_SIMAL_PROJECT_SHORT_DESC;
+		return BaseRepositoryTest.TEST_SIMAL_PROJECT_SHORT_DESC;
 	}
 	
 	@Override

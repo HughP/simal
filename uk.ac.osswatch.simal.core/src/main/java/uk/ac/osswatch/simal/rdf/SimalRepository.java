@@ -41,23 +41,23 @@ import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 /**
  * A class for handling common repository actions. Applications should not
- * instantiate this class but should interact with it via its static methods.
+ * instantiate this class but should interact with it via its methods.
  * 
  */
-public class SimalRepository {
-	private static final String SIMAL_REPOSITORY_DIR = "simalRepository";
+public class SimalRepository extends SimalProperties {
 	public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
 	public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
 	public static final String DEFAULT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultNS#";
-	private static final String CATEGORIES_RDF = "categories.xml";
-	private static SailRepository _repository;
-	private static boolean isTest = false;
+	private final String CATEGORIES_RDF = "categories.xml";
+	
+	private SailRepository _repository;
+	private boolean isTest = false;
 
-	private SimalRepository() {
+	public SimalRepository() throws SimalRepositoryException {
 		super();
 	}
 
-	private static RepositoryConnection getConnection()
+	private RepositoryConnection getConnection()
 			throws SimalRepositoryException {
 		return getManager().getConnection();
 	}
@@ -71,7 +71,7 @@ public class SimalRepository {
 	 * @throws IOException
 	 * @throws RDFParseException
 	 */
-	public static void addProject(URL url, String baseURI)
+	public void addProject(URL url, String baseURI)
 			throws SimalRepositoryException {
 		verifyInitialised();
 
@@ -119,7 +119,7 @@ public class SimalRepository {
 	 * 
 	 * @throws SimalRepositoryException
 	 */
-	private static void verifyInitialised() throws SimalRepositoryException {
+	private void verifyInitialised() throws SimalRepositoryException {
 		if (!isInitialised()) {
 			throw new SimalRepositoryException(
 					"SimalRepsotory has not been initialised. Call one of the initialise methods first.");
@@ -132,7 +132,7 @@ public class SimalRepository {
 	 * @return
 	 * @throws SimalRepositoryException
 	 */
-	private static SesameManager getManager() throws SimalRepositoryException {
+	private SesameManager getManager() throws SimalRepositoryException {
 		verifyInitialised();
 		ElmoModule module = new ElmoModule();
 		module.recordRole(org.openrdf.concepts.doap.Project.class);
@@ -156,7 +156,7 @@ public class SimalRepository {
 	 * @return the project, or if no project with the given QName exists Null
 	 * @throws SimalRepositoryException
 	 */
-	public static Project getProject(QName qname)
+	public Project getProject(QName qname)
 			throws SimalRepositoryException {
 		verifyInitialised();
 
@@ -165,7 +165,7 @@ public class SimalRepository {
 		if (elmoProject == null) {
 			return null;
 		}
-		return new Project(elmoProject);
+		return new Project(elmoProject, this);
 	}
 
 	/**
@@ -177,7 +177,7 @@ public class SimalRepository {
 	 *         QName exists Null
 	 * @throws SimalRepositoryException
 	 */
-	public static IVersion getVersion(QName qname)
+	public IVersion getVersion(QName qname)
 			throws SimalRepositoryException {
 		verifyInitialised();
 
@@ -186,7 +186,7 @@ public class SimalRepository {
 		if (elmoVersion == null) {
 			return null;
 		}
-		return new Version(elmoVersion);
+		return new Version(elmoVersion, this);
 	}
 
 	/**
@@ -199,7 +199,7 @@ public class SimalRepository {
 	 * @throws SimalRepositoryException
 	 * @throws SimalRepositoryException
 	 */
-	public static IRCS getRCS(QName qname) throws SimalRepositoryException {
+	public IRCS getRCS(QName qname) throws SimalRepositoryException {
 		verifyInitialised();
 
 		org.openrdf.concepts.doap.Repository elmoRepo = getManager().find(
@@ -219,7 +219,7 @@ public class SimalRepository {
 	 *         Null
 	 * @throws SimalRepositoryException
 	 */
-	public static IPerson getPerson(QName qname)
+	public IPerson getPerson(QName qname)
 			throws SimalRepositoryException {
 		verifyInitialised();
 
@@ -228,10 +228,10 @@ public class SimalRepository {
 		if (elmoPerson == null) {
 			return null;
 		}
-		return new Person(elmoPerson);
+		return new Person(elmoPerson, this);
 	}
 
-	public static Set<IProject> getAllProjects()
+	public Set<IProject> getAllProjects()
 			throws SimalRepositoryException {
 		verifyInitialised();
 
@@ -241,7 +241,7 @@ public class SimalRepository {
 		org.openrdf.concepts.doap.Project project;
 		while (elmoProjects.hasNext()) {
 			project = elmoProjects.next();
-			result.add(new Project(project));
+			result.add(new Project(project, this));
 		}
 		return result;
 	}
@@ -256,7 +256,7 @@ public class SimalRepository {
 	 * @throws RepositoryException
 	 * @throws RDFHandlerException
 	 */
-	public static void writeXML(Writer writer, QName qname)
+	public void writeXML(Writer writer, QName qname)
 			throws SimalRepositoryException {
 		verifyInitialised();
 
@@ -282,7 +282,7 @@ public class SimalRepository {
 	 * 
 	 * @throws SimalRepositoryException
 	 */
-	private static void addTestData() throws SimalRepositoryException {
+	private void addTestData() throws SimalRepositoryException {
 		verifyInitialised();
 
 		try {
@@ -316,7 +316,7 @@ public class SimalRepository {
 	 * @param testFileBaseUrl
 	 * @throws SimalRepositoryException
 	 */
-	public static void addRDFXML(URL url, String baseURL)
+	public void addRDFXML(URL url, String baseURL)
 			throws SimalRepositoryException {
 		RepositoryConnection con = getConnection();
 		try {
@@ -349,7 +349,7 @@ public class SimalRepository {
 	 *            the project for which we need a QName
 	 * @return
 	 */
-	public static QName getDefaultQName(
+	public QName getDefaultQName(
 			org.openrdf.concepts.doap.Project project) {
 		String strQName;
 		if (project.getDoapHomepages() == null
@@ -373,7 +373,7 @@ public class SimalRepository {
 	 * @return
 	 * @throws SimalRepositoryException
 	 */
-	public static String getAllProjectsAsJSON() throws SimalRepositoryException {
+	public String getAllProjectsAsJSON() throws SimalRepositoryException {
 		StringBuffer json = new StringBuffer("{ \"items\": [");
 		Iterator<IProject> projects = getAllProjects().iterator();
 		while (projects.hasNext()) {
@@ -392,7 +392,7 @@ public class SimalRepository {
 	 * 
 	 * @return
 	 */
-	public static boolean isInitialised() {
+	public boolean isInitialised() {
 		return _repository != null;
 	}
 
@@ -403,7 +403,7 @@ public class SimalRepository {
 	 * 
 	 * @throws RepositoryException
 	 */
-	public static void destroy() throws SimalRepositoryException {
+	public void destroy() throws SimalRepositoryException {
 		if (isInitialised()) {
 			try {
 				_repository.shutDown();
@@ -423,7 +423,7 @@ public class SimalRepository {
 	 * 
 	 * @throws SimalRepositoryException
 	 */
-	public static void initialise() throws SimalRepositoryException {
+	public void initialise() throws SimalRepositoryException {
 		if (_repository != null) {
 			throw new SimalRepositoryException(
 					"Illegal attempt to create a second SimalRepository in the same JAVA VM.");
@@ -453,11 +453,8 @@ public class SimalRepository {
 	 * 
 	 * @return
 	 */
-	private static File getPersistentStoreFile() {
-		String path = System.getProperty("user.dir");
-		path = path + File.separator + SIMAL_REPOSITORY_DIR;
-		File file = new File(path);
-		return file;
+	private File getPersistentStoreFile() {
+		return new File(getProperty(PROPERTY_DATA_DIR));
 	}
 
 	/**
@@ -469,7 +466,7 @@ public class SimalRepository {
 	 *            true if this is to be a test repository
 	 * @throws SimalRepositoryException
 	 */
-	public static void setIsTest(boolean newValue)
+	public void setIsTest(boolean newValue)
 			throws SimalRepositoryException {
 		if (isInitialised() && isTest != newValue) {
 			throw new SimalRepositoryException(
@@ -486,7 +483,7 @@ public class SimalRepository {
 	 * @return
 	 * @throws SimalRepositoryException
 	 */
-	public static String getLabel(QName qname) throws SimalRepositoryException {
+	public String getLabel(QName qname) throws SimalRepositoryException {
 		SesameManager manager = getManager();
 		Resource resource = manager.find(Resource.class, qname);
 		if (resource == null) {
@@ -503,7 +500,7 @@ public class SimalRepository {
 	 * @return
 	 * @throws SimalRepositoryException
 	 */
-	public static String getLabel(String uri) throws SimalRepositoryException {
+	public String getLabel(String uri) throws SimalRepositoryException {
 		return getLabel(new QName(uri));
 	}
 
@@ -516,7 +513,7 @@ public class SimalRepository {
 	 *             decide whether or not to treat this as an error or to
 	 *             continue within the existing transaction.
 	 */
-	public static void startTransaction() throws SimalRepositoryException,
+	public void startTransaction() throws SimalRepositoryException,
 			TransactionException {
 		EntityTransaction transaction = getManager().getTransaction();
 		if (transaction.isActive()) {
@@ -531,7 +528,7 @@ public class SimalRepository {
 	 * @throws SimalRepositoryException 
 	 * @throws TransactionException If no transaction is active.
 	 */
-	public static void commitTransaction() throws SimalRepositoryException, TransactionException {
+	public void commitTransaction() throws SimalRepositoryException, TransactionException {
 		EntityTransaction transaction = getManager().getTransaction();
 		if (!transaction.isActive()) {
 			throw new TransactionException(
@@ -546,7 +543,7 @@ public class SimalRepository {
 	 * @throws SimalRepositoryException 
 	 * @throws TransactionException If no transaction is active
 	 */
-	public static void rollback() throws SimalRepositoryException, TransactionException {
+	public void rollback() throws SimalRepositoryException, TransactionException {
 		EntityTransaction transaction = getManager().getTransaction();
 		if (!transaction.isActive()) {
 			throw new TransactionException(

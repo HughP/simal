@@ -26,8 +26,8 @@ public class Person extends FoafResource implements IPerson {
 	 * 
 	 * @param simalTestProject
 	 */
-	public Person(org.openrdf.concepts.foaf.Person elmoPerson) {
-		super(elmoPerson);
+	public Person(org.openrdf.concepts.foaf.Person elmoPerson, SimalRepository repository) {
+		super(elmoPerson, repository);
 	}
 
 	/**
@@ -62,7 +62,7 @@ public class Person extends FoafResource implements IPerson {
 			cachedLabel = getGivennames();
 			if (cachedLabel == null || cachedLabel == "") {
 				try {
-					cachedLabel = SimalRepository.getLabel(elmoResource
+					cachedLabel = getRepository().getLabel(elmoResource
 							.getQName());
 				} catch (SimalRepositoryException e) {
 					// Oh well, that didn't work, it'll be dealt with later in
