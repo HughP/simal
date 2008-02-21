@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.wicket;
 
+import static org.junit.Assert.*;
+
 import org.apache.wicket.markup.html.basic.Label;
 
 /**

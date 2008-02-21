@@ -26,8 +26,8 @@ public class UserHomePage extends BasePage {
 	public UserHomePage() {
 		try {
 			add(new ProjectListPanel("projectList"));
-			add(new ProjectSummaryPanel("featuredProject", SimalRepository
-					.getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
+			add(new ProjectSummaryPanel("featuredProject", UserApplication
+					.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
 		} catch (SimalRepositoryException e) {
 			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));

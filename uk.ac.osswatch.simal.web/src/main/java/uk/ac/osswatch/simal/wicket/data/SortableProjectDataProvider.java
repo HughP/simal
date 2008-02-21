@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.data;
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
  * A project data provider that allows the projects to be sorted.
@@ -17,6 +17,6 @@ public class SortableProjectDataProvider extends SortableDoapResourceDataProvide
 	 * @throws SimalRepositoryException 
 	 */
 	public SortableProjectDataProvider() throws SimalRepositoryException {
-		super(SimalRepository.getAllProjects());
+		super(UserApplication.getRepository().getAllProjects());
 	}
 }
