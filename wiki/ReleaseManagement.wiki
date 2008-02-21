@@ -1,6 +1,8 @@
 #summary Steps to go through for a release
 #labels Phase-Support,Phase-Implementation
 
+*NOTE* This document refers to the process for 0.1, the core was redesigned for 0.2 and this document is no longer fully accurate. Pease update.
+
 = Change src version numbers to reflect release candidate build =
 
 We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-dev" to "-rc1", "-rc2", "rc3" etc.
