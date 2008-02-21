@@ -4,11 +4,11 @@
 This document is a guide to the key functionality we intend to implement in each release. You can see roughly how close we are to the release by viewing our [http://code.google.com/p/simal/issues/list issue tracker].
 
 || *Version* || *Description* || *Status* ||
-|| 0.1       || Static catalogue generation || RC2 built and in testing ||
+|| 0.1       || Static catalogue generation || Released ||
 || 0.2       || Basic DOAP management within webapp || In development ||
-|| 0.3       || Integration of locally and remotely hosted DOAP files || Requirements gathering ||
-|| 0.4       || Tools for managing private catalogue subsets || Requirements gathering ||
-|| 0.5       || Webapp generates static site for download || Requirements gathering ||
+|| 0.3       || Integration with third party data providers || Defining Stories ||
+|| 0.4       || Tools for managing private catalogue subsets || Thinking.... ||
+|| 0.5       || Webapp generates static site for download || Thinking harder... ||
 
 
 =Releases=
