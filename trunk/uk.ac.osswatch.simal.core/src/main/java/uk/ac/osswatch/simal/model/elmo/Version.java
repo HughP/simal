@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IVersion;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 
 /**
  * A wrapper around an Elmo doap version object.
@@ -20,8 +21,8 @@ public class Version extends DoapResource implements IVersion {
 	 * 
 	 * @param simalTestProject
 	 */
-	public Version(org.openrdf.concepts.doap.Version elmoVersion) {
-		super(elmoVersion);
+	public Version(org.openrdf.concepts.doap.Version elmoVersion, SimalRepository repository) {
+		super(elmoVersion, repository);
 	}
 
 	private org.openrdf.concepts.doap.Version getVersion() {

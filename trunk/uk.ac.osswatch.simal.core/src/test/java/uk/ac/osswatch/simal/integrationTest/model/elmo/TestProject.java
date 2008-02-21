@@ -6,10 +6,11 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class TestProject extends AbstractTestDOAP {
+public class TestProject extends BaseRepositoryTest {
 
 	@Test
 	public void testGetQName() {

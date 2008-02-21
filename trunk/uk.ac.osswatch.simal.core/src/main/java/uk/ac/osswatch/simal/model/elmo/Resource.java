@@ -5,15 +5,18 @@ import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Resource implements IResource {
+	private final SimalRepository repository;
 	protected final org.openrdf.concepts.rdfs.Resource elmoResource;
 	protected String cachedLabel;
 
 	protected Resource() {
 		this.elmoResource = null;
+		this.repository = null;
 	};
 
-	public Resource(org.openrdf.concepts.rdfs.Resource resource) {
+	public Resource(org.openrdf.concepts.rdfs.Resource resource, SimalRepository repository) {
 		this.elmoResource = resource;
+		this.repository = repository;
 	}
 
 	/**
@@ -47,7 +50,7 @@ public class Resource implements IResource {
 		cachedLabel = elmoResource.getRdfsLabel();
 		if (cachedLabel == null || cachedLabel == "") {
 			try {
-				cachedLabel = SimalRepository.getLabel(elmoResource.getQName());
+				cachedLabel = repository.getLabel(elmoResource.getQName());
 			} catch (SimalRepositoryException e) {
 				// Oh well, that didn't work, it'll be dealt with later in this method, 
 				// but we need to log the problem.
@@ -75,6 +78,10 @@ public class Resource implements IResource {
 
 	public String toString() {
 		return elmoResource.toString();
+	}
+	
+	public SimalRepository getRepository() {
+		return repository;
 	}
 
 }

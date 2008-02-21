@@ -29,6 +29,11 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class Simal {
 	private static final Logger logger = LoggerFactory.getLogger(Simal.class);
 	private static final String SIMAL_VERSION = "0.2-SNAPSHOT";
+	private static SimalRepository repository;
+	
+	public Simal() throws SimalRepositoryException {
+		 repository = new SimalRepository();
+	}
 
 	/**
 	 * @param args
@@ -80,7 +85,7 @@ public class Simal {
 				if (opt.equals(test)) {
 					try {
 						logger.info("Setting repository to test mode");
-						SimalRepository.setIsTest(true);
+						repository.setIsTest(true);
 					} catch (SimalRepositoryException e) {
 						logger.error("Weird, that shouldn't happen...", e);
 						System.exit(1);
@@ -117,7 +122,7 @@ public class Simal {
 	private static void writeXML(final QName qname) {
 		logger.info("Writing XML for " + qname);
 		try {
-			SimalRepository.writeXML(new OutputStreamWriter(System.out), qname);
+			repository.writeXML(new OutputStreamWriter(System.out), qname);
 		} catch (SimalRepositoryException e) {
 			logger.error("Unable to write XML to standard out");
 			System.exit(1);
@@ -139,7 +144,7 @@ public class Simal {
 				fileURL = new URL(filenameOrURL);
 			}
 			try {
-				SimalRepository.addProject(fileURL, "");
+				repository.addProject(fileURL, "");
 			} catch (SimalRepositoryException e) {
 				logger.error("Unable to add an RDF/XML documet {}",
 						fileURL.toExternalForm());
@@ -155,7 +160,7 @@ public class Simal {
 
 	private static void initRepository() {
 		try {
-			SimalRepository.initialise();
+			repository.initialise();
 		} catch (SimalRepositoryException e) {
 			logger.error("Unable to start repository: {}", e.getMessage());
 			e.printStackTrace();

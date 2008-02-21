@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -25,8 +26,8 @@ public class DoapResource extends Resource implements IDoapResource {
 	protected DoapResource() {
 	};
 	
-	public DoapResource(org.openrdf.concepts.doap.DoapResource resource) {
-		super(resource);
+	public DoapResource(org.openrdf.concepts.doap.DoapResource resource, SimalRepository repository) {
+		super(resource, repository);
 	}
 
 	/**
@@ -174,14 +175,14 @@ public class DoapResource extends Resource implements IDoapResource {
 	 * @param set
 	 * @return
 	 */
-	public static Set<IDoapResource> createResourceSet(Set<Object> set) {
+	public Set<IDoapResource> createResourceSet(Set<Object> set) {
 		Iterator<Object> elmoResources = set.iterator();
 		HashSet<IDoapResource> results = new HashSet<IDoapResource>(set.size());
 		Object resource;
 		while (elmoResources.hasNext()) {
 			resource = elmoResources.next();
 			if (resource instanceof org.openrdf.concepts.doap.DoapResource) {
-				results.add(new DoapResource((org.openrdf.concepts.doap.DoapResource)resource));
+				results.add(new DoapResource((org.openrdf.concepts.doap.DoapResource)resource, getRepository()));
 			} else {
 				throw new IllegalArgumentException(
 						"Can only create ResourceSets from elmo DoapResources. you just tried to create one containing " + resource.toString());

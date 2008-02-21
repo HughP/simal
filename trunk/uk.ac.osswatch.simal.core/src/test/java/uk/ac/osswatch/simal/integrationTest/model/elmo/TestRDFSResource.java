@@ -18,6 +18,8 @@ public class TestRDFSResource extends BaseRepositoryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		createRepository();
+		
 		Set<IDoapResource> lists = getSimalTestProject(true).getMailingLists();
 		maillistResource = (Resource) lists.toArray()[0];
 	}

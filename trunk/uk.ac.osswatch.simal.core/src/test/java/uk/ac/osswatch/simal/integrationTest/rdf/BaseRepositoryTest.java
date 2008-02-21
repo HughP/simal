@@ -2,6 +2,8 @@ package uk.ac.osswatch.simal.integrationTest.rdf;
 
 import javax.xml.namespace.QName;
 
+import org.junit.BeforeClass;
+
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -64,8 +66,25 @@ public abstract class BaseRepositoryTest {
 
 	public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
 
-	public BaseRepositoryTest() {
-		super();
+	protected static SimalRepository repository;
+	
+	protected static Project project1;
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		createRepository();
+		project1 = getSimalTestProject(false);
+	}
+
+	protected static void createRepository() throws SimalRepositoryException {
+		repository = new SimalRepository();
+		initialiseRepository(false);
+		rollbackAndStartTransaction();
+	}
+
+	protected void resetTestData() throws SimalRepositoryException {
+		rollbackAndStartTransaction();
+		project1 = getSimalTestProject(true);
 	}
 
 	/**
@@ -82,14 +101,14 @@ public abstract class BaseRepositoryTest {
 	protected static void initialiseRepository(boolean reset)
 			throws SimalRepositoryException {
 		try {
-			if (SimalRepository.isInitialised() && reset) {
-				SimalRepository.rollback();
-				SimalRepository.startTransaction();
+			if (repository.isInitialised() && reset) {
+				repository.rollback();
+				repository.startTransaction();
 			}
-			if (!SimalRepository.isInitialised()) {
-				SimalRepository.setIsTest(true);
-				SimalRepository.initialise();
-				SimalRepository.startTransaction();
+			if (!repository.isInitialised()) {
+				repository.setIsTest(true);
+				repository.initialise();
+				repository.startTransaction();
 			}
 		} catch (TransactionException e) {
 			throw new SimalRepositoryException(e.getMessage(), e);
@@ -120,7 +139,7 @@ public abstract class BaseRepositoryTest {
 		if (reset) {
 			rollbackAndStartTransaction();
 		}
-		project = SimalRepository.getProject(qname);
+		project = repository.getProject(qname);
 		return project;
 	}
 
@@ -133,13 +152,13 @@ public abstract class BaseRepositoryTest {
 	protected static void rollbackAndStartTransaction()
 			throws SimalRepositoryException {
 		try {
-			SimalRepository.rollback();
+			repository.rollback();
 		} catch (TransactionException e) {
 			// we don't care since we have no idea what state we are in
 			// simply assume this is OK for test purposes
 		}
 		try {
-			SimalRepository.startTransaction();
+			repository.startTransaction();
 		} catch (TransactionException e) {
 			// we don't care since we have no idea what state we are in
 			// simply assume this is OK for test purposes
