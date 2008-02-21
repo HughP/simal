@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.wicket.panel;
 
+import static org.junit.Assert.*;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.TestPanelSource;
 

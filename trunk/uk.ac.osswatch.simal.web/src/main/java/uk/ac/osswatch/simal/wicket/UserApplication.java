@@ -33,26 +33,30 @@ public class UserApplication extends WebApplication {
 	public static final QName DEFAULT_PROJECT_QNAME = new QName(
 			"http://simal.oss-watch.ac.uk/simalTest#");
 
+	private static SimalRepository repository;
+
 	public UserApplication() {
 		init();
 	}
 
 	public void init() {
-		if (!SimalRepository.isInitialised()) {
-			try {
-                SimalRepository.setIsTest(true);
-				SimalRepository.initialise();
-			} catch (SimalRepositoryException e) {
-				e.printStackTrace();
-				System.exit(1);
-			}
-		}
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public Class getHomePage() {
 		return UserHomePage.class;
+	}
+
+	public static SimalRepository getRepository() throws SimalRepositoryException {
+		if (repository == null) {
+			repository = new SimalRepository();
+			if (!repository.isInitialised()) {
+				repository.setIsTest(true);
+				repository.initialise();
+			}
+		}
+		return repository;
 	}
 
 }

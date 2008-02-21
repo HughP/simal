@@ -1,10 +1,10 @@
 package uk.ac.osswatch.simal.wicket.panel;
 
+import static org.junit.Assert.*;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.TestPanelSource;
 
 import uk.ac.osswatch.simal.model.elmo.Person;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -20,7 +20,7 @@ public class TestPersonSummaryPanel extends TestBase {
 		        public Panel getTestPanel(String panelId)
 		        {
 		                try {
-							return new PersonSummaryPanel(panelId, (Person)SimalRepository.getProject(UserApplication.DEFAULT_PROJECT_QNAME).getDevelopers().toArray()[0]);
+							return new PersonSummaryPanel(panelId, (Person)UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME).getDevelopers().toArray()[0]);
 						} catch (SimalRepositoryException e) {
 							fail(e.getMessage());
 							return null;

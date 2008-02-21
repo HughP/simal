@@ -5,7 +5,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
 
 import uk.ac.osswatch.simal.model.elmo.Project;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
@@ -17,8 +16,7 @@ public class ProjectDetailPage extends BasePage {
 	public ProjectDetailPage() {
 		Project project;
 		try {
-			project = SimalRepository
-					.getProject(UserApplication.DEFAULT_PROJECT_QNAME);
+			project = UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME);
 			populatePage(project);
 		} catch (SimalRepositoryException e) {
 			UserReportableException error = new UserReportableException(

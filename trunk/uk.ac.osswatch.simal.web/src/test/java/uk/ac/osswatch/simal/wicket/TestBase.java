@@ -1,30 +1,21 @@
 package uk.ac.osswatch.simal.wicket;
 
-import junit.framework.TestCase;
-
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.BeforeClass;
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public abstract class TestBase extends TestCase {
+public abstract class TestBase  {
 
 	protected static final int NUMBER_OF_TEST_PROJECTS = 4;
-	protected WicketTester tester;
+	protected static WicketTester tester;
 
-	public TestBase() {
-		super();
-	}
-
-	public TestBase(String name) {
-		super(name);
-	}
-
-	public void setUp() {
+	@BeforeClass
+	public static void setUpBeforeClass() {
 		try {
-			if (!SimalRepository.isInitialised()) {
-				SimalRepository.setIsTest(true);
-				SimalRepository.initialise();
+			if (!UserApplication.getRepository().isInitialised()) {
+				UserApplication.getRepository().setIsTest(true);
+				UserApplication.getRepository().initialise();
 			}
 		} catch (SimalRepositoryException e) {
 			e.printStackTrace();
@@ -33,5 +24,4 @@ public abstract class TestBase extends TestCase {
 
 		tester = new WicketTester();
 	}
-
 }
