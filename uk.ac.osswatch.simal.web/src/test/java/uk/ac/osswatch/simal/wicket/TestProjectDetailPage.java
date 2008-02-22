@@ -1,10 +1,13 @@
 package uk.ac.osswatch.simal.wicket;
 
+import org.junit.Test;
+
 /**
  * Simple test using the WicketTester
  */
 public class TestProjectDetailPage extends TestBase {
 
+	@Test
 	public void testRenderPage() {
 		tester.startPage(ProjectDetailPage.class);
 		tester.assertRenderedPage(ProjectDetailPage.class);

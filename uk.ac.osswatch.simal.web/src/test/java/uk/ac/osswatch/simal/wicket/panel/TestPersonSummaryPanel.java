@@ -1,8 +1,10 @@
 package uk.ac.osswatch.simal.wicket.panel;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
+
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.TestPanelSource;
+import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.elmo.Person;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -14,6 +16,7 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  */
 public class TestPersonSummaryPanel extends TestBase {
 
+	@Test
 	@SuppressWarnings("serial")
 	public void testRenderUserHomePage() {
 		 tester.startPanel(new TestPanelSource() {

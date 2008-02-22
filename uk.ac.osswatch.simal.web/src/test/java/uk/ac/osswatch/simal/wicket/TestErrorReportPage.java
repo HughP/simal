@@ -1,14 +1,16 @@
 package uk.ac.osswatch.simal.wicket;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.junit.Test;
 
 /**
  * Simple test using the WicketTester
  */
 public class TestErrorReportPage extends TestBase {
 
+	@Test
 	public void testRenderPage() {
 		tester.startPage(ErrorReportPage.class);
 		tester.assertRenderedPage(ErrorReportPage.class);
