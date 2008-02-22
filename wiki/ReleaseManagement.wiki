@@ -5,10 +5,10 @@
 
 = Change src version numbers to reflect release candidate build =
 
-We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-dev" to "-rc1", "-rc2", "rc3" etc.
+We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-SNAPSHOT" to "-rc1", "-rc2", "rc3" etc.
 
- * in {{{simalInstaller/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
- * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
+ * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
+ * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
 = Build the release candidate installer =
 
@@ -52,8 +52,8 @@ Assuming that the vote passes we can proceed. If it does not pass the reason(s) 
 
 We must now build a release package. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-rc*" to "-ga"
 
- * in {{{simal-install/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
- * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
+ * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
+ * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
 
 = Package for release =
@@ -82,5 +82,5 @@ The RoadMap indicates the status of each release. Once an release candidate has 
 
 We must now build a release package. To do this we need to correctly set the version number. Usually this will mean incrementing the minor version number and changing the postfix from "-ga" to "-dev"
 
- * in {{{simal-sintall/simal-install.xml}}} change {{{<appversion>x.y.z[-POSTFIX]</appversion>}}}
- * in {{{build.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
+ * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
+ * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
