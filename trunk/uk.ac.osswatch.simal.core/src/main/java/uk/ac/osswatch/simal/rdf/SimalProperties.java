@@ -11,6 +11,7 @@ public class SimalProperties {
 	private static final String DEFAULT_PROPERTIES_FILE = "default.simal.properties";
 	public static final String PROPERTY_DATA_DIR = "simal.repository.dir";
 	public static final String PROPERTY_TEST = "simal.test";
+	public static final String PROPERTY_SIMAL_VERSION = "simal.version";
 
 	private Properties props;
 
