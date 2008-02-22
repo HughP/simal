@@ -30,10 +30,6 @@ If this is a RC release then previous RC releases should be deleted (they use up
 
 If this is a full release then deprecate the previous release.
 
-= Update RoadMap =
-
-The RoadMap indicates the status of each release. Once an release candidate has been built this should be noted in the status column of the RoadMap table. typically the entry will read something like "RC1 in testing".
-
 = Test =
 
  * notify users/developers of new release candidate
