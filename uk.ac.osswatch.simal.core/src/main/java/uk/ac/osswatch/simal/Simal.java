@@ -28,11 +28,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public class Simal {
 	private static final Logger logger = LoggerFactory.getLogger(Simal.class);
-	private static final String SIMAL_VERSION = "0.2-SNAPSHOT";
 	private static SimalRepository repository;
 	
 	public Simal() throws SimalRepositoryException {
-		 repository = new SimalRepository();
 	}
 
 	/**
@@ -41,6 +39,12 @@ public class Simal {
 	 */
 	@SuppressWarnings({ "unchecked", "static-access" })
 	public static void main(String[] args) {
+	    try {
+			repository = new SimalRepository();
+		} catch (SimalRepositoryException e) {
+			throw new RuntimeException("Unable to create repository", e);
+		}
+		
 		Options opts = new Options();
 
 		Option help = new Option("h", "help", false,
@@ -168,7 +172,7 @@ public class Simal {
 	}
 
 	private static void printVersion() {
-		logger.info("Simal version   : " + SIMAL_VERSION);
+		logger.info("Simal version   : " + repository.getProperty(SimalRepository.PROPERTY_SIMAL_VERSION));
 		logger.info("Java version    : "
 				+ System.getProperty("java.version"));
 		logger.info("Java vendor     : "
