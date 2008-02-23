@@ -1,6 +1,5 @@
 package uk.ac.osswatch.simal.wicket.doap;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.apache.wicket.IClusterable;
@@ -12,14 +11,26 @@ import org.apache.wicket.IClusterable;
 public class DoapFormInputModel implements IClusterable {
 	private static final long serialVersionUID = -9089647575258232806L;
 	private URL sourceURL;
+	private String name;
+	private String shortDesc;
 
 	public DoapFormInputModel() {
-		try {
-			sourceURL = new URL("http://wicket.apache.org");
-		} catch (MalformedURLException e) {
-			// can't happen since URL is hard coded
-			e.printStackTrace();
-		}
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getShortDesc() {
+		return shortDesc;
+	}
+
+	public void setShortDesc(String shortDesc) {
+		this.shortDesc = shortDesc;
 	}
 
 	/**

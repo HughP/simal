@@ -5,13 +5,21 @@ import java.net.URL;
 
 import java.util.Locale;
 
+import javax.xml.namespace.QName;
+
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.convert.ConversionException;
 import org.apache.wicket.util.convert.IConverter;
 
+import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
@@ -29,6 +37,7 @@ public class DoapFormPage extends BasePage {
 	public DoapFormPage() {
 		final FeedbackPanel feedback = new FeedbackPanel("feedback");
 		add(feedback);
+		add(new AddByURLForm("addByURLForm"));
 		add(new DoapForm("doapForm"));
 	}
 
@@ -37,7 +46,49 @@ public class DoapFormPage extends BasePage {
 
 		@SuppressWarnings("serial")
 		public DoapForm(String name) {
-			super(name, new CompoundPropertyModel(inputModel ));
+			super(name, new CompoundPropertyModel(inputModel));
+
+			RequiredTextField stringTextField = new RequiredTextField("name");
+			stringTextField.setLabel(new Model());
+			add(stringTextField);
+
+			stringTextField = new RequiredTextField("shortDesc");
+			stringTextField.setLabel(new Model());
+			add(stringTextField);
+
+		}
+
+		@Override
+		protected void onSubmit() {
+			super.onSubmit();
+
+			if (!this.hasError()) {
+				QName qname = new QName(SimalRepository.DEFAULT_NAMESPACE_URI + inputModel.getName());
+				try {
+					SimalRepository repo = UserApplication.getRepository();
+					
+					IProject project = repo.createProject(qname);
+					project.addName(inputModel.getName());
+					project.setShortDesc(inputModel.getShortDesc());
+					setResponsePage(new UserHomePage());
+				} catch (DuplicateQNameException e) {
+					error("Name must be unique within the registry");
+				} catch (SimalRepositoryException e) {
+					setResponsePage(new ErrorReportPage(
+							new UserReportableException(
+									"Unable to add doap from form",
+									DoapFormPage.class, e)));
+				}
+			}
+		}
+	}
+
+	private class AddByURLForm extends Form {
+		private static final long serialVersionUID = 4350446873545711199L;
+
+		@SuppressWarnings("serial")
+		public AddByURLForm(String name) {
+			super(name, new CompoundPropertyModel(inputModel));
 
 			add(new TextField("sourceURL", URL.class) {
 				@SuppressWarnings("unchecked")
@@ -61,18 +112,22 @@ public class DoapFormPage extends BasePage {
 				}
 			});
 		}
-		
 
 		@Override
 		protected void onSubmit() {
 			super.onSubmit();
-			
+
 			if (!this.hasError()) {
 				try {
-					UserApplication.getRepository().addProject(inputModel.getSourceURL(), inputModel.getSourceURL().getHost());
+					UserApplication.getRepository().addProject(
+							inputModel.getSourceURL(),
+							inputModel.getSourceURL().getHost());
 					setResponsePage(new UserHomePage());
 				} catch (SimalRepositoryException e) {
-					setResponsePage(new ErrorReportPage(new UserReportableException("Unable to add doap from url", DoapFormPage.class, e)));
+					setResponsePage(new ErrorReportPage(
+							new UserReportableException(
+									"Unable to add doap from url",
+									DoapFormPage.class, e)));
 				}
 			}
 		}
