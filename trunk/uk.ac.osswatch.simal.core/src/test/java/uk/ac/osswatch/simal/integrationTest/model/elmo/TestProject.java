@@ -4,10 +4,15 @@ import static org.junit.Assert.*;
 
 import java.util.Set;
 
+import javax.xml.namespace.QName;
+
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestProject extends BaseRepositoryTest {
@@ -145,5 +150,29 @@ public class TestProject extends BaseRepositoryTest {
 	public void testGetWikis() {
 		String wikis = project1.getWikis().toString();
 		assertTrue(wikis.contains(TEST_SIMAL_PROJECT_WIKIS));
+	}
+	
+	@Test
+	public void testProjectFromScratch() throws SimalRepositoryException {
+		QName qname = new QName(SimalRepository.DEFAULT_NAMESPACE_URI + "TestingProjectFromScratch");
+		Project project;
+		try {
+			project = repository.createProject(qname);
+			project.addName("Testing");
+			project.setShortDesc("Just testing adding a manually built project");
+			
+			project = repository.getProject(qname);
+			assertNotNull("Project has not been added to repository", project);
+			assertEquals("Project name is incorrectly set", "Testing", project.getName());
+		} catch (DuplicateQNameException e) {
+			fail(e.getMessage());
+		}
+		
+		try {
+			project = repository.createProject(qname);
+			fail("We shouldn't have been able to create the second project");
+		} catch (DuplicateQNameException e) {
+			// that's expected
+		}
 	}
 }

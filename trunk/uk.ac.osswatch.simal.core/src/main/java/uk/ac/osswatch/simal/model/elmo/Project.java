@@ -23,7 +23,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class Project extends DoapResource implements IProject {
 	private static final long serialVersionUID = -1771017230656089944L;
 	
-	protected Project() {		
+	protected Project() {
+	
 	}
 
 	/**

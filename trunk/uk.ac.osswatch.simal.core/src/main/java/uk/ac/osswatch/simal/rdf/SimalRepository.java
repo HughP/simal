@@ -558,4 +558,22 @@ public class SimalRepository extends SimalProperties {
 		}
 		transaction.rollback();
 	}
+
+	/**
+	 * Create a new project in the repository. A default QName will
+	 * be created for the project.
+	 * @return
+	 * @throws SimalRepositoryException if an error is thrown whilst communicating with the repository
+	 * @throws DuplicateQNameException if an entity with the given QName already exists
+	 */
+	public Project createProject(QName qname) throws SimalRepositoryException, DuplicateQNameException {
+		Project project = getProject(qname);
+		if (project != null) {
+			throw new DuplicateQNameException("Attempt to create a second project with the QName " + qname);
+		}
+		
+		org.openrdf.concepts.doap.Project elmoProject = getManager().designate(org.openrdf.concepts.doap.Project.class, qname);
+		project = new Project(elmoProject, this);
+		return project;
+	}
 }

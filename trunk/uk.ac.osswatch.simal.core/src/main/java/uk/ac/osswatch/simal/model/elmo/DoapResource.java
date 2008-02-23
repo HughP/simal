@@ -41,6 +41,15 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 	
 	/**
+	 * Add a name.
+	 */
+	public void addName(String name) {
+		Set<Object> names = getDoapResource().getDoapNames();
+		names.add(name);
+		getDoapResource().setDoapNames(names);
+	}
+	
+	/**
 	 * Get all the names for this resource.
 	 */
 	public Set<String> getNames() {
