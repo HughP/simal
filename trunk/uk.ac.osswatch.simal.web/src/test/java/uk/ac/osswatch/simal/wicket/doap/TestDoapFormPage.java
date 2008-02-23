@@ -2,10 +2,14 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 import java.net.URL;
 
+import javax.xml.namespace.QName;
+
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
@@ -23,7 +27,7 @@ public class TestDoapFormPage extends TestBase {
 	}
 	
 	@Test
-	public void testAddProjectByURL() {
+	public void testAddProjectByURL() throws SimalRepositoryException {
 		tester.startPage(DoapFormPage.class);
 		tester.assertRenderedPage(DoapFormPage.class);
 		
@@ -43,10 +47,12 @@ public class TestDoapFormPage extends TestBase {
 		formTester.setValue("sourceURL", doapURL.toString());
 		formTester.submit();
 		tester.assertRenderedPage(UserHomePage.class);
+		
+		UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
 	}
 	
 	@Test
-	public void testAddProjectByForm() {
+	public void testAddProjectByForm() throws SimalRepositoryException {
 		initTester();
 
 		tester.assertVisible("doapForm");
@@ -68,6 +74,8 @@ public class TestDoapFormPage extends TestBase {
 		formTester.submit();
 		tester.assertRenderedPage(UserHomePage.class);
 		tester.assertNoErrorMessage();
+
+		UserApplication.getRepository().remove(new QName(SimalRepository.DEFAULT_NAMESPACE_URI + TEST_NAME));
 	}
 }
 
