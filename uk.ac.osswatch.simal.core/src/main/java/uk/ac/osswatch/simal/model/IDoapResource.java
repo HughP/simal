@@ -25,6 +25,11 @@ public interface IDoapResource extends IResource, Serializable {
 	public String getName();
 	
 	/**
+	 * Add a name.
+	 */
+	public void addName(String name);
+	
+	/**
 	 * Return all names associated with this resource.
 	 * If no names are available then a set containing a single
 	 * value is returned. this value is generated using a
