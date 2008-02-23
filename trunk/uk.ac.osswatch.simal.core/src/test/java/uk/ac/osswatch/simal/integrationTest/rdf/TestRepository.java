@@ -115,4 +115,11 @@ public class TestRepository extends BaseRepositoryTest {
 		label = repository.getLabel(uri);
 		assertNull("Somehow we have a label for a resource that does not exist", label);
 	}
+	
+	@Test
+	public void testRemove() throws SimalRepositoryException {
+		repository.remove(new QName(TEST_SIMAL_PROJECT_QNAME));
+		Project project = getSimalTestProject(true);
+		assertNull("Failed to remove the test project", project);
+	}
 }
