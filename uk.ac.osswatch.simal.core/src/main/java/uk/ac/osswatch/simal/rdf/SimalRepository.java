@@ -576,4 +576,13 @@ public class SimalRepository extends SimalProperties {
 		project = new Project(elmoProject, this);
 		return project;
 	}
+	
+	/**
+	 * Remove an entity from the repository.
+	 * @param qname
+	 * @throws SimalRepositoryException
+	 */
+	public void remove(QName qname) throws SimalRepositoryException {
+		getManager().remove(getManager().find(qname));
+	}
 }
