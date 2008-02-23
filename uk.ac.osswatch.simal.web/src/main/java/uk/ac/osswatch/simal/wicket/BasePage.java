@@ -16,6 +16,7 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
+import uk.ac.osswatch.simal.wicket.doap.DoapFormPage;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 
 /**
@@ -30,6 +31,7 @@ public class BasePage extends WebPage {
 	public BasePage() {
 		add(HeaderContributor.forCss( DEFAULT_CSS ));
 		add(new BookmarkablePageLink("exhibitBrowserLink", ExhibitProjectBrowserPage.class));
+		add(new BookmarkablePageLink("addDOAPLink", DoapFormPage.class));
 		add(new Label("footer", "This is in the footer"));
 	}
 
