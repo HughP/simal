@@ -28,6 +28,8 @@ import org.openrdf.rio.RDFParser;
 import org.openrdf.rio.rdfxml.RDFXMLParser;
 import org.openrdf.rio.rdfxml.util.RDFXMLPrettyWriter;
 import org.openrdf.sail.memory.MemoryStore;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -45,6 +47,7 @@ import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
  * 
  */
 public class SimalRepository extends SimalProperties {
+	private static final Logger logger = LoggerFactory.getLogger(SimalRepository.class);
 	public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
 	public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
 	public static final String DEFAULT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultNS#";
@@ -73,6 +76,7 @@ public class SimalRepository extends SimalProperties {
 	 */
 	public void addProject(URL url, String baseURI)
 			throws SimalRepositoryException {
+		logger.info("Adding a project from " + url.toString());
 		verifyInitialised();
 
 		RDFParser parser = new RDFXMLParser();
@@ -80,6 +84,7 @@ public class SimalRepository extends SimalProperties {
 		File annotatedFile;
 		try {
 			annotatedFile = new File("annotatedRDFXML.xml");
+			logger.debug("Annotated file written to " + annotatedFile.getAbsolutePath());
 			parser.setRDFHandler(new AnnotatingRDFXMLHandler(annotatedFile));
 		} catch (IOException e) {
 			throw new SimalRepositoryException(
@@ -105,7 +110,9 @@ public class SimalRepository extends SimalProperties {
 		} finally {
 			try {
 				con.close();
-				annotatedFile.delete();
+				if (!logger.isDebugEnabled()) {
+				  annotatedFile.delete();
+			    }
 			} catch (RepositoryException e) {
 				throw new SimalRepositoryException(
 						"Unable to close the connection: " + e.getMessage(), e);
