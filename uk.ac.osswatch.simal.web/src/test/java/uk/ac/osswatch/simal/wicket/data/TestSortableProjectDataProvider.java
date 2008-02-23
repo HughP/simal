@@ -10,12 +10,13 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.TransactionException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 
 public class TestSortableProjectDataProvider extends TestBase{
 
 	@Test
-	public void testSize() throws SimalRepositoryException {
+	public void testSize() throws SimalRepositoryException, TransactionException {
 		SortableProjectDataProvider provider = new SortableProjectDataProvider();
 		assertEquals(NUMBER_OF_TEST_PROJECTS, provider.size());
 	}
