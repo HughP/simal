@@ -19,8 +19,16 @@
 </head>
 <body>
 <wicket:extend>
-  <div wicket:id="projectList" wicket:preview="panel/ProjectListPanel.html">Project List Panel</div>
-  <div wicket:id="featuredProject" wicket:preview="panel/ProjectSummaryPanel.html">Featured Project Panel</div>
+  <!-- FIXME: get rid of this layout table -->
+  <table>
+    <tr>
+      <td>
+        <div wicket:id="projectList" wicket:preview="panel/ProjectListPanel.html">Project List Panel</div>
+        <div wicket:id="featuredProject" wicket:preview="panel/ProjectSummaryPanel.html">Featured Project Panel</div>
+      </td>
+      <td valign="top"><div wicket:id="myExperimentCloud">MyExperiment Cloud Panel</div></td>
+    </tr>
+  </table>
 </wicket:extend>
 </body>
 </html>
