@@ -81,9 +81,9 @@ mvn jetty:run
  Now point your browser at 
  {{{http://localhost:8080/simal-webapp/} http://localhost:8080/simal-webapp/}}
 
-An alternative way of starting a test version of the application is to
-us the class uk.ac.osswatch.simal.wicket.Start, found in the src/test
-directory. This class is useful when running within an IDE.
+ An alternative way of starting a test version of the application is to
+ us the class uk.ac.osswatch.simal.wicket.Start, found in the src/test
+ directory. This class is useful when running within an IDE.
  
  NOTE - at the time of writing this starts Simal Web in test mode. The
  repository will not retain data between executions and will be
