@@ -5,7 +5,20 @@
 	 version="2.4">
 
 	<display-name>uk.ac.osswatch.simal.wicket</display-name>
-
+<!-- configuration -->
+  <context-param>
+    <param-name>features</param-name>
+    <param-value>res://features/features.txt</param-value>
+  </context-param>
+  <context-param>
+    <param-name>syndicators</param-name>
+    <param-value>res://syndicators/default/syndicator.js</param-value>
+  </context-param>
+  <context-param>
+    <param-name>servlet-data-class</param-name>
+    <param-value>org.apache.shindig.gadgets.http.DefaultCrossServletState</param-value>
+  </context-param>
+  
 	 <!--  
 	      There are three means to configure Wickets configuration mode and they are
 	      tested in the order given. 
@@ -30,5 +43,68 @@
 	<url-pattern>/*</url-pattern>
  </filter-mapping>
 
+
+  <!-- Render a Gadget -->
+  <servlet>
+    <servlet-name>xml-to-html</servlet-name>
+    <servlet-class>
+      org.apache.shindig.gadgets.http.GadgetRenderingServlet
+    </servlet-class>
+  </servlet>
+
+  <!-- Proxy -->
+  <servlet>
+    <servlet-name>proxy</servlet-name>
+    <servlet-class>
+      org.apache.shindig.gadgets.http.ProxyServlet
+    </servlet-class>
+  </servlet>
+
+  <!-- Metadata RPC -->
+  <servlet>
+    <servlet-name>rpc</servlet-name>
+    <servlet-class>
+      org.apache.shindig.gadgets.http.RpcServlet
+    </servlet-class>
+  </servlet>
+
+  <!-- Serve social data -->
+  <servlet>
+    <servlet-name>socialdata</servlet-name>
+    <servlet-class>
+      org.apache.shindig.social.http.SocialDataServlet
+    </servlet-class>
+  </servlet>
+
+  <!-- javascript serving -->
+  <servlet>
+    <servlet-name>js</servlet-name>
+    <servlet-class>org.apache.shindig.gadgets.http.JsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>js</servlet-name>
+    <url-pattern>/js/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>proxy</servlet-name>
+    <url-pattern>/proxy</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>xml-to-html</servlet-name>
+    <url-pattern>/ifr</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>rpc</servlet-name>
+    <url-pattern>/rpc</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>socialdata</servlet-name>
+    <url-pattern>/socialdata</url-pattern>
+  </servlet-mapping>
 
 </web-app>
