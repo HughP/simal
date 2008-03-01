@@ -13,20 +13,44 @@ The Shindig gadget server
  
 Developing your gadget
 ~~~~~~~~~~~~~~~~~~~~~~
+
+* Testing gadgets during development
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  
- We've included the both the stanard Shindig container and the 
- samplecontainer. The later is available at http://localhost:8080/simal-webapp/testContainer/samplecontainer.html
+ We've included both the stanard Shindig container and the 
+ samplecontainer. The later is used for testing gadgets in
+ isolation and is available by requesting
+ http://localhost:8080/testContainer/samplecontainer.html
 
  Try the following:
- 
- '''FIXME:''' Make the sample container work
- 
- * enter http://localhost:8080/simal-webapp/container/template.xml in
- the gadget URL field of http://localhost:8080/simal-webapp/testContainer/samplecontainer.html
+  
+ * enter http://localhost:8080/gadgets/template.xml in
+ the gadget URL field of http://localhost:8080/testContainer/samplecontainer.html
  
  * hit reset
  
  You should should see a gadget that allows Simal to say hello
+ 
+* Creating your first gadget
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ * copy the file src/gadgets/template.xml to src/gadgets/myGadget.xml
+ 
+ * enter http://localhost:8080/gadgets/myGadget.xml in
+ the gadget URL field of http://localhost:8080/testContainer/samplecontainer.html
+ 
+ You will see a simple hello world gadget that you can now customise.
+ 
+** Adding functionality to your gadget
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Lets create a gadget to show all the people who work with
+ a given person on any project. We'll do this by creating a
+ src/gadgets/friendsList.xml file (see previous section).
+ 
+ 
+ 
+ 
  
 Resources
 ~~~~~~~~~
