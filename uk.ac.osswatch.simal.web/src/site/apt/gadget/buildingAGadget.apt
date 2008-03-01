@@ -1,0 +1,38 @@
+          ----------------------------------------
+          Building an Open Social Gadget for Simal
+          ----------------------------------------
+ 
+ 
+The Shindig gadget server
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Simal use Shindig from the Apache incubator. This is the reference
+ implementation of the Open Social standard. There is no need to 
+ install it separately, it is included in the binary download (or
+ as svn:externals if you have the source code from SVN).
+ 
+Developing your gadget
+~~~~~~~~~~~~~~~~~~~~~~
+ 
+ We've included the both the stanard Shindig container and the 
+ samplecontainer. The later is available at http://localhost:8080/simal-webapp/testContainer/samplecontainer.html
+
+ Try the following:
+ 
+ '''FIXME:''' Make the sample container work
+ 
+ * enter http://localhost:8080/simal-webapp/container/template.xml in
+ the gadget URL field of http://localhost:8080/simal-webapp/testContainer/samplecontainer.html
+ 
+ * hit reset
+ 
+ You should should see a gadget that allows Simal to say hello
+ 
+Resources
+~~~~~~~~~
+
+ * {{{http://code.google.com/apis/opensocial/articles/bestprac.html}
+   Social Design Best Practice}}
+   
+ * {{{http://code.google.com/apis/opensocial/articles/tutorial/tutorial-0.7.html}
+   open Social Tutorial}}

@@ -10,8 +10,8 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
  */
 public class GadgetPanel extends Panel {
 	private static final long serialVersionUID = -5887625691251320087L;
-    private static final String SERVER_BASE = "http://localhost:8888/gadgets/";
-    private static final String FILES_DIR = "files/container/";
+    private static final String SERVER_BASE = "http://localhost:8080/simal-webapp/";
+    private static final String FILES_DIR = "container/";
     private static final CompressedResourceReference GADGET_CSS = new CompressedResourceReference(GadgetPanel.class, "gadget.css");
     
 	/**
@@ -30,7 +30,7 @@ public class GadgetPanel extends Panel {
 				.forJavaScript(SERVER_BASE + FILES_DIR + "cookies.js"));
 		add(HeaderContributor
 				.forJavaScript(SERVER_BASE + FILES_DIR + "gadgets.js"));
-		add(new StringHeaderContributor("<script type=\"text/javascript\">var specUrl = '" + specURL + "'; var gadgetServerBase = 'http://localhost:8888/gadgets/';</script>"));
+		add(new StringHeaderContributor("<script type=\"text/javascript\">var specUrl = '" + specURL + "'; var gadgetServerBase = '" + SERVER_BASE + "';</script>"));
 	}
 
 }
