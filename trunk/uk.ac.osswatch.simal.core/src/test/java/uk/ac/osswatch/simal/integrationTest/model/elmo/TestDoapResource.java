@@ -17,7 +17,6 @@ public class TestDoapResource extends BaseRepositoryTest {
 	public void testGetName() throws SimalRepositoryException {
 		resetTestData();
 		assertEquals(TEST_SIMAL_PROJECT_NAME, project1.getName());
-		fail("Testing CI server");
 	}
 
 	@Test
