@@ -17,8 +17,12 @@
     
     <menu name="Simal Web">
       <item name="Home" href="index.html"/>
-      <item name="Download" href="download.html"/>   
-      <item name="Developing" href="developing.html"/>  
+      <item name="Download" href="download.html"/>     
+    </menu>
+    
+    <menu name="Developing">
+      <item name="Environment" href="developing.html"/>
+      <item name="Gadgets" href="gadget/buildingAGadget.html"/>
     </menu>
     
     <menu ref="reports" />
