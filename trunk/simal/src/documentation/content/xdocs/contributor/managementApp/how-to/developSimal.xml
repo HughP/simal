@@ -20,7 +20,7 @@
   <header>
     <title>How to develop Simal</title>
 
-    <version>0.1</version>
+    <version>0.2</version>
 
     <abstract>This How-To describes how to set up your development envirnment
     for working with Simal. Since Simal uses many Eclipse plugins in components
@@ -44,7 +44,7 @@
     <p>Readers should</p>
 
     <ul>
-      <li>Have at least a basic understanding of XML, XSLT and Java</li>
+      <li>Have at least a basic understanding of RDF, HTML and Java</li>
       <li>Have at least a basic understanding of Java development in Eclipse</li>
     </ul>
 
@@ -63,34 +63,11 @@
         package.</p>
         
         <p class="instruction">If you already have eclipse then you will need to ensure that you also
-        have the <a href="http://download.eclipse.org/webtools/downloads/">WTP</a>
-        plugins installed.</p> 
+        have the Web Standards Tools (WST) plugin installed (use the WTP 
+        <a href="http://download.eclipse.org/webtools/updates/">update site</a>).</p> 
         
       </section>
       
-      <section>
-        <title>Apache Derby</title>
-        <p>Apache Derby, an <a href="http://db.apache.org/">Apache DB subproject</a>,
-        is an open source relational database implemented entirely in Java.
-        Some key advantages include:</p>
-        
-        <ul>  
-          <li>small footprint</li>  
-          <li>implments JDBC, and
-            <a href="http://wiki.apache.org/db-derby/SQLvsDerbyFeatures">SQL</a> standards.
-          </li>
-          <li>embedded JDBC driver that lets you embed 
-          Derby in any Java-based solution.</li>
-          <li>supports the more familiar client/server mode with the
-          Derby Network Client JDBC 
-          driver and Derby Network Server.</li>
-          <li> Derby is easy to install, deploy, and use.</li>
-       </ul>
-
-        <p class="instruction">Download the Derby Core and Derby UI Plugins <a href="http://db.apache.org/derby/derby_downloads.html">Derby 
-        downloads page</a> and unpack them into your Eclipse directory.</p>
-      </section>
-          
       <section>
         <title>Subclipse</title>
           <p>We use a Subversion repository for our source code, therefore you need
@@ -118,6 +95,22 @@
           <p class="instruction">Restart Eclipse when asked to do so</p>
         </section>
     </section>
+    
+    <section>
+      <title>Maven</title>
+      
+      <p>We use Maven to build simal. You need to <a href="http://maven.apache.org/download.html">
+      download and install</a> Maven 2 on your machine.</p> 
+      
+      <section>
+        <title>q3e</title>
+        
+        <p>If you are using Eclipse we also recommend the q4e plugin that allows
+        you to work with Maven projects within Eclipse. Q4E is available from the
+        q4e <a href="http://q4e.googlecode.com/svn/trunk/updatesite/">update 
+        site</a>.</p>
+      </section>
+    </section>
         
     <section>
       <title>Get Simal Sources</title>
@@ -140,85 +133,66 @@
     </section>
     
     <section>
-      <title>Get Rich Ajax Platform Sources</title>
-      <p>At the time of writing we are using the CVS head version of the Eclipse
-      Rich Ajax Platform. It is expected that, in the future, we will use a stable
-      release of this code, but at present we need some features only available in
-      CVS head. Follow the instructions on the 
-      <a href="http://www.eclipse.org/rap/cvs.php">Eclipse RAP</a> site.</p>
+      <title>Configure Eclipse</title>
+      
+      <p>Now that you have the Simal sources you need to tell Eclipse to use the
+      Maven defined dependencies:</p>
+      
+      <ol>
+        <li>Right click on the <code>uk.ac.osswatch.simal.core</code> project and
+        select Maven2 -> Enable Maven dependency management</li>
+        
+        <li>Right click on the <code>uk.ac.osswatch.simal.core</code> project and
+        select Maven2 -> Locally install artifact</li>
+        
+        <li>Right click on the <code>uk.ac.osswatch.simal.web</code> project and
+        select Maven2 -> Enable Maven dependency management</li>
+      </ol>
+      
+      <warning>At the time of writing there are some dependencies for core that 
+      are not available in public repositories. These need to be downloaded and 
+      deployed to your local Maven repository. See src/site/developing.apt for
+      more information.</warning>
+      
     </section>
     
     <section>
       <title>Test Setup So Far</title>
       
-      <section>
-        <title>Start Derby Database Server</title>
-    
-	      <p>During development we use an embedded Apache Derby database. This
-	      enables you to do development work independently of any production
-	      database. The first thing you need to do is start the databse server.</p>
-	      
-	      <p class="instruction">right click on the <em>uk.ac.osswatch.simal.model.derby</em>
-	      project</p>
-	      <p class="instruction">select <em>Apache Derby -> Start Network Server</em></p>
-      </section>
+      <p>Assuming everything has compiled OK we are now ready to run 
+      some tests:</p>
       
-      <section>
-        <title>Create Database</title>
-    
-	      <p>A script to create the Simal database is provided in 
-	      <code>uk.ac.osswatch.simal.model/src/META-INF/setup.sql</code>.
-	      This script creates the structure of the database, but it does not 
-	      populate it with any data. In order to run it you must:</p>
-	      
-	      <p class="instruction">right click on the <em>uk.ac.osswatch.simal.model.derby/src/META-INF/setup.sql</em>
-	      project</p>
-	      <p class="instruction">select <em>Apache Derby -> Run SQL Script using 'ij'</em></p>
-      </section>
-      
-      <section>
-        <title>Testing the database setup</title>
+      <ul>
+        <li>right click on <code>uk.ac.osswatch.simal.core/src/test/java</code>
+        and select <code>Run As -> JUnit Test</code></li>
         
-        <p>You should now be able to run the complete database test suite.</p>
-      
-        <p class="instruction">right click on <em>uk.ac.osswatch.simal.model.derby/src/test/uk.ac.osswatch.simal.service.derby/TestManagedProjectBean</em></p>
-        <p class="instruction">select 'Run As' -> 'JUnit Test'</p>
+        <li>Wait for the tests to run, you should get a green bar for all 
+        tests</li>
         
-        <p>In the JUnit test results page you should see 100% sucess.
-        If you do not then please contact the Simal developers list for
-        assistance.</p>
-      </section>
-      <section>
-        <title>Run the Simal Management Webapp</title>
-      
-          <p>Now you should now be able to run the Simal web application.</p>
-	      
-	      <p class="instruction">Open the <em>Run Dialogue</em>
-	      wizard by selecting <em>Run --> Open Run Dialog</em> from the Eclipse menu.</p>
-	       
-	      <p class="instruction">Expand the <em>Equinox OSGI</em> node in the tree on the left</p>
-	      
-	      <p class="instruction">Select the <em>Simal WebGUI</em> node.</p>
-	      
-	      <p class="instruction">Click the Run button on the right.</p>
-	      
-	      <p>Some messages in the console view should indicate that the 
-	      http service was started on port 9090. A bunch of other
-	      Simal services will also be mentioned in the console output.</p>
-	      
-	      <p class="instruction">Now open a browser and type navigate to 
-	      <em>http://localhost:9090/rap</em> to access the Simal application.</p>
-	      
-	  </section>
+        </ul>right click on <code>uk.ac.osswatch.simal.web/src/test/java</code>
+        and select <code>Run As -> JUnit Test</code></li>
+        
+        <li>Wait for the tests to run, you should get a green bar for all 
+        tests</li>
     </section>
+    
+    <section>
+      <title>Start developing</title>
+      
+      <p>Assuming all tests past you are now ready to start developing. It
+      is outside the scope of this document to go further, see the docs 
+      linked in the "Developers" menu on the right.</p>
+    </section>
+      
     
     
     <section>
       <title>Optional Plugins</title>
       
       <section>
-        <title>Mylar</title>
-        <fixme author="rdg">Describe Mylar: http://www.eclipse.org/mylar/</fixme>
+        <title>Mylyn Generic Issue Tracker Integration</title>
+        <fixme author="rdg">Describe out use of the Mylyn generic issue tracker to integrate with 
+        Google Code</fixme>
       </section>
     </section>
   </steps>

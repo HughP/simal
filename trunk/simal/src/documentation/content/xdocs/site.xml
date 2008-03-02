@@ -82,6 +82,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   
   <contributors label="Contributors" href="contributor/" tab="contributor">
     <index label="Index" href="index.html"/>
+    <developSimal label="Development Environment" href="developSimal.html" description="How to get started on developing Simal"/>
     
     <community label="Community" tab="contributor">
       <developing label="Developing Community" href="developingCommunity.html"/>
@@ -98,7 +99,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   
   <registryContributors label="Registry Application" href="contributor/registryApp/" tab="registryAppContributor">
     <index label="Index" href="index.html"/>
-    <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>
+    <quickstart label="Quick Start" href="quickstart.html" description="The minimum you need to get started"/>
   </registryContributors>
   
   <managementAppContributors label="Management Application" href="contributor/managementApp/" tab="managementAppContributor">
@@ -106,7 +107,6 @@ See http://forrest.apache.org/docs/linking.html for more info
         
     <howto label="How To" href="how-to/">
       <index label="Overview" href="index.html"/>
-      <developSimal label="Develop Simal" href="developSimal.html" description="How to get started on developing Simal"/>
       <addMenuItem label="Add menu item" href="addMenuItem.html" description="How to add a menu item to the GUI"/>
       <addField label="Add Field to Object" href="addFieldToObject.html" description="Add a field to an existing object and provide a means to edit it."/>
       <addDataObject label="Add New Data Object" href="addNewDataObject.html" description="Add a new data object and provide a means to edit it."/>
