@@ -52,15 +52,29 @@ Developing your gadget
    if you intend to work along with this tutorial you will want to
    use a different name.  
  
- We need to get a friends list from the server for the current viewer.
- This is documented in "Listing friends" in the 
+ We need to ad code to our gadget to get a friends list from the 
+ container for the current viewer. This is documented in "Listing friends" in the 
  {{{http://code.google.com/apis/opensocial/articles/tutorial/tutorial-0.7.html}
  Open Social Tutorial}}.
+ 
+ Now we are ready to run our container.
  
     [Warning:] At the time of writing Simal is not an Open Social
     container, thus you will not see your real friends only a quick
     mock up of what would happen. Help wanted to make Simal a true
     Open Social container.
+ 
+ * http://localhost:8888/testContainer/samplecontainer.html
+ 
+ * enter http://localhost:8888/gadgets/friendsNavigator.xml 
+   into the "Displaying gadget" field
+   
+ * hit "reset"
+ 
+ * enter "/testContainer/state-basicfriendlist.xml" into the  
+   text entry field in the gadget
+   
+ * you should see a sample list of friends
      
 Resources
 ~~~~~~~~~
