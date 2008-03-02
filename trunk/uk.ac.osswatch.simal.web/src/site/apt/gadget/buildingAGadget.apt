@@ -20,12 +20,12 @@ Developing your gadget
  We've included both the stanard Shindig container and the 
  samplecontainer. The later is used for testing gadgets in
  isolation and is available by requesting
- http://localhost:8080/testContainer/samplecontainer.html
+ http://localhost:8888/testContainer/samplecontainer.html
 
  Try the following:
   
- * enter http://localhost:8080/gadgets/template.xml in
- the gadget URL field of http://localhost:8080/testContainer/samplecontainer.html
+ * enter http://localhost:8888/gadgets/template.xml in
+ the gadget URL field of http://localhost:8888/testContainer/samplecontainer.html
  
  * hit reset
  
@@ -36,8 +36,8 @@ Developing your gadget
  
  * copy the file src/gadgets/template.xml to src/gadgets/myGadget.xml
  
- * enter http://localhost:8080/gadgets/myGadget.xml in
- the gadget URL field of http://localhost:8080/testContainer/samplecontainer.html
+ * enter http://localhost:8888/gadgets/myGadget.xml in
+ the gadget URL field of http://localhost:8888/testContainer/samplecontainer.html
  
  You will see a simple hello world gadget that you can now customise.
  
@@ -45,13 +45,23 @@ Developing your gadget
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
  Lets create a gadget to show all the people who work with
- a given person on any project. We'll do this by creating a
- src/gadgets/friendsList.xml file (see previous section).
+ the current user on any project. We'll do this by creating a
+ src/gadgets/friendsNavigator.xml file (see previous section).
  
+   [Note:] The friendsNavigator.xml file is included with Simal, so
+   if you intend to work along with this tutorial you will want to
+   use a different name.  
  
+ We need to get a friends list from the server for the current viewer.
+ This is documented in "Listing friends" in the 
+ {{{http://code.google.com/apis/opensocial/articles/tutorial/tutorial-0.7.html}
+ Open Social Tutorial}}.
  
- 
- 
+    [Warning:] At the time of writing Simal is not an Open Social
+    container, thus you will not see your real friends only a quick
+    mock up of what would happen. Help wanted to make Simal a true
+    Open Social container.
+     
 Resources
 ~~~~~~~~~
 
