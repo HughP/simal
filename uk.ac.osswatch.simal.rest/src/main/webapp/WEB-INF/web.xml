@@ -12,7 +12,7 @@
 
   <servlet-mapping>
       <servlet-name>Simal REST API</servlet-name>
-      <url-pattern>/simal-api/*</url-pattern>
+      <url-pattern>/simal-rest/*</url-pattern>
   </servlet-mapping>
 
 </web-app>
