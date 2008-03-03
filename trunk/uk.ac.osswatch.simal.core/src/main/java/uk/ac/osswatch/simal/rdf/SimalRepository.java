@@ -148,7 +148,6 @@ public class SimalRepository extends SimalProperties {
 		module.recordRole(org.openrdf.concepts.doap.DoapResource.class);
 		module.recordRole(org.openrdf.concepts.rdfs.Resource.class);
 		module.recordRole(org.openrdf.concepts.foaf.Person.class);
-		module.recordRole(org.openrdf.concepts.foaf.Person.class);
 
 		SesameManagerFactory factory = new SesameManagerFactory(module,
 				_repository);
