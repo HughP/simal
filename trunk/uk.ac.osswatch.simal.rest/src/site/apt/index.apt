@@ -55,7 +55,7 @@ Now What?
  
  * Run the src/test/java/uk/ac/osswatch/simal/rest/Start class
  
- * http://localhost:8080/simal-rest
+ * http://localhost:8880/simal-rest
  
  The following sections describe the features currently exposed via the API.
  
@@ -63,6 +63,15 @@ Now What?
 
  All REST URLs are of the same form:
  
- http://foo.com/simal-api/COMMAND/commandParam-value.FORMAT
+ http://foo.com/simal-rest/COMMAND/commandParam-value.FORMAT
+ 
+* Project Data
+
+** All Projects
+ 
+ To retrieve all projects as a JSON file use:
+ 
+ http://foo.com/simal-rest/allProjects.json
+ 
  
 
