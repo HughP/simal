@@ -41,8 +41,23 @@ Getting the Source
 Now What?
 
  This is a very early stage project and we welcome your assistance
- in testing, development and documentation. The following sections
- describe the features currently exposed via the API.
+ in testing, development and documentation. 
+ 
+* Running the REST webapp
+
+ There are two ways of running the REST API for testing, either...
+ 
+ * mvn jetty:run
+ 
+ * http://localhost:8080/simal-rest
+ 
+ or...
+ 
+ * Run the src/test/java/uk/ac/osswatch/simal/rest/Start class
+ 
+ * http://localhost:8080/simal-rest
+ 
+ The following sections describe the features currently exposed via the API.
  
 * URL Structure
 
