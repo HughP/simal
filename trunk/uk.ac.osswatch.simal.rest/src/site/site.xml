@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="Simal">
+  <bannerLeft>
+    <name>Simal REST API</name>
+    <src>http://simal.oss-watch.ac.uk/images/simal-logo-small.png</src>
+    <href>http://simal.oss-watch.ac.uk.org/</href>
+  </bannerLeft>
+  <bannerRight>
+    <src>http://simal.oss-watch.ac.uk/images/group-logo.png</src>
+    <href>http://www.oss-watch.ac.uk</href>
+  </bannerRight>
+  
+  <body>
+    <links>
+      <item name="OSS Watch" href="http://www.oss-watch.ac.uk/" />
+    </links>
+    
+    <menu name="Simal REST API">
+      <item name="Home" href="index.html"/>     
+    </menu>
+    
+    <menu ref="reports" />
+  </body>
+</project>

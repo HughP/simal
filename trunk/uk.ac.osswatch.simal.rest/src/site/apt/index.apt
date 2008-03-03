@@ -1,0 +1,53 @@
+          ----------
+          Simal REST
+          ----------
+
+ The Simal REST provides a web application that will
+ query a Simal repository in response to REST requests.
+ 
+Prerequisites
+
+ Simal REST uses {{{http://maven.apache.org} Maven}} to manage 
+ its dependencies. This means that you only need to ensure your
+ system has the following items installed, everything else will
+ be downloaded automatically.
+ 
+  * {{{http://www.java.com} Java}} (JDK 1.5 or higher)
+  
+  * {{{http://maven.apache.org/download.html} Maven}}
+  
+  * Simal Core (see below)
+  
+* Simal Core
+
+ Simal REST uses {{{/simal-core} Simal Core}}
+ an open source framework for storage, inferencing and querying of 
+ project and community data.
+ 
+ We use the latest code, during development, from this project. 
+ Therefore it is necessary for you to download the source for
+ {{{/simal-core/download.html} Simal Core}}.
+ If you are working with Maven you will also need to install Simal Core
+ in your local repository. At some point we'll simplify this set up,
+ but at the time of writing we are new to Maven and have not yet figured
+ out the best configuration, if you know Maven we would welcome your
+ {{{mailing-lists.html} help}}.
+ 
+Getting the Source
+
+ The source code of Simal REST is available from our
+ {{{source-repository.html} Subversion repository}}.
+ 
+Now What?
+
+ This is a very early stage project and we welcome your assistance
+ in testing, development and documentation. The following sections
+ describe the features currently exposed via the API.
+ 
+* URL Structure
+
+ All REST URLs are of the same form:
+ 
+ http://foo.com/simal-api/COMMAND/commandParam-value.FORMAT
+ 
+
