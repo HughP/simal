@@ -139,7 +139,7 @@ public class SimalRepository extends SimalProperties {
 	 * @return
 	 * @throws SimalRepositoryException
 	 */
-	private SesameManager getManager() throws SimalRepositoryException {
+	public SesameManager getManager() throws SimalRepositoryException {
 		verifyInitialised();
 		ElmoModule module = new ElmoModule();
 		module.recordRole(org.openrdf.concepts.doap.Project.class);
