@@ -10,7 +10,6 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.elmo.Person;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestPerson extends BaseRepositoryTest {
@@ -64,4 +63,14 @@ public class TestPerson extends BaseRepositoryTest {
 		String json = developer.toJSON(false);
 		assertTrue("JSON does not include person name: JSON = " + json , json.contains("\"label\":\"" + developer.getGivennames() + "\""));
 	}
+        
+        @Test
+        public void testKnows() throws SimalRepositoryException {
+            Set<Person> knows = developer.getKnows();
+            assertNotNull("Should know some people", knows);
+            assertEquals("Should know one peson", knows.size(), 1);
+            Person person = knows.iterator().next();
+            String givenName = person.getGivennames();
+            assertTrue("Should know Dan Brickley", givenName.contains("Dan Brickley"));
+        }
 }
