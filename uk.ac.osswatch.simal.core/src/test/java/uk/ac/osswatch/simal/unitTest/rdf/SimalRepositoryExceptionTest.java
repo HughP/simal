@@ -12,15 +12,17 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class SimalRepositoryExceptionTest {
 
-	@Test
-	public void testSimalRepositoryException() {
-		SimalRepositoryException e = new SimalRepositoryException("Just testing", null);
-		assertEquals("Just testing", e.getMessage());
-		assertNull(e.getCause());
-		
-		e = new SimalRepositoryException("Just testing", new IOException("Just testing an IO exception"));
-		assertEquals("Just testing", e.getMessage());
-		assertNotNull(e.getCause());
-	}
+  @Test
+  public void testSimalRepositoryException() {
+    SimalRepositoryException e = new SimalRepositoryException("Just testing",
+        null);
+    assertEquals("Just testing", e.getMessage());
+    assertNull(e.getCause());
+
+    e = new SimalRepositoryException("Just testing", new IOException(
+        "Just testing an IO exception"));
+    assertEquals("Just testing", e.getMessage());
+    assertNotNull(e.getCause());
+  }
 
 }

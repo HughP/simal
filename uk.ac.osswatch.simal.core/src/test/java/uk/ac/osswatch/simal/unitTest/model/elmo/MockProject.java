@@ -12,82 +12,86 @@ import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class MockProject extends Project {
-	private static final long serialVersionUID = 5055851775619447759L;
-	private MockDOAPResource resource = new MockDOAPResource();
-	
-	public MockProject() {
-		super();
-	}
-	
-	public Set<IDoapResource> getCategories() {
-		HashSet<IDoapResource> categories = new HashSet<IDoapResource>();
-		categories.add(new MockDOAPResource(new QName(BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_ONE)));
-		categories.add(new MockDOAPResource(new QName(BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_TWO)));
-		return categories;		
-	}
+  private static final long serialVersionUID = 5055851775619447759L;
+  private MockDOAPResource resource = new MockDOAPResource();
 
-	@Override
-	public QName getQName() {
-		return resource.getQName();
-	}
-	
-	@Override
-	public String getName() {
-		return resource.getName();
-	}
-	
-	@Override
-	public String getShortDesc() {
-		return resource.getShortDesc();
-	}
-	
-	@Override
-	public String getLabel(String defaultLabel, boolean fetchLabel) {
-		return resource.getLabel(defaultLabel, fetchLabel);
-	}
-	
-	@Override
-	public Set<IPerson> getMaintainers() throws SimalRepositoryException {
-		HashSet<IPerson> people = new HashSet<IPerson>();
-		return people;		
-	}
+  public MockProject() {
+    super();
+  }
 
-	@Override
-	public Set<IPerson> getDevelopers() throws SimalRepositoryException {
-		HashSet<IPerson> people = new HashSet<IPerson>();
-		return people;	
-	}
+  public Set<IDoapResource> getCategories() {
+    HashSet<IDoapResource> categories = new HashSet<IDoapResource>();
+    categories.add(new MockDOAPResource(new QName(
+        BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_ONE)));
+    categories.add(new MockDOAPResource(new QName(
+        BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_TWO)));
+    return categories;
+  }
 
-	@Override
-	public Set<IPerson> getDocumenters() throws SimalRepositoryException {
-		HashSet<IPerson> people = new HashSet<IPerson>();
-		return people;	
-	}
+  @Override
+  public QName getQName() {
+    return resource.getQName();
+  }
 
-	@Override
-	public Set<IPerson> getHelpers() throws SimalRepositoryException {
-		HashSet<IPerson> people = new HashSet<IPerson>();
-		return people;	
-	}
+  @Override
+  public String getName() {
+    return resource.getName();
+  }
 
-	@Override
-	public Set<IPerson> getTesters() throws SimalRepositoryException {
-		HashSet<IPerson> people = new HashSet<IPerson>();
-		return people;	
-	}
+  @Override
+  public String getShortDesc() {
+    return resource.getShortDesc();
+  }
 
-	@Override
-	public Set<IPerson> getTranslators() throws SimalRepositoryException {
-		HashSet<IPerson> people = new HashSet<IPerson>();
-		return people;	
-	}
-	
-	@Override
-	public Set<String> getProgrammingLangauges() {
-		HashSet<String> languages = new HashSet<String>();
-		languages.add(BaseRepositoryTest.TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE);
-		languages.add(BaseRepositoryTest.TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO);
-		return languages;
-	}
+  @Override
+  public String getLabel(String defaultLabel, boolean fetchLabel) {
+    return resource.getLabel(defaultLabel, fetchLabel);
+  }
+
+  @Override
+  public Set<IPerson> getMaintainers() throws SimalRepositoryException {
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    return people;
+  }
+
+  @Override
+  public Set<IPerson> getDevelopers() throws SimalRepositoryException {
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    return people;
+  }
+
+  @Override
+  public Set<IPerson> getDocumenters() throws SimalRepositoryException {
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    return people;
+  }
+
+  @Override
+  public Set<IPerson> getHelpers() throws SimalRepositoryException {
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    return people;
+  }
+
+  @Override
+  public Set<IPerson> getTesters() throws SimalRepositoryException {
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    return people;
+  }
+
+  @Override
+  public Set<IPerson> getTranslators() throws SimalRepositoryException {
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    return people;
+  }
+
+  @Override
+  public Set<String> getProgrammingLangauges() {
+    HashSet<String> languages = new HashSet<String>();
+    languages
+        .add(BaseRepositoryTest.TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE);
+    languages
+        .add(BaseRepositoryTest.TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO);
+    return languages;
+  }
 
 }
