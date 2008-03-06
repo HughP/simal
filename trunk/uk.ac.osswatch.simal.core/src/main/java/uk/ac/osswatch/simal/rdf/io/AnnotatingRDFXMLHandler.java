@@ -4,7 +4,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.xml.namespace.QName;
+
+import org.openrdf.model.BNode;
 import org.openrdf.model.Resource;
 import org.openrdf.model.Statement;
 import org.openrdf.model.URI;
@@ -31,99 +36,148 @@ import uk.ac.osswatch.simal.rdf.SimalRepository;
  */
 public class AnnotatingRDFXMLHandler implements RDFHandler {
 
-	private RDFXMLWriter handler;
+  private RDFXMLWriter handler;
+  private Resource currentSubject;
+  private Set<QName> projectQNames = new HashSet<QName>();
 
-	/**
-	 * Create a new AnnotatingRDFXMLHandler that will write to a file.
-	 * 
-	 * @param file
-	 *            the file to write the annotated RDF/XML output to.
-	 * @throws IOException
-	 *             if there is a problem creating the output file
-	 */
-	public AnnotatingRDFXMLHandler(File file) throws IOException {
-		handler = new RDFXMLWriter(new FileWriter(file));
-	}
+  /**
+   * Create a new AnnotatingRDFXMLHandler that will write to a file.
+   * 
+   * @param file
+   *          the file to write the annotated RDF/XML output to.
+   * @throws IOException
+   *           if there is a problem creating the output file
+   */
+  public AnnotatingRDFXMLHandler(File file) throws IOException {
+    handler = new RDFXMLWriter(new FileWriter(file));
+  }
 
-	public void endRDF() throws RDFHandlerException {
-		handler.endRDF();
-	}
+  public void endRDF() throws RDFHandlerException {
+    handler.endRDF();
+  }
 
-	public void handleComment(String comment) throws RDFHandlerException {
-		handler.handleComment(comment);
-	}
+  public void handleComment(String comment) throws RDFHandlerException {
+    handler.handleComment(comment);
+  }
 
-	public void handleNamespace(String prefix, String name)
-			throws RDFHandlerException {
-		handler.handleNamespace(prefix, name);
-	}
+  public void handleNamespace(String prefix, String name)
+      throws RDFHandlerException {
+    handler.handleNamespace(prefix, name);
+  }
 
-	public void handleStatement(Statement inStatement)
-			throws RDFHandlerException {
-		Statement outStatement = inStatement;
-		Resource outSubject;
-		URI outPredicate;
-		Value outValue;
+  public void handleStatement(Statement inStatement) throws RDFHandlerException {
+    Statement outStatement = inStatement;
+    Resource outSubject = inStatement.getSubject();
+    URI outPredicate = inStatement.getPredicate();
+    Value outValue;
+    if (currentSubject == null) {
+      currentSubject = outSubject;
+    }
 
-		outSubject = verifyQName(inStatement.getSubject());
-		outValue = fixEncoding(inStatement.getObject());
-		outPredicate = fixFoaf(inStatement.getPredicate());
+    if (inStatement.getObject().stringValue().equals(
+        SimalRepository.DOAP_PROJECT_URI)
+        || currentSubject.stringValue().startsWith(
+            SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI)
+        || outPredicate.stringValue().startsWith(
+            SimalRepository.DOAP_NAMESPACE_URI)) {
+      outSubject = verifyQName(inStatement.getSubject(),
+          SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
+      currentSubject = outSubject;
+      if (inStatement.getObject().stringValue().equals(
+          SimalRepository.DOAP_PROJECT_URI)) {
+        projectQNames.add(new QName(outSubject.stringValue()));
+      }
+    } else if (inStatement.getObject().stringValue().startsWith(
+        SimalRepository.FOAF_NAMESPACE_URI)
+        || currentSubject.stringValue().startsWith(
+            SimalRepository.DEFAULT_PERSON_NAMESPACE_URI)) {
+      outSubject = verifyQName(inStatement.getSubject(),
+          SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
+      currentSubject = outSubject;
+    }
 
-		outStatement = new StatementImpl(outSubject,
-				outPredicate, outValue);
+    outValue = fixEncoding(inStatement.getObject());
 
-		handler.handleStatement(outStatement);
-	}
+    if (inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.FOAF_NAMESPACE_URI)) {
+      // FIXME: for some reason elmo does not support foaf:name, for
+      // now just convert to givenname
+      String predicateValue = outPredicate.stringValue();
+      if (predicateValue.endsWith("/name")) {
+        outPredicate = new URIImpl(predicateValue.substring(0, predicateValue
+            .length() - 5)
+            + "/givenname");
+      }
+      if (predicateValue.endsWith("/knows")) {
+        outValue = verifyQName(inStatement.getObject(),
+            SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
+      }
+    } else {
+      outPredicate = inStatement.getPredicate();
+    }
 
-	/**
-	 * Fixes up statements in the FOAF schema.
-	 * 
-	 * @param predicate
-	 * @return
-	 */
-	private URI fixFoaf(final URI inPredicate) {
-		URI outPredicate = inPredicate;
-		String strValue = inPredicate.stringValue();
-		if (strValue.contains("/foaf/")) {
-			if (strValue.endsWith("/name")) {
-			  // for some reason elmo does not support foaf:name, for now just convert to givenname
-			  outPredicate = new URIImpl(strValue.substring(0, strValue.length() - 5) + "/givenname");
-			}
-		}
-		return outPredicate;
-	}
+    outStatement = new StatementImpl(outSubject, outPredicate, outValue);
 
-	private Value fixEncoding(final Value inValue)
-			throws RDFHandlerException {
-		Value outValue = inValue;
-		
-		if (inValue instanceof LiteralImpl) {
-			String strValue = inValue.stringValue();
-			try {
-				byte[] utf8Bytes = strValue.getBytes("UTF8");
-				outValue = new LiteralImpl(new String(utf8Bytes));
-			} catch (UnsupportedEncodingException e) {
-				throw new RDFHandlerException("Unable to encode value", e);
-			}
-		}
-		return outValue;
-	}
+    handler.handleStatement(outStatement);
+  }
 
-	private Resource verifyQName(final Resource inSubject) {
-		Resource outSubject = inSubject;
+  private Value fixEncoding(final Value inValue) throws RDFHandlerException {
+    Value outValue = inValue;
 
-		String strSubject = inSubject.toString();
-		if (strSubject.startsWith("_:") || strSubject.indexOf(",") > 0
-				|| strSubject.lastIndexOf("/") == strSubject.length()) {
-			// looks like we have no QName
-			outSubject = new URIImpl(SimalRepository.DEFAULT_NAMESPACE_URI
-					+ inSubject);
-		}
-		return outSubject;
-	}
+    if (inValue instanceof LiteralImpl) {
+      String strValue = inValue.stringValue();
+      try {
+        byte[] utf8Bytes = strValue.getBytes("UTF8");
+        outValue = new LiteralImpl(new String(utf8Bytes));
+      } catch (UnsupportedEncodingException e) {
+        throw new RDFHandlerException("Unable to encode value", e);
+      }
+    }
+    return outValue;
+  }
 
-	public void startRDF() throws RDFHandlerException {
-		handler.startRDF();
-	}
+  /**
+   * Checks to see if a resource is a blank node If it is a blank node we assign
+   * a default QName to it because Elmo can't deal well with blank nodes.
+   * 
+   * @param inSubject
+   * @return
+   */
+  private Resource verifyQName(final Resource inSubject, final String defaultURI) {
+    Resource outSubject = inSubject;
+    if (inSubject instanceof BNode) {
+      outSubject = new URIImpl(defaultURI + inSubject.stringValue());
+    }
+    return outSubject;
+  }
+
+  /**
+   * Checks to see if a value is a blank node If it is a blank node we assign a
+   * default QName to it because Elmo can't deal well with blank nodes.
+   * 
+   * @param inSubject
+   * @return
+   */
+  private Value verifyQName(final Value inObject, final String defaultURI) {
+    Value outObject = inObject;
+    if (inObject instanceof BNode) {
+      outObject = new URIImpl(defaultURI + inObject.stringValue());
+    }
+    return outObject;
+  }
+
+  public void startRDF() throws RDFHandlerException {
+    handler.startRDF();
+  }
+
+  /**
+   * Get all project QNames found or generated in the last file to be annotated
+   * by this handler.
+   * 
+   * @return
+   */
+  public Set<QName> getProjectQNames() {
+    return projectQNames;
+  }
 
 }
