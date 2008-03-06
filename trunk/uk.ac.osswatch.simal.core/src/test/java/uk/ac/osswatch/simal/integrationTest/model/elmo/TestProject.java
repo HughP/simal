@@ -154,7 +154,7 @@ public class TestProject extends BaseRepositoryTest {
 	
 	@Test
 	public void testProjectFromScratch() throws SimalRepositoryException {
-		QName qname = new QName(SimalRepository.DEFAULT_NAMESPACE_URI + "TestingProjectFromScratch");
+		QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI + "TestingProjectFromScratch");
 		Project project;
 		try {
 			project = repository.createProject(qname);

@@ -31,7 +31,7 @@ public interface IPerson extends IFoafResource {
      * 
      * @throws SimalRepositoryException
      */
-    public Set<Person> getColleagues() throws SimalRepositoryException;
+    public Set<IPerson> getColleagues() throws SimalRepositoryException;
 
     /**
      * Get a set of people that know this person.

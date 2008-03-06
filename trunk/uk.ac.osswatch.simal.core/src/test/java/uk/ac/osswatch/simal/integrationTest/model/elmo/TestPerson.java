@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static org.junit.Assert.*;
 
 import java.util.Set;
@@ -68,9 +70,16 @@ public class TestPerson extends BaseRepositoryTest {
         public void testKnows() throws SimalRepositoryException {
             Set<Person> knows = developer.getKnows();
             assertNotNull("Should know some people", knows);
-            assertEquals("Should know one peson", knows.size(), 1);
             Person person = knows.iterator().next();
             String givenName = person.getGivennames();
             assertTrue("Should know Dan Brickley", givenName.contains("Dan Brickley"));
+        }
+                
+        @Test
+        public void testGetColleagues() throws SimalRepositoryException {
+          Set<IPerson> colleagues = developer.getColleagues();
+          assertNotNull(colleagues);
+          System.out.println(colleagues.iterator().next());
+          assertEquals("Got an incorrect number of colleagues", 6, colleagues.size());
         }
 }
