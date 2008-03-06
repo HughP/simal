@@ -14,49 +14,49 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public interface IProject extends IDoapResource {
 
-	public Set<IDoapResource> getIssueTrackers();
+  public Set<IDoapResource> getIssueTrackers();
 
-	public Set<IDoapResource> getCategories();
+  public Set<IDoapResource> getCategories();
 
-	public Set<IPerson> getDevelopers() throws SimalRepositoryException;
+  public Set<IPerson> getDevelopers() throws SimalRepositoryException;
 
-	public Set<IPerson> getDocumenters() throws SimalRepositoryException;
+  public Set<IPerson> getDocumenters() throws SimalRepositoryException;
 
-	public Set<IDoapResource> getDownloadMirrors();
+  public Set<IDoapResource> getDownloadMirrors();
 
-	public Set<IDoapResource> getDownloadPages();
+  public Set<IDoapResource> getDownloadPages();
 
-	public Set<IPerson> getHelpers() throws SimalRepositoryException;
+  public Set<IPerson> getHelpers() throws SimalRepositoryException;
 
-	public Set<IDoapResource> getHomepages();
+  public Set<IDoapResource> getHomepages();
 
-	public Set<IDoapResource> getMailingLists();
+  public Set<IDoapResource> getMailingLists();
 
-	public Set<IPerson> getMaintainers() throws SimalRepositoryException;
+  public Set<IPerson> getMaintainers() throws SimalRepositoryException;
 
-	public Set<IDoapResource> getOldHomepages();
+  public Set<IDoapResource> getOldHomepages();
 
-	public Set<String> getOSes();
+  public Set<String> getOSes();
 
-	public Set<String> getProgrammingLangauges();
+  public Set<String> getProgrammingLangauges();
 
-	public Set<IVersion> getReleases() throws SimalRepositoryException;
+  public Set<IVersion> getReleases() throws SimalRepositoryException;
 
-	public Set<IRCS> getRepositories() throws SimalRepositoryException;
+  public Set<IRCS> getRepositories() throws SimalRepositoryException;
 
-	public Set<IDoapResource> getScreenshots();
+  public Set<IDoapResource> getScreenshots();
 
-	public Set<IPerson> getTesters() throws SimalRepositoryException;
+  public Set<IPerson> getTesters() throws SimalRepositoryException;
 
-	public Set<IPerson> getTranslators() throws SimalRepositoryException;
+  public Set<IPerson> getTranslators() throws SimalRepositoryException;
 
-	public Set<IDoapResource> getWikis();
+  public Set<IDoapResource> getWikis();
 
-	/**
-	 * Get all the people known to be engaged with this project.
-	 * 
-	 * @return
-	 * @throws SimalRepositoryException
-	 */
-	public HashSet<IPerson> getAllPeople() throws SimalRepositoryException;
+  /**
+   * Get all the people known to be engaged with this project.
+   * 
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public HashSet<IPerson> getAllPeople() throws SimalRepositoryException;
 }

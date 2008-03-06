@@ -10,57 +10,57 @@ import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.elmo.DoapResource;
 
 public class MockDOAPResource extends DoapResource {
-	private static final long serialVersionUID = -5174587733994913681L;
-	private QName qname = new QName("http://example.org/testing/qname#");
+  private static final long serialVersionUID = -5174587733994913681L;
+  private QName qname = new QName("http://example.org/testing/qname#");
 
-	protected MockDOAPResource() {
-		super();
-	}
+  protected MockDOAPResource() {
+    super();
+  }
 
-	protected MockDOAPResource(QName name) {
-		qname = name;
-	}
+  protected MockDOAPResource(QName name) {
+    qname = name;
+  }
 
-	@Override
-	public String getCreated() {
-		return super.getCreated();
-	}
+  @Override
+  public String getCreated() {
+    return super.getCreated();
+  }
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return super.getDescription();
-	}
+  @Override
+  public String getDescription() {
+    // TODO Auto-generated method stub
+    return super.getDescription();
+  }
 
-	@Override
-	public Set<String> getLicences() {
-		// TODO Auto-generated method stub
-		return super.getLicences();
-	}
+  @Override
+  public Set<String> getLicences() {
+    // TODO Auto-generated method stub
+    return super.getLicences();
+  }
 
-	@Override
-	public String getName() {
-		return BaseRepositoryTest.TEST_SIMAL_PROJECT_NAME;
-	}
+  @Override
+  public String getName() {
+    return BaseRepositoryTest.TEST_SIMAL_PROJECT_NAME;
+  }
 
-	@Override
-	public QName getQName() {
-		return qname;
-	}
+  @Override
+  public QName getQName() {
+    return qname;
+  }
 
-	@Override
-	protected Set<String> getResourceURIs(Set<Resource> resources) {
-		// TODO Auto-generated method stub
-		return super.getResourceURIs(resources);
-	}
+  @Override
+  protected Set<String> getResourceURIs(Set<Resource> resources) {
+    // TODO Auto-generated method stub
+    return super.getResourceURIs(resources);
+  }
 
-	@Override
-	public String getShortDesc() {
-		return BaseRepositoryTest.TEST_SIMAL_PROJECT_SHORT_DESC;
-	}
-	
-	@Override
-	public String getLabel(String defaultLabel, boolean fetchLabel) {
-		return getQName().toString();
-	}
+  @Override
+  public String getShortDesc() {
+    return BaseRepositoryTest.TEST_SIMAL_PROJECT_SHORT_DESC;
+  }
+
+  @Override
+  public String getLabel(String defaultLabel, boolean fetchLabel) {
+    return getQName().toString();
+  }
 }
