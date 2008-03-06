@@ -37,6 +37,13 @@
 	<programming-language>Java</programming-language>
 	<programming-language>XML</programming-language>
 
+  <repository>
+    <SVNRepository rdf:about="http://simal.oss-watch.ac.uk/simalTest#svnTrunk">
+      <browse rdf:resource="http://svn.foo.org/viewvc/simal/trunk/"/>
+      <location rdf:resource="https://svn.foo.org/svnroot/simalTest"/>
+    </SVNRepository>
+  </repository>
+  
 	<license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
 
 	<category
@@ -59,6 +66,14 @@
 			<foaf:givenname>Jane Blógs Maintainer</foaf:givenname>
 			<rdf:seeAlso
 				rdf:resource="http://foo.org/~janeBlogs/foaf.rdf.xml" />
+      <foaf:knows>
+		  <foaf:Person>
+		    <foaf:name>Dan Brickley</foaf:name>
+		    <foaf:mbox_sha1sum>241021fb0e6289f92815fc210f9e9137262c252e</foaf:mbox_sha1sum>
+		    <rdfs:seeAlso 
+		      rdf:resource="http://rdfweb.org/people/danbri/foaf.rdf"/>
+		  </foaf:Person>
+	  </foaf:knows>
 		</foaf:Person>
 	</maintainer>
 </Project>
