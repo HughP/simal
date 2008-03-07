@@ -73,5 +73,17 @@ Now What?
  
  http://foo.com/simal-rest/allProjects.json
  
+* Person Data
+
+** All Colleagues
+
+ A colleague is defined as someone who works on any of the
+ projects our target person works on.
  
+ To retrieve all colleagues as a JSON file use:
+ 
+ http://foo.com/simal-rest/$PERSON_QNAME/allColleagues.json
+ 
+ Where PERSON_QNAME is replaced with the QName of the
+ person we are interested in.
 
