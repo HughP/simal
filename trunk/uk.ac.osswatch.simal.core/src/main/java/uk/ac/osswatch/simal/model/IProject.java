@@ -3,6 +3,8 @@ package uk.ac.osswatch.simal.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.openrdf.elmo.annotations.rdf;
+
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -12,6 +14,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  * @see uk.ac.osswatch.simal.model.elmo.Project
  */
+@rdf("http://simal.oss-watch.ac.uk/ns/simal#Project")
 public interface IProject extends IDoapResource {
 
   public Set<IDoapResource> getIssueTrackers();
@@ -59,4 +62,14 @@ public interface IProject extends IDoapResource {
    * @throws SimalRepositoryException
    */
   public HashSet<IPerson> getAllPeople() throws SimalRepositoryException;
+  
+  /**
+   * Get the Simal ID for this project. This is a unique identifier
+   * within the repository from which it was retrieved.
+   * 
+   * @return
+   * @throws SimalRepositoryException 
+   */
+  @rdf("http://simal.oss-watch.ac.uk/ns/simal#project-id")
+  public String getID() throws SimalRepositoryException;
 }

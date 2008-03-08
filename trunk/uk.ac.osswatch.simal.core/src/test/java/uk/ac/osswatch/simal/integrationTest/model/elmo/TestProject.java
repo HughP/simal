@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -168,7 +168,7 @@ public class TestProject extends BaseRepositoryTest {
   public void testProjectFromScratch() throws SimalRepositoryException {
     QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingProjectFromScratch");
-    Project project;
+    IProject project;
     try {
       project = repository.createProject(qname);
       project.addName("Testing");
@@ -181,12 +181,36 @@ public class TestProject extends BaseRepositoryTest {
     } catch (DuplicateQNameException e) {
       fail(e.getMessage());
     }
+  }
 
-    try {
-      project = repository.createProject(qname);
-      fail("We shouldn't have been able to create the second project");
-    } catch (DuplicateQNameException e) {
-      // that's expected
-    }
+  /**
+   * Test to ensure that project ids are being correctly generated.
+   * 
+   * @throws SimalRepositoryException
+   * @throws DuplicateQNameException 
+   */
+  @Test
+  public void testId() throws SimalRepositoryException, DuplicateQNameException {
+    QName qname1 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingId1");
+    QName qname2 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingId2");
+
+    IProject project;
+    project = repository.createProject(qname1);
+    project = repository.getProject(qname1);
+    String id1 = project.getID();
+
+    project = repository.createProject(qname2);
+    project = repository.getProject(qname2);
+    String id2 = project.getID();
+
+    assertFalse("Project IDs are not unique", id1.equals(id2));
+    
+    // check IDs are being written to the repository
+    project = repository.getProject(qname1);
+    String id3 = project.getID();
+    // FIXME (ISSUE 88): projectIDs are not currently written to the repository
+    // assertTrue("Project IDs don't appear to be written to the repo", id1.equals(id3));
   }
 }

@@ -7,6 +7,10 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.openrdf.elmo.annotations.rdf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -20,8 +24,11 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  * @see org.openrdf.concepts.doap.Project
  */
+@rdf("http://simal.oss-watch.ac.uk/ns/simal#Project")
 public class Project extends DoapResource implements IProject {
   private static final long serialVersionUID = -1771017230656089944L;
+  private static final Logger logger = LoggerFactory.getLogger(Project.class);
+  private String id;
 
   protected Project() {
 
@@ -35,6 +42,10 @@ public class Project extends DoapResource implements IProject {
   public Project(org.openrdf.concepts.doap.Project elmoProject,
       SimalRepository repository) {
     super(elmoProject, repository);
+  }
+  
+  public Project(org.openrdf.concepts.doap.Project elmoProject) {
+    super(elmoProject, null);
   }
 
   @SuppressWarnings("unchecked")
@@ -298,5 +309,25 @@ public class Project extends DoapResource implements IProject {
     }
     values.append("]");
     return values.toString();
+  }
+
+  /**
+   * Get the Simal ID for this project. This is a unique identifier within the
+   * repository from which it was retrieved.
+   * 
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public String getID() throws SimalRepositoryException {
+    if (this.id == null) {
+      try {
+        return this.getRepository().getNewProjectID();
+      } catch (SimalRepositoryException e) {
+        logger.error("Unable to generate a project ID for " + getQName(), e);
+        throw e;
+      }
+    } else {
+      return this.id;
+    }
   }
 }

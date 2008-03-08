@@ -36,7 +36,7 @@ public class TestRepository extends BaseRepositoryTest {
     initialiseRepository(false);
 
     QName qname = new QName("http://foo.org/nonExistent");
-    Project project = repository.getProject(qname);
+    IProject project = repository.getProject(qname);
     assertNull(project);
 
     // test a known valid file
@@ -118,7 +118,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testRemove() throws SimalRepositoryException {
     repository.remove(new QName(TEST_SIMAL_PROJECT_QNAME));
-    Project project = getSimalTestProject(true);
+    IProject project = getSimalTestProject(true);
     assertNull("Failed to remove the test project", project);
   }
 }

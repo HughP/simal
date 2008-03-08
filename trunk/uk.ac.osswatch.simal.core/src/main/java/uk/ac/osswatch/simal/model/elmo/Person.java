@@ -126,9 +126,9 @@ public class Person extends FoafResource implements IPerson {
    * @throws SimalRepositoryException
    */
   public Set<IPerson> getColleagues() throws SimalRepositoryException {
-    String queryStr = "PREFIX foaf: <http://xmlns.com/foaf/0.1/> "
-        + "PREFIX doap: <http://usefulinc.com/ns/doap#> "
-        + "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>"
+    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
+        + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?colleague WHERE { "
         + "?project rdf:type doap:Project . "
         + "?project doap:developer $qname . "
