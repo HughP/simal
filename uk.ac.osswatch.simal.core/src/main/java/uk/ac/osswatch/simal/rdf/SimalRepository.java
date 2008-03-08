@@ -49,6 +49,8 @@ import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 public class SimalRepository extends SimalProperties {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepository.class);
+  
+  // FIXME: standardisenames of constants
   public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
   public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultProjectNS#";
@@ -60,6 +62,11 @@ public class SimalRepository extends SimalProperties {
 
   public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
   public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
+  
+  public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#"; 
+  public static final String SIMAL_ID = SIMAL_NAMESPACE_URI + "project-id";
+
+  public static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
   private final String CATEGORIES_RDF = "categories.xml";
 
@@ -94,7 +101,7 @@ public class SimalRepository extends SimalProperties {
       annotatedFile = new File("annotatedRDFXML.xml");
       logger.debug("Annotated file written to "
           + annotatedFile.getAbsolutePath());
-      annotatingHandler = new AnnotatingRDFXMLHandler(annotatedFile);
+      annotatingHandler = new AnnotatingRDFXMLHandler(annotatedFile, this);
       parser.setRDFHandler(annotatingHandler);
     } catch (IOException e) {
       throw new SimalRepositoryException(
@@ -158,12 +165,18 @@ public class SimalRepository extends SimalProperties {
   public SesameManager getManager() throws SimalRepositoryException {
     verifyInitialised();
     ElmoModule module = new ElmoModule();
+    
+    // Concepts
     module.recordRole(org.openrdf.concepts.doap.Project.class);
     module.recordRole(org.openrdf.concepts.doap.Version.class);
     module.recordRole(org.openrdf.concepts.doap.Repository.class);
     module.recordRole(org.openrdf.concepts.doap.DoapResource.class);
     module.recordRole(org.openrdf.concepts.rdfs.Resource.class);
     module.recordRole(org.openrdf.concepts.foaf.Person.class);
+    module.recordRole(IProject.class);
+    
+    // Behaviours
+    module.recordRole(Project.class);
 
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);
     return factory.createElmoManager();
@@ -177,9 +190,10 @@ public class SimalRepository extends SimalProperties {
    * @return the project, or if no project with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public Project getProject(QName qname) throws SimalRepositoryException {
+  public IProject getProject(QName qname) throws SimalRepositoryException {
     verifyInitialised();
 
+    
     org.openrdf.concepts.doap.Project elmoProject = getManager().find(
         org.openrdf.concepts.doap.Project.class, qname);
     if (elmoProject == null) {
@@ -570,8 +584,7 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
-   * Create a new project in the repository. A default QName will be created for
-   * the project.
+   * Create a new project in the repository.
    * 
    * @return
    * @throws SimalRepositoryException
@@ -579,9 +592,9 @@ public class SimalRepository extends SimalProperties {
    * @throws DuplicateQNameException
    *           if an entity with the given QName already exists
    */
-  public Project createProject(QName qname) throws SimalRepositoryException,
+  public IProject createProject(QName qname) throws SimalRepositoryException,
       DuplicateQNameException {
-    Project project = getProject(qname);
+    IProject project = getProject(qname);
     if (project != null) {
       throw new DuplicateQNameException(
           "Attempt to create a second project with the QName " + qname);
@@ -590,6 +603,7 @@ public class SimalRepository extends SimalProperties {
     org.openrdf.concepts.doap.Project elmoProject = getManager().designate(
         org.openrdf.concepts.doap.Project.class, qname);
     project = new Project(elmoProject, this);
+    getManager().designate(IProject.class, qname);
     return project;
   }
 
@@ -601,5 +615,25 @@ public class SimalRepository extends SimalProperties {
    */
   public void remove(QName qname) throws SimalRepositoryException {
     getManager().remove(getManager().find(qname));
+  }
+
+  /**
+   * Create a new project ID and save the next value in the properties file.
+   * 
+   * @throws IOException
+   * @throws FileNotFoundException
+   */
+  public String getNewProjectID() throws SimalRepositoryException {
+    String strID = getProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
+    long id = Long.parseLong(strID);
+    long newId = id + 1;
+    setProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, Long.toString(newId));
+    try {
+      save();
+    } catch (Exception e) {
+      logger.warn("Unable to save properties file", e);
+      throw new SimalRepositoryException("Unable to save properties file when creating the next project ID", e);
+    }
+    return strID;
   }
 }

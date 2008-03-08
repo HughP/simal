@@ -22,6 +22,7 @@ import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.rdfxml.RDFXMLWriter;
 
 import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * Validates and annotates an RDF/XML file for use within SIMAL. This handler
@@ -39,6 +40,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private RDFXMLWriter handler;
   private Resource currentSubject;
   private Set<QName> projectQNames = new HashSet<QName>();
+  private SimalRepository repository;
 
   /**
    * Create a new AnnotatingRDFXMLHandler that will write to a file.
@@ -48,8 +50,10 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @throws IOException
    *           if there is a problem creating the output file
    */
-  public AnnotatingRDFXMLHandler(File file) throws IOException {
+  public AnnotatingRDFXMLHandler(File file, SimalRepository repository)
+      throws IOException {
     handler = new RDFXMLWriter(new FileWriter(file));
+    this.repository = repository;
   }
 
   public void endRDF() throws RDFHandlerException {
@@ -85,7 +89,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
       currentSubject = outSubject;
       if (inStatement.getObject().stringValue().equals(
           SimalRepository.DOAP_PROJECT_URI)) {
-        projectQNames.add(new QName(outSubject.stringValue()));
+        newProject(outSubject);
       }
     } else if (inStatement.getObject().stringValue().startsWith(
         SimalRepository.FOAF_NAMESPACE_URI)
@@ -119,6 +123,43 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     outStatement = new StatementImpl(outSubject, outPredicate, outValue);
 
     handler.handleStatement(outStatement);
+  }
+
+  /**
+   * Checks to see if this is a new project in the repository. If it is then
+   * ensure that it has a unique Simal identifier and is recorded in the
+   * list of projects found in the last file processed. If the project
+   * already exists then just add it to the list of files processed 
+   * (there will already be a unique identifier in the repo).
+   * 
+   * @param project
+   * @throws RDFHandlerException
+   */
+  private void newProject(Resource project) throws RDFHandlerException {
+    QName qname = new QName(project.stringValue());
+    try {
+      if (repository.getProject(qname) != null) {
+        projectQNames.add(qname);
+        return;
+      }
+    } catch (SimalRepositoryException e) {
+      throw new RDFHandlerException(
+          "Unable to verify if a project already exists", e);
+    }
+
+    Value idValue;
+    try {
+      idValue = new LiteralImpl(repository.getNewProjectID());
+      Statement idStatement = new StatementImpl(project, new URIImpl(
+          SimalRepository.SIMAL_ID), idValue);
+      handler.handleStatement(idStatement);
+
+      projectQNames.add(qname);
+    } catch (Exception e) {
+      throw new RDFHandlerException(
+          "Unable to save the Simal propertis file, aborting file annotation",
+          e);
+    }
   }
 
   private Value fixEncoding(final Value inValue) throws RDFHandlerException {
@@ -167,6 +208,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   }
 
   public void startRDF() throws RDFHandlerException {
+    handler.handleNamespace("simal", SimalRepository.SIMAL_NAMESPACE_URI);
     handler.startRDF();
   }
 
