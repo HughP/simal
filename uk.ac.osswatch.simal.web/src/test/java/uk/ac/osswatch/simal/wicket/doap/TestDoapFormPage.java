@@ -75,7 +75,7 @@ public class TestDoapFormPage extends TestBase {
 		tester.assertRenderedPage(UserHomePage.class);
 		tester.assertNoErrorMessage();
 
-		UserApplication.getRepository().remove(new QName(SimalRepository.DEFAULT_NAMESPACE_URI + TEST_NAME));
+		UserApplication.getRepository().remove(new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI + TEST_NAME));
 	}
 }
 
