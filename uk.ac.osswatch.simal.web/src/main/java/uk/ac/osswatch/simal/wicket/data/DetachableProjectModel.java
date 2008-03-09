@@ -5,6 +5,7 @@ import javax.xml.namespace.QName;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -28,7 +29,7 @@ public class DetachableProjectModel extends LoadableDetachableModel implements
 
 	@Override
 	protected Object load() {
-		Project project;
+		IProject project;
 		try {
 			project = UserApplication.getRepository().getProject(qname);
 		} catch (SimalRepositoryException e) {

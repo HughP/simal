@@ -4,6 +4,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
 
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
@@ -14,7 +15,7 @@ public class ProjectDetailPage extends BasePage {
 	private static final long serialVersionUID = 8719708525508677833L;
 
 	public ProjectDetailPage() {
-		Project project;
+		IProject project;
 		try {
 			project = UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME);
 			populatePage(project);
@@ -26,11 +27,11 @@ public class ProjectDetailPage extends BasePage {
 		}
 	}
 
-	public ProjectDetailPage(Project project) {
+	public ProjectDetailPage(IProject project) {
 		populatePage(project);
 	}
 
-	private void populatePage(Project project) {
+	private void populatePage(IProject project) {
 		add(new Label("projectName", project.getName()));
 		add(new Label("shortDesc", project.getShortDesc()));
 
@@ -125,7 +126,7 @@ public class ProjectDetailPage extends BasePage {
 	 * @return
 	 */
 	@SuppressWarnings("serial")
-	public static IPageLink getLink(final Project project) {
+	public static IPageLink getLink(final IProject project) {
 		IPageLink link = new IPageLink() {
 			public Page getPage() {
 				return new ProjectDetailPage(project);
