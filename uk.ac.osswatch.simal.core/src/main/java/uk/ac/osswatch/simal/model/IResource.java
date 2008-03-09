@@ -1,6 +1,6 @@
 package uk.ac.osswatch.simal.model;
 
-import uk.ac.osswatch.simal.rdf.SimalProperties;
+import uk.ac.osswatch.simal.SimalProperties;
 
 /**
  * A wrapper for an RDFS Resource in Elmo.
