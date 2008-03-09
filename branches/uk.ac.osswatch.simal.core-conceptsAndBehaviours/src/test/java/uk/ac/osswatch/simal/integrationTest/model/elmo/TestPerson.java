@@ -10,19 +10,19 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.elmo.Person;
+import uk.ac.osswatch.simal.model.IFaofPersonBehaviour;
+import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestPerson extends BaseRepositoryTest {
 
-  private static Set<IPerson> maintainers;
-  private static Set<IPerson> developers;
-  private static Set<IPerson> documenters;
-  private static Set<IPerson> helpers;
-  private static Set<IPerson> translators;
-  private static Set<IPerson> testers;
-  private static Person developer;
+  private static Set<IFaofPersonBehaviour> maintainers;
+  private static Set<IFaofPersonBehaviour> developers;
+  private static Set<IFaofPersonBehaviour> documenters;
+  private static Set<IFaofPersonBehaviour> helpers;
+  private static Set<IFaofPersonBehaviour> translators;
+  private static Set<IFaofPersonBehaviour> testers;
+  private static FoafPersonBehaviour developer;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -32,7 +32,7 @@ public class TestPerson extends BaseRepositoryTest {
     maintainers = project1.getMaintainers();
 
     developers = project1.getDevelopers();
-    developer = (Person) developers.toArray()[0];
+    developer = (FoafPersonBehaviour) developers.toArray()[0];
 
     helpers = project1.getHelpers();
     documenters = project1.getHelpers();
@@ -70,16 +70,16 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testKnows() throws SimalRepositoryException {
-    Set<Person> knows = developer.getKnows();
+    Set<FoafPersonBehaviour> knows = developer.getKnows();
     assertNotNull("Should know some people", knows);
-    Person person = knows.iterator().next();
+    FoafPersonBehaviour person = knows.iterator().next();
     String givenName = person.getGivennames();
     assertTrue("Should know Dan Brickley", givenName.contains("Dan Brickley"));
   }
 
   @Test
   public void testGetColleagues() throws SimalRepositoryException {
-    Set<IPerson> colleagues = developer.getColleagues();
+    Set<IFaofPersonBehaviour> colleagues = developer.getColleagues();
     assertNotNull(colleagues);
     assertEquals("Got an incorrect number of colleagues", 6, colleagues.size());
   }

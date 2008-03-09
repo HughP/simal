@@ -84,7 +84,7 @@ public class ConceptsAndBehaviours {
       RDFHandlerException {
     QName id = new QName(NS, "E340076");
     ICar car = manager.designate(ICar.class, id);
-    IEngine engine = manager.designate(IEngine.class, id);
+    IEngine engine = manager.designateEntity(IEngine.class, car);
     
     logger.info("Cars current speed is " + car.getSpeed());
     // the accelerate method is provided by the DrivingBehaviour

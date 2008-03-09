@@ -7,9 +7,9 @@ import javax.xml.namespace.QName;
 import org.openrdf.concepts.rdfs.Resource;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.elmo.DoapResource;
+import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
 
-public class MockDOAPResource extends DoapResource {
+public class MockDOAPResource extends DoapResourceBehaviour {
   private static final long serialVersionUID = -5174587733994913681L;
   private QName qname = new QName("http://example.org/testing/qname#");
 

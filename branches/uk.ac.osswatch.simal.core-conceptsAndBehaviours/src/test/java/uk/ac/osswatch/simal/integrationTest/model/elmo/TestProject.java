@@ -7,15 +7,20 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import org.junit.Test;
+import org.openrdf.concepts.doap.Project;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestProject extends BaseRepositoryTest {
+  private static final Logger logger = LoggerFactory
+      .getLogger(TestProject.class);
 
   @Test
   public void testGetQName() {
@@ -27,7 +32,9 @@ public class TestProject extends BaseRepositoryTest {
   public void testToJSON() throws SimalRepositoryException {
     resetTestData();
 
-    String json = project1.toJSONRecord();
+    // FIXME: we shouldn't need knowledge of the model here
+    DoapProjectBehaviour behaviour = new DoapProjectBehaviour(project1);
+    String json = behaviour.toJSONRecord();
     assertTrue(
         "JSON file does not contain correct JSON representation of the Simal test record",
         json.contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
@@ -38,7 +45,7 @@ public class TestProject extends BaseRepositoryTest {
         "JSON file does not contain correct JSON representation of the Simal test project",
         !json.startsWith("{ \"items\": ["));
 
-    json = project1.toJSON();
+    json = behaviour.toJSON();
     assertTrue(
         "JSON file does not contain correct JSON representation of the Simal test project",
         json.startsWith("{ \"items\": ["));
@@ -46,57 +53,58 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetIssueTracker() {
-    String issueTrackers = project1.getIssueTrackers().toString();
+    String issueTrackers = project1.getDoapBugDatabases().toString();
     assertTrue(issueTrackers.contains(TEST_SIMAL_PROJECT_ISSUE_TRACKER));
   }
 
   @Test
   public void testGetCategories() {
-    assertTrue(project1.getCategories().toString().contains(
-        TEST_SIMAL_PROJECT_CATEGORY_ONE));
-    assertTrue(project1.getCategories().toString().contains(
-        TEST_SIMAL_PROJECT_CATEGORY_TWO));
+    String categories = project1.getDoapCategories().toString();
+    logger.debug("Categories are " + categories);
+    assertTrue(categories.contains(TEST_SIMAL_PROJECT_CATEGORY_ONE));
+    assertTrue(categories.contains(TEST_SIMAL_PROJECT_CATEGORY_TWO));
   }
 
   @Test
   public void testGetDevelopers() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_DEVELOPERS, project1.getDevelopers()
+    assertEquals(TEST_SIMAL_PROJECT_DEVELOPERS, project1.getDoapDevelopers()
         .toString());
   }
 
   @Test
   public void testGetDocumentors() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_DOCUMENTORS, project1.getDocumenters()
+    assertEquals(TEST_SIMAL_PROJECT_DOCUMENTORS, project1.getDoapDocumenters()
         .toString());
   }
 
   @Test
   public void testGetDownloadMirrors() {
-    String mirrors = project1.getDownloadMirrors().toString();
+    String mirrors = project1.getDoapDownloadMirrors().toString();
     assertTrue(mirrors.contains(TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS));
   }
 
   @Test
   public void testGetDownloadPages() {
-    String downloads = project1.getDownloadPages().toString();
+    String downloads = project1.getDoapDownloadPages().toString();
     assertTrue(downloads.contains(TEST_SIMAL_PROJECT_DOWNLOAD_PAGES));
   }
 
   @Test
   public void testGetHelpers() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_HELPERS, project1.getHelpers().toString());
+    assertEquals(TEST_SIMAL_PROJECT_HELPERS, project1.getDoapHelpers()
+        .toString());
   }
 
   @Test
   public void testGetHomepages() {
-    String homepages = project1.getHomepages().toString();
+    String homepages = project1.getDoapHomepages().toString();
     assertTrue(homepages.contains(TEST_SIMAL_PROJECT_HOMEPAGE_ONE));
     assertTrue(homepages.contains(TEST_SIMAL_PROJECT_HOMEPAGE_TWO));
   }
 
   @Test
   public void testGetMailingLists() {
-    Set<IDoapResource> lists = project1.getMailingLists();
+    Set<Object> lists = project1.getDoapMailingLists();
     assertEquals("Got incorrect number of mailing lists",
         TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST, lists.size());
     assertTrue(lists.toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_ONE));
@@ -105,62 +113,64 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetMaintainers() throws SimalRepositoryException {
-    assertTrue(project1.getMaintainers().toString().contains(
+    assertTrue(project1.getDoapMaintainers().toString().contains(
         TEST_SIMAL_PROJECT_MAINTAINER_ONE));
-    assertTrue(project1.getMaintainers().toString().contains(
+    assertTrue(project1.getDoapMaintainers().toString().contains(
         TEST_SIMAL_PROJECT_MAINTAINER_TWO));
   }
 
   @Test
   public void testGetOldHomepages() {
-    String oldHomes = project1.getOldHomepages().toString();
+    String oldHomes = project1.getDoapOldHomepages().toString();
     assertTrue(oldHomes.contains(TEST_SIMAL_PROJECT_OLD_HOMEPAGES));
   }
 
   @Test
   public void testGetOSes() {
-    assertEquals(TEST_SIMAL_PROJECT_OS, project1.getOSes().toString());
+    assertEquals(TEST_SIMAL_PROJECT_OS, project1.getDoapOses().toString());
   }
 
   @Test
   public void testGetProgrammingLangauges() {
-    assertTrue(project1.getProgrammingLangauges().toString().contains(
+    assertTrue(project1.getDoapProgrammingLanguages().toString().contains(
         TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE));
-    assertTrue(project1.getProgrammingLangauges().toString().contains(
+    assertTrue(project1.getDoapProgrammingLanguages().toString().contains(
         TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO));
   }
 
   @Test
   public void testGetReleases() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_RELEASES, project1.getReleases().toString());
-  }
-
-  @Test
-  public void testGetRepositories() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_REPOSITORIES, project1.getRepositories()
+    assertEquals(TEST_SIMAL_PROJECT_RELEASES, project1.getDoapReleases()
         .toString());
   }
 
   @Test
+  public void testGetRepositories() throws SimalRepositoryException {
+    assertEquals(TEST_SIMAL_PROJECT_REPOSITORIES, project1
+        .getDoapRepositories().toString());
+  }
+
+  @Test
   public void testGetScreenshots() {
-    String screenshots = project1.getScreenshots().toString();
+    String screenshots = project1.getDoapScreenshots().toString();
     assertTrue(screenshots.contains(TEST_SIMAL_PROJECT_SCREENSHOTS));
   }
 
   @Test
   public void testGetTesters() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_TESTERS, project1.getTesters().toString());
+    assertEquals(TEST_SIMAL_PROJECT_TESTERS, project1.getDoapTesters()
+        .toString());
   }
 
   @Test
   public void testGetTranslators() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_TRANSLATORS, project1.getTranslators()
+    assertEquals(TEST_SIMAL_PROJECT_TRANSLATORS, project1.getDoapTranslators()
         .toString());
   }
 
   @Test
   public void testGetWikis() {
-    String wikis = project1.getWikis().toString();
+    String wikis = project1.getDoapWikis().toString();
     assertTrue(wikis.contains(TEST_SIMAL_PROJECT_WIKIS));
   }
 
@@ -168,15 +178,18 @@ public class TestProject extends BaseRepositoryTest {
   public void testProjectFromScratch() throws SimalRepositoryException {
     QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingProjectFromScratch");
-    IProject project;
+    Project project;
     try {
       project = repository.createProject(qname);
-      project.addName("Testing");
-      project.setShortDesc("Just testing adding a manually built project");
+      // FIXME: project.addName("Testing");
+      project.setDoapShortdesc("Just testing adding a manually built project");
 
       project = repository.getProject(qname);
       assertNotNull("Project has not been added to repository", project);
-      assertEquals("Project name is incorrectly set", "Testing", project
+
+      // FIXME: we shouldn't ned knowledge of the model here.
+      DoapResourceBehaviour resource = new DoapResourceBehaviour(project1);
+      assertEquals("Project name is incorrectly set", "Testing", resource
           .getName());
     } catch (DuplicateQNameException e) {
       fail(e.getMessage());
@@ -187,7 +200,7 @@ public class TestProject extends BaseRepositoryTest {
    * Test to ensure that project ids are being correctly generated.
    * 
    * @throws SimalRepositoryException
-   * @throws DuplicateQNameException 
+   * @throws DuplicateQNameException
    */
   @Test
   public void testId() throws SimalRepositoryException, DuplicateQNameException {
@@ -196,21 +209,23 @@ public class TestProject extends BaseRepositoryTest {
     QName qname2 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId2");
 
-    IProject project;
+    fail("The move to behaviours has broken the projct ID stuff");
+    Project project;
     project = repository.createProject(qname1);
     project = repository.getProject(qname1);
-    String id1 = project.getID();
+    // String id1 = project.getID();
 
     project = repository.createProject(qname2);
     project = repository.getProject(qname2);
-    String id2 = project.getID();
+    // String id2 = project.getID();
 
-    assertFalse("Project IDs are not unique", id1.equals(id2));
-    
+    // assertFalse("Project IDs are not unique", id1.equals(id2));
+
     // check IDs are being written to the repository
     project = repository.getProject(qname1);
-    String id3 = project.getID();
+    // String id3 = project.getID();
     // FIXME (ISSUE 88): projectIDs are not currently written to the repository
-    // assertTrue("Project IDs don't appear to be written to the repo", id1.equals(id3));
+    // assertTrue("Project IDs don't appear to be written to the repo",
+    // id1.equals(id3));
   }
 }

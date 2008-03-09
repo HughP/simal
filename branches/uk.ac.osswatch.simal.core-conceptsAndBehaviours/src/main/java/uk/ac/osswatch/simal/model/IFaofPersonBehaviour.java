@@ -4,16 +4,14 @@ import java.util.Set;
 
 import org.openrdf.concepts.foaf.Document;
 
-import uk.ac.osswatch.simal.model.elmo.Person;
+import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
- * A wrapper around a repository representation of a foaf Person.
- * 
- * @see org.openrdf.concepts.foaf.Person
+ * A behaviour for FOAF people objects.
  * 
  */
-public interface IPerson extends IFoafResource {
+public interface IFaofPersonBehaviour extends IFoafResourceBehaviour {
 
   /**
    * Get the home page of this person.
@@ -31,12 +29,12 @@ public interface IPerson extends IFoafResource {
    * 
    * @throws SimalRepositoryException
    */
-  public Set<IPerson> getColleagues() throws SimalRepositoryException;
+  public Set<IFaofPersonBehaviour> getColleagues() throws SimalRepositoryException;
 
   /**
    * Get a set of people that know this person.
    * 
    * @throws SimalRepositoryException
    */
-  public Set<Person> getKnows() throws SimalRepositoryException;
+  public Set<FoafPersonBehaviour> getKnows() throws SimalRepositoryException;
 }

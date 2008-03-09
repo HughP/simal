@@ -3,8 +3,8 @@ package uk.ac.osswatch.simal.integrationTest.rdf;
 import javax.xml.namespace.QName;
 
 import org.junit.BeforeClass;
+import org.openrdf.concepts.doap.Project;
 
-import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.TransactionException;
@@ -68,7 +68,7 @@ public abstract class BaseRepositoryTest {
 
   protected static SimalRepository repository;
 
-  protected static IProject project1;
+  protected static Project project1;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -130,10 +130,10 @@ public abstract class BaseRepositoryTest {
    * @return
    * @throws SimalRepositoryException
    */
-  protected static IProject getSimalTestProject(boolean reset)
+  protected static Project getSimalTestProject(boolean reset)
       throws SimalRepositoryException {
     QName qname;
-    IProject project;
+    Project project;
     qname = new QName(TEST_SIMAL_PROJECT_QNAME);
     if (reset) {
       rollbackAndStartTransaction();

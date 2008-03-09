@@ -15,7 +15,7 @@ import javax.xml.namespace.QName;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -84,9 +84,9 @@ public class TestRepository extends BaseRepositoryTest {
     Set<IProject> projects = repository.getAllProjects();
 
     Iterator itrProjects = projects.iterator();
-    Project project;
+    DoapProjectBehaviour project;
     while (itrProjects.hasNext()) {
-      project = (Project) itrProjects.next();
+      project = (DoapProjectBehaviour) itrProjects.next();
       assertNotNull("All projects must have a QName", project.getQName());
     }
   }

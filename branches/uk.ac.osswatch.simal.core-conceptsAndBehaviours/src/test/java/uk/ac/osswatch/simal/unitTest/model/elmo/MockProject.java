@@ -6,12 +6,12 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
+import uk.ac.osswatch.simal.model.IFaofPersonBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class MockProject extends Project {
+public class MockProject extends DoapProjectBehaviour {
   private static final long serialVersionUID = 5055851775619447759L;
   private MockDOAPResource resource = new MockDOAPResource();
 
@@ -19,8 +19,8 @@ public class MockProject extends Project {
     super();
   }
 
-  public Set<IDoapResource> getCategories() {
-    HashSet<IDoapResource> categories = new HashSet<IDoapResource>();
+  public Set<IDoapResourceBehaviour> getCategories() {
+    HashSet<IDoapResourceBehaviour> categories = new HashSet<IDoapResourceBehaviour>();
     categories.add(new MockDOAPResource(new QName(
         BaseRepositoryTest.TEST_SIMAL_PROJECT_CATEGORY_ONE)));
     categories.add(new MockDOAPResource(new QName(
@@ -49,38 +49,38 @@ public class MockProject extends Project {
   }
 
   @Override
-  public Set<IPerson> getMaintainers() throws SimalRepositoryException {
-    HashSet<IPerson> people = new HashSet<IPerson>();
+  public Set<IFaofPersonBehaviour> getMaintainers() throws SimalRepositoryException {
+    HashSet<IFaofPersonBehaviour> people = new HashSet<IFaofPersonBehaviour>();
     return people;
   }
 
   @Override
-  public Set<IPerson> getDevelopers() throws SimalRepositoryException {
-    HashSet<IPerson> people = new HashSet<IPerson>();
+  public Set<IFaofPersonBehaviour> getDevelopers() throws SimalRepositoryException {
+    HashSet<IFaofPersonBehaviour> people = new HashSet<IFaofPersonBehaviour>();
     return people;
   }
 
   @Override
-  public Set<IPerson> getDocumenters() throws SimalRepositoryException {
-    HashSet<IPerson> people = new HashSet<IPerson>();
+  public Set<IFaofPersonBehaviour> getDocumenters() throws SimalRepositoryException {
+    HashSet<IFaofPersonBehaviour> people = new HashSet<IFaofPersonBehaviour>();
     return people;
   }
 
   @Override
-  public Set<IPerson> getHelpers() throws SimalRepositoryException {
-    HashSet<IPerson> people = new HashSet<IPerson>();
+  public Set<IFaofPersonBehaviour> getHelpers() throws SimalRepositoryException {
+    HashSet<IFaofPersonBehaviour> people = new HashSet<IFaofPersonBehaviour>();
     return people;
   }
 
   @Override
-  public Set<IPerson> getTesters() throws SimalRepositoryException {
-    HashSet<IPerson> people = new HashSet<IPerson>();
+  public Set<IFaofPersonBehaviour> getTesters() throws SimalRepositoryException {
+    HashSet<IFaofPersonBehaviour> people = new HashSet<IFaofPersonBehaviour>();
     return people;
   }
 
   @Override
-  public Set<IPerson> getTranslators() throws SimalRepositoryException {
-    HashSet<IPerson> people = new HashSet<IPerson>();
+  public Set<IFaofPersonBehaviour> getTranslators() throws SimalRepositoryException {
+    HashSet<IFaofPersonBehaviour> people = new HashSet<IFaofPersonBehaviour>();
     return people;
   }
 
