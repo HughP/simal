@@ -17,7 +17,6 @@ import org.apache.wicket.util.convert.ConversionException;
 import org.apache.wicket.util.convert.IConverter;
 
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -63,7 +62,7 @@ public class DoapFormPage extends BasePage {
 			super.onSubmit();
 
 			if (!this.hasError()) {
-				QName qname = new QName(SimalRepository.DEFAULT_NAMESPACE_URI + inputModel.getName());
+				QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI + inputModel.getName());
 				try {
 					SimalRepository repo = UserApplication.getRepository();
 					

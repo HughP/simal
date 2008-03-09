@@ -21,6 +21,7 @@ import org.apache.wicket.markup.html.link.IPageLink;
 import org.apache.wicket.markup.html.link.PageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
@@ -39,13 +40,13 @@ public class ProjectSummaryPanel extends Panel {
 	 * @param project
 	 *            the project to display in this panel
 	 */
-	public ProjectSummaryPanel(String panelID, Project project) {
+	public ProjectSummaryPanel(String panelID, IProject project) {
 		super(panelID);
 		populatePage(project);
 	}
 
 	@SuppressWarnings("serial")
-	private void populatePage(final Project project) {
+	private void populatePage(final IProject project) {
 		if (project != null) {
 			add(new Label("widgetTitle", "Featured Project"));
 			add(new Label("projectName", project.getName()));
