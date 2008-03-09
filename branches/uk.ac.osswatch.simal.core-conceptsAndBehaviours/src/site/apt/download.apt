@@ -1,0 +1,45 @@
+          ----------------------
+          Downloading Simal Core
+          ----------------------
+
+
+ At present Simal Core is only available in source format. 
+ There will be a binary release in the near future.
+ 
+Prerequisites
+
+ Simal Core uses {{{http://maven.apache.org} Maven}} to manage 
+ its dependencies. This means that you only need to ensure your
+ system has the following items installed, everything else will
+ be downloaded automatically (actually that's not true at present,
+ see "Sesame and elmo" below).
+ 
+  * {{{http://www.java.com} Java}} (JDK 1.5 or higher)
+  
+  * {{{http://maven.apache.org/download.html} Maven}}
+  
+* Sesame and Elmo
+
+ Simal Core uses {{{http://www.openrdf.org} Sesame}} an open source 
+ framework for storage, inferencing and querying of RDF data and 
+ {{{http://www.openrdf.org} Elmo}} a role based Java persistent Bean 
+ pool.
+ 
+ We use the latest releases of both of these projects. At the time of
+ writing these releases are not available in a public Maven repository.
+ We expect this to change soon, but for now you may find it is 
+ necessary to install them into your local Maven repository manually. If
+ this is the case Maven will throw an error when you try to build and
+ tell you the command to install the resources locally (once you have
+ downloaded them).
+ 
+Getting the Source
+
+ The source code of Simal Core is available from our
+ {{{source-repository.html} Subversion repository}}.
+ 
+Now What?
+
+ Now you have downloaded the source you probably want to build it. This
+ is documented on our {{{developing.html} Developing Simal Core}} page 
+
