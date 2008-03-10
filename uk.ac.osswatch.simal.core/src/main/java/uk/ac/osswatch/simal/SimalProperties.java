@@ -11,7 +11,6 @@ import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -45,21 +44,23 @@ public class SimalProperties {
    * @throws SimalRepositoryException
    */
   public void initProperties() throws SimalRepositoryException {
-    File propsFile;
+    URL defaultsLocation = null;
     try {
-      propsFile = new File(SimalRepository.class.getClassLoader().getResource(
-          DEFAULT_PROPERTIES_FILE).toURI());
-      defaultProps = getProperties(propsFile);
+      defaultsLocation = SimalProperties.class.getClassLoader().getResource(DEFAULT_PROPERTIES_FILE);
+      defaultProps = new Properties();
+      defaultProps.load(defaultsLocation.openStream());
     } catch (Exception e) {
-      logger.warn("Unable to load default properties file", e);
-      throw new SimalRepositoryException(
-          "Unable to load default properties file", e);
+      String msg = "Unable to load default properties file from "
+          + defaultsLocation;
+      throw new SimalRepositoryException(msg, e);
     }
-    propsFile = getLocalPropertiesFile();
+    
+    File propsFile = getLocalPropertiesFile();
     if (propsFile.exists()) {
       localProps = getProperties(propsFile);
     } else {
       logger.debug("No local.simal.properties file was found");
+      localProps = new Properties();
     }
   }
 
@@ -72,7 +73,7 @@ public class SimalProperties {
   private File getLocalPropertiesFile() throws SimalRepositoryException {
     File propsFile;
     try {
-      URL rootURL = SimalRepository.class.getClassLoader().getResource("");
+      URL rootURL = this.getClass().getResource("/");
       propsFile = new File(rootURL.getFile(),
           getProperty(PROPERTY_LOCAL_PROPERTIES_LOCATION));
     } catch (Exception e) {
