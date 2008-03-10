@@ -20,7 +20,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  * @see org.openrdf.concepts.doap.Project
  */
-@rdf("http://usefulinc.com/ns/doap#")
+@rdf("http://usefulinc.com/ns/doap#Project")
 public class DoapProjectBehaviour extends DoapResourceBehaviour {
   private static final Logger logger = LoggerFactory
       .getLogger(DoapProjectBehaviour.class);

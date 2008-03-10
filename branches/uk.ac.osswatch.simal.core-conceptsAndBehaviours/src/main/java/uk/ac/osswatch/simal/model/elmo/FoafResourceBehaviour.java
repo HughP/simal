@@ -2,8 +2,11 @@ package uk.ac.osswatch.simal.model.elmo;
 
 import javax.xml.namespace.QName;
 
+import org.openrdf.elmo.annotations.rdf;
+
 import uk.ac.osswatch.simal.model.IFoafResourceBehaviour;
 
+@rdf("http://xmlns.com/foaf/0.1/Person")
 public class FoafResourceBehaviour extends ResourceBehavior implements IFoafResourceBehaviour {
   private static final long serialVersionUID = -3852417254318582808L;
 

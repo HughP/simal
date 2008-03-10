@@ -2,6 +2,7 @@ package uk.ac.osswatch.simal.model.elmo;
 
 import org.openrdf.concepts.rdfs.Resource;
 import org.openrdf.elmo.Entity;
+import org.openrdf.elmo.annotations.rdf;
 
 import uk.ac.osswatch.simal.model.IResourceBehaviour;
 
@@ -9,6 +10,7 @@ import uk.ac.osswatch.simal.model.IResourceBehaviour;
  * Provides functionality for a Resource object provided by
  * Elmo.
  */
+@rdf("http://www.w3.org/2000/01/rdf-schema#Resource")
 public class ResourceBehavior implements IResourceBehaviour {
   protected final Entity elmoEntity;
   

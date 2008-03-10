@@ -35,6 +35,8 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
+import uk.ac.osswatch.simal.model.elmo.FoafResourceBehaviour;
+import uk.ac.osswatch.simal.model.elmo.ResourceBehavior;
 import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 /**
@@ -46,7 +48,7 @@ public class SimalRepository extends SimalProperties {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepository.class);
 
-  // FIXME: standardisenames of constants
+  // FIXME: standardise names of constants
   public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
   public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultProjectNS#";
@@ -174,6 +176,9 @@ public class SimalRepository extends SimalProperties {
     // Behaviours
     module.recordRole(DoapResourceBehaviour.class);
     module.recordRole(DoapProjectBehaviour.class);
+    module.recordRole(FoafPersonBehaviour.class);
+    module.recordRole(FoafResourceBehaviour.class);
+    module.recordRole(ResourceBehavior.class);
 
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);
     return factory.createElmoManager();

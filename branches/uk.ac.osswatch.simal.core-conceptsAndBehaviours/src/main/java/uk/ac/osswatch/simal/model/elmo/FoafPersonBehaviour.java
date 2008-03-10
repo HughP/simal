@@ -6,6 +6,7 @@ import java.util.Set;
 import org.openrdf.concepts.foaf.Person;
 import org.openrdf.elmo.ElmoManager;
 import org.openrdf.elmo.ElmoQuery;
+import org.openrdf.elmo.annotations.rdf;
 
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -14,6 +15,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A behaviour for an Elmo object representing a FOAF Person.
  * 
  */
+@rdf("http://xmlns.com/foaf/0.1/Person")
 public class FoafPersonBehaviour extends FoafResourceBehaviour {
   private static final long serialVersionUID = -6234779132155536113L;
 

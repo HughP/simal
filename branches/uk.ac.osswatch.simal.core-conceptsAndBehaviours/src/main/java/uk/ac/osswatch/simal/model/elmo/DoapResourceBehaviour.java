@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.openrdf.concepts.doap.DoapResource;
 import org.openrdf.elmo.Entity;
 import org.openrdf.elmo.annotations.rdf;
 import org.slf4j.Logger;
@@ -18,7 +19,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * Elmo.
  */
 
-@rdf("http://www.w3.org/2000/01/rdf-schema#Resource")
+@rdf("http://usefulinc.com/ns/doap#Project")
 public class DoapResourceBehaviour extends ResourceBehavior {
   private static final Logger logger = LoggerFactory
   .getLogger(DoapResourceBehaviour.class);
@@ -26,9 +27,9 @@ public class DoapResourceBehaviour extends ResourceBehavior {
    * Create a resource behaviour for a given resource.
    * @param resource
    */
-  public DoapResourceBehaviour(org.openrdf.concepts.doap.DoapResource resource) {
+  public DoapResourceBehaviour(DoapResource resource) {
     super(resource);
-    logger.debug("Create a DoapREsourceBehaviour for an Elmo DoapResource object");
+    logger.debug("Create a DoapResourceBehaviour for an Elmo DoapResource object");
   }
 
   /**
