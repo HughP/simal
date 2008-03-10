@@ -61,8 +61,8 @@ public class TestProject extends BaseRepositoryTest {
   public void testGetCategories() {
     String categories = project1.getDoapCategories().toString();
     logger.debug("Categories are " + categories);
-    assertTrue(categories.contains(TEST_SIMAL_PROJECT_CATEGORY_ONE));
-    assertTrue(categories.contains(TEST_SIMAL_PROJECT_CATEGORY_TWO));
+    assertTrue("Categries are incorrect: " + categories, categories.contains(TEST_SIMAL_PROJECT_CATEGORY_ONE));
+    assertTrue("Categries are incorrect: " + categories, categories.contains(TEST_SIMAL_PROJECT_CATEGORY_TWO));
   }
 
   @Test
@@ -209,17 +209,18 @@ public class TestProject extends BaseRepositoryTest {
     QName qname2 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId2");
 
-    fail("The move to behaviours has broken the projct ID stuff");
     Project project;
     project = repository.createProject(qname1);
     project = repository.getProject(qname1);
-    // String id1 = project.getID();
+    DoapProjectBehaviour behaviour = new DoapProjectBehaviour(project);
+    String id1 = behaviour.getID();
 
     project = repository.createProject(qname2);
     project = repository.getProject(qname2);
-    // String id2 = project.getID();
+    behaviour = new DoapProjectBehaviour(project);
+    String id2 = behaviour.getID();
 
-    // assertFalse("Project IDs are not unique", id1.equals(id2));
+    assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1.equals(id2));
 
     // check IDs are being written to the repository
     project = repository.getProject(qname1);
