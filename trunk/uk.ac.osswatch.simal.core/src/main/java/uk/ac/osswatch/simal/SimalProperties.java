@@ -46,7 +46,8 @@ public class SimalProperties {
   public void initProperties() throws SimalRepositoryException {
     URL defaultsLocation = null;
     try {
-      defaultsLocation = SimalProperties.class.getClassLoader().getResource(DEFAULT_PROPERTIES_FILE);
+      defaultsLocation = SimalProperties.class.getClassLoader().getResource(
+          DEFAULT_PROPERTIES_FILE);
       defaultProps = new Properties();
       defaultProps.load(defaultsLocation.openStream());
     } catch (Exception e) {
@@ -54,7 +55,7 @@ public class SimalProperties {
           + defaultsLocation;
       throw new SimalRepositoryException(msg, e);
     }
-    
+
     File propsFile = getLocalPropertiesFile();
     if (propsFile.exists()) {
       localProps = getProperties(propsFile);
@@ -72,15 +73,9 @@ public class SimalProperties {
    */
   private File getLocalPropertiesFile() throws SimalRepositoryException {
     File propsFile;
-    try {
-      URL rootURL = this.getClass().getResource("/");
-      propsFile = new File(rootURL.getFile(),
-          getProperty(PROPERTY_LOCAL_PROPERTIES_LOCATION));
-    } catch (Exception e) {
-      logger.error("Invalid URI for the local.simal.properties file", e);
-      throw new SimalRepositoryException(
-          "Invalid URI for the local.simal.properties file", e);
-    }
+    String workingDir = System.getProperty("user.dir");
+    propsFile = new File(workingDir + File.separator
+        + getProperty(PROPERTY_LOCAL_PROPERTIES_LOCATION));
     return propsFile;
   }
 
