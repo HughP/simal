@@ -13,6 +13,7 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import org.junit.Test;
+import org.openrdf.concepts.doap.Project;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
@@ -36,12 +37,12 @@ public class TestRepository extends BaseRepositoryTest {
     initialiseRepository(false);
 
     QName qname = new QName("http://foo.org/nonExistent");
-    IProject project = repository.getProject(qname);
+    Project project = repository.getProject(qname);
     assertNull(project);
 
     // test a known valid file
     project = getSimalTestProject(true);
-    assertEquals("Simal DOAP Test", project.getName());
+    assertEquals("Simal DOAP Test", project.getDoapNames());
   }
 
   @Test
@@ -65,14 +66,14 @@ public class TestRepository extends BaseRepositoryTest {
   public void testGetAllProjects() throws SimalRepositoryException, IOException {
     initialiseRepository(false);
 
-    Set<IProject> projects = repository.getAllProjects();
+    Set<Project> projects = repository.getAllProjects();
     assertEquals(4, projects.size());
 
-    Iterator<IProject> itrProjects = projects.iterator();
-    IProject project;
+    Iterator<Project> itrProjects = projects.iterator();
+    Project project;
     while (itrProjects.hasNext()) {
       project = itrProjects.next();
-      assertNotNull(project.getNames());
+      assertNotNull(project.getDoapNames());
     }
   }
 
@@ -81,7 +82,7 @@ public class TestRepository extends BaseRepositoryTest {
   public void testNullQNamehandling() throws SimalRepositoryException {
     initialiseRepository(false);
 
-    Set<IProject> projects = repository.getAllProjects();
+    Set<Project> projects = repository.getAllProjects();
 
     Iterator itrProjects = projects.iterator();
     DoapProjectBehaviour project;
@@ -106,11 +107,12 @@ public class TestRepository extends BaseRepositoryTest {
     initialiseRepository(false);
 
     String uri = "http://simal.oss-watch.ac.uk/category/socialNews";
-    String label = repository.getLabel(uri);
+    //String label = repository.getLabel(uri);
+    String label = "FIXME: need to create an ICategoyr class";
     assertEquals("Category Label is incorrect", "Social News", label);
 
     uri = "http://example.org/does/not/exist";
-    label = repository.getLabel(uri);
+    //label = repository.getLabel(uri);
     assertNull("Somehow we have a label for a resource that does not exist",
         label);
   }
@@ -118,7 +120,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testRemove() throws SimalRepositoryException {
     repository.remove(new QName(TEST_SIMAL_PROJECT_QNAME));
-    IProject project = getSimalTestProject(true);
+    Project project = getSimalTestProject(true);
     assertNull("Failed to remove the test project", project);
   }
 }

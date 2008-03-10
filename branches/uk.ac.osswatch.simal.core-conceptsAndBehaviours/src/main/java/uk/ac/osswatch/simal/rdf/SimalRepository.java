@@ -212,10 +212,10 @@ public class SimalRepository extends SimalProperties {
     return getManager().find(FoafPersonBehaviour.class, qname);
   }
 
-  public Set<DoapProjectBehaviour> getAllProjects()
+  public Set<Project> getAllProjects()
       throws SimalRepositoryException {
     verifyInitialised();
-    return getManager().findAll(DoapProjectBehaviour.class);
+    return getManager().findAll(Project.class);
   }
 
   /**
@@ -345,9 +345,13 @@ public class SimalRepository extends SimalProperties {
    */
   public String getAllProjectsAsJSON() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer("{ \"items\": [");
-    Iterator<DoapProjectBehaviour> projects = getAllProjects().iterator();
+    Iterator<Project> projects = getAllProjects().iterator();
+    Project project;
+    DoapProjectBehaviour behaviour;
     while (projects.hasNext()) {
-      json.append(projects.next().toJSONRecord());
+      project = projects.next();        
+      behaviour = project.getElmoManager().designateEntity(DoapProjectBehaviour.class, project);
+      json.append(behaviour.toJSONRecord());
       if (projects.hasNext()) {
         json.append(",");
       }
