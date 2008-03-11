@@ -4,8 +4,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.xml.namespace.QName;
-
 import org.openrdf.concepts.doap.DoapResource;
 import org.openrdf.elmo.Entity;
 import org.openrdf.elmo.annotations.rdf;

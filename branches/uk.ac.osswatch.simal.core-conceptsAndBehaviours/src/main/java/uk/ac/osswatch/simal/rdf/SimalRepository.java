@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.ICategory;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.elmo.CategoryBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
@@ -172,7 +172,7 @@ public class SimalRepository extends SimalProperties {
     // Behaviours
     module.recordRole(DoapResourceBehaviour.class);
     module.recordRole(DoapProjectBehaviour.class);
-    module.recordRole(CategoryBehaviour.class);
+    module.recordRole(DoapCategoryBehaviour.class);
     module.recordRole(FoafPersonBehaviour.class);
     module.recordRole(FoafResourceBehaviour.class);
     module.recordRole(ResourceBehavior.class);
