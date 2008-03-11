@@ -7,11 +7,13 @@ import java.util.Set;
 
 import org.openrdf.concepts.doap.Project;
 import org.openrdf.concepts.foaf.Person;
-import org.openrdf.elmo.Entity;
 import org.openrdf.elmo.annotations.rdf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
+import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -21,32 +23,22 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * @see org.openrdf.concepts.doap.Project
  */
 @rdf("http://usefulinc.com/ns/doap#Project")
-public class DoapProjectBehaviour extends DoapResourceBehaviour {
+public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoapProjectBehaviour {
   private static final Logger logger = LoggerFactory
       .getLogger(DoapProjectBehaviour.class);
 
-  /**
-   * Create a new behaviour for an elmo Entity object.
-   * 
-   * @param simalTestProject
-   */
-  public DoapProjectBehaviour(Entity elmoEntity) {
-    super(elmoEntity);
-    logger.debug("created a behaviour object for an Sesame Entity");
-  }
-  
   /**
    * Create a new behaviour for an elmo Project object.
    * 
    * @param simalTestProject
    */
-  public DoapProjectBehaviour(Project elmoProject) {
+   public DoapProjectBehaviour(IProject elmoProject) {
     super(elmoProject);
     logger.debug("created a behaviour object for an Elmo Doap Project object");
   }
   
-  private org.openrdf.concepts.doap.Project getProject() {
-    return (org.openrdf.concepts.doap.Project) elmoEntity;
+  private IProject getProject() {
+    return (IProject) elmoEntity;
   }
 
   /**
@@ -137,5 +129,21 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour {
     }
     values.append("]");
     return values.toString();
+  }
+
+  /**
+   * Get the ID of this project. If no ID has been assigned
+   * yet then get the next avialble ID from the repository 
+   * and assign that.
+   * @throws SimalRepositoryException 
+   */
+  public String getID() throws SimalRepositoryException {
+    IProject project = elmoEntity.getElmoManager().designateEntity(IProject.class, elmoEntity);
+    String id = project.getProjectID();
+    if (id == null) {
+      id = SimalRepository.getNewProjectID();
+      project.setProjectID(id);
+    }
+    return id;
   }
 }

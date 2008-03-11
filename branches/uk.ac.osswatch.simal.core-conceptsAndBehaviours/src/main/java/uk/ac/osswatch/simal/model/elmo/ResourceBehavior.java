@@ -7,13 +7,15 @@ import org.openrdf.elmo.annotations.rdf;
 import uk.ac.osswatch.simal.model.IResourceBehaviour;
 
 /**
- * Provides functionality for a Resource object provided by
- * Elmo.
+ * Provides functionality for a Resource object provided by Elmo.
  */
 @rdf("http://www.w3.org/2000/01/rdf-schema#Resource")
 public class ResourceBehavior implements IResourceBehaviour {
-  protected final Entity elmoEntity;
-  
+  protected Entity elmoEntity;
+
+  public ResourceBehavior() {
+  }
+
   /**
    * Create a resource behaviour for a given Elmo resource.
    * 
@@ -44,19 +46,19 @@ public class ResourceBehavior implements IResourceBehaviour {
 
   /**
    * Get the label for this resource. If the resource does not have a defined
-   * label use the supplied default label (if not null) or the
-   * resource return value of the toString() method.
+   * label use the supplied default label (if not null) or the resource return
+   * value of the toString() method.
    * 
    * @param defaultLabel
    * @return
    */
   public String getLabel(String defaultLabel) {
     String label = getResource().getRdfsLabel();
-    
+
     if (label == null) {
-        label = defaultLabel;
+      label = defaultLabel;
     } else {
-        label = elmoEntity.toString();
+      label = elmoEntity.getQName().toString();
     }
     return label;
   }
@@ -70,11 +72,11 @@ public class ResourceBehavior implements IResourceBehaviour {
   }
 
   protected Resource getResource() {
-    return (Resource)elmoEntity;
+    return (Resource) elmoEntity;
   }
-  
+
   public String toString() {
-    return elmoEntity.toString();
+    return getLabel();
   }
 
   public String toJSON(boolean asRecord) {

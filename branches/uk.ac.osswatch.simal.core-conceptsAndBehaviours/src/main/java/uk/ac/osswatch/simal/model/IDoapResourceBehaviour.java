@@ -35,8 +35,6 @@ public interface IDoapResourceBehaviour extends IResourceBehaviour {
 
   public abstract void setShortDesc(String shortDesc);
 
-  public abstract QName getQName();
-
   public abstract String getCreated();
 
   public abstract void setCreated(String newCreated)

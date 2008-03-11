@@ -25,7 +25,7 @@ public class SimalProperties {
   public static final String PROPERTY_SIMAL_VERSION = "simal.version";
   public static final String PROPERTY_SIMAL_NEXT_PROJECT_ID = "simal.nextProjectID";
 
-  private Properties props;
+  private static Properties props;
 
   public SimalProperties() throws SimalRepositoryException {
     initProperties();
@@ -50,7 +50,7 @@ public class SimalProperties {
     }
   }
 
-  private URL getPropertiesFileURL() {
+  private static URL getPropertiesFileURL() {
     return SimalRepository.class.getClassLoader().getResource(
         DEFAULT_PROPERTIES_FILE);
   }
@@ -74,7 +74,7 @@ public class SimalProperties {
    * @param default
    * @return
    */
-  public String getProperty(String key, String value) {
+  public static String getProperty(String key, String value) {
     return props.getProperty(key, value);
   }
 
@@ -84,11 +84,11 @@ public class SimalProperties {
    * @param key
    * @param value
    */
-  public void setProperty(String key, String value) {
+  public static void setProperty(String key, String value) {
     props.setProperty(key, value);
   }
 
-  public void save() throws FileNotFoundException, IOException {
+  public static void save() throws FileNotFoundException, IOException {
     String comments = "Simal Properties";
     File propsFile;
     try {

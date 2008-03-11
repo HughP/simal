@@ -23,6 +23,10 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class DoapResourceBehaviour extends ResourceBehavior {
   private static final Logger logger = LoggerFactory
   .getLogger(DoapResourceBehaviour.class);
+    
+  public DoapResourceBehaviour() {
+  }
+  
   /**
    * Create a resource behaviour for a given resource.
    * @param resource
@@ -31,13 +35,13 @@ public class DoapResourceBehaviour extends ResourceBehavior {
     super(resource);
     logger.debug("Create a DoapResourceBehaviour for an Elmo DoapResource object");
   }
-
+  
   /**
    * Create a resource behaviour for a given Elmo Entity.
    */
   public DoapResourceBehaviour(Entity elmoEntity) {
     super(elmoEntity);
-    logger.debug("Create a DoapREsourceBehaviour for a Sesame Entity object");
+    logger.debug("Create a DoapResourceBehaviour for a Sesame Entity object");
   }
 
   /**
@@ -78,10 +82,6 @@ public class DoapResourceBehaviour extends ResourceBehavior {
     getDoapResource().setDoapShortdesc(shortDesc);
   }
 
-  public QName getQName() {
-    return getDoapResource().getQName();
-  }
-
   public String toString() {
     return getLabel() + " (" + getNames() + ")";
   }
@@ -115,7 +115,7 @@ public class DoapResourceBehaviour extends ResourceBehavior {
 
   protected String toJSONRecordContent() {
     StringBuffer json = new StringBuffer();
-    json.append("\"id\":\"" + getQName().getNamespaceURI() + "\",");
+    json.append("\"id\":\"" + elmoEntity.getQName().getNamespaceURI() + "\",");
     json.append("\"label\":\"" + getLabel() + "\",");
     json.append("\"name\":\"" + getName() + "\",");
     json.append("\"shortdesc\":\"" + getShortDesc() + "\"");

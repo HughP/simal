@@ -2,6 +2,8 @@ package uk.ac.osswatch.simal.model;
 
 import java.util.HashSet;
 
+import org.openrdf.concepts.foaf.Person;
+
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -17,6 +19,18 @@ public interface IDoapProjectBehaviour extends IDoapResourceBehaviour {
    * @return
    * @throws SimalRepositoryException
    */
-  public HashSet<IFaofPersonBehaviour> getAllPeople() throws SimalRepositoryException;
+  public HashSet<Person> getAllPeople() throws SimalRepositoryException;
 
-}
+  /**
+   * Get the ID of this project. If no ID has been assigned
+   * yet then get the next avialble ID from the repository 
+   * and assign that.
+   * @throws SimalRepositoryException 
+   */
+  public String getID() throws SimalRepositoryException;
+  
+  /**
+   * Get the default name for this project.
+   */
+  public String getName();
+} 

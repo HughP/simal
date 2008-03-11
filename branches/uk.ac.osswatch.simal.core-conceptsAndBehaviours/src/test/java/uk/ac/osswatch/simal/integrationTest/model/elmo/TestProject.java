@@ -33,8 +33,8 @@ public class TestProject extends BaseRepositoryTest {
     resetTestData();
 
     // FIXME: we shouldn't need knowledge of the model here
-    DoapProjectBehaviour behaviour = new DoapProjectBehaviour(project1);
-    String json = behaviour.toJSONRecord();
+    //DoapProjectBehaviour behaviour = new DoapProjectBehaviour(project1);
+    String json = "test"; //= behaviour.toJSONRecord();
     assertTrue(
         "JSON file does not contain correct JSON representation of the Simal test record",
         json.contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
@@ -45,7 +45,7 @@ public class TestProject extends BaseRepositoryTest {
         "JSON file does not contain correct JSON representation of the Simal test project",
         !json.startsWith("{ \"items\": ["));
 
-    json = behaviour.toJSON();
+    json = "test";//behaviour.toJSON();
     assertTrue(
         "JSON file does not contain correct JSON representation of the Simal test project",
         json.startsWith("{ \"items\": ["));
@@ -212,13 +212,13 @@ public class TestProject extends BaseRepositoryTest {
     Project project;
     project = repository.createProject(qname1);
     project = repository.getProject(qname1);
-    DoapProjectBehaviour behaviour = new DoapProjectBehaviour(project);
-    String id1 = behaviour.getID();
+    //DoapProjectBehaviour behaviour = new DoapProjectBehaviour(project);
+    String id1 = "test"; //behaviour.getID();
 
     project = repository.createProject(qname2);
     project = repository.getProject(qname2);
-    behaviour = new DoapProjectBehaviour(project);
-    String id2 = behaviour.getID();
+    //behaviour = new DoapProjectBehaviour(project);
+    String id2 = "test"; // behaviour.getID();
 
     assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1.equals(id2));
 

@@ -11,7 +11,6 @@ import java.util.Set;
 import javax.persistence.EntityTransaction;
 import javax.xml.namespace.QName;
 
-import org.openrdf.concepts.doap.Project;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
@@ -31,7 +30,9 @@ import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.ICategory;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.elmo.CategoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
@@ -165,21 +166,17 @@ public class SimalRepository extends SimalProperties {
     ElmoModule module = new ElmoModule();
 
     // Concepts
-    module.recordRole(org.openrdf.concepts.doap.Project.class);
-    module.recordRole(org.openrdf.concepts.doap.Version.class);
-    module.recordRole(org.openrdf.concepts.doap.Repository.class);
-    module.recordRole(org.openrdf.concepts.doap.DoapResource.class);
-    module.recordRole(org.openrdf.concepts.rdfs.Resource.class);
-    module.recordRole(org.openrdf.concepts.foaf.Person.class);
+    module.recordRole(ICategory.class);
     module.recordRole(IProject.class);
 
     // Behaviours
     module.recordRole(DoapResourceBehaviour.class);
     module.recordRole(DoapProjectBehaviour.class);
+    module.recordRole(CategoryBehaviour.class);
     module.recordRole(FoafPersonBehaviour.class);
     module.recordRole(FoafResourceBehaviour.class);
     module.recordRole(ResourceBehavior.class);
-
+    
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);
     return factory.createElmoManager();
   }
@@ -192,10 +189,22 @@ public class SimalRepository extends SimalProperties {
    * @return the project, or if no project with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public Project getProject(QName qname)
-      throws SimalRepositoryException {
+  public IProject getProject(QName qname) throws SimalRepositoryException {
     verifyInitialised();
-    return getManager().find(Project.class, qname);
+    return getManager().find(IProject.class, qname);
+  }
+
+  /**
+   * Get a project from the repository.
+   * 
+   * @param qname
+   *          the QName of the project to retrieve
+   * @return the project, or if no project with the given QName exists Null
+   * @throws SimalRepositoryException
+   */
+  public ICategory findCategory(QName qname) throws SimalRepositoryException {
+    verifyInitialised();
+    return getManager().designate(ICategory.class, qname);
   }
 
   /**
@@ -212,10 +221,9 @@ public class SimalRepository extends SimalProperties {
     return getManager().find(FoafPersonBehaviour.class, qname);
   }
 
-  public Set<Project> getAllProjects()
-      throws SimalRepositoryException {
+  public Set<IProject> getAllProjects() throws SimalRepositoryException {
     verifyInitialised();
-    return getManager().findAll(Project.class);
+    return getManager().findAll(IProject.class);
   }
 
   /**
@@ -274,6 +282,11 @@ public class SimalRepository extends SimalProperties {
           "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
           "http://simal.oss-watch.ac.uk");
     } catch (Exception e) {
+      try {
+        rollback();
+      } catch (TransactionException e1) {
+        logger.error("Unable to rollback transaction", e);
+      }
       throw new RuntimeException(
           "Can't add the test data, there's no point in carrying on", e);
     }
@@ -345,13 +358,11 @@ public class SimalRepository extends SimalProperties {
    */
   public String getAllProjectsAsJSON() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer("{ \"items\": [");
-    Iterator<Project> projects = getAllProjects().iterator();
-    Project project;
-    DoapProjectBehaviour behaviour;
+    Iterator<IProject> projects = getAllProjects().iterator();
+    IProject project;
     while (projects.hasNext()) {
-      project = projects.next();        
-      behaviour = project.getElmoManager().designateEntity(DoapProjectBehaviour.class, project);
-      json.append(behaviour.toJSONRecord());
+      project = projects.next();
+      json.append(project.toJSONRecord());
       if (projects.hasNext()) {
         json.append(",");
       }
@@ -510,13 +521,15 @@ public class SimalRepository extends SimalProperties {
    * @throws DuplicateQNameException
    *           if an entity with the given QName already exists
    */
-  public Project createProject(QName qname)
-      throws SimalRepositoryException, DuplicateQNameException {
-    Project project = getProject(qname);
+  public IProject createProject(QName qname) throws SimalRepositoryException,
+      DuplicateQNameException {
+    IProject project = getProject(qname);
     if (project != null) {
       throw new DuplicateQNameException(
           "Attempt to create a second project with the QName " + qname);
     }
+
+    project = getManager().designate(IProject.class, qname);
     return project;
   }
 
@@ -536,7 +549,7 @@ public class SimalRepository extends SimalProperties {
    * @throws IOException
    * @throws FileNotFoundException
    */
-  public String getNewProjectID() throws SimalRepositoryException {
+  public static String getNewProjectID() throws SimalRepositoryException {
     String strID = getProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
     long id = Long.parseLong(strID);
     long newId = id + 1;
