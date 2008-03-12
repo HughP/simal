@@ -5,6 +5,6 @@ package uk.ac.osswatch.simal.model;
  * (bug database) resource.
  *
  */
-public interface IIssueTrackerBehaviour extends IDoapResourceBehaviour {
+public interface IBugDatabaseBehaviour extends IDoapResourceBehaviour {
   
 }

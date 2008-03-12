@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
-import uk.ac.osswatch.simal.model.IIssueTracker;
+import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -234,14 +234,14 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
   /**
    * Get all issue trackers associated with this project.
    */
-  public Set<IIssueTracker> getIssueTrackers() {
+  public Set<IDoapBugDatabase> getIssueTrackers() {
     Set<Object> setTrackers = getProject().getDoapBugDatabases();
-    Set<IIssueTracker> result = new HashSet<IIssueTracker>(setTrackers.size());
+    Set<IDoapBugDatabase> result = new HashSet<IDoapBugDatabase>(setTrackers.size());
     Iterator<Object> trackers= setTrackers.iterator();
     Object tracker;
     while (trackers.hasNext()) {
       tracker = trackers.next();
-      result.add(elmoEntity.getElmoManager().designateEntity(IIssueTracker.class, tracker));
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapBugDatabase.class, tracker));
     }
     return result;
   }

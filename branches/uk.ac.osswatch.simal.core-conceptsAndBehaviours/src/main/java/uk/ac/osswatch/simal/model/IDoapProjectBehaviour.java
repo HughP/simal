@@ -78,5 +78,5 @@ public interface IDoapProjectBehaviour extends IDoapResourceBehaviour {
   /**
    * Get all Issue Trackers registered for this project.
    */
-  public Set<IIssueTracker> getIssueTrackers();
+  public Set<IDoapBugDatabase> getIssueTrackers();
 } 

@@ -32,14 +32,14 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IIssueTracker;
+import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapHomepageBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
-import uk.ac.osswatch.simal.model.elmo.IssueTrackerBehaviour;
+import uk.ac.osswatch.simal.model.elmo.BugDatabaseBehaviour;
 import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 /**
@@ -170,14 +170,14 @@ public class SimalRepository extends SimalProperties {
     // Concepts
     module.recordRole(IDoapCategory.class);
     module.recordRole(IDoapHomepage.class);
-    module.recordRole(IIssueTracker.class);
+    module.recordRole(IDoapBugDatabase.class);
     module.recordRole(IPerson.class);
     module.recordRole(IProject.class);
 
     // Behaviours
     module.recordRole(DoapCategoryBehaviour.class);
     module.recordRole(DoapHomepageBehaviour.class);
-    module.recordRole(IssueTrackerBehaviour.class);
+    module.recordRole(BugDatabaseBehaviour.class);
     module.recordRole(DoapProjectBehaviour.class);    
     module.recordRole(FoafPersonBehaviour.class);
     
