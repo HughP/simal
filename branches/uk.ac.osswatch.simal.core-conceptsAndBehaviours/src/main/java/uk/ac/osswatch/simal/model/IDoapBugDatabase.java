@@ -10,6 +10,6 @@ import org.openrdf.elmo.annotations.rdf;
  *
  */
 @rdf("http://usefulinc.com/ns/doap#bug-database")
-public interface IDoapBugDatabase extends Resource, IBugDatabaseBehaviour {
+public interface IDoapBugDatabase extends Resource, IDoapBugDatabaseBehaviour {
 
 }

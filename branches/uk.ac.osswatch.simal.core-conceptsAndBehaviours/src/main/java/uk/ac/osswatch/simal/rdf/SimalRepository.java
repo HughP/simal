@@ -39,7 +39,7 @@ import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapHomepageBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
-import uk.ac.osswatch.simal.model.elmo.BugDatabaseBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapBugDatabaseBehaviour;
 import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 /**
@@ -177,7 +177,7 @@ public class SimalRepository extends SimalProperties {
     // Behaviours
     module.recordRole(DoapCategoryBehaviour.class);
     module.recordRole(DoapHomepageBehaviour.class);
-    module.recordRole(BugDatabaseBehaviour.class);
+    module.recordRole(DoapBugDatabaseBehaviour.class);
     module.recordRole(DoapProjectBehaviour.class);    
     module.recordRole(FoafPersonBehaviour.class);
     
