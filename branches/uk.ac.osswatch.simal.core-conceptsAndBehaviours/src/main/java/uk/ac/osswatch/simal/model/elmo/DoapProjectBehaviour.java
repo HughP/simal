@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapRelease;
@@ -259,6 +260,21 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
     while (releases.hasNext()) {
       release = releases.next();
       result.add(elmoEntity.getElmoManager().designateEntity(IDoapRelease.class, release));
+    }
+    return result;
+  }
+
+  /**
+   * Get all mailing lists associated with this project.
+   */
+  public Set<IDoapMailingList> getMailingLists() {
+    Set<Object> setLists = getProject().getDoapMailingLists();
+    Set<IDoapMailingList> result = new HashSet<IDoapMailingList>(setLists.size());
+    Iterator<Object> lists = setLists.iterator();
+    Object list;
+    while (lists.hasNext()) {
+      list = lists.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapMailingList.class, list));
     }
     return result;
   }

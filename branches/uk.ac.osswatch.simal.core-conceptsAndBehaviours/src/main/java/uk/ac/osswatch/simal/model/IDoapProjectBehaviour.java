@@ -84,4 +84,9 @@ public interface IDoapProjectBehaviour extends IDoapResourceBehaviour {
    * Get all releases associated with this project.
    */
   public Set<IDoapRelease> getReleases();
+  
+  /**
+   * Get all mailing lists associated with this project.
+   */
+  public Set<IDoapMailingList> getMailingLists();
 } 

@@ -33,11 +33,13 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
+import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapHomepageBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapMailingListBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapReleaseBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
@@ -174,13 +176,15 @@ public class SimalRepository extends SimalProperties {
     module.recordRole(IDoapCategory.class);
     module.recordRole(IDoapHomepage.class);
     module.recordRole(IDoapRelease.class);
+    module.recordRole(IDoapMailingList.class);
     module.recordRole(IPerson.class);
     module.recordRole(IProject.class);
 
     // Behaviours
     module.recordRole(DoapBugDatabaseBehaviour.class);
     module.recordRole(DoapCategoryBehaviour.class);
-    module.recordRole(DoapHomepageBehaviour.class);
+    module.recordRole(DoapHomepageBehaviour.class);  
+    module.recordRole(DoapMailingListBehaviour.class); 
     module.recordRole(DoapProjectBehaviour.class);   
     module.recordRole(DoapReleaseBehaviour.class);    
     module.recordRole(FoafPersonBehaviour.class);
