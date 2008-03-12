@@ -1,6 +1,7 @@
 package uk.ac.osswatch.simal.model.elmo;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.openrdf.concepts.foaf.Person;
@@ -8,6 +9,8 @@ import org.openrdf.elmo.ElmoManager;
 import org.openrdf.elmo.ElmoQuery;
 import org.openrdf.elmo.annotations.rdf;
 
+import uk.ac.osswatch.simal.model.IFoafPersonBehaviour;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -16,7 +19,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  */
 @rdf("http://xmlns.com/foaf/0.1/Person")
-public class FoafPersonBehaviour extends FoafResourceBehaviour {
+public class FoafPersonBehaviour extends FoafResourceBehaviour implements IFoafPersonBehaviour {
   private static final long serialVersionUID = -6234779132155536113L;
 
   /**
@@ -35,7 +38,7 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour {
    * @return
    * @throws SimalRepositoryException
    */
-  public Set<Person> getColleagues() throws SimalRepositoryException {
+  public Set<IPerson> getColleagues() throws SimalRepositoryException {
     String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
         + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
         + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
@@ -52,10 +55,29 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour {
     ElmoManager elmoManager = elmoEntity.getElmoManager();
     ElmoQuery query = elmoManager.createQuery(queryStr);
     query.setParameter("qname", elmoEntity.getQName());
-    Set<Person> colleagues = new HashSet<Person>();
+    Set<IPerson> colleagues = new HashSet<IPerson>();
     for (Object result : query.getResultList()) {
-      colleagues.add(elmoManager.designateEntity(Person.class, result));
+      colleagues.add(elmoManager.designateEntity(IPerson.class, result));
     }
     return colleagues;
+  }
+
+  public Set<IPerson> getKnows() {
+    Iterator<Person> people = getFoafPerson().getFoafKnows().iterator();
+    // TODO: the following code feels clumsy, is there a better way of doing this?
+    Set<IPerson>result = new HashSet<IPerson>();
+    while(people.hasNext()) {
+      result.add((IPerson)people.next());
+    }
+    return result;
+  }
+  
+  /**
+   * Get the entity that this behaviour represents in the
+   * form of a FoafPerson.
+   * @return
+   */
+  private Person getFoafPerson() {
+    return (Person)elmoEntity;
   }
 }

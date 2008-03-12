@@ -1,18 +1,21 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openrdf.concepts.doap.Project;
+import org.openrdf.concepts.foaf.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -21,6 +24,36 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class TestProject extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory
       .getLogger(TestProject.class);
+  
+  private static Set<IPerson> maintainers;
+  private static Set<IPerson> developers;
+  private static Set<IPerson> documenters;
+  private static Set<IPerson> helpers;
+  private static Set<IPerson> translators;
+  private static Set<IPerson> testers;
+
+  @BeforeClass
+  public static void setUpBeforeClass() throws Exception {
+    createRepository();
+
+    project1 = getSimalTestProject(false);
+    //maintainers = project1.getDoapMaintainers();
+    //developers = project1.getDoapDevelopers();
+    //helpers = project1.getDoapHelpers();
+    //documenters = project1.getDoapHelpers();
+    //translators = project1.getDoapTranslators();
+    //testers = project1.getDoapTesters();
+  }
+
+  @Test
+  public void testPersonsLoaded() {
+    assertEquals("Should have one maintainer", 2, maintainers.size());
+    assertEquals("Should have one developers", 1, developers.size());
+    assertEquals("Should have one helpers", 1, helpers.size());
+    assertEquals("Should have one documenters", 1, documenters.size());
+    assertEquals("Should have one translators", 1, translators.size());
+    assertEquals("Should have one testers", 1, testers.size());
+  }
 
   @Test
   public void testGetQName() {

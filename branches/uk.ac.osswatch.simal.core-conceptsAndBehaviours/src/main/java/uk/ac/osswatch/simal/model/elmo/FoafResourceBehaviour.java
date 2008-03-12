@@ -1,7 +1,10 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import java.util.Set;
+
 import javax.xml.namespace.QName;
 
+import org.openrdf.concepts.foaf.Person;
 import org.openrdf.elmo.annotations.rdf;
 
 import uk.ac.osswatch.simal.model.IFoafResourceBehaviour;
@@ -34,6 +37,26 @@ public class FoafResourceBehaviour extends ResourceBehavior implements IFoafReso
       json.append("]}");
     }
     return json.toString();
+  }
+  
+  private Person getFoafPerson() {
+    return (Person)elmoEntity;
+  }
+  
+  /**
+   * Get the label for this person. The label for a person is derived
+   * from their known names. If the person does not have any defined
+   * names then the toString() method is used..
+   * 
+   * @return
+   */
+  public String getLabel() {
+    Set<Object> givennames = getFoafPerson().getFoafGivennames();
+    if (givennames== null) {
+      return toString();
+    } else {
+      return (String)givennames.toArray()[0];
+    }
   }
   
   public String toString() {

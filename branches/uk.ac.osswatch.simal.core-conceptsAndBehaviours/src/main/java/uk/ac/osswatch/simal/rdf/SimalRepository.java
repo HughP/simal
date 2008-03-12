@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.ICategory;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
@@ -167,14 +168,17 @@ public class SimalRepository extends SimalProperties {
 
     // Concepts
     module.recordRole(ICategory.class);
+    module.recordRole(IPerson.class);
     module.recordRole(IProject.class);
 
     // Behaviours
     module.recordRole(DoapResourceBehaviour.class);
     module.recordRole(DoapProjectBehaviour.class);
     module.recordRole(DoapCategoryBehaviour.class);
+    
     module.recordRole(FoafPersonBehaviour.class);
     module.recordRole(FoafResourceBehaviour.class);
+    
     module.recordRole(ResourceBehavior.class);
     
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);
@@ -215,10 +219,10 @@ public class SimalRepository extends SimalProperties {
    * @return the repository or if no repository with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public FoafPersonBehaviour getPerson(QName qname)
+  public IPerson getPerson(QName qname)
       throws SimalRepositoryException {
     verifyInitialised();
-    return getManager().find(FoafPersonBehaviour.class, qname);
+    return getManager().find(IPerson.class, qname);
   }
 
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
