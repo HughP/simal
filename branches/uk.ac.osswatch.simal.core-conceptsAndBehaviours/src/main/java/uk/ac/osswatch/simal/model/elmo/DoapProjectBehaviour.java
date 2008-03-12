@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.openrdf.concepts.doap.Version;
 import org.openrdf.concepts.foaf.Person;
 import org.openrdf.elmo.annotations.rdf;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
+import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -242,6 +244,21 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
     while (trackers.hasNext()) {
       tracker = trackers.next();
       result.add(elmoEntity.getElmoManager().designateEntity(IDoapBugDatabase.class, tracker));
+    }
+    return result;
+  }
+
+  /**
+   * Get all releases associated with this project.
+   */
+  public Set<IDoapRelease> getReleases() {
+    Set<Version> setReleases = getProject().getDoapReleases();
+    Set<IDoapRelease> result = new HashSet<IDoapRelease>(setReleases.size());
+    Iterator<Version> releases = setReleases.iterator();
+    Version release;
+    while (releases.hasNext()) {
+      release = releases.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapRelease.class, release));
     }
     return result;
   }

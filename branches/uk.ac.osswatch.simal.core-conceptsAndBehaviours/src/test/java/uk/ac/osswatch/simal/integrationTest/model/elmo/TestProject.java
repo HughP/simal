@@ -16,6 +16,7 @@ import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapHomepageBehaviour;
+import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
@@ -237,8 +238,20 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetReleases() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_RELEASES, project1.getDoapReleases()
-        .toString());
+    Set<IDoapRelease> releases = project1.getReleases();
+    assertEquals("We don't have the right number of releases", 1, releases
+        .size());
+
+    boolean hasRelease = false;
+    Iterator<IDoapRelease> itrReleases = releases.iterator();
+    IDoapRelease release;
+    while (itrReleases.hasNext()) {
+      release = itrReleases.next();
+      if (release.getLabel().equals(TEST_SIMAL_PROJECT_RELEASES)) {
+        hasRelease = true;
+      }
+    }
+    assertTrue("We don't seem to have the release " + TEST_SIMAL_PROJECT_RELEASES, hasRelease);
   }
 
   @Test
