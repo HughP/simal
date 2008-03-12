@@ -3,8 +3,6 @@ package uk.ac.osswatch.simal.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.openrdf.concepts.foaf.Person;
-
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -76,4 +74,9 @@ public interface IDoapProjectBehaviour extends IDoapResourceBehaviour {
    * Get all translators who work on this project.
    */
   public Set<IPerson> getTranslators();
+  
+  /**
+   * Get all Issue Trackers registered for this project.
+   */
+  public Set<IIssueTracker> getIssueTrackers();
 } 
