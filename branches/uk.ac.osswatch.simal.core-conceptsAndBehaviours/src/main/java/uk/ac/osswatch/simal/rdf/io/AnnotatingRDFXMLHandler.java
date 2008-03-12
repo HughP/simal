@@ -84,7 +84,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
             SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI)
         || outPredicate.stringValue().startsWith(
             SimalRepository.DOAP_NAMESPACE_URI)) {
-      outSubject = verifyQName(inStatement.getSubject(),
+      outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
       currentSubject = outSubject;
       if (inStatement.getObject().stringValue().equals(
@@ -95,7 +95,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         SimalRepository.FOAF_NAMESPACE_URI)
         || currentSubject.stringValue().startsWith(
             SimalRepository.DEFAULT_PERSON_NAMESPACE_URI)) {
-      outSubject = verifyQName(inStatement.getSubject(),
+      outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
       currentSubject = outSubject;
     }
@@ -113,7 +113,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
             + "/givenname");
       }
       if (predicateValue.endsWith("/knows")) {
-        outValue = verifyQName(inStatement.getObject(),
+        outValue = verifyNode(inStatement.getObject(),
             SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
       }
     } else {
@@ -149,7 +149,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
     Value idValue;
     try {
-      idValue = new LiteralImpl(repository.getNewProjectID());
+      idValue = new LiteralImpl(SimalRepository.getNewProjectID());
       Statement idStatement = new StatementImpl(project, new URIImpl(
           SimalRepository.SIMAL_ID), idValue);
       handler.handleStatement(idStatement);
@@ -184,7 +184,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @param inSubject
    * @return
    */
-  private Resource verifyQName(final Resource inSubject, final String defaultURI) {
+  private Resource verifyNode(final Resource inSubject, final String defaultURI) {
     Resource outSubject = inSubject;
     if (inSubject instanceof BNode) {
       outSubject = new URIImpl(defaultURI + inSubject.stringValue());
@@ -199,7 +199,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @param inSubject
    * @return
    */
-  private Value verifyQName(final Value inObject, final String defaultURI) {
+  private Value verifyNode(final Value inObject, final String defaultURI) {
     Value outObject = inObject;
     if (inObject instanceof BNode) {
       outObject = new URIImpl(defaultURI + inObject.stringValue());

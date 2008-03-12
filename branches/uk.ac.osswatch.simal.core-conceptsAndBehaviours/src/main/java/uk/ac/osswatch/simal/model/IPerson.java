@@ -1,7 +1,5 @@
 package uk.ac.osswatch.simal.model;
 
-import java.util.Set;
-
 import org.openrdf.concepts.foaf.Person;
 import org.openrdf.elmo.annotations.rdf;
 

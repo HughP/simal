@@ -3,46 +3,45 @@ package uk.ac.osswatch.simal.integrationTest.model.elmo;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.*;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openrdf.concepts.doap.Project;
 import org.openrdf.concepts.foaf.Person;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDoapHomepageBehaviour;
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestProject extends BaseRepositoryTest {
-  private static final Logger logger = LoggerFactory
-      .getLogger(TestProject.class);
-  
-  private static Set<IPerson> maintainers;
-  private static Set<IPerson> developers;
-  private static Set<IPerson> documenters;
-  private static Set<IPerson> helpers;
-  private static Set<IPerson> translators;
-  private static Set<IPerson> testers;
+
+  private static Set<Person> maintainers;
+  private static Set<Person> developers;
+  private static Set<Person> documenters;
+  private static Set<Person> helpers;
+  private static Set<Person> translators;
+  private static Set<Person> testers;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
     createRepository();
 
     project1 = getSimalTestProject(false);
-    //maintainers = project1.getDoapMaintainers();
-    //developers = project1.getDoapDevelopers();
-    //helpers = project1.getDoapHelpers();
-    //documenters = project1.getDoapHelpers();
-    //translators = project1.getDoapTranslators();
-    //testers = project1.getDoapTesters();
+    maintainers = project1.getDoapMaintainers();
+    developers = project1.getDoapDevelopers();
+    helpers = project1.getDoapHelpers();
+    documenters = project1.getDoapHelpers();
+    translators = project1.getDoapTranslators();
+    testers = project1.getDoapTesters();
   }
 
   @Test
@@ -65,9 +64,7 @@ public class TestProject extends BaseRepositoryTest {
   public void testToJSON() throws SimalRepositoryException {
     resetTestData();
 
-    // FIXME: we shouldn't need knowledge of the model here
-    //DoapProjectBehaviour behaviour = new DoapProjectBehaviour(project1);
-    String json = "test"; //= behaviour.toJSONRecord();
+    String json = project1.toJSONRecord();
     assertTrue(
         "JSON file does not contain correct JSON representation of the Simal test record",
         json.contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
@@ -78,7 +75,7 @@ public class TestProject extends BaseRepositoryTest {
         "JSON file does not contain correct JSON representation of the Simal test project",
         !json.startsWith("{ \"items\": ["));
 
-    json = "test";//behaviour.toJSON();
+    json = project1.toJSON();
     assertTrue(
         "JSON file does not contain correct JSON representation of the Simal test project",
         json.startsWith("{ \"items\": ["));
@@ -92,22 +89,53 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetCategories() {
-    String categories = project1.getDoapCategories().toString();
-    logger.debug("Categories are " + categories);
-    assertTrue("Categries are incorrect: " + categories, categories.contains(TEST_SIMAL_PROJECT_CATEGORY_ONE));
-    assertTrue("Categries are incorrect: " + categories, categories.contains(TEST_SIMAL_PROJECT_CATEGORY_TWO));
+    boolean hasCategoryOne = false;
+    boolean hasCategoryTwo = false;
+    Iterator<IDoapCategory> categories = project1.getCategories().iterator();
+    String label;
+    while (categories.hasNext()) {
+      label = categories.next().getLabel();
+      if (label.equals(TEST_SIMAL_PROJECT_CATEGORY_ONE)) {
+        hasCategoryOne = true;
+      } else if (label.equals(TEST_SIMAL_PROJECT_CATEGORY_TWO)) {
+        hasCategoryTwo = true;
+      }
+    }
+    assertTrue("Categories do not include " + TEST_SIMAL_PROJECT_CATEGORY_ONE,
+        hasCategoryOne);
+
+    assertTrue("Categories do not include " + TEST_SIMAL_PROJECT_CATEGORY_TWO,
+        hasCategoryTwo);
   }
 
   @Test
   public void testGetDevelopers() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_DEVELOPERS, project1.getDoapDevelopers()
-        .toString());
+    boolean hasDeveloper = false;
+    Iterator<IPerson> people = project1.getDevelopers().iterator();
+    IPerson person;
+    while (people.hasNext()) {
+      person = people.next();
+      if (person.getLabel().equals(TEST_SIMAL_PROJECT_DEVELOPERS)) {
+        hasDeveloper = true;
+      }
+    }
+    assertTrue("Project does not appear to have developer "
+        + TEST_SIMAL_PROJECT_DEVELOPERS, hasDeveloper);
   }
 
   @Test
   public void testGetDocumentors() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_DOCUMENTORS, project1.getDoapDocumenters()
-        .toString());
+    boolean hasDocumentor = false;
+    Iterator<IPerson> people = project1.getDocumenters().iterator();
+    IPerson person;
+    while (people.hasNext()) {
+      person = people.next();
+      if (person.getLabel().equals(TEST_SIMAL_PROJECT_DOCUMENTORS)) {
+        hasDocumentor = true;
+      }
+    }
+    assertTrue("Project does not appear to have documentor "
+        + TEST_SIMAL_PROJECT_DOCUMENTORS, hasDocumentor);
   }
 
   @Test
@@ -124,15 +152,39 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetHelpers() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_HELPERS, project1.getDoapHelpers()
-        .toString());
+    boolean hasHelper = false;
+    Iterator<IPerson> people = project1.getHelpers().iterator();
+    IPerson person;
+    while (people.hasNext()) {
+      person = people.next();
+      if (person.getLabel().equals(TEST_SIMAL_PROJECT_HELPERS)) {
+        hasHelper = true;
+      }
+    }
+    assertTrue("Project does not appear to have helper "
+        + TEST_SIMAL_PROJECT_HELPERS, hasHelper);
   }
 
   @Test
   public void testGetHomepages() {
-    String homepages = project1.getDoapHomepages().toString();
-    assertTrue(homepages.contains(TEST_SIMAL_PROJECT_HOMEPAGE_ONE));
-    assertTrue(homepages.contains(TEST_SIMAL_PROJECT_HOMEPAGE_TWO));
+    boolean hasHomepageOne = false;
+    boolean hasHomepageTwo = false;
+    Iterator<IDoapHomepage> homepages = project1.getHomepages().iterator();
+    String label;
+    while (homepages.hasNext()) {
+      IDoapHomepageBehaviour homepage = (IDoapHomepageBehaviour) homepages
+          .next();
+      label = homepage.getLabel();
+      if (label.equals(TEST_SIMAL_PROJECT_HOMEPAGE_ONE)) {
+        hasHomepageOne = true;
+      } else if (label.equals(TEST_SIMAL_PROJECT_HOMEPAGE_TWO)) {
+        hasHomepageTwo = true;
+      }
+    }
+    assertTrue("Homepages do not include " + TEST_SIMAL_PROJECT_HOMEPAGE_ONE,
+        hasHomepageOne);
+    assertTrue("Homepages do not include " + TEST_SIMAL_PROJECT_HOMEPAGE_TWO,
+        hasHomepageTwo);
   }
 
   @Test
@@ -146,10 +198,22 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetMaintainers() throws SimalRepositoryException {
-    assertTrue(project1.getDoapMaintainers().toString().contains(
-        TEST_SIMAL_PROJECT_MAINTAINER_ONE));
-    assertTrue(project1.getDoapMaintainers().toString().contains(
-        TEST_SIMAL_PROJECT_MAINTAINER_TWO));
+    boolean hasMaintainerOne = false;
+    boolean hasMaintainerTwo = false;
+    Iterator<IPerson> people = project1.getMaintainers().iterator();
+    IPerson person;
+    while (people.hasNext()) {
+      person = people.next();
+      if (person.getLabel().equals(TEST_SIMAL_PROJECT_MAINTAINER_ONE)) {
+        hasMaintainerOne = true;
+      } else if (person.getLabel().equals(TEST_SIMAL_PROJECT_MAINTAINER_TWO)) {
+        hasMaintainerTwo = true;
+      }
+    }
+    assertTrue("Project does not appear to have maintainer "
+        + TEST_SIMAL_PROJECT_MAINTAINER_ONE, hasMaintainerOne);
+    assertTrue("Project does not appear to have maintainer "
+        + TEST_SIMAL_PROJECT_MAINTAINER_TWO, hasMaintainerTwo);
   }
 
   @Test
@@ -191,14 +255,32 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetTesters() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_TESTERS, project1.getDoapTesters()
-        .toString());
+    boolean hasTesterOne = false;
+    Iterator<IPerson> people = project1.getTesters().iterator();
+    IPerson person;
+    while (people.hasNext()) {
+      person = people.next();
+      if (person.getLabel().equals(TEST_SIMAL_PROJECT_TESTERS)) {
+        hasTesterOne = true;
+      }
+    }
+    assertTrue("Project does not appear to have tester "
+        + TEST_SIMAL_PROJECT_TESTERS, hasTesterOne);
   }
 
   @Test
   public void testGetTranslators() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_TRANSLATORS, project1.getDoapTranslators()
-        .toString());
+    boolean hasTranslatorOne = false;
+    Iterator<IPerson> people = project1.getTranslators().iterator();
+    IPerson person;
+    while (people.hasNext()) {
+      person = people.next();
+      if (person.getLabel().equals(TEST_SIMAL_PROJECT_TRANSLATORS)) {
+        hasTranslatorOne = true;
+      }
+    }
+    assertTrue("Project does not appear to have tester "
+        + TEST_SIMAL_PROJECT_TRANSLATORS, hasTranslatorOne);
   }
 
   @Test
@@ -211,18 +293,16 @@ public class TestProject extends BaseRepositoryTest {
   public void testProjectFromScratch() throws SimalRepositoryException {
     QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingProjectFromScratch");
-    Project project;
+    IProject project;
     try {
       project = repository.createProject(qname);
-      // FIXME: project.addName("Testing");
+      project.addName("Testing");
       project.setDoapShortdesc("Just testing adding a manually built project");
 
       project = repository.getProject(qname);
       assertNotNull("Project has not been added to repository", project);
 
-      // FIXME: we shouldn't ned knowledge of the model here.
-      DoapResourceBehaviour resource = new DoapResourceBehaviour(project1);
-      assertEquals("Project name is incorrectly set", "Testing", resource
+      assertEquals("Project name is incorrectly set", "Testing", project
           .getName());
     } catch (DuplicateQNameException e) {
       fail(e.getMessage());
@@ -242,18 +322,17 @@ public class TestProject extends BaseRepositoryTest {
     QName qname2 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId2");
 
-    Project project;
+    IProject project;
     project = repository.createProject(qname1);
     project = repository.getProject(qname1);
-    //DoapProjectBehaviour behaviour = new DoapProjectBehaviour(project);
-    String id1 = "test"; //behaviour.getID();
+    String id1 = project.getID();
 
     project = repository.createProject(qname2);
     project = repository.getProject(qname2);
-    //behaviour = new DoapProjectBehaviour(project);
-    String id2 = "test"; // behaviour.getID();
+    String id2 = project.getID();
 
-    assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1.equals(id2));
+    assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1
+        .equals(id2));
 
     // check IDs are being written to the repository
     project = repository.getProject(qname1);

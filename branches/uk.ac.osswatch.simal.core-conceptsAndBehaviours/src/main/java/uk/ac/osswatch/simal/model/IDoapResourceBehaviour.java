@@ -2,8 +2,6 @@ package uk.ac.osswatch.simal.model;
 
 import java.util.Set;
 
-import javax.xml.namespace.QName;
-
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -21,6 +19,14 @@ public interface IDoapResourceBehaviour extends IResourceBehaviour {
    * Add a name.
    */
   public void addName(String name);
+  
+  /**
+   * Get a human readable label for this resource.
+   * Wherever posssible return a value degined by rds:label,
+   * otherwise return a sensible value derived from other data.
+   */
+  public String getLabel();
+  
 
   /**
    * Return all names associated with this resource. If no names are available

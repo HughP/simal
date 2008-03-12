@@ -2,8 +2,6 @@ package uk.ac.osswatch.simal.model.elmo;
 
 import java.util.Set;
 
-import javax.xml.namespace.QName;
-
 import org.openrdf.concepts.foaf.Person;
 import org.openrdf.elmo.annotations.rdf;
 
@@ -57,10 +55,5 @@ public class FoafResourceBehaviour extends ResourceBehavior implements IFoafReso
     } else {
       return (String)givennames.toArray()[0];
     }
-  }
-  
-  public String toString() {
-    QName qname = elmoEntity.getQName();
-    return qname.getNamespaceURI() + qname.getLocalPart();
   }
 }

@@ -30,15 +30,14 @@ import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.ICategory;
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapHomepageBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
-import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
-import uk.ac.osswatch.simal.model.elmo.FoafResourceBehaviour;
-import uk.ac.osswatch.simal.model.elmo.ResourceBehavior;
 import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 /**
@@ -167,19 +166,16 @@ public class SimalRepository extends SimalProperties {
     ElmoModule module = new ElmoModule();
 
     // Concepts
-    module.recordRole(ICategory.class);
+    module.recordRole(IDoapCategory.class);
+    module.recordRole(IDoapHomepage.class);
     module.recordRole(IPerson.class);
     module.recordRole(IProject.class);
 
     // Behaviours
-    module.recordRole(DoapResourceBehaviour.class);
-    module.recordRole(DoapProjectBehaviour.class);
     module.recordRole(DoapCategoryBehaviour.class);
-    
+    module.recordRole(DoapHomepageBehaviour.class);
+    module.recordRole(DoapProjectBehaviour.class);    
     module.recordRole(FoafPersonBehaviour.class);
-    module.recordRole(FoafResourceBehaviour.class);
-    
-    module.recordRole(ResourceBehavior.class);
     
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);
     return factory.createElmoManager();
@@ -206,9 +202,9 @@ public class SimalRepository extends SimalProperties {
    * @return the project, or if no project with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public ICategory findCategory(QName qname) throws SimalRepositoryException {
+  public IDoapCategory findCategory(QName qname) throws SimalRepositoryException {
     verifyInitialised();
-    return getManager().designate(ICategory.class, qname);
+    return getManager().designate(IDoapCategory.class, qname);
   }
 
   /**

@@ -5,13 +5,15 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.openrdf.concepts.doap.Project;
 import org.openrdf.concepts.foaf.Person;
 import org.openrdf.elmo.annotations.rdf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -74,7 +76,7 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
 
     json.append(", \"category\":" + toJSONValues(getProject().getDoapCategories()));
 
-    HashSet<Person> people;
+    HashSet<IPerson> people;
     try {
       people = getAllPeople();
       json.append(", \"person\":" + toJSONValues(people));
@@ -93,14 +95,14 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
    * @return
    * @throws SimalRepositoryException
    */
-  public HashSet<Person> getAllPeople() throws SimalRepositoryException {
-    HashSet<Person> people = new HashSet<Person>();
-    people.addAll((Collection<Person>) getProject().getDoapMaintainers());
-    people.addAll((Collection<Person>) getProject().getDoapDevelopers());
-    people.addAll((Collection<Person>) getProject().getDoapDocumenters());
-    people.addAll((Collection<Person>) getProject().getDoapHelpers());
-    people.addAll((Collection<Person>) getProject().getDoapTesters());
-    people.addAll((Collection<Person>) getProject().getDoapTranslators());
+  public HashSet<IPerson> getAllPeople() throws SimalRepositoryException {
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    people.addAll((Collection<IPerson>) getMaintainers());
+    people.addAll((Collection<IPerson>) getDevelopers());
+    people.addAll((Collection<IPerson>) getDocumenters());
+    people.addAll((Collection<IPerson>) getHelpers());
+    people.addAll((Collection<IPerson>) getTesters());
+    people.addAll((Collection<IPerson>) getTranslators());
     return people;
   }
 
@@ -133,7 +135,7 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
 
   /**
    * Get the ID of this project. If no ID has been assigned
-   * yet then get the next avialble ID from the repository 
+   * yet then get the next available ID from the repository 
    * and assign that.
    * @throws SimalRepositoryException 
    */
@@ -145,5 +147,86 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
       project.setProjectID(id);
     }
     return id;
+  }
+
+  /**
+   * Get all categories that this project belongs to.
+   */
+  public Set<IDoapCategory> getCategories() {
+    Iterator<Object> categories = getProject().getDoapCategories().iterator();
+    Set<IDoapCategory> result = new HashSet<IDoapCategory>();
+    Object category;
+    while (categories.hasNext()) {
+      category = categories.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapCategory.class, category));
+    }
+    return result;
+  }
+
+  /**
+   * Get all homepages belonging to this project.
+   */
+  public Set<IDoapHomepage> getHomepages() {
+    Iterator<Object> homepages = getProject().getDoapHomepages().iterator();
+    Set<IDoapHomepage> result = new HashSet<IDoapHomepage>();
+    Object homepage;
+    while (homepages.hasNext()) {
+      homepage = homepages.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapHomepage.class, homepage));
+    }
+    return result;
+  }
+
+  /**
+   * Get all developers who work on this project.
+   */
+  public Set<IPerson> getDevelopers() {
+    return convertToSimalPeople(getProject().getDoapDevelopers());
+  }
+
+  /**
+   * Get all documenters who work on this project.
+   */
+  public Set<IPerson> getDocumenters() {
+    return convertToSimalPeople(getProject().getDoapDocumenters());
+  }
+
+  /**
+   * Get all helpers who work on this project.
+   */
+  public Set<IPerson> getHelpers() {
+    return convertToSimalPeople(getProject().getDoapHelpers());
+  }
+
+  /**
+   * Get all maintainers who work on this project.
+   */
+  public Set<IPerson> getMaintainers() {
+    return convertToSimalPeople(getProject().getDoapMaintainers());
+  }
+
+  /**
+   * Get all testers who work on this project.
+   */
+  public Set<IPerson> getTesters() {
+    return convertToSimalPeople(getProject().getDoapTesters());
+  }
+
+  /**
+   * Get all translators who work on this project.
+   */
+  public Set<IPerson> getTranslators() {
+    return convertToSimalPeople(getProject().getDoapTranslators());
+  }
+
+  private Set<IPerson> convertToSimalPeople(Set<Person> inPeople) {
+    Set<IPerson> result = new HashSet<IPerson>(inPeople.size());
+    Iterator<Person> people = inPeople.iterator();
+    Person person;;
+    while (people.hasNext()) {
+      person = people.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IPerson.class, person));
+    }
+    return result;
   }
 }

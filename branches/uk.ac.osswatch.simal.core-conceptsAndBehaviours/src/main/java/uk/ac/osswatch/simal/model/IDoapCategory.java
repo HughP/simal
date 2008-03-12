@@ -10,6 +10,6 @@ import org.openrdf.elmo.annotations.rdf;
  *
  */
 @rdf("http://usefulinc.com/ns/doap#category")
-public interface ICategory extends Resource, ICategoryBehaviour {
+public interface IDoapCategory extends Resource, IDoapCategoryBehaviour {
 
 }

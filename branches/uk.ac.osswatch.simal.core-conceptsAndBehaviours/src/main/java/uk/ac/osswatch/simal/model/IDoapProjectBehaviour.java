@@ -1,6 +1,7 @@
 package uk.ac.osswatch.simal.model;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.openrdf.concepts.foaf.Person;
 
@@ -19,11 +20,11 @@ public interface IDoapProjectBehaviour extends IDoapResourceBehaviour {
    * @return
    * @throws SimalRepositoryException
    */
-  public HashSet<Person> getAllPeople() throws SimalRepositoryException;
+  public HashSet<IPerson> getAllPeople() throws SimalRepositoryException;
 
   /**
    * Get the ID of this project. If no ID has been assigned
-   * yet then get the next avialble ID from the repository 
+   * yet then get the next available ID from the repository 
    * and assign that.
    * @throws SimalRepositoryException 
    */
@@ -33,4 +34,46 @@ public interface IDoapProjectBehaviour extends IDoapResourceBehaviour {
    * Get the default name for this project.
    */
   public String getName();
+  
+  /**
+   * Get a set of categories that this project belongs to.
+   */
+  public Set<IDoapCategory> getCategories(); 
+  
+  /**
+   * Get a set of homepages for this project.
+   * 
+   * @return
+   */
+  public Set<IDoapHomepage> getHomepages();
+  
+  /**
+   * Get all developers who work on this project.
+   */
+  public Set<IPerson> getDevelopers();
+  
+  /**
+   * Get all documenters who work on this project.
+   */
+  public Set<IPerson> getDocumenters();
+  
+  /**
+   * Get all helpers who work on this project.
+   */
+  public Set<IPerson> getHelpers();
+  
+  /**
+   * Get all maintainers who work on this project.
+   */
+  public Set<IPerson> getMaintainers();
+
+  /**
+   * Get all testers who work on this project.
+   */
+  public Set<IPerson> getTesters();
+
+  /**
+   * Get all translators who work on this project.
+   */
+  public Set<IPerson> getTranslators();
 } 

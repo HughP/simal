@@ -3,7 +3,6 @@ package uk.ac.osswatch.simal.integrationTest.rdf;
 import javax.xml.namespace.QName;
 
 import org.junit.BeforeClass;
-import org.openrdf.concepts.doap.Project;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -25,42 +24,42 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_LICENCE_ONE = "http://usefulinc.com/doap/licenses/gpl";
   public static final String TEST_SIMAL_PROJECT_LICENCE_TWO = "http://usefulinc.com/doap/licenses/asl20";
   public static final String TEST_SIMAL_PROJECT_WIKIS = "http://wiki.foo.org";
-  public static final String TEST_SIMAL_PROJECT_TRANSLATORS = "[http://foo.org/~translator/#me]";
-  public static final String TEST_SIMAL_PROJECT_TESTERS = "[http://foo.org/~tester/#me]";
+  public static final String TEST_SIMAL_PROJECT_TRANSLATORS = "Translator";
+  public static final String TEST_SIMAL_PROJECT_TESTERS = "Tester";
   public static final String TEST_SIMAL_PROJECT_SCREENSHOTS = "http://www.foo.org/screenshots";
 
-  public static final String TEST_SIMAL_PROJECT_REPOSITORIES = "[http://simal.oss-watch.ac.uk/simalTest#svnTrunk]";
-  public static final String TEST_SIMAL_PROJECT_REPOSITORIES_ANON_ROOTS = "[]";
-  public static final String TEST_SIMAL_PROJECT_REPOSITORIES_BROWSE_URL = "[http://svn.foo.org/viewvc/simal/trunk/]";
-  public static final String TEST_SIMAL_PROJECT_REPOSITORIES_LOCATIONS = "[https://svn.foo.org/svnroot/simalTest]";
+  public static final String TEST_SIMAL_PROJECT_REPOSITORIES = "http://simal.oss-watch.ac.uk/simalTest#svnTrunk";
+  public static final String TEST_SIMAL_PROJECT_REPOSITORIES_ANON_ROOTS = "";
+  public static final String TEST_SIMAL_PROJECT_REPOSITORIES_BROWSE_URL = "http://svn.foo.org/viewvc/simal/trunk/";
+  public static final String TEST_SIMAL_PROJECT_REPOSITORIES_LOCATIONS = "https://svn.foo.org/svnroot/simalTest";
 
-  public static final String TEST_SIMAL_PROJECT_RELEASES = "[http://simal.oss-watch.ac.uk/simalTest#simal-0.1]";
-  public static final String TEST_SIMAL_PROJECT_RELEASES_FILE_RELEASES = "[]";
-  public static final String TEST_SIMAL_PROJECT_RELEASES_REVISIONS = "[0.1]";
+  public static final String TEST_SIMAL_PROJECT_RELEASES = "http://simal.oss-watch.ac.uk/simalTest#simal-0.1";
+  public static final String TEST_SIMAL_PROJECT_RELEASES_FILE_RELEASES = "";
+  public static final String TEST_SIMAL_PROJECT_RELEASES_REVISIONS = "0.1";
 
   public static final String TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE = "Java";
   public static final String TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO = "XML";
   public static final String TEST_SIMAL_PROJECT_OS = "Cross Platform";
-  public static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "Original home page at OSS Watch";
+  public static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "http://www.oss-watch.ac.uk/simal";
 
-  public static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "http://foo.org/~joeBlogs/#me";
-  public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "http://foo.org/~janeBlogs/#me";
+  public static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "Joe Blogs Maintainer";
+  public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "Jane Blógs Maintainer";
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST = 2;
-  public static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "Mailing List 1";
-  public static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "Mailing List 2";
+  public static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "http://foo.org/mailingList1";
+  public static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "http://foo.org/mailingList2";
 
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_ONE = "Project Home Page";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_TWO = "Developer Home Page";
 
-  public static final String TEST_SIMAL_PROJECT_HELPERS = "[http://foo.org/~helper/#me]";
+  public static final String TEST_SIMAL_PROJECT_HELPERS = "helper";
 
   public static final String TEST_SIMAL_PROJECT_DOWNLOAD_PAGES = "http://download.foo.org";
   public static final String TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS = "http://download.bar.org";
 
-  public static final String TEST_SIMAL_PROJECT_DOCUMENTORS = "[http://foo.org/~documentor/#me]";
+  public static final String TEST_SIMAL_PROJECT_DOCUMENTORS = "documentor";
 
-  public static final String TEST_SIMAL_PROJECT_DEVELOPERS = "[http://foo.org/~developer/#me]";
+  public static final String TEST_SIMAL_PROJECT_DEVELOPERS = "developer";
 
   public static final String TEST_SIMAL_PROJECT_CATEGORY_ONE = "DOAP Test";
   public static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#";
@@ -69,7 +68,7 @@ public abstract class BaseRepositoryTest {
 
   protected static SimalRepository repository;
 
-  protected static Project project1;
+  protected static IProject project1;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {

@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import javax.xml.namespace.QName;
+
 import org.openrdf.concepts.rdfs.Resource;
 import org.openrdf.elmo.Entity;
 import org.openrdf.elmo.annotations.rdf;
@@ -54,11 +56,12 @@ public class ResourceBehavior implements IResourceBehaviour {
    */
   public String getLabel(String defaultLabel) {
     String label = getResource().getRdfsLabel();
-
     if (label == null) {
       label = defaultLabel;
-    } else {
-      label = elmoEntity.getQName().toString();
+    }
+    if (label == null) {
+      QName qname = elmoEntity.getQName();
+      label = qname.getNamespaceURI() + qname.getLocalPart();
     }
     return label;
   }
@@ -75,6 +78,10 @@ public class ResourceBehavior implements IResourceBehaviour {
     return (Resource) elmoEntity;
   }
 
+  /**
+   * Provide a string representation of this category. This is created by
+   * calling the getLabel() method.
+   */
   public String toString() {
     return getLabel();
   }
