@@ -46,8 +46,8 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "Jane Blógs Maintainer";
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST = 2;
-  public static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "http://foo.org/mailingList1";
-  public static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "http://foo.org/mailingList2";
+  public static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "Mailing List 1";
+  public static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "Mailing List 2";
 
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_ONE = "Project Home Page";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_TWO = "Developer Home Page";

@@ -16,7 +16,9 @@ import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapHomepageBehaviour;
+import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
+import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
@@ -190,11 +192,26 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetMailingLists() {
-    Set<Object> lists = project1.getDoapMailingLists();
+    Set<IDoapMailingList> lists = project1.getMailingLists();
     assertEquals("Got incorrect number of mailing lists",
         TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST, lists.size());
-    assertTrue(lists.toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_ONE));
-    assertTrue(lists.toString().contains(TEST_SIMAL_PROJECT_MAILING_LIST_TWO));
+    
+    boolean hasListOne = false;
+    boolean hasListTwo = false;
+    Iterator<IDoapMailingList> itrLists = lists.iterator();
+    IDoapMailingList list;
+    while (itrLists.hasNext()) {
+      list = itrLists.next();
+      if (list.getLabel().equals(TEST_SIMAL_PROJECT_MAILING_LIST_ONE)) {
+        hasListOne = true;
+      } else if (list.getLabel().equals(TEST_SIMAL_PROJECT_MAILING_LIST_TWO)) {
+        hasListTwo = true;
+      }
+    }
+    assertTrue("Project does not appear to have list "
+        + TEST_SIMAL_PROJECT_MAILING_LIST_ONE, hasListOne);
+    assertTrue("Project does not appear to have maintainer "
+        + TEST_SIMAL_PROJECT_MAILING_LIST_TWO, hasListTwo);
   }
 
   @Test
@@ -256,8 +273,9 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetRepositories() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_REPOSITORIES, project1
-        .getDoapRepositories().toString());
+    Set<IDoapRepository> repos = project1.getRepositories();
+    IDoapRepository repo = (IDoapRepository) repos.toArray()[0];
+    assertEquals(TEST_SIMAL_PROJECT_REPOSITORIES, repo.getLabel());
   }
 
   @Test

@@ -35,6 +35,7 @@ import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
+import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
@@ -42,6 +43,7 @@ import uk.ac.osswatch.simal.model.elmo.DoapHomepageBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapMailingListBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapReleaseBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapRepositoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapBugDatabaseBehaviour;
 import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
@@ -176,6 +178,7 @@ public class SimalRepository extends SimalProperties {
     module.recordRole(IDoapCategory.class);
     module.recordRole(IDoapHomepage.class);
     module.recordRole(IDoapRelease.class);
+    module.recordRole(IDoapRepository.class);
     module.recordRole(IDoapMailingList.class);
     module.recordRole(IPerson.class);
     module.recordRole(IProject.class);
@@ -186,7 +189,8 @@ public class SimalRepository extends SimalProperties {
     module.recordRole(DoapHomepageBehaviour.class);  
     module.recordRole(DoapMailingListBehaviour.class); 
     module.recordRole(DoapProjectBehaviour.class);   
-    module.recordRole(DoapReleaseBehaviour.class);    
+    module.recordRole(DoapReleaseBehaviour.class);   
+    module.recordRole(DoapRepositoryBehaviour.class);    
     module.recordRole(FoafPersonBehaviour.class);
     
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);

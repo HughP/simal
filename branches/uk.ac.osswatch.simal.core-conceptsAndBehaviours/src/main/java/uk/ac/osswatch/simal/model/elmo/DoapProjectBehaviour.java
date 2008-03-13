@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.openrdf.concepts.doap.Repository;
 import org.openrdf.concepts.doap.Version;
 import org.openrdf.concepts.foaf.Person;
 import org.openrdf.elmo.annotations.rdf;
@@ -17,6 +18,7 @@ import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapRelease;
+import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -277,5 +279,21 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
       result.add(elmoEntity.getElmoManager().designateEntity(IDoapMailingList.class, list));
     }
     return result;
+  }
+
+  /**
+   * Get all repositories associated with this project.
+   */
+  public Set<IDoapRepository> getRepositories() {
+    Set<Repository> set = getProject().getDoapRepositories();
+    Set<IDoapRepository> result = new HashSet<IDoapRepository>(set.size());
+    Iterator<Repository> repositories = set.iterator();
+    Repository repository;
+    while (repositories.hasNext()) {
+      repository = repositories.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapRepository.class, repository));
+    }
+    return result;
+    
   }
 }
