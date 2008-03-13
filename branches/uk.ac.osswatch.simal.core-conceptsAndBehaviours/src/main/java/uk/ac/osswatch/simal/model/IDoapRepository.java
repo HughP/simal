@@ -1,7 +1,9 @@
 package uk.ac.osswatch.simal.model;
 
-import org.openrdf.concepts.rdfs.Resource;
+import java.util.Set;
+
 import org.openrdf.elmo.annotations.rdf;
+import org.openrdf.concepts.doap.Repository;
 
 /**
  * A repository that is known to apply be used by a project
@@ -10,6 +12,6 @@ import org.openrdf.elmo.annotations.rdf;
  *
  */
 @rdf("http://usefulinc.com/ns/doap#repository")
-public interface IDoapRepository extends Resource, IDoapRepositoryBehaviour {
+public interface IDoapRepository extends Repository, IDoapRepositoryBehaviour {
 
 }

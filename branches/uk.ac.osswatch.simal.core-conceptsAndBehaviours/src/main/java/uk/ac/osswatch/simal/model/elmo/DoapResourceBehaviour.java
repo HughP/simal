@@ -64,7 +64,7 @@ public class DoapResourceBehaviour extends ResourceBehavior {
    * Get all the names for this resource.
    */
   public Set<String> getNames() {
-    Set<String> names = convertToSetOfStrings(getDoapResource().getDoapNames());
+    Set<String> names = Utilities.convertToSetOfStrings(getDoapResource().getDoapNames());
     if (names == null || names.size() == 0) {
       names = new HashSet<String>();
       names.add(this.getLabel());
@@ -170,15 +170,6 @@ public class DoapResourceBehaviour extends ResourceBehavior {
 
   public void setDescription(String newDesc) {
     getDoapResource().setDoapDescription(newDesc);
-  }
-
-  protected Set<String> convertToSetOfStrings(Set<Object> sourceSet) {
-    Set<String> result = new HashSet<String>(sourceSet.size());
-    Iterator<Object> itr = sourceSet.iterator();
-    while (itr.hasNext()) {
-      result.add(itr.next().toString());
-    }
-    return result;
   }
 
   public org.openrdf.concepts.doap.DoapResource getDoapResource() {
