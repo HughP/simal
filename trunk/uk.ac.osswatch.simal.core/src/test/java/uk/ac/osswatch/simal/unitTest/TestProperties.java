@@ -1,6 +1,6 @@
 package uk.ac.osswatch.simal.unitTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -31,8 +31,8 @@ public class SimalProperties {
 
   public static final String PROPERTY_UNIT_TEST = "simal.unitTest";
 
-  private Properties defaultProps;
-  private Properties localProps;
+  private static Properties defaultProps;
+  private static Properties localProps;
 
   public SimalProperties() throws SimalRepositoryException {
     initProperties();
@@ -71,7 +71,7 @@ public class SimalProperties {
    * @return
    * @throws SimalRepositoryException
    */
-  private File getLocalPropertiesFile() throws SimalRepositoryException {
+  private static File getLocalPropertiesFile() throws SimalRepositoryException {
     File propsFile;
     String workingDir = System.getProperty("user.dir");
     propsFile = new File(workingDir + File.separator
@@ -101,7 +101,7 @@ public class SimalProperties {
    * @param key
    *          the name of the property value to retrieve
    */
-  public String getProperty(String key) {
+  public static String getProperty(String key) {
     return getProperty(key, null);
   }
 
@@ -113,7 +113,7 @@ public class SimalProperties {
    * @param default
    * @return
    */
-  public String getProperty(String key, String defaultValue) {
+  public static String getProperty(String key, String defaultValue) {
     String value = null;
     if (localProps != null) {
       value = localProps.getProperty(key);
@@ -136,7 +136,7 @@ public class SimalProperties {
    * @param key
    * @param value
    */
-  public void setProperty(String key, String value) {
+  public static void setProperty(String key, String value) {
     if (localProps == null) {
       localProps = new Properties();
     }
@@ -149,7 +149,7 @@ public class SimalProperties {
    * 
    * @throws SimalRepositoryException
    */
-  public void save() throws SimalRepositoryException {
+  public static void save() throws SimalRepositoryException {
     String comments = "Simal Properties";
     File propsFile = getLocalPropertiesFile();
     try {
