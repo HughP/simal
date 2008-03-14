@@ -9,7 +9,7 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
-import uk.ac.osswatch.simal.model.IRCS;
+import uk.ac.osswatch.simal.model.IDoapRepository;
 
 /**
  * A panel to display one or more Source Repository details.
@@ -17,12 +17,12 @@ import uk.ac.osswatch.simal.model.IRCS;
 public class SourceRepositoriesPanel extends Panel {
 	private static final long serialVersionUID = -2031486948152653715L;
 
-	public SourceRepositoriesPanel(String panelId, Set<IRCS> repositories) {
+	public SourceRepositoriesPanel(String panelId, Set<IDoapRepository> repositories) {
 		super(panelId);
 		populatePage(repositories);
 	}
 
-	private void populatePage(Set<IRCS> repositories) {
+	private void populatePage(Set<IDoapRepository> repositories) {
 		add(getRepeatingLinks(repositories));
 	}
 
@@ -45,11 +45,11 @@ public class SourceRepositoriesPanel extends Panel {
 	 *            the resources to be added to the list
 	 * @return
 	 */
-	protected RepeatingView getRepeatingLinks(Set<IRCS> repositories) {
-		Iterator<IRCS> itr = repositories.iterator();
+	protected RepeatingView getRepeatingLinks(Set<IDoapRepository> repositories) {
+		Iterator<IDoapRepository> itr = repositories.iterator();
 		RepeatingView repeating = new RepeatingView("sourceRepositories");
 		WebMarkupContainer item;
-		IRCS repository;
+		IDoapRepository repository;
 		while (itr.hasNext()) {
 			item = new WebMarkupContainer(repeating.newChildId());
 			repeating.add(item);
@@ -60,7 +60,7 @@ public class SourceRepositoriesPanel extends Panel {
 			item.add(getRepeatingLinks("devLocations", "devLink", repository
 					.getLocations()));
 			item.add(getRepeatingLinks("browseRoots", "browseLink", repository
-					.getLocations()));
+					.getBrowse()));
 		}
 		return repeating;
 	}

@@ -39,8 +39,8 @@ public class PersonSummaryPanel extends Panel {
 	}
 
 	private void populatePage(final IPerson person) {
-		add(new Label("personName", person.getGivennames().toString()));
-		add(new Label("homepages", person.getHomepages().toString()));
+		add(new Label("personName", person.getLabel()));
+		add(new Label("homepages", person.getFoafHomepages().toString()));
 	}
 
 }

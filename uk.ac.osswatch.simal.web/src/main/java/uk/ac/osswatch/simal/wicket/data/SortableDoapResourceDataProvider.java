@@ -9,11 +9,11 @@ import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
 
-import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
+import uk.ac.osswatch.simal.model.IProject;
 
 /**
- * An IDoapResource data provider that allows the IDoapResources to be sorted.
+ * A DOAP resource data provider that allows the DOAP Resources to be sorted.
  * 
  */
 public class SortableDoapResourceDataProvider extends SortableDataProvider {
@@ -23,16 +23,16 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 	public static final String SORT_PROPERTY_SHORTDESC = "shortDesc";
 	
 	/**
-	 * the set of DoapResources we are providing access to.
+	 * The set of DoapResources we are providing access to.
 	 */
-	private Set<IDoapResource> resources;
+	private Set<IDoapResourceBehaviour> resources;
 
 	/** 
 	 * Create a data provider for the supplied resources.
 	 */
 	@SuppressWarnings("unchecked")
-	public SortableDoapResourceDataProvider(Set<? extends IDoapResource> resources) {
-		this.resources = (Set<IDoapResource>) resources;
+	public SortableDoapResourceDataProvider(Set<? extends IDoapResourceBehaviour> resources) {
+		this.resources = (Set<IDoapResourceBehaviour>) resources;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 
 
     /**
-     * Ensures a sort property is valid, that is IDoapResources can be sorted by it.
+     * Ensures a sort property is valid, that is IDoapResourceBehaviours can be sorted by it.
      * @param property
      * @return
      */
@@ -65,14 +65,14 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 
 
 
-	public Iterator<IDoapResource> iterator(int first, int count) {
-		IDoapResourceComparator comparator = new IDoapResourceComparator();
-		TreeSet<IDoapResource> treeSet = new TreeSet<IDoapResource>(comparator);
+	public Iterator<IDoapResourceBehaviour> iterator(int first, int count) {
+		IDoapResourceBehaviourComparator comparator = new IDoapResourceBehaviourComparator();
+		TreeSet<IDoapResourceBehaviour> treeSet = new TreeSet<IDoapResourceBehaviour>(comparator);
 		treeSet.addAll(resources);
-		TreeSet<IDoapResource> result = new TreeSet<IDoapResource>(comparator);
+		TreeSet<IDoapResourceBehaviour> result = new TreeSet<IDoapResourceBehaviour>(comparator);
 		int idx = 0;
-		Iterator<IDoapResource> all = treeSet.iterator();
-		IDoapResource current;
+		Iterator<IDoapResourceBehaviour> all = treeSet.iterator();
+		IDoapResourceBehaviour current;
 		while (all.hasNext() && idx - count < 0) {
 			current = all.next();
 			if (idx >= first) {
@@ -89,24 +89,24 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 	 * 
 	 * @return
 	 */
-	public Iterator<IDoapResource> iterator() {
+	public Iterator<IDoapResourceBehaviour> iterator() {
 		return iterator(0, resources.size());
 	}
 
 	public IModel model(Object object) {
-		if (!(object instanceof Project)) {
+		if (!(object instanceof IProject)) {
 			throw new IllegalArgumentException("sortableDoapResourceDataProvider only works for Project models - should it work for more? Your helpo appreciated.");
 		}
-		return new DetachableProjectModel((Project)object);
+		return new DetachableProjectModel((IProject)object);
 	}
 
 	public int size() {
 		return resources.size();
 	}
 
-	private class IDoapResourceComparator implements Comparator<IDoapResource> {
+	private class IDoapResourceBehaviourComparator implements Comparator<IDoapResourceBehaviour> {
 
-		public int compare(IDoapResource resource1, IDoapResource resource2) {
+		public int compare(IDoapResourceBehaviour resource1, IDoapResourceBehaviour resource2) {
 			if (resource1.equals(resource2)) { return 0; }
 			
 			int result = 0;

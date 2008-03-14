@@ -20,12 +20,12 @@ Developing your gadget
  We've included both the stanard Shindig container and the 
  samplecontainer. The later is used for testing gadgets in
  isolation and is available by requesting
- http://localhost:8888/testContainer/samplecontainer.html
+ http://localhost:8080/testContainer/samplecontainer.html
 
  Try the following:
   
- * enter http://localhost:8888/gadgets/template.xml in
- the gadget URL field of http://localhost:8888/testContainer/samplecontainer.html
+ * enter http://localhost:8080/gadgets/template.xml in
+ the gadget URL field of http://localhost:8080/testContainer/samplecontainer.html
  
  * hit reset
  
@@ -36,8 +36,8 @@ Developing your gadget
  
  * copy the file src/gadgets/template.xml to src/gadgets/myGadget.xml
  
- * enter http://localhost:8888/gadgets/myGadget.xml in
- the gadget URL field of http://localhost:8888/testContainer/samplecontainer.html
+ * enter http://localhost:8080/gadgets/myGadget.xml in
+ the gadget URL field of http://localhost:8080/testContainer/samplecontainer.html
  
  You will see a simple hello world gadget that you can now customise.
  
@@ -64,9 +64,9 @@ Developing your gadget
     mock up of what would happen. Help wanted to make Simal a true
     Open Social container.
  
- * http://localhost:8888/testContainer/samplecontainer.html
+ * http://localhost:8080/testContainer/samplecontainer.html
  
- * enter http://localhost:8888/gadgets/friendsNavigator.xml 
+ * enter http://localhost:8080/gadgets/friendsNavigator.xml 
    into the "Displaying gadget" field
    
  * hit "reset"

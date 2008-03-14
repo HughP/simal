@@ -8,7 +8,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
-import uk.ac.osswatch.simal.model.IVersion;
+import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -17,18 +17,18 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class ReleasesPanel extends Panel {
 	private static final long serialVersionUID = 3993329475348185480L;
 
-	public ReleasesPanel(String panelId, Set<IVersion> releases)
+	public ReleasesPanel(String panelId, Set<IDoapRelease> releases)
 			throws SimalRepositoryException {
 		super(panelId);
 		populatePage(releases);
 	}
 
-	private void populatePage(Set<IVersion> releases)
+	private void populatePage(Set<IDoapRelease> releases)
 			throws SimalRepositoryException {
-		Iterator<IVersion> itr = releases.iterator();
+		Iterator<IDoapRelease> itr = releases.iterator();
 		RepeatingView repeating = new RepeatingView("releases");
 		WebMarkupContainer item;
-		IVersion release;
+		IDoapRelease release;
 		Label label;
 		while (itr.hasNext()) {
 			item = new WebMarkupContainer(repeating.newChildId());

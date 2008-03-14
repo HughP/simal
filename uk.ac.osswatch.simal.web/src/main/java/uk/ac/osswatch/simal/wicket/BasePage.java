@@ -13,7 +13,7 @@ import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
-import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.doap.DoapFormPage;
@@ -61,11 +61,11 @@ public class BasePage extends WebPage {
 	 * @return
 	 */
 	protected RepeatingView getRepeatingLinks(String repeaterWicketID, String linkWicketID, String defaultLabel,
-			SortableDoapResourceDataProvider resources, boolean fetchLabels) {
-				Iterator<IDoapResource> itr = resources.iterator();
+			  SortableDoapResourceDataProvider resources, boolean fetchLabels) {
+				Iterator<IDoapResourceBehaviour> itr = resources.iterator();
 				RepeatingView repeating = new RepeatingView(repeaterWicketID);
 				WebMarkupContainer item;
-				IDoapResource resource;
+				IDoapResourceBehaviour resource;
 				String label;
 				String comment;
 				String url;
@@ -76,7 +76,7 @@ public class BasePage extends WebPage {
 					resource = itr.next();
 					comment = resource.getComment();
 					url = resource.toString();
-					label = resource.getLabel(defaultLabel, fetchLabels);
+					label = resource.getLabel(defaultLabel);
 					link = new ExternalLink(linkWicketID, url);
 					link.add(new Label("label", label));
 					if (comment != null) {
