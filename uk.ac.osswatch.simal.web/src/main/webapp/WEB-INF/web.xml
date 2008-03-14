@@ -62,7 +62,7 @@
 
   <!-- Metadata RPC -->
   <servlet>
-    <servlet-name>rpc</servlet-name>
+    <servlet-name>metadata</servlet-name>
     <servlet-class>
       org.apache.shindig.gadgets.http.RpcServlet
     </servlet-class>
@@ -72,7 +72,7 @@
   <servlet>
     <servlet-name>socialdata</servlet-name>
     <servlet-class>
-      org.apache.shindig.social.http.SocialDataServlet
+      org.apache.shindig.social.GadgetDataServlet
     </servlet-class>
   </servlet>
 
@@ -98,8 +98,8 @@
   </servlet-mapping>
 
   <servlet-mapping>
-    <servlet-name>rpc</servlet-name>
-    <url-pattern>/rpc</url-pattern>
+    <servlet-name>metadata</servlet-name>
+    <url-pattern>/metadata</url-pattern>
   </servlet-mapping>
 
   <servlet-mapping>
