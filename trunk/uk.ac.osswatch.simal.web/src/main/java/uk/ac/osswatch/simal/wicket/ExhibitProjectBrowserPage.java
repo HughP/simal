@@ -33,6 +33,6 @@ public class ExhibitProjectBrowserPage extends BasePage {
 		add(HeaderContributor
 				.forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
 		add(new StringHeaderContributor(
-				"<link href=\"/simal-webapp/resources/uk.ac.osswatch.simal.wicket.UserApplication/projects.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
+				"<link href=\"/resources/uk.ac.osswatch.simal.wicket.UserApplication/projects.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
 	}
 }

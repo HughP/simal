@@ -27,7 +27,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
-import uk.ac.osswatch.simal.model.elmo.Project;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.data.SortableProjectDataProvider;
@@ -52,7 +52,7 @@ public class ProjectListPanel extends Panel {
         columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
 			@Override
 			public void onClick(Item item, String componentId, IModel model) {
-			       Project project = (Project)model.getObject();
+			       IProject project = (IProject)model.getObject();
 			       getRequestCycle().setResponsePage(new ProjectDetailPage(project));
 			}
         
