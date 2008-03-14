@@ -4,31 +4,43 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.xml.namespace.QName;
+import org.openrdf.concepts.doap.DoapResource;
+import org.openrdf.elmo.Entity;
+import org.openrdf.elmo.annotations.rdf;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
- * This is a wrapper around an Elmo DoapResource class. It should not be
- * instatiated directly instances will be created by elmo as required when a
- * concept extends DOAPResource. Wrappers for these more granular classes should
- * be created that extend this class, when such wrappers are instantiated they
- * should set the value of getDoapResource() to to wrapped elmo object.
- * 
- * @see org.openrdf.concepts.doap.DoapResource
+ * Provides functionality for a DOAPResource object provided by
+ * Elmo.
  */
-public class DoapResource extends Resource implements IDoapResource {
 
-  private static final long serialVersionUID = -7610178891247360114L;
-
-  protected DoapResource() {
-  };
-
-  public DoapResource(org.openrdf.concepts.doap.DoapResource resource,
-      SimalRepository repository) {
-    super(resource, repository);
+@rdf("http://usefulinc.com/ns/doap#Project")
+public class DoapResourceBehaviour extends ResourceBehavior implements IDoapResourceBehaviour {
+  private static final Logger logger = LoggerFactory
+  .getLogger(DoapResourceBehaviour.class);
+    
+  public DoapResourceBehaviour() {
+  }
+  
+  /**
+   * Create a resource behaviour for a given resource.
+   * @param resource
+   */
+  public DoapResourceBehaviour(DoapResource resource) {
+    super(resource);
+    logger.debug("Create a DoapResourceBehaviour for an Elmo DoapResource object");
+  }
+  
+  /**
+   * Create a resource behaviour for a given Elmo Entity.
+   */
+  public DoapResourceBehaviour(Entity elmoEntity) {
+    super(elmoEntity);
+    logger.debug("Create a DoapResourceBehaviour for a Sesame Entity object");
   }
 
   /**
@@ -53,10 +65,10 @@ public class DoapResource extends Resource implements IDoapResource {
    * Get all the names for this resource.
    */
   public Set<String> getNames() {
-    Set<String> names = convertToSetOfStrings(getDoapResource().getDoapNames());
+    Set<String> names = Utilities.convertToSetOfStrings(getDoapResource().getDoapNames());
     if (names == null || names.size() == 0) {
       names = new HashSet<String>();
-      names.add(this.getLabel(true));
+      names.add(this.getLabel());
     }
     return names;
   }
@@ -69,12 +81,8 @@ public class DoapResource extends Resource implements IDoapResource {
     getDoapResource().setDoapShortdesc(shortDesc);
   }
 
-  public QName getQName() {
-    return getDoapResource().getQName();
-  }
-
   public String toString() {
-    return getLabel(true) + " (" + getNames() + ")";
+    return getLabel() + " (" + getNames() + ")";
   }
 
   /**
@@ -106,8 +114,8 @@ public class DoapResource extends Resource implements IDoapResource {
 
   protected String toJSONRecordContent() {
     StringBuffer json = new StringBuffer();
-    json.append("\"id\":\"" + getQName().getNamespaceURI() + "\",");
-    json.append("\"label\":\"" + getLabel(true) + "\",");
+    json.append("\"id\":\"" + elmoEntity.getQName().getNamespaceURI() + "\",");
+    json.append("\"label\":\"" + getLabel() + "\",");
     json.append("\"name\":\"" + getName() + "\",");
     json.append("\"shortdesc\":\"" + getShortDesc() + "\"");
     return json.toString();
@@ -165,17 +173,8 @@ public class DoapResource extends Resource implements IDoapResource {
     getDoapResource().setDoapDescription(newDesc);
   }
 
-  protected Set<String> convertToSetOfStrings(Set<Object> sourceSet) {
-    Set<String> result = new HashSet<String>(sourceSet.size());
-    Iterator<Object> itr = sourceSet.iterator();
-    while (itr.hasNext()) {
-      result.add(itr.next().toString());
-    }
-    return result;
-  }
-
   public org.openrdf.concepts.doap.DoapResource getDoapResource() {
-    return (org.openrdf.concepts.doap.DoapResource) elmoResource;
+    return (org.openrdf.concepts.doap.DoapResource) elmoEntity;
   }
 
   /**
@@ -185,17 +184,16 @@ public class DoapResource extends Resource implements IDoapResource {
    * @param set
    * @return
    */
-  public Set<IDoapResource> createResourceSet(Set<Object> set) {
+  public Set<DoapResourceBehaviour> createDoapResourceBehaviourSet(Set<Object> set) {
     Iterator<Object> elmoResources = set.iterator();
-    HashSet<IDoapResource> results = new HashSet<IDoapResource>(set.size());
+    HashSet<DoapResourceBehaviour> results = new HashSet<DoapResourceBehaviour>(set.size());
     Object resource;
     while (elmoResources.hasNext()) {
       resource = elmoResources.next();
       if (resource instanceof org.openrdf.concepts.doap.DoapResource) {
         results
-            .add(new DoapResource(
-                (org.openrdf.concepts.doap.DoapResource) resource,
-                getRepository()));
+            .add(new DoapResourceBehaviour(
+                (org.openrdf.concepts.doap.DoapResource) resource));
       } else {
         throw new IllegalArgumentException(
             "Can only create ResourceSets from elmo DoapResources. you just tried to create one containing "

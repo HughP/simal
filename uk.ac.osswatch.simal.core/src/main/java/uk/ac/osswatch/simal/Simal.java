@@ -177,7 +177,7 @@ public class Simal {
 
   private static void printVersion() {
     logger.info("Simal version   : "
-        + repository.getProperty(SimalRepository.PROPERTY_SIMAL_VERSION));
+        + SimalRepository.getProperty(SimalRepository.PROPERTY_SIMAL_VERSION));
     logger.info("Java version    : " + System.getProperty("java.version"));
     logger.info("Java vendor     : " + System.getProperty("java.vendor"));
     logger.info("OS              : " + System.getProperty("os.name"));

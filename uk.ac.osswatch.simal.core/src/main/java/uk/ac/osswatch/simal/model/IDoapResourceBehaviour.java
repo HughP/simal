@@ -1,21 +1,13 @@
 package uk.ac.osswatch.simal.model;
 
-import java.io.Serializable;
 import java.util.Set;
-
-import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
- * An interface for wrapping repository specific representations of a DOAP
- * resource. Other classes should not access the repository classes directly,
- * instead they should access the data through a class that implements this
- * interface.
- * 
- * @see uk.ac.osswatch.simal.model.elmo.DoapResource
+ * The definition of a behaviour for Elmo Doap Resources.
  */
-public interface IDoapResource extends IResource, Serializable {
+public interface IDoapResourceBehaviour extends IResourceBehaviour {
   /**
    * Returns the default name for this resource/
    * 
@@ -27,6 +19,14 @@ public interface IDoapResource extends IResource, Serializable {
    * Add a name.
    */
   public void addName(String name);
+  
+  /**
+   * Get a human readable label for this resource.
+   * Wherever posssible return a value degined by rds:label,
+   * otherwise return a sensible value derived from other data.
+   */
+  public String getLabel();
+  
 
   /**
    * Return all names associated with this resource. If no names are available
@@ -40,8 +40,6 @@ public interface IDoapResource extends IResource, Serializable {
   public abstract String getShortDesc();
 
   public abstract void setShortDesc(String shortDesc);
-
-  public abstract QName getQName();
 
   public abstract String getCreated();
 

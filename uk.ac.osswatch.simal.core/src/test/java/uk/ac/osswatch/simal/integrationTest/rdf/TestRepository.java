@@ -13,9 +13,9 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import org.junit.Test;
+import org.openrdf.concepts.doap.Project;
 
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.elmo.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -72,7 +72,7 @@ public class TestRepository extends BaseRepositoryTest {
     IProject project;
     while (itrProjects.hasNext()) {
       project = itrProjects.next();
-      assertNotNull(project.getNames());
+      assertNotNull(project.getName());
     }
   }
 
@@ -83,10 +83,10 @@ public class TestRepository extends BaseRepositoryTest {
 
     Set<IProject> projects = repository.getAllProjects();
 
-    Iterator itrProjects = projects.iterator();
-    Project project;
+    Iterator<IProject> itrProjects = projects.iterator();
+    IProject project;
     while (itrProjects.hasNext()) {
-      project = (Project) itrProjects.next();
+      project = itrProjects.next();
       assertNotNull("All projects must have a QName", project.getQName());
     }
   }
@@ -102,23 +102,9 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testGetCategoryLabel() throws SimalRepositoryException {
-    initialiseRepository(false);
-
-    String uri = "http://simal.oss-watch.ac.uk/category/socialNews";
-    String label = repository.getLabel(uri);
-    assertEquals("Category Label is incorrect", "Social News", label);
-
-    uri = "http://example.org/does/not/exist";
-    label = repository.getLabel(uri);
-    assertNull("Somehow we have a label for a resource that does not exist",
-        label);
-  }
-
-  @Test
   public void testRemove() throws SimalRepositoryException {
     repository.remove(new QName(TEST_SIMAL_PROJECT_QNAME));
-    IProject project = getSimalTestProject(true);
+    Project project = getSimalTestProject(true);
     assertNull("Failed to remove the test project", project);
   }
 }

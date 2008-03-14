@@ -1,17 +1,16 @@
 package uk.ac.osswatch.simal.rdf;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.EntityTransaction;
 import javax.xml.namespace.QName;
 
-import org.openrdf.concepts.rdfs.Resource;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
@@ -32,14 +31,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
+
+import uk.ac.osswatch.simal.model.IDoapBugDatabase;
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
+import uk.ac.osswatch.simal.model.IDoapDownloadPage;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDoapMailingList;
+import uk.ac.osswatch.simal.model.IDoapRelease;
+import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IDoapScreenshot;
+import uk.ac.osswatch.simal.model.IDoapWiki;
+
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.IRCS;
-import uk.ac.osswatch.simal.model.IVersion;
-import uk.ac.osswatch.simal.model.elmo.Person;
-import uk.ac.osswatch.simal.model.elmo.Project;
-import uk.ac.osswatch.simal.model.elmo.RCS;
-import uk.ac.osswatch.simal.model.elmo.Version;
+import uk.ac.osswatch.simal.model.elmo.DoapBugDatabaseBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapDownloadMirrorBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapDownloadPageBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapHomepageBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapMailingListBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapReleaseBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapRepositoryBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapScreenshotBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapWikiBehaviour;
+import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
 import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 /**
@@ -50,8 +67,8 @@ import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 public class SimalRepository extends SimalProperties {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepository.class);
-  
-  // FIXME: standardisenames of constants
+
+  // FIXME: standardise names of constants
   public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
   public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultProjectNS#";
@@ -63,8 +80,8 @@ public class SimalRepository extends SimalProperties {
 
   public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
   public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
-  
-  public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#"; 
+
+  public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
   public static final String SIMAL_ID = SIMAL_NAMESPACE_URI + "project-id";
 
   public static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
@@ -166,19 +183,35 @@ public class SimalRepository extends SimalProperties {
   public SesameManager getManager() throws SimalRepositoryException {
     verifyInitialised();
     ElmoModule module = new ElmoModule();
-    
-    // Concepts
-    module.recordRole(org.openrdf.concepts.doap.Project.class);
-    module.recordRole(org.openrdf.concepts.doap.Version.class);
-    module.recordRole(org.openrdf.concepts.doap.Repository.class);
-    module.recordRole(org.openrdf.concepts.doap.DoapResource.class);
-    module.recordRole(org.openrdf.concepts.rdfs.Resource.class);
-    module.recordRole(org.openrdf.concepts.foaf.Person.class);
-    module.recordRole(IProject.class);
-    
-    // Behaviours
-    module.recordRole(Project.class);
 
+    // Concepts
+    module.recordRole(IDoapBugDatabase.class);
+    module.recordRole(IDoapCategory.class);
+    module.recordRole(IDoapDownloadMirror.class);
+    module.recordRole(IDoapDownloadPage.class);
+    module.recordRole(IDoapHomepage.class);
+    module.recordRole(IDoapRelease.class);
+    module.recordRole(IDoapRepository.class);
+    module.recordRole(IDoapScreenshot.class);
+    module.recordRole(IDoapMailingList.class);
+    module.recordRole(IDoapWiki.class);
+    module.recordRole(IPerson.class);
+    module.recordRole(IProject.class);
+
+    // Behaviours
+    module.recordRole(DoapBugDatabaseBehaviour.class);
+    module.recordRole(DoapCategoryBehaviour.class);
+    module.recordRole(DoapDownloadMirrorBehaviour.class);
+    module.recordRole(DoapDownloadPageBehaviour.class); 
+    module.recordRole(DoapHomepageBehaviour.class);  
+    module.recordRole(DoapMailingListBehaviour.class); 
+    module.recordRole(DoapProjectBehaviour.class);   
+    module.recordRole(DoapReleaseBehaviour.class);   
+    module.recordRole(DoapRepositoryBehaviour.class);
+    module.recordRole(DoapScreenshotBehaviour.class);
+    module.recordRole(DoapWikiBehaviour.class);    
+    module.recordRole(FoafPersonBehaviour.class);
+    
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);
     return factory.createElmoManager();
   }
@@ -193,54 +226,20 @@ public class SimalRepository extends SimalProperties {
    */
   public IProject getProject(QName qname) throws SimalRepositoryException {
     verifyInitialised();
-
-    
-    org.openrdf.concepts.doap.Project elmoProject = getManager().find(
-        org.openrdf.concepts.doap.Project.class, qname);
-    if (elmoProject == null) {
-      return null;
-    }
-    return new Project(elmoProject, this);
+    return getManager().find(IProject.class, qname);
   }
 
   /**
-   * Get a release version from the repository.
+   * Get a project from the repository.
    * 
    * @param qname
-   *          the QName of the release version to retrieve
-   * @return the release version, or if no release version with the given QName
-   *         exists Null
+   *          the QName of the project to retrieve
+   * @return the project, or if no project with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public IVersion getVersion(QName qname) throws SimalRepositoryException {
+  public IDoapCategory findCategory(QName qname) throws SimalRepositoryException {
     verifyInitialised();
-
-    org.openrdf.concepts.doap.Version elmoVersion = getManager().find(
-        org.openrdf.concepts.doap.Version.class, qname);
-    if (elmoVersion == null) {
-      return null;
-    }
-    return new Version(elmoVersion, this);
-  }
-
-  /**
-   * Get a version control repository from the repository.
-   * 
-   * @param qname
-   *          the QName of the repository to retrieve
-   * @return the repository or if no repository with the given QName exists Null
-   * @throws SimalRepositoryException
-   * @throws SimalRepositoryException
-   */
-  public IRCS getRCS(QName qname) throws SimalRepositoryException {
-    verifyInitialised();
-
-    org.openrdf.concepts.doap.Repository elmoRepo = getManager().find(
-        org.openrdf.concepts.doap.Repository.class, qname);
-    if (elmoRepo == null) {
-      return null;
-    }
-    return new RCS(elmoRepo);
+    return getManager().designate(IDoapCategory.class, qname);
   }
 
   /**
@@ -251,29 +250,15 @@ public class SimalRepository extends SimalProperties {
    * @return the repository or if no repository with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public IPerson getPerson(QName qname) throws SimalRepositoryException {
+  public IPerson getPerson(QName qname)
+      throws SimalRepositoryException {
     verifyInitialised();
-
-    org.openrdf.concepts.foaf.Person elmoPerson = getManager().find(
-        org.openrdf.concepts.foaf.Person.class, qname);
-    if (elmoPerson == null) {
-      return null;
-    }
-    return new Person(elmoPerson, this);
+    return getManager().find(IPerson.class, qname);
   }
 
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
     verifyInitialised();
-
-    HashSet<IProject> result = new HashSet<IProject>();
-    Iterator<org.openrdf.concepts.doap.Project> elmoProjects = getManager()
-        .findAll(org.openrdf.concepts.doap.Project.class).iterator();
-    org.openrdf.concepts.doap.Project project;
-    while (elmoProjects.hasNext()) {
-      project = elmoProjects.next();
-      result.add(new Project(project, this));
-    }
-    return result;
+    return getManager().findAll(IProject.class);
   }
 
   /**
@@ -332,6 +317,11 @@ public class SimalRepository extends SimalProperties {
           "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
           "http://simal.oss-watch.ac.uk");
     } catch (Exception e) {
+      try {
+        rollback();
+      } catch (TransactionException e1) {
+        logger.error("Unable to rollback transaction", e);
+      }
       throw new RuntimeException(
           "Can't add the test data, there's no point in carrying on", e);
     }
@@ -404,8 +394,10 @@ public class SimalRepository extends SimalProperties {
   public String getAllProjectsAsJSON() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer("{ \"items\": [");
     Iterator<IProject> projects = getAllProjects().iterator();
+    IProject project;
     while (projects.hasNext()) {
-      json.append(projects.next().toJSONRecord());
+      project = projects.next();
+      json.append(project.toJSONRecord());
       if (projects.hasNext()) {
         json.append(",");
       }
@@ -503,35 +495,6 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
-   * Get a human readable label for a resource. If the URI is for a resource
-   * that is not a DOAP resource null is returned.
-   * 
-   * @param uri
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public String getLabel(QName qname) throws SimalRepositoryException {
-    SesameManager manager = getManager();
-    Resource resource = manager.find(Resource.class, qname);
-    if (resource == null) {
-      return null;
-    }
-    return resource.getRdfsLabel();
-  }
-
-  /**
-   * Get a human readable label for a resource. If the URI is for a resource
-   * that is not a DOAP resource null is returned.
-   * 
-   * @param uri
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public String getLabel(String uri) throws SimalRepositoryException {
-    return getLabel(new QName(uri));
-  }
-
-  /**
    * Start a transaction.
    * 
    * @throws SimalRepositoryException
@@ -601,10 +564,7 @@ public class SimalRepository extends SimalProperties {
           "Attempt to create a second project with the QName " + qname);
     }
 
-    org.openrdf.concepts.doap.Project elmoProject = getManager().designate(
-        org.openrdf.concepts.doap.Project.class, qname);
-    project = new Project(elmoProject, this);
-    getManager().designate(IProject.class, qname);
+    project = getManager().designate(IProject.class, qname);
     return project;
   }
 
@@ -624,7 +584,7 @@ public class SimalRepository extends SimalProperties {
    * @throws IOException
    * @throws FileNotFoundException
    */
-  public String getNewProjectID() throws SimalRepositoryException {
+  public static String getNewProjectID() throws SimalRepositoryException {
     String strID = getProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
     long id = Long.parseLong(strID);
     long newId = id + 1;
@@ -633,7 +593,8 @@ public class SimalRepository extends SimalProperties {
       save();
     } catch (Exception e) {
       logger.warn("Unable to save properties file", e);
-      throw new SimalRepositoryException("Unable to save properties file when creating the next project ID", e);
+      throw new SimalRepositoryException(
+          "Unable to save properties file when creating the next project ID", e);
     }
     return strID;
   }
