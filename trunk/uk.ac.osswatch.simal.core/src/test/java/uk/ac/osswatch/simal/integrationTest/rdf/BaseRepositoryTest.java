@@ -43,7 +43,7 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "http://www.oss-watch.ac.uk/simal";
 
   public static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "Joe Blogs Maintainer";
-  public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "Jane Blógs Maintainer";
+  public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "Jane Blogs Maintainer";
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST = 2;
   public static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "Mailing List 1";
