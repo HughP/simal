@@ -14,6 +14,7 @@ import javax.xml.namespace.QName;
 
 import org.junit.Test;
 import org.openrdf.concepts.doap.Project;
+
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 

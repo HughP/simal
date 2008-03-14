@@ -12,13 +12,17 @@ import org.openrdf.elmo.annotations.rdf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
+import uk.ac.osswatch.simal.model.IDoapDownloadPage;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
-import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IDoapScreenshot;
+import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -280,7 +284,7 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
     }
     return result;
   }
-
+  
   /**
    * Get all repositories associated with this project.
    */
@@ -294,6 +298,81 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
       result.add(elmoEntity.getElmoManager().designateEntity(IDoapRepository.class, repository));
     }
     return result;
-    
+  }
+  
+  /**
+   * Get all screen shots associated with this project.
+   */
+  public Set<IDoapScreenshot> getScreenshots() {
+    Set<Object> set = getProject().getDoapScreenshots();
+    Set<IDoapScreenshot> result = new HashSet<IDoapScreenshot>(set.size());
+    Iterator<Object> resources = set.iterator();
+    Object resource;
+    while (resources.hasNext()) {
+      resource = resources.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapScreenshot.class, resource));
+    }
+    return result;
+  }
+  
+  /**
+   * Get all operating systems this project can be associated with.
+   * 
+   */
+  public Set<String> getOSes() {
+    return Utilities.convertToSetOfStrings(getProject().getDoapOses());
+  }
+  
+  /**
+   * Get all programming languages this project can be associated with.
+   * 
+   */
+  public Set<String> getProgrammingLanguages() {
+    return Utilities.convertToSetOfStrings(getProject().getDoapProgrammingLanguages());
+  }
+  
+  /**
+   * Get all wikis associated with this project.
+   */
+  public Set<IDoapWiki> getWikis() {
+    Set<Object> set = getProject().getDoapWikis();
+    Set<IDoapWiki> result = new HashSet<IDoapWiki>(set.size());
+    Iterator<Object> resources = set.iterator();
+    Object resource;
+    while (resources.hasNext()) {
+      resource = resources.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapWiki.class, resource));
+    }
+    return result;
+  }
+  
+  /**
+   * Get all download pages associated with this project.
+   */
+  public Set<IDoapDownloadPage> getDownloadPages() {
+    Set<Object> set = getProject().getDoapDownloadPages();
+    Set<IDoapDownloadPage> result = new HashSet<IDoapDownloadPage>(set.size());
+    Iterator<Object> resources = set.iterator();
+    Object resource;
+    while (resources.hasNext()) {
+      resource = resources.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapDownloadPage.class, resource));
+    }
+    return result;
+  }
+  
+  /**
+   * Get all download mirrors associated with this project.
+   */
+  public Set<IDoapDownloadMirror> getDownloadMirrors() {
+    Set<Object> set = getProject().getDoapDownloadMirrors();
+    Set<IDoapDownloadMirror> result = new HashSet<IDoapDownloadMirror>(set.size());
+    Iterator<Object> resources = set.iterator();
+    Object resource;
+    while (resources.hasNext()) {
+      resource = resources.next();
+      result.add(elmoEntity.getElmoManager().designateEntity(IDoapDownloadMirror.class, resource));
+    }
+    return result;
   }
 }

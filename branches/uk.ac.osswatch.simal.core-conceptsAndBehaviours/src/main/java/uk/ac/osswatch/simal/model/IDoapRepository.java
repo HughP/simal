@@ -1,9 +1,7 @@
 package uk.ac.osswatch.simal.model;
 
-import java.util.Set;
-
-import org.openrdf.elmo.annotations.rdf;
 import org.openrdf.concepts.doap.Repository;
+import org.openrdf.elmo.annotations.rdf;
 
 /**
  * A repository that is known to apply be used by a project

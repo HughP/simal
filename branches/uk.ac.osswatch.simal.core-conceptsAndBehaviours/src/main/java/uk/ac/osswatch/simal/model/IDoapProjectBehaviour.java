@@ -94,4 +94,37 @@ public interface IDoapProjectBehaviour extends IDoapResourceBehaviour {
    * Get all repositories associated with this project.
    */
   public Set<IDoapRepository> getRepositories();
+
+  /**
+   * Get all screen shots associated with this project.
+   */
+  public Set<IDoapScreenshot> getScreenshots();
+
+  
+  /**
+   * Get all operating systems this project can be associated with.
+   * 
+   */
+  public Set<String> getOSes();
+  
+  /**
+   * Get all programming languages this project can be associated with.
+   * 
+   */
+  public Set<String> getProgrammingLanguages();
+  
+  /**
+   * Get all wikis associated with this project.
+   */
+  public Set<IDoapWiki> getWikis();
+  
+  /**
+   * Get all download pages associated with this project.
+   */
+  public Set<IDoapDownloadPage> getDownloadPages();
+  
+  /**
+   * Get all download mirrors associated with this project.
+   */
+  public Set<IDoapDownloadMirror> getDownloadMirrors();
 } 

@@ -10,6 +10,7 @@ import org.openrdf.elmo.annotations.rdf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -18,7 +19,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 
 @rdf("http://usefulinc.com/ns/doap#Project")
-public class DoapResourceBehaviour extends ResourceBehavior {
+public class DoapResourceBehaviour extends ResourceBehavior implements IDoapResourceBehaviour {
   private static final Logger logger = LoggerFactory
   .getLogger(DoapResourceBehaviour.class);
     

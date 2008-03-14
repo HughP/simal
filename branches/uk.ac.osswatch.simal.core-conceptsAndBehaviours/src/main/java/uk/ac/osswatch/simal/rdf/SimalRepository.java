@@ -30,22 +30,30 @@ import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
+import uk.ac.osswatch.simal.model.IDoapDownloadPage;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IDoapScreenshot;
+import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.elmo.DoapBugDatabaseBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapCategoryBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapDownloadMirrorBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapDownloadPageBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapHomepageBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapMailingListBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapReleaseBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapRepositoryBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapScreenshotBehaviour;
+import uk.ac.osswatch.simal.model.elmo.DoapWikiBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
-import uk.ac.osswatch.simal.model.elmo.DoapBugDatabaseBehaviour;
 import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
 
 /**
@@ -176,21 +184,29 @@ public class SimalRepository extends SimalProperties {
     // Concepts
     module.recordRole(IDoapBugDatabase.class);
     module.recordRole(IDoapCategory.class);
+    module.recordRole(IDoapDownloadMirror.class);
+    module.recordRole(IDoapDownloadPage.class);
     module.recordRole(IDoapHomepage.class);
     module.recordRole(IDoapRelease.class);
     module.recordRole(IDoapRepository.class);
+    module.recordRole(IDoapScreenshot.class);
     module.recordRole(IDoapMailingList.class);
+    module.recordRole(IDoapWiki.class);
     module.recordRole(IPerson.class);
     module.recordRole(IProject.class);
 
     // Behaviours
     module.recordRole(DoapBugDatabaseBehaviour.class);
     module.recordRole(DoapCategoryBehaviour.class);
+    module.recordRole(DoapDownloadMirrorBehaviour.class);
+    module.recordRole(DoapDownloadPageBehaviour.class); 
     module.recordRole(DoapHomepageBehaviour.class);  
     module.recordRole(DoapMailingListBehaviour.class); 
     module.recordRole(DoapProjectBehaviour.class);   
     module.recordRole(DoapReleaseBehaviour.class);   
-    module.recordRole(DoapRepositoryBehaviour.class);    
+    module.recordRole(DoapRepositoryBehaviour.class);
+    module.recordRole(DoapScreenshotBehaviour.class);
+    module.recordRole(DoapWikiBehaviour.class);    
     module.recordRole(FoafPersonBehaviour.class);
     
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);
