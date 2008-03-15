@@ -26,6 +26,7 @@ public class SimalProperties {
   public static final String PROPERTY_TEST = "simal.test";
   public static final String PROPERTY_SIMAL_VERSION = "simal.version";
   public static final String PROPERTY_SIMAL_NEXT_PROJECT_ID = "simal.nextProjectID";
+  public static final String PROPERTY_SIMAL_NEXT_PERSON_ID = "simal.nextPersonID";
 
   public static final String PROPERTY_LOCAL_PROPERTIES_LOCATION = "simal.local.properties.path";
 

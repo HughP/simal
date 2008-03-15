@@ -40,6 +40,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private RDFXMLWriter handler;
   private Resource currentSubject;
   private Set<QName> projectQNames = new HashSet<QName>();
+  private Set<QName> personQNames = new HashSet<QName>();
   private SimalRepository repository;
 
   /**
@@ -98,6 +99,10 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
       outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
       currentSubject = outSubject;
+      if (inStatement.getObject().stringValue().equals(
+          SimalRepository.FOAF_PERSON_URI)) {
+        newPerson(outSubject);
+      }
     }
 
     outValue = fixEncoding(inStatement.getObject());
@@ -151,13 +156,52 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     try {
       idValue = new LiteralImpl(SimalRepository.getNewProjectID());
       Statement idStatement = new StatementImpl(project, new URIImpl(
-          SimalRepository.SIMAL_ID), idValue);
+          SimalRepository.SIMAL_URI_PROJECT_ID), idValue);
       handler.handleStatement(idStatement);
 
       projectQNames.add(qname);
     } catch (Exception e) {
       throw new RDFHandlerException(
-          "Unable to save the Simal propertis file, aborting file annotation",
+          "Unable to save the Simal properties file, aborting file annotation",
+          e);
+    }
+  }
+  
+
+
+  /**
+   * Checks to see if this is a new person in the repository. If it is then
+   * ensure that it has a unique Simal identifier and is recorded in the
+   * list of people found in the last file processed. If the person
+   * already exists then just add it to the list of files processed 
+   * (there will already be a unique identifier in the repo).
+   * 
+   * @param person
+   * @throws RDFHandlerException
+   */
+  private void newPerson(Resource person) throws RDFHandlerException {
+    QName qname = new QName(person.stringValue());
+    try {
+      if (repository.getPerson(qname) != null) {
+        personQNames.add(qname);
+        return;
+      }
+    } catch (SimalRepositoryException e) {
+      throw new RDFHandlerException(
+          "Unable to verify if a person already exists", e);
+    }
+
+    Value idValue;
+    try {
+      idValue = new LiteralImpl(SimalRepository.getNewPersonID());
+      Statement idStatement = new StatementImpl(person, new URIImpl(
+          SimalRepository.SIMAL_URI_PERSON_ID), idValue);
+      handler.handleStatement(idStatement);
+
+      personQNames.add(qname);
+    } catch (Exception e) {
+      throw new RDFHandlerException(
+          "Unable to save the Simal properties file, aborting file annotation",
           e);
     }
   }

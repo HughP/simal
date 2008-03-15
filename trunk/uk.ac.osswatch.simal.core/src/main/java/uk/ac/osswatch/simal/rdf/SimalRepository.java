@@ -75,14 +75,17 @@ public class SimalRepository extends SimalProperties {
   public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultPersonNS#";
 
   public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
-  public static final String FOAF_KNOWS_PREDICATE = FOAF_NAMESPACE_URI
-      + "knows";
+  public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI
+      + "Person";
+  public static final String FOAF_KNOWS_URI = FOAF_NAMESPACE_URI
+  + "knows";
 
   public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
   public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
 
   public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
-  public static final String SIMAL_ID = SIMAL_NAMESPACE_URI + "project-id";
+  public static final String SIMAL_URI_PROJECT_ID = SIMAL_NAMESPACE_URI + "projectId";
+  public static final String SIMAL_URI_PERSON_ID = SIMAL_NAMESPACE_URI + "personId";
 
   public static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
@@ -595,6 +598,27 @@ public class SimalRepository extends SimalProperties {
       logger.warn("Unable to save properties file", e);
       throw new SimalRepositoryException(
           "Unable to save properties file when creating the next project ID", e);
+    }
+    return strID;
+  }
+
+  /**
+   * Create a new person ID and save the next value in the properties file.
+   * 
+   * @throws IOException
+   * @throws FileNotFoundException
+   */
+  public static String getNewPersonID() throws SimalRepositoryException {
+    String strID = getProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
+    long id = Long.parseLong(strID);
+    long newId = id + 1;
+    setProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, Long.toString(newId));
+    try {
+      save();
+    } catch (Exception e) {
+      logger.warn("Unable to save properties file", e);
+      throw new SimalRepositoryException(
+          "Unable to save properties file when creating the next person ID", e);
     }
     return strID;
   }
