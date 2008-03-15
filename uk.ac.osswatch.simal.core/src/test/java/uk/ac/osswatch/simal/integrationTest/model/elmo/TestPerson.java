@@ -1,9 +1,10 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotNull;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
@@ -58,6 +59,11 @@ public class TestPerson extends BaseRepositoryTest {
     Set<IPerson> colleagues = developer.getColleagues();
     assertNotNull(colleagues);
     assertEquals("Got an incorrect number of colleagues", 6, colleagues.size());
+    Iterator<IPerson> people = colleagues.iterator();
+    while (people.hasNext()) {
+      IPerson person = people.next();
+      assertNotNull("No person should have a null ID (see " + person.getQName().toString() + ")", person.getSimalId());
+    }
   }
   
   @Test
