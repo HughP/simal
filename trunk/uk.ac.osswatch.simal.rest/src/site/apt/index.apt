@@ -59,6 +59,10 @@ Now What?
  
  The following sections describe the features currently exposed via the API.
  
+ [WARNING] No attempt has been made to map the Open Social API. It is intended
+ do so on calls that map to Open Social calls. This API should be considered an
+ early alpha and *will* change.
+ 
 * URL Structure
 
  All REST URLs are of the same form:
@@ -82,8 +86,12 @@ Now What?
  
  To retrieve all colleagues as a JSON file use:
  
- http://foo.com/simal-rest/$PERSON_QNAME/allColleagues.json
+ * http://foo.com/simal-rest/$PERSON_QNAME/allColleagues.json
+ * http://foo.com/simal-rest/$PERSON_QNAME/allColleagues.xml
  
  Where PERSON_QNAME is replaced with the QName of the
  person we are interested in.
+  
+ 
+
 
