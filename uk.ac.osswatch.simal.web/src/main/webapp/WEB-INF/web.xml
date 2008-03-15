@@ -104,7 +104,7 @@
 
   <servlet-mapping>
     <servlet-name>socialdata</servlet-name>
-    <url-pattern>/socialdata</url-pattern>
+    <url-pattern>/gadgets/socialdata</url-pattern>
   </servlet-mapping>
 
 </web-app>
