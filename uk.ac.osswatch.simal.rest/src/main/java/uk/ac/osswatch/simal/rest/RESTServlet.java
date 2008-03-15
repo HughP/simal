@@ -52,11 +52,7 @@ public class RESTServlet extends HttpServlet {
         if (cmd.endsWith(".json")) {
           String qname = "http://foo.org/~developer/#me";
 
-          IPerson person = repo.getPerson(new QName(qname));
-          if (person == null) {
-            errorResponse("No person kown with the QName " + qname);
-          }
-          Iterator<IPerson> colleagues = person.getColleagues().iterator();
+          Iterator<IPerson> colleagues = getAllColleagues(qname);
           StringBuffer json = new StringBuffer();
           while (colleagues.hasNext()) {
             json.append("{ \"items\": [");
@@ -64,6 +60,25 @@ public class RESTServlet extends HttpServlet {
             json.append("]}");
           }
           response = json.toString();
+        } else if (cmd.endsWith(".xml")) {
+          String qname = "http://foo.org/~developer/#me";
+
+          Iterator<IPerson> colleagues = getAllColleagues(qname);
+          StringBuffer xml = new StringBuffer();
+          xml.append("<container>");
+          xml.append("<viewer>");
+          xml.append("<person id=\"john.doe\" name=\"FIXME: John Doe\"></person>");
+          xml.append("</viewer>");
+
+          xml.append("<viewerFriends>");
+          IPerson person;
+          while (colleagues.hasNext()) {
+            person = colleagues.next();
+            xml.append("<person id=\"FIXME:" + person.getFoafGivennames() + "\" name=\"" + person.getFoafGivennames() + "\"></person>");
+          }
+          xml.append("</viewerFriends>");
+          xml.append("</container>");
+          response = xml.toString();
         } else {
           response = errorResponse("Unkown format requested - "
               + req.getPathInfo());
@@ -78,6 +93,22 @@ public class RESTServlet extends HttpServlet {
 
     out.println(response);
     out.close();
+  }
+
+  /**
+   * Get all colleagues of a specified person.
+   * @param qname
+   * @return
+   * @throws SimalRepositoryException
+   */
+  private Iterator<IPerson> getAllColleagues(String qname)
+      throws SimalRepositoryException {
+    IPerson person = repo.getPerson(new QName(qname));
+    if (person == null) {
+      errorResponse("No person known with the QName " + qname);
+    }
+    Iterator<IPerson> colleagues = person.getColleagues().iterator();
+    return colleagues;
   }
 
   private String errorResponse(String msg) {
