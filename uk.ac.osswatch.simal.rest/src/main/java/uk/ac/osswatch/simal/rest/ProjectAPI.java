@@ -1,7 +1,5 @@
 package uk.ac.osswatch.simal.rest;
 
-import javax.servlet.http.HttpServletRequest;
-
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -9,18 +7,31 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A class for handling all API calls relating to projects.
  *
  */
-public class ProjectAPI {
-
-  private SimalRepository repo;
-
+public class ProjectAPI extends AbstractHandler {
+  
   /**
    * Create a new project API object to operate on projects in a given
-   * Simal repository.
+   * Simal repository. Handlers should not be instantiated directly,
+   * use HandlerFactory.createHandler(...) instead.
    * 
    * @param repo
    */
-  public ProjectAPI(SimalRepository repo) {
-    this.repo = repo;
+  protected ProjectAPI(SimalRepository repo) {
+    super(repo);
+  }
+  
+  /**
+   * Execute a command.
+   * 
+   * @param cmd
+   * @throws SimalAPIException 
+   */
+  public String execute(String cmd) throws SimalAPIException {
+    if (cmd.contains(RESTServlet.COMMAND_ALL_PROJECTS)) {
+      return getAllProjects(cmd);
+    } else {
+      throw new SimalAPIException("Unkown command: " + cmd);
+    }
   }
 
   /**
@@ -31,7 +42,7 @@ public class ProjectAPI {
    * @return
    * @throws SimalAPIException
    */
-  public String getAllProjects(HttpServletRequest req, String cmd) throws SimalAPIException {
+  public String getAllProjects(String cmd) throws SimalAPIException {
     if (cmd.endsWith(".json")) {
       try {
         return repo.getAllProjectsAsJSON();
@@ -40,7 +51,7 @@ public class ProjectAPI {
       }
     } else {
       throw new SimalAPIException("Unkown format requested - "
-          + req.getPathInfo());
+          + cmd);
     }
   }
 
