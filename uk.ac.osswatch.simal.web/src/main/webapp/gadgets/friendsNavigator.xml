@@ -17,6 +17,7 @@
 <Module>
   <ModulePrefs title="Friends Navigator">
     <Require feature="opensocial-0.7" />
+    <Require feature="opensocial-reference" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[      
