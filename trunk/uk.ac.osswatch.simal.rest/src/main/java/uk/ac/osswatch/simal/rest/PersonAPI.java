@@ -2,7 +2,6 @@ package uk.ac.osswatch.simal.rest;
 
 import java.util.Iterator;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IPerson;
@@ -13,33 +12,55 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * API functionality for working with Person objects.
  *
  */
-public class PersonAPI {
+public class PersonAPI extends AbstractHandler {
   String qname = "http://foo.org/~developer/#me";
-  SimalRepository repo;
 
   /**
    * Create a PersonAPI that will operate on a given Simal
-   * Repository.
+   * Repository. Handlers should not be instantiated directly,
+   * use HandlerFactory.createHandler(...) instead.
    * 
    * @param repo
    */
-  public PersonAPI(SimalRepository repo) {
-    this.repo = repo;
+  protected PersonAPI(SimalRepository repo) {
+    super(repo);
   }
 
-  public String getAllColleagues(HttpServletRequest req, String cmd)
+
+  /**
+   * Execute a command.
+   * 
+   * @param cmd
+   * @throws SimalAPIException 
+   */
+  public String execute(String cmd) throws SimalAPIException {
+    if (cmd.contains(RESTServlet.COMMAND_ALL_COLLEAGUES)) {
+      return getAllColleagues(cmd);
+    } else {
+      throw new SimalAPIException("Unkown command: " + cmd);
+    }
+  }
+
+  /**
+   * Get all the colleagues for this 
+   * 
+   * @param cmd
+   * @return
+   * @throws SimalAPIException
+   */
+  public String getAllColleagues(String cmd)
       throws SimalAPIException {
     String response;
     StringBuffer result = new StringBuffer();
     if (cmd.endsWith(".json")) {
-      Iterator<IPerson> colleagues = getAllColleagues(qname);
+      Iterator<IPerson> colleagues = getAllColleaguesFromRepo(qname);
       while (colleagues.hasNext()) {
         result.append("{ \"items\": [");
         result.append(colleagues.next().toJSON(true));
         result.append("]}");
       }
     } else if (cmd.endsWith(".xml")) {
-      Iterator<IPerson> colleagues = getAllColleagues(qname);
+      Iterator<IPerson> colleagues = getAllColleaguesFromRepo(qname);
       result.append("<container>");
       result.append("<viewer>");
       result.append("<person id=\"john.doe\" name=\"FIXME: John Doe\"></person>");
@@ -55,7 +76,7 @@ public class PersonAPI {
       result.append("</container>");
     } else {
       throw new SimalAPIException("Unkown format requested - "
-          + req.getPathInfo());
+          + cmd);
     }
     response = result.toString();
     return response;
@@ -67,7 +88,7 @@ public class PersonAPI {
    * @return
    * @throws SimalRepositoryException
    */
-  private Iterator<IPerson> getAllColleagues(String qname)
+  private Iterator<IPerson> getAllColleaguesFromRepo(String qname)
       throws SimalAPIException {
     IPerson person;
     try {

@@ -14,8 +14,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class RESTServlet extends HttpServlet {
   private static final long serialVersionUID = -7003783530005464708L;
 
-  private static final String COMMAND_ALL_PROJECTS = "/allProjects.";
-  private static final String COMMAND_ALL_COLLEAGUES = "/allColleagues.";
+  public static final String COMMAND_ALL_PROJECTS = "/allProjects.";
+  public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues.";
 
   private static SimalRepository repo;
 
@@ -38,13 +38,8 @@ public class RESTServlet extends HttpServlet {
     String response = "Couldn't handle request for " + req.getPathInfo();
 
     try {
-      if (cmd.contains(COMMAND_ALL_PROJECTS)) {
-        ProjectAPI projectAPI = new ProjectAPI(repo);
-        response = projectAPI.getAllProjects(req, cmd);
-      } else if (cmd.contains(COMMAND_ALL_COLLEAGUES)) {
-        PersonAPI personAPI = new PersonAPI(repo);
-        response = personAPI.getAllColleagues(req, cmd);
-      }
+      IAPIHandler handler = HandlerFactory.createHandler(cmd, repo);
+      response = handler.execute(cmd);      
     } catch (SimalAPIException e) {
       response = errorResponse(e);
     } finally {
