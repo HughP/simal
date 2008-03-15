@@ -124,6 +124,7 @@ public class TestProject extends BaseRepositoryTest {
       if (person.getLabel().equals(TEST_SIMAL_PROJECT_DEVELOPERS)) {
         hasDeveloper = true;
       }
+      assertNotNull("No person should have a null ID (see " + person.getQName().toString() + ")", person.getSimalId());
     }
     assertTrue("Project does not appear to have developer "
         + TEST_SIMAL_PROJECT_DEVELOPERS, hasDeveloper);
