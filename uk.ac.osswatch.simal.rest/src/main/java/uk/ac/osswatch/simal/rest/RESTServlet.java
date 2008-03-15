@@ -49,40 +49,35 @@ public class RESTServlet extends HttpServlet {
               + req.getPathInfo());
         }
       } else if (cmd.contains(COMMAND_ALL_COLLEAGUES)) {
+        String qname = "http://foo.org/~developer/#me";
+        StringBuffer result = new StringBuffer();
         if (cmd.endsWith(".json")) {
-          String qname = "http://foo.org/~developer/#me";
-
           Iterator<IPerson> colleagues = getAllColleagues(qname);
-          StringBuffer json = new StringBuffer();
           while (colleagues.hasNext()) {
-            json.append("{ \"items\": [");
-            json.append(colleagues.next().toJSON(true));
-            json.append("]}");
+            result.append("{ \"items\": [");
+            result.append(colleagues.next().toJSON(true));
+            result.append("]}");
           }
-          response = json.toString();
         } else if (cmd.endsWith(".xml")) {
-          String qname = "http://foo.org/~developer/#me";
-
           Iterator<IPerson> colleagues = getAllColleagues(qname);
-          StringBuffer xml = new StringBuffer();
-          xml.append("<container>");
-          xml.append("<viewer>");
-          xml.append("<person id=\"john.doe\" name=\"FIXME: John Doe\"></person>");
-          xml.append("</viewer>");
+          result.append("<container>");
+          result.append("<viewer>");
+          result.append("<person id=\"john.doe\" name=\"FIXME: John Doe\"></person>");
+          result.append("</viewer>");
 
-          xml.append("<viewerFriends>");
+          result.append("<viewerFriends>");
           IPerson person;
           while (colleagues.hasNext()) {
             person = colleagues.next();
-            xml.append("<person id=\"FIXME:" + person.getFoafGivennames() + "\" name=\"" + person.getFoafGivennames() + "\"></person>");
+            result.append("<person id=\"FIXME:" + person.getFoafGivennames() + "\" name=\"" + person.getFoafGivennames() + "\"></person>");
           }
-          xml.append("</viewerFriends>");
-          xml.append("</container>");
-          response = xml.toString();
+          result.append("</viewerFriends>");
+          result.append("</container>");
         } else {
-          response = errorResponse("Unkown format requested - "
-              + req.getPathInfo());
+          result.append(errorResponse("Unkown format requested - "
+              + req.getPathInfo()));
         }
+        response = result.toString();
       }
     } catch (SimalRepositoryException e) {
       // FIXME: Handle errors properly
