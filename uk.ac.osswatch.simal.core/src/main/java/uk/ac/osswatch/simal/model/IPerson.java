@@ -30,4 +30,22 @@ public interface IPerson extends Person, IFoafPersonBehaviour {
    * @throws SimalRepositoryException
    */
   public Set<IPerson> getColleagues() throws SimalRepositoryException;
+  
+
+  /**
+   * Get the Simal ID for this person. This is a unique identifier
+   * within the repository from which it was retrieved.
+   * 
+   * @return 
+   */
+  @rdf("http://simal.oss-watch.ac.uk/ns/0.2/simal#personId")
+  public String getSimalId();
+
+  /**
+   * Set the Simal ID for this person. This is a unique identifier
+   * within the repository from which it was retrieved.
+   * 
+   * @return 
+   */
+  public void setSimalId(String newId);
 }
