@@ -100,7 +100,7 @@ public class TestAnnotatingRDFXMLHandler extends BaseRepositoryTest {
         hasPersonQName = true;
       } else if (token.contains("<foaf:name")) {
         hasFoafName = true;
-      } else if (token.contains("<simal:project-id>")) {
+      } else if (token.contains("<simal:projectId>")) {
         lastId = thisId;
         thisId = token.substring(token.indexOf(">") + 1, token.lastIndexOf("<"));
         hasID = true;
