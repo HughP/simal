@@ -16,7 +16,7 @@
 -->
 <Module>
   <ModulePrefs title="Hello from the Simal World!">
-    <Require feature="opensocial-samplecontainer" />
+    <Require feature="opensocial-reference" />
   </ModulePrefs>
   <Content type="html">
     <![CDATA[
