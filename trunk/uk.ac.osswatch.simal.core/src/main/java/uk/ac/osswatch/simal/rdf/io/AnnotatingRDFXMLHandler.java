@@ -21,6 +21,7 @@ import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.rdfxml.RDFXMLWriter;
 
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -38,7 +39,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   private RDFXMLWriter handler;
-  private Resource currentSubject;
+  private Resource currentProject;
+  private Resource currentPerson;
   private Set<QName> projectQNames = new HashSet<QName>();
   private Set<QName> personQNames = new HashSet<QName>();
   private SimalRepository repository;
@@ -74,41 +76,30 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     Statement outStatement = inStatement;
     Resource outSubject = inStatement.getSubject();
     URI outPredicate = inStatement.getPredicate();
-    Value outValue;
-    if (currentSubject == null) {
-      currentSubject = outSubject;
-    }
+    Value outValue = fixEncoding(inStatement.getObject());
 
-    if (inStatement.getObject().stringValue().equals(
-        SimalRepository.DOAP_PROJECT_URI)
-        || currentSubject.stringValue().startsWith(
-            SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI)
-        || outPredicate.stringValue().startsWith(
-            SimalRepository.DOAP_NAMESPACE_URI)) {
+    if (isNewProjectType(inStatement)
+        || isCurrentProjectBlankNode()
+        || isDoapPredicate(outPredicate)) {
       outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
-      currentSubject = outSubject;
-      if (inStatement.getObject().stringValue().equals(
-          SimalRepository.DOAP_PROJECT_URI)) {
+      currentProject = outSubject;
+      if (isNewProjectType(inStatement)) {
         newProject(outSubject);
       }
-    } else if (inStatement.getObject().stringValue().startsWith(
-        SimalRepository.FOAF_NAMESPACE_URI)
-        || currentSubject.stringValue().startsWith(
-            SimalRepository.DEFAULT_PERSON_NAMESPACE_URI)) {
+    }
+    
+    if (isNewPersonType(inStatement)
+        || isCurrentPersonBlankNode()) {
       outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
-      currentSubject = outSubject;
-      if (inStatement.getObject().stringValue().equals(
-          SimalRepository.FOAF_PERSON_URI)) {
+      currentPerson = outSubject;
+      if (isNewPersonType(inStatement)) {
         newPerson(outSubject);
       }
     }
 
-    outValue = fixEncoding(inStatement.getObject());
-
-    if (inStatement.getPredicate().stringValue().startsWith(
-        SimalRepository.FOAF_NAMESPACE_URI)) {
+    if (isFoafPredicate(inStatement)) {
       // FIXME: for some reason elmo does not support foaf:name, for
       // now just convert to givenname
       String predicateValue = outPredicate.stringValue();
@@ -128,6 +119,67 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     outStatement = new StatementImpl(outSubject, outPredicate, outValue);
 
     handler.handleStatement(outStatement);
+  }
+
+  /**
+   * Return true if the predicate for a statement is in the FOAF namespace.
+   * @param inStatement
+   * @return
+   */
+  private boolean isFoafPredicate(Statement inStatement) {
+    return inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.FOAF_NAMESPACE_URI);
+  }
+
+  /**
+   * Return true if the person currently being processed is from a blank node
+   * that is being rewritten as a Simal namespaced node.
+   * @return
+   */
+  private boolean isCurrentPersonBlankNode() {
+    return (currentPerson != null && currentPerson.stringValue().startsWith(
+        SimalRepository.DEFAULT_PERSON_NAMESPACE_URI));
+  }
+
+  /**
+   * Return true if the statement indicates that this is a new person type.
+   * @param inStatement
+   * @return
+   */
+  private boolean isNewPersonType(Statement inStatement) {
+    return inStatement.getObject().stringValue().startsWith(
+        SimalRepository.FOAF_NAMESPACE_URI);
+  }
+
+  /**
+   * Return true if the predicate for a statement is in the DOAP namespace.
+   * @param inStatement
+   * @return
+   */
+  private boolean isDoapPredicate(URI outPredicate) {
+    return outPredicate.stringValue().startsWith(
+        SimalRepository.DOAP_NAMESPACE_URI);
+  }
+
+
+  /**
+   * Return true if the project currently being processed is from a blank node
+   * that is being rewritten as a Simal namespaced node.
+   * @return
+   */
+  private boolean isCurrentProjectBlankNode() {
+    return (currentProject != null && currentProject.stringValue().startsWith(
+        SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI));
+  }
+
+  /**
+   * Return true if the statement indicates that this is a new project type.
+   * @param inStatement
+   * @return
+   */
+  private boolean isNewProjectType(Statement inStatement) {
+    return inStatement.getObject().stringValue().equals(
+        SimalRepository.DOAP_PROJECT_URI);
   }
 
   /**
@@ -182,7 +234,8 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private void newPerson(Resource person) throws RDFHandlerException {
     QName qname = new QName(person.stringValue());
     try {
-      if (repository.getPerson(qname) != null) {
+      IPerson existingPerson = repository.getPerson(qname);
+      if (existingPerson != null) {
         personQNames.add(qname);
         return;
       }
