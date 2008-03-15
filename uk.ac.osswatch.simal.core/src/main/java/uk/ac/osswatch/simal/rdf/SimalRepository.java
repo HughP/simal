@@ -71,8 +71,8 @@ public class SimalRepository extends SimalProperties {
   // FIXME: standardise names of constants
   public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
-  public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultProjectNS#";
-  public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal/oss-watch.ac.uk/defaultPersonNS#";
+  public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultProjectNS#";
+  public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultPersonNS#";
 
   public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
   public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI
