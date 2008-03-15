@@ -59,4 +59,10 @@ public class TestPerson extends BaseRepositoryTest {
     assertNotNull(colleagues);
     assertEquals("Got an incorrect number of colleagues", 6, colleagues.size());
   }
+  
+  @Test
+  public void testSimalId() {
+    String id = developer.getSimalId();
+    assertNotNull("ID should not be null", id);
+  }
 }
