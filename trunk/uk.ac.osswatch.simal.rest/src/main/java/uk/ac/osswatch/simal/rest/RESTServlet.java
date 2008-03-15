@@ -2,15 +2,12 @@ package uk.ac.osswatch.simal.rest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.namespace.QName;
 
-import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -42,73 +39,29 @@ public class RESTServlet extends HttpServlet {
 
     try {
       if (cmd.contains(COMMAND_ALL_PROJECTS)) {
-        if (cmd.endsWith(".json")) {
-          response = repo.getAllProjectsAsJSON();
-        } else {
-          response = errorResponse("Unkown format requested - "
-              + req.getPathInfo());
-        }
+        ProjectAPI projectAPI = new ProjectAPI(repo);
+        response = projectAPI.getAllProjects(req, cmd);
       } else if (cmd.contains(COMMAND_ALL_COLLEAGUES)) {
-        String qname = "http://foo.org/~developer/#me";
-        StringBuffer result = new StringBuffer();
-        if (cmd.endsWith(".json")) {
-          Iterator<IPerson> colleagues = getAllColleagues(qname);
-          while (colleagues.hasNext()) {
-            result.append("{ \"items\": [");
-            result.append(colleagues.next().toJSON(true));
-            result.append("]}");
-          }
-        } else if (cmd.endsWith(".xml")) {
-          Iterator<IPerson> colleagues = getAllColleagues(qname);
-          result.append("<container>");
-          result.append("<viewer>");
-          result.append("<person id=\"john.doe\" name=\"FIXME: John Doe\"></person>");
-          result.append("</viewer>");
-
-          result.append("<viewerFriends>");
-          IPerson person;
-          while (colleagues.hasNext()) {
-            person = colleagues.next();
-            result.append("<person id=\"FIXME:" + person.getFoafGivennames() + "\" name=\"" + person.getFoafGivennames() + "\"></person>");
-          }
-          result.append("</viewerFriends>");
-          result.append("</container>");
-        } else {
-          result.append(errorResponse("Unkown format requested - "
-              + req.getPathInfo()));
-        }
-        response = result.toString();
+        PersonAPI personAPI = new PersonAPI(repo);
+        response = personAPI.getAllColleagues(req, cmd);
       }
-    } catch (SimalRepositoryException e) {
-      // FIXME: Handle errors properly
-      e.printStackTrace();
-      out.println("Error: " + e.getMessage());
+    } catch (SimalAPIException e) {
+      response = errorResponse(e);
+    } finally {
+      out.println(response);
       out.close();
     }
-
-    out.println(response);
-    out.close();
   }
 
   /**
-   * Get all colleagues of a specified person.
-   * @param qname
+   * Generate an Error response to be returned to the client.
+   * 
+   * @param e
    * @return
-   * @throws SimalRepositoryException
    */
-  private Iterator<IPerson> getAllColleagues(String qname)
-      throws SimalRepositoryException {
-    IPerson person = repo.getPerson(new QName(qname));
-    if (person == null) {
-      errorResponse("No person known with the QName " + qname);
-    }
-    Iterator<IPerson> colleagues = person.getColleagues().iterator();
-    return colleagues;
-  }
-
-  private String errorResponse(String msg) {
+  private String errorResponse(SimalAPIException e) {
     String response;
-    response = "ERROR: " + msg;
+    response = "ERROR: " + e.getMessage();
     return response;
   }
 }
