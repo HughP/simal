@@ -15,6 +15,7 @@ import javax.xml.namespace.QName;
 import org.junit.Test;
 import org.openrdf.concepts.doap.Project;
 
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -106,5 +107,12 @@ public class TestRepository extends BaseRepositoryTest {
     repository.remove(new QName(TEST_SIMAL_PROJECT_QNAME));
     Project project = getSimalTestProject(true);
     assertNull("Failed to remove the test project", project);
+  }
+  
+  @Test
+  public void testFindPersonById() throws SimalRepositoryException {
+    IPerson person = repository.findPersonById("1");
+    assertNotNull(person);
+    assertEquals("developer", person.getFoafGivennames().toString());
   }
 }
