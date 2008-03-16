@@ -9,8 +9,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepository;
  */
 public abstract class AbstractHandler implements IAPIHandler {
 
-  public static final String XML_SUFFIX = "/xml";
-  public static final String JSON_SUFFIX = "/json";
+  public static final String PARAM_PERSON_ID = "person-";
   protected static SimalRepository repo;
 
   /**
