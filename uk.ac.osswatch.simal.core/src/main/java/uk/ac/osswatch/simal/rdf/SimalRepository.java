@@ -11,7 +11,9 @@ import java.util.Set;
 import javax.persistence.EntityTransaction;
 import javax.xml.namespace.QName;
 
+import org.openrdf.elmo.ElmoManager;
 import org.openrdf.elmo.ElmoModule;
+import org.openrdf.elmo.ElmoQuery;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
 import org.openrdf.model.URI;
@@ -75,17 +77,17 @@ public class SimalRepository extends SimalProperties {
   public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultPersonNS#";
 
   public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
-  public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI
-      + "Person";
-  public static final String FOAF_KNOWS_URI = FOAF_NAMESPACE_URI
-  + "knows";
+  public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI + "Person";
+  public static final String FOAF_KNOWS_URI = FOAF_NAMESPACE_URI + "knows";
 
   public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
   public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
 
   public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
-  public static final String SIMAL_URI_PROJECT_ID = SIMAL_NAMESPACE_URI + "projectId";
-  public static final String SIMAL_URI_PERSON_ID = SIMAL_NAMESPACE_URI + "personId";
+  public static final String SIMAL_URI_PROJECT_ID = SIMAL_NAMESPACE_URI
+      + "projectId";
+  public static final String SIMAL_URI_PERSON_ID = SIMAL_NAMESPACE_URI
+      + "personId";
 
   public static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
@@ -205,16 +207,16 @@ public class SimalRepository extends SimalProperties {
     module.recordRole(DoapBugDatabaseBehaviour.class);
     module.recordRole(DoapCategoryBehaviour.class);
     module.recordRole(DoapDownloadMirrorBehaviour.class);
-    module.recordRole(DoapDownloadPageBehaviour.class); 
-    module.recordRole(DoapHomepageBehaviour.class);  
-    module.recordRole(DoapMailingListBehaviour.class); 
-    module.recordRole(DoapProjectBehaviour.class);   
-    module.recordRole(DoapReleaseBehaviour.class);   
+    module.recordRole(DoapDownloadPageBehaviour.class);
+    module.recordRole(DoapHomepageBehaviour.class);
+    module.recordRole(DoapMailingListBehaviour.class);
+    module.recordRole(DoapProjectBehaviour.class);
+    module.recordRole(DoapReleaseBehaviour.class);
     module.recordRole(DoapRepositoryBehaviour.class);
     module.recordRole(DoapScreenshotBehaviour.class);
-    module.recordRole(DoapWikiBehaviour.class);    
+    module.recordRole(DoapWikiBehaviour.class);
     module.recordRole(FoafPersonBehaviour.class);
-    
+
     SesameManagerFactory factory = new SesameManagerFactory(module, _repository);
     return factory.createElmoManager();
   }
@@ -240,7 +242,8 @@ public class SimalRepository extends SimalProperties {
    * @return the project, or if no project with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public IDoapCategory findCategory(QName qname) throws SimalRepositoryException {
+  public IDoapCategory findCategory(QName qname)
+      throws SimalRepositoryException {
     verifyInitialised();
     return getManager().designate(IDoapCategory.class, qname);
   }
@@ -253,10 +256,32 @@ public class SimalRepository extends SimalProperties {
    * @return the repository or if no repository with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public IPerson getPerson(QName qname)
-      throws SimalRepositoryException {
+  public IPerson getPerson(QName qname) throws SimalRepositoryException {
     verifyInitialised();
     return getManager().find(IPerson.class, qname);
+  }
+
+  /**
+   * Get a person with a given simal id.
+   * 
+   * @param id
+   * @return
+   * @throws SimalRepositoryException 
+   */
+  public IPerson findPersonById(String id) throws SimalRepositoryException {
+    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?person WHERE { "
+        + "?project rdf:type foaf:Person . "
+        + "?person simal:personId $simalId  "
+        + "}";
+    ElmoManager elmoManager = getManager();
+    ElmoQuery query = elmoManager.createQuery(queryStr);
+    query.setParameter("simalId", id);
+    
+    IPerson person = elmoManager.designateEntity(IPerson.class, query.getSingleResult());
+    return person;
   }
 
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
