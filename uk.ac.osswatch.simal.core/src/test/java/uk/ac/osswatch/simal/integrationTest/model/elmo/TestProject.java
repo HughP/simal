@@ -131,18 +131,18 @@ public class TestProject extends BaseRepositoryTest {
   }
 
   @Test
-  public void testGetDocumentors() throws SimalRepositoryException {
-    boolean hasDocumentor = false;
+  public void testGetDocumenters() throws SimalRepositoryException {
+    boolean hasDocumenter = false;
     Iterator<IPerson> people = project1.getDocumenters().iterator();
     IPerson person;
     while (people.hasNext()) {
       person = people.next();
-      if (person.getLabel().equals(TEST_SIMAL_PROJECT_DOCUMENTORS)) {
-        hasDocumentor = true;
+      if (person.getLabel().equals(TEST_SIMAL_PROJECT_DOCUMENTERS)) {
+        hasDocumenter = true;
       }
     }
-    assertTrue("Project does not appear to have documentor "
-        + TEST_SIMAL_PROJECT_DOCUMENTORS, hasDocumentor);
+    assertTrue("Project does not appear to have documenter "
+        + TEST_SIMAL_PROJECT_DOCUMENTERS, hasDocumenter);
   }
 
   @Test
