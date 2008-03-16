@@ -71,4 +71,11 @@ public class TestPerson extends BaseRepositoryTest {
     String id = developer.getSimalId();
     assertNotNull("ID should not be null", id);
   }
+  
+  @Test
+  public void testSeeAlso() {
+    Set<Object> seeAlso= developer.getRdfsSeeAlso();
+    assertEquals("There should be a single see also value", 1, seeAlso.size());
+    
+  }
 }

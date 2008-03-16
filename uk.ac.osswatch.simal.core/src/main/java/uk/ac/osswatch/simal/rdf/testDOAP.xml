@@ -143,6 +143,8 @@
 		  </foaf:Person>
 	  </foaf:knows>
 	  <foaf:homepage rdf:resource="http://example.org/person/developer" />
+    <rdfs:seeAlso
+        rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
     </foaf:Person>
   </developer>
 </Project>
