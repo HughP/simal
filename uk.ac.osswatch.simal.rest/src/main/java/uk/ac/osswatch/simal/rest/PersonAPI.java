@@ -2,8 +2,6 @@ package uk.ac.osswatch.simal.rest;
 
 import java.util.Iterator;
 
-import javax.xml.namespace.QName;
-
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -50,57 +48,46 @@ public class PersonAPI extends AbstractHandler {
    */
   public String getAllColleagues(String cmd)
       throws SimalAPIException {
+    int paramStart = cmd.indexOf(PARAM_PERSON_ID) + PARAM_PERSON_ID.length();
+    String id = cmd.substring(paramStart, cmd.indexOf("/", paramStart));
+    
     String response;
     StringBuffer result = new StringBuffer();
-    if (cmd.endsWith(JSON_SUFFIX)) {
-      Iterator<IPerson> colleagues = getAllColleaguesFromRepo(qname);
+    IPerson person;
+    Iterator<IPerson> colleagues = null;
+    try {
+      person = repo.findPersonById(id);
+      colleagues = person.getColleagues().iterator();
+    } catch (SimalRepositoryException e) {
+      throw new SimalAPIException("Unable to get colleagues for person with id " + id, e);
+    }
+    
+    if (cmd.endsWith(RESTServlet.JSON_SUFFIX)) {
       while (colleagues.hasNext()) {
         result.append("{ \"items\": [");
         result.append(colleagues.next().toJSON(true));
         result.append("]}");
       }
-    } else if (cmd.endsWith(XML_SUFFIX)) {
-      Iterator<IPerson> colleagues = getAllColleaguesFromRepo(qname);
+    } else if (cmd.endsWith(RESTServlet.XML_SUFFIX)) {
       result.append("<container>");
       result.append("<viewer>");
-      result.append("<person id=\"john.doe\" name=\"FIXME: John Doe\"></person>");
+      result.append("<person id=\"" + person.getSimalId() + "\" name=\"" + person.getFoafGivennames() + "\"></person>");
       result.append("</viewer>");
 
       result.append("<viewerFriends>");
-      IPerson person;
+      IPerson colleague;
       while (colleagues.hasNext()) {
-        person = colleagues.next();
-        result.append("<person id=\"" + person.getSimalId() + "\" name=\"" + person.getFoafGivennames() + "\"></person>");
+        colleague = colleagues.next();
+        result.append("<person id=\"" + colleague.getSimalId() + "\" name=\"" + colleague.getFoafGivennames() + "\"></person>");
       }
       result.append("</viewerFriends>");
-      result.append("</container>");
+      result.append("</container>"); 
     } else {
       throw new SimalAPIException("Unkown format requested - "
           + cmd);
     }
     response = result.toString();
     return response;
-  }
-
-  /**
-   * Get all colleagues of a specified person.
-   * @param qname
-   * @return
-   * @throws SimalRepositoryException
-   */
-  private Iterator<IPerson> getAllColleaguesFromRepo(String qname)
-      throws SimalAPIException {
-    IPerson person;
-    try {
-      person = repo.getPerson(new QName(qname));
-    if (person == null) {
-      throw new SimalAPIException("No person known with the QName " + qname);
-    }
-    Iterator<IPerson> colleagues = person.getColleagues().iterator();
-    return colleagues;
-    } catch (SimalRepositoryException e) {
-      throw new SimalAPIException("Unable to get colleagues of " + qname, e);
-    }
   }
 
 }

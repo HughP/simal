@@ -17,6 +17,9 @@ public class RESTServlet extends HttpServlet {
   public static final String COMMAND_ALL_PROJECTS = "/allProjects/";
   public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues/";
 
+  public static final String XML_SUFFIX = "/xml";
+  public static final String JSON_SUFFIX = "/json";
+
   private static SimalRepository repo;
 
   public RESTServlet() {
@@ -43,6 +46,11 @@ public class RESTServlet extends HttpServlet {
     } catch (SimalAPIException e) {
       response = errorResponse(e);
     } finally {
+      if (cmd.endsWith(XML_SUFFIX)) {
+        res.setContentType("text/xml; charset=UTF-8");
+      } else if (cmd.endsWith(JSON_SUFFIX)) {
+        res.setContentType("application/json; charset=UTF-8");
+      }
       out.println(response);
       out.close();
     }
