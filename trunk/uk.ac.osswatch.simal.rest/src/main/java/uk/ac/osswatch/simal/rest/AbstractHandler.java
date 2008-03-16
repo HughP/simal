@@ -9,6 +9,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepository;
  */
 public abstract class AbstractHandler implements IAPIHandler {
 
+  public static final String XML_SUFFIX = "/xml";
+  public static final String JSON_SUFFIX = "/json";
   protected static SimalRepository repo;
 
   /**
@@ -19,6 +21,6 @@ public abstract class AbstractHandler implements IAPIHandler {
    * @param repo
    */
   protected AbstractHandler(SimalRepository repo) {
-    this.repo = repo;
+    AbstractHandler.repo = repo;
   }
 }

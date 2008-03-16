@@ -9,7 +9,7 @@ public class TestPersonAPI extends AbstractAPITest {
 
   @Test
   public void testAllColleaguesJSON() throws SimalAPIException {
-    String command = RESTServlet.COMMAND_ALL_COLLEAGUES + "json";
+    String command = RESTServlet.COMMAND_ALL_COLLEAGUES + "person-1/json";
     IAPIHandler handler = HandlerFactory.createHandler(command, repo);
     String result = handler.execute(command);
     assertNotNull(result);
@@ -17,7 +17,7 @@ public class TestPersonAPI extends AbstractAPITest {
 
   @Test
   public void testAllColleaguesXML() throws SimalAPIException {
-    String command = RESTServlet.COMMAND_ALL_COLLEAGUES + "xml";
+    String command = RESTServlet.COMMAND_ALL_COLLEAGUES + "person-1/xml";
     IAPIHandler handler = HandlerFactory.createHandler(command, repo);
     String result = handler.execute(command);
     assertNotNull(result);

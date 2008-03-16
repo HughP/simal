@@ -43,7 +43,7 @@ public class ProjectAPI extends AbstractHandler {
    * @throws SimalAPIException
    */
   public String getAllProjects(String cmd) throws SimalAPIException {
-    if (cmd.endsWith(".json")) {
+    if (cmd.endsWith(JSON_SUFFIX)) {
       try {
         return repo.getAllProjectsAsJSON();
       } catch (SimalRepositoryException e) {
