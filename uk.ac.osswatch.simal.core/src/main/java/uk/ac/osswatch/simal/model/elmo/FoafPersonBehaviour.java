@@ -56,14 +56,18 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour implements IFoafP
     ElmoQuery query = elmoManager.createQuery(queryStr);
     query.setParameter("qname", elmoEntity.getQName());
     Set<IPerson> colleagues = new HashSet<IPerson>();
+    IPerson colleague;
     for (Object result : query.getResultList()) {
-      colleagues.add(elmoManager.designateEntity(IPerson.class, result));
+      colleague = elmoManager.designateEntity(IPerson.class, result);
+      if (!colleague.getSimalId().equals(getPerson().getSimalId())) {
+        colleagues.add(colleague);
+      }
     }
     return colleagues;
   }
 
   public Set<IPerson> getKnows() {
-    Iterator<Person> people = getFoafPerson().getFoafKnows().iterator();
+    Iterator<Person> people = getPerson().getFoafKnows().iterator();
     // TODO: the following code feels clumsy, is there a better way of doing this?
     Set<IPerson>result = new HashSet<IPerson>();
     while(people.hasNext()) {
@@ -77,7 +81,7 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour implements IFoafP
    * form of a FoafPerson.
    * @return
    */
-  private Person getFoafPerson() {
-    return (Person)elmoEntity;
+  private IPerson getPerson() {
+    return (IPerson)elmoEntity;
   }
 }
