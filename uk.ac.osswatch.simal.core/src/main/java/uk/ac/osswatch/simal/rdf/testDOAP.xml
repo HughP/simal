@@ -15,10 +15,13 @@
 -->
 <Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:simal="http://simal.oss-watch.ac.uk/ns/0.2/simal#"
 	xmlns:foaf="http://xmlns.com/foaf/0.1/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns="http://usefulinc.com/ns/doap#"
 	rdf:about="http://simal.oss-watch.ac.uk/simalTest#">
+  
+  <simal:projectId>1</simal:projectId>
   
   <created>2007-08-08</created>
   
@@ -145,6 +148,7 @@
 	  <foaf:homepage rdf:resource="http://example.org/person/developer" />
     <rdfs:seeAlso
         rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
+    <simal:personId>1</simal:personId>
     </foaf:Person>
   </developer>
 </Project>

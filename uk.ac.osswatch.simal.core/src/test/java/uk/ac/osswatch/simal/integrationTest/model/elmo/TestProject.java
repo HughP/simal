@@ -352,6 +352,8 @@ public class TestProject extends BaseRepositoryTest {
    */
   @Test
   public void testId() throws SimalRepositoryException, DuplicateQNameException {
+    assertEquals("Test project ID incorrect", "1", project1.getID());
+    
     QName qname1 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId1");
     QName qname2 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
