@@ -67,7 +67,11 @@ Now What?
 
  All REST URLs are of the same form:
  
- http://foo.com/simal-rest/COMMAND/commandParam-value.FORMAT
+ http://foo.com/simal-rest/COMMAND/NAME_VALUE_PAIRS/FORMAT
+ 
+ Where NAME_VALUE_PAIRS is zero or more parameter names and 
+ value pairs and FORMAT is a format code.
+ 
  
 * Project Data
 
@@ -86,10 +90,10 @@ Now What?
  
  To retrieve all colleagues as a JSON file use:
  
- * http://foo.com/simal-rest/$PERSON_QNAME/allColleagues.json
- * http://foo.com/simal-rest/$PERSON_QNAME/allColleagues.xml
+ * http://foo.com/simal-rest/allColleagues/person-1/json
+ * http://foo.com/simal-rest/allColleagues/person-1/xml
  
- Where PERSON_QNAME is replaced with the QName of the
+ Where PERSON_ID is replaced with the Simal ID of the
  person we are interested in.
   
  

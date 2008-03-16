@@ -14,8 +14,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class RESTServlet extends HttpServlet {
   private static final long serialVersionUID = -7003783530005464708L;
 
-  public static final String COMMAND_ALL_PROJECTS = "/allProjects.";
-  public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues.";
+  public static final String COMMAND_ALL_PROJECTS = "/allProjects/";
+  public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues/";
 
   private static SimalRepository repo;
 

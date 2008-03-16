@@ -52,14 +52,14 @@ public class PersonAPI extends AbstractHandler {
       throws SimalAPIException {
     String response;
     StringBuffer result = new StringBuffer();
-    if (cmd.endsWith(".json")) {
+    if (cmd.endsWith(JSON_SUFFIX)) {
       Iterator<IPerson> colleagues = getAllColleaguesFromRepo(qname);
       while (colleagues.hasNext()) {
         result.append("{ \"items\": [");
         result.append(colleagues.next().toJSON(true));
         result.append("]}");
       }
-    } else if (cmd.endsWith(".xml")) {
+    } else if (cmd.endsWith(XML_SUFFIX)) {
       Iterator<IPerson> colleagues = getAllColleaguesFromRepo(qname);
       result.append("<container>");
       result.append("<viewer>");
