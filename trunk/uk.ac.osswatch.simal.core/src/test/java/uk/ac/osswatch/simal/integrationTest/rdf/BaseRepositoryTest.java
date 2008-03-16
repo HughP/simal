@@ -57,7 +57,7 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_DOWNLOAD_PAGES = "http://download.foo.org";
   public static final String TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS = "http://download.bar.org";
 
-  public static final String TEST_SIMAL_PROJECT_DOCUMENTORS = "documentor";
+  public static final String TEST_SIMAL_PROJECT_DOCUMENTERS = "documenter";
 
   public static final String TEST_SIMAL_PROJECT_DEVELOPERS = "developer";
 
