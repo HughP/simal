@@ -21,6 +21,10 @@ public class TestPersonAPI extends AbstractAPITest {
     IAPIHandler handler = HandlerFactory.createHandler(command, repo);
     String result = handler.execute(command);
     assertNotNull(result);
+    
     assertFalse("There should be no people with null IDs", result.contains("id=\"null\""));
+    
+    String friends = result.substring(result.indexOf("<viewerFriends>"));
+    assertFalse("The viewer should not be in the virewer friends list",friends.contains("id=\"1\""));
   }
 }
