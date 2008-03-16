@@ -40,7 +40,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   private RDFXMLWriter handler;
-  private Stack<Resource> subjects = new Stack<Resource>(); 
+  private Stack<Resource> subjects = new Stack<Resource>();
+  private Stack<String> subjectType = new Stack<String>();
+  private Stack<Boolean> subjectHasID = new Stack<Boolean>();
   private Set<QName> projectQNames = new HashSet<QName>();
   private Set<QName> personQNames = new HashSet<QName>();
   private SimalRepository repository;
@@ -60,6 +62,10 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   }
 
   public void endRDF() throws RDFHandlerException {
+    // clear out any subjects not yet closed off
+    while (!subjects.empty()) {
+      checkId(null);
+    }
     handler.endRDF();
   }
 
@@ -77,9 +83,8 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     Resource outSubject = inStatement.getSubject();
     URI outPredicate = inStatement.getPredicate();
     Value outValue = fixEncoding(inStatement.getObject());
-    
-    if (isNewProjectType(inStatement)
-        || isCurrentProjectBlankNode()
+
+    if (isNewProjectType(inStatement) || isCurrentProjectBlankNode()
         || isDoapPredicate(outPredicate)) {
       outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
@@ -87,26 +92,16 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         newProject(outSubject);
       }
     }
-    
-    if (isNewPersonType(inStatement)
-        || isCurrentPersonBlankNode()) {
+
+    if (isNewPersonType(inStatement) || isCurrentPersonBlankNode()) {
       outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
       if (isNewPersonType(inStatement)) {
         newPerson(outSubject);
       }
     }
-    
-    if (!subjects.empty()) {
-      if (!subjects.peek().equals(outSubject)) {
-        if (subjects.contains(outSubject)) {
-          // if the subject exists in the stack but is not on the top
-          // then it must be the next one down (that's just the way it is)
-          // We must have finished with the current top of stack.
-          subjects.pop();
-        }
-      }
-    }
+
+    checkId(outSubject);
 
     if (isFoafPredicate(inStatement)) {
       // FIXME: for some reason elmo does not support foaf:name, for
@@ -125,13 +120,77 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
       outPredicate = inStatement.getPredicate();
     }
 
+    if (isSimalPredicate(inStatement)) {
+      String predicateValue = outPredicate.stringValue();
+      if (predicateValue.equals(SimalRepository.SIMAL_URI_PROJECT_ID)
+          || predicateValue.equals(SimalRepository.SIMAL_URI_PERSON_ID)) {
+        subjectHasID.pop();
+        subjectHasID.push(true);
+      }
+    }
+
     outStatement = new StatementImpl(outSubject, outPredicate, outValue);
 
     handler.handleStatement(outStatement);
   }
 
   /**
+   * Check that an ID existed in the file, the repository or that one has been
+   * generated for the subject in the top of the stack.
+   * 
+   * @param outSubject
+   * @throws RDFHandlerException
+   */
+  private void checkId(Resource outSubject) throws RDFHandlerException {
+    if (!subjects.empty()) {
+      if (!subjects.peek().equals(outSubject) || outSubject == null) {
+        if (subjects.contains(outSubject) || outSubject == null) {
+          // if the subject exists in the stack but is not on the top
+          // then it must be the next one down (that's just the way it is)
+          // We must have finished with the current top of stack.
+          // So check an ID exists and remove the top of the stack.
+          String type = subjectType.pop();
+          if (type.equals("Project")) {
+            Resource project = subjects.pop();
+            Boolean hasID = subjectHasID.pop();
+            if (!hasID) {
+              Value idValue;
+              try {
+                idValue = new LiteralImpl(SimalRepository.getNewProjectID());
+                Statement idStatement = new StatementImpl(project, new URIImpl(
+                    SimalRepository.SIMAL_URI_PROJECT_ID), idValue);
+                handler.handleStatement(idStatement);
+              } catch (Exception e) {
+                throw new RDFHandlerException(
+                    "Unable to save the Simal properties file, aborting file annotation",
+                    e);
+              }
+            }
+          } else if (type.equals("Person")) {
+            Resource person = subjects.pop();
+            Boolean hasID = subjectHasID.pop();
+            if (!hasID) {
+              Value idValue;
+              try {
+                idValue = new LiteralImpl(SimalRepository.getNewPersonID());
+                Statement idStatement = new StatementImpl(person, new URIImpl(
+                    SimalRepository.SIMAL_URI_PERSON_ID), idValue);
+                handler.handleStatement(idStatement);
+              } catch (Exception e) {
+                throw new RDFHandlerException(
+                    "Unable to save the Simal properties file, aborting file annotation",
+                    e);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
    * Return true if the predicate for a statement is in the FOAF namespace.
+   * 
    * @param inStatement
    * @return
    */
@@ -141,8 +200,20 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   }
 
   /**
+   * Return true if the predicate for a statement is in the Simal namespace.
+   * 
+   * @param inStatement
+   * @return
+   */
+  private boolean isSimalPredicate(Statement inStatement) {
+    return inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.SIMAL_NAMESPACE_URI);
+  }
+
+  /**
    * Return true if the person currently being processed is from a blank node
    * that is being rewritten as a Simal namespaced node.
+   * 
    * @return
    */
   private boolean isCurrentPersonBlankNode() {
@@ -155,6 +226,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   /**
    * Return true if the statement indicates that this is a new person type.
+   * 
    * @param inStatement
    * @return
    */
@@ -165,6 +237,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   /**
    * Return true if the predicate for a statement is in the DOAP namespace.
+   * 
    * @param inStatement
    * @return
    */
@@ -173,10 +246,10 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         SimalRepository.DOAP_NAMESPACE_URI);
   }
 
-
   /**
    * Return true if the project currently being processed is from a blank node
    * that is being rewritten as a Simal namespaced node.
+   * 
    * @return
    */
   private boolean isCurrentProjectBlankNode() {
@@ -189,6 +262,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   /**
    * Return true if the statement indicates that this is a new project type.
+   * 
    * @param inStatement
    * @return
    */
@@ -199,20 +273,22 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   /**
    * Checks to see if this is a new project in the repository. If it is then
-   * ensure that it has a unique Simal identifier and is recorded in the
-   * list of projects found in the last file processed. If the project
-   * already exists then just add it to the list of files processed 
-   * (there will already be a unique identifier in the repo).
+   * ensure that it has a unique Simal identifier and is recorded in the list of
+   * projects found in the last file processed. If the project already exists
+   * then just add it to the list of files processed (there will already be a
+   * unique identifier in the repo).
    * 
    * @param project
    * @throws RDFHandlerException
    */
   private void newProject(Resource project) throws RDFHandlerException {
     subjects.push(project);
+    subjectType.push("Project");
     QName qname = new QName(project.stringValue());
     try {
       if (repository.getProject(qname) != null) {
         projectQNames.add(qname);
+        subjectHasID.push(true);
         return;
       }
     } catch (SimalRepositoryException e) {
@@ -220,37 +296,28 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
           "Unable to verify if a project already exists", e);
     }
 
-    Value idValue;
-    try {
-      idValue = new LiteralImpl(SimalRepository.getNewProjectID());
-      Statement idStatement = new StatementImpl(project, new URIImpl(
-          SimalRepository.SIMAL_URI_PROJECT_ID), idValue);
-      handler.handleStatement(idStatement);
-
-      projectQNames.add(qname);
-    } catch (Exception e) {
-      throw new RDFHandlerException(
-          "Unable to save the Simal properties file, aborting file annotation",
-          e);
-    }
+    subjectHasID.push(false);
+    projectQNames.add(qname);
   }
 
   /**
    * Checks to see if this is a new person in the repository. If it is then
-   * ensure that it has a unique Simal identifier and is recorded in the
-   * list of people found in the last file processed. If the person
-   * already exists then just add it to the list of files processed 
-   * (there will already be a unique identifier in the repo).
+   * ensure that it has a unique Simal identifier and is recorded in the list of
+   * people found in the last file processed. If the person already exists then
+   * just add it to the list of files processed (there will already be a unique
+   * identifier in the repo).
    * 
    * @param person
    * @throws RDFHandlerException
    */
   private void newPerson(Resource person) throws RDFHandlerException {
     subjects.push(person);
+    subjectType.push("Person");
     QName qname = new QName(person.stringValue());
     try {
       IPerson existingPerson = repository.getPerson(qname);
       if (existingPerson != null) {
+        subjectHasID.push(true);
         personQNames.add(qname);
         return;
       }
@@ -259,19 +326,8 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
           "Unable to verify if a person already exists", e);
     }
 
-    Value idValue;
-    try {
-      idValue = new LiteralImpl(SimalRepository.getNewPersonID());
-      Statement idStatement = new StatementImpl(person, new URIImpl(
-          SimalRepository.SIMAL_URI_PERSON_ID), idValue);
-      handler.handleStatement(idStatement);
-
-      personQNames.add(qname);
-    } catch (Exception e) {
-      throw new RDFHandlerException(
-          "Unable to save the Simal properties file, aborting file annotation",
-          e);
-    }
+    subjectHasID.push(false);
+    personQNames.add(qname);
   }
 
   private Value fixEncoding(final Value inValue) throws RDFHandlerException {

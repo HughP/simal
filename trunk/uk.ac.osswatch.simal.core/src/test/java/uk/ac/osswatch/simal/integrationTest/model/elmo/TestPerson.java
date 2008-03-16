@@ -69,7 +69,9 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testSimalId() {
     String id = developer.getSimalId();
-    assertNotNull("ID should not be null", id);
+    assertEquals("Test developer ID incorrect", "1", id);
+    // FIXME: write tests to ensure IDs are being generated
+    
   }
   
   @Test

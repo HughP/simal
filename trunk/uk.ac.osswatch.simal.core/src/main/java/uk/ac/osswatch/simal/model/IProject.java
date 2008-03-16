@@ -17,7 +17,7 @@ public interface IProject extends Project, IDoapProjectBehaviour {
    * 
    * @return 
    */
-  @rdf("http://simal.oss-watch.ac.uk/ns/simal#projectId")
+  @rdf("http://simal.oss-watch.ac.uk/ns/0.2/simal#projectId")
   public String getProjectID();
 
   /**
