@@ -2,6 +2,7 @@ package uk.ac.osswatch.simal.model.elmo;
 
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.openrdf.concepts.foaf.Person;
@@ -46,7 +47,7 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour implements IFoafP
         + "?project rdf:type doap:Project . "
         + "?project doap:developer $qname . "
         + "{?project doap:developer ?colleague} UNION "
-        + "{?project doap:documentor ?colleague} UNION " 
+        + "{?project doap:documenter ?colleague} UNION " 
         + "{?project doap:helper ?colleague} UNION" 
         + "{?project doap:maintainer ?colleague} UNION" 
         + "{?project doap:tester ?colleague} UNION" 
@@ -57,7 +58,8 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour implements IFoafP
     query.setParameter("qname", elmoEntity.getQName());
     Set<IPerson> colleagues = new HashSet<IPerson>();
     IPerson colleague;
-    for (Object result : query.getResultList()) {
+    List<?> results = query.getResultList();
+    for (Object result : results) {
       colleague = elmoManager.designateEntity(IPerson.class, result);
       if (!colleague.getSimalId().equals(getPerson().getSimalId())) {
         colleagues.add(colleague);

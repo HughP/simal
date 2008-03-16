@@ -58,7 +58,7 @@ public class TestPerson extends BaseRepositoryTest {
   public void testGetColleagues() throws SimalRepositoryException {
     Set<IPerson> colleagues = developer.getColleagues();
     assertNotNull(colleagues);
-    assertEquals("Got an incorrect number of colleagues", 5, colleagues.size());
+    assertEquals("Got an incorrect number of colleagues", 6, colleagues.size());
     Iterator<IPerson> people = colleagues.iterator();
     while (people.hasNext()) {
       IPerson person = people.next();
