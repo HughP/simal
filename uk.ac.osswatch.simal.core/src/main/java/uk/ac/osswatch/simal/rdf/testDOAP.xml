@@ -127,7 +127,7 @@
   <documenter>
     <foaf:Person
       rdf:about="http://foo.org/~documentor/#me">
-      <foaf:givenname>documentor</foaf:givenname>
+      <foaf:givenname>documenter</foaf:givenname>
       <rdf:seeAlso
         rdf:resource="http://foo.org/~documentor/foaf.rdf.xml" />
     </foaf:Person>
