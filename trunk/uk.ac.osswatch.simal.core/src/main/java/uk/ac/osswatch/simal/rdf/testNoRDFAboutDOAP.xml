@@ -55,7 +55,7 @@
 		<foaf:Person
 			rdf:about="http://foo.org/~joeBlogs/#me">
 			<foaf:name>Joe Blogs Maintainer</foaf:name>
-			<rdf:seeAlso
+			<rdfs:seeAlso
 				rdf:resource="http://foo.org/~joeBlogs/foaf.rdf.xml" />
 		</foaf:Person>
 	</maintainer>
@@ -64,16 +64,16 @@
 		<foaf:Person
 			rdf:about="http://foo.org/~janeBlogs/#me">
 			<foaf:givenname>Jane Blogs Maintainer</foaf:givenname>
-			<rdf:seeAlso
-				rdf:resource="http://foo.org/~janeBlogs/foaf.rdf.xml" />
       <foaf:knows>
-		  <foaf:Person>
-		    <foaf:name>Dan Brickley</foaf:name>
-		    <foaf:mbox_sha1sum>241021fb0e6289f92815fc210f9e9137262c252e</foaf:mbox_sha1sum>
-		    <rdfs:seeAlso 
-		      rdf:resource="http://rdfweb.org/people/danbri/foaf.rdf"/>
-		  </foaf:Person>
-	  </foaf:knows>
+  		  <foaf:Person>
+  		    <foaf:name>Dan Brickley</foaf:name>
+  		    <foaf:mbox_sha1sum>241021fb0e6289f92815fc210f9e9137262c252e</foaf:mbox_sha1sum>
+  		    <rdfs:seeAlso 
+  		      rdf:resource="http://rdfweb.org/people/danbri/foaf.rdf"/>
+  		  </foaf:Person>
+	    </foaf:knows>
+      <rdfs:seeAlso
+        rdf:resource="http://foo.org/~janeBlogs/foaf.rdf.xml" />
 		</foaf:Person>
 	</maintainer>
 </Project>

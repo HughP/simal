@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Stack;
 
 import javax.xml.namespace.QName;
 
@@ -39,8 +40,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   private RDFXMLWriter handler;
-  private Resource currentProject;
-  private Resource currentPerson;
+  private Stack<Resource> subjects = new Stack<Resource>(); 
   private Set<QName> projectQNames = new HashSet<QName>();
   private Set<QName> personQNames = new HashSet<QName>();
   private SimalRepository repository;
@@ -77,13 +77,12 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     Resource outSubject = inStatement.getSubject();
     URI outPredicate = inStatement.getPredicate();
     Value outValue = fixEncoding(inStatement.getObject());
-
+    
     if (isNewProjectType(inStatement)
         || isCurrentProjectBlankNode()
         || isDoapPredicate(outPredicate)) {
       outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
-      currentProject = outSubject;
       if (isNewProjectType(inStatement)) {
         newProject(outSubject);
       }
@@ -93,9 +92,19 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         || isCurrentPersonBlankNode()) {
       outSubject = verifyNode(inStatement.getSubject(),
           SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
-      currentPerson = outSubject;
       if (isNewPersonType(inStatement)) {
         newPerson(outSubject);
+      }
+    }
+    
+    if (!subjects.empty()) {
+      if (!subjects.peek().equals(outSubject)) {
+        if (subjects.contains(outSubject)) {
+          // if the subject exists in the stack but is not on the top
+          // then it must be the next one down (that's just the way it is)
+          // We must have finished with the current top of stack.
+          subjects.pop();
+        }
       }
     }
 
@@ -137,8 +146,11 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @return
    */
   private boolean isCurrentPersonBlankNode() {
-    return (currentPerson != null && currentPerson.stringValue().startsWith(
-        SimalRepository.DEFAULT_PERSON_NAMESPACE_URI));
+    if (subjects.empty()) {
+      return false;
+    }
+    return subjects.peek().stringValue().startsWith(
+        SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
   }
 
   /**
@@ -168,8 +180,11 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @return
    */
   private boolean isCurrentProjectBlankNode() {
-    return (currentProject != null && currentProject.stringValue().startsWith(
-        SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI));
+    if (subjects.empty()) {
+      return false;
+    }
+    return subjects.peek().stringValue().startsWith(
+        SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
   }
 
   /**
@@ -193,6 +208,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @throws RDFHandlerException
    */
   private void newProject(Resource project) throws RDFHandlerException {
+    subjects.push(project);
     QName qname = new QName(project.stringValue());
     try {
       if (repository.getProject(qname) != null) {
@@ -218,8 +234,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
           e);
     }
   }
-  
-
 
   /**
    * Checks to see if this is a new person in the repository. If it is then
@@ -232,6 +246,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @throws RDFHandlerException
    */
   private void newPerson(Resource person) throws RDFHandlerException {
+    subjects.push(person);
     QName qname = new QName(person.stringValue());
     try {
       IPerson existingPerson = repository.getPerson(qname);
