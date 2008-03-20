@@ -1,22 +1,8 @@
 <html xmlns:wicket>
 <wicket:panel>
 
-<div id="gadget-chrome-x" class="gadgets-gadget-chrome">Gadget</div>
+<div wicket:id="gadget" class="gadgets-gadget-chrome">Gadget</div>
 
-<script type="text/javascript">
-function renderGadgets() {
-  var gadget = gadgets.container.createGadget({specUrl: specUrl});
-  gadget.setServerBase(gadgetServerBase);
-
-  gadgets.container.addGadget(gadget);
-  gadgets.container.layoutManager.setGadgetChromeIds(
-      ['gadget-chrome-x']);
-
-  gadgets.container.renderGadgets();
-};
-
-renderGadgets();
-</script>
 </wicket:panel>
 </html>
   
