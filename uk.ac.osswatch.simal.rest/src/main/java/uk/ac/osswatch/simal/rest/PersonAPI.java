@@ -3,6 +3,8 @@ package uk.ac.osswatch.simal.rest;
 import java.util.Iterator;
 import java.util.Set;
 
+import uk.ac.osswatch.simal.AbstractHandler;
+import uk.ac.osswatch.simal.SimalAPIException;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -12,7 +14,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 public class PersonAPI extends AbstractHandler {
-  String qname = "http://foo.org/~developer/#me";
+  protected static SimalRepository repo;
 
   /**
    * Create a PersonAPI that will operate on a given Simal
@@ -22,7 +24,8 @@ public class PersonAPI extends AbstractHandler {
    * @param repo
    */
   protected PersonAPI(SimalRepository repo) {
-    super(repo);
+    super();
+    this.repo = repo;
   }
 
 

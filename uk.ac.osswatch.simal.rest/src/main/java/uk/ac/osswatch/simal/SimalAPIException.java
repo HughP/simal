@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.rest;
+package uk.ac.osswatch.simal;
 
 /**
  * An exception representing a problem with calling the REST

@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.rest;
 
+import uk.ac.osswatch.simal.AbstractHandler;
+import uk.ac.osswatch.simal.SimalAPIException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -8,6 +10,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 public class ProjectAPI extends AbstractHandler {
+  protected static SimalRepository repo;
   
   /**
    * Create a new project API object to operate on projects in a given
@@ -17,7 +20,8 @@ public class ProjectAPI extends AbstractHandler {
    * @param repo
    */
   protected ProjectAPI(SimalRepository repo) {
-    super(repo);
+    super();
+    this.repo = repo;
   }
   
   /**

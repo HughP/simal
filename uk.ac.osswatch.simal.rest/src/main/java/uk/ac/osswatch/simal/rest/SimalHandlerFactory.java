@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.rest;
 
+import uk.ac.osswatch.simal.IAPIHandler;
+import uk.ac.osswatch.simal.SimalAPIException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 
 /**
@@ -7,7 +9,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepository;
  * given API request.
  * 
  */
-public class HandlerFactory {
+public class SimalHandlerFactory {
 
   /**
    * Create the required API handler for a given command.
