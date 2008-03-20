@@ -1,6 +1,7 @@
 package uk.ac.osswatch.simal.rest;
 
 import java.util.Iterator;
+import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -54,33 +55,46 @@ public class PersonAPI extends AbstractHandler {
     String response;
     StringBuffer result = new StringBuffer();
     IPerson person;
-    Iterator<IPerson> colleagues = null;
+    Set<IPerson> colleaguesAndFriends;
+    Iterator<IPerson> friends = null;
     try {
       person = repo.findPersonById(id);
-      colleagues = person.getColleagues().iterator();
+      
+      colleaguesAndFriends = person.getColleagues();
+      colleaguesAndFriends.addAll(person.getKnows());
+      friends = colleaguesAndFriends.iterator();
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to get colleagues for person with id " + id, e);
     }
     
     if (cmd.endsWith(RESTServlet.JSON_SUFFIX)) {
-      while (colleagues.hasNext()) {
+      while (friends.hasNext()) {
         result.append("{ \"items\": [");
-        result.append(colleagues.next().toJSON(true));
+        result.append(friends.next().toJSON(true));
         result.append("]}");
       }
     } else if (cmd.endsWith(RESTServlet.XML_SUFFIX)) {
       result.append("<container>");
-      result.append("<viewer>");
-      result.append("<person id=\"" + person.getSimalId() + "\" name=\"" + person.getFoafGivennames() + "\"></person>");
-      result.append("</viewer>");
 
-      result.append("<viewerFriends>");
-      IPerson colleague;
-      while (colleagues.hasNext()) {
-        colleague = colleagues.next();
-        result.append("<person id=\"" + colleague.getSimalId() + "\" name=\"" + colleague.getFoafGivennames() + "\"></person>");
+      result.append("<people>");
+      result.append("<person id=\"" + person.getSimalId() + "\" name=\"" + person.getFoafGivennames() + "\">");
+      IPerson friend;
+      while (friends.hasNext()) {
+        friend = friends.next();
+        result.append("<friend>");
+        result.append(friend.getSimalId());
+        result.append("</friend>");
       }
-      result.append("</viewerFriends>");
+      result.append("</person>");
+      
+      friends = colleaguesAndFriends.iterator();
+      while (friends.hasNext()) {
+        friend = friends.next();
+        result.append("<person id=\"" + friend.getSimalId() + "\" name=\"" + friend.getFoafGivennames() + "\">");
+        result.append("</person>");
+      }
+      result.append("</people>");
+      
       result.append("</container>"); 
     } else {
       throw new SimalAPIException("Unkown format requested - "
