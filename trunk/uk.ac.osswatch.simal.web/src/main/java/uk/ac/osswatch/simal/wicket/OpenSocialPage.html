@@ -4,6 +4,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <title>Simal Project and Community Registry Framework</title>
+
+<script>
+//The following code has been pulled from the sample container
+//in Apache Shindig and is Copyright the Apache Software Foundation
+//It is a hack here to set the state URL for the friends request.
+var viewerId = "1";
+var ownerId = "1";
+
+function generateSecureToken() {
+  return [ownerId, viewerId, "simal", "shindig"].join(":");
+}
+</script>
+
 </head>
 <body onLoad="initGadgets(); renderGadgets();">
 <div id="header">
