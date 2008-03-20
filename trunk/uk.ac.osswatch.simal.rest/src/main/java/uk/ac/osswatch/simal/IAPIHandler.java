@@ -1,4 +1,5 @@
-package uk.ac.osswatch.simal.rest;
+package uk.ac.osswatch.simal;
+
 
 /**
  * An API Handler is a class that will process a given 
