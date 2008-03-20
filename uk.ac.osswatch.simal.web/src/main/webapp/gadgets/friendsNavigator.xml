@@ -22,35 +22,34 @@
     <![CDATA[      
 <script>
 gadgets.util.registerOnLoadHandler(init);
+var viewerId = "1";
+var ownerId = "1";
 
 function init() {
  loadFriends();
 }
 
 function loadFriends() {
-  sendRequestToServer([{"type" : "SET_STATE", "fileUrl" : "http://localhost:8880/simal-rest/allColleagues/person-1/xml"}]);
+  sendRequestToServer([{"type" : "SET_STATE", "fileUrl" : "http://localhost:8880/simal-rest/allColleagues/person-" + ownerId + "/xml"}]);
   var req = opensocial.newDataRequest();
   req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
   req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
   req.send(onLoadFriends);
 }
 
+var allPeople, viewerFriendData;
 function onLoadFriends(data) {
   var viewer = data.get('viewer').getData();
-  var viewerFriends = data.get('viewerFriends').getData();
+  allPeople = data.get('viewerFriends').getData().asArray() || new Array();
 
-  html = new Array();
-  html.push('<ul>');
-  viewerFriends.each(function(person) {
-    html.push('<li>' + person.getDisplayName() + "</li>");
-  });
-  html.push('</ul>');
-  document.getElementById('friends').innerHTML = html.join('');
+  var html = '<ul>';
+  for (var i = 0; i < allPeople.length; i++) {
+   html += '<li class="name">' + allPeople[i].getDisplayName() + '</li>';
+  }
+  html += '</ul>';
+  document.getElementById('friends').innerHTML = html;
 }
 
-</script>
-
-<script>
 
 // The following code has been pulled from the sample container
 // in Apache Shindig and is Copyright the Apache Software Foundation
@@ -59,16 +58,22 @@ function onLoadFriends(data) {
 // TODO: This is gross, it needs to use the config just like the gadget js does
 var socialDataPath = document.location.protocol + "//" + document.location.host
     + "/gadgets/socialdata";
-    
+
+function generateSecureToken() {
+  return [ownerId, viewerId, "simal", "shindig"].join(":");
+}
+
 function sendRequestToServer(jsonRequest, opt_callback) {
   // TODO: Should re-use the jsoncontainer code somehow
   jsonRequest = gadgets.json.stringify(jsonRequest);
-
+    
+  token = generateSecureToken();
   var makeRequestParams = {
     "CONTENT_TYPE" : "JSON",
     "METHOD" : "POST",
     "AUTHORIZATION" : "SIGNED",
-    "POST_DATA" : encodeValues({'request' : jsonRequest})};
+    "POST_DATA" : encodeValues({'request' : jsonRequest,
+      'st' : token})};
 
   makeRequest(socialDataPath,
       function(data) {

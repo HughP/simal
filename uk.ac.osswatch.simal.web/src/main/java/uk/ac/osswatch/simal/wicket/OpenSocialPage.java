@@ -52,7 +52,7 @@ public class OpenSocialPage extends BasePage {
       config.append(SERVER_BASE);
       config.append("\");\n");
       config.append("  gadgets.container.addGadget(gadget);\n");
-      
+      config.append("  gadget.secureToken = generateSecureToken();\n");
       chromeIDs.append("\"");
       chromeIDs.append(gadgetPanels.get(i).getUid());
       if (i+1 <  gadgetPanels.size()) {
