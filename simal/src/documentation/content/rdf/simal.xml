@@ -58,11 +58,7 @@ Simal also provides a web application for the creation and management of RDF/XML
   <developer>
     <foaf:Person rdf:about="http://people.apache.org/~gmcdonald/">
       <foaf:name>Gavin McDonald</foaf:name>
-      <foaf:homepage rdf:resource="http://www.ohloh.net/accounts/5121/"/>
-      <foaf:givenname>Gavin</foaf:givenname>
-      <foaf:family_name>McDonald</foaf:family_name>
-
-      <foaf:mbox rdf:resource="mailto:gmcdonald@apache.org"/>
+      <foaf:seeAlso rdf:resource="http://minitutorials.com/foaf/gmcdonald.rdf"/>
     </foaf:Person>
   </developer>
     
