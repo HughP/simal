@@ -74,4 +74,4 @@ ant install
 
 == Running ==
 
-That's it you have installed Simal. Time to perform your FirstRun.
+That's it you have installed Simal.
