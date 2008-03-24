@@ -4,6 +4,7 @@ import uk.ac.osswatch.simal.AbstractRESTServlet;
 import uk.ac.osswatch.simal.IAPIHandler;
 import uk.ac.osswatch.simal.RESTCommand;
 import uk.ac.osswatch.simal.SimalAPIException;
+import uk.ac.osswatch.simal.myExperiment.MyExperimentHandlerFactory;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -24,6 +25,12 @@ public class RESTServlet extends AbstractRESTServlet {
 
   @Override
   protected IAPIHandler getHandler(RESTCommand cmd) throws SimalAPIException {
-    return SimalHandlerFactory.createHandler(cmd, repo);
+    if (cmd.getSource().equals(RESTCommand.SOURCE_TYPE_SIMAL)) {
+      return SimalHandlerFactory.createHandler(cmd, repo);
+    } else if (cmd.getSource().equals(RESTCommand.SOURCE_TYPE_MYEXPERIMENT)) {
+      return MyExperimentHandlerFactory.createHandler(cmd, "http://www.myexperiment.org");
+    } else {
+      throw new SimalAPIException("Unable to get handler for source type " + cmd.getSource());
+    }
   }
 }
