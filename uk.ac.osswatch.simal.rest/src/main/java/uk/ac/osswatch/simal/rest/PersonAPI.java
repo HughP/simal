@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.AbstractHandler;
+import uk.ac.osswatch.simal.RESTCommand;
 import uk.ac.osswatch.simal.SimalAPIException;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
@@ -35,8 +36,8 @@ public class PersonAPI extends AbstractHandler {
    * @param cmd
    * @throws SimalAPIException 
    */
-  public String execute(String cmd) throws SimalAPIException {
-    if (cmd.contains(RESTServlet.COMMAND_ALL_COLLEAGUES)) {
+  public String execute(RESTCommand cmd) throws SimalAPIException {
+    if (cmd.isGetColleagues()) {
       return getAllColleagues(cmd);
     } else {
       throw new SimalAPIException("Unkown command: " + cmd);
@@ -50,10 +51,9 @@ public class PersonAPI extends AbstractHandler {
    * @return
    * @throws SimalAPIException
    */
-  public String getAllColleagues(String cmd)
+  public String getAllColleagues(RESTCommand cmd)
       throws SimalAPIException {
-    int paramStart = cmd.indexOf(PARAM_PERSON_ID) + PARAM_PERSON_ID.length();
-    String id = cmd.substring(paramStart, cmd.indexOf("/", paramStart));
+    String id = cmd.getPersonID();
     
     String response;
     StringBuffer result = new StringBuffer();
@@ -70,13 +70,13 @@ public class PersonAPI extends AbstractHandler {
       throw new SimalAPIException("Unable to get colleagues for person with id " + id, e);
     }
     
-    if (cmd.endsWith(RESTServlet.JSON_SUFFIX)) {
+    if (cmd.isJSON()) {
       while (friends.hasNext()) {
         result.append("{ \"items\": [");
         result.append(friends.next().toJSON(true));
         result.append("]}");
       }
-    } else if (cmd.endsWith(RESTServlet.XML_SUFFIX)) {
+    } else if (cmd.isXML()) {
       result.append("<container>");
 
       result.append("<people>");

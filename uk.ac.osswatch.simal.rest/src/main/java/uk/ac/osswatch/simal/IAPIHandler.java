@@ -14,6 +14,6 @@ public interface IAPIHandler {
    * @param cmd
    * @throws SimalAPIException 
    */
-  public String execute(String cmd) throws SimalAPIException;
+  public String execute(RESTCommand cmd) throws SimalAPIException;
 
 }

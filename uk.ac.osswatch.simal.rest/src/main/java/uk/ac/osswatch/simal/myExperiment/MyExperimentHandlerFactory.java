@@ -1,31 +1,28 @@
-package uk.ac.osswatch.simal.rest;
+package uk.ac.osswatch.simal.myExperiment;
 
 import uk.ac.osswatch.simal.IAPIHandler;
 import uk.ac.osswatch.simal.RESTCommand;
 import uk.ac.osswatch.simal.SimalAPIException;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 
 /**
  * A factory class for generating a specific handler for a
- * given API request.
+ * given MyExperiment API request.
  * 
  */
-public class SimalHandlerFactory {
+public class MyExperimentHandlerFactory {
 
   /**
    * Create the required API handler for a given command.
    * 
    * @param command the command to execute
-   * @param repo the repo that the command is to operate on
+   * @param url the URL of the MyExperiment server
    * @return
    * @throws SimalAPIException 
    */
-  public static IAPIHandler createHandler(RESTCommand command, SimalRepository repo) throws SimalAPIException {
+  public static IAPIHandler createHandler(RESTCommand command, String uri) throws SimalAPIException {
     IAPIHandler handler = null;
-    if (command.isGetAllProjects()) {
-      handler = new ProjectAPI(repo);
-    } else if (command.isGetColleagues()) {
-      handler = new PersonAPI(repo);
+    if (command.isPersonCommand()) {
+      handler = new PersonAPI(uri);
     }
     
     if (handler == null) {
