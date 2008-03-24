@@ -1,6 +1,7 @@
 package uk.ac.osswatch.simal.rest;
 
 import uk.ac.osswatch.simal.AbstractHandler;
+import uk.ac.osswatch.simal.RESTCommand;
 import uk.ac.osswatch.simal.SimalAPIException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -30,8 +31,8 @@ public class ProjectAPI extends AbstractHandler {
    * @param cmd
    * @throws SimalAPIException 
    */
-  public String execute(String cmd) throws SimalAPIException {
-    if (cmd.contains(RESTServlet.COMMAND_ALL_PROJECTS)) {
+  public String execute(RESTCommand cmd) throws SimalAPIException {
+    if (cmd.isGetAllProjects()) {
       return getAllProjects(cmd);
     } else {
       throw new SimalAPIException("Unkown command: " + cmd);
@@ -46,8 +47,8 @@ public class ProjectAPI extends AbstractHandler {
    * @return
    * @throws SimalAPIException
    */
-  public String getAllProjects(String cmd) throws SimalAPIException {
-    if (cmd.endsWith(RESTServlet.JSON_SUFFIX)) {
+  public String getAllProjects(RESTCommand cmd) throws SimalAPIException {
+    if (cmd.isJSON()) {
       try {
         return repo.getAllProjectsAsJSON();
       } catch (SimalRepositoryException e) {
