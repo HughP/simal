@@ -150,6 +150,9 @@ public class RESTCommand {
 
   /**
    * Extract the source from the supplied URI command string.
+   * If no "source-" parameter exists then assume the source is
+   * Simal.
+   * 
    * @param cmdString the PathInfo portion of a URI representing a REST command
    * @return the data source for this command 
    */
