@@ -237,13 +237,13 @@ public class RESTCommand {
   @Override
   public String toString() {
     StringBuffer sb = new StringBuffer("Simal REST Command:\n");
-    sb.append("Method = ");
+    sb.append("\nMethod = ");
     sb.append(getCommandMethod());
-    sb.append("Format = ");
+    sb.append("\nFormat = ");
     sb.append(getFormat());
-    sb.append("Person ID = ");
+    sb.append("\nPerson ID = ");
     sb.append(getPersonID());
-    sb.append("Source = ");
+    sb.append("\nSource = ");
     sb.append(getSource());
     return sb.toString();
   }
