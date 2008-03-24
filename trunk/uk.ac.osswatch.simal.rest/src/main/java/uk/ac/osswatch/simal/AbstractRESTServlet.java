@@ -29,7 +29,7 @@ public abstract class AbstractRESTServlet extends HttpServlet {
 
     RESTCommand cmd = RESTCommand.createCommand(req.getPathInfo());
 
-    String response = "Couldn't handle request for " + req.getPathInfo();
+    String response = "Could not handle request for " + req.getPathInfo();
 
     try {
       IAPIHandler handler = getHandler(cmd);

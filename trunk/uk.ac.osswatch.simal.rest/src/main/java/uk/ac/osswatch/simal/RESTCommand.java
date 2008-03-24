@@ -16,7 +16,7 @@ public class RESTCommand {
   public static final String FORMAT_JSON = "/json";
 
   public static String SOURCE_TYPE_SIMAL = "simal";
-  public static String SOURCE_TYPE_MYEXPERIMENT = "myExperiemnt";
+  public static String SOURCE_TYPE_MYEXPERIMENT = "myExperiment";
 
   private String source;
   private String personID;
