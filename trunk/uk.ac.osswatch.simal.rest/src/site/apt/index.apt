@@ -77,7 +77,8 @@ Now What?
 
 ** All Projects
  
- To retrieve all projects as a JSON file use:
+ To retrieve all projects as a JSON file from the standard 
+ SIMAL repository use:
  
  http://foo.com/simal-rest/allProjects.json
  
@@ -88,7 +89,8 @@ Now What?
  A colleague is defined as someone who works on any of the
  projects our target person works on.
  
- To retrieve all colleagues as a JSON file use:
+ To retrieve all colleagues from the standard 
+ SIMAL repository  as a JSON file use:
  
  * http://foo.com/simal-rest/allColleagues/person-1/json
  * http://foo.com/simal-rest/allColleagues/person-1/xml
@@ -96,6 +98,14 @@ Now What?
  Where PERSON_ID is replaced with the Simal ID of the
  person we are interested in.
   
+* Alternative Data Sources
  
+ Simal can support data sources other than the standard
+ Simal repository. Such as the 
+ (((http://www.myexperiment.org} MyExperiment)) social netowrking
+ tool for scientific research. In order to use alternative
+ data sources use the "source" parameter as follows:
+
+ * http://foo.com/simal-rest/allColleagues/source-myExperiment/person-1/xml
 
 

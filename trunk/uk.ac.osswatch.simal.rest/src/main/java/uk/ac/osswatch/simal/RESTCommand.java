@@ -6,19 +6,19 @@ package uk.ac.osswatch.simal;
  */
 public class RESTCommand {
 
-  public static final String COMMAND_ALL_PROJECTS = "/allProjects/";
-  public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues/";
+  public static final String COMMAND_ALL_PROJECTS = "/allProjects";
+  public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues";
 
-  public static final String PARAM_PERSON_ID = "person-";
+  public static final String PARAM_PERSON_ID = "/person-";
+  public static final String PARAM_SOURCE = "/source-";
 
   public static final String FORMAT_XML = "/xml";
   public static final String FORMAT_JSON = "/json";
 
-  public static Integer SOURCE_TYPE_AGGREGATE = 0;
-  public static Integer SOURCE_TYPE_SIMAL = 100;
-  public static Integer SOURCE_TYPE_MYEXPERIMENT = 200;
+  public static String SOURCE_TYPE_SIMAL = "simal";
+  public static String SOURCE_TYPE_MYEXPERIMENT = "myExperiemnt";
 
-  private Integer source;
+  private String source;
   private String personID;
   private String commandMethod;
   private String format;
@@ -27,7 +27,7 @@ public class RESTCommand {
    * This class should not be instantiated directly, use the create*(...)
    * methods instead.
    */
-  private RESTCommand(String personID, Integer source, String command, String format) {
+  private RESTCommand(String personID, String source, String command, String format) {
     this.source = source;
     this.personID = personID;
     this.commandMethod = command;
@@ -53,7 +53,7 @@ public class RESTCommand {
    *          See the FORMAT_* constants
    * @return
    */
-  public static RESTCommand createGetColleagues(String personID, Integer source, String format) {
+  public static RESTCommand createGetColleagues(String personID, String source, String format) {
     return new RESTCommand(personID, source, COMMAND_ALL_COLLEAGUES, format);
   }
 
@@ -62,7 +62,7 @@ public class RESTCommand {
    * 
    * @return
    */
-  public Integer getSource() {
+  public String getSource() {
     return source;
   }
 
@@ -153,9 +153,15 @@ public class RESTCommand {
    * @param cmdString the PathInfo portion of a URI representing a REST command
    * @return the data source for this command 
    */
-  private static Integer extractSource(String cmdString) {
-    // TODO: need to (optionally) encode the source in the cmdString
-    return SOURCE_TYPE_SIMAL;
+  private static String extractSource(String cmdString) {
+    int paramStart = cmdString.indexOf(PARAM_SOURCE);
+    if (paramStart < 0) {
+      return SOURCE_TYPE_SIMAL;
+    } else {
+      paramStart = paramStart + PARAM_SOURCE.length();
+    }
+    int paramEnd = cmdString.indexOf("/", paramStart); 
+    return cmdString.substring(paramStart, paramEnd);
   }
 
   /**
@@ -175,7 +181,7 @@ public class RESTCommand {
    * @return
    */
   private static String extractCommandMethod(String cmdString) {
-    return cmdString.substring(0, cmdString.indexOf("/", 1) + 1);
+    return cmdString.substring(0, cmdString.indexOf("/", 1));
   }
 
   /**
@@ -204,7 +210,7 @@ public class RESTCommand {
     this.format = format;
   }
 
-  public void setSource(Integer source) {
+  public void setSource(String source) {
     this.source = source;
   }
 
