@@ -304,25 +304,7 @@
       </plugin>
 
     </plugins>
-  </reporting>
-  
-  <ciManagement>
-    <system>continuum</system>
-    <!-- this machine is not visible to the outside world -->
-    <url>http://data.oss-watch.ac.uk:8080/continuum</url>
-    <notifiers>
-      <notifier>
-        <type>mail</type>
-        <sendOnError>true</sendOnError>
-        <sendOnFailure>true</sendOnFailure>
-        <sendOnSuccess>true</sendOnSuccess>
-        <sendOnWarning>true</sendOnWarning>
-        <configuration>
-          <address>ross.gardler@oucs.ox.ac.uk</address>
-        </configuration>
-      </notifier>
-    </notifiers>
-  </ciManagement>  
+  </reporting>  
 
   <!-- Developers listed alphabetically -->
   <developers>
