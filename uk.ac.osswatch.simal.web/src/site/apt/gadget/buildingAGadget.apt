@@ -74,8 +74,9 @@ Developing your gadget
  * enter http://localhost:8080/gadgets/friendsNavigator.xml 
    into the "Displaying gadget" field
    
- * enter http://localhost:8880/simal-rest/allColleagues/person-1/xml 
-   into the "Using State" field
+ * Note that we do not use the "Using State" field.
+   
+ * enter 1 into both the Viewer id and Owner id fields
    
  * hit "reset all"
     
