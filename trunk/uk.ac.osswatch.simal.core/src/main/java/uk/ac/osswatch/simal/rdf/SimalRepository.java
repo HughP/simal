@@ -82,6 +82,12 @@ public class SimalRepository extends SimalProperties {
 
   public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
   public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
+  public static final String DOAP_MAINTAINER_URI =  DOAP_NAMESPACE_URI + "maintainer";
+  public static final String DOAP_DEVELOPER_URI =  DOAP_NAMESPACE_URI + "developer";
+  public static final String DOAP_DOCUMENTER_URI =  DOAP_NAMESPACE_URI + "documenter";
+  public static final String DOAP_HELPER_URI =  DOAP_NAMESPACE_URI + "helper";
+  public static final String DOAP_TESTER_URI =  DOAP_NAMESPACE_URI + "tester";
+  public static final String DOAP_TRANSLATOR_URI =  DOAP_NAMESPACE_URI + "translator";
 
   public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
   public static final String SIMAL_URI_PROJECT_ID = SIMAL_NAMESPACE_URI
