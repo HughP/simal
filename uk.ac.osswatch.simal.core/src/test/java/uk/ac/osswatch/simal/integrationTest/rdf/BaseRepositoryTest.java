@@ -42,6 +42,7 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_OS = "Cross Platform";
   public static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "http://www.oss-watch.ac.uk/simal";
 
+  public static final int TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS = 3;
   public static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "Joe Blogs Maintainer";
   public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "Jane Blogs Maintainer";
 
@@ -52,20 +53,27 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_ONE = "Project Home Page";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_TWO = "Developer Home Page";
 
+  public static final int TEST_SIMAL_PROJECT_NUMBER_OF_HELPERS = 1;
   public static final String TEST_SIMAL_PROJECT_HELPERS = "helper";
 
   public static final String TEST_SIMAL_PROJECT_DOWNLOAD_PAGES = "http://download.foo.org";
   public static final String TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS = "http://download.bar.org";
 
+  public static final int TEST_SIMAL_PROJECT_NUMBER_OF_DOCUMENTERS = 1;
   public static final String TEST_SIMAL_PROJECT_DOCUMENTERS = "documenter";
 
+  public static final int TEST_SIMAL_PROJECT_NUMBER_OF_DEVELOPERS = 1;
   public static final String TEST_SIMAL_PROJECT_DEVELOPERS = "developer";
 
+  public static final int TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS = 1;
+
+  public static final int TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS = 1;
+  
   public static final String TEST_SIMAL_PROJECT_CATEGORY_ONE = "DOAP Test";
   public static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#";
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
-
+  
   protected static SimalRepository repository;
 
   protected static IProject project1;
@@ -162,6 +170,20 @@ public abstract class BaseRepositoryTest {
       // we don't care since we have no idea what state we are in
       // simply assume this is OK for test purposes
     }
+  }
+
+  /**
+   * Get the number of participants found in the main test project.
+   * @return
+   */
+  public static int getNumberOfParticipants() {
+    int colleagues = TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS;
+    colleagues += TEST_SIMAL_PROJECT_NUMBER_OF_DEVELOPERS;
+    colleagues += TEST_SIMAL_PROJECT_NUMBER_OF_DOCUMENTERS;
+    colleagues += TEST_SIMAL_PROJECT_NUMBER_OF_HELPERS;
+    colleagues += TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS;
+    colleagues += TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS;
+    return colleagues;
   }
 
 }

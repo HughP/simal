@@ -52,7 +52,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testPersonsLoaded() {
-    assertEquals("Should have one maintainer", 2, maintainers.size());
+    assertEquals("Should have one maintainer", BaseRepositoryTest.TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS, maintainers.size());
     assertEquals("Should have one developers", 1, developers.size());
     assertEquals("Should have one helpers", 1, helpers.size());
     assertEquals("Should have one documenters", 1, documenters.size());

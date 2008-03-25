@@ -101,6 +101,11 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
       }
     }
 
+    if (isNewParticipant(inStatement)) {
+      outValue = verifyNode(inStatement.getObject(),
+          SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
+    }
+
     checkId(outSubject);
 
     if (isFoafPredicate(inStatement)) {
@@ -231,8 +236,34 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @return
    */
   private boolean isNewPersonType(Statement inStatement) {
-    return inStatement.getObject().stringValue().startsWith(
+    boolean isPerson = inStatement.getObject().stringValue().startsWith(
         SimalRepository.FOAF_NAMESPACE_URI);
+    return isPerson;
+  }
+  
+  /**
+   * Tests to see if the statement is about a new participant in the
+   * project. 
+   * 
+   * @param inStatement
+   * @return
+   */
+  private boolean isNewParticipant(Statement inStatement) {
+    boolean isPerson = false;
+
+    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.DOAP_MAINTAINER_URI);
+    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.DOAP_DEVELOPER_URI);
+    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.DOAP_DOCUMENTER_URI);
+    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.DOAP_HELPER_URI);
+    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.DOAP_TESTER_URI);
+    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
+        SimalRepository.DOAP_TRANSLATOR_URI);
+    return isPerson;
   }
 
   /**
