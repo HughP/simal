@@ -9,11 +9,10 @@ package uk.ac.osswatch.simal.rest;
 public interface IAPIHandler {
 
   /**
-   * Execute a command.
+   * Execute the command.
    * 
-   * @param cmd
    * @throws SimalAPIException 
    */
-  public String execute(RESTCommand cmd) throws SimalAPIException;
+  public String execute() throws SimalAPIException;
 
 }

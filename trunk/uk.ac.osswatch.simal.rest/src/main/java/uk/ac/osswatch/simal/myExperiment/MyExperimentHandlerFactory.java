@@ -19,10 +19,10 @@ public class MyExperimentHandlerFactory {
    * @return
    * @throws SimalAPIException 
    */
-  public static IAPIHandler createHandler(RESTCommand command, String uri) throws SimalAPIException {
+  public static IAPIHandler createHandler(RESTCommand command) throws SimalAPIException {
     IAPIHandler handler = null;
     if (command.isPersonCommand()) {
-      handler = new PersonAPI(uri);
+      handler = new PersonAPI(command);
     }
     
     if (handler == null) {

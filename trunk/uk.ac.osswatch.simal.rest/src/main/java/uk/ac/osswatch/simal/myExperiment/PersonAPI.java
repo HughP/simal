@@ -1,6 +1,5 @@
 package uk.ac.osswatch.simal.myExperiment;
 
-import java.io.CharArrayReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
@@ -27,6 +26,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.rest.AbstractHandler;
+import uk.ac.osswatch.simal.rest.HandlerFactory;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
@@ -35,7 +35,6 @@ import uk.ac.osswatch.simal.rest.SimalAPIException;
  * 
  */
 public class PersonAPI extends AbstractHandler {
-  String myExperimentURI;
 
   /**
    * Create a PersonAPI that will operate on a given MyExperiment instance.
@@ -46,9 +45,8 @@ public class PersonAPI extends AbstractHandler {
    *          the URi of the MyExperiment instance to query
    * @throws SimalAPIException
    */
-  protected PersonAPI(String uri) {
-    super();
-    this.myExperimentURI = uri;
+  protected PersonAPI(RESTCommand cmd) {
+    super(cmd);
   }
 
   /**
@@ -57,7 +55,7 @@ public class PersonAPI extends AbstractHandler {
    * @param cmd
    * @throws SimalAPIException
    */
-  public String execute(RESTCommand command) throws SimalAPIException {
+  public String execute() throws SimalAPIException {
     if (command.isGetColleagues()) {
       return getAllColleagues(command);
     } else {
@@ -74,7 +72,7 @@ public class PersonAPI extends AbstractHandler {
    */
   public String getAllColleagues(RESTCommand command) throws SimalAPIException {
     String elements = "id,name,friends";
-    String reqURI = myExperimentURI + "/user.xml?id=" + command.getPersonID()
+    String reqURI = HandlerFactory.getBaseURI() + "/user.xml?id=" + command.getPersonID()
         + "&elements=" + elements;
 
     HttpClient client = new HttpClient();
@@ -84,11 +82,11 @@ public class PersonAPI extends AbstractHandler {
     } catch (HttpException e) {
       throw new SimalAPIException(
           "Unable to retrieve data from the MyExperiment instance "
-              + myExperimentURI, e);
+              + HandlerFactory.getBaseURI(), e);
     } catch (IOException e) {
       throw new SimalAPIException(
           "Unable to retrieve data from the MyExperiment instance "
-              + myExperimentURI, e);
+              + HandlerFactory.getBaseURI(), e);
     }
 
     StringWriter out;
