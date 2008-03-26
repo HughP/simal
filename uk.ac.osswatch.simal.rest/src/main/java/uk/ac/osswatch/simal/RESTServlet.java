@@ -12,15 +12,14 @@ import uk.ac.osswatch.simal.IAPIHandler;
 import uk.ac.osswatch.simal.SimalAPIException;
 
 /**
- * An abstract servlet class that allows multiple resources to
- * be used for retrieving data. Specific implementation of this
- * class provide a wrapper around a data source.
+ * A servlet class that allows multiple resources to
+ * be used for retrieving data. 
  *
  */
-public abstract class AbstractRESTServlet extends HttpServlet {
+public class RESTServlet extends HttpServlet {
   private static final long serialVersionUID = -7003783530005464708L;
 
-  public AbstractRESTServlet() {
+  public RESTServlet() {
   }
 
   public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -32,7 +31,7 @@ public abstract class AbstractRESTServlet extends HttpServlet {
     String response = "Could not handle request for " + req.getPathInfo();
 
     try {
-      IAPIHandler handler = getHandler(cmd);
+      IAPIHandler handler = HandlerFactory.get(cmd);
       response = handler.execute(cmd);      
     } catch (SimalAPIException e) {
       response = errorResponse(e);
@@ -46,15 +45,6 @@ public abstract class AbstractRESTServlet extends HttpServlet {
       out.close();
     }
   }
-
-  /**
-   * Get a handler for a command.
-   * 
-   * @param cmd
-   * @return
-   * @throws SimalAPIException 
-   */
-  protected abstract IAPIHandler getHandler(RESTCommand cmd) throws SimalAPIException;
 
   /**
    * Generate an Error response to be returned to the client.
