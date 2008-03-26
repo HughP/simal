@@ -97,7 +97,7 @@ public class SimalRepository extends SimalProperties {
 
   public static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 
-  private final String CATEGORIES_RDF = "categories.xml";
+  public final static String CATEGORIES_RDF = "categories.xml";
 
   private SailRepository _repository;
   private boolean isTest = false;
@@ -600,6 +600,28 @@ public class SimalRepository extends SimalProperties {
 
     project = getManager().designate(IProject.class, qname);
     return project;
+  }
+
+  /**
+   * Create a new person in the repository.
+   * 
+   * @return
+   * @throws SimalRepositoryException
+   *           if an error is thrown whilst communicating with the repository
+   * @throws DuplicateQNameException
+   *           if an entity with the given QName already exists
+   */
+  public IPerson createPerson(QName qname) throws SimalRepositoryException,
+      DuplicateQNameException {
+    IPerson person= getPerson(qname);
+    if (person != null) {
+      throw new DuplicateQNameException(
+          "Attempt to create a second person with the QName " + qname);
+    }
+
+    person = getManager().designate(IPerson.class, qname);
+    person.setSimalId(SimalRepository.getNewPersonID());
+    return person;
   }
 
   /**
