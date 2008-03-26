@@ -1,7 +1,5 @@
 package uk.ac.osswatch.simal.rest;
 
-import org.apache.commons.httpclient.methods.GetMethod;
-
 /**
  * Command objects for the REST API. This object is used to represent a command
  * in the API and provides convenience methods for extracting parameters.

@@ -8,7 +8,6 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 public class ProjectAPI extends AbstractHandler {
-  protected static SimalRepository repo;
   
   /**
    * Create a new project API object to operate on projects in a given
@@ -17,9 +16,8 @@ public class ProjectAPI extends AbstractHandler {
    * 
    * @param repo
    */
-  protected ProjectAPI(SimalRepository repo) {
-    super();
-    this.repo = repo;
+  protected ProjectAPI(RESTCommand cmd) {
+    super(cmd);
   }
   
   /**
@@ -28,11 +26,11 @@ public class ProjectAPI extends AbstractHandler {
    * @param cmd
    * @throws SimalAPIException 
    */
-  public String execute(RESTCommand cmd) throws SimalAPIException {
-    if (cmd.isGetAllProjects()) {
-      return getAllProjects(cmd);
+  public String execute() throws SimalAPIException {
+    if (command.isGetAllProjects()) {
+      return getAllProjects(command);
     } else {
-      throw new SimalAPIException("Unkown command: " + cmd);
+      throw new SimalAPIException("Unkown command: " + command);
     }
   }
 
@@ -47,7 +45,7 @@ public class ProjectAPI extends AbstractHandler {
   public String getAllProjects(RESTCommand cmd) throws SimalAPIException {
     if (cmd.isJSON()) {
       try {
-        return repo.getAllProjectsAsJSON();
+        return HandlerFactory.getSimalRepository().getAllProjectsAsJSON();
       } catch (SimalRepositoryException e) {
         throw new SimalAPIException("Unable to get JSON representation of all projects from the repository", e);
       }

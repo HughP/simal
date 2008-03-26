@@ -12,7 +12,7 @@ public class TestPersonAPI extends AbstractAPITest {
   public void testAllColleaguesJSON() throws SimalAPIException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.COMMAND_ALL_COLLEAGUES + RESTCommand.PARAM_PERSON_ID + "1" + RESTCommand.FORMAT_JSON);
     IAPIHandler handler = SimalHandlerFactory.createHandler(command, repo);
-    String result = handler.execute(command);
+    String result = handler.execute();
     assertNotNull(result);
   }
 
@@ -20,7 +20,7 @@ public class TestPersonAPI extends AbstractAPITest {
   public void testAllColleaguesXML() throws SimalAPIException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.COMMAND_ALL_COLLEAGUES + RESTCommand.PARAM_PERSON_ID + "1" + RESTCommand.FORMAT_XML);
     IAPIHandler handler = SimalHandlerFactory.createHandler(command, repo);
-    String result = handler.execute(command);
+    String result = handler.execute();
     assertNotNull(result);
     
     assertFalse("There should be no people with null IDs", result.contains("id=\"null\""));

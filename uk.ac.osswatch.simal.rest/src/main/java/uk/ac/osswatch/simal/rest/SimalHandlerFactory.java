@@ -20,9 +20,9 @@ public class SimalHandlerFactory {
   public static IAPIHandler createHandler(RESTCommand command, SimalRepository repo) throws SimalAPIException {
     IAPIHandler handler = null;
     if (command.isGetAllProjects()) {
-      handler = new ProjectAPI(repo);
+      handler = new ProjectAPI(command);
     } else if (command.isGetColleagues()) {
-      handler = new PersonAPI(repo);
+      handler = new PersonAPI(command);
     }
     
     if (handler == null) {

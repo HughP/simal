@@ -12,7 +12,6 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 public class PersonAPI extends AbstractHandler {
-  protected static SimalRepository repo;
 
   /**
    * Create a PersonAPI that will operate on a given Simal
@@ -20,10 +19,10 @@ public class PersonAPI extends AbstractHandler {
    * use HandlerFactory.createHandler(...) instead.
    * 
    * @param repo
+   * @throws SimalAPIException 
    */
-  protected PersonAPI(SimalRepository repo) {
-    super();
-    this.repo = repo;
+  protected PersonAPI(RESTCommand cmd) {
+    super(cmd);
   }
 
 
@@ -33,11 +32,11 @@ public class PersonAPI extends AbstractHandler {
    * @param cmd
    * @throws SimalAPIException 
    */
-  public String execute(RESTCommand cmd) throws SimalAPIException {
-    if (cmd.isGetColleagues()) {
-      return getAllColleagues(cmd);
+  public String execute() throws SimalAPIException {
+    if (command.isGetColleagues()) {
+      return getAllColleagues(command);
     } else {
-      throw new SimalAPIException("Unkown command: " + cmd);
+      throw new SimalAPIException("Unkown command: " + command);
     }
   }
 
@@ -58,7 +57,7 @@ public class PersonAPI extends AbstractHandler {
     Set<IPerson> colleaguesAndFriends;
     Iterator<IPerson> friends = null;
     try {
-      person = repo.findPersonById(id);
+      person = HandlerFactory.getSimalRepository().findPersonById(id);
       
       colleaguesAndFriends = person.getColleagues();
       colleaguesAndFriends.addAll(person.getKnows());

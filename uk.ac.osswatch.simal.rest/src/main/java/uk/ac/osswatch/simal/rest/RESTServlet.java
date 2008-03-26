@@ -32,7 +32,7 @@ public class RESTServlet extends HttpServlet {
 
     try {
       IAPIHandler handler = HandlerFactory.get(cmd);
-      response = handler.execute(cmd);      
+      response = handler.execute();      
     } catch (SimalAPIException e) {
       response = errorResponse(e);
     } finally {
