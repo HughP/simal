@@ -106,6 +106,7 @@
       <foaf:title>Dr.</foaf:title>
       <foaf:name>Firstnam lastname</foaf:name>
       <foaf:mbox>someone@foo.org</foaf:mbox>
+      <simal:personId>1</simal:personId>
     </foaf:Person>
   </maintainer>
 
@@ -155,7 +156,7 @@
       <foaf:homepage rdf:resource="http://example.org/person/developer" />
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
-      <simal:personId>1</simal:personId>
+      <simal:personId>15</simal:personId>
     </foaf:Person>
   </developer>
 </Project>
