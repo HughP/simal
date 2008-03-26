@@ -86,7 +86,7 @@ public abstract class BaseRepositoryTest {
 
   protected static void createRepository() throws SimalRepositoryException {
     repository = new SimalRepository();
-    initialiseRepository(false);
+    initialiseRepository(true);
     rollbackAndStartTransaction();
   }
 
