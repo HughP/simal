@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal;
+package uk.ac.osswatch.simal.rest;
 
 /**
  * An abstract handler for the REST API. All handlers should 

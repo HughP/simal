@@ -5,9 +5,6 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.IAPIHandler;
-import uk.ac.osswatch.simal.RESTCommand;
-import uk.ac.osswatch.simal.SimalAPIException;
 
 public class TestPersonAPI extends AbstractAPITest {
 

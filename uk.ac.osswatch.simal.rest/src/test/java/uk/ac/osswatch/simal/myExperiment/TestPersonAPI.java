@@ -4,9 +4,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.IAPIHandler;
-import uk.ac.osswatch.simal.RESTCommand;
-import uk.ac.osswatch.simal.SimalAPIException;
+import uk.ac.osswatch.simal.rest.IAPIHandler;
+import uk.ac.osswatch.simal.rest.RESTCommand;
+import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 public class TestPersonAPI {
   private String personID = "15"; // ID for Ross Gardler

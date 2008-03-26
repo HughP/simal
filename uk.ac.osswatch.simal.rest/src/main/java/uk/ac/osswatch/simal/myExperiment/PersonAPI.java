@@ -26,9 +26,9 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import uk.ac.osswatch.simal.AbstractHandler;
-import uk.ac.osswatch.simal.RESTCommand;
-import uk.ac.osswatch.simal.SimalAPIException;
+import uk.ac.osswatch.simal.rest.AbstractHandler;
+import uk.ac.osswatch.simal.rest.RESTCommand;
+import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 /**
  * MyExperiment API functionality for working with Person objects.

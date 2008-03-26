@@ -3,9 +3,6 @@ package uk.ac.osswatch.simal.rest;
 import java.util.Iterator;
 import java.util.Set;
 
-import uk.ac.osswatch.simal.AbstractHandler;
-import uk.ac.osswatch.simal.RESTCommand;
-import uk.ac.osswatch.simal.SimalAPIException;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;

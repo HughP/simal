@@ -1,8 +1,5 @@
 package uk.ac.osswatch.simal.rest;
 
-import uk.ac.osswatch.simal.AbstractHandler;
-import uk.ac.osswatch.simal.RESTCommand;
-import uk.ac.osswatch.simal.SimalAPIException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 

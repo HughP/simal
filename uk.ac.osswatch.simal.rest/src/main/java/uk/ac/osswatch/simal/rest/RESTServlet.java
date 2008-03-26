@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal;
+package uk.ac.osswatch.simal.rest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uk.ac.osswatch.simal.IAPIHandler;
-import uk.ac.osswatch.simal.SimalAPIException;
+import uk.ac.osswatch.simal.rest.IAPIHandler;
+import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 /**
  * A servlet class that allows multiple resources to

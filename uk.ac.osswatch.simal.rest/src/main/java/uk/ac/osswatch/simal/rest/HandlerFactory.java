@@ -1,9 +1,8 @@
-package uk.ac.osswatch.simal;
+package uk.ac.osswatch.simal.rest;
 
 import uk.ac.osswatch.simal.myExperiment.MyExperimentHandlerFactory;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rest.SimalHandlerFactory;
 
 /**
  * A factory class for REST command handlers.

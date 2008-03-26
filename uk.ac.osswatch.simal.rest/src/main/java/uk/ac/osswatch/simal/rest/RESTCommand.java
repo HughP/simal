@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal;
+package uk.ac.osswatch.simal.rest;
 
 import org.apache.commons.httpclient.methods.GetMethod;
 
