@@ -74,12 +74,30 @@
     <servlet-class>
       org.apache.shindig.social.GadgetDataServlet
     </servlet-class>
+    <init-param>
+      <param-name>peopleService</param-name>
+      <param-value>uk.ac.osswatch.simal.openSocial.SimalPeopleService</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dataService</param-name>
+      <param-value>uk.ac.osswatch.simal.openSocial.SimalDataService</param-value>
+    </init-param>
+    <init-param>
+      <param-name>activitiesService</param-name>
+      <param-value>uk.ac.osswatch.simal.openSocial.SimalActivitiesService</param-value>
+    </init-param>
   </servlet>
 
   <!-- javascript serving -->
   <servlet>
     <servlet-name>js</servlet-name>
     <servlet-class>org.apache.shindig.gadgets.http.JsServlet</servlet-class>
+  </servlet>  
+  
+  <!-- Simal API -->
+  <servlet>
+      <servlet-name>Simal REST API</servlet-name>
+      <servlet-class>uk.ac.osswatch.simal.rest.RESTServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -105,6 +123,11 @@
   <servlet-mapping>
     <servlet-name>socialdata</servlet-name>
     <url-pattern>/gadgets/socialdata</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+      <servlet-name>Simal REST API</servlet-name>
+      <url-pattern>/simal-rest/*</url-pattern>
   </servlet-mapping>
 
 </web-app>
