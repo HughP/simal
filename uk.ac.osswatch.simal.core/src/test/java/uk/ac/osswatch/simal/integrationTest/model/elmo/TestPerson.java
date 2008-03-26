@@ -67,11 +67,16 @@ public class TestPerson extends BaseRepositoryTest {
   }
   
   @Test
-  public void testSimalId() {
+  public void testSuppliedSimalId() {
     String id = developer.getSimalId();
-    assertEquals("Test developer ID incorrect", "1", id);
-    // FIXME: write tests to ensure IDs are being generated
+    assertEquals("Test developer ID incorrect", "15", id);
     
+  }
+  
+  @Test
+  public void testGeneratedSimalId() throws SimalRepositoryException {
+    String id = developer.getColleagues().iterator().next().getSimalId();
+    assertNotNull("Test developer ID incorrect", id);
   }
   
   @Test
