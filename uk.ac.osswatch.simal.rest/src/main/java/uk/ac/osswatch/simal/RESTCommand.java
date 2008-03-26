@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal;
 
+import org.apache.commons.httpclient.methods.GetMethod;
+
 /**
  * Command objects for the REST API. This object is used to represent a command
  * in the API and provides convenience methods for extracting parameters.
@@ -232,6 +234,23 @@ public class RESTCommand {
       return true;
     } 
     return false;
+  }
+  
+  /**
+   * Return the path info part of the URI that represents
+   * this command.
+   * 
+   * @return
+   */
+  public String toPathInfo() {
+    StringBuffer sb = new StringBuffer();
+    sb.append(getCommandMethod());
+    sb.append(PARAM_SOURCE);
+    sb.append(getSource());
+    sb.append(PARAM_PERSON_ID);
+    sb.append(getPersonID());
+    sb.append(getFormat());
+    return sb.toString();
   }
 
   @Override
