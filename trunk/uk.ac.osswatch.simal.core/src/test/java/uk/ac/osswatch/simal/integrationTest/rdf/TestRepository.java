@@ -111,7 +111,7 @@ public class TestRepository extends BaseRepositoryTest {
   
   @Test
   public void testFindPersonById() throws SimalRepositoryException {
-    resetTestData();
+    initialiseRepository(false);
     
     IPerson person = repository.findPersonById("15");
     assertNotNull(person);
