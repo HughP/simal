@@ -1,8 +1,8 @@
 package uk.ac.osswatch.simal.myExperiment;
 
-import uk.ac.osswatch.simal.IAPIHandler;
-import uk.ac.osswatch.simal.RESTCommand;
-import uk.ac.osswatch.simal.SimalAPIException;
+import uk.ac.osswatch.simal.rest.IAPIHandler;
+import uk.ac.osswatch.simal.rest.RESTCommand;
+import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 /**
  * A factory class for generating a specific handler for a

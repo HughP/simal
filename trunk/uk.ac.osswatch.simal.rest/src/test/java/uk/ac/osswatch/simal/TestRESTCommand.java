@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.rest.RESTCommand;
+
 public class TestRESTCommand {
 
   @Test
