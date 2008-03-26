@@ -1,6 +1,5 @@
 package uk.ac.osswatch.simal.rest;
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**

@@ -26,7 +26,6 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.rest.AbstractHandler;
-import uk.ac.osswatch.simal.rest.HandlerFactory;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
@@ -72,7 +71,7 @@ public class PersonAPI extends AbstractHandler {
    */
   public String getAllColleagues(RESTCommand command) throws SimalAPIException {
     String elements = "id,name,friends";
-    String reqURI = HandlerFactory.getBaseURI() + "/user.xml?id=" + command.getPersonID()
+    String reqURI = getBaseURI() + "/user.xml?id=" + command.getPersonID()
         + "&elements=" + elements;
 
     HttpClient client = new HttpClient();
@@ -82,11 +81,11 @@ public class PersonAPI extends AbstractHandler {
     } catch (HttpException e) {
       throw new SimalAPIException(
           "Unable to retrieve data from the MyExperiment instance "
-              + HandlerFactory.getBaseURI(), e);
+              + getBaseURI(), e);
     } catch (IOException e) {
       throw new SimalAPIException(
           "Unable to retrieve data from the MyExperiment instance "
-              + HandlerFactory.getBaseURI(), e);
+              + getBaseURI(), e);
     }
 
     StringWriter out;

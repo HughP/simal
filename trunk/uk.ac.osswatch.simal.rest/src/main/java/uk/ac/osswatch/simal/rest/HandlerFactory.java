@@ -68,12 +68,4 @@ public class HandlerFactory {
     initFactory();
     return simalRepo;
   }
-
-  /**
-   * Get the Base URI for this command.
-   * @return
-   */
-  public static String getBaseURI() {
-    return "http://www.myexperiment.org";
-  }
 }

@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**

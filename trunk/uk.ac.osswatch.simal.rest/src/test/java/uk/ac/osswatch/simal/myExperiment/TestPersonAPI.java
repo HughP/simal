@@ -10,7 +10,6 @@ import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 public class TestPersonAPI {
   private String personID = "15"; // ID for Ross Gardler
-  private String uri = "http://www.myexperiment.org";
 
   @Test
   public void testAllColleaguesJSON() throws SimalAPIException {
