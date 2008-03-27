@@ -18,7 +18,7 @@ public interface IProject extends Project, IDoapProjectBehaviour {
    * @return 
    */
   @rdf("http://simal.oss-watch.ac.uk/ns/0.2/simal#projectId")
-  public String getProjectID();
+  public String getSimalID();
 
   /**
    * Set the Simal ID for this project. This is a unique identifier
@@ -26,5 +26,5 @@ public interface IProject extends Project, IDoapProjectBehaviour {
    * 
    * @return 
    */
-  public void setProjectID(String newID);
+  public void setSimalID(String newID);
 }

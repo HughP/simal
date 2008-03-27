@@ -9,7 +9,6 @@ import java.util.Set;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.elmo.DoapResourceBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestDoapResource extends BaseRepositoryTest {
@@ -20,11 +19,7 @@ public class TestDoapResource extends BaseRepositoryTest {
 
   @Test
   public void testGetName() throws SimalRepositoryException {
-    resetTestData();
-    // FIXME: We shouldn't need to create the behaviour ourselves we
-    // should be able to just designate it
-    DoapResourceBehaviour resource = new DoapResourceBehaviour(project1);
-    assertEquals(TEST_SIMAL_PROJECT_NAME, resource.getName());
+    assertEquals(TEST_SIMAL_PROJECT_NAME, project1.getName());
   }
 
   @Test

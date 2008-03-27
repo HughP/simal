@@ -39,9 +39,8 @@ public class TestProject extends BaseRepositoryTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    createRepository();
+    initRepository();
 
-    project1 = getSimalTestProject(false);
     maintainers = project1.getDoapMaintainers();
     developers = project1.getDoapDevelopers();
     helpers = project1.getDoapHelpers();
@@ -52,7 +51,9 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testPersonsLoaded() {
-    assertEquals("Should have one maintainer", BaseRepositoryTest.TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS, maintainers.size());
+    assertEquals("Should have one maintainer",
+        BaseRepositoryTest.TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS,
+        maintainers.size());
     assertEquals("Should have one developers", 1, developers.size());
     assertEquals("Should have one helpers", 1, helpers.size());
     assertEquals("Should have one documenters", 1, documenters.size());
@@ -68,8 +69,6 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testToJSON() throws SimalRepositoryException {
-    resetTestData();
-
     String json = project1.toJSONRecord();
     assertTrue(
         "JSON file does not contain correct JSON representation of the Simal test record",
@@ -124,7 +123,8 @@ public class TestProject extends BaseRepositoryTest {
       if (person.getLabel().equals(TEST_SIMAL_PROJECT_DEVELOPERS)) {
         hasDeveloper = true;
       }
-      assertNotNull("No person should have a null ID (see " + person.getQName().toString() + ")", person.getSimalId());
+      assertNotNull("No person should have a null ID (see "
+          + person.getQName().toString() + ")", person.getSimalId());
     }
     assertTrue("Project does not appear to have developer "
         + TEST_SIMAL_PROJECT_DEVELOPERS, hasDeveloper);
@@ -199,7 +199,7 @@ public class TestProject extends BaseRepositoryTest {
     Set<IDoapMailingList> lists = project1.getMailingLists();
     assertEquals("Got incorrect number of mailing lists",
         TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST, lists.size());
-    
+
     boolean hasListOne = false;
     boolean hasListTwo = false;
     Iterator<IDoapMailingList> itrLists = lists.iterator();
@@ -272,7 +272,8 @@ public class TestProject extends BaseRepositoryTest {
         hasRelease = true;
       }
     }
-    assertTrue("We don't seem to have the release " + TEST_SIMAL_PROJECT_RELEASES, hasRelease);
+    assertTrue("We don't seem to have the release "
+        + TEST_SIMAL_PROJECT_RELEASES, hasRelease);
   }
 
   @Test
@@ -325,7 +326,7 @@ public class TestProject extends BaseRepositoryTest {
   }
 
   @Test
-  public void testProjectFromScratch() throws SimalRepositoryException {
+  public void testAddProjectFromScratch() throws SimalRepositoryException {
     QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingProjectFromScratch");
     IProject project;
@@ -336,9 +337,10 @@ public class TestProject extends BaseRepositoryTest {
 
       project = repository.getProject(qname);
       assertNotNull("Project has not been added to repository", project);
-
       assertEquals("Project name is incorrectly set", "Testing", project
           .getName());
+
+      repository.remove(project.getQName());
     } catch (DuplicateQNameException e) {
       fail(e.getMessage());
     }
@@ -352,8 +354,8 @@ public class TestProject extends BaseRepositoryTest {
    */
   @Test
   public void testId() throws SimalRepositoryException, DuplicateQNameException {
-    assertEquals("Test project ID incorrect", "1", project1.getID());
-    
+    assertEquals("Test project ID incorrect", project1ID, project1.getSimalID());
+
     QName qname1 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId1");
     QName qname2 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
@@ -362,20 +364,22 @@ public class TestProject extends BaseRepositoryTest {
     IProject project;
     project = repository.createProject(qname1);
     project = repository.getProject(qname1);
-    String id1 = project.getID();
+    String id1 = project.getSimalID();
 
     project = repository.createProject(qname2);
     project = repository.getProject(qname2);
-    String id2 = project.getID();
+    String id2 = project.getSimalID();
 
     assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1
         .equals(id2));
 
     // check IDs are being written to the repository
     project = repository.getProject(qname1);
-    // String id3 = project.getID();
-    // FIXME (ISSUE 88): projectIDs are not currently written to the repository
-    // assertTrue("Project IDs don't appear to be written to the repo",
-    // id1.equals(id3));
+    String id3 = project.getSimalID();
+    assertTrue("Project IDs don't appear to be written to the repo", id1
+        .equals(id3));
+
+    repository.remove(qname1);
+    repository.remove(qname2);
   }
 }

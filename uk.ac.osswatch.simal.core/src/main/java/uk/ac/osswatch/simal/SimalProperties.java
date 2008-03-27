@@ -80,6 +80,16 @@ public class SimalProperties {
     return propsFile;
   }
 
+
+  /**
+   * Delete the local properties file.
+   * @return true is deleted, otherwise false
+   * @throws SimalRepositoryException 
+   */
+  public static boolean deleteLocalProperties() throws SimalRepositoryException {
+    return getLocalPropertiesFile().delete();    
+  }
+  
   /**
    * Get a properties file from a given location.
    */

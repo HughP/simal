@@ -21,8 +21,11 @@ import org.openrdf.model.impl.URIImpl;
 import org.openrdf.rio.RDFHandler;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.rdfxml.RDFXMLWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -38,11 +41,12 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  */
 public class AnnotatingRDFXMLHandler implements RDFHandler {
+  private static final Logger logger = LoggerFactory
+      .getLogger(AnnotatingRDFXMLHandler.class);
 
   private RDFXMLWriter handler;
   private Stack<Resource> subjects = new Stack<Resource>();
   private Stack<String> subjectType = new Stack<String>();
-  private Stack<Boolean> subjectHasID = new Stack<Boolean>();
   private Set<QName> projectQNames = new HashSet<QName>();
   private Set<QName> personQNames = new HashSet<QName>();
   private SimalRepository repository;
@@ -127,10 +131,26 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
     if (isSimalPredicate(inStatement)) {
       String predicateValue = outPredicate.stringValue();
-      if (predicateValue.equals(SimalRepository.SIMAL_URI_PROJECT_ID)
-          || predicateValue.equals(SimalRepository.SIMAL_URI_PERSON_ID)) {
-        subjectHasID.pop();
-        subjectHasID.push(true);
+      String id = inStatement.getObject().stringValue();
+
+      // look to see if this id is available, if it is use it, otherwise drop it
+      try {
+        if (predicateValue.equals(SimalRepository.SIMAL_URI_PERSON_ID)) {
+          IPerson person = repository.findPersonById(id);
+          if (person != null) {
+            logger.warn("Throwing away simal personID from XML file as it is allready in use on this server. ID = " + id + " Owner = " + person.toString());
+            return;
+          }
+        } else if (predicateValue.equals(SimalRepository.SIMAL_URI_PROJECT_ID)) {
+          IProject project = repository.findProjectById(id);
+          if (project != null) {
+            logger.warn("Throwing away simal projectID from XML file as it is allready in use on this server. ID = " + id + " Owner = " + project.toString());
+            return;
+          }
+        }
+      } catch (SimalRepositoryException e) {
+        e.printStackTrace();
+        return;
       }
     }
 
@@ -157,35 +177,29 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
           String type = subjectType.pop();
           if (type.equals("Project")) {
             Resource project = subjects.pop();
-            Boolean hasID = subjectHasID.pop();
-            if (!hasID) {
-              Value idValue;
-              try {
-                idValue = new LiteralImpl(SimalRepository.getNewProjectID());
-                Statement idStatement = new StatementImpl(project, new URIImpl(
-                    SimalRepository.SIMAL_URI_PROJECT_ID), idValue);
-                handler.handleStatement(idStatement);
-              } catch (Exception e) {
-                throw new RDFHandlerException(
-                    "Unable to save the Simal properties file, aborting file annotation",
-                    e);
-              }
+            Value idValue;
+            try {
+              idValue = new LiteralImpl(repository.getNewProjectID());
+              Statement idStatement = new StatementImpl(project, new URIImpl(
+                  SimalRepository.SIMAL_URI_PROJECT_ID), idValue);
+              handler.handleStatement(idStatement);
+            } catch (Exception e) {
+              throw new RDFHandlerException(
+                  "Unable to save the Simal properties file, aborting file annotation",
+                  e);
             }
           } else if (type.equals("Person")) {
             Resource person = subjects.pop();
-            Boolean hasID = subjectHasID.pop();
-            if (!hasID) {
-              Value idValue;
-              try {
-                idValue = new LiteralImpl(SimalRepository.getNewPersonID());
-                Statement idStatement = new StatementImpl(person, new URIImpl(
-                    SimalRepository.SIMAL_URI_PERSON_ID), idValue);
-                handler.handleStatement(idStatement);
-              } catch (Exception e) {
-                throw new RDFHandlerException(
-                    "Unable to save the Simal properties file, aborting file annotation",
-                    e);
-              }
+            Value idValue;
+            try {
+              idValue = new LiteralImpl(repository.getNewPersonID());
+              Statement idStatement = new StatementImpl(person, new URIImpl(
+                  SimalRepository.SIMAL_URI_PERSON_ID), idValue);
+              handler.handleStatement(idStatement);
+            } catch (Exception e) {
+              throw new RDFHandlerException(
+                  "Unable to save the Simal properties file, aborting file annotation",
+                  e);
             }
           }
         }
@@ -240,10 +254,9 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         SimalRepository.FOAF_NAMESPACE_URI);
     return isPerson;
   }
-  
+
   /**
-   * Tests to see if the statement is about a new participant in the
-   * project. 
+   * Tests to see if the statement is about a new participant in the project.
    * 
    * @param inStatement
    * @return
@@ -251,18 +264,24 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private boolean isNewParticipant(Statement inStatement) {
     boolean isPerson = false;
 
-    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
-        SimalRepository.DOAP_MAINTAINER_URI);
-    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
-        SimalRepository.DOAP_DEVELOPER_URI);
-    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
-        SimalRepository.DOAP_DOCUMENTER_URI);
-    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
-        SimalRepository.DOAP_HELPER_URI);
-    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
-        SimalRepository.DOAP_TESTER_URI);
-    isPerson = isPerson || inStatement.getPredicate().stringValue().startsWith(
-        SimalRepository.DOAP_TRANSLATOR_URI);
+    isPerson = isPerson
+        || inStatement.getPredicate().stringValue().startsWith(
+            SimalRepository.DOAP_MAINTAINER_URI);
+    isPerson = isPerson
+        || inStatement.getPredicate().stringValue().startsWith(
+            SimalRepository.DOAP_DEVELOPER_URI);
+    isPerson = isPerson
+        || inStatement.getPredicate().stringValue().startsWith(
+            SimalRepository.DOAP_DOCUMENTER_URI);
+    isPerson = isPerson
+        || inStatement.getPredicate().stringValue().startsWith(
+            SimalRepository.DOAP_HELPER_URI);
+    isPerson = isPerson
+        || inStatement.getPredicate().stringValue().startsWith(
+            SimalRepository.DOAP_TESTER_URI);
+    isPerson = isPerson
+        || inStatement.getPredicate().stringValue().startsWith(
+            SimalRepository.DOAP_TRANSLATOR_URI);
     return isPerson;
   }
 
@@ -319,7 +338,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     try {
       if (repository.getProject(qname) != null) {
         projectQNames.add(qname);
-        subjectHasID.push(true);
+        // a project in the repository already has an ID
         return;
       }
     } catch (SimalRepositoryException e) {
@@ -327,7 +346,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
           "Unable to verify if a project already exists", e);
     }
 
-    subjectHasID.push(false);
     projectQNames.add(qname);
   }
 
@@ -348,7 +366,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     try {
       IPerson existingPerson = repository.getPerson(qname);
       if (existingPerson != null) {
-        subjectHasID.push(true);
         personQNames.add(qname);
         return;
       }
@@ -357,7 +374,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
           "Unable to verify if a person already exists", e);
     }
 
-    subjectHasID.push(false);
     personQNames.add(qname);
   }
 

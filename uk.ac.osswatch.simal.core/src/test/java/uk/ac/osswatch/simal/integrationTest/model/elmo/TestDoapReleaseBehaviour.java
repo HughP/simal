@@ -13,8 +13,6 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class TestDoapReleaseBehaviour extends BaseRepositoryTest {
   @Test
   public void testGetReleases() throws SimalRepositoryException {
-    initialiseRepository(false);
-
     Set<IDoapRelease> releases = project1.getReleases();
     IDoapRelease release = (IDoapRelease) releases.toArray()[0];
     Set<String> revisions = release.getRevisions();

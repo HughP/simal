@@ -4,10 +4,11 @@ import javax.xml.namespace.QName;
 
 import org.junit.BeforeClass;
 
+import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.TransactionException;
 
 /**
  * A base class for repository integration tests. This class provides utility
@@ -68,112 +69,56 @@ public abstract class BaseRepositoryTest {
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS = 1;
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS = 1;
-  
+
   public static final String TEST_SIMAL_PROJECT_CATEGORY_ONE = "DOAP Test";
   public static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#";
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
-  
+
   protected static SimalRepository repository;
 
   protected static IProject project1;
+  protected static String project1ID = "200";
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    createRepository();
-    project1 = getSimalTestProject(false);
+    SimalProperties.setProperty(
+        SimalProperties.PROPERTY_LOCAL_PROPERTIES_LOCATION,
+        "local.simal.test.properties");
+    SimalProperties.deleteLocalProperties();
+
+    initRepository();
   }
 
-  protected static void createRepository() throws SimalRepositoryException {
+  protected static void initRepository() throws SimalRepositoryException {
     repository = new SimalRepository();
-    initialiseRepository(true);
-    rollbackAndStartTransaction();
-  }
-
-  protected void resetTestData() throws SimalRepositoryException {
-    rollbackAndStartTransaction();
-    project1 = getSimalTestProject(true);
-  }
-
-  /**
-   * Initialise a test repository. If one already exists do nothing unless the
-   * reset param is true, in which case rollback the current transaction and
-   * start a new one. If no repository exists then create one with default test
-   * data.
-   * 
-   * @param reset
-   *          if true then reset the repo to the original test data
-   * @return
-   * @throws SimalRepositoryException
-   */
-  protected static void initialiseRepository(boolean reset)
-      throws SimalRepositoryException {
-    try {
-      if (repository.isInitialised() && reset) {
-        repository.rollback();
-        repository.startTransaction();
-      }
-      if (!repository.isInitialised()) {
-        repository.setIsTest(true);
-        repository.initialise();
-        repository.startTransaction();
-      }
-    } catch (TransactionException e) {
-      throw new SimalRepositoryException(e.getMessage(), e);
+    if (!repository.isInitialised()) {
+      repository.setIsTest(true);
+      repository.initialise();
     }
+    project1 = getSimalTestProject();
+    IPerson developer = project1.getDevelopers().iterator().next();
+    developer.setSimalId("15");
   }
 
   /**
    * Get the default test project. This is generated from the testDOAP.xml file.
-   * you should reset the data is you are testing any of the following fields:
    * 
-   * <ul>
-   * <li>name</li>
-   * </ul>
-   * 
-   * @param reset
-   *          true if the data is to be reset
-   * 
-   * @param repo
    * @return
    * @throws SimalRepositoryException
    */
-  protected static IProject getSimalTestProject(boolean reset)
+  protected static IProject getSimalTestProject()
       throws SimalRepositoryException {
     QName qname;
     IProject project;
     qname = new QName(TEST_SIMAL_PROJECT_QNAME);
-    if (reset) {
-      rollbackAndStartTransaction();
-    }
     project = repository.getProject(qname);
     return project;
   }
 
   /**
-   * Rollback any existing transaction and start a new one. Of no existing
-   * transaction is active just start one.
-   * 
-   * @throws SimalRepositoryException
-   */
-  protected static void rollbackAndStartTransaction()
-      throws SimalRepositoryException {
-    try {
-      repository.rollback();
-    } catch (TransactionException e) {
-      // we don't care since we have no idea what state we are in
-      // simply assume this is OK for test purposes
-    }
-    try {
-      repository.startTransaction();
-    } catch (TransactionException e) {
-      // we don't care since we have no idea what state we are in
-      // simply assume this is OK for test purposes
-    }
-  }
-
-  /**
    * Get the number of participants found in the main test project.
+   * 
    * @return
    */
   public static int getNumberOfParticipants() {

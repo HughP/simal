@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
 import javax.xml.namespace.QName;
 
 import org.openrdf.elmo.ElmoManager;
@@ -99,7 +99,7 @@ public class SimalRepository extends SimalProperties {
 
   public final static String CATEGORIES_RDF = "categories.xml";
 
-  private SailRepository _repository;
+  private static SailRepository _repository;
   private boolean isTest = false;
 
   public SimalRepository() throws SimalRepositoryException {
@@ -286,8 +286,41 @@ public class SimalRepository extends SimalProperties {
     ElmoQuery query = elmoManager.createQuery(queryStr);
     query.setParameter("simalId", id);
     
-    IPerson person = elmoManager.designateEntity(IPerson.class, query.getSingleResult());
-    return person;
+    try {
+      Object result = query.getSingleResult();
+      IPerson person = elmoManager.designateEntity(IPerson.class, result);
+      return person;
+    } catch (NoResultException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Get a project with a given simal id.
+   * 
+   * @param id
+   * @return
+   * @throws SimalRepositoryException 
+   */
+  public IProject findProjectById(String id) throws SimalRepositoryException {
+    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?project WHERE { "
+        + "?project rdf:type doap:Project . "
+        + "?project simal:projectId $simalId  "
+        + "}";
+    ElmoManager elmoManager = getManager();
+    ElmoQuery query = elmoManager.createQuery(queryStr);
+    query.setParameter("simalId", id);
+    
+    try {
+      Object result = query.getSingleResult();
+      IProject project = elmoManager.designateEntity(IProject.class, result);
+      return project;
+    } catch (NoResultException e) {
+      return null;
+    }
   }
 
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
@@ -351,11 +384,6 @@ public class SimalRepository extends SimalProperties {
           "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
           "http://simal.oss-watch.ac.uk");
     } catch (Exception e) {
-      try {
-        rollback();
-      } catch (TransactionException e1) {
-        logger.error("Unable to rollback transaction", e);
-      }
       throw new RuntimeException(
           "Can't add the test data, there's no point in carrying on", e);
     }
@@ -529,59 +557,6 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
-   * Start a transaction.
-   * 
-   * @throws SimalRepositoryException
-   *           If there is a problem communicating with the repository
-   * @throws TransactionException
-   *           If a transaction is already in progress. Applications should
-   *           decide whether or not to treat this as an error or to continue
-   *           within the existing transaction.
-   */
-  public void startTransaction() throws SimalRepositoryException,
-      TransactionException {
-    EntityTransaction transaction = getManager().getTransaction();
-    if (transaction.isActive()) {
-      throw new TransactionException(
-          "Attempt to start a new transaction when one is already active.");
-    }
-    transaction.begin();
-  }
-
-  /**
-   * End a transaction.
-   * 
-   * @throws SimalRepositoryException
-   * @throws TransactionException
-   *           If no transaction is active.
-   */
-  public void commitTransaction() throws SimalRepositoryException,
-      TransactionException {
-    EntityTransaction transaction = getManager().getTransaction();
-    if (!transaction.isActive()) {
-      throw new TransactionException(
-          "Attempt to commit a transaction when there is not one active.");
-    }
-    transaction.commit();
-  }
-
-  /**
-   * Rollback a transaction.
-   * 
-   * @throws SimalRepositoryException
-   * @throws TransactionException
-   *           If no transaction is active
-   */
-  public void rollback() throws SimalRepositoryException, TransactionException {
-    EntityTransaction transaction = getManager().getTransaction();
-    if (!transaction.isActive()) {
-      throw new TransactionException(
-          "Attempt to roll back a transaction when there is not one active.");
-    }
-    transaction.rollback();
-  }
-
-  /**
    * Create a new project in the repository.
    * 
    * @return
@@ -599,6 +574,7 @@ public class SimalRepository extends SimalProperties {
     }
 
     project = getManager().designate(IProject.class, qname);
+    project.setSimalID(getNewProjectID());
     return project;
   }
 
@@ -620,7 +596,7 @@ public class SimalRepository extends SimalProperties {
     }
 
     person = getManager().designate(IPerson.class, qname);
-    person.setSimalId(SimalRepository.getNewPersonID());
+    person.setSimalId(getNewPersonID());
     return person;
   }
 
@@ -640,9 +616,24 @@ public class SimalRepository extends SimalProperties {
    * @throws IOException
    * @throws FileNotFoundException
    */
-  public static String getNewProjectID() throws SimalRepositoryException {
+  public String getNewProjectID() throws SimalRepositoryException {
     String strID = getProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
     long id = Long.parseLong(strID);
+        
+    /**
+     * If the properties file is lost for any reason the
+     * next ID value will be lost. We therefore need to
+     * perform a sanity check that this is unique.
+     */
+    boolean validID = false;
+    while (!validID) {
+      if (findProjectById(Long.toString(id)) == null) {
+        validID = true;
+      } else {
+        id = id + 1;
+      }
+    }
+    
     long newId = id + 1;
     setProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, Long.toString(newId));
     try {
@@ -652,7 +643,7 @@ public class SimalRepository extends SimalProperties {
       throw new SimalRepositoryException(
           "Unable to save properties file when creating the next project ID", e);
     }
-    return strID;
+    return Long.toString(id);
   }
 
   /**
@@ -661,9 +652,24 @@ public class SimalRepository extends SimalProperties {
    * @throws IOException
    * @throws FileNotFoundException
    */
-  public static String getNewPersonID() throws SimalRepositoryException {
+  public String getNewPersonID() throws SimalRepositoryException {
     String strID = getProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
     long id = Long.parseLong(strID);
+    
+    /**
+     * If the properties file is lost for any reason the
+     * next ID value will be lost. We therefore need to
+     * perform a sanity check that this is unique.
+     */
+    boolean validID = false;
+    while (!validID) {
+      if (findPersonById(Long.toString(id)) == null) {
+        validID = true;
+      } else {
+        id = id + 1;
+      }
+    }
+    
     long newId = id + 1;
     setProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, Long.toString(newId));
     try {
@@ -673,6 +679,6 @@ public class SimalRepository extends SimalProperties {
       throw new SimalRepositoryException(
           "Unable to save properties file when creating the next person ID", e);
     }
-    return strID;
+    return Long.toString(id);
   }
 }

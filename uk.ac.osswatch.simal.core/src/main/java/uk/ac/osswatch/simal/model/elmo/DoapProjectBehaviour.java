@@ -25,7 +25,6 @@ import uk.ac.osswatch.simal.model.IDoapScreenshot;
 import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -141,22 +140,6 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
     }
     values.append("]");
     return values.toString();
-  }
-
-  /**
-   * Get the ID of this project. If no ID has been assigned
-   * yet then get the next available ID from the repository 
-   * and assign that.
-   * @throws SimalRepositoryException 
-   */
-  public String getID() throws SimalRepositoryException {
-    IProject project = elmoEntity.getElmoManager().designateEntity(IProject.class, elmoEntity);
-    String id = project.getProjectID();
-    if (id == null) {
-      id = SimalRepository.getNewProjectID();
-      project.setProjectID(id);
-    }
-    return id;
   }
 
   /**

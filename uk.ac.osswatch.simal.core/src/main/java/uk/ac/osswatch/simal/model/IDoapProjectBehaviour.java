@@ -19,14 +19,6 @@ public interface IDoapProjectBehaviour extends IDoapResourceBehaviour {
    * @throws SimalRepositoryException
    */
   public HashSet<IPerson> getAllPeople() throws SimalRepositoryException;
-
-  /**
-   * Get the ID of this project. If no ID has been assigned
-   * yet then get the next available ID from the repository 
-   * and assign that.
-   * @throws SimalRepositoryException 
-   */
-  public String getID() throws SimalRepositoryException;
   
   /**
    * Get the default name for this project.
