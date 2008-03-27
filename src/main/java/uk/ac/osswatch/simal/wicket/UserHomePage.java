@@ -16,12 +16,13 @@
 package uk.ac.osswatch.simal.wicket;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 
 public class UserHomePage extends OpenSocialPage {
 	private static final long serialVersionUID = -8125606657250912738L;
-	protected static final String MYEXPERIMENT_CLOUD_GADGET_URL = "http://hosting.gmodules.com/ig/gadgets/file/102930279039750035480/myexperiment-tag-cloud.xml";
+	protected static final String MYEXPERIMENT_FRIENDS_GADGET_URL = "http://localhost:8080/gadgets/myExperimentFriendsNavigator.xml";
   protected static final String FRIENDS_NAVIGATOR_GADGET_URL = "http://localhost:8080/gadgets/friendsNavigator.xml";
   
   public UserHomePage() {
@@ -29,8 +30,8 @@ public class UserHomePage extends OpenSocialPage {
 			add(new ProjectListPanel("projectList"));
 			add(new ProjectSummaryPanel("featuredProject", UserApplication
 					.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
-			addGadget("friendsNavigatorGadget", FRIENDS_NAVIGATOR_GADGET_URL);
-			addGadget("myExperimentCloud", MYEXPERIMENT_CLOUD_GADGET_URL);
+			addGadget("friendsNavigatorGadget", FRIENDS_NAVIGATOR_GADGET_URL, RESTCommand.SOURCE_TYPE_SIMAL);
+			addGadget("myExperimentFriends", MYEXPERIMENT_FRIENDS_GADGET_URL, RESTCommand.SOURCE_TYPE_MYEXPERIMENT);
 		} catch (SimalRepositoryException e) {
 			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));

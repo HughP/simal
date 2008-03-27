@@ -52,7 +52,7 @@ public class OpenSocialPage extends BasePage {
       config.append(SERVER_BASE);
       config.append("\");\n");
       config.append("  gadgets.container.addGadget(gadget);\n");
-      config.append("  gadget.secureToken = generateSecureToken();\n");
+      config.append("  gadget.secureToken = \"15:15:" + gadgetPanels.get(i).getAppID() + ":simal.oss-watch.ac.uk\";\n");
       chromeIDs.append("\"");
       chromeIDs.append(gadgetPanels.get(i).getUid());
       if (i+1 <  gadgetPanels.size()) {
@@ -83,8 +83,8 @@ public class OpenSocialPage extends BasePage {
    * @param wicketID
    * @param gadgetURL
    */
-  protected void addGadget(String wicketID, String gadgetURL) {
-    GadgetPanel gadgetPanel = new GadgetPanel(wicketID, gadgetURL);
+  protected void addGadget(String wicketID, String gadgetURL, String appID) {
+    GadgetPanel gadgetPanel = new GadgetPanel(wicketID, gadgetURL, appID);
     gadgetPanels.add(gadgetPanel);
     add(gadgetPanel);
   }
