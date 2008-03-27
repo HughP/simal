@@ -14,8 +14,6 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class TestCategory extends BaseRepositoryTest {
   @Test
   public void testGetCategoryLabel() throws SimalRepositoryException {
-    initialiseRepository(false);
-
     String uri = "http://simal.oss-watch.ac.uk/category/socialNews";
     IDoapCategory category = repository.findCategory(new QName(uri));
     String label = category.getLabel();

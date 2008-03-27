@@ -21,7 +21,7 @@
   xmlns="http://usefulinc.com/ns/doap#"
   rdf:about="http://simal.oss-watch.ac.uk/simalTest#">
 
-  <simal:projectId>1</simal:projectId>
+  <simal:projectId>200</simal:projectId>
 
   <created>2007-08-08</created>
 

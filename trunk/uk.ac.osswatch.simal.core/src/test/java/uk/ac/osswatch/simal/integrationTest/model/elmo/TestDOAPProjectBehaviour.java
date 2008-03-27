@@ -15,8 +15,6 @@ public class TestDOAPProjectBehaviour extends BaseRepositoryTest {
 
   @Test
   public void testGetAllPeople() throws SimalRepositoryException {
-    initialiseRepository(false);
-
     HashSet<IPerson> people = project1.getAllPeople();
     assertNotNull(people);
     assertEquals("Got the wrong number of people", BaseRepositoryTest.getNumberOfParticipants(), people.size());

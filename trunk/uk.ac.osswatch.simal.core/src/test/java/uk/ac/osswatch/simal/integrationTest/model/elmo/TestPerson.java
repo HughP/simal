@@ -24,7 +24,7 @@ public class TestPerson extends BaseRepositoryTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    createRepository();
+    initRepository();
 
     developer = repository
         .getPerson(new QName("http://foo.org/~developer/#me"));
