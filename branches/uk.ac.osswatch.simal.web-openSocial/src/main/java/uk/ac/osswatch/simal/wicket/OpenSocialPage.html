@@ -5,16 +5,14 @@
 <head>
 <title>Simal Project and Community Registry Framework</title>
 
-<script>
-//The following code has been pulled from the sample container
-//in Apache Shindig and is Copyright the Apache Software Foundation
-//It is a hack here to set the state URL for the friends request.
-var viewerId = "1";
-var ownerId = "1";
+<script type="text/javascript">
+  // TODO: This is gross, it needs to use the config just like the gadget js does
+  var socialDataPath = document.location.protocol + "//" + document.location.host
+      + "/gadgets/socialdata";
 
-function generateSecureToken() {
-  return [ownerId, viewerId, "simal", "shindig"].join(":");
-}
+  // TODO: need to allow users to log into the system.
+  var ownerId = 15;
+  var viewerId = 15;
 </script>
 
 </head>
