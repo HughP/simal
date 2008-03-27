@@ -99,7 +99,7 @@ public class SimalRepository extends SimalProperties {
 
   public final static String CATEGORIES_RDF = "categories.xml";
 
-  private static SailRepository _repository;
+  private SailRepository _repository;
   private boolean isTest = false;
 
   public SimalRepository() throws SimalRepositoryException {
@@ -551,7 +551,7 @@ public class SimalRepository extends SimalProperties {
   public void setIsTest(boolean newValue) throws SimalRepositoryException {
     if (isInitialised() && isTest != newValue) {
       throw new SimalRepositoryException(
-          "Unable to change the value of SimalRepository,isTest after initialisation.");
+          "Unable to change the value of SimalRepository.isTest after initialisation.");
     }
     isTest = newValue;
   }
