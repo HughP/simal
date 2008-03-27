@@ -9,6 +9,7 @@ import javax.xml.namespace.QName;
 
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -54,6 +55,8 @@ public class DoapFormPage extends BasePage {
 			stringTextField = new RequiredTextField("shortDesc");
 			stringTextField.setLabel(new Model());
 			add(stringTextField);
+			
+			add(new TextArea("description"));
 
 		}
 
@@ -69,6 +72,7 @@ public class DoapFormPage extends BasePage {
 					IProject project = repo.createProject(qname);
 					project.addName(inputModel.getName());
 					project.setShortDesc(inputModel.getShortDesc());
+					project.setDescription(inputModel.getDescription());
 					setResponsePage(new UserHomePage());
 				} catch (DuplicateQNameException e) {
 					error("Name must be unique within the registry");
