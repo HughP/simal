@@ -28,15 +28,22 @@ public class HandlerFactory {
     }
   }
 
+  public HandlerFactory(SimalRepository repo) throws SimalAPIException {
+    if (!repo.isInitialised()) {
+      throw new SimalAPIException("Supplied repository has not been initialised, please initialise before handing to the HandlerFactory");
+    }
+    simalRepo = repo;
+  }
+
   /**
-   * Get a handler for the supplied command.
+   * Get a handler for the supplied command and repository.
    * 
    * @param cmd
    * @return
    * @throws SimalAPIException
    */
-  public static IAPIHandler get(RESTCommand cmd) throws SimalAPIException {
-    initFactory();
+  public static IAPIHandler get(RESTCommand cmd, SimalRepository repo) throws SimalAPIException {
+    initFactory(repo);
     
     if (cmd.getSource().equals(RESTCommand.SOURCE_TYPE_SIMAL)) {
       return SimalHandlerFactory.createHandler(cmd, simalRepo);
@@ -45,6 +52,19 @@ public class HandlerFactory {
     } else {
       throw new SimalAPIException("Unable to get handler for source type "
           + cmd.getSource());
+    }
+  }
+
+  /**
+   * Initialise the handler factory if not already done so. 
+   * This initialise routine uses the supplied repository.
+   * @param repo 
+   * 
+   * @throws SimalAPIException
+   */
+  private static void initFactory(SimalRepository repo) throws SimalAPIException {
+    if (factory == null) {
+      factory = new HandlerFactory(repo);
     }
   }
 

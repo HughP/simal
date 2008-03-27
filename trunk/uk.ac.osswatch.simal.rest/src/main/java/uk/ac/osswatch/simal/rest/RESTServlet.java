@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rest.IAPIHandler;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
@@ -31,10 +33,14 @@ public class RESTServlet extends HttpServlet {
     String response = "Could not handle request for " + req.getPathInfo();
 
     try {
-      IAPIHandler handler = HandlerFactory.get(cmd);
+      SimalRepository repo = new SimalRepository();
+      repo.initialise();
+      IAPIHandler handler = HandlerFactory.get(cmd, repo);
       response = handler.execute();      
     } catch (SimalAPIException e) {
       response = errorResponse(e);
+    } catch (SimalRepositoryException e) {
+      response = errorResponse(new SimalAPIException("Unable to connect to repository", e));
     } finally {
       if (cmd.isXML()) {
         res.setContentType("text/xml; charset=UTF-8");
