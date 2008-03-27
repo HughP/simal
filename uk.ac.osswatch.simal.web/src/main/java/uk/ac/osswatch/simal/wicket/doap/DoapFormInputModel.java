@@ -13,8 +13,25 @@ public class DoapFormInputModel implements IClusterable {
 	private URL sourceURL;
 	private String name;
 	private String shortDesc;
+	private String description;
 
-	public DoapFormInputModel() {
+	/**
+	 * Get the full description for this project.
+	 * @return
+	 */
+	public String getDescription() {
+    return description;
+  }
+
+	/**
+	 * Set the full description for this project.
+	 * @param description
+	 */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public DoapFormInputModel() {
 	}
 
 	public String getName() {
@@ -46,4 +63,6 @@ public class DoapFormInputModel implements IClusterable {
 	public void setSourceURL(URL sourceURL) {
 		this.sourceURL = sourceURL;
 	}
+
+	
 }
