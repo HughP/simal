@@ -14,6 +14,8 @@ import javax.xml.namespace.QName;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openrdf.concepts.foaf.Person;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -29,6 +31,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestProject extends BaseRepositoryTest {
+  private static final Logger logger = LoggerFactory
+  .getLogger(TestProject.class);
 
   private static Set<Person> maintainers;
   private static Set<Person> developers;
@@ -70,19 +74,21 @@ public class TestProject extends BaseRepositoryTest {
   @Test
   public void testToJSON() throws SimalRepositoryException {
     String json = project1.toJSONRecord();
+    logger.debug("Project JSON record is :\n" + json);
     assertTrue(
-        "JSON file does not contain correct JSON representation of the Simal test record",
+        "JSON file has incorrect project name: " + json,
         json.contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
     assertTrue(
-        "JSON file does not contain correct JSON representation of the Simal test record",
+        "JSON file has incorrect short description: " + json,
         json.contains("\",\"shortdesc\":\"" + TEST_SIMAL_PROJECT_SHORT_DESC));
     assertTrue(
-        "JSON file does not contain correct JSON representation of the Simal test project",
+        "JSON record (incorrectly) has items structure: : " + json,
         !json.startsWith("{ \"items\": ["));
 
     json = project1.toJSON();
+    logger.debug("Project JSON file is :\n" + json);
     assertTrue(
-        "JSON file does not contain correct JSON representation of the Simal test project",
+        "JSON file does not have items structure: : " + json,
         json.startsWith("{ \"items\": ["));
   }
 
