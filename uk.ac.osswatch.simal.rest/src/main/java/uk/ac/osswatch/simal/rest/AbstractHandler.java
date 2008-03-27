@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
  *
  */
 public abstract class AbstractHandler implements IAPIHandler {
-  private static final String SIMAL_REST_BASE_URI = "http://localhost:8880/simal-rest";
+  private static final String SIMAL_REST_BASE_URI = "http://localhost:8080/simal-rest";
   protected RESTCommand command;
 
   /**
