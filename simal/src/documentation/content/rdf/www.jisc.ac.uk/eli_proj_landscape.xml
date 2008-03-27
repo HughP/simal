@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation/eli_proj_landscape.aspx">
-<shortdesc>We are beginning to see significant adoption of mobile and wireless technologies in further and higher education, in schools and the community, with an impact on teaching, learning, and in the connection between formal and informal learning, work and leisure.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Landscape study on mobile and wireless technologies</name>
-</Project>

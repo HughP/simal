@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_gems.aspx">
-<shortdesc>GEMS(Grid Enabling MIMAS Services)is about establishing production data grids via the National Grid Service (NGS) to support the development of an e-infrastructure to support research.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>GEMS (Grid Enabling MIMAS Services)</name>
-<homepage rdf:resource="http://pascal.mvc.mcc.ac.uk:9080/gems"/>
-</Project>

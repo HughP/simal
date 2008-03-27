@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe/project_0103_qmul.aspx">
-<shortdesc>This project aims to investigate requirements for interoperability between FE, HE and employer's learning systems, to ensure that learners can make use of LIP compliant personal development records.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>PROSPERO: PROcesses for Support of PErsonal development Records Online</name>
-<homepage rdf:resource="http://prospero.odl.qmul.ac.uk/"/>
-</Project>

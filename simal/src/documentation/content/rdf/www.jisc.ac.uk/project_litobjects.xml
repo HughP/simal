@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_litobjects.aspx">
-<shortdesc>This project examines the types of learning activities these sites could support within the FE sector. It investigates this in the context of the skill sets which students at a variety of levels on academic and vocational courses bring to their learning.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>X4L Lit: Devising learning objects for use in literature</name>
-<homepage rdf:resource="http://www.llandrillo.ac.uk/JISC/"/>
-</Project>

@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_learning2learn.aspx">
-<shortdesc>The project will identify and make available to the FE/HE community learning objects to support students in the acquisition and development of learning and study skills.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>L2L: Learning to Learn</name>
-<homepage rdf:resource="http://www.stir.ac.uk/daice/l2l"/>
-</Project>

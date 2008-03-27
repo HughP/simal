@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_escience_in_education/project_malaria.aspx">
-<shortdesc>The aim of the project is to involve schools in a real scientific project, using the internet and distributed computing in an active rather than passive manner.  The work will involve the notion of looking for potential drugs by screening small molecules.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>The Schools Malaria project</name>
-</Project>

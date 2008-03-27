@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_trustdr.aspx">
-<shortdesc>This project will act as a "trailblazing exercise" to fully investigate the issues, challenges and opportunities relating to Digital Repositories from multiple stakeholder perspectives, particularly with respect to Digital Rights Management.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>Trust DR</name>
-<homepage rdf:resource="http://trustdr.ulster.ac.uk/"/>
-</Project>

@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/l2o.aspx">
-<shortdesc>The aim of the project is to pilot a model of regional collaborative partnerships sharing and re-using electronic learning resources across institutions and across sectors. Each partner will provide existing learning resources to generate re-usable learning objects (RLOs). The RLOs will be used by the consortium partners on their own, in combination and in association with other learning resources.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>L20 - Sharing Language Learning Objects</name>
-<homepage rdf:resource="http://www.elanguages.ac.uk/sharing"/>
-</Project>

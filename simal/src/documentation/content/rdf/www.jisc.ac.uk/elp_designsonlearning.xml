@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/elp_designsonlearning.aspx">
-<shortdesc>The Designs on Learning project intends to provide toolsets and exemplars for learning designers to embed blended elearning successfully in practice-based education.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Designs on Learning</name>
-<homepage rdf:resource="http://confluence.rave.ac.uk/confluence/x/eBU"/>
-</Project>

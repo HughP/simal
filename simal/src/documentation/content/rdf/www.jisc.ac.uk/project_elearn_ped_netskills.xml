@@ -1,9 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/project_elearn_ped_netskills.aspx">
-<shortdesc>The case studies will build on and complement the work of the e-Learning Models Desk Study. 
-Case studies illustrating examples of "innovative" practice in relation to e-learning in the post-16 and HE community will be produced. 
-The case studies will take the form of a written report with some supporting illustrative video clips showing actual practice, discussions with practitioners and learners. 
-A publication drawing together the outcomes of this work will be launched in September to coincide with ALT-C.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Netskills: Effective Practice case studies</name>
-</Project>

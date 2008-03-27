@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/pdp4life.aspx">
-<shortdesc>PDP4Life will take an existing specification for an Individual Learner Record that currently records formal qualifications and extend it to accept learner-generated records of informal learning from local PDP systems.  Exchange of this data between FE and HE institutions will be piloted using the ioNode technology.  Feedback from learners and employers in the Creative Industries will be obtained to tailor the learner record to this sector.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>PDP4Life: Personal Development Planning for Lifelong Learning</name>
-</Project>

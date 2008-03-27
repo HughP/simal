@@ -1,5 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/projects/project_efx.aspx">
-<shortdesc>EFX provides support to projects in JISC's FAIR and X4L programmes in the development of their project-level evaluation strategies.</shortdesc>
-<name>EFX: Evaluation and Support for FAIR and X4L Projects</name>
-<homepage rdf:resource="http://www.cerlim.ac.uk/projects/efx/index.html"/>
-</Project>

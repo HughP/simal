@@ -1,5 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_fasttrack.aspx">
-<shortdesc>Fast Track will deliver elements of the e-Social Science Awareness and Training Environment in order to provide the social science community with early and real confidence in the Grid and demonstrate the potential the technology offers.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
-<name>Fast Track to Support Social Scientists' Understanding of Grid Technologies</name>
-</Project>

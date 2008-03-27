@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/dplus.aspx">
-<shortdesc>The project aims to develop a toolkit corresponding to the resource discovery services area of the JISC e-Learning Service-Oriented Framework. Resource discovery supports the core functions of VLEs and digital repository systems, as well as enabling existing resources to be identified and repurposed for teaching.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>d+ Brokerage for deep and distributed e-Learning resources discovery</name>
-<homepage rdf:resource="http://devil.lib.ed.ac.uk/"/>
-</Project>

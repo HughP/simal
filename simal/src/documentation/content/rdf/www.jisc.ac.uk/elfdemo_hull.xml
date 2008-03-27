@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/elfdemo_hull.aspx">
-<shortdesc>MakingTracks will integrate the work of the well established and popular online NRICH project at the University of Cambridge with the outcomes of the ELF funded project ISIS.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>MakingTracks</name>
-<homepage rdf:resource="http://www.hull.ac.uk/esig/makingtracks.html"/>
-</Project>

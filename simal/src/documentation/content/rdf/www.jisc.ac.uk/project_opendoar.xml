@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_opendoar.aspx">
-<shortdesc>OpenDOAR will categorise and list the wide variety of Open Access research archives that have grown up around the world.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>OpenDOAR</name>
-<homepage rdf:resource="http://www.opendoar.org/"/>
-</Project>

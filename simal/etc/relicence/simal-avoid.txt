@@ -1,5 +1,0 @@
-LICENSE.txt
-NOTICE.txt
-build/
-etc/relicence/
-src/documentation/content/rdf/

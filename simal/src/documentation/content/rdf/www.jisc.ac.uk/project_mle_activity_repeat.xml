@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe/project_mle_activity_repeat.aspx">
-<shortdesc>This study has been undertaken to update the picture of issues of integration of business processes, services and systems in support of learning and teaching within UK Further and Higher Education institutions.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Study of environments to support e-Learning</name>
-<homepage rdf:resource="http://www.mlestudy.ac.uk/"/>
-</Project>

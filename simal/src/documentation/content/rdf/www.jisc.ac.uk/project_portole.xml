@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle/project_portole.aspx">
-<shortdesc>The project aims to produce a range of tools for tutors which will enable them to discover information resources and embed these into their course modules from within a University Virtual Learning Environment (VLE).</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>PORTOLE: Providing Online Resources to Online Learning Environments</name>
-<homepage rdf:resource="http://www.leeds.ac.uk/portole/"/>
-</Project>

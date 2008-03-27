@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe/project_0103_loucoll.aspx">
-<shortdesc>The overall aim of the project is to explore the use of learner profiles developed in FE through Progress File and how they can be developed electronically and effectively transferred and assimilated into the HE Personal Development Profile.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Loughborough College: Developing L&amp;T Aspects of Progress Files &amp; PDPs</name>
-<homepage rdf:resource="http://www.loucoll.ac.uk/projects"/>
-</Project>

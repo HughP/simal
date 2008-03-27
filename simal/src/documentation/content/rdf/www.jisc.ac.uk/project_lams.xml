@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/project_lams.aspx">
-<shortdesc>There has been considerable interest in the use of learning designs in e-learning. In a recent report (Brittain, 2004) a study was performed of the state of learning design, and in particular the availability of software for lecturers to develop their own designs and sequences. At present, the only piece of software available in ready-to-use state is LAMS (the Learning Activity management System), developed at MacQuarie University. This project, therefore, will be based on the experiences of 40 practitioner sites dispersed across the UK (and covering ACL, FE, and HE) who will be using LAMS in a variety of contexts.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Evaluation of the Practitioner: Trial of LAMS</name>
-</Project>

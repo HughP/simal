@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital/el_xinstit/digital_dialogue_games.aspx">
-<shortdesc>This project will take a collaboration and social-software tool (InterLoc) and its related learning activities (digital dialogue games) from the current pilot phase of development to integrated exemplary implementations and embedding in five HE institutions. These Universities have a particular focus on widening participation, flexible delivery and lifelong learning.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Cross-institutional implementation and evaluation of digital dialogue games for inclusive and personalised learning</name>
-<homepage rdf:resource="http://www.interloc.org/"/>
-</Project>
