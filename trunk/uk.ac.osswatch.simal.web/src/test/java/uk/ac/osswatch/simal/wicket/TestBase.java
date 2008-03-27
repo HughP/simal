@@ -4,7 +4,6 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.BeforeClass;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.TransactionException;
 
 public abstract class TestBase {
 
@@ -14,20 +13,7 @@ public abstract class TestBase {
 	@BeforeClass
 	public static void setUpBeforeClass() {
 		try {
-			if (UserApplication.getRepository().isInitialised()) {
-				try {
-					UserApplication.getRepository().rollback();
-				} catch (TransactionException e) {
-					// we don't care if there is no transaction, we're just
-					// testing
-				}
-				try {
-					UserApplication.getRepository().startTransaction();
-				} catch (TransactionException e) {
-					// we don't care if there is a transaction, we're just
-					// testing
-				}
-			} else {
+			if (!UserApplication.getRepository().isInitialised()) {
 				UserApplication.getRepository().setIsTest(true);
 				UserApplication.getRepository().initialise();
 			}
