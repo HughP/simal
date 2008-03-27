@@ -1,0 +1,18 @@
+<document>
+  <properties>
+    <title>Changes for Simal Webapp</title>
+  </properties>
+  <body>
+    <release version="0.2" date="unreleased" description="First release using Wicket">
+      <action dev="rdg" type="add">
+        Added a gadget panel that allows Google Gadgets or Open Social Gadgets
+        to be embedded in a Simal page. At present this requires a gadget
+        server to be running at localhost:8888/gadgets with the necessary
+        javascript files in localhost:8888/gadgets/files/container. The easiest
+        way to make this happen is to checkout Shindig and run 
+        "mvn -Djetty.port=8888 jetty:run". It is intended to remove this
+        requirement at some point in the future, see ISSUE 83 to track progress.
+      </action>
+    </release>
+  </body>
+</document>

@@ -1,0 +1,94 @@
+          ----------------------------------------
+          Building an Open Social Gadget for Simal
+          ----------------------------------------
+ 
+ 
+The Shindig gadget server
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Simal use Shindig from the Apache incubator. This is the reference
+ implementation of the Open Social standard. There is no need to 
+ install it separately, it is included in the binary download (or
+ as svn:externals if you have the source code from SVN).
+ 
+Developing your gadget
+~~~~~~~~~~~~~~~~~~~~~~
+
+* Testing gadgets during development
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ We've included both the stanard Shindig container and the 
+ samplecontainer. The later is used for testing gadgets in
+ isolation and is available by requesting
+ http://localhost:8080/testContainer/samplecontainer.html
+
+ Try the following:
+  
+ * enter http://localhost:8080/gadgets/template.xml in
+ the gadget URL field of http://localhost:8080/testContainer/samplecontainer.html
+ 
+ * hit reset
+ 
+ You should should see a gadget that allows Simal to say hello
+ 
+ Other example gadgets (provided by Shindig) that you may want to try 
+ out can be found at:
+ 
+ * http://localhost:8080/testContainer/examples/SocialHelloWorld.xml
+ * http://localhost:8080/testContainer/examples/SocialActivitiesWorld.xml
+ 
+* Creating your first gadget
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ * copy the file src/gadgets/template.xml to src/gadgets/myGadget.xml
+ 
+ * enter http://localhost:8080/gadgets/myGadget.xml in
+ the gadget URL field of http://localhost:8080/testContainer/samplecontainer.html
+ 
+ You will see a simple hello world gadget that you can now customise.
+ 
+** Adding functionality to your gadget
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Lets create a gadget to show all the people who work with
+ the current user on any project. We'll do this by creating a
+ src/gadgets/friendsNavigator.xml file (see previous section).
+ 
+   [Note:] The friendsNavigator.xml file is included with Simal, so
+   if you intend to work along with this tutorial you will want to
+   use a different name.  
+ 
+ We need to add code to our gadget to get a friends list from the 
+ container for the current viewer. This is documented in "Listing friends" in the 
+ {{{http://code.google.com/apis/opensocial/articles/tutorial/tutorial-0.7.html}
+ Open Social Tutorial}}.
+
+ At the time of writing we use the REST API to Simal to retrieve
+ social data. This means that you must run the uk.ac.osswatch.simal.rest
+ module using "mvn jetty:run" before continuing.
+ 
+ Now we are ready to run the gadget in our container.
+ 
+ * http://localhost:8080/testContainer/samplecontainer.html
+ 
+ * enter http://localhost:8080/gadgets/friendsNavigator.xml 
+   into the "Displaying gadget" field
+   
+ * Note that we do not use the "Using State" field.
+   
+ * enter 1 into both the Viewer id and Owner id fields
+   
+ * hit "reset all"
+    
+ * you should see a sample list of friends
+   [NOTE: the first time you run this request it will take
+   a short while to generate the data request]
+     
+Resources
+~~~~~~~~~
+
+ * {{{http://code.google.com/apis/opensocial/articles/bestprac.html}
+   Social Design Best Practice}}
+   
+ * {{{http://code.google.com/apis/opensocial/articles/tutorial/tutorial-0.7.html}
+   open Social Tutorial}}

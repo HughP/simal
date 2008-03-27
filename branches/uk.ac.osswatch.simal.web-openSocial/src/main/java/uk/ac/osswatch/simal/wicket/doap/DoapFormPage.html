@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+<wicket:extend>
+  <div class="content">
+    <form wicket:id="addByURLForm">
+        <label>Source URL:</label>
+        <input type="text" wicket:id="sourceURL" value="" size="50" />
+        <input type="submit" value="Add to repository" />
+    </form>
+    
+    <hr/>
+    
+    <form wicket:id="doapForm">
+      <table>
+        <tr>
+          <td><label for="name">Name</label></td>
+          <td><input type="text" id="name" wicket:id="name" value="" size="50" /></td>
+        </tr>
+        <tr>
+          <td><label for="shortDesc">Short Description</label></td>
+          <td><input type="text" id=shortDesc" wicket:id="shortDesc" value="" size="50" /></td>
+        </tr>
+        <tr>
+          <td colspan="2"><input type="submit" value="Add to repository" /></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  
+  <div id="feedbackPanel">
+    <span wicket:id="feedback">Feedback</span>
+  </div>
+</wicket:extend>
+</body>
+</html>
+

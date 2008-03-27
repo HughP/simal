@@ -1,0 +1,37 @@
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<html>
+<head>
+  <title>Simal Project Registry</title>
+</head>
+<body>
+<wicket:extend>
+  <!-- FIXME: get rid of this layout table -->
+  <table>
+    <tr>
+      <td>
+        <div wicket:id="projectList" wicket:preview="panel/ProjectListPanel.html">Project List Panel</div>
+        <div wicket:id="featuredProject" wicket:preview="panel/ProjectSummaryPanel.html">Featured Project Panel</div>
+      </td>
+      <td valign="top">
+        <div wicket:id="friendsNavigatorGadget">My Friends Navigator Panel</div>
+        <div wicket:id="myExperimentCloud">MyExperiment Cloud Panel</div>
+      </td>
+    </tr>
+  </table>
+</wicket:extend>
+</body>
+</html>

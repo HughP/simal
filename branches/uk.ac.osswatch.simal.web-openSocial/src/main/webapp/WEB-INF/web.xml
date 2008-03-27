@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	 version="2.4">
+
+	<display-name>uk.ac.osswatch.simal.wicket</display-name>
+<!-- configuration -->
+  <context-param>
+    <param-name>features</param-name>
+    <param-value>res://features/features.txt</param-value>
+  </context-param>
+  <context-param>
+    <param-name>syndicators</param-name>
+    <param-value>res://syndicators/default/syndicator.js</param-value>
+  </context-param>
+  <context-param>
+    <param-name>servlet-data-class</param-name>
+    <param-value>org.apache.shindig.gadgets.http.DefaultCrossServletState</param-value>
+  </context-param>
+  
+	 <!--  
+	      There are three means to configure Wickets configuration mode and they are
+	      tested in the order given. 
+	      1) A system property: -Dwicket.configuration
+	      2) servlet specific <init-param>
+	      3) context specific <context-param>
+	      The value might be either "development" (reloading when templates change)
+	      or "deployment". If no configuration is found, "development" is the default.
+	-->
+
+	<filter>
+		<filter-name>wicket.uk.ac.osswatch.simal.wicket</filter-name>
+ 		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
+		<init-param>
+			<param-name>applicationClassName</param-name>
+			<param-value>uk.ac.osswatch.simal.wicket.UserApplication</param-value>
+ 		</init-param>
+ 	</filter>
+
+ <filter-mapping>
+  <filter-name>wicket.uk.ac.osswatch.simal.wicket</filter-name>
+	<url-pattern>/*</url-pattern>
+ </filter-mapping>
+
+
+  <!-- Render a Gadget -->
+  <servlet>
+    <servlet-name>xml-to-html</servlet-name>
+    <servlet-class>
+      org.apache.shindig.gadgets.http.GadgetRenderingServlet
+    </servlet-class>
+  </servlet>
+
+  <!-- Proxy -->
+  <servlet>
+    <servlet-name>proxy</servlet-name>
+    <servlet-class>
+      org.apache.shindig.gadgets.http.ProxyServlet
+    </servlet-class>
+  </servlet>
+
+  <!-- Metadata RPC -->
+  <servlet>
+    <servlet-name>metadata</servlet-name>
+    <servlet-class>
+      org.apache.shindig.gadgets.http.RpcServlet
+    </servlet-class>
+  </servlet>
+
+  <!-- Serve social data -->
+  <servlet>
+    <servlet-name>socialdata</servlet-name>
+    <servlet-class>
+      org.apache.shindig.social.GadgetDataServlet
+    </servlet-class>
+    <init-param>
+      <param-name>peopleService</param-name>
+      <param-value>uk.ac.osswatch.simal.openSocial.SimalPeopleService</param-value>
+    </init-param>
+    <init-param>
+      <param-name>dataService</param-name>
+      <param-value>uk.ac.osswatch.simal.openSocial.SimalDataService</param-value>
+    </init-param>
+    <init-param>
+      <param-name>activitiesService</param-name>
+      <param-value>uk.ac.osswatch.simal.openSocial.SimalActivitiesService</param-value>
+    </init-param>
+  </servlet>
+
+  <!-- javascript serving -->
+  <servlet>
+    <servlet-name>js</servlet-name>
+    <servlet-class>org.apache.shindig.gadgets.http.JsServlet</servlet-class>
+  </servlet>  
+  
+  <!-- Simal API -->
+  <servlet>
+      <servlet-name>Simal REST API</servlet-name>
+      <servlet-class>uk.ac.osswatch.simal.rest.RESTServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>js</servlet-name>
+    <url-pattern>/js/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>proxy</servlet-name>
+    <url-pattern>/proxy</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>xml-to-html</servlet-name>
+    <url-pattern>/ifr</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>metadata</servlet-name>
+    <url-pattern>/metadata</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>socialdata</servlet-name>
+    <url-pattern>/gadgets/socialdata</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+      <servlet-name>Simal REST API</servlet-name>
+      <url-pattern>/simal-rest/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>
