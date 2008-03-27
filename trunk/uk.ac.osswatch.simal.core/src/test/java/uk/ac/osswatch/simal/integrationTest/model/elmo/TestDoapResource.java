@@ -29,9 +29,12 @@ public class TestDoapResource extends BaseRepositoryTest {
 
   @Test
   public void testSetShortDesc() {
+    String origDesc = project1.getShortDesc();
     String newDesc = "New short description";
     project1.setDoapShortdesc(newDesc);
     assertEquals(newDesc, project1.getDoapShortdesc());
+    project1.setDoapShortdesc(origDesc);
+    assertEquals(origDesc, project1.getDoapShortdesc());
   }
 
   @Test
