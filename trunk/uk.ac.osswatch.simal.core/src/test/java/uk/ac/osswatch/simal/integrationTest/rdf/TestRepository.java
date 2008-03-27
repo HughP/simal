@@ -13,12 +13,13 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import org.junit.Test;
-import org.openrdf.concepts.doap.Project;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.TransactionException;
 
@@ -126,10 +127,18 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testRemove() throws SimalRepositoryException, TransactionException {
+  public void testRemove() throws SimalRepositoryException, TransactionException, DuplicateQNameException {
     logger.debug("Starting testRemove()");
-    repository.remove(new QName(TEST_SIMAL_PROJECT_QNAME));
-    Project project = getSimalTestProject();
+    QName qname1 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingId1");
+
+    IProject project;
+    project = repository.createProject(qname1);
+    project = repository.getProject(qname1);
+    assertNotNull(project);
+    
+    repository.remove(qname1);
+    project = repository.getProject(qname1);
     assertNull("Failed to remove the test project", project);
     logger.debug("Finished testRemove()");
   }
