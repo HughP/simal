@@ -10,10 +10,9 @@ public class DoapHomepageBehaviour extends DoapResourceBehaviour implements IDoa
 
   /**
    * Create a new homepage behaviour to operate on a
-   * Ihomepage object.
+   * IDoapHomepage object.
    */
   public DoapHomepageBehaviour(IDoapHomepage homepage) {
     super(homepage);
   }
-
 }
