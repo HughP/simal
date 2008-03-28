@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.wicket;
+package uk.ac.osswatch.simal.wicket.doap;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
@@ -6,6 +6,11 @@ import org.apache.wicket.markup.html.link.IPageLink;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.BasePage;
+import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.ExhibitProjectBrowserPage;
+import uk.ac.osswatch.simal.wicket.UserApplication;
+import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;

@@ -29,8 +29,8 @@ import org.apache.wicket.model.Model;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.data.SortableProjectDataProvider;
+import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**

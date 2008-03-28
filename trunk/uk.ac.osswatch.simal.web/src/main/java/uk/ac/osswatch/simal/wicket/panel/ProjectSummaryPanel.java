@@ -23,8 +23,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
-import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
+import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
 /**
  * A panel for displaying project information.
