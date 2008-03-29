@@ -7,8 +7,8 @@ import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.TestBase;
+import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
 /**
  * Simple test using the WicketTester

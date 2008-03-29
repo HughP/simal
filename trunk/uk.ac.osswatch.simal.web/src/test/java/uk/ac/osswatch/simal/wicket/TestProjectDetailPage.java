@@ -2,6 +2,8 @@ package uk.ac.osswatch.simal.wicket;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
+
 /**
  * Simple test using the WicketTester
  */
