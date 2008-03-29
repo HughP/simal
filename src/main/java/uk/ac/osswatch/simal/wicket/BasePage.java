@@ -3,6 +3,7 @@ package uk.ac.osswatch.simal.wicket;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -12,6 +13,7 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.protocol.http.RequestUtils;
 
 import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -152,6 +154,11 @@ public class BasePage extends WebPage {
 			item.add(new PersonSummaryPanel(personWicketID, person));
 		}
 		return repeating;
+	}
+	
+	protected String getServerBase() {
+    String path = (String) getPage().urlFor(this.getApplication().getHomePage(), new PageParameters());
+    return RequestUtils.toAbsolutePath(path);
 	}
 }
 
