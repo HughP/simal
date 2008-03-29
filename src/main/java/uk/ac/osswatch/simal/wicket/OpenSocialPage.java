@@ -28,6 +28,7 @@ public class OpenSocialPage extends BasePage {
     add(HeaderContributor.forCss(GADGET_CSS));
     add(HeaderContributor.forJavaScript(SERVER_BASE + "js/rpc.js?c=1"));
     add(HeaderContributor.forJavaScript(SERVER_BASE + FILES_DIR + "cookies.js"));
+    add(HeaderContributor.forJavaScript(SERVER_BASE + FILES_DIR + "util.js"));
     add(HeaderContributor.forJavaScript(SERVER_BASE + FILES_DIR + "gadgets.js"));
   }
 
