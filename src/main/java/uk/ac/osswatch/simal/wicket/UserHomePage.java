@@ -22,6 +22,7 @@ import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 
 public class UserHomePage extends OpenSocialPage {
 	private static final long serialVersionUID = -8125606657250912738L;
+	protected static final String SAKAI_GADGET_URL = "http://www3.caret.cam.ac.uk/nicolaas/MySakai/iGoogle/iSakai/gadget/iSakai.xml";
 	protected static final String MYEXPERIMENT_FRIENDS_GADGET_URL = "http://localhost:8080/gadgets/myExperimentFriendsNavigator.xml";
   protected static final String FRIENDS_NAVIGATOR_GADGET_URL = "http://localhost:8080/gadgets/friendsNavigator.xml";
   
@@ -32,6 +33,7 @@ public class UserHomePage extends OpenSocialPage {
 					.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
 			addGadget("friendsNavigatorGadget", FRIENDS_NAVIGATOR_GADGET_URL, RESTCommand.SOURCE_TYPE_SIMAL);
 			addGadget("myExperimentFriends", MYEXPERIMENT_FRIENDS_GADGET_URL, RESTCommand.SOURCE_TYPE_MYEXPERIMENT);
+      //addGadget("sakaiGadget", SAKAI_GADGET_URL, null);
 		} catch (SimalRepositoryException e) {
 			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));
