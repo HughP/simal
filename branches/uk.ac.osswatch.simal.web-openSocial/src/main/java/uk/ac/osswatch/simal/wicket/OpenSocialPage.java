@@ -16,7 +16,6 @@ import uk.ac.osswatch.simal.wicket.panel.GadgetPanel;
  */
 public class OpenSocialPage extends BasePage {
   private static final long serialVersionUID = -7829195954936598277L;
-  private static final String SERVER_BASE = "http://localhost:8080/";
   private static final String FILES_DIR = "container/";
   private static final CompressedResourceReference GADGET_CSS = new CompressedResourceReference(
       GadgetPanel.class, "gadget.css");
@@ -24,12 +23,12 @@ public class OpenSocialPage extends BasePage {
 
   public OpenSocialPage() {
     super();
-
+    
     add(HeaderContributor.forCss(GADGET_CSS));
-    add(HeaderContributor.forJavaScript(SERVER_BASE + "js/rpc.js?c=1"));
-    add(HeaderContributor.forJavaScript(SERVER_BASE + FILES_DIR + "cookies.js"));
-    add(HeaderContributor.forJavaScript(SERVER_BASE + FILES_DIR + "util.js"));
-    add(HeaderContributor.forJavaScript(SERVER_BASE + FILES_DIR + "gadgets.js"));
+    add(HeaderContributor.forJavaScript(getServerBase() + "js/rpc.js?c=1"));
+    add(HeaderContributor.forJavaScript(getServerBase() + FILES_DIR + "cookies.js"));
+    add(HeaderContributor.forJavaScript(getServerBase() + FILES_DIR + "util.js"));
+    add(HeaderContributor.forJavaScript(getServerBase() + FILES_DIR + "gadgets.js"));
   }
 
   /**
@@ -50,7 +49,7 @@ public class OpenSocialPage extends BasePage {
       config.append(gadgetPanels.get(i).getSpecURL());
       config.append("\"});\n");
       config.append("  gadget.setServerBase(\"");
-      config.append(SERVER_BASE);
+      config.append(getServerBase());
       config.append("\");\n");
       config.append("  gadgets.container.addGadget(gadget);\n");
       config.append("  gadget.secureToken = \"15:15:" + gadgetPanels.get(i).getAppID() + ":simal.oss-watch.ac.uk\";\n");
