@@ -180,24 +180,10 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetHomepages() {
-    boolean hasHomepageOne = false;
-    boolean hasHomepageTwo = false;
-    Iterator<IDoapHomepage> homepages = project1.getHomepages().iterator();
-    String label;
-    while (homepages.hasNext()) {
-      IDoapHomepageBehaviour homepage = (IDoapHomepageBehaviour) homepages
-          .next();
-      label = homepage.getLabel();
-      if (label.equals(TEST_SIMAL_PROJECT_HOMEPAGE_ONE)) {
-        hasHomepageOne = true;
-      } else if (label.equals(TEST_SIMAL_PROJECT_HOMEPAGE_TWO)) {
-        hasHomepageTwo = true;
-      }
-    }
-    assertTrue("Homepages do not include " + TEST_SIMAL_PROJECT_HOMEPAGE_ONE,
-        hasHomepageOne);
-    assertTrue("Homepages do not include " + TEST_SIMAL_PROJECT_HOMEPAGE_TWO,
-        hasHomepageTwo);
+    Set<IDoapHomepage> homepages = project1.getHomepages();
+    
+    assertEquals("Incorrect number of home pages", 
+        TEST_SIMAL_PROJECT_NUMBER_OF_HOMEPAGES, homepages.size());
   }
 
   @Test
