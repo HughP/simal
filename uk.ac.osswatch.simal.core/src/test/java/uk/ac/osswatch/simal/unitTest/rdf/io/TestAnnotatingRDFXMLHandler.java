@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.integrationTest.model.io;
+package uk.ac.osswatch.simal.unitTest.rdf.io;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
