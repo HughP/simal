@@ -3,10 +3,12 @@ package uk.ac.osswatch.simal.wicket.doap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.xml.namespace.QName;
 
+import org.apache.wicket.util.file.File;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
@@ -58,6 +60,29 @@ public class TestDoapFormPage extends TestBase {
 		
 		UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
 	}
+	 
+  
+  /**
+   * Test that a file uploaded to the server is correctly 
+   * loaded into the repository.
+   * 
+   * @throws SimalRepositoryException
+   * @throws URISyntaxException 
+   */
+  @Test
+  public void testAddByUpload() throws SimalRepositoryException, URISyntaxException {
+    tester.assertVisible("uploadForm:fileInput");
+    
+    FormTester formTester = tester.newFormTester("uploadForm");   
+    URL doapURL = UserApplication.class.getClassLoader().getResource(
+        DOAP_FORM_FILE);
+    File doapFile = new File(doapURL.toURI());
+    formTester.setFile("fileInput", doapFile, "");
+    formTester.submit();
+    tester.assertRenderedPage(UserHomePage.class);
+    
+    UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
+  }
 	
 	@Test
 	public void testProjectForm() throws SimalRepositoryException {
