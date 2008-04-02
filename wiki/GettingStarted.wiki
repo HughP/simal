@@ -1,52 +1,18 @@
 #summary Basic getting started instructions
 #labels Featured,Phase-Support
 
-*NOTE* After an initial prototype that demonstrated the potential direction for Simal (release 0.1) we started development of 0.2 using a more suitable underlying framework. We are currently in the process of moving from the old system to the new. This document addresses 0.1. The notes on the binry release are still correct, but the source release information is not currently accurate. We'll address that one the move is complete, if you can't wait, take a look at the [http://code.google.com/p/simal/source/browse/trunk/uk.ac.osswatch.simal.core/src/site/apt/developing.apt install docs for the new version] and join our mailing list and we'll help,
+*NOTE* After an initial prototype that demonstrated the potential direction for Simal (release 0.1) we started development of 0.2 using a more suitable underlying framework. We are currently in the process of moving from the old system to the new. Consequently this document points to numerous other documents in SVN, we welcome your help in making this document more useful for newcomers.
 
-You can get started from the latest binary release or the development source code. Both are fairly easy to get going with, but the binary install has less pre-requisities (although for the source releases you don't need anything an average Java developer has already).
+If you have any problems you could try looking at our [FAQ] or asking questions on our [http://groups.google.com/group/simal-contributors mailing list].
 
-If you have any problems you could try looking at our [FAQ].
-
-= Binary Release =
+= Latest Sources =
 
 == Pre-Requisites ==
 
  * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.4 - 1.5 (1.6 currently unsupported)
-
-== Get the Binary Download ==
-
-Get the latest binary download from the [http://code.google.com/p/simal/downloads/list project downloads page].
-
-The download is an executable jar, on most operating systems you can simply double click on the downloaded file. If this does not work then run the command (replacing x.y.z) with the relevant version number for your download:
-
-{{{
-java -jar simal-x.y.z.jar
-}}}
-
-This will run a cross platform installer, so just follow the instructions on screen.
-== Set up ==
-
-Create a SIMAL_HOME environment to point at the directory where you installed the Simal software.
-
-Add $SIMAL_HOME/bin to your PATH environment variable
-
-== Running ==
-
-That's it you have installed Simal. Time to perform your FirstRun.
-
-= Latest Developer Sources =
-
-== Eclipse Development ==
-
-If you use Eclipse as your development environment you may want to start with our [http://simal.oss-watch.ac.uk/contributor/how-to/developSimal.html "Configuring Eclipse"] document, this describes how to set up Eclipse for Simal development.
-
-Otherwise you will need to read the information below. we welcome documentation on how to set up other development environments.
-
-== Pre-Requisites ==
-
- * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.4 - 1.5 (1.6 currently unsupported)
- * [http://subversion.tigris.org/project_packages.html Subversion] (on !RedHat run {{{yum install subversion}}})
- * [http://ant.apache.org/bindownload.cgi Apache Ant] (on !RedHat run {{{yum install ant}}})
+ * [http://subversion.tigris.org/project_packages.html Subversion]
+  * You may prefer to use a GUI to work with Subversion, such as [http://rapidsvn.tigris.org/ RapidSVN]
+ * [http://maven.apache.org/download.html Apache Maven]
 
 == Get Source Files ==
 
@@ -58,20 +24,52 @@ where $PROJECT_HOME is your chosen project directory
 
 NOTE: Use https rather than http if you are a committer
 
-== Set up ==
+=== Installing ===
 
-Create a SIMAL_HOME environment variable with the value $PROJECT_HOME/simal-trunk/simal
+The installation process is not as streamlined as it should be right now. However, we are working on it and welcome your help.
 
-Add $SIMAL_HOME/bin to your PATH environment variable
-
-Run the following commands:
-
+For now there are three steps:
 {{{
-cd $SIMAL_HOME
-ant install
+cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.core
+mvn install
 }}}
 
+Note there is (at the time of writing) a small gotcha here, it is [http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/src/site/apt/download.apt documented] in SVN and [http://groups.google.com/group/simal-contributors/browse_thread/thread/82508c5238fb5c7e/a84d46d6a1b5b619?lnk=gst&q=sesame+maven#a84d46d6a1b5b619 dicussed] on our mailing list.
+
+Once this installation is succesful do the following:
+
+{{{
+cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.rest
+mvn install
+}}}
+
+And then:
+
+{{{
+cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web
+mvn install
+}}}
 
 == Running ==
 
-That's it you have installed Simal.
+Simal is made up of three components and therefore can be accessed in three ways. Each of these is described below in order of usefulness to the average user (or reverse order for the average developer).
+
+Note, in all these cases the documentation is currently held in SVN, we've not got around to publishing it yet.
+
+=== Simal Web Application ===
+
+The Simal web module provides a web application that provides a GUI interface to a Simal repostory. [http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/src/site/apt/developing.apt Instructions for running the webapp] can be found in svn.
+
+=== Simal Rest ===
+
+Simal rest is a module providing a REST API to Simal. Instructions for [http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.rest/src/site/apt/index.apt running and accessing the REST API] are in SVN.
+
+=== Simal Core ===
+
+Simal core is the back end systems. It contains the data model, data services and repository. Simal core provides a command line interface.
+
+The documentation for [http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/src/site/apt/developing.apt running Simal core] can be found at in svn. We'll get around to publishing it one day.
+
+= Questions? =
+
+Documentation never answers all your questions. We welcome your suggestions via our [http://groups.google.com/group/simal-contributors mailing list].
