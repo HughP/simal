@@ -9,6 +9,7 @@ import javax.xml.namespace.QName;
 
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.IProject;
@@ -25,17 +26,19 @@ public class TestDoapFormPage extends TestBase {
 	private static final String TEST_SHORT_DESC = "A project added by filling in the DOAP form";
 	private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
 
-    private void initTester() {
+	@Before
+  public void initTester() {
 		tester = new WicketTester();
 		tester.startPage(DoapFormPage.class);
 		tester.assertRenderedPage(DoapFormPage.class);
 	}
 	
+	/**
+	 * Test adding a project by a both a valid and invalid URL.
+	 * @throws SimalRepositoryException
+	 */
 	@Test
 	public void testAddProjectByURL() throws SimalRepositoryException {
-		tester.startPage(DoapFormPage.class);
-		tester.assertRenderedPage(DoapFormPage.class);
-		
 		tester.assertVisible("addByURLForm:sourceURL");
 		
 		FormTester formTester = tester.newFormTester("addByURLForm");
@@ -58,8 +61,6 @@ public class TestDoapFormPage extends TestBase {
 	
 	@Test
 	public void testProjectForm() throws SimalRepositoryException {
-		initTester();
-
 		tester.assertVisible("doapForm");
 		tester.assertVisible("doapForm:name");
 		tester.assertVisible("doapForm:shortDesc");
@@ -68,7 +69,6 @@ public class TestDoapFormPage extends TestBase {
 	
 	@Test
 	public void testProjectFormRequiredFields() throws SimalRepositoryException {
-    initTester();    
     FormTester formTester = tester.newFormTester("doapForm");
     
     formTester.setValue("name", "");
@@ -82,7 +82,6 @@ public class TestDoapFormPage extends TestBase {
 
   @Test
   public void testAddProjectByForm() throws SimalRepositoryException {
-    initTester();
     FormTester formTester = tester.newFormTester("doapForm");
     
     formTester = tester.newFormTester("doapForm");
