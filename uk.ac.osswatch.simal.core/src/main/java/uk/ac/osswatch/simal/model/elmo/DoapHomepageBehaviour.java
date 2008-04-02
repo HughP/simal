@@ -19,17 +19,4 @@ public class DoapHomepageBehaviour extends DoapResourceBehaviour implements IDoa
   public DoapHomepageBehaviour(IDoapHomepage homepage) {
     super(homepage);
   }
-
-  /**
-   * Get the URL for this homepage.
-   */
-  public URL getURL() throws SimalRepositoryException {
-    String ns = elmoEntity.getQName().getNamespaceURI();
-    String local = elmoEntity.getQName().getLocalPart();
-    try {
-      return new URL(ns + local);
-    } catch (MalformedURLException e) {
-      throw new SimalRepositoryException("Unable to create homepage URL", e);
-    }
-  }
 }

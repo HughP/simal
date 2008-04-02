@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -201,5 +203,23 @@ public class DoapResourceBehaviour extends ResourceBehavior implements IDoapReso
       }
     }
     return results;
+  }
+  
+
+
+  /**
+   * Get the URL for this resource. Attempts to construct a URL
+   * for this resource from the QName. This will often work if a resource
+   * is defined by rdf:resource. If it is not possible to create an
+   * URL for the resource an exception is thrown.
+   */
+  public URL getURL() throws SimalRepositoryException {
+    String ns = elmoEntity.getQName().getNamespaceURI();
+    String local = elmoEntity.getQName().getLocalPart();
+    try {
+      return new URL(ns + local);
+    } catch (MalformedURLException e) {
+      throw new SimalRepositoryException("Unable to create homepage URL", e);
+    }
   }
 }
