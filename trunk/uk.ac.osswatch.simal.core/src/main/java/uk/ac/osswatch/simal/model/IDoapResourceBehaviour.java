@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.model;
 
+import java.net.URL;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -67,5 +68,14 @@ public interface IDoapResourceBehaviour extends IResourceBehaviour {
    * @return
    */
   public abstract String toJSONRecord();
+
+  /**
+   * Get the URL for this resource. Attempts to construct a URL
+   * for this resource from the QName. This will often work if a resource
+   * is defined by rdf:resource. If it is not possible to create an
+   * URL for the resource an exception is thrown.
+   * @throws SimalRepositoryException 
+   */
+  public URL getURL() throws SimalRepositoryException;
 
 }

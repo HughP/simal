@@ -21,8 +21,6 @@ public class TestHomepage extends BaseRepositoryTest {
 
     while (homepages.hasNext()) {
       IDoapHomepage homepage = homepages.next();
-      String ns = homepage.getQName().getNamespaceURI();
-      String local = homepage.getQName().getLocalPart();
       if (homepage.getURL().toString().equals(TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE)) {
         hasHomepageOne = true;
       } else if (homepage.getURL().toString().equals(TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO)) {
