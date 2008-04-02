@@ -11,6 +11,18 @@
         <input type="submit" value="Add to repository" />
     </form>
     
+    <form wicket:id="uploadForm">
+      <fieldset>
+      <legend>Upload form</legend>
+        <p>
+        <label for="upload">File</label>
+        <input wicket:id="fileInput" id="upload" type="file"/>
+        </p>
+        <input type="submit" value="Upload"/>
+        <span wicket:id="uploadProgress">[[ajax upload progressbar]]</span>
+      </fieldset>
+    </form>
+    
     <hr/>
     
     <form wicket:id="doapForm">
