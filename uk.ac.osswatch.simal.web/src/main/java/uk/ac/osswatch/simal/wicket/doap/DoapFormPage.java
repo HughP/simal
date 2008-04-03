@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import javax.xml.namespace.QName;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
