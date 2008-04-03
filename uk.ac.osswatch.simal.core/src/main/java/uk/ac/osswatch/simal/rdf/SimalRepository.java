@@ -82,12 +82,16 @@ public class SimalRepository extends SimalProperties {
 
   public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
   public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
-  public static final String DOAP_MAINTAINER_URI =  DOAP_NAMESPACE_URI + "maintainer";
-  public static final String DOAP_DEVELOPER_URI =  DOAP_NAMESPACE_URI + "developer";
-  public static final String DOAP_DOCUMENTER_URI =  DOAP_NAMESPACE_URI + "documenter";
-  public static final String DOAP_HELPER_URI =  DOAP_NAMESPACE_URI + "helper";
-  public static final String DOAP_TESTER_URI =  DOAP_NAMESPACE_URI + "tester";
-  public static final String DOAP_TRANSLATOR_URI =  DOAP_NAMESPACE_URI + "translator";
+  public static final String DOAP_MAINTAINER_URI = DOAP_NAMESPACE_URI
+      + "maintainer";
+  public static final String DOAP_DEVELOPER_URI = DOAP_NAMESPACE_URI
+      + "developer";
+  public static final String DOAP_DOCUMENTER_URI = DOAP_NAMESPACE_URI
+      + "documenter";
+  public static final String DOAP_HELPER_URI = DOAP_NAMESPACE_URI + "helper";
+  public static final String DOAP_TESTER_URI = DOAP_NAMESPACE_URI + "tester";
+  public static final String DOAP_TRANSLATOR_URI = DOAP_NAMESPACE_URI
+      + "translator";
 
   public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
   public static final String SIMAL_URI_PROJECT_ID = SIMAL_NAMESPACE_URI
@@ -143,8 +147,8 @@ public class SimalRepository extends SimalProperties {
       addRDFXML(annotatedFile.toURL(), baseURI);
     } catch (RDFParseException e) {
       throw new SimalRepositoryException(
-          "Attempt to add unparseable RDF/XML to the repository: "
-              + e.getMessage(), e);
+          "Attempt to add unparseable RDF/XML to the repository loaded from "
+              + url.toString(), e);
     } catch (IOException e) {
       throw new SimalRepositoryException("Unable to read the RDF/XML file: "
           + e.getMessage(), e);
@@ -272,20 +276,19 @@ public class SimalRepository extends SimalProperties {
    * 
    * @param id
    * @return
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
   public IPerson findPersonById(String id) throws SimalRepositoryException {
-    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
-        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { "
         + "?project rdf:type foaf:Person . "
-        + "?person simal:personId $simalId  "
-        + "}";
+        + "?person simal:personId $simalId  " + "}";
     ElmoManager elmoManager = getManager();
     ElmoQuery query = elmoManager.createQuery(queryStr);
     query.setParameter("simalId", id);
-    
+
     try {
       Object result = query.getSingleResult();
       IPerson person = elmoManager.designateEntity(IPerson.class, result);
@@ -300,20 +303,19 @@ public class SimalRepository extends SimalProperties {
    * 
    * @param id
    * @return
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
   public IProject findProjectById(String id) throws SimalRepositoryException {
-    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
-        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?project WHERE { "
         + "?project rdf:type doap:Project . "
-        + "?project simal:projectId $simalId  "
-        + "}";
+        + "?project simal:projectId $simalId  " + "}";
     ElmoManager elmoManager = getManager();
     ElmoQuery query = elmoManager.createQuery(queryStr);
     query.setParameter("simalId", id);
-    
+
     try {
       Object result = query.getSingleResult();
       IProject project = elmoManager.designateEntity(IProject.class, result);
@@ -589,7 +591,7 @@ public class SimalRepository extends SimalProperties {
    */
   public IPerson createPerson(QName qname) throws SimalRepositoryException,
       DuplicateQNameException {
-    IPerson person= getPerson(qname);
+    IPerson person = getPerson(qname);
     if (person != null) {
       throw new DuplicateQNameException(
           "Attempt to create a second person with the QName " + qname);
@@ -619,11 +621,10 @@ public class SimalRepository extends SimalProperties {
   public String getNewProjectID() throws SimalRepositoryException {
     String strID = getProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
     long id = Long.parseLong(strID);
-        
+
     /**
-     * If the properties file is lost for any reason the
-     * next ID value will be lost. We therefore need to
-     * perform a sanity check that this is unique.
+     * If the properties file is lost for any reason the next ID value will be
+     * lost. We therefore need to perform a sanity check that this is unique.
      */
     boolean validID = false;
     while (!validID) {
@@ -633,7 +634,7 @@ public class SimalRepository extends SimalProperties {
         id = id + 1;
       }
     }
-    
+
     long newId = id + 1;
     setProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, Long.toString(newId));
     try {
@@ -655,11 +656,10 @@ public class SimalRepository extends SimalProperties {
   public String getNewPersonID() throws SimalRepositoryException {
     String strID = getProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
     long id = Long.parseLong(strID);
-    
+
     /**
-     * If the properties file is lost for any reason the
-     * next ID value will be lost. We therefore need to
-     * perform a sanity check that this is unique.
+     * If the properties file is lost for any reason the next ID value will be
+     * lost. We therefore need to perform a sanity check that this is unique.
      */
     boolean validID = false;
     while (!validID) {
@@ -669,7 +669,7 @@ public class SimalRepository extends SimalProperties {
         id = id + 1;
       }
     }
-    
+
     long newId = id + 1;
     setProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, Long.toString(newId));
     try {
