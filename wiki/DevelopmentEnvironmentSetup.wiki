@@ -1,0 +1,65 @@
+#summary Notes for setting up the recommended development environment
+#labels Phase-Support
+
+This document contains notes on setting up the recommended development environment for Simal. You don't have to use the tools described here, you can use any tool you like. However, this is what we know works.
+
+This document assumes you are starting working on a machine that currently has none of the pre-requisites. If you already have some then this document will provide an overview of any features you may be missing at present.
+
+= Overview =
+
+We'll be setting up an Eclipse environment with a number of Eclipse plugins to assist development. By the end of this page you will be able to run Simal inside of Eclipse and from the command line.
+
+= Preparation =
+
+ * Download Java
+ * Download [http://www.eclipse.org/downloads/ Eclipse IDE for Java Developers]
+
+= Installation =
+
+ * Run the Java installation and follow its instructions
+ * Extract Eclipse to a directory of your choice
+ * [OPTIONAL] Set up a short cut to ECLIPSE_HOME/eclipse
+ * Run Eclipse, selecting a convenient workspace location (a workspace is where you work files will be stored)
+
+== Installation of Eclipse Plugins ==
+
+Within Eclipse:
+
+ * Help -> Software Updates -> Find and Install...
+  * Select "Search for new features to install"
+  * Click "Next"
+  * Click "New Remote Site..."
+   * Enter "Subclipse" in the name and http://subclipse.tigris.org/update_1.0.x in the URL
+  * Click "New Remote Site..."
+   * Enter "q4e" in the name and http://q4e.googlecode.com/svn/trunk/updatesite/ in the URL
+  * Click "New Remote Site..."
+   * Enter "Wicket Bench" in the name and http://www.laughingpanda.org/svn/wicket-bench/trunk/wicket-bench-site in the URL
+  * Ensure the check boxes for the following sites are checked:
+   * Mylyn
+   * Mylyn extras
+   * q4e
+   * Subclipse
+   * Wicket Bench
+  * Click "Finish"
+  * Select the most appropriate mirror if asked to do so
+  * After a short while you will be presented with an "Updates" dialogue
+  * Select the following options:
+   * Mylyn -> Mylyn Features
+   * Mylyn Extras -> Mylyn UI Usage Reporting
+   * Mylyn Extras -> Mylyn Integration Extras -> Mylyn Connector: Generic Issue Tracker
+  * q4e
+  * Subclipse
+  * Wicket Bench
+ * Click "Next"
+ * Read and if appropriate accept the licence terms (they are all open source)
+ * Click "Next"
+ * Click "Finish"
+
+After a while all the plugins will be downloaded and you will be asked to install them. I always click the "Install All" button, I already checked them on the previous dialogue. But if you are have a more cautious nature you may want to check each one before it installs.
+
+Finally say "Yes" to the restart now option.
+
+= Configuration =
+
+FIXME
+
