@@ -30,14 +30,6 @@
     </license>
   </licenses>
 
-  <distributionManagement>
-    <site>
-      <id>simal-website</id>
-      <name>Simal Website</name>
-      <url>file:/Users/rgardler/tmp/</url>
-    </site>
-  </distributionManagement>
-
   <issueManagement>
     <system>Google Code</system>
     <url>http://code.google.com/p/simal/issues</url>
@@ -150,7 +142,22 @@
     </dependency>
   </dependencies>
 
-  <build>
+  <distributionManagement>
+    <repository>
+      <id>simal.repo.ftp</id>
+      <url>ftp://ftp.16degrees.com.au/var/virtual/web/w0013/html/maven</url>
+    </repository>
+  </distributionManagement>
+
+  <build>    
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ftp</artifactId>
+         <version>1.0-alpha-6</version>
+      </extension>
+    </extensions>
+    
     <resources>
       <resource>
         <filtering>false</filtering>
