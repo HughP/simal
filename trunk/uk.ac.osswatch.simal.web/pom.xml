@@ -72,6 +72,10 @@
 
   <repositories>
     <repository>
+      <id>simal</id>
+      <url>http://www.16degrees.com.au/maven</url>
+    </repository>
+    <repository>
       <id>caja</id>
       <url>http://google-caja.googlecode.com/svn/maven</url>
     </repository>
