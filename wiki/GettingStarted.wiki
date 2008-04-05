@@ -34,8 +34,6 @@ cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.core
 mvn install
 }}}
 
-Note there is (at the time of writing) a small gotcha here, it is [http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/src/site/apt/download.apt documented] in SVN and [http://groups.google.com/group/simal-contributors/browse_thread/thread/82508c5238fb5c7e/a84d46d6a1b5b619?lnk=gst&q=sesame+maven#a84d46d6a1b5b619 dicussed] on our mailing list.
-
 Once this installation is succesful do the following:
 
 {{{
