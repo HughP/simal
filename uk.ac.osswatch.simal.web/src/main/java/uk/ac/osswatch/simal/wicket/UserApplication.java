@@ -35,6 +35,8 @@ public class UserApplication extends WebApplication {
 
 	private static SimalRepository repository;
 
+  private static boolean isTest;
+
 	public UserApplication() {
 		init();
 	}
@@ -47,16 +49,35 @@ public class UserApplication extends WebApplication {
 	public Class getHomePage() {
 		return UserHomePage.class;
 	}
-
+	
+	/**
+	 * Get the repository for this application. If the repository
+	 * has not been initialised yet then create and initialise it
+	 * first.
+	 * 
+	 * @return
+	 * @throws SimalRepositoryException
+	 */
 	public static SimalRepository getRepository() throws SimalRepositoryException {
 		if (repository == null) {
 			repository = new SimalRepository();
+			repository.setIsTest(isTest);
 			if (!repository.isInitialised()) {
-				repository.setIsTest(true);
 				repository.initialise();
 			}
 		}
 		return repository;
 	}
+
+	/**
+	 * If IsTest is set to true then a test (in memory)
+	 * repository will be used, othersiwe a real repository
+	 * is usef.
+	 * 
+	 * @param value
+	 */
+  public static void setIsTest(boolean value) {
+    isTest = value;
+  }
 
 }
