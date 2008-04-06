@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -51,8 +52,11 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private Set<QName> personQNames = new HashSet<QName>();
   private SimalRepository repository;
 
+  private URIImpl sourceURL;
+
   /**
-   * Create a new AnnotatingRDFXMLHandler that will write to a file.
+   * Create a new AnnotatingRDFXMLHandler that will write 
+   * to a file.
    * 
    * @param file
    *          the file to write the annotated RDF/XML output to.
@@ -68,9 +72,10 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   public void endRDF() throws RDFHandlerException {
     // clear out any subjects not yet closed off
     while (!subjects.empty()) {
-      checkId(null);
+      fixAnnotations(null);
     }
     handler.endRDF();
+    sourceURL = null;
   }
 
   public void handleComment(String comment) throws RDFHandlerException {
@@ -110,7 +115,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
           SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
     }
 
-    checkId(outSubject);
+    fixAnnotations(outSubject);
 
     if (isFoafPredicate(inStatement)) {
       // FIXME: for some reason elmo does not support foaf:name, for
@@ -160,13 +165,13 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   }
 
   /**
-   * Check that an ID existed in the file, the repository or that one has been
-   * generated for the subject in the top of the stack.
+   * Check appropriate annotations, such as ID and seeAlso
+   * are present.
    * 
    * @param outSubject
    * @throws RDFHandlerException
    */
-  private void checkId(Resource outSubject) throws RDFHandlerException {
+  private void fixAnnotations(Resource outSubject) throws RDFHandlerException {
     if (!subjects.empty()) {
       if (!subjects.peek().equals(outSubject) || outSubject == null) {
         if (subjects.contains(outSubject) || outSubject == null) {
@@ -177,17 +182,23 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
           String type = subjectType.pop();
           if (type.equals("Project")) {
             Resource project = subjects.pop();
+            // check ID
             Value idValue;
+            StatementImpl statement;
             try {
               idValue = new LiteralImpl(repository.getNewProjectID());
-              Statement idStatement = new StatementImpl(project, new URIImpl(
+              statement = new StatementImpl(project, new URIImpl(
                   SimalRepository.SIMAL_URI_PROJECT_ID), idValue);
-              handler.handleStatement(idStatement);
+              handler.handleStatement(statement);
             } catch (Exception e) {
               throw new RDFHandlerException(
                   "Unable to save the Simal properties file, aborting file annotation",
                   e);
             }
+            // add see also
+            statement = new StatementImpl(project, new URIImpl(
+                SimalRepository.RDFS_URI_SEE_ALSO), sourceURL);
+            handler.handleStatement(statement);
           } else if (type.equals("Person")) {
             Resource person = subjects.pop();
             Value idValue;
@@ -423,6 +434,9 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   }
 
   public void startRDF() throws RDFHandlerException {
+    if (sourceURL == null) {
+      throw new RDFHandlerException("Source URL has not been set, must call setSourceURL prior to using the AnnotatingRDFXMLHandler");
+    }
     handler.handleNamespace("simal", SimalRepository.SIMAL_NAMESPACE_URI);
     handler.startRDF();
   }
@@ -435,6 +449,14 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    */
   public Set<QName> getProjectQNames() {
     return projectQNames;
+  }
+
+  /**
+   * Set the source URL for the next document to be annotated.
+   * @param url
+   */
+  public void setSourceURL(URL url) {
+    sourceURL = new URIImpl(url.toString());
   }
 
 }

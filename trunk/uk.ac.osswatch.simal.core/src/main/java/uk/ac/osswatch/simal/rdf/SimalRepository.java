@@ -73,6 +73,7 @@ public class SimalRepository extends SimalProperties {
   // FIXME: standardise names of constants
   public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
+  public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
   public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultProjectNS#";
   public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultPersonNS#";
 
@@ -100,7 +101,10 @@ public class SimalRepository extends SimalProperties {
       + "personId";
 
   public static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-
+  
+  public static final String RDFS_NAMESPACE_URI = "http://www.w3.org/2000/01/rdf-schema#";
+  public static final String RDFS_URI_SEE_ALSO = RDFS_NAMESPACE_URI + "seeAlso";
+  
   public final static String CATEGORIES_RDF = "categories.xml";
 
   private SailRepository _repository;
@@ -135,6 +139,7 @@ public class SimalRepository extends SimalProperties {
       logger.debug("Annotated file written to "
           + annotatedFile.getAbsolutePath());
       annotatingHandler = new AnnotatingRDFXMLHandler(annotatedFile, this);
+      annotatingHandler.setSourceURL(url);
       parser.setRDFHandler(annotatingHandler);
     } catch (IOException e) {
       throw new SimalRepositoryException(
@@ -538,7 +543,7 @@ public class SimalRepository extends SimalProperties {
    * @return
    */
   private File getPersistentStoreFile() {
-    return new File(getProperty(PROPERTY_DATA_DIR));
+    return new File(getProperty(PROPERTY_RDF_DATA_DIR));
   }
 
   /**
@@ -680,5 +685,16 @@ public class SimalRepository extends SimalProperties {
           "Unable to save properties file when creating the next person ID", e);
     }
     return Long.toString(id);
+  }
+
+  /**
+   * Get the directory in which DOAP files are stored locally
+   * when loaded into the repository. This store is intended 
+   * be the backup store and contains the raw RDF
+   * files. Note, these files have been annotated by Simal.
+   * @return 
+   */
+  public static File getDoapFileStore() {
+    return new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE));    
   }
 }
