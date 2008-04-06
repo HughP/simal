@@ -52,8 +52,7 @@ public class ProjectSummaryPanel extends Panel {
 			add(new Label("shortDesc", project.getShortDesc()));
 			add(new PageLink("projectDetailLink", ProjectDetailPage.getLink(project)));
 		} else {
-			String msg = "Requested project QName '" + project.getQName()
-					+ "' does not exist in the repository";
+			String msg = "Requested project does not exist in the repository";
 
 			add(new Label("widgetTitle", "Featured Project"));
 			add(new Label("projectName", "Error"));
