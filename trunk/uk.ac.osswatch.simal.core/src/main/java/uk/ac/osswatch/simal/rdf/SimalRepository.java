@@ -534,7 +534,7 @@ public class SimalRepository extends SimalProperties {
           e);
     }
     
-    fileStoreDir = new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE));
+    fileStoreDir = new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE) + File.separator + "simal-uploads");
     fileStoreDir.mkdirs();
 
     if (isTest) {
@@ -709,7 +709,7 @@ public class SimalRepository extends SimalProperties {
    */
   public static File getAnnotatedDoapFile(String filename) {
     String path = SimalRepository.getDoapFileStore().getAbsolutePath();
-    File file = new File(path + File.separator + "simal-uploads" + File.separator + filename);
+    File file = new File(path + File.separator + filename);
     return file;
   }
 }

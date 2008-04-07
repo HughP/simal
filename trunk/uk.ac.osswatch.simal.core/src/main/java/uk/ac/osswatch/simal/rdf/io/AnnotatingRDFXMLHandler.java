@@ -65,6 +65,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    */
   public AnnotatingRDFXMLHandler(File file, SimalRepository repository)
       throws IOException {
+    file.createNewFile();
     handler = new RDFXMLWriter(new FileWriter(file));
     this.repository = repository;
   }
