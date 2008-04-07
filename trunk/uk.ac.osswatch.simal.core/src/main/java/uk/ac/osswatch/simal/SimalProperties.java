@@ -45,7 +45,7 @@ public class SimalProperties {
    * 
    * @throws SimalRepositoryException
    */
-  public void initProperties() throws SimalRepositoryException {
+  public static void initProperties() throws SimalRepositoryException {
     URL defaultsLocation = null;
     try {
       defaultsLocation = SimalProperties.class.getClassLoader().getResource(
@@ -81,20 +81,20 @@ public class SimalProperties {
     return propsFile;
   }
 
-
   /**
    * Delete the local properties file.
+   * 
    * @return true is deleted, otherwise false
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
   public static boolean deleteLocalProperties() throws SimalRepositoryException {
-    return getLocalPropertiesFile().delete();    
+    return getLocalPropertiesFile().delete();
   }
-  
+
   /**
    * Get a properties file from a given location.
    */
-  private Properties getProperties(File propsFile)
+  private static Properties getProperties(File propsFile)
       throws SimalRepositoryException {
     Properties props = new Properties();
     try {
@@ -126,12 +126,23 @@ public class SimalProperties {
    * @return
    */
   public static String getProperty(String key, String defaultValue) {
+    if (defaultProps == null) {
+      try {
+        initProperties();
+      } catch (SimalRepositoryException e) {
+        if (defaultValue != null) {
+          return defaultValue;
+        } else {
+          return "ERROR: property not defined, key: " + key;
+        }
+      }
+    }
     String value = null;
     if (localProps != null) {
       value = localProps.getProperty(key);
     }
     if (value == null) {
-      value = defaultProps.getProperty(key, defaultValue);
+        value = defaultProps.getProperty(key, defaultValue);
     }
     if (value == null) {
       value = "The property '"

@@ -349,7 +349,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     try {
       if (repository.getProject(qname) != null) {
         projectQNames.add(qname);
-        // a project in the repository already has an ID
+        logger.debug("Added " + qname + " to the list of project Qnames");
         return;
       }
     } catch (SimalRepositoryException e) {
@@ -437,6 +437,10 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     if (sourceURL == null) {
       throw new RDFHandlerException("Source URL has not been set, must call setSourceURL prior to using the AnnotatingRDFXMLHandler");
     }
+    subjects = new Stack<Resource>();
+    subjectType = new Stack<String>();
+    projectQNames = new HashSet<QName>();
+    personQNames =  new HashSet<QName>();
     handler.handleNamespace("simal", SimalRepository.SIMAL_NAMESPACE_URI);
     handler.startRDF();
   }
