@@ -46,7 +46,7 @@ public class DoapResourceBehaviour extends ResourceBehavior implements IDoapReso
   }
 
   /**
-   * Returns the default name for this resource/
+   * Returns the default name for this resource.
    * 
    * If no names are supplied then the return value of getLabel() is returned.
    */
