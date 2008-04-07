@@ -135,7 +135,7 @@ public class SimalRepository extends SimalProperties {
     // FIXME: use a proper file location
     File annotatedFile;
     try {
-      annotatedFile = new File("annotatedRDFXML.xml");
+      annotatedFile = getAnnotatedDoapFile(url.getFile().substring(url.getFile().lastIndexOf("/")));
       logger.debug("Annotated file written to "
           + annotatedFile.getAbsolutePath());
       annotatingHandler = new AnnotatingRDFXMLHandler(annotatedFile, this);
@@ -696,5 +696,15 @@ public class SimalRepository extends SimalProperties {
    */
   public static File getDoapFileStore() {
     return new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE));    
+  }
+
+  /**
+   * Get the local, annotated version, of the file with the given name.
+   * @return
+   */
+  public static File getAnnotatedDoapFile(String filename) {
+    String path = SimalRepository.getDoapFileStore().getAbsolutePath();
+    File file = new File(path + File.separator + "simal-uploads" + File.separator + filename);
+    return file;
   }
 }
