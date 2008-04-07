@@ -7,17 +7,13 @@
 	<display-name>uk.ac.osswatch.simal.wicket</display-name>
 <!-- configuration -->
   <context-param>
-    <param-name>features</param-name>
-    <param-value>res://features/features.txt</param-value>
+    <param-name>guice-modules</param-name>
+    <param-value>org.apache.shindig.gadgets.http.HttpGuiceModule</param-value>
   </context-param>
-  <context-param>
-    <param-name>syndicators</param-name>
-    <param-value>res://syndicators/default/syndicator.js</param-value>
-  </context-param>
-  <context-param>
-    <param-name>servlet-data-class</param-name>
-    <param-value>org.apache.shindig.gadgets.http.DefaultCrossServletState</param-value>
-  </context-param>
+  
+  <listener>
+    <listener-class>org.apache.shindig.gadgets.http.GuiceServletContextListener</listener-class>
+  </listener>
   
 	 <!--  
 	      There are three means to configure Wickets configuration mode and they are

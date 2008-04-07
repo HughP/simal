@@ -2,6 +2,7 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -30,6 +31,10 @@ public class TestDoapFormPage extends TestBase {
 
 	@Before
   public void initTester() {
+	  String path = SimalRepository.getDoapFileStore().getAbsolutePath();
+    File file = new File(path + File.separator + "simal-uploads" + File.separator + DOAP_FORM_FILE);
+    file.delete();
+    
 		tester = new WicketTester();
 		tester.startPage(DoapFormPage.class);
 		tester.assertRenderedPage(DoapFormPage.class);
@@ -50,17 +55,11 @@ public class TestDoapFormPage extends TestBase {
 		String[] errors = { "'" + INVALID_URL + "' is not a valid URL." };
 		tester.assertErrorMessages(errors);
 		
-        initTester();
-		URL doapURL = UserApplication.class.getClassLoader().getResource(
-				DOAP_FORM_FILE);
-		formTester = tester.newFormTester("addByURLForm");
-		formTester.setValue("sourceURL", doapURL.toString());
-		formTester.submit();
+    uploadFile();
 		tester.assertRenderedPage(UserHomePage.class);
 		
 		UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
-	}
-	 
+	}	 
   
   /**
    * Test that a file uploaded to the server is correctly 
@@ -127,6 +126,23 @@ public class TestDoapFormPage extends TestBase {
     
     UserApplication.getRepository().remove(qname);
 	}
+  
+  @Test
+  public void testUploadedFile() {
+    uploadFile();
+    File file = new File(SimalRepository.getAnnotatedDoapFile(DOAP_FORM_FILE));
+    assertTrue("Local copy of DOAP file does not exist, expected " + file.getAbsolutePath(), file.exists());
+  }
+
+  private void uploadFile() {
+    FormTester formTester;
+    initTester();
+    URL doapURL = UserApplication.class.getClassLoader().getResource(
+        DOAP_FORM_FILE);
+    formTester = tester.newFormTester("addByURLForm");
+    formTester.setValue("sourceURL", doapURL.toString());
+    formTester.submit();
+  }
 }
 
 
