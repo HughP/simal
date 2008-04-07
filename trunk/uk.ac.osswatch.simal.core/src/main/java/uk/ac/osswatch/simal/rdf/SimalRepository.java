@@ -107,6 +107,8 @@ public class SimalRepository extends SimalProperties {
   
   public final static String CATEGORIES_RDF = "categories.xml";
 
+  private static File fileStoreDir;
+
   private SailRepository _repository;
   private boolean isTest = false;
 
@@ -531,6 +533,9 @@ public class SimalRepository extends SimalProperties {
       throw new SimalRepositoryException("Unable to intialise the repository",
           e);
     }
+    
+    fileStoreDir = new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE));
+    fileStoreDir.mkdirs();
 
     if (isTest) {
       addTestData();
@@ -695,7 +700,7 @@ public class SimalRepository extends SimalProperties {
    * @return 
    */
   public static File getDoapFileStore() {
-    return new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE));    
+    return fileStoreDir;    
   }
 
   /**
