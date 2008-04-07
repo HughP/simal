@@ -49,7 +49,7 @@ public class ResourceBehavior implements IResourceBehaviour {
   /**
    * Get the label for this resource. If the resource does not have a defined
    * label use the supplied default label (if not null) or the resource return
-   * value of the toString() method.
+   * value of the QName in human readable form.
    * 
    * @param defaultLabel
    * @return
