@@ -81,6 +81,14 @@
     </Version>
   </release>
 
+  <release>
+    <Version>
+      <name>A dummy release with no qname</name>
+      <revision>0.1</revision>
+      <created>2007-08-30</created>
+    </Version>
+  </release>
+
   <category
     rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" />
   <category
