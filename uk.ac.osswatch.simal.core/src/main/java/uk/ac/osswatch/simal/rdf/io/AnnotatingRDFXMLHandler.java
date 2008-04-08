@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;
@@ -51,12 +52,12 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private Set<QName> projectQNames = new HashSet<QName>();
   private Set<QName> personQNames = new HashSet<QName>();
   private SimalRepository repository;
+  private HashMap<String, Value> bnodeMap = new HashMap<String, Value>();
 
   private URIImpl sourceURL;
 
   /**
-   * Create a new AnnotatingRDFXMLHandler that will write 
-   * to a file.
+   * Create a new AnnotatingRDFXMLHandler that will write to a file.
    * 
    * @param file
    *          the file to write the annotated RDF/XML output to.
@@ -89,14 +90,20 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   }
 
   public void handleStatement(Statement inStatement) throws RDFHandlerException {
+    logger.debug("Processing statement: " + inStatement);
     Statement outStatement = inStatement;
     Resource outSubject = inStatement.getSubject();
     URI outPredicate = inStatement.getPredicate();
     Value outValue = fixEncoding(inStatement.getObject());
 
+    if (outValue.stringValue().equals(
+        SimalRepository.DOAP_VERSION_URI)) {
+      outSubject = verifyNode(inStatement.getSubject(), subjects.peek().toString());
+    }
+
     if (isNewProjectType(inStatement) || isCurrentProjectBlankNode()
         || isDoapPredicate(outPredicate)) {
-      outSubject = verifyNode(inStatement.getSubject(),
+      outSubject = verifyNode(outSubject,
           SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
       if (isNewProjectType(inStatement)) {
         newProject(outSubject);
@@ -104,7 +111,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     }
 
     if (isNewPersonType(inStatement) || isCurrentPersonBlankNode()) {
-      outSubject = verifyNode(inStatement.getSubject(),
+      outSubject = verifyNode(outSubject,
           SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
       if (isNewPersonType(inStatement)) {
         newPerson(outSubject);
@@ -112,7 +119,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     }
 
     if (isNewParticipant(inStatement)) {
-      outValue = verifyNode(inStatement.getObject(),
+      outValue = verifyNode(outValue,
           SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
     }
 
@@ -128,7 +135,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
             + "/givenname");
       }
       if (predicateValue.endsWith("/knows")) {
-        outValue = verifyNode(inStatement.getObject(),
+        outValue = verifyNode(outValue,
             SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
       }
     } else {
@@ -144,13 +151,17 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         if (predicateValue.equals(SimalRepository.SIMAL_URI_PERSON_ID)) {
           IPerson person = repository.findPersonById(id);
           if (person != null) {
-            logger.warn("Throwing away simal personID from XML file as it is allready in use on this server. ID = " + id + " Owner = " + person.toString());
+            logger
+                .warn("Throwing away simal personID from XML file as it is allready in use on this server. ID = "
+                    + id + " Owner = " + person.toString());
             return;
           }
         } else if (predicateValue.equals(SimalRepository.SIMAL_URI_PROJECT_ID)) {
           IProject project = repository.findProjectById(id);
           if (project != null) {
-            logger.warn("Throwing away simal projectID from XML file as it is allready in use on this server. ID = " + id + " Owner = " + project.toString());
+            logger
+                .warn("Throwing away simal projectID from XML file as it is allready in use on this server. ID = "
+                    + id + " Owner = " + project.toString());
             return;
           }
         }
@@ -163,11 +174,11 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     outStatement = new StatementImpl(outSubject, outPredicate, outValue);
 
     handler.handleStatement(outStatement);
+    logger.debug("Handled as: " + outStatement);
   }
 
   /**
-   * Check appropriate annotations, such as ID and seeAlso
-   * are present.
+   * Check appropriate annotations, such as ID and seeAlso are present.
    * 
    * @param outSubject
    * @throws RDFHandlerException
@@ -414,7 +425,11 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private Resource verifyNode(final Resource inSubject, final String defaultURI) {
     Resource outSubject = inSubject;
     if (inSubject instanceof BNode) {
-      outSubject = new URIImpl(defaultURI + inSubject.stringValue());
+      outSubject = (Resource) bnodeMap.get(inSubject.stringValue());
+      if (outSubject == null) {
+        outSubject = new URIImpl(defaultURI + inSubject.stringValue());
+        bnodeMap.put(inSubject.stringValue(), outSubject);
+      }
     }
     return outSubject;
   }
@@ -429,7 +444,11 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private Value verifyNode(final Value inObject, final String defaultURI) {
     Value outObject = inObject;
     if (inObject instanceof BNode) {
-      outObject = new URIImpl(defaultURI + inObject.stringValue());
+      outObject = bnodeMap.get(inObject.stringValue());
+      if (outObject == null) {
+        outObject = new URIImpl(defaultURI + inObject.stringValue());
+        bnodeMap.put(outObject.stringValue(), outObject);
+      }
     }
     return outObject;
   }

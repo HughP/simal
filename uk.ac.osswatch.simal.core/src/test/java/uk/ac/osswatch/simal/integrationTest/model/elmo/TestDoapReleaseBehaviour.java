@@ -1,7 +1,9 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
 import java.util.Set;
 
 import org.junit.Test;
@@ -17,5 +19,16 @@ public class TestDoapReleaseBehaviour extends BaseRepositoryTest {
     IDoapRelease release = (IDoapRelease) releases.toArray()[0];
     Set<String> revisions = release.getRevisions();
     assertTrue("Don't seem to have revision 0.1", revisions.toString().contains("0.1"));
+  }
+  
+  @Test
+  public void testReleaseName() {
+    Iterator<IDoapRelease> releases = project1.getReleases().iterator();
+    IDoapRelease release;
+    while (releases.hasNext()) {
+      release = releases.next();
+      String name = release.getName();
+      assertNotNull("Relase name should not be null", name);
+    }
   }
 }
