@@ -36,6 +36,8 @@ public class BasePage extends WebPage {
 
   public BasePage() {
     add(HeaderContributor.forCss(DEFAULT_CSS));
+    add(new BookmarkablePageLink("homePageLink",
+        UserHomePage.class));
     add(new BookmarkablePageLink("exhibitBrowserLink",
         ExhibitProjectBrowserPage.class));
     add(new BookmarkablePageLink("addDOAPLink", DoapFormPage.class));
