@@ -73,7 +73,7 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 		int idx = 0;
 		Iterator<IDoapResourceBehaviour> all = treeSet.iterator();
 		IDoapResourceBehaviour current;
-		while (all.hasNext() && idx - count < 0) {
+		while (all.hasNext() && idx - (first + count) < 0) {
 			current = all.next();
 			if (idx >= first) {
 				result.add(current);
