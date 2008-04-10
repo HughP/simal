@@ -20,7 +20,7 @@ public class HandlerFactory {
    */
   private HandlerFactory() throws SimalAPIException {
     try {
-      simalRepo = new SimalRepository();
+      simalRepo = SimalRepository.getInstance();
       simalRepo.setIsTest(true);
       simalRepo.initialise();
     } catch (SimalRepositoryException e) {

@@ -33,7 +33,7 @@ public class RESTServlet extends HttpServlet {
     String response = "Could not handle request for " + req.getPathInfo();
 
     try {
-      SimalRepository repo = new SimalRepository();
+      SimalRepository repo = SimalRepository.getInstance();
       repo.initialise();
       IAPIHandler handler = HandlerFactory.get(cmd, repo);
       response = handler.execute();      
