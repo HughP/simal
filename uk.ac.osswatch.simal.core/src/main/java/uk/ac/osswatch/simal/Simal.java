@@ -40,7 +40,7 @@ public class Simal {
   @SuppressWarnings( { "unchecked", "static-access" })
   public static void main(String[] args) {
     try {
-      repository = new SimalRepository();
+      repository = SimalRepository.getInstance();
     } catch (SimalRepositoryException e) {
       throw new RuntimeException("Unable to create repository", e);
     }
@@ -200,6 +200,10 @@ public class Simal {
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
         header, opts, footer.toString(), false);
     System.exit(0);
+  }
+
+  public static SimalRepository getRepository() {
+    return repository;
   }
 
 }
