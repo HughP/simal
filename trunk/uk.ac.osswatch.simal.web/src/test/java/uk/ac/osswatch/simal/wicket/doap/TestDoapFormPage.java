@@ -30,8 +30,8 @@ public class TestDoapFormPage extends TestBase {
 	private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
 
 	@Before
-  public void initTester() {
-	  String path = SimalRepository.getDoapFileStore().getAbsolutePath();
+  public void initTester() throws SimalRepositoryException {
+	  String path = UserApplication.getRepository().getDoapFileStore().getAbsolutePath();
     File file = new File(path + File.separator + "simal-uploads" + File.separator + DOAP_FORM_FILE);
     file.delete();
     
@@ -128,13 +128,13 @@ public class TestDoapFormPage extends TestBase {
 	}
   
   @Test
-  public void testUploadedFile() {
+  public void testUploadedFile() throws SimalRepositoryException {
     uploadFile();
-    File file = new File(SimalRepository.getAnnotatedDoapFile(DOAP_FORM_FILE));
+    File file = new File(UserApplication.getRepository().getAnnotatedDoapFile(DOAP_FORM_FILE));
     assertTrue("Local copy of DOAP file does not exist, expected " + file.getAbsolutePath(), file.exists());
   }
 
-  private void uploadFile() {
+  private void uploadFile() throws SimalRepositoryException {
     FormTester formTester;
     initTester();
     URL doapURL = UserApplication.class.getClassLoader().getResource(
