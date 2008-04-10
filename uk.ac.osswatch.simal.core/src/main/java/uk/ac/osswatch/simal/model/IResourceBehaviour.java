@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.model;
 
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
 /**
  * A wrapper for an RDFS Resource in Elmo.
  * 
@@ -41,4 +43,11 @@ public interface IResourceBehaviour {
    *          if you want this to be a complete JSON file.
    */
   public String toJSON(boolean asRecord);
+
+  /**
+   * Create an XML representation of this resource.
+   * @throws SimalRepositoryException 
+   * 
+   */
+  public String toXML() throws SimalRepositoryException;
 }

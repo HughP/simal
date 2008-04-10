@@ -1,5 +1,7 @@
 package uk.ac.osswatch.simal.model.elmo;
 
+import java.io.StringWriter;
+
 import javax.xml.namespace.QName;
 
 import org.openrdf.concepts.rdfs.Resource;
@@ -7,6 +9,8 @@ import org.openrdf.elmo.Entity;
 import org.openrdf.elmo.annotations.rdf;
 
 import uk.ac.osswatch.simal.model.IResourceBehaviour;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * Provides functionality for a Resource object provided by Elmo.
@@ -89,5 +93,16 @@ public class ResourceBehavior implements IResourceBehaviour {
   public String toJSON(boolean asRecord) {
     // TODO Auto-generated method stub
     return null;
+  }
+  
+  /**
+   * Create an XML representation of this resource.
+   * @throws SimalRepositoryException 
+   *
+   */
+  public String toXML() throws SimalRepositoryException {
+    StringWriter writer = new StringWriter();
+    SimalRepository.getInstance().writeXML(writer, elmoEntity.getQName());
+    return writer.toString();
   }
 }
