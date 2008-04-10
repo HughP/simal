@@ -96,31 +96,23 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     URI outPredicate = inStatement.getPredicate();
     Value outValue = fixEncoding(inStatement.getObject());
 
-    if (outValue.stringValue().equals(
-        SimalRepository.DOAP_VERSION_URI)) {
-      outSubject = verifyNode(inStatement.getSubject(), subjects.peek().toString());
+    String uri;
+    if (isNewProjectType(inStatement)) {
+      uri = SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI;
+    } else if (isNewPersonType(inStatement) || isNewParticipant(inStatement) || isFoafPredicate(inStatement)) {
+      uri = SimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
+    } else {
+      uri = subjects.peek().stringValue();
     }
-
-    if (isNewProjectType(inStatement) || isCurrentProjectBlankNode()
-        || isDoapPredicate(outPredicate)) {
-      outSubject = verifyNode(outSubject,
-          SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
-      if (isNewProjectType(inStatement)) {
+    outSubject = verifyNode(inStatement.getSubject(), uri);
+    outValue = verifyNode(inStatement.getObject(), uri);
+    
+    if (isNewProjectType(inStatement)) {
         newProject(outSubject);
-      }
     }
-
-    if (isNewPersonType(inStatement) || isCurrentPersonBlankNode()) {
-      outSubject = verifyNode(outSubject,
-          SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
-      if (isNewPersonType(inStatement)) {
+    
+    if (isNewPersonType(inStatement)) {
         newPerson(outSubject);
-      }
-    }
-
-    if (isNewParticipant(inStatement)) {
-      outValue = verifyNode(outValue,
-          SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
     }
 
     fixAnnotations(outSubject);
@@ -133,10 +125,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         outPredicate = new URIImpl(predicateValue.substring(0, predicateValue
             .length() - 5)
             + "/givenname");
-      }
-      if (predicateValue.endsWith("/knows")) {
-        outValue = verifyNode(outValue,
-            SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
       }
     } else {
       outPredicate = inStatement.getPredicate();
@@ -253,20 +241,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   }
 
   /**
-   * Return true if the person currently being processed is from a blank node
-   * that is being rewritten as a Simal namespaced node.
-   * 
-   * @return
-   */
-  private boolean isCurrentPersonBlankNode() {
-    if (subjects.empty()) {
-      return false;
-    }
-    return subjects.peek().stringValue().startsWith(
-        SimalRepository.DEFAULT_PERSON_NAMESPACE_URI);
-  }
-
-  /**
    * Return true if the statement indicates that this is a new person type.
    * 
    * @param inStatement
@@ -306,31 +280,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         || inStatement.getPredicate().stringValue().startsWith(
             SimalRepository.DOAP_TRANSLATOR_URI);
     return isPerson;
-  }
-
-  /**
-   * Return true if the predicate for a statement is in the DOAP namespace.
-   * 
-   * @param inStatement
-   * @return
-   */
-  private boolean isDoapPredicate(URI outPredicate) {
-    return outPredicate.stringValue().startsWith(
-        SimalRepository.DOAP_NAMESPACE_URI);
-  }
-
-  /**
-   * Return true if the project currently being processed is from a blank node
-   * that is being rewritten as a Simal namespaced node.
-   * 
-   * @return
-   */
-  private boolean isCurrentProjectBlankNode() {
-    if (subjects.empty()) {
-      return false;
-    }
-    return subjects.peek().stringValue().startsWith(
-        SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI);
   }
 
   /**
@@ -422,7 +371,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @param inSubject
    * @return
    */
-  private Resource verifyNode(final Resource inSubject, final String defaultURI) {
+  private Resource verifyNode(final Resource inSubject, String defaultURI) {
     Resource outSubject = inSubject;
     if (inSubject instanceof BNode) {
       outSubject = (Resource) bnodeMap.get(inSubject.stringValue());
@@ -441,7 +390,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
    * @param inSubject
    * @return
    */
-  private Value verifyNode(final Value inObject, final String defaultURI) {
+  private Value verifyNode(final Value inObject, String defaultURI) {
     Value outObject = inObject;
     if (inObject instanceof BNode) {
       outObject = bnodeMap.get(inObject.stringValue());
