@@ -94,7 +94,7 @@ public abstract class BaseRepositoryTest {
   }
 
   protected static void initRepository() throws SimalRepositoryException {
-    repository = new SimalRepository();
+    repository = SimalRepository.getInstance();
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
       repository.initialise();
