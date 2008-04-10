@@ -21,8 +21,6 @@ public class HandlerFactory {
   private HandlerFactory() throws SimalAPIException {
     try {
       simalRepo = SimalRepository.getInstance();
-      simalRepo.setIsTest(true);
-      simalRepo.initialise();
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to create HandlerFactory", e);
     }
