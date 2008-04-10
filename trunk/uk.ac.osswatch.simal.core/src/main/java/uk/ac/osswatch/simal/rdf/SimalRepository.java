@@ -3,7 +3,6 @@ package uk.ac.osswatch.simal.rdf;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Iterator;
@@ -15,7 +14,6 @@ import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.ElmoQuery;
-import org.openrdf.elmo.Entity;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
 import org.openrdf.model.URI;
@@ -34,7 +32,6 @@ import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.Simal;
 import uk.ac.osswatch.simal.SimalProperties;
 
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
@@ -111,7 +108,7 @@ public class SimalRepository extends SimalProperties {
   
   public final static String CATEGORIES_RDF = "categories.xml";
 
-  private static File fileStoreDir;
+  private File fileStoreDir;
 
   private static SailRepository _repository;
   private boolean isTest = false;
@@ -705,7 +702,7 @@ public class SimalRepository extends SimalProperties {
    * files. Note, these files have been annotated by Simal.
    * @return 
    */
-  public static File getDoapFileStore() {
+  public File getDoapFileStore() {
     return fileStoreDir;    
   }
 
@@ -713,8 +710,8 @@ public class SimalRepository extends SimalProperties {
    * Get the local, annotated version, of the file with the given name.
    * @return
    */
-  public static File getAnnotatedDoapFile(String filename) {
-    String path = SimalRepository.getDoapFileStore().getAbsolutePath();
+  public File getAnnotatedDoapFile(String filename) {
+    String path = fileStoreDir.getAbsolutePath();
     File file = new File(path + File.separator + filename);
     return file;
   }
