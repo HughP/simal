@@ -3,6 +3,7 @@ package uk.ac.osswatch.simal.rdf;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Iterator;
@@ -14,6 +15,7 @@ import javax.xml.namespace.QName;
 import org.openrdf.elmo.ElmoManager;
 import org.openrdf.elmo.ElmoModule;
 import org.openrdf.elmo.ElmoQuery;
+import org.openrdf.elmo.Entity;
 import org.openrdf.elmo.sesame.SesameManager;
 import org.openrdf.elmo.sesame.SesameManagerFactory;
 import org.openrdf.model.URI;
@@ -32,6 +34,7 @@ import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.Simal;
 import uk.ac.osswatch.simal.SimalProperties;
 
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
@@ -110,10 +113,12 @@ public class SimalRepository extends SimalProperties {
 
   private static File fileStoreDir;
 
-  private SailRepository _repository;
+  private static SailRepository _repository;
   private boolean isTest = false;
+  
+  private static SimalRepository instance;
 
-  public SimalRepository() throws SimalRepositoryException {
+  private SimalRepository() throws SimalRepositoryException {
     super();
   }
 
@@ -712,5 +717,18 @@ public class SimalRepository extends SimalProperties {
     String path = SimalRepository.getDoapFileStore().getAbsolutePath();
     File file = new File(path + File.separator + filename);
     return file;
+  }
+
+  /**
+   * Get the SimalRepository object. Note that only one of
+   * these can exist in a single virtual machine.
+   * @return
+   * @throws SimalRepositoryException 
+   */
+  public static SimalRepository getInstance() throws SimalRepositoryException {
+    if (instance == null) {
+      instance = new SimalRepository();
+    }
+    return instance;
   }
 }
