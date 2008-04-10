@@ -60,7 +60,7 @@ public class UserApplication extends WebApplication {
 	 */
 	public static SimalRepository getRepository() throws SimalRepositoryException {
 		if (repository == null) {
-			repository = new SimalRepository();
+			repository = SimalRepository.getInstance();
 			repository.setIsTest(isTest);
 			if (!repository.isInitialised()) {
 				repository.initialise();
