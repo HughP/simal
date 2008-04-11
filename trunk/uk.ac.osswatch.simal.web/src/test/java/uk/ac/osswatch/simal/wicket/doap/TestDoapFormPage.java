@@ -12,6 +12,7 @@ import javax.xml.namespace.QName;
 import org.apache.wicket.util.file.File;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -28,12 +29,20 @@ public class TestDoapFormPage extends TestBase {
 	private static final String TEST_NAME = "Form Project";
 	private static final String TEST_SHORT_DESC = "A project added by filling in the DOAP form";
 	private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
+	
+	private static QName formInputQName = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI + TEST_NAME);
 
 	@Before
   public void initTester() throws SimalRepositoryException {
 		tester = new WicketTester();
 		tester.startPage(DoapFormPage.class);
 		tester.assertRenderedPage(DoapFormPage.class);
+	}
+	
+	@After
+	public void cleanUp() throws SimalRepositoryException {
+	  UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
+    UserApplication.getRepository().remove(formInputQName);
 	}
 	
 	/**
@@ -59,8 +68,6 @@ public class TestDoapFormPage extends TestBase {
     formTester.submit();
     
 		tester.assertRenderedPage(UserHomePage.class);
-		
-		UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
 	}	 
   
   /**
@@ -76,8 +83,6 @@ public class TestDoapFormPage extends TestBase {
     
     uploadFile();
     tester.assertRenderedPage(UserHomePage.class);
-    
-    UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
   }
 	
 	@Test
@@ -114,14 +119,11 @@ public class TestDoapFormPage extends TestBase {
     tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
     
-    QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI + TEST_NAME);
-    IProject project = UserApplication.getRepository().getProject(qname);
+    IProject project = UserApplication.getRepository().getProject(formInputQName);
     assertNotNull(project);
     assertEquals("Name is not correct", TEST_NAME, project.getName());
     assertEquals("Short descritpion is not correct", TEST_SHORT_DESC, project.getShortDesc());
     assertEquals("Description is not correct", TEST_DESCRIPTION, project.getDescription());
-    
-    UserApplication.getRepository().remove(qname);
 	}
 
   private void uploadFile() throws SimalRepositoryException, URISyntaxException {
@@ -140,10 +142,7 @@ public class TestDoapFormPage extends TestBase {
     
     uploadFile();
     file = new File(UserApplication.getRepository().getAnnotatedDoapFile(DOAP_FORM_FILE));
-    assertTrue("Local copy of DOAP file does not exist, expected " + file.getAbsolutePath(), file.exists());
-    
-    UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
-  }
+    assertTrue("Local copy of DOAP file does not exist, expected " + file.getAbsolutePath(), file.exists());}
 }
 
 
