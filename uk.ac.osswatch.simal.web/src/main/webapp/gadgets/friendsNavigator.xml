@@ -37,6 +37,8 @@ function loadFriends() {
 var allPeople, viewerFriendData;
 function onLoadFriends(data) {
   var viewer = data.get('viewer').getData();
+  document.getElementById('viewerName').innerHTML = viewer.getDisplayName();
+  
   allPeople = data.get('viewerFriends').getData().asArray() || new Array();
 
   var html = '<ul>';
@@ -50,7 +52,7 @@ function onLoadFriends(data) {
 </script>
 
       <div id='main'>
-        Your friends:
+        <p>Colleagues of <span id="viewerName">Viewer</span>:</p>
         <div id='friends'>Loading....<br/>Note this will only work if you have patched Shindig locally - ask on our dev lists if you need help.</div>
       </div>
     ]]>
