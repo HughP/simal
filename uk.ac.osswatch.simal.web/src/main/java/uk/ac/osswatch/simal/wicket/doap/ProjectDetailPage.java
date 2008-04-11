@@ -27,7 +27,7 @@ public class ProjectDetailPage extends BasePage {
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get project from the repository",
-          ExhibitProjectBrowserPage.class, e);
+          ProjectDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
   }
