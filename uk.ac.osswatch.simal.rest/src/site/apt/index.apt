@@ -75,6 +75,12 @@ Now What?
  
 * Project Data
 
+** A Single Project
+
+ To retrieve the details of a single project use:
+ 
+ http://foo.com/simal-rest/project/project-ID/xml
+
 ** All Projects
  
  To retrieve all projects as a JSON file from the standard 

@@ -3,14 +3,16 @@ package uk.ac.osswatch.simal.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+
 /**
  * An abstract handler for the REST API. All handlers should 
  * extend this abstract class.
  *
  */
 public abstract class AbstractHandler implements IAPIHandler {
-  private static final String SIMAL_REST_BASE_URI = "http://localhost:8080/simal-rest";
   protected RESTCommand command;
+  private String baseurl;
 
   /**
    * Create a handler to operate on a given repository.
@@ -20,10 +22,11 @@ public abstract class AbstractHandler implements IAPIHandler {
    */
   protected AbstractHandler(RESTCommand cmd) {
     this.command = cmd;
+    this.baseurl = SimalRepository.getProperty(SimalRepository.PROPERTY_REST_BASEURL);
   }
   
   public URI getStateURI() throws URISyntaxException {
-    URI uri = new URI(SIMAL_REST_BASE_URI + command.toPathInfo());
+    URI uri = new URI(baseurl + command.toPathInfo());
     return uri;
   }
 
@@ -33,7 +36,7 @@ public abstract class AbstractHandler implements IAPIHandler {
    */
   public String getBaseURI() {
     if (command.getSource().equals(RESTCommand.SOURCE_TYPE_SIMAL)) {
-      return SIMAL_REST_BASE_URI;
+      return baseurl;
     } else if (command.getSource().equals(RESTCommand.SOURCE_TYPE_MYEXPERIMENT)) {
       return "http://www.myexperiment.org";
     }

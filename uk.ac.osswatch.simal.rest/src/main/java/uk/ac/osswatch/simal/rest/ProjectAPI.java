@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.rest;
 
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -28,6 +29,8 @@ public class ProjectAPI extends AbstractHandler {
   public String execute() throws SimalAPIException {
     if (command.isGetAllProjects()) {
       return getAllProjects(command);
+    } else if (command.isGetProject()) {
+      return getProject(command);
     } else {
       throw new SimalAPIException("Unkown command: " + command);
     }
@@ -51,6 +54,38 @@ public class ProjectAPI extends AbstractHandler {
     } else {
       throw new SimalAPIException("Unkown format requested - "
           + cmd);
+    }
+  }
+
+  /**
+   * Get a single project from the repository.
+   * 
+   * @param command
+   * @return
+   * @throws SimalAPIException 
+   */
+  private String getProject(RESTCommand command) throws SimalAPIException {
+    String id = command.getProjectID();
+    
+    if (command.isXML()) {
+      try {
+        IProject project = HandlerFactory.getSimalRepository().findProjectById(id);
+        if (project == null) {
+          throw new SimalAPIException("Project with Simal ID " + id + " does not exist");
+        }
+        return project.toXML();
+      } catch (SimalRepositoryException e) {
+        throw new SimalAPIException("Unable to get XML representation of project from the repository", e);
+      }
+    } else if (command.isJSON()) {
+      try {
+        return HandlerFactory.getSimalRepository().findProjectById(id).toJSON();
+      } catch (SimalRepositoryException e) {
+        throw new SimalAPIException("Unable to get JSON representation of project from the repository", e);
+      }
+    } else {
+      throw new SimalAPIException("Unkown format requested - "
+          + command);
     }
   }
 

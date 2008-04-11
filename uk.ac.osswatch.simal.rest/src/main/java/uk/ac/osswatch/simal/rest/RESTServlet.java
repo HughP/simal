@@ -14,9 +14,9 @@ import uk.ac.osswatch.simal.rest.IAPIHandler;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 /**
- * A servlet class that allows multiple resources to
- * be used for retrieving data. 
- *
+ * A servlet class that allows multiple resources to be used for retrieving
+ * data.
+ * 
  */
 public class RESTServlet extends HttpServlet {
   private static final long serialVersionUID = -7003783530005464708L;
@@ -34,13 +34,16 @@ public class RESTServlet extends HttpServlet {
 
     try {
       SimalRepository repo = SimalRepository.getInstance();
-      repo.initialise();
+      if (!repo.isInitialised()) {
+        repo.initialise();
+      }
       IAPIHandler handler = HandlerFactory.get(cmd, repo);
-      response = handler.execute();      
+      response = handler.execute();
     } catch (SimalAPIException e) {
       response = errorResponse(e);
     } catch (SimalRepositoryException e) {
-      response = errorResponse(new SimalAPIException("Unable to connect to repository", e));
+      response = errorResponse(new SimalAPIException(
+          "Unable to connect to repository", e));
     } finally {
       if (cmd.isXML()) {
         res.setContentType("text/xml; charset=UTF-8");
