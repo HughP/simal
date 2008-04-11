@@ -40,6 +40,7 @@ public class PersonSummaryPanel extends Panel {
 
 	private void populatePage(final IPerson person) {
 		add(new Label("personName", person.getLabel()));
+		add(new Label("emails", person.getFoafMboxes().toString()));
 		add(new Label("homepages", person.getFoafHomepages().toString()));
 	}
 
