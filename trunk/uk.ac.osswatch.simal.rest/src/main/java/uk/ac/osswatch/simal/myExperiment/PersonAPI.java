@@ -98,7 +98,7 @@ public class PersonAPI extends AbstractHandler {
 
       TransformerFactory xformFactory =
                 TransformerFactory.newInstance();
-      StreamSource xslt = new StreamSource(new File(PersonAPI.class.getResource("myExperiment-to-shindig.xsl").toURI())); 
+      StreamSource xslt = new StreamSource(PersonAPI.class.getResourceAsStream("myExperiment-to-shindig.xsl")); 
       Transformer transformer =
                    xformFactory.newTransformer(xslt);
       DOMSource source = new DOMSource(document);
@@ -124,9 +124,6 @@ public class PersonAPI extends AbstractHandler {
       throw new SimalAPIException(
           "Unable to transform the response from the MyExperiment instance "
               + reqURI, e);
-    } catch (URISyntaxException e) {
-      throw new SimalAPIException(
-          "Unable to find XSLT file to convert from myExperiment data to Shindig data", e);
     }
 
     return out.toString();
