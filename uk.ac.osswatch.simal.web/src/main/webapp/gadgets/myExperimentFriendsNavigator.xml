@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <Module>
-  <ModulePrefs title="Friends Navigator">
+  <ModulePrefs title="MyExperiment Friends Navigator">
     <Require feature="opensocial-0.7" />
   </ModulePrefs>
   <Content type="html">
@@ -44,14 +44,13 @@ function onLoadFriends(data) {
    html += '<li class="name">' + allPeople[i].getDisplayName() + '</li>';
   }
   html += '</ul>';
-  document.getElementById('friends').innerHTML = html;
+  document.getElementById('myExperimentFriends').innerHTML = html;
 }
-
 </script>
 
       <div id='main'>
-        Your friends:
-        <div id='friends'>Loading....<br/>Note this will only work if you have patched Shindig locally - ask on our dev lists if you need help.</div>
+        Your MyExperiment friends:
+        <div id='myExperimentFriends'>Loading....<br/>Note this will only work if you have patched Shindig locally - ask on our dev lists if you need help.</div>
       </div>
     ]]>
   </Content>
