@@ -20,6 +20,7 @@ import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.DoapFormPage;
+import uk.ac.osswatch.simal.wicket.foaf.PersonAdminPage;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 
 /**
@@ -38,6 +39,8 @@ public class BasePage extends WebPage {
     add(HeaderContributor.forCss(DEFAULT_CSS));
     add(new BookmarkablePageLink("homePageLink",
         UserHomePage.class));
+    add(new BookmarkablePageLink("personAdminPageLink",
+        PersonAdminPage.class));
     add(new BookmarkablePageLink("exhibitBrowserLink",
         ExhibitProjectBrowserPage.class));
     add(new BookmarkablePageLink("addDOAPLink", DoapFormPage.class));
