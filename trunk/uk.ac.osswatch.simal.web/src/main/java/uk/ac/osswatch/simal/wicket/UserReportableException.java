@@ -16,7 +16,7 @@ public class UserReportableException extends Exception {
 		this.reportingClass = reportingClass;
 	}
 
-	public Class<?> getReportingClass() {
+  public Class<?> getReportingClass() {
 		return reportingClass;
 	}
 }

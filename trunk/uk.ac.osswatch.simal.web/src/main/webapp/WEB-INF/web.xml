@@ -5,7 +5,8 @@
 	 version="2.4">
 
 	<display-name>uk.ac.osswatch.simal.wicket</display-name>
-<!-- configuration -->
+  <!-- configuration -->
+  <!-- If you have your own Guice module(s), put them here as a colon-separated list. -->
   <context-param>
     <param-name>guice-modules</param-name>
     <param-value>org.apache.shindig.gadgets.http.HttpGuiceModule</param-value>
@@ -70,18 +71,6 @@
     <servlet-class>
       org.apache.shindig.social.GadgetDataServlet
     </servlet-class>
-    <init-param>
-      <param-name>peopleService</param-name>
-      <param-value>uk.ac.osswatch.simal.openSocial.SimalPeopleService</param-value>
-    </init-param>
-    <init-param>
-      <param-name>dataService</param-name>
-      <param-value>uk.ac.osswatch.simal.openSocial.SimalDataService</param-value>
-    </init-param>
-    <init-param>
-      <param-name>activitiesService</param-name>
-      <param-value>uk.ac.osswatch.simal.openSocial.SimalActivitiesService</param-value>
-    </init-param>
   </servlet>
 
   <!-- javascript serving -->
