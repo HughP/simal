@@ -32,6 +32,10 @@ public class SimalProperties {
   public static final String PROPERTY_LOCAL_PROPERTIES_LOCATION = "simal.local.properties.path";
 
   public static final String PROPERTY_UNIT_TEST = "simal.unitTest";
+  
+  public static final String PROPERTY_REST_BASEURL = "simal.rest.baseurl";
+
+  public static final String PROPERTY_USER_WEBAPP_BASEURL = "simal.user.webapp.baseurl";
 
   private static Properties defaultProps;
   private static Properties localProps;
