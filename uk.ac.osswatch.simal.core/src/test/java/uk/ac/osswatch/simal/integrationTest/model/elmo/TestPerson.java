@@ -56,6 +56,12 @@ public class TestPerson extends BaseRepositoryTest {
   }
 
   @Test
+  public void testEmail() {
+    assertEquals("developer@foo.org", developer
+        .getEmail());
+  }
+
+  @Test
   public void testToJSON() {
     String json = developer.toJSON(false);
     assertTrue("JSON does not include person name: JSON = " + json, json

@@ -86,4 +86,11 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour implements IFoafP
   private IPerson getPerson() {
     return (IPerson)elmoEntity;
   }
+
+  /**
+   * Get the default email address for this person.
+   */
+  public String getEmail() {
+    return getPerson().getFoafMboxes().toString();
+  }
 }

@@ -162,6 +162,7 @@
         </foaf:Person>
       </foaf:knows>
       <foaf:homepage rdf:resource="http://example.org/person/developer" />
+      <foaf:mbox>developer@foo.org</foaf:mbox>
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
       <simal:personId>15</simal:personId>
