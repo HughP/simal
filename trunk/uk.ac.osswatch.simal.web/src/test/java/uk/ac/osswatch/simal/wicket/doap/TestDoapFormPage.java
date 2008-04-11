@@ -31,10 +31,6 @@ public class TestDoapFormPage extends TestBase {
 
 	@Before
   public void initTester() throws SimalRepositoryException {
-	  String path = UserApplication.getRepository().getDoapFileStore().getAbsolutePath();
-    File file = new File(path + File.separator + "simal-uploads" + File.separator + DOAP_FORM_FILE);
-    file.delete();
-    
 		tester = new WicketTester();
 		tester.startPage(DoapFormPage.class);
 		tester.assertRenderedPage(DoapFormPage.class);
@@ -62,8 +58,6 @@ public class TestDoapFormPage extends TestBase {
     formTester.setValue("sourceURL", doapURL.toString());
     formTester.submit();
     
-    UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
-  
 		tester.assertRenderedPage(UserHomePage.class);
 		
 		UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
@@ -147,6 +141,8 @@ public class TestDoapFormPage extends TestBase {
     uploadFile();
     file = new File(UserApplication.getRepository().getAnnotatedDoapFile(DOAP_FORM_FILE));
     assertTrue("Local copy of DOAP file does not exist, expected " + file.getAbsolutePath(), file.exists());
+    
+    UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
   }
 }
 
