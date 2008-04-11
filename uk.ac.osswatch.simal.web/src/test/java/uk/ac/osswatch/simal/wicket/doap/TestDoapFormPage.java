@@ -131,7 +131,7 @@ public class TestDoapFormPage extends TestBase {
     URL doapURL = UserApplication.class.getClassLoader().getResource(
         DOAP_FORM_FILE);
     File doapFile = new File(doapURL.toURI());
-    formTester.setFile("fileInput", doapFile, "");
+    formTester.setFile("fileInput", doapFile, "text/xml");
     formTester.submit();
   }
   
