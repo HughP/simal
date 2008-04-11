@@ -335,9 +335,25 @@ public class SimalRepository extends SimalProperties {
     }
   }
 
+
+  /**
+   * Get all the projects known in this repository.
+   * @return
+   * @throws SimalRepositoryException
+   */
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
     verifyInitialised();
     return getManager().findAll(IProject.class);
+  }
+
+  /**
+   * Get all the people known in this repository.
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public Set<IPerson> getAllPeople() throws SimalRepositoryException {
+    verifyInitialised();
+    return getManager().findAll(IPerson.class);
   }
 
   /**
