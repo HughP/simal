@@ -36,4 +36,11 @@ public interface IFoafPersonBehaviour extends IFoafResourceBehaviour {
    * @return
    */
   public String getLabel();
+
+  /**
+   * Get the email address for this person.
+   * 
+   * @return
+   */
+  public String getEmail();
 }
