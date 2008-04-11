@@ -55,7 +55,15 @@ public class TestDoapFormPage extends TestBase {
 		String[] errors = { "'" + INVALID_URL + "' is not a valid URL." };
 		tester.assertErrorMessages(errors);
 		
-    uploadFile();
+    initTester();
+    URL doapURL = UserApplication.class.getClassLoader().getResource(
+        DOAP_FORM_FILE);
+    formTester = tester.newFormTester("addByURLForm");
+    formTester.setValue("sourceURL", doapURL.toString());
+    formTester.submit();
+    
+    UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
+  
 		tester.assertRenderedPage(UserHomePage.class);
 		
 		UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
@@ -72,12 +80,7 @@ public class TestDoapFormPage extends TestBase {
   public void testAddByUpload() throws SimalRepositoryException, URISyntaxException {
     tester.assertVisible("uploadForm:fileInput");
     
-    FormTester formTester = tester.newFormTester("uploadForm");   
-    URL doapURL = UserApplication.class.getClassLoader().getResource(
-        DOAP_FORM_FILE);
-    File doapFile = new File(doapURL.toURI());
-    formTester.setFile("fileInput", doapFile, "");
-    formTester.submit();
+    uploadFile();
     tester.assertRenderedPage(UserHomePage.class);
     
     UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
@@ -127,25 +130,22 @@ public class TestDoapFormPage extends TestBase {
     UserApplication.getRepository().remove(qname);
 	}
 
-  private void uploadFile() throws SimalRepositoryException {
-    File file = new File(UserApplication.getRepository().getAnnotatedDoapFile(DOAP_FORM_FILE));
-    file.delete();
-    
-    FormTester formTester;
-    initTester();
+  private void uploadFile() throws SimalRepositoryException, URISyntaxException {
+    FormTester formTester = tester.newFormTester("uploadForm");   
     URL doapURL = UserApplication.class.getClassLoader().getResource(
         DOAP_FORM_FILE);
-    formTester = tester.newFormTester("addByURLForm");
-    formTester.setValue("sourceURL", doapURL.toString());
+    File doapFile = new File(doapURL.toURI());
+    formTester.setFile("fileInput", doapFile, "");
     formTester.submit();
-    
-    UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
   }
   
   @Test
-  public void testUploadedFile() throws SimalRepositoryException {
-    uploadFile();
+  public void testUploadedFile() throws SimalRepositoryException, URISyntaxException {
     File file = new File(UserApplication.getRepository().getAnnotatedDoapFile(DOAP_FORM_FILE));
+    file.delete();
+    
+    uploadFile();
+    file = new File(UserApplication.getRepository().getAnnotatedDoapFile(DOAP_FORM_FILE));
     assertTrue("Local copy of DOAP file does not exist, expected " + file.getAbsolutePath(), file.exists());
   }
 }
