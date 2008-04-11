@@ -7,9 +7,11 @@ package uk.ac.osswatch.simal.rest;
 public class RESTCommand {
 
   public static final String COMMAND_ALL_PROJECTS = "/allProjects";
+  public static final String COMMAND_PROJECT = "/project";
   public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues";
 
   public static final String PARAM_PERSON_ID = "/person-";
+  public static final String PARAM_PROJECT_ID = "/project-";
   public static final String PARAM_SOURCE = "/source-";
 
   public static final String FORMAT_XML = "/xml";
@@ -20,6 +22,7 @@ public class RESTCommand {
 
   private String source;
   private String personID;
+  private String projectID;
   private String commandMethod;
   private String format;
 
@@ -27,7 +30,8 @@ public class RESTCommand {
    * This class should not be instantiated directly, use the create*(...)
    * methods instead.
    */
-  private RESTCommand(String personID, String source, String command, String format) {
+  private RESTCommand(String personID, String source, String command,
+      String format) {
     this.source = source;
     this.personID = personID;
     this.commandMethod = command;
@@ -49,11 +53,12 @@ public class RESTCommand {
    * @param source
    *          the source of the data required. See the SOURCE_TYPE_* constants
    * @param format
-   *          the format that the data should be returned in.
-   *          See the FORMAT_* constants
+   *          the format that the data should be returned in. See the FORMAT_*
+   *          constants
    * @return
    */
-  public static RESTCommand createGetColleagues(String personID, String source, String format) {
+  public static RESTCommand createGetColleagues(String personID, String source,
+      String format) {
     return new RESTCommand(personID, source, COMMAND_ALL_COLLEAGUES, format);
   }
 
@@ -85,23 +90,25 @@ public class RESTCommand {
   public boolean isPersonCommand() {
     if (isGetColleagues()) {
       return true;
-    } 
+    }
     return false;
   }
 
   /**
    * Test to see if this command is a getAllColleagues command.
+   * 
    * @return
    */
   public boolean isGetColleagues() {
     if (commandMethod.equals(COMMAND_ALL_COLLEAGUES)) {
       return true;
-    } 
+    }
     return false;
   }
 
   /**
    * Test to see if this command is to return data in JSON format.
+   * 
    * @return
    */
   public boolean isJSON() {
@@ -113,6 +120,7 @@ public class RESTCommand {
 
   /**
    * Test to see if this command is to return data in JSON format.
+   * 
    * @return
    */
   public boolean isXML() {
@@ -123,16 +131,17 @@ public class RESTCommand {
   }
 
   /**
-   * Create a command object that represents a complete REST
-   * command string
+   * Create a command object that represents a complete REST command string
    * 
-   * @param cmdString the pathInfo part of the request URI
+   * @param cmdString
+   *          the pathInfo part of the request URI
    * @return
    */
   public static RESTCommand createCommand(String cmdString) {
     RESTCommand cmd = new RESTCommand();
     cmd.setCommandMethod(extractCommandMethod(cmdString));
     cmd.setPersonID(extractPersonId(cmdString));
+    cmd.setProjectID(extractProjectId(cmdString));
     cmd.setSource(extractSource(cmdString));
     cmd.setFormat(extractFormat(cmdString));
     return cmd;
@@ -140,7 +149,9 @@ public class RESTCommand {
 
   /**
    * Extract the format required from the supplied URI command string.
-   * @param cmdString the PathInfo portion of a URI representing a REST command
+   * 
+   * @param cmdString
+   *          the PathInfo portion of a URI representing a REST command
    * @return the format data should be returned in
    */
   private static String extractFormat(String cmdString) {
@@ -149,12 +160,12 @@ public class RESTCommand {
   }
 
   /**
-   * Extract the source from the supplied URI command string.
-   * If no "source-" parameter exists then assume the source is
-   * Simal.
+   * Extract the source from the supplied URI command string. If no "source-"
+   * parameter exists then assume the source is Simal.
    * 
-   * @param cmdString the PathInfo portion of a URI representing a REST command
-   * @return the data source for this command 
+   * @param cmdString
+   *          the PathInfo portion of a URI representing a REST command
+   * @return the data source for this command
    */
   private static String extractSource(String cmdString) {
     int paramStart = cmdString.indexOf(PARAM_SOURCE);
@@ -163,33 +174,62 @@ public class RESTCommand {
     } else {
       paramStart = paramStart + PARAM_SOURCE.length();
     }
-    int paramEnd = cmdString.indexOf("/", paramStart); 
+    int paramEnd = cmdString.indexOf("/", paramStart);
     return cmdString.substring(paramStart, paramEnd);
   }
 
   /**
    * Extract the person ID from the supplied URI command string.
-   * @param cmdString the PathInfo portion of a URI representing a REST command
+   * 
+   * @param cmdString
+   *          the PathInfo portion of a URI representing a REST command
    * @return the person ID if it is present, or null if not present.
    */
   private static String extractPersonId(String cmdString) {
-    int paramStart = cmdString.indexOf(PARAM_PERSON_ID) + PARAM_PERSON_ID.length();
-    int paramEnd = cmdString.indexOf("/", paramStart); 
-    return cmdString.substring(paramStart, paramEnd);
+    int paramStart = cmdString.indexOf(PARAM_PERSON_ID)
+        + PARAM_PERSON_ID.length();
+    int paramEnd = cmdString.indexOf("/", paramStart);
+    if (paramEnd < 0 || paramStart < PARAM_PERSON_ID.length()) {
+      return null;
+    } else {
+      return cmdString.substring(paramStart, paramEnd);
+    }
+  }
+
+  /**
+   * Extract the project ID from the supplied URI command string.
+   * 
+   * @param cmdString
+   *          the PathInfo portion of a URI representing a REST command
+   * @return the project ID if it is present, or null if not present.
+   */
+  private static String extractProjectId(String cmdString) {
+    int paramStart = cmdString.indexOf(PARAM_PROJECT_ID)
+        + PARAM_PROJECT_ID.length();
+    int paramEnd = cmdString.indexOf("/", paramStart);
+    if (paramEnd < 0 || paramStart < PARAM_PROJECT_ID.length()) {
+      return null;
+    } else {
+      return cmdString.substring(paramStart, paramEnd);
+    }
   }
 
   /**
    * Extract the command method from the supplied URI command string.
-   * @param cmdString the PathInfo portion of a URI representing a REST command
+   * 
+   * @param cmdString
+   *          the PathInfo portion of a URI representing a REST command
    * @return
    */
   private static String extractCommandMethod(String cmdString) {
-    return cmdString.substring(0, cmdString.indexOf("/", 1));
+    int commandEnd = cmdString.indexOf("/", 1);
+    return cmdString.substring(0, commandEnd);
   }
 
   /**
-   * Get a string that represents the command method.
-   * See the COMMAND_* constants
+   * Get a string that represents the command method. See the COMMAND_*
+   * constants
+   * 
    * @return
    */
   public String getCommandMethod() {
@@ -197,8 +237,8 @@ public class RESTCommand {
   }
 
   /**
-   * Set the command method.
-   * See the COMMAND_* constants
+   * Set the command method. See the COMMAND_* constants
+   * 
    * @return
    */
   public void setCommandMethod(String commandMethod) {
@@ -220,23 +260,41 @@ public class RESTCommand {
   public void setPersonID(String personID) {
     this.personID = personID;
   }
-  
+
+  public String getProjectID() {
+    return this.projectID;
+  }
+
+  private void setProjectID(String id) {
+    this.projectID = id;
+  }
+
   /**
-   * Return true if this command is a get all projects 
-   * command.
+   * Return true if this command is a get all projects command.
    * 
    * @return
    */
   public boolean isGetAllProjects() {
     if (commandMethod.equals(COMMAND_ALL_PROJECTS)) {
       return true;
-    } 
+    }
     return false;
   }
-  
+
   /**
-   * Return the path info part of the URI that represents
-   * this command.
+   * Return true if this command is to get a single project.
+   * 
+   * @return
+   */
+  public boolean isGetProject() {
+    if (commandMethod.equals(COMMAND_PROJECT)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Return the path info part of the URI that represents this command.
    * 
    * @return
    */
@@ -253,16 +311,19 @@ public class RESTCommand {
 
   @Override
   public String toString() {
-    StringBuffer sb = new StringBuffer("Simal REST Command:\n");
-    sb.append("\nMethod = ");
+    StringBuffer sb = new StringBuffer("\n\nSimal REST Command:\n");
+    sb.append("\n\tMethod = ");
     sb.append(getCommandMethod());
-    sb.append("\nFormat = ");
+    sb.append("\n\tFormat = ");
     sb.append(getFormat());
-    sb.append("\nPerson ID = ");
+    sb.append("\n\tPerson ID = ");
     sb.append(getPersonID());
-    sb.append("\nSource = ");
+    sb.append("\n\tProject ID = ");
+    sb.append(getProjectID());
+    sb.append("\n\tSource = ");
     sb.append(getSource());
+    sb.append("\n");
     return sb.toString();
   }
-  
+
 }
