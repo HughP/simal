@@ -1,7 +1,8 @@
-package uk.ac.osswatch.simal.wicket;
+package uk.ac.osswatch.simal.wicket.doap;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
 /**
