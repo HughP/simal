@@ -37,11 +37,15 @@ function loadFriends() {
 var allPeople, viewerFriendData;
 function onLoadFriends(data) {
   var viewer = data.get('viewer').getData();
+  document.getElementById('viewerName').innerHTML = viewer.getDisplayName();
+  
   allPeople = data.get('viewerFriends').getData().asArray() || new Array();
 
   var html = '<ul>';
   for (var i = 0; i < allPeople.length; i++) {
-   html += '<li class="name">' + allPeople[i].getDisplayName() + '</li>';
+   // FIXME: should really get the full details from myExperiment and render them here
+   profileURL = allPeople[i].getId().replace("\.xml\?id=", "s/");
+   html += '<li class="name"><a href="' + profileURL + '" target="_new">' + allPeople[i].getDisplayName() + '</a></li>';
   }
   html += '</ul>';
   document.getElementById('myExperimentFriends').innerHTML = html;
@@ -49,7 +53,7 @@ function onLoadFriends(data) {
 </script>
 
       <div id='main'>
-        Your MyExperiment friends:
+        <p>MyExperiment friends for <span id="viewerName">Viewer</span>:</p>
         <div id='myExperimentFriends'>Loading....<br/>Note this will only work if you have patched Shindig locally - ask on our dev lists if you need help.</div>
       </div>
     ]]>
