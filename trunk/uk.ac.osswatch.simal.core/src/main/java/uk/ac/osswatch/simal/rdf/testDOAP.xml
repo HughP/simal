@@ -81,6 +81,7 @@
     </Version>
   </release>
 
+<!-- commented out as it cause problems with ISSUE 107  
   <release>
     <Version>
       <name>A dummy release with no qname</name>
@@ -88,6 +89,7 @@
       <created>2007-08-30</created>
     </Version>
   </release>
+-->
 
   <category
     rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" />
