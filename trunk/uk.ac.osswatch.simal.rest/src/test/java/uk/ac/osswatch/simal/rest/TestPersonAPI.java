@@ -25,6 +25,6 @@ public class TestPersonAPI extends AbstractAPITest {
     
     assertFalse("There should be no people with null IDs", result.contains("id=\"null\""));
     
-    assertFalse("The viewer should not be in the viewer friends list",result.contains("<friend>1"));
+    assertFalse("The viewer should not be in the viewer friends list",result.contains("<friend>1</friend>"));
   }
 }
