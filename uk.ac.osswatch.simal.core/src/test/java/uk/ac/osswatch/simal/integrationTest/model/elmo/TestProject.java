@@ -252,7 +252,7 @@ public class TestProject extends BaseRepositoryTest {
   @Test
   public void testGetReleases() throws SimalRepositoryException {
     Set<IDoapRelease> releases = project1.getReleases();
-    assertEquals("We don't have the right number of releases", 2, releases
+    assertEquals("We don't have the right number of releases", 1, releases
         .size());
 
     boolean hasRelease = false;
