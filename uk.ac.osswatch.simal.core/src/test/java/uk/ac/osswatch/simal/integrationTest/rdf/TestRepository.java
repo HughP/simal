@@ -86,17 +86,11 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testGetAlCategories() throws SimalRepositoryException, IOException {
+  public void testGetAllCategories() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllCategories()");
+    
     Set<IDoapCategory> categories = repository.getAllCategories();
-    assertEquals(4, categories.size());
-
-    Iterator<IDoapCategory> itrCategories = categories.iterator();
-    IDoapCategory category;
-    while (itrCategories.hasNext()) {
-      category = itrCategories.next();
-      assertNotNull(category.getName());
-    }
+    assertEquals(53, categories.size());
     logger.debug("Finished testGetAllCategories()");
   }
 

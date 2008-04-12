@@ -183,6 +183,16 @@ public class SimalRepository extends SimalProperties {
 
       // now we have annotated the file add it to the repository
       addRDFXML(annotatedFile.toURL(), baseURI);
+            
+      // designate all categories
+      // FIXME: this feels wrong, why is the rdf:type not assigned when loading?
+      Iterator<QName> projects = annotatingHandler.getProjectQNames().iterator();
+      QName qname;
+      while (projects.hasNext()) {
+        qname = projects.next();
+        IProject project = getProject(qname);
+        project.getCategories();
+      }
     } catch (IOException e) {
       throw new SimalRepositoryException(
           "Unable to write the annotated RDF/XML file: " + e.getMessage(), e);
