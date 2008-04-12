@@ -57,6 +57,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private Set<String> seeAlsos = new HashSet<String>();
   private SimalRepository repository;
   private HashMap<String, Value> bnodeMap = new HashMap<String, Value>();
+  private boolean passThrough = false;
 
   private URIImpl sourceURL;
 
@@ -95,6 +96,11 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   public void handleStatement(Statement inStatement) throws RDFHandlerException {
     logger.debug("Processing statement: " + inStatement);
+    if (passThrough) {
+      handler.handleStatement(inStatement);
+      logger.debug("Passing statement through to standard RDF handler");
+      return;
+    }
     Statement outStatement = inStatement;
     Resource outSubject = inStatement.getSubject();
     URI outPredicate = inStatement.getPredicate();
@@ -107,7 +113,14 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         || isFoafPredicate(inStatement)) {
       uri = SimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
     } else {
-      uri = subjects.peek().stringValue();
+      if (subjects.empty()) {
+        logger.debug("We don't recognise this type and we are not processing an existing recognised type, so passing statement through to standard RDF handler");
+        passThrough = true;
+        handler.handleStatement(inStatement);
+        return;
+      } else {
+        uri = subjects.peek().stringValue();
+      }
     }
     outSubject = verifyNode(inStatement.getSubject(), uri);
     outValue = verifyNode(inStatement.getObject(), uri);
@@ -461,6 +474,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     projectQNames = new HashSet<QName>();
     personQNames = new HashSet<QName>();
     handler.handleNamespace("simal", SimalRepository.SIMAL_NAMESPACE_URI);
+    passThrough = false;
     handler.startRDF();
   }
 
