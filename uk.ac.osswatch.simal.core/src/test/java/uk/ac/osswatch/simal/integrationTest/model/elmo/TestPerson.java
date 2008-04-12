@@ -57,7 +57,7 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testEmail() {
-    assertEquals("developer@foo.org", developer
+    assertEquals("mailto:developer@foo.org", developer
         .getEmail());
   }
 
