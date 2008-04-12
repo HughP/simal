@@ -134,6 +134,22 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
+  public void testFindPersonBySha1Sum() throws SimalRepositoryException {
+    logger.debug("Starting testFindPersonBySha1Sum()");
+    IPerson person = repository.findPersonBySha1Sum("1dd14fc12fa3ac6ef9e3b29498d16b56f8e716a3");
+    assertNotNull(person);
+    logger.debug("Finished testFindPersonBySha1Sum()");
+  }
+
+  @Test
+  public void testFindPersonBySeeAlso() throws SimalRepositoryException {
+    logger.debug("Starting testFindPersonBySeeAlso()");
+    IPerson person = repository.findPersonBySeeAlso("http://foo.org/~documentor/foaf.rdf.xml");
+    assertNotNull(person);
+    logger.debug("Finished testFindPersonBySeeAlso()");
+  }
+
+  @Test
   public void testFindProjectById() throws SimalRepositoryException {
     logger.debug("Starting testFindProjectByID()");
     IProject project = repository.findProjectById(project1ID);
@@ -158,4 +174,24 @@ public class TestRepository extends BaseRepositoryTest {
     logger.debug("Finished testRemove()");
   }
 
+  /**
+   * Test for issue 107 - Since the foaf:Person entries do not have an identifier Simal is creating one
+   * automatically. However, there is no attempt to ensure that the person does not
+   * already exist. Hence a duplicate is being entered.
+   * @throws SimalRepositoryException 
+   */
+  @Test
+  public void testDuplicateBlankNodePersons() throws SimalRepositoryException {
+    repository.addProject(SimalRepository.class.getResource(SimalRepository.TEST_FILE_URI_WITH_QNAME),
+        SimalRepository.TEST_FILE_BASE_URL);
+    
+    // there is a tester with an email address as a unique ID
+    IProject project = getSimalTestProject();
+    Set<IPerson> testers = project.getTesters();
+    assertEquals(1, testers.size());
+    
+    // there is a translator with an seeAlso as a unique ID
+    Set<IPerson> translators = project.getTranslators();
+    assertEquals(1, translators.size());
+  }
 }

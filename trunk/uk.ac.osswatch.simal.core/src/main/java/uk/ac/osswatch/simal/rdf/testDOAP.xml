@@ -97,14 +97,14 @@
   <maintainer>
     <foaf:Person rdf:about="http://foo.org/~joeBlogs/#me">
       <foaf:givenname>Joe Blogs Maintainer</foaf:givenname>
-      <rdf:seeAlso rdf:resource="http://foo.org/~joeBlogs/foaf.rdf.xml" />
+      <rdfs:seeAlso rdf:resource="http://foo.org/~joeBlogs/foaf.rdf.xml" />
     </foaf:Person>
   </maintainer>
 
   <maintainer>
     <foaf:Person rdf:about="http://foo.org/~janeBlogs/#me">
       <foaf:givenname>Jane Blogs Maintainer</foaf:givenname>
-      <rdf:seeAlso
+      <rdfs:seeAlso
         rdf:resource="http://foo.org/~janeBlogs/foaf.rdf.xml" />
     </foaf:Person>
   </maintainer>
@@ -112,38 +112,38 @@
   <maintainer>
     <foaf:Person>
       <foaf:title>Dr.</foaf:title>
-      <foaf:name>Firstnam lastname</foaf:name>
-      <foaf:mbox>someone@foo.org</foaf:mbox>
+      <foaf:name>Firstname lastname</foaf:name>
+      <foaf:mbox rdf:resource="mailto:someone@foo.org"/>
       <simal:personId>1</simal:personId>
     </foaf:Person>
   </maintainer>
 
   <translator>
-    <foaf:Person rdf:about="http://foo.org/~translator/#me">
+    <foaf:Person>
       <foaf:givenname>Translator</foaf:givenname>
-      <rdf:seeAlso
+      <rdfs:seeAlso
         rdf:resource="http://foo.org/~translator/foaf.rdf.xml" />
     </foaf:Person>
   </translator>
 
   <tester>
-    <foaf:Person rdf:about="http://foo.org/~tester/#me">
+    <foaf:Person>
       <foaf:givenname>Tester</foaf:givenname>
-      <rdf:seeAlso rdf:resource="http://foo.org/~tester/foaf.rdf.xml" />
+      <foaf:mbox rdf:resource="mailto:tester@foo.org"/>
     </foaf:Person>
   </tester>
 
   <helper>
     <foaf:Person rdf:about="http://foo.org/~helper/#me">
       <foaf:givenname>helper</foaf:givenname>
-      <rdf:seeAlso rdf:resource="http://foo.org/~helper/foaf.rdf.xml" />
+      <rdfs:seeAlso rdf:resource="http://foo.org/~helper/foaf.rdf.xml" />
     </foaf:Person>
   </helper>
 
   <documenter>
     <foaf:Person rdf:about="http://foo.org/~documentor/#me">
       <foaf:givenname>documenter</foaf:givenname>
-      <rdf:seeAlso
+      <rdfs:seeAlso
         rdf:resource="http://foo.org/~documentor/foaf.rdf.xml" />
     </foaf:Person>
   </documenter>
@@ -162,7 +162,7 @@
         </foaf:Person>
       </foaf:knows>
       <foaf:homepage rdf:resource="http://example.org/person/developer" />
-      <foaf:mbox>developer@foo.org</foaf:mbox>
+      <foaf:mbox rdf:resource="mailto:developer@foo.org"/>
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
       <simal:personId>15</simal:personId>

@@ -73,6 +73,7 @@ public class SimalRepository extends SimalProperties {
   // FIXME: standardise names of constants
   public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
+  public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
   public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultProjectNS#";
   public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultPersonNS#";
@@ -80,6 +81,8 @@ public class SimalRepository extends SimalProperties {
   public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
   public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI + "Person";
   public static final String FOAF_KNOWS_URI = FOAF_NAMESPACE_URI + "knows";
+  public static final String FOAF_MBOX_SHA1SUM_URI = FOAF_NAMESPACE_URI
+      + "mbox_sha1sum";
 
   public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
   public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
@@ -102,17 +105,17 @@ public class SimalRepository extends SimalProperties {
       + "personId";
 
   public static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-  
+
   public static final String RDFS_NAMESPACE_URI = "http://www.w3.org/2000/01/rdf-schema#";
   public static final String RDFS_URI_SEE_ALSO = RDFS_NAMESPACE_URI + "seeAlso";
-  
+
   public final static String CATEGORIES_RDF = "categories.xml";
 
   private File fileStoreDir;
 
   private static SailRepository _repository;
   private boolean isTest = false;
-  
+
   private static SimalRepository instance;
 
   private SimalRepository() throws SimalRepositoryException {
@@ -137,31 +140,53 @@ public class SimalRepository extends SimalProperties {
     verifyInitialised();
 
     RDFParser parser = new RDFXMLParser();
-    // FIXME: use a proper file location
-    File annotatedFile;
+    File annotatedFile = null;
     try {
-      annotatedFile = getAnnotatedDoapFile(url.getFile().substring(url.getFile().lastIndexOf("/")));
+      annotatedFile = getAnnotatedDoapFile(url.getFile().substring(
+          url.getFile().lastIndexOf("/")));
       logger.debug("Annotated file written to "
           + annotatedFile.getAbsolutePath());
       annotatingHandler = new AnnotatingRDFXMLHandler(annotatedFile, this);
       annotatingHandler.setSourceURL(url);
       parser.setRDFHandler(annotatingHandler);
+      parser.parse(url.openStream(), baseURI);
+
+      // handle duplicate people identified by their mbox_sha1sum
+      Iterator<String> sha1sums = annotatingHandler.getPeopleSha1Sums()
+          .iterator();
+      String sha1sum;
+      while (sha1sums.hasNext()) {
+        sha1sum = sha1sums.next();
+        IPerson person = findPersonBySha1Sum(sha1sum);
+        if (person != null) {
+          // FIXME: do not delete the existing person, we should instead merge
+          // the two see ISSUE 107
+          remove(person.getQName());
+        }
+      }
+
+      // handle duplicate people identified by their rdf:seeAlso
+      Iterator<String> seeAlsos = annotatingHandler.getSeeAlsos().iterator();
+      String seeAlso;
+      while (seeAlsos.hasNext()) {
+        seeAlso = seeAlsos.next();
+        IPerson person = findPersonBySeeAlso(seeAlso);
+        if (person != null) {
+          // FIXME: do not delete the existing person, we should instead merge
+          // the two see ISSUE 107
+          remove(person.getQName());
+        }
+      }
+
+      // now we have annotated the file add it to the repository
+      addRDFXML(annotatedFile.toURL(), baseURI);
     } catch (IOException e) {
       throw new SimalRepositoryException(
           "Unable to write the annotated RDF/XML file: " + e.getMessage(), e);
-    }
-    parser.setVerifyData(true);
-
-    try {
-      parser.parse(url.openStream(), baseURI);
-      addRDFXML(annotatedFile.toURL(), baseURI);
     } catch (RDFParseException e) {
       throw new SimalRepositoryException(
           "Attempt to add unparseable RDF/XML to the repository loaded from "
               + url.toString(), e);
-    } catch (IOException e) {
-      throw new SimalRepositoryException("Unable to read the RDF/XML file: "
-          + e.getMessage(), e);
     } catch (RDFHandlerException e) {
       throw new SimalRepositoryException("Problem handling RDF data: "
           + e.getMessage(), e);
@@ -309,6 +334,59 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
+   * Get a person with a given MBOX SHA1 SUM.
+   * 
+   * @param sha1sum
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public IPerson findPersonBySha1Sum(String sha1sum)
+      throws SimalRepositoryException {
+    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?person WHERE { "
+        + "?project rdf:type foaf:Person . "
+        + "?person foaf:mbox_sha1sum $sha1sum  " + "}";
+    ElmoManager elmoManager = getManager();
+    ElmoQuery query = elmoManager.createQuery(queryStr);
+    query.setParameter("sha1sum", sha1sum);
+
+    try {
+      Object result = query.getSingleResult();
+      IPerson person = elmoManager.designateEntity(IPerson.class, result);
+      return person;
+    } catch (NoResultException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Get a person with a given rdf:seeAlso attribute.
+   * 
+   * @param seeAlso
+   * @return
+   * @throws SimalRepositoryException 
+   */
+  public IPerson findPersonBySeeAlso(String seeAlso) throws SimalRepositoryException {
+    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI
+        + "> " + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?person WHERE { "
+        + "?person rdfs:seeAlso <" + seeAlso + ">}";
+    ElmoManager elmoManager = getManager();
+    ElmoQuery query = elmoManager.createQuery(queryStr);
+//    query.setParameter("seeAlso", seeAlso);
+
+    try {
+      Object result = query.getSingleResult();
+      IPerson person = elmoManager.designateEntity(IPerson.class, result);
+      return person;
+    } catch (NoResultException e) {
+      return null;
+    }
+  }
+
+  /**
    * Get a project with a given simal id.
    * 
    * @param id
@@ -335,9 +413,9 @@ public class SimalRepository extends SimalProperties {
     }
   }
 
-
   /**
    * Get all the projects known in this repository.
+   * 
    * @return
    * @throws SimalRepositoryException
    */
@@ -348,6 +426,7 @@ public class SimalRepository extends SimalProperties {
 
   /**
    * Get all the people known in this repository.
+   * 
    * @return
    * @throws SimalRepositoryException
    */
@@ -399,7 +478,7 @@ public class SimalRepository extends SimalProperties {
       addProject(SimalRepository.class.getResource(TEST_FILE_URI_NO_QNAME),
           TEST_FILE_BASE_URL);
 
-      addProject(SimalRepository.class.getResource("testDOAP.xml"),
+      addProject(SimalRepository.class.getResource(TEST_FILE_URI_WITH_QNAME),
           TEST_FILE_BASE_URL);
 
       addProject(SimalRepository.class.getResource("ossWatchDOAP.xml"),
@@ -552,8 +631,9 @@ public class SimalRepository extends SimalProperties {
       throw new SimalRepositoryException("Unable to intialise the repository",
           e);
     }
-    
-    fileStoreDir = new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE) + File.separator + "simal-uploads");
+
+    fileStoreDir = new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE)
+        + File.separator + "simal-uploads");
     fileStoreDir.mkdirs();
 
     if (isTest) {
@@ -638,6 +718,7 @@ public class SimalRepository extends SimalProperties {
    * @throws SimalRepositoryException
    */
   public void remove(QName qname) throws SimalRepositoryException {
+    logger.debug("Removing entity " + qname.toString());
     getManager().remove(getManager().find(qname));
   }
 
@@ -712,18 +793,19 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
-   * Get the directory in which DOAP files are stored locally
-   * when loaded into the repository. This store is intended 
-   * be the backup store and contains the raw RDF
-   * files. Note, these files have been annotated by Simal.
-   * @return 
+   * Get the directory in which DOAP files are stored locally when loaded into
+   * the repository. This store is intended be the backup store and contains the
+   * raw RDF files. Note, these files have been annotated by Simal.
+   * 
+   * @return
    */
   public File getDoapFileStore() {
-    return fileStoreDir;    
+    return fileStoreDir;
   }
 
   /**
    * Get the local, annotated version, of the file with the given name.
+   * 
    * @return
    */
   public File getAnnotatedDoapFile(String filename) {
@@ -733,10 +815,11 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
-   * Get the SimalRepository object. Note that only one of
-   * these can exist in a single virtual machine.
+   * Get the SimalRepository object. Note that only one of these can exist in a
+   * single virtual machine.
+   * 
    * @return
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
   public static SimalRepository getInstance() throws SimalRepositoryException {
     if (instance == null) {
