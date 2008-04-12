@@ -1,0 +1,81 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns="http://usefulinc.com/ns/doap#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:asfext="http://projects.apache.org/ns/asfext#">
+
+  <Project rdf:about="http://simal.oss-watch.ac.uk/">
+    <name>Simal Project Catalogue System</name>
+
+    <shortname>Simal</shortname>
+
+    <shortdesc xml:lang="en">
+      Simal is a tool for building and tracking projects and the people involved in those projects.
+    </shortdesc>
+
+    <description xml:lang="en">
+      Simal is a set of open source tools for building project
+      catalogues from RDF/XML files.
+
+      Simal also provides a web application for the creation and
+      management of RDF/XML project descriptors and catalogues built
+      from them.
+    </description>
+
+    <homepage rdf:resource="http://simal.oss-watch.ac.uk/" />
+
+    <created>2007-03-02</created>
+
+    <mailing-list
+      rdf:resource="http://groups.google.com/group/simal-contributors"
+      dc:title="Users/Contributors" />
+    <mailing-list
+      rdf:resource="http://groups.google.com/group/simal-commits"
+      dc:title="Commits" />
+
+    <wiki rdf:resource="http://code.google.com/p/simal/w/list" />
+    <download-page
+      rdf:resource="http://code.google.com/p/simal/downloads/list" />
+    <bug-database
+      rdf:resource="http://code.google.com/p/simal/issues/list" />
+    <!--<os></os>-->
+
+    <programming-language>Java</programming-language>
+    <programming-language>XML</programming-language>
+
+    <license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
+
+    <maintainer>
+      <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
+        <foaf:name>Ross Gardler</foaf:name>
+        <rdf:seeAlso
+          rdf:resource="http://people.apache.org/~rgardler/foaf.rdf.xml" />
+      </foaf:Person>
+    </maintainer>
+
+    <documentor>
+      <foaf:Person
+        rdf:about="http://people.oss-watch.ac.uk/~randolph.metcalfe/#me">
+        <foaf:name>Randy Metcalfe</foaf:name>
+        <foaf:homepage
+          rdf:resource="http://randymetcalfe.blogspot.com/" />
+        <foaf:mbox_sha1sum>
+          3aaaf44003f0ee3e7eab9211119fe58ea32a883c
+        </foaf:mbox_sha1sum>
+      </foaf:Person>
+    </documentor>
+
+    <developer>
+      <foaf:Person rdf:about="http://people.apache.org/~gmcdonald/">
+        <foaf:name>Gavin McDonald</foaf:name>
+        <foaf:seeAlso
+          rdf:resource="http://minitutorials.com/foaf/gmcdonald.rdf" />
+      </foaf:Person>
+    </developer>
+
+    <category
+      rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_einfrastructure.aspx" />
+
+  </Project>
+</rdf:RDF>

@@ -1,70 +1,237 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- This file describes category definitions available in Simal.
-     Note that this is written before there is an official Simal 
-     repository and therefore is intended to be the primary source
-     of this data. However, once an official Simal repository
-     is made available this file will be superceded by that
-     repo. -->
-<categories
-  xmlns:doap="http://usefulinc.com/ns/doap#"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-  
-  <!-- Simal Categories -->
-  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" rdfs:label="DOAP Test"/>
-  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#" rdfs:label="Supplementary DOAP Test"/>
-  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialNews" rdfs:label="Social News"/>
-  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialNetworking" rdfs:label="Social Networking"/>
-  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialBookmarking" rdfs:label="Social Bookmarking"/>
-  
-  <!-- Apache Categories -->
-  <doap:category rdf:resource="http://projects.apache.org/category/build-management" rdfs:label="Build Management"/>
-  <doap:category rdf:resource="http://projects.apache.org/category/xml" rdfs:label="XML"/>
-  <doap:category rdf:resource="http://projects.apache.org/category/database" rdfs:label="Database"/>
-  <doap:category rdf:resource="http://projects.apache.org/category/graphics" rdfs:label="Graphics"/>
-  <doap:category rdf:resource="http://projects.apache.org/category/http" rdfs:label="HTTP"/>
-  <doap:category rdf:resource="http://projects.apache.org/category/network-client" rdfs:label="Network Client"/>
-  <doap:category rdf:resource="http://projects.apache.org/category/network-server" rdfs:label="Network Server"/>
-  <doap:category rdf:resource="http://projects.apache.org/category/web-framework" rdfs:label="Web Framework"/>
-  
-  <!-- JISC Categories -->
-  <doap:category rdf:resource="" rdfs:label="unknown category"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" rdfs:label="E-Learning Frameworks and Tools"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx" rdfs:label="E-Learning Innovation Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx" rdfs:label="E-Learning Pedagogy Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx" rdfs:label="SFC E-Learning Transformation Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/eresearch_grid_ogc_collision.aspx" rdfs:label="Grid OGC Collision Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx" rdfs:label="Authentication, Authorisation and Accounting Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx" rdfs:label="MLEs for Lifelong Learning: building MLEs across HE and FE"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx" rdfs:label="Core Middleware Infrastructure Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx" rdfs:label="Digital Repositories Programme 2005-7"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx" rdfs:label="Digitisation Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx" rdfs:label="Linking Digital Libraries with VLEs Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlip.aspx" rdfs:label="Digital Library Infrastructure Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlitc.aspx" rdfs:label="Digital Libraries in the Classroom Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx" rdfs:label="Distributed E-Learning Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_einfrastructure.aspx" rdfs:label="E-Infrastructure Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx" rdfs:label="E-Learning Capital Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx" rdfs:label="Support for e-research"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx" rdfs:label="Focus on Access to Institutional Resources (FAIR) Programme"/>        
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx" rdfs:label="JISC Organisational Support Work Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx" rdfs:label="Core Middleware: Technology Development Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals.aspx" rdfs:label="PALS Metadata and Interoperability Programme phase one"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals2.aspx" rdfs:label="PALS Metadata and Interoperability Programme phase two"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_portals.aspx" rdfs:label="Portals Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_presentation.aspx" rdfs:label="Presentation Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation.aspx" rdfs:label="Digital Preservation and Records Management Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx" rdfs:label="Repositories and Preservation Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_shared_services.aspx" rdfs:label="Shared Infrastructure Services Strand"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm.aspx" rdfs:label="Supporting Institutional Records Management Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx" rdfs:label="SWaNI interoperability pilots 2 programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx" rdfs:label="Virtual Research Environments Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx" rdfs:label="Exchange for Learning (X4L) Programme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx" rdfs:label="Access Management"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx" rdfs:label="E-Administration Theme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx" rdfs:label="E-Learning Theme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx" rdfs:label="E-Research Theme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" rdfs:label="E-Resources Theme"/>
-  <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" rdfs:label="Information Environment Theme"/>
+  Note that this is written before there is an official Simal 
+  repository and therefore is intended to be the primary source
+  of this data. However, once an official Simal repository
+  is made available this file will be superceded by that
+  repo. -->
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:simal="http://simal.oss-watch.ac.uk/ns/0.2/simal#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns="http://usefulinc.com/ns/doap#"
+  rdf:about="http://simal.oss-watch.ac.uk/projectNS/categories">
 
-</categories>
+  <name>Simal Project Catalogue System</name>
+
+  <shortname>Simal Categories Project</shortname>
+
+  <shortdesc xml:lang="en">
+    A project to define categories used in DOAP files.
+  </shortdesc>
+
+  <description xml:lang="en">
+    Simal is a set of open source tools for building project catalogues
+    from RDF/XML files.
+
+    The Simal Categories project is a project to define a set of
+    categories that can be used in the Simal project.
+  </description>
+
+  <homepage rdf:resource="http://simal.oss-watch.ac.uk/" />
+
+  <created>2007-04-12</created>
+
+  <mailing-list
+    rdf:resource="http://groups.google.com/group/simal-contributors"
+    dc:title="Users/Contributors" />
+  <mailing-list
+    rdf:resource="http://groups.google.com/group/simal-commits"
+    dc:title="Commits" />
+
+  <wiki rdf:resource="http://code.google.com/p/simal/w/list" />
+  <download-page
+    rdf:resource="http://code.google.com/p/simal/downloads/list" />
+  <bug-database
+    rdf:resource="http://code.google.com/p/simal/issues/list" />
+  <!--<os></os>-->
+
+  <programming-language>RDF</programming-language>
+  <programming-language>XML</programming-language>
+
+  <license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
+
+  <maintainer>
+    <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
+      <foaf:name>Ross Gardler</foaf:name>
+      <rdf:seeAlso
+        rdf:resource="http://people.apache.org/~rgardler/foaf.rdf.xml" />
+    </foaf:Person>
+  </maintainer>
+
+  <documentor>
+    <foaf:Person
+      rdf:about="http://people.oss-watch.ac.uk/~randolph.metcalfe/#me">
+      <foaf:name>Randy Metcalfe</foaf:name>
+      <foaf:homepage rdf:resource="http://randymetcalfe.blogspot.com/" />
+      <foaf:mbox_sha1sum>
+        3aaaf44003f0ee3e7eab9211119fe58ea32a883c
+      </foaf:mbox_sha1sum>
+    </foaf:Person>
+  </documentor>
+
+  <developer>
+    <foaf:Person rdf:about="http://people.apache.org/~gmcdonald/">
+      <foaf:name>Gavin McDonald</foaf:name>
+      <foaf:seeAlso
+        rdf:resource="http://minitutorials.com/foaf/gmcdonald.rdf" />
+    </foaf:Person>
+  </developer>
+
+  <!-- Simal Categories -->
+  <category
+    rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#"
+    rdfs:label="DOAP Test" />
+  <category
+    rdf:resource="http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#"
+    rdfs:label="Supplementary DOAP Test" />
+  <category
+    rdf:resource="http://simal.oss-watch.ac.uk/category/socialNews"
+    rdfs:label="Social News" />
+  <category
+    rdf:resource="http://simal.oss-watch.ac.uk/category/socialNetworking"
+    rdfs:label="Social Networking" />
+  <category
+    rdf:resource="http://simal.oss-watch.ac.uk/category/socialBookmarking"
+    rdfs:label="Social Bookmarking" />
+
+  <!-- Apache Categories -->
+  <category
+    rdf:resource="http://projects.apache.org/category/build-management"
+    rdfs:label="Build Management" />
+  <category rdf:resource="http://projects.apache.org/category/xml"
+    rdfs:label="XML" />
+  <category
+    rdf:resource="http://projects.apache.org/category/database"
+    rdfs:label="Database" />
+  <category
+    rdf:resource="http://projects.apache.org/category/graphics"
+    rdfs:label="Graphics" />
+  <category rdf:resource="http://projects.apache.org/category/http"
+    rdfs:label="HTTP" />
+  <category
+    rdf:resource="http://projects.apache.org/category/network-client"
+    rdfs:label="Network Client" />
+  <category
+    rdf:resource="http://projects.apache.org/category/network-server"
+    rdfs:label="Network Server" />
+  <category
+    rdf:resource="http://projects.apache.org/category/web-framework"
+    rdfs:label="Web Framework" />
+
+  <!-- JISC Categories -->
+  <category rdf:resource="" rdfs:label="unknown category" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"
+    rdfs:label="E-Learning Frameworks and Tools" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx"
+    rdfs:label="E-Learning Innovation Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"
+    rdfs:label="E-Learning Pedagogy Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx"
+    rdfs:label="SFC E-Learning Transformation Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/eresearch_grid_ogc_collision.aspx"
+    rdfs:label="Grid OGC Collision Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx"
+    rdfs:label="Authentication, Authorisation and Accounting Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"
+    rdfs:label="MLEs for Lifelong Learning: building MLEs across HE and FE" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"
+    rdfs:label="Core Middleware Infrastructure Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"
+    rdfs:label="Digital Repositories Programme 2005-7" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"
+    rdfs:label="Digitisation Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"
+    rdfs:label="Linking Digital Libraries with VLEs Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlip.aspx"
+    rdfs:label="Digital Library Infrastructure Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlitc.aspx"
+    rdfs:label="Digital Libraries in the Classroom Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"
+    rdfs:label="Distributed E-Learning Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_einfrastructure.aspx"
+    rdfs:label="E-Infrastructure Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx"
+    rdfs:label="E-Learning Capital Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"
+    rdfs:label="Support for e-research" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx"
+    rdfs:label="Focus on Access to Institutional Resources (FAIR) Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"
+    rdfs:label="JISC Organisational Support Work Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"
+    rdfs:label="Core Middleware: Technology Development Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals.aspx"
+    rdfs:label="PALS Metadata and Interoperability Programme phase one" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals2.aspx"
+    rdfs:label="PALS Metadata and Interoperability Programme phase two" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_portals.aspx"
+    rdfs:label="Portals Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_presentation.aspx"
+    rdfs:label="Presentation Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation.aspx"
+    rdfs:label="Digital Preservation and Records Management Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx"
+    rdfs:label="Repositories and Preservation Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_shared_services.aspx"
+    rdfs:label="Shared Infrastructure Services Strand" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm.aspx"
+    rdfs:label="Supporting Institutional Records Management Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx"
+    rdfs:label="SWaNI interoperability pilots 2 programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"
+    rdfs:label="Virtual Research Environments Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"
+    rdfs:label="Exchange for Learning (X4L) Programme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"
+    rdfs:label="Access Management" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"
+    rdfs:label="E-Administration Theme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"
+    rdfs:label="E-Learning Theme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"
+    rdfs:label="E-Research Theme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"
+    rdfs:label="E-Resources Theme" />
+  <category
+    rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"
+    rdfs:label="Information Environment Theme" />
+
+</Project>

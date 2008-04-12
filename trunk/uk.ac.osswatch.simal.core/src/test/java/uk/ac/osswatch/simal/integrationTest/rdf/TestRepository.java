@@ -16,6 +16,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
@@ -73,7 +74,7 @@ public class TestRepository extends BaseRepositoryTest {
   public void testGetAllProjects() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllProjects()");
     Set<IProject> projects = repository.getAllProjects();
-    assertEquals(4, projects.size());
+    assertEquals(5, projects.size());
 
     Iterator<IProject> itrProjects = projects.iterator();
     IProject project;
@@ -85,10 +86,25 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
+  public void testGetAlCategories() throws SimalRepositoryException, IOException {
+    logger.debug("Starting testGetAllCategories()");
+    Set<IDoapCategory> categories = repository.getAllCategories();
+    assertEquals(4, categories.size());
+
+    Iterator<IDoapCategory> itrCategories = categories.iterator();
+    IDoapCategory category;
+    while (itrCategories.hasNext()) {
+      category = itrCategories.next();
+      assertNotNull(category.getName());
+    }
+    logger.debug("Finished testGetAllCategories()");
+  }
+
+  @Test
   public void testGetAllPeople() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllPeople()");
     Set<IPerson> people = repository.getAllPeople();
-    assertEquals(15, people.size());
+    assertEquals(17, people.size());
 
     Iterator<IPerson> itrPeople = people.iterator();
     IPerson person;
