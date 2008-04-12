@@ -736,7 +736,7 @@ public class SimalRepository extends SimalProperties {
    * @throws SimalRepositoryException
    */
   public void remove(QName qname) throws SimalRepositoryException {
-    logger.debug("Removing entity " + qname.toString());
+    logger.debug("Removing duplicates entity (See ISSUE 107): " + qname.toString());
     getManager().remove(getManager().find(qname));
   }
 
