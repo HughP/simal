@@ -77,6 +77,7 @@ public class SimalRepository extends SimalProperties {
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
   public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultProjectNS#";
   public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultPersonNS#";
+  public static final String DEFAULT_CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
 
   public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
   public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI + "Person";
@@ -86,6 +87,8 @@ public class SimalRepository extends SimalProperties {
 
   public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
   public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
+  public static final String DOAP_CATEGORY_URI = DOAP_NAMESPACE_URI
+      + "category";
   public static final String DOAP_MAINTAINER_URI = DOAP_NAMESPACE_URI
       + "maintainer";
   public static final String DOAP_DEVELOPER_URI = DOAP_NAMESPACE_URI
@@ -298,7 +301,8 @@ public class SimalRepository extends SimalProperties {
    * 
    * @param qname
    *          the QName of the repository to retrieve
-   * @return the repository or if no repository with the given QName exists Null
+   * @return the repository or if no repository item with the given QName exists
+   *         Null
    * @throws SimalRepositoryException
    */
   public IPerson getPerson(QName qname) throws SimalRepositoryException {
@@ -365,17 +369,18 @@ public class SimalRepository extends SimalProperties {
    * 
    * @param seeAlso
    * @return
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
-  public IPerson findPersonBySeeAlso(String seeAlso) throws SimalRepositoryException {
+  public IPerson findPersonBySeeAlso(String seeAlso)
+      throws SimalRepositoryException {
     String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI
-        + "> " + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?person WHERE { "
-        + "?person rdfs:seeAlso <" + seeAlso + ">}";
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?person WHERE { " + "?person rdfs:seeAlso <"
+        + seeAlso + ">}";
     ElmoManager elmoManager = getManager();
     ElmoQuery query = elmoManager.createQuery(queryStr);
-//    query.setParameter("seeAlso", seeAlso);
+    // query.setParameter("seeAlso", seeAlso);
 
     try {
       Object result = query.getSingleResult();
