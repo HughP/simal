@@ -98,7 +98,7 @@ public class TestRepository extends BaseRepositoryTest {
   public void testGetAllPeople() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllPeople()");
     Set<IPerson> people = repository.getAllPeople();
-    assertEquals(17, people.size());
+    assertEquals(18, people.size());
 
     Iterator<IPerson> itrPeople = people.iterator();
     IPerson person;
