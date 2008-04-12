@@ -430,6 +430,18 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
+   * Get all the categories known in this repository.
+   * 
+   * @return
+   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
+   */
+  public Set<IDoapCategory> getAllCategories() throws SimalRepositoryException {
+    verifyInitialised();
+    return getManager().findAll(IDoapCategory.class);
+  }
+
+  /**
    * Get all the people known in this repository.
    * 
    * @return
@@ -489,7 +501,7 @@ public class SimalRepository extends SimalProperties {
       addProject(SimalRepository.class.getResource("ossWatchDOAP.xml"),
           TEST_FILE_BASE_URL);
 
-      addRDFXML(SimalRepository.class.getClassLoader().getResource(
+      addProject(SimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
 
       addProject(new URL(
@@ -511,6 +523,7 @@ public class SimalRepository extends SimalProperties {
    */
   public void addRDFXML(URL url, String baseURL)
       throws SimalRepositoryException {
+    logger.debug("Adding RDF/XML file from " + url);
     RepositoryConnection con = getConnection();
     try {
       con.add(url, baseURL, RDFFormat.RDFXML);
