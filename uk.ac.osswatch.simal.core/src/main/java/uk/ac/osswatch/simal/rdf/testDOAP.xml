@@ -167,7 +167,6 @@
       <foaf:mbox rdf:resource="mailto:developer@foo.org"/>
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
-      <simal:personId>15</simal:personId>
     </foaf:Person>
   </developer>
 </Project>

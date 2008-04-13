@@ -5,8 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -53,11 +51,8 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private Stack<String> subjectType = new Stack<String>();
   private Set<QName> projectQNames = new HashSet<QName>();
   private Set<QName> personQNames = new HashSet<QName>();
-  private Set<String> personSha1Sums = new HashSet<String>();
-  private Set<String> seeAlsos = new HashSet<String>();
   private SimalRepository repository;
   private HashMap<String, Value> bnodeMap = new HashMap<String, Value>();
-  private boolean passThrough = false;
 
   private URIImpl sourceURL;
 
@@ -96,11 +91,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   public void handleStatement(Statement inStatement) throws RDFHandlerException {
     logger.debug("Processing statement: " + inStatement);
-    if (passThrough) {
-      handler.handleStatement(inStatement);
-      logger.debug("Passing statement through to standard RDF handler");
-      return;
-    }
     Statement outStatement = inStatement;
     Resource outSubject = inStatement.getSubject();
     URI outPredicate = inStatement.getPredicate();
@@ -109,28 +99,20 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     String uri;
     if (isNewProjectType(inStatement)) {
       uri = SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI;
-    } else if (isNewPersonType(inStatement) || isNewParticipant(inStatement)
-        || isFoafPredicate(inStatement)) {
+    } else if (isNewPersonType(inStatement) || isNewParticipant(inStatement) || isFoafPredicate(inStatement)) {
       uri = SimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
     } else {
-      if (subjects.empty()) {
-        logger.debug("We don't recognise this type and we are not processing an existing recognised type, so passing statement through to standard RDF handler");
-        passThrough = true;
-        handler.handleStatement(inStatement);
-        return;
-      } else {
-        uri = subjects.peek().stringValue();
-      }
+      uri = subjects.peek().stringValue();
     }
     outSubject = verifyNode(inStatement.getSubject(), uri);
     outValue = verifyNode(inStatement.getObject(), uri);
-
+    
     if (isNewProjectType(inStatement)) {
-      newProject(outSubject);
+        newProject(outSubject);
     }
-
+    
     if (isNewPersonType(inStatement)) {
-      newPerson(outSubject);
+        newPerson(outSubject);
     }
 
     fixAnnotations(outSubject);
@@ -143,21 +125,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
         outPredicate = new URIImpl(predicateValue.substring(0, predicateValue
             .length() - 5)
             + "/givenname");
-      } else if (predicateValue.endsWith("/mbox")) {
-        try {
-          String sha1sum = getSHA1(outValue.stringValue());
-          StatementImpl statement = new StatementImpl(outSubject, new URIImpl(
-              SimalRepository.FOAF_MBOX_SHA1SUM_URI), new LiteralImpl(sha1sum));
-          handleStatement(statement);
-          personSha1Sums.add(sha1sum);
-        } catch (NoSuchAlgorithmException e) {
-          throw new RDFHandlerException("Unable to get SHA1 algorithm", e);
-        }
-      }
-    } else if (isRDFSPredicate(inStatement)) {
-      String predicateValue = outPredicate.stringValue();
-      if (predicateValue.endsWith("seeAlso")) {
-        seeAlsos.add(outValue.stringValue());
       }
     } else {
       outPredicate = inStatement.getPredicate();
@@ -196,25 +163,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
     handler.handleStatement(outStatement);
     logger.debug("Handled as: " + outStatement);
-  }
-
-  /**
-   * A simple method for getting an SHA1 hash from a string.
-   */
-  public String getSHA1(String data) throws NoSuchAlgorithmException {
-    MessageDigest md = MessageDigest.getInstance("SHA");
-    StringBuffer sb = new StringBuffer();
-
-    md.update(data.getBytes());
-    byte[] digest = md.digest();
-    for (int i = 0; i < digest.length; i++) {
-      String hex = Integer.toHexString(digest[i]);
-      if (hex.length() == 1)
-        hex = "0" + hex;
-      hex = hex.substring(hex.length() - 2);
-      sb.append(hex);
-    }
-    return sb.toString();
   }
 
   /**
@@ -279,17 +227,6 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
   private boolean isFoafPredicate(Statement inStatement) {
     return inStatement.getPredicate().stringValue().startsWith(
         SimalRepository.FOAF_NAMESPACE_URI);
-  }
-
-  /**
-   * Return true if the predicate for a statement is in the RDF namespace.
-   * 
-   * @param inStatement
-   * @return
-   */
-  private boolean isRDFSPredicate(Statement inStatement) {
-    return inStatement.getPredicate().stringValue().startsWith(
-        SimalRepository.RDFS_NAMESPACE_URI);
   }
 
   /**
@@ -401,6 +338,7 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
     try {
       IPerson existingPerson = repository.getPerson(qname);
       if (existingPerson != null) {
+        personQNames.add(qname);
         return;
       }
     } catch (SimalRepositoryException e) {
@@ -466,15 +404,13 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   public void startRDF() throws RDFHandlerException {
     if (sourceURL == null) {
-      throw new RDFHandlerException(
-          "Source URL has not been set, must call setSourceURL prior to using the AnnotatingRDFXMLHandler");
+      throw new RDFHandlerException("Source URL has not been set, must call setSourceURL prior to using the AnnotatingRDFXMLHandler");
     }
     subjects = new Stack<Resource>();
     subjectType = new Stack<String>();
     projectQNames = new HashSet<QName>();
-    personQNames = new HashSet<QName>();
+    personQNames =  new HashSet<QName>();
     handler.handleNamespace("simal", SimalRepository.SIMAL_NAMESPACE_URI);
-    passThrough = false;
     handler.startRDF();
   }
 
@@ -490,22 +426,10 @@ public class AnnotatingRDFXMLHandler implements RDFHandler {
 
   /**
    * Set the source URL for the next document to be annotated.
-   * 
    * @param url
    */
   public void setSourceURL(URL url) {
     sourceURL = new URIImpl(url.toString());
-  }
-
-  /**
-   * Get the MBOX SHA1 Sums for found in this file.
-   */
-  public Set<String> getPeopleSha1Sums() {
-    return personSha1Sums;
-  }
-
-  public Set<String> getSeeAlsos() {
-    return seeAlsos;
   }
 
 }

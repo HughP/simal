@@ -50,7 +50,7 @@ public class FoafResourceBehaviour extends ResourceBehavior implements IFoafReso
    */
   public String getLabel() {
     Set<Object> givennames = getFoafPerson().getFoafGivennames();
-    if (givennames== null) {
+    if (givennames == null ) {
       return toString();
     } else {
       return (String)givennames.toArray()[0];

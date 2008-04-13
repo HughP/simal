@@ -105,8 +105,4 @@ public class ResourceBehavior implements IResourceBehaviour {
     SimalRepository.getInstance().writeXML(writer, elmoEntity.getQName());
     return writer.toString();
   }
-
-  public void delete() throws SimalRepositoryException {
-    elmoEntity.getElmoManager().remove(elmoEntity);
-  }
 }
