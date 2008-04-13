@@ -50,4 +50,9 @@ public interface IResourceBehaviour {
    * 
    */
   public String toXML() throws SimalRepositoryException;
+  
+  /**
+   * Delete this resource from the repository.
+   */
+  public void delete() throws SimalRepositoryException;
 }
