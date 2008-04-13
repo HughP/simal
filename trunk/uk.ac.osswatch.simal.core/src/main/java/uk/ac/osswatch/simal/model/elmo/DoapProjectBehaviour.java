@@ -213,12 +213,17 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
   }
 
   private Set<IPerson> convertToSimalPeople(Set<Person> inPeople) {
-    Set<IPerson> result = new HashSet<IPerson>(inPeople.size());
+    Set<IPerson> result = new HashSet<IPerson>();
     Iterator<Person> people = inPeople.iterator();
     Person person;
     while (people.hasNext()) {
       person = people.next();
-      result.add(elmoEntity.getElmoManager().designateEntity(IPerson.class, person));
+      //FIXME: Workaround for issue 113
+      if (person.getFoafGivennames().isEmpty()) {
+    	  logger.warn("Dropping person due to issue 113");
+      } else {
+    	  result.add(elmoEntity.getElmoManager().designateEntity(IPerson.class, person));
+      }
     }
     return result;
   }

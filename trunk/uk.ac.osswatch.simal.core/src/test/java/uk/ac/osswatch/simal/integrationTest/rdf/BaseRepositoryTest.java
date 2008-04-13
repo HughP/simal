@@ -74,7 +74,7 @@ public abstract class BaseRepositoryTest {
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS = 1;
 
   public static final String TEST_SIMAL_PROJECT_CATEGORY_ONE = "DOAP Test";
-  public static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "Supplementary DOAP Test";
+  public static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#";
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
 

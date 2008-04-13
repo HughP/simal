@@ -42,7 +42,6 @@ public class TestPerson extends BaseRepositoryTest {
     assertNotNull("Person has not been added to repository", person);
 
     assertNotNull("Person simalID is incorrectly set", person.getSimalId());
-    repository.remove(qname);
   }
 
   @Test

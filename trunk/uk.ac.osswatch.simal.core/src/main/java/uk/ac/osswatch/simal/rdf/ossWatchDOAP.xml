@@ -4,7 +4,8 @@
   xmlns:foaf="http://xmlns.com/foaf/0.1/"
   xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
-  xmlns:projects="http://projects.apache.org/ns/asfext#">
+  xmlns:projects="http://projects.apache.org/ns/asfext#"
+  xmlns:simal="http://simal.oss-watch.ac.uk/ns/0.2/simal#">
 
   <Project rdf:about="http://www.oss-watch.ac.uk/ossWatch#">
     <name>OSS Watch open source advisory service</name>
@@ -42,35 +43,48 @@
 
     <maintainer>
       <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
-
+        <simal:personId>15</simal:personId>
         <foaf:name>Ross Gardler</foaf:name>
         <rdf:seeAlso
           rdf:resource="http://people.apache.org/~rgardler/foaf.rdf.xml" />
       </foaf:Person>
+    </maintainer>
+    
+    <maintainer>
       <foaf:Person
         rdf:about="http://people.oss-watch.ac.uk/~michael.fraser/#me">
         <foaf:name>Michael Fraser</foaf:name>
       </foaf:Person>
+    </maintainer>
+    
+    <developer>
       <foaf:Person
         rdf:about="http://people.oss-watch.ac.uk/~stuart.yeates/#me">
         <foaf:name>Stuart Yeates</foaf:name>
-
         <rdf:seeAlso
           rdf:resource="http://users.ox.ac.uk/~syeates/foaf-main.rdf" />
       </foaf:Person>
+    </developer>
+    
+    <developer>
       <foaf:Person
         rdf:about="http://people.oss-watch.ac.uk/~rowan.wilson/#me">
         <foaf:name>Rowan Wilson</foaf:name>
       </foaf:Person>
+    </developer>
+    
+    <developer>
       <foaf:Person
         rdf:about="http://people.oss-watch.ac.uk/~ramon.casero/#me">
         <foaf:name>Ramon Casero</foaf:name>
       </foaf:Person>
+    </developer>
+    
+    <developer>
       <foaf:Person
         rdf:about="http://people.oss-watch.ac.uk/~elena.blanco/#me">
-
         <foaf:name>Elena Blanco</foaf:name>
       </foaf:Person>
-    </maintainer>
+    </developer>
   </Project>
 </rdf:RDF>
