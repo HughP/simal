@@ -28,7 +28,7 @@ NOTE: Use https rather than http if you are a committer
 
 The installation process is not as streamlined as it should be right now. However, we are working on it and welcome your help.
 
-For now there are three steps:
+For now there are two steps:
 {{{
 cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.core
 mvn install
@@ -41,12 +41,7 @@ cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.rest
 mvn install
 }}}
 
-And then:
-
-{{{
-cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web
-mvn install
-}}}
+(Note that Simal Web does not need to be installed)
 
 == Running ==
 
