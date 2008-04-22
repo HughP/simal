@@ -88,14 +88,17 @@ public class TestRepository extends BaseRepositoryTest {
   public void testGetAllPeople() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllPeople()");
     Set<IPerson> people = repository.getAllPeople();
-    assertEquals(16, people.size());
 
     Iterator<IPerson> itrPeople = people.iterator();
     IPerson person;
     while (itrPeople.hasNext()) {
       person = itrPeople.next();
       assertNotNull(person.getLabel());
+      logger.debug("Got person: " + person);
     }
+
+    assertEquals(16, people.size());
+    
     logger.debug("Finished testGetAllPeople()");
   }
 
