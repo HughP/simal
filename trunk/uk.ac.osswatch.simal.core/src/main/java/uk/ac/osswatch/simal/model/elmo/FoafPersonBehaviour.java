@@ -59,9 +59,11 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour implements IFoafP
     Set<IPerson> colleagues = new HashSet<IPerson>();
     IPerson colleague;
     List<?> results = query.getResultList();
+    String personID = getPerson().getSimalId();
     for (Object result : results) {
       colleague = elmoManager.designateEntity(IPerson.class, result);
-      if (!colleague.getSimalId().equals(getPerson().getSimalId())) {
+      String id = colleague.getSimalId();
+      if (!id.equals(personID)) {
         colleagues.add(colleague);
       }
     }
