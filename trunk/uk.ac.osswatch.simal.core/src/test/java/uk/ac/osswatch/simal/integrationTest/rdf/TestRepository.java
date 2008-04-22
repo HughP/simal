@@ -94,7 +94,7 @@ public class TestRepository extends BaseRepositoryTest {
     while (itrPeople.hasNext()) {
       person = itrPeople.next();
       assertNotNull(person.getLabel());
-      logger.debug("Got person: " + person);
+      logger.debug("Got person: " + person + " : " + person.getLabel());
     }
 
     assertEquals(16, people.size());
