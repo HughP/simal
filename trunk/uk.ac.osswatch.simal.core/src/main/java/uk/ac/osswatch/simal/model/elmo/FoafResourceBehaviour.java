@@ -49,11 +49,17 @@ public class FoafResourceBehaviour extends ResourceBehavior implements IFoafReso
    * @return
    */
   public String getLabel() {
-    Set<Object> givennames = getFoafPerson().getFoafGivennames();
-    if (givennames == null ) {
+    Set<Object> names = getFoafPerson().getFoafGivennames();
+    if (names.size() == 0) {
+      names = getFoafPerson().getFoafFirstNames();
+    }
+    if (names == null ) {
       return toString();
     } else {
-      return (String)givennames.toArray()[0];
+      if (names.size() == 0) {
+        return getFoafPerson().getQName().toString();
+      }
+      return (String)names.toArray()[0];
     }
   }
 }
