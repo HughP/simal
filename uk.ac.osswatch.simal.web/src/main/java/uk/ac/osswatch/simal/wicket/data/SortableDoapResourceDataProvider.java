@@ -9,6 +9,7 @@ import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
 
+import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
 import uk.ac.osswatch.simal.model.IProject;
 
@@ -94,10 +95,14 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 	}
 
 	public IModel model(Object object) {
-		if (!(object instanceof IProject)) {
-			throw new IllegalArgumentException("sortableDoapResourceDataProvider only works for Project models - should it work for more? Your helpo appreciated.");
+		if (object instanceof IProject) {
+		  return new DetachableProjectModel((IProject)object);	  
+		} else if (object instanceof IDoapCategory) {
+		  return new DetachableCategoryModel((IDoapCategory)object);
+		} else {
+			throw new IllegalArgumentException("sortableDoapResourceDataProvider only works for Project models - should it work for more? Your help appreciated.");
 		}
-		return new DetachableProjectModel((IProject)object);
+		
 	}
 
 	public int size() {
