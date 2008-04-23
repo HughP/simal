@@ -29,7 +29,7 @@ public class RESTFetcher {
    * @see RESTFetcher#get()
    */
   private RESTFetcher() {
-    xmlFetcher = XmlStateFileFetcher.get();
+    //xmlFetcher = new XmlStateFileFetcher();
   };
 
   /**

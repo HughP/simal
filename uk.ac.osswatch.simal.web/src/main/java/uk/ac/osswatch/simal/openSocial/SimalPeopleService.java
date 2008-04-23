@@ -6,13 +6,21 @@ import java.util.Map;
 
 import org.apache.shindig.gadgets.GadgetToken;
 import org.apache.shindig.social.opensocial.model.IdSpec;
+import org.apache.shindig.social.samplecontainer.XmlStateFileFetcher;
 import org.json.JSONException;
+
+import com.google.inject.Inject;
 
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 public class SimalPeopleService extends
     org.apache.shindig.social.samplecontainer.BasicPeopleService {
+
+  @Inject
+  public SimalPeopleService(XmlStateFileFetcher fetcher) {
+    super(fetcher);
+  }
 
   @Override
   public List<String> getIds(IdSpec idSpec, GadgetToken token)
