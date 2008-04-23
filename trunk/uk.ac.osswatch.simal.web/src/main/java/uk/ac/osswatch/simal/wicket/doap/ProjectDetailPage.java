@@ -3,6 +3,7 @@ package uk.ac.osswatch.simal.wicket.doap;
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
+import org.apache.wicket.markup.html.link.Link;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -36,7 +37,19 @@ public class ProjectDetailPage extends BasePage {
     populatePage(project);
   }
 
-  private void populatePage(IProject project) {
+  private void populatePage(final IProject project) {
+    final Link deleteProjectActionLink = new Link("deleteProjectActionLink") {
+        public void onClick() {
+            try {
+              project.delete();
+            } catch (SimalRepositoryException e) {
+              // TODO Auto-generated catch block
+              e.printStackTrace();
+            }
+        }
+    };
+    add(deleteProjectActionLink);
+    
     add(new Label("projectName", project.getName()));
     add(new Label("shortDesc", project.getShortDesc()));
 
