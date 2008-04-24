@@ -79,6 +79,12 @@
   </repositories>
 
   <dependencies>
+    <dependency>
+      <groupId>com.google.code.p.arat</groupId>
+      <artifactId>rat-lib</artifactId>
+      <version>0.5.1</version>
+    </dependency>
+    
     <!-- SESAME DEPENDENCIES -->
     <!-- FIXME: look out for sesame 2.0 making it into the maven repository and use it from there -->
 
@@ -139,6 +145,12 @@
       <artifactId>junit</artifactId>
       <version>4.4</version>
       <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.0.4</version>
     </dependency>
   </dependencies>
 
@@ -261,11 +273,42 @@
           </descriptorRefs>
         </configuration>
       </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
+        <version>1.0-alpha-3</version>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
   </build>
 
   <reporting>
     <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>         
+    
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-project-info-reports-plugin</artifactId>
