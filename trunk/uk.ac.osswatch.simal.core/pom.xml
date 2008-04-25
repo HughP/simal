@@ -294,7 +294,14 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>rat-maven-plugin</artifactId>
-        <version>1.0-alpha-3</version>
+        <configuration>
+          <excludes>
+            <exclude>simalDOAPFilestore/**/*</exclude>
+            <exclude>simalRepository/**/*</exclude>
+            <exclude>local.simal.properties</exclude>
+            <exclude>local.simal.test.properties</exclude>
+          </excludes>
+        </configuration>
         <executions>
           <execution>
             <phase>verify</phase>
