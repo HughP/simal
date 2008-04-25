@@ -53,7 +53,7 @@ public class TestAnnotatingRDFXMLHandler extends BaseRepositoryTest {
 
   @BeforeClass
   public static void classSetUp() throws IOException, RDFParseException, RDFHandlerException {
-    annotatedFile = new File("testAnnotatedRDFXML.xml");
+    annotatedFile = new File("target/testAnnotatedRDFXML.xml");
     annotatingHandler = new AnnotatingRDFXMLHandler(
         annotatedFile, repository);
     annotateLocalTestFile();
