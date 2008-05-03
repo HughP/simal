@@ -88,6 +88,12 @@
       <groupId>uk.ac.osswatch</groupId>
       <artifactId>simal-core</artifactId>
       <version>0.2-SNAPSHOT</version>
+    </dependency>    
+    
+    <dependency>
+      <groupId>com.google.code.p.arat</groupId>
+      <artifactId>rat-lib</artifactId>
+      <version>0.5.1</version>
     </dependency>
 
     <dependency>
@@ -157,6 +163,27 @@
           <compilerVersion>1.5</compilerVersion>
         </configuration>
       </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>simalDOAPFilestore/**/*</exclude>
+            <exclude>simalRepository/**/*</exclude>
+            <exclude>local.simal.properties</exclude>
+            <exclude>local.simal.test.properties</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
@@ -180,6 +207,11 @@
             </reports>
           </reportSet>
         </reportSets>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </reporting>
