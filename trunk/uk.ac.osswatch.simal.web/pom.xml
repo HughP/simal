@@ -290,7 +290,10 @@
         <artifactId>rat-maven-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>src/main/gadgets/*</exclude>
+            <exclude>src/main/gadgets/**/*</exclude>
+            <exclude>src/main/webapp/container/**/*</exclude>
+            <exclude>src/main/webapp/testContainer/**/*</exclude>
+            <exclude>src/main/webapp/testContainer/examples/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
             <exclude>simalRepository/**/*</exclude>
