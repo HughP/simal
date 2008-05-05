@@ -28,7 +28,6 @@ Copyright 2008 University of Oxford
   <context-param>
     <param-name>guice-modules</param-name>
     <param-value>org.apache.shindig.common.CommonGuiceModule:org.apache.shindig.gadgets.http.HttpGuiceModule:uk.ac.osswatch.simal.openSocial.SocialApiGuiceModule</param-value>
-    <!--<param-value>org.apache.shindig.common.CommonGuiceModule:org.apache.shindig.gadgets.http.HttpGuiceModule:org.apache.shindig.social.SocialApiGuiceModule</param-value>-->
   </context-param>
   
   <listener>
