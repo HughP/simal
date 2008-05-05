@@ -18,9 +18,6 @@ package uk.ac.osswatch.simal.openSocial;
 
 
 import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.shindig.social.samplecontainer.XmlStateFileFetcher;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -36,9 +33,6 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  */
 public class RESTFetcher {
 
-  private static RESTFetcher fetcher;
-  private static XmlStateFileFetcher xmlFetcher;
-
   /**
    * This class should not be instantiated directly.
    * 
@@ -46,40 +40,27 @@ public class RESTFetcher {
    * @see RESTFetcher#get()
    */
   private RESTFetcher() {
-    //xmlFetcher = new XmlStateFileFetcher();
   };
 
   /**
    * Get a RESTFetcher that will respond to the supplied
    * command.
+   * @param fetcher 
    * 
    * @return
    * @throws SimalAPIException 
    */
-  public static RESTFetcher get(RESTCommand cmd) throws SimalAPIException {
-    if (fetcher == null) {
-      fetcher = new RESTFetcher();
-    }
+  public static XmlStateFileFetcher get(RESTCommand cmd, XmlStateFileFetcher fetcher) throws SimalAPIException {
     IAPIHandler handler;
     try {
       handler = HandlerFactory.get(cmd, UserApplication.getRepository());
-      xmlFetcher.resetStateFile(handler.getStateURI());
+      fetcher.resetStateFile(handler.getStateURI());
     } catch (URISyntaxException e) {
       throw new SimalAPIException("Unable to create state URI", e);
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to connect to the repository", e);
     }  
     return fetcher;
-  }
-
-  /**
-   * Get a map of friend IDs.
-   * 
-   * @param token
-   * @return
-   */
-  public Map<String, List<String>> getFriendIds() {
-    return xmlFetcher.getFriendIds();
   }
 
 }
