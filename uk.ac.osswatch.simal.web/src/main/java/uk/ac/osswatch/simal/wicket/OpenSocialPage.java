@@ -66,6 +66,7 @@ public class OpenSocialPage extends BasePage {
     config.append("<script type=\"text/javascript\">\n");
 
     config.append("function initGadgets() {\n");
+    config.append("initOpenSocial();");
     for (int i = 0; i < gadgetPanels.size(); i++) {
       config
           .append("  var gadget = gadgets.container.createGadget({specUrl: \"");

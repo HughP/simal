@@ -24,14 +24,22 @@ Copyright 2008 University of Oxford
 <title>Simal Project and Community Registry Framework</title>
 
 <script type="text/javascript">
+
   // TODO: This is gross, it needs to use the config just like the gadget js does
   var socialDataPath = document.location.protocol + "//" + document.location.host
-      + "/social/data";
+      + "/gadgets/socialdata";
 
-  // TODO: need to allow users to log into the system.
-  var ownerId = 15;
-  var viewerId = 15;
-    
+  var simalOpenSocialViewerCookie = 'simalOpenSocialViewerCookie';
+  var simalOpenSocialOwnerCookie = 'simalOpenSocialOwnerCookie';
+  
+  var ownerId;
+  var viewerId;
+  
+  function initOpenSocial() {
+    ownerId = goog.net.cookies.get(simalOpenSocialOwnerCookie, 15);
+    viewerId = goog.net.cookies.get(simalOpenSocialViewerCookie, 15);
+  }
+ 
   function generateSecureToken(gadgetURL, appId) {
     var fields = [ownerId, viewerId, appId, "simal.oss-watch.ac.uk", gadgetURL, "0"];
     for (var i=0; i < fields.length; i++) {
@@ -46,11 +54,11 @@ Copyright 2008 University of Oxford
 <body onLoad="initGadgets(); renderGadgets();">
 <div id="header">
   <h1>Simal Project and Community Registry Framework</h1>
-  <a href="#" wicket:id="homePageLink">Simal</a> | 
-  <a href="#" wicket:id="personAdminPageLink">Person Admin</a> | 
+  <a href="#" wicket:id="homePageLink">Simal</a>
+  <a href="#" wicket:id="personAdminPageLink">Person Admin</a>
   <a href="#" wicket:id="categoryBrowserPageLink">Category Browser</a> | 
-  <a href="#" wicket:id="exhibitBrowserLink">Project Browser</a> |
-  <a href="#" wicket:id="addDOAPLink">DOAP Form</a> |
+  <a href="#" wicket:id="exhibitBrowserLink">Project Browser</a> 
+  <a href="#" wicket:id="addDOAPLink">DOAP Form</a> 
   <a href="http://simal.googlecode.com">Simal Developer Site</a>
 </div>
 <div id="content"><wicket:child /></div>

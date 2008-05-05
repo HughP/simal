@@ -16,9 +16,10 @@
 <html xmlns:wicket>
 <wicket:panel>
   <div class="content">
-    <p wicket:id="personName" class="title">Person Name</p>
+    <p class="title"><span wicket:id="personName">Person Name</span> (<span wicket:id="personId">Person ID</span>)</p>
     <p wicket:id="emails">Email Addresses</p>
     <p wicket:id="homepages">Homepages</p>
+    <a wicket:id="friendsLink" href="#">Friends (open Social API)</a>
   </div>
 </wicket:panel>
 </html>
