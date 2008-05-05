@@ -54,7 +54,7 @@ function onLoadFriends(data) {
 
       <div id='main'>
         <p>MyExperiment friends for <span id="viewerName">Viewer</span>:</p>
-        <div id='myExperimentFriends'>Loading....<br/>Note this will only work if you have patched Shindig locally - ask on our dev lists if you need help.</div>
+        <div id='myExperimentFriends'>Loading....<br/>Note, if this does not work it may be a result of recent changes in Shindig as we use SVN head at present. Contact the Simal dev list for help.</div>
       </div>
     ]]>
   </Content>
