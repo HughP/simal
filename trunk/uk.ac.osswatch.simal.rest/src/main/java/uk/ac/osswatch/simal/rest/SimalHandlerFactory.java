@@ -36,7 +36,7 @@ public class SimalHandlerFactory {
    */
   public static IAPIHandler createHandler(RESTCommand command, SimalRepository repo) throws SimalAPIException {
     IAPIHandler handler = null;
-    if (command.isGetAllProjects() || command.isGetProject()) {
+    if (command.isGetAllProjects() || command.isGetProject() || command.isAddProject()) {
       handler = new ProjectAPI(command);
     } else if (command.isGetColleagues()) {
       handler = new PersonAPI(command);
