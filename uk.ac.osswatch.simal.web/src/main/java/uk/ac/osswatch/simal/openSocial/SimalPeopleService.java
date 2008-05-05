@@ -33,10 +33,13 @@ import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 public class SimalPeopleService extends
     org.apache.shindig.social.samplecontainer.BasicPeopleService {
+  
+  XmlStateFileFetcher fetcher;
 
   @Inject
   public SimalPeopleService(XmlStateFileFetcher fetcher) {
     super(fetcher);
+    this.fetcher = fetcher;
   }
 
   @Override
@@ -65,7 +68,7 @@ public class SimalPeopleService extends
     RESTCommand cmd = RESTCommand.createGetColleagues(personID, token.getAppId(), RESTCommand.FORMAT_XML);
     
     try {
-      friendIds = RESTFetcher.get(cmd).getFriendIds();
+      friendIds = RESTFetcher.get(cmd, fetcher).getFriendIds();
     } catch (SimalAPIException e) {
       throw new JSONException(e);
     }
