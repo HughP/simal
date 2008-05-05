@@ -51,7 +51,7 @@ public class TestProjectAPI extends AbstractAPITest{
     try {
       handler.execute();
     } catch (SimalAPIException e) {
-      fail("Excepotion thrown when adding project" + e.getMessage());
+      fail("Exception thrown when adding project" + e.getMessage());
     }
     
     // we don't bother testing to see if the project has been added here
