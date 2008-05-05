@@ -871,6 +871,7 @@ public class SimalRepository extends SimalProperties {
    * @throws SimalRepositoryException 
    */
   public void add(String data) throws SimalRepositoryException {
+    logger.debug("Attempting to add RDF: " + data);
     File file = new File("testingAddData.rdf");
     try {
       FileWriter fw = new FileWriter(file);
