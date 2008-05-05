@@ -37,7 +37,7 @@ public class UserHomePage extends OpenSocialPage {
 					.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
 			addGadget("friendsNavigatorGadget", baseurl + FRIENDS_NAVIGATOR_GADGET_PATH, RESTCommand.SOURCE_TYPE_SIMAL);
 			addGadget("myExperimentFriends", baseurl + MYEXPERIMENT_FRIENDS_GADGET_PATH, RESTCommand.SOURCE_TYPE_MYEXPERIMENT);
-      addGadget("sakaiBookclubGadget", SAKAI_BOOKCLUB_GADGET_URL, null);
+      //addGadget("sakaiBookclubGadget", SAKAI_BOOKCLUB_GADGET_URL, null);
 		} catch (SimalRepositoryException e) {
 			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));
