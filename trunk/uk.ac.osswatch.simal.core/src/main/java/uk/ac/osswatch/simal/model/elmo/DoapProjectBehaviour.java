@@ -40,6 +40,7 @@ import uk.ac.osswatch.simal.model.IDoapScreenshot;
 import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResourceBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -144,8 +145,8 @@ public class DoapProjectBehaviour extends DoapResourceBehaviour implements IDoap
     values.append("[");
     while (itr.hasNext()) {
       resource = itr.next();
-      if (resource instanceof ResourceBehavior) {
-        values.append("\"" + ((ResourceBehavior) resource).getLabel() + "\"");
+      if (resource instanceof IResourceBehaviour) {
+        values.append("\"" + ((IResourceBehaviour) resource).getLabel() + "\"");
       } else {
         values.append("\"" + resource.toString() + "\"");
       }
