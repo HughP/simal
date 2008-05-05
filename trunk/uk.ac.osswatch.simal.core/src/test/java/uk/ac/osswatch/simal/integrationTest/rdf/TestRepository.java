@@ -20,8 +20,11 @@ import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -176,6 +179,26 @@ public class TestRepository extends BaseRepositoryTest {
     project = repository.getProject(qname1);
     assertNull("Failed to remove the test project", project);
     logger.debug("Finished testRemove()");
+  }
+  
+  @Test
+  public void testAdd() throws SimalRepositoryException, URISyntaxException, IOException {
+    logger.debug("Starting testAdd(data)");
+    project1.delete();
+    project1 = getSimalTestProject();
+    assertNull("Project has not been deleted as expected", project1);
+    
+    File testFile = new File(SimalRepository.class.getResource(SimalRepository.TEST_FILE_URI_WITH_QNAME).toURI());
+    FileInputStream fis = new FileInputStream(testFile);
+    int x= fis.available();
+    byte b[]= new byte[x];
+    fis.read(b);
+    String data = new String(b);
+    repository.add(data);
+    
+    project1 = getSimalTestProject();
+    assertNotNull("We don't seem to have added the test data as expected", project1);
+    logger.debug("Starting testAdd(data)");
   }
 
 }

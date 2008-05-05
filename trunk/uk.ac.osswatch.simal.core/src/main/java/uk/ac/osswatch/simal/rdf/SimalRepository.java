@@ -15,10 +15,13 @@
  */
 package uk.ac.osswatch.simal.rdf;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.Set;
@@ -177,6 +180,7 @@ public class SimalRepository extends SimalProperties {
         if (person != null) {
           // FIXME: do not delete the existing person, we should instead merge
           // the two see ISSUE 107
+          logger.debug("Removing duplicate person (based on email SHA1)");
           remove(person.getQName());
         }
       }
@@ -190,6 +194,7 @@ public class SimalRepository extends SimalProperties {
         if (person != null) {
           // FIXME: do not delete the existing person, we should instead merge
           // the two see ISSUE 107
+          logger.debug("Removing duplicate person (based on seeAlso)");
           remove(person.getQName());
         }
       }
@@ -857,5 +862,30 @@ public class SimalRepository extends SimalProperties {
       instance = new SimalRepository();
     }
     return instance;
+  }
+
+  /**
+   * Add the RDF data contained in the supplied data string.
+   * 
+   * @param data the RDF data to add
+   * @throws SimalRepositoryException 
+   */
+  public void add(String data) throws SimalRepositoryException {
+    File file = new File("testingAddData.rdf");
+    try {
+      FileWriter fw = new FileWriter(file);
+      BufferedWriter bw = new BufferedWriter(fw);
+      bw.write(data);
+      bw.close();
+      
+      addProject(file.toURL(), "");
+    } catch (MalformedURLException mue) {
+      // should never happen as we created the file here
+      throw new SimalRepositoryException("Strange... a file we created has a malformed URL", mue);
+    }  catch (IOException e) {
+      throw new SimalRepositoryException("Unable to write file from data string", e);
+    } finally {
+      file.delete();
+    }
   }
 }
