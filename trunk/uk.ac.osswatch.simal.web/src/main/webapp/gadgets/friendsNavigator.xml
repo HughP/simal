@@ -15,7 +15,7 @@
   limitations under the License.
 -->
 <Module>
-  <ModulePrefs title="Friends Navigator">
+  <ModulePrefs title=" Navigator">
     <Require feature="opensocial-0.7" />
   </ModulePrefs>
   <Content type="html">
@@ -24,36 +24,36 @@
 gadgets.util.registerOnLoadHandler(init);
 
 function init() {
- loadFriends();
+ load();
 }
 
-function loadFriends() {
+function load() {
   var req = opensocial.newDataRequest();
   req.add(req.newFetchPersonRequest('VIEWER'), 'viewer');
-  req.add(req.newFetchPeopleRequest('VIEWER_FRIENDS'), 'viewerFriends');
-  req.send(onLoadFriends);
+  req.add(req.newFetchPeopleRequest('VIEWER_'), 'viewer');
+  req.send(onLoad);
 }
 
 var allPeople, viewerFriendData;
-function onLoadFriends(data) {
+function onLoad(data) {
   var viewer = data.get('viewer').getData();
   document.getElementById('viewerName').innerHTML = viewer.getDisplayName();
   
-  allPeople = data.get('viewerFriends').getData().asArray() || new Array();
+  allPeople = data.get('viewer').getData().asArray() || new Array();
 
   var html = '<ul>';
   for (var i = 0; i < allPeople.length; i++) {
    html += '<li class="name">' + allPeople[i].getDisplayName() + '</li>';
   }
   html += '</ul>';
-  document.getElementById('friends').innerHTML = html;
+  document.getElementById('simalColleagues').innerHTML = html;
 }
 
 </script>
 
       <div id='main'>
         <p>Colleagues of <span id="viewerName">Viewer</span>:</p>
-        <div id='myExperimentFriends'>Loading....<br/>Note, if this does not work it may be a result of recent changes in Shindig as we use SVN head at present. Contact the Simal dev list for help.</div>
+        <div id='simalColleagues'>Loading....<br/>Note, if this does not work it may be a result of recent changes in Shindig as we use SVN head at present. Contact the Simal dev list for help.</div>
       </div>
     ]]>
   </Content>
