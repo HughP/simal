@@ -46,6 +46,17 @@ Copyright 2008 University of Oxford
       </fieldset>
     </form>
     
+    <form wicket:id="rawRDFForm">
+      <fieldset>
+      <legend>Raw DOAP</legend>
+        <p>
+        <label for="rawRDF">File</label>
+        <textarea id="rawRDF" wicket:id="rawRDF" cols="80" rows="15">Add you RDF here</textarea>
+        </p>
+        <input type="submit" value="Upload"/>
+      </fieldset>
+    </form>
+    
     <hr/>
     
     <form wicket:id="doapForm">
@@ -54,15 +65,15 @@ Copyright 2008 University of Oxford
         <table>
           <tr>
             <td><label for="name">Name</label></td>
-            <td><input type="text" id="name" wicket:id="name" value="" size="50" /></td>
+            <td><input type="text" id="name" wicket:id="name" value="" size="80" /></td>
           </tr>
           <tr>
             <td><label for="shortDesc">Short Description</label></td>
-            <td><input type="text" id="shortDesc" wicket:id="shortDesc" value="" size="50" /></td>
+            <td><input type="text" id="shortDesc" wicket:id="shortDesc" value="" size="80" /></td>
           </tr>
           <tr>
             <td><label for="description">Description</label></td>
-            <td><textarea id="description" wicket:id="description" cols="50" rows="10"></textarea></td>
+            <td><textarea id="description" wicket:id="description" cols="80" rows="10"></textarea></td>
           </tr>
           <tr>
             <td colspan="2"><input type="submit" value="Add to repository" /></td>

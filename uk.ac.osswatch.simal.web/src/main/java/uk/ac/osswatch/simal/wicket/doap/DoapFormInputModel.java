@@ -31,8 +31,25 @@ public class DoapFormInputModel implements IClusterable {
 	private String name;
 	private String shortDesc;
 	private String description;
+	private String rawRDF;
 
 	/**
+	 * If the form contains raw RDF get that RDF content.
+	 * @return
+	 */
+	public String getRawRDF() {
+    return rawRDF;
+  }
+
+	/**
+	 * Set the raw RDF content in the form.
+	 * @param rawRDF
+	 */
+  public void setRawRDF(String rawRDF) {
+    this.rawRDF = rawRDF;
+  }
+
+  /**
 	 * Get the full description for this project.
 	 * @return
 	 */

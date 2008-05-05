@@ -25,6 +25,7 @@ import java.util.Locale;
 
 import javax.xml.namespace.QName;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
@@ -69,8 +70,36 @@ public class DoapFormPage extends BasePage {
     ajaxSimpleUploadForm.add(new UploadProgressBar("uploadProgress",
         ajaxSimpleUploadForm));
     add(ajaxSimpleUploadForm);
+    
+    add(new AddByRawRDFForm("rawRDFForm"));
 
     add(new DoapForm("doapForm"));
+  }
+  
+  private class AddByRawRDFForm extends Form {
+    private static final long serialVersionUID = 5436861979864365527L;
+    private TextArea rdfField;
+    
+    public AddByRawRDFForm(String id) {
+      super(id, new CompoundPropertyModel(inputModel));
+      add(rdfField = new TextArea("rawRDF"));
+    }
+
+    @Override
+    protected void onSubmit() {
+      super.onSubmit();
+      String rdf = StringEscapeUtils.unescapeXml(rdfField.getValue());
+      try {
+        SimalRepository repo = UserApplication.getRepository();
+        repo.add(rdf);
+        setResponsePage(new UserHomePage());
+      } catch (SimalRepositoryException e) {
+        setResponsePage(new ErrorReportPage(new UserReportableException(
+            "Unable to add doap using RDF supplied", DoapFormPage.class, e)));
+      }
+      
+    }
+    
   }
 
   @SuppressWarnings("serial")
