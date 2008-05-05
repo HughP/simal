@@ -46,7 +46,9 @@ public class TestDoapFormPage extends TestBase {
 	private static final String TEST_NAME = "Form Project";
 	private static final String TEST_SHORT_DESC = "A project added by filling in the DOAP form";
 	private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
-	
+	private static final String TEST_RAW_RDF_QNAME = "http://simal.oss-watch.ac.uk/loadFromRawRDF#";
+	private static final String TEST_RAW_RDF = "<Project xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:foaf=\"http://xmlns.com/foaf/0.1/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns=\"http://usefulinc.com/ns/doap#\" rdf:about=\"" + TEST_RAW_RDF_QNAME + "\"> <created>2008-02-22</created> <name>Load From RAW RDF Test</name> </Project>";
+  
 	private static QName formInputQName = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI + TEST_NAME);
 
 	@Before
@@ -121,6 +123,20 @@ public class TestDoapFormPage extends TestBase {
     tester.assertRenderedPage(DoapFormPage.class);
     String[] errors = { "Field 'name' is required.", "Field 'shortDesc' is required." };
     tester.assertErrorMessages(errors);
+	}
+	
+	@Test
+	public void testAddProjectByRawRDF() throws SimalRepositoryException {
+	  FormTester formTester = tester.newFormTester("doapForm");
+	  formTester = tester.newFormTester("rawRDFForm");
+	  formTester.setValue("rawRDF", TEST_RAW_RDF);
+	  formTester.submit();
+	  
+	  tester.assertRenderedPage(UserHomePage.class);
+    tester.assertNoErrorMessage();
+    
+    IProject project = UserApplication.getRepository().getProject(new QName(TEST_RAW_RDF_QNAME));
+    assertNotNull(project);
 	}
 
   @Test
