@@ -1,4 +1,6 @@
 package uk.ac.osswatch.simal.rest;
+
+import java.util.HashMap;
 /*
  * Copyright 2008 University of Oxford
  *
@@ -25,11 +27,13 @@ public class RESTCommand {
 
   public static final String COMMAND_ALL_PROJECTS = "/allProjects";
   public static final String COMMAND_PROJECT = "/project";
+  public static final String COMMAND_PROJECT_ADD = "/addProject";
   public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues";
-
+  
   public static final String PARAM_PERSON_ID = "/person-";
   public static final String PARAM_PROJECT_ID = "/project-";
   public static final String PARAM_SOURCE = "/source-";
+  public static final String PARAM_RDF = "rdf";
 
   public static final String FORMAT_XML = "/xml";
   public static final String FORMAT_JSON = "/json";
@@ -37,6 +41,9 @@ public class RESTCommand {
   public static String SOURCE_TYPE_SIMAL = "simal";
   public static String SOURCE_TYPE_MYEXPERIMENT = "myExperiment";
 
+  private HashMap<String, String> params = new HashMap<String, String>();  
+  
+  // TODO: move all these into the params HashMap
   private String source;
   private String personID;
   private String projectID;
@@ -78,7 +85,7 @@ public class RESTCommand {
       String format) {
     return new RESTCommand(personID, source, COMMAND_ALL_COLLEAGUES, format);
   }
-
+  
   /**
    * A code that indicates the data source against this command should be run.
    * 
@@ -240,7 +247,11 @@ public class RESTCommand {
    */
   private static String extractCommandMethod(String cmdString) {
     int commandEnd = cmdString.indexOf("/", 1);
-    return cmdString.substring(0, commandEnd);
+    if (commandEnd > 0) {
+      return cmdString.substring(0, commandEnd);
+    } else {
+      return cmdString;
+    }
   }
 
   /**
@@ -311,6 +322,18 @@ public class RESTCommand {
   }
 
   /**
+   * Return true if this command is to add a project.
+   * 
+   * @return
+   */
+  public boolean isAddProject() {
+    if (commandMethod.equals(COMMAND_PROJECT_ADD)) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
    * Return the path info part of the URI that represents this command.
    * 
    * @return
@@ -339,8 +362,29 @@ public class RESTCommand {
     sb.append(getProjectID());
     sb.append("\n\tSource = ");
     sb.append(getSource());
+    sb.append("\n\tParamaters = ");
+    sb.append(params);
     sb.append("\n");
     return sb.toString();
+  }
+
+  /**
+   * Add a parameter to the command.
+   * @param name the parameter name
+   * @param value the parameter value
+   */
+  public void addParameter(String name, String value) {
+    params.put(name, value);
+  }
+
+  /**
+   * Get the value of the named parameter. 
+   * 
+   * @param name paramaeter name
+   * @return
+   */
+  public String getParameter(String name) {
+    return params.get(name);
   }
 
 }

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,38 +17,40 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
-
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * A class for handling all API calls relating to projects.
- *
+ * 
  */
 public class ProjectAPI extends AbstractHandler {
-  
+
   /**
-   * Create a new project API object to operate on projects in a given
-   * Simal repository. Handlers should not be instantiated directly,
-   * use HandlerFactory.createHandler(...) instead.
+   * Create a new project API object to operate on projects in a given Simal
+   * repository. Handlers should not be instantiated directly, use
+   * HandlerFactory.createHandler(...) instead.
    * 
    * @param repo
    */
   protected ProjectAPI(RESTCommand cmd) {
     super(cmd);
   }
-  
+
   /**
    * Execute a command.
    * 
    * @param cmd
-   * @throws SimalAPIException 
+   * @throws SimalAPIException
    */
   public String execute() throws SimalAPIException {
     if (command.isGetAllProjects()) {
       return getAllProjects(command);
     } else if (command.isGetProject()) {
       return getProject(command);
+    } else if (command.isAddProject()) {
+      addProject(command);
+      return null;
     } else {
       throw new SimalAPIException("Unkown command: " + command);
     }
@@ -66,11 +69,12 @@ public class ProjectAPI extends AbstractHandler {
       try {
         return HandlerFactory.getSimalRepository().getAllProjectsAsJSON();
       } catch (SimalRepositoryException e) {
-        throw new SimalAPIException("Unable to get JSON representation of all projects from the repository", e);
+        throw new SimalAPIException(
+            "Unable to get JSON representation of all projects from the repository",
+            e);
       }
     } else {
-      throw new SimalAPIException("Unkown format requested - "
-          + cmd);
+      throw new SimalAPIException("Unkown format requested - " + cmd);
     }
   }
 
@@ -79,31 +83,49 @@ public class ProjectAPI extends AbstractHandler {
    * 
    * @param command
    * @return
-   * @throws SimalAPIException 
+   * @throws SimalAPIException
    */
   private String getProject(RESTCommand command) throws SimalAPIException {
     String id = command.getProjectID();
-    
+
     if (command.isXML()) {
       try {
-        IProject project = HandlerFactory.getSimalRepository().findProjectById(id);
+        IProject project = HandlerFactory.getSimalRepository().findProjectById(
+            id);
         if (project == null) {
-          throw new SimalAPIException("Project with Simal ID " + id + " does not exist");
+          throw new SimalAPIException("Project with Simal ID " + id
+              + " does not exist");
         }
         return project.toXML();
       } catch (SimalRepositoryException e) {
-        throw new SimalAPIException("Unable to get XML representation of project from the repository", e);
+        throw new SimalAPIException(
+            "Unable to get XML representation of project from the repository",
+            e);
       }
     } else if (command.isJSON()) {
       try {
         return HandlerFactory.getSimalRepository().findProjectById(id).toJSON();
       } catch (SimalRepositoryException e) {
-        throw new SimalAPIException("Unable to get JSON representation of project from the repository", e);
+        throw new SimalAPIException(
+            "Unable to get JSON representation of project from the repository",
+            e);
       }
     } else {
-      throw new SimalAPIException("Unkown format requested - "
-          + command);
+      throw new SimalAPIException("Unkown format requested - " + command);
     }
   }
 
+  /**
+   * Attempt to add a project using supplied data.
+   * 
+   * @param command
+   * @throws SimalAPIException if the project was not added for any reason
+   */
+  private void addProject(RESTCommand command) throws SimalAPIException {
+    try {
+      HandlerFactory.getSimalRepository().add(command.getParameter(RESTCommand.PARAM_RDF));
+    } catch (SimalRepositoryException e) {
+      throw new SimalAPIException("Unable to add RDF data", e);
+    }
+  }
 }
