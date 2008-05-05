@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URISyntaxException;
@@ -137,6 +138,10 @@ public class TestDoapFormPage extends TestBase {
     
     IProject project = UserApplication.getRepository().getProject(new QName(TEST_RAW_RDF_QNAME));
     assertNotNull(project);
+    
+    project.delete();
+    project = UserApplication.getRepository().getProject(new QName(TEST_RAW_RDF_QNAME));
+    assertNull(project);
 	}
 
   @Test
