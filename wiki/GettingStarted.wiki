@@ -1,8 +1,6 @@
 #summary Basic getting started instructions
 #labels Featured,Phase-Support
 
-*NOTE* After an initial prototype that demonstrated the potential direction for Simal (release 0.1) we started development of 0.2 using a more suitable underlying framework. We are currently in the process of moving from the old system to the new. Consequently this document points to numerous other documents in SVN, we welcome your help in making this document more useful for newcomers.
-
 If you have any problems you could try looking at our [FAQ] or asking questions on our [http://groups.google.com/group/simal-contributors mailing list].
 
 = Latest Sources =
@@ -28,18 +26,35 @@ NOTE: Use https rather than http if you are a committer
 
 The installation process is not as streamlined as it should be right now. However, we are working on it and welcome your help.
 
-For now there are two steps:
+==== Core ====
 {{{
 cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.core
 mvn install
 }}}
 
-Once this installation is succesful do the following:
+==== REST ====
 
 {{{
 cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.rest
 mvn install
 }}}
+
+==== Web Application ====
+
+Now you need to configure the webapp for your server. 
+
+Create a file called {{{local.simal.properties}}} in {{$PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web}}} and open it in your favourite editor. This file contains the local configuation for your web application.
+
+As a minimum you must set the following properties:
+
+{{{
+simal.user.webapp.baseurl=http://foo.org:8080
+simal.rest.baseurl=http://foo.org:8080/simal-rest
+}}}
+
+Other configuration proerties are available. See {{{$PROJECT_HOME/uk.ac.osswatch.simal.core/src/main/resources/default.simal.properties}}} for details.
+
+_Yes, we know_ the default webapp properties should be set in the webapp module. See issue 118
 
 (Note that Simal Web does not need to be installed)
 
