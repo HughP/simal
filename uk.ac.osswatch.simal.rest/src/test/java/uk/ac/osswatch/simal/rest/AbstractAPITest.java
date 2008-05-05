@@ -29,7 +29,9 @@ public abstract class AbstractAPITest {
   @BeforeClass
   public static void setUpRepo() throws SimalRepositoryException {
     repo = SimalRepository.getInstance();
-    repo.setIsTest(true);
-    repo.initialise();
+    if (!repo.isInitialised()) {
+      repo.setIsTest(true);
+      repo.initialise();
+    }
   }
 }
