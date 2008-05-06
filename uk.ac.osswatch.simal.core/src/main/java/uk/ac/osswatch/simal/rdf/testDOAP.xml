@@ -71,6 +71,14 @@
       <location rdf:resource="https://svn.foo.org/svnroot/simalTest" />
     </SVNRepository>
   </repository>
+  
+  <repository>
+    <CVSRepository>
+      <anon-root>:pserver:anonymous@foo.org:/cvsroot/bar</anon-root>
+      <module>foobar</module>
+      <browse rdf:resource="http://var.foo.org/webCVS" />
+    </CVSRepository>
+  </repository>
 
   <release>
     <Version
