@@ -15,7 +15,9 @@
  */
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
+import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -28,9 +30,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class TestDoapRepositoryBehaviour extends BaseRepositoryTest {
   @Test
   public void testGetRepositories() throws SimalRepositoryException {
-    Set<IDoapRepository> repositories = project1.getRepositories();
-    assertEquals("Should have two repository objects", 2, repositories.size());
+    Set<IDoapRepository> repos = project1.getRepositories();
+    assertEquals("Should have two repository objects", 2, repos.size());
     
-    IDoapRepository repository = (IDoapRepository) repositories.toArray()[0];
+    assertTrue("Does not contain the expected repositories", repos.toString().contains(TEST_SIMAL_PROJECT_REPOSITORIES));
   }
 }
