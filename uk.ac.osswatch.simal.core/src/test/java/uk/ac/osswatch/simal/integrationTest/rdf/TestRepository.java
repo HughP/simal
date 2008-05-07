@@ -188,7 +188,7 @@ public class TestRepository extends BaseRepositoryTest {
     project1 = getSimalTestProject();
     assertNull("Project has not been deleted as expected", project1);
     
-    File testFile = new File(SimalRepository.class.getResource(SimalRepository.TEST_FILE_URI_WITH_QNAME).toURI());
+    File testFile = new File(SimalRepository.class.getResource("/testData/" + SimalRepository.TEST_FILE_URI_WITH_QNAME).toURI());
     FileInputStream fis = new FileInputStream(testFile);
     int x= fis.available();
     byte b[]= new byte[x];

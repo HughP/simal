@@ -510,13 +510,13 @@ public class SimalRepository extends SimalProperties {
     verifyInitialised();
 
     try {
-      addProject(SimalRepository.class.getResource(TEST_FILE_URI_NO_QNAME),
+      addProject(SimalRepository.class.getResource("/testData/" + TEST_FILE_URI_NO_QNAME),
           TEST_FILE_BASE_URL);
 
-      addProject(SimalRepository.class.getResource(TEST_FILE_URI_WITH_QNAME),
+      addProject(SimalRepository.class.getResource("/testData/" + TEST_FILE_URI_WITH_QNAME),
           TEST_FILE_BASE_URL);
 
-      addProject(SimalRepository.class.getResource("ossWatchDOAP.xml"),
+      addProject(SimalRepository.class.getResource("/testData/" + "ossWatchDOAP.xml"),
           TEST_FILE_BASE_URL);
 
       addProject(SimalRepository.class.getClassLoader().getResource(
