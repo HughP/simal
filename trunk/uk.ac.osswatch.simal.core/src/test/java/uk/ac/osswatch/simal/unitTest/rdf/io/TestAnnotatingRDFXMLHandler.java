@@ -103,7 +103,7 @@ public class TestAnnotatingRDFXMLHandler extends BaseRepositoryTest {
   }
   
   private static void annotateLocalTestFile() throws IOException, RDFParseException, RDFHandlerException {
-    URL url = SimalRepository.class.getResource(SimalRepository.TEST_FILE_URI_NO_QNAME);
+    URL url = SimalRepository.class.getResource("/testData/" + SimalRepository.TEST_FILE_URI_NO_QNAME);
     RDFParser parser = new RDFXMLParser();
     annotatingHandler.setSourceURL(url);
     parser.setRDFHandler(annotatingHandler);
@@ -145,7 +145,7 @@ public class TestAnnotatingRDFXMLHandler extends BaseRepositoryTest {
         hasID = true;
       } else if (token.contains("<rdfs:seeAlso")) {
         token = scanner.next();
-        isProjectSeeAlsoPresent = isProjectSeeAlsoPresent || token.contains(SimalRepository.TEST_FILE_REMOTE_URL) || token.contains(SimalRepository.class.getResource(SimalRepository.TEST_FILE_URI_NO_QNAME).toString());
+        isProjectSeeAlsoPresent = isProjectSeeAlsoPresent || token.contains(SimalRepository.TEST_FILE_REMOTE_URL) || token.contains(SimalRepository.class.getResource("/testData/" + SimalRepository.TEST_FILE_URI_NO_QNAME).toString());
       }
     }
     scanner.close();    
