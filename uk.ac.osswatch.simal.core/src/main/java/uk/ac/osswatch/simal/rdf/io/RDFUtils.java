@@ -15,7 +15,6 @@
  */
 package uk.ac.osswatch.simal.rdf.io;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -69,7 +68,7 @@ public class RDFUtils {
 
     try {
       DocumentBuilder db = dbf.newDocumentBuilder();
-      dom = db.parse(new File(url.toURI()));
+      dom = db.parse(url.openStream());
       NodeList nl = dom.getElementsByTagNameNS(DOAP_NS, "Project");
       removeBlankProjectNodes(nl);
 
@@ -119,10 +118,24 @@ public class RDFUtils {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
         if (!el.hasAttributeNS(RDF_NS, "about")) {
+          String uri = null;
           Node locationNode = el.getElementsByTagNameNS(DOAP_NS, "location")
               .item(0);
-          String uri = locationNode.getAttributes().getNamedItemNS(RDF_NS,
-              "resource").getNodeValue();
+          if (locationNode != null) {
+            uri = locationNode.getAttributes().getNamedItemNS(RDF_NS,
+                "resource").getNodeValue();
+          } else {
+            locationNode = el.getElementsByTagNameNS(DOAP_NS, "anon-root")
+                .item(0);
+            if (locationNode != null) {
+              uri = locationNode.getFirstChild().getNodeValue();
+            }
+          }
+          
+          if (uri == null) {
+            uri = "http://simal.oss-watch.ac.uk/" + getProjectName((Element) el.getParentNode()) + "#" + el.getLocalName();
+          }
+          
           if (!uri.endsWith("/")) {
             uri = uri + "/";
           }
@@ -132,6 +145,18 @@ public class RDFUtils {
         }
       }
     }
+  }
+
+  /**
+   * Get the project name from the supplied doiap:Project node.
+   * 
+   * @param project
+   * @return
+   */
+  public static String getProjectName(Element project) {
+    NodeList names = project.getElementsByTagNameNS(DOAP_NS, "name");
+    Node nameNode = names.item(0);
+    return nameNode.getFirstChild().getNodeValue();
   }
 
   /**
@@ -168,10 +193,12 @@ public class RDFUtils {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
         if (!el.hasAttributeNS(RDF_NS, "about")) {
+          String name = null; 
           String uri = "http://simal.oss-watch.ac.uk/foaf/";
           Node nameNode = el.getElementsByTagNameNS(FOAF_NS, "name").item(0);
-          String name = nameNode.getFirstChild().getNodeValue();
-          if (name == null || !nameNode.getParentNode().equals((Node) el)) {
+          if (nameNode != null && nameNode.getParentNode().equals((Node) el)) {
+              name = nameNode.getFirstChild().getNodeValue();
+          } else {
             nameNode = el.getElementsByTagNameNS(FOAF_NS, "givenname").item(0);
             if (nameNode != null) {
               name = nameNode.getFirstChild().getNodeValue();
@@ -185,7 +212,8 @@ public class RDFUtils {
           uri = uri + name;
           uri = uri + "#Person";
           el.setAttributeNS(RDF_NS, "rdf:about", uri);
-        }
+        } 
+        
       }
     }
   }
