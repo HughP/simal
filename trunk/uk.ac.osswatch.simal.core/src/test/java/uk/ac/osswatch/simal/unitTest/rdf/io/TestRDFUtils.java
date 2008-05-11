@@ -25,6 +25,7 @@ import java.net.URL;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -97,5 +98,12 @@ public class TestRDFUtils {
     NamedNodeMap atts = projectNode.getAttributes();
     String about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
     assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/doap/Simal (No rdf:about) DOAP Test#Project", about);
+  }
+  
+  @Test
+  public void testGetProjectName() {
+    Node projectNode = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project").item(0);
+    String name = RDFUtils.getProjectName((Element) projectNode);
+    assertEquals("Project name is incorrect", "Simal (No rdf:about) DOAP Test", name);
   }
 }
