@@ -156,7 +156,9 @@ public class SimalRepository extends SimalProperties {
 
     File annotatedFile = null;
     try {
+      logger.info("Preprocessing file");
       annotatedFile = RDFUtils.preProcess(url, baseURI, this);
+      logger.info("Adding processed RDF/XML");
       addRDFXML(annotatedFile.toURL(), baseURI);
     } catch (IOException e) {
       throw new SimalRepositoryException(
