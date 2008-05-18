@@ -17,10 +17,17 @@ package uk.ac.osswatch.simal.unitTest.rdf.io;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -29,20 +36,31 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
-public class TestRDFUtils {
+public class TestRDFUtils extends BaseRepositoryTest {
   static Document dom;
 
   @BeforeClass
-  public static void beforeClass() throws URISyntaxException, IOException {
+  public static void beforeClass() throws URISyntaxException, IOException, SimalRepositoryException, ParserConfigurationException, SAXException {
     URL url = TestRDFUtils.class.getResource("/testData/testNoRDFAboutDOAP.xml");
-    dom = RDFUtils.removeBNodes(url);
+    RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
+    File processedFile = RDFUtils.getAnnotatedDoapFile(url); 
+    
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setNamespaceAware(true);
 
+    DocumentBuilder db = dbf.newDocumentBuilder();
+    dom = db.parse(new FileInputStream(processedFile));
+    
     OutputFormat format = new OutputFormat(dom);
     format.setIndenting(true);
     XMLSerializer serializer = new XMLSerializer(System.out, format);
@@ -94,16 +112,45 @@ public class TestRDFUtils {
 
   @Test
   public void testRemoveProjectBNodes() {
-    Node projectNode = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project").item(0);
+    Node projectNode = getProjectNode();
     NamedNodeMap atts = projectNode.getAttributes();
     String about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
     assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/doap/Simal (No rdf:about) DOAP Test#Project", about);
   }
+
+  private Node getProjectNode() {
+    Node projectNode = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project").item(0);
+    return projectNode;
+  }
   
   @Test
   public void testGetProjectName() {
-    Node projectNode = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project").item(0);
+    Node projectNode = getProjectNode();
     String name = RDFUtils.getProjectName((Element) projectNode);
     assertEquals("Project name is incorrect", "Simal (No rdf:about) DOAP Test", name);
+  }
+  
+  @Test
+  public void testSimalPersonID() {
+    NodeList personNL = dom.getElementsByTagNameNS(RDFUtils.FOAF_NS, "Person");
+    Element personElement = (Element)personNL.item(0);
+    NodeList personIDNL = personElement.getElementsByTagNameNS(RDFUtils.SIMAL_NS, "personId");
+    assertEquals("Incorrect number of simal:personId elements", 1, personIDNL.getLength());
+  }
+  
+  @Test
+  public void testSimalProjectID() {
+    NodeList projectNL = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
+    Element projectElement = (Element)projectNL.item(0);
+    NodeList projectIDNL = projectElement.getElementsByTagNameNS(RDFUtils.SIMAL_NS, "projectId");
+    assertEquals("Incorrect number of simal:projectId elements", 1, projectIDNL.getLength());
+  }
+  
+  @Test
+  public void testProjectSeeAlso() {
+    NodeList projectNL = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
+    Element projectElement = (Element)projectNL.item(0);
+    NodeList projectSeeAlso = projectElement.getElementsByTagNameNS(RDFUtils.RDFS_NS, "seeAlso");
+    assertTrue("No rdfs:seeAlso elements defined for the project", projectSeeAlso.getLength() > 0);
   }
 }
