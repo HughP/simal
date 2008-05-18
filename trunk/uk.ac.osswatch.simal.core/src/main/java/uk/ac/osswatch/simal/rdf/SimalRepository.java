@@ -37,14 +37,13 @@ import org.openrdf.elmo.sesame.SesameManagerFactory;
 import org.openrdf.model.URI;
 import org.openrdf.model.Value;
 import org.openrdf.model.impl.URIImpl;
+import org.openrdf.repository.Repository;
 import org.openrdf.repository.RepositoryConnection;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.repository.sail.SailRepository;
 import org.openrdf.rio.RDFFormat;
 import org.openrdf.rio.RDFHandlerException;
 import org.openrdf.rio.RDFParseException;
-import org.openrdf.rio.RDFParser;
-import org.openrdf.rio.rdfxml.RDFXMLParser;
 import org.openrdf.rio.rdfxml.util.RDFXMLPrettyWriter;
 import org.openrdf.sail.memory.MemoryStore;
 import org.slf4j.Logger;
@@ -75,7 +74,7 @@ import uk.ac.osswatch.simal.model.elmo.DoapRepositoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapScreenshotBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapWikiBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
-import uk.ac.osswatch.simal.rdf.io.AnnotatingRDFXMLHandler;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
  * A class for handling common repository actions. Applications should not
@@ -91,8 +90,8 @@ public class SimalRepository extends SimalProperties {
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
   public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
-  public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultProjectNS#";
-  public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultPersonNS#";
+  public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
+  public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
   public static final String DEFAULT_CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
 
   public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
@@ -130,8 +129,6 @@ public class SimalRepository extends SimalProperties {
 
   public final static String CATEGORIES_RDF = "categories.xml";
 
-  private File fileStoreDir;
-
   private static SailRepository _repository;
   private boolean isTest = false;
 
@@ -154,69 +151,19 @@ public class SimalRepository extends SimalProperties {
   public void addProject(URL url, String baseURI)
       throws SimalRepositoryException {
     logger.info("Adding a project from " + url.toString());
-    AnnotatingRDFXMLHandler annotatingHandler;
 
     verifyInitialised();
 
-    RDFParser parser = new RDFXMLParser();
     File annotatedFile = null;
     try {
-      annotatedFile = getAnnotatedDoapFile(url.getFile().substring(
-          url.getFile().lastIndexOf("/")));
-      logger.debug("Annotated file written to "
-          + annotatedFile.getAbsolutePath());
-      annotatingHandler = new AnnotatingRDFXMLHandler(annotatedFile, this);
-      annotatingHandler.setSourceURL(url);
-      parser.setRDFHandler(annotatingHandler);
-      parser.parse(url.openStream(), baseURI);
-
-      // handle duplicate people identified by their mbox_sha1sum
-      Iterator<String> sha1sums = annotatingHandler.getPeopleSha1Sums()
-          .iterator();
-      String sha1sum;
-      while (sha1sums.hasNext()) {
-        sha1sum = sha1sums.next();
-        IPerson person = findPersonBySha1Sum(sha1sum);
-        if (person != null) {
-          // FIXME: do not delete the existing person, we should instead merge
-          // the two see ISSUE 107
-          logger.debug("Removing duplicate person (based on email SHA1)");
-          remove(person.getQName());
-        }
-      }
-
-      // handle duplicate people identified by their rdf:seeAlso
-      Iterator<String> seeAlsos = annotatingHandler.getSeeAlsos().iterator();
-      String seeAlso;
-      while (seeAlsos.hasNext()) {
-        seeAlso = seeAlsos.next();
-        IPerson person = findPersonBySeeAlso(seeAlso);
-        if (person != null) {
-          // FIXME: do not delete the existing person, we should instead merge
-          // the two see ISSUE 107
-          logger.debug("Removing duplicate person (based on seeAlso)");
-          remove(person.getQName());
-        }
-      }
-
-      // now we have annotated the file add it to the repository
+      annotatedFile = RDFUtils.preProcess(url, baseURI, this);
       addRDFXML(annotatedFile.toURL(), baseURI);
     } catch (IOException e) {
       throw new SimalRepositoryException(
           "Unable to write the annotated RDF/XML file: " + e.getMessage(), e);
-    } catch (RDFParseException e) {
-      throw new SimalRepositoryException(
-          "Attempt to add unparseable RDF/XML to the repository loaded from "
-              + url.toString(), e);
-    } catch (RDFHandlerException e) {
-      throw new SimalRepositoryException("Problem handling RDF data: "
-          + e.getMessage(), e);
-    } finally {
-      if (!logger.isDebugEnabled()) {
-        annotatedFile.delete();
-      }
     }
   }
+
 
   /**
    * Add a new statement to the repository.
@@ -451,7 +398,6 @@ public class SimalRepository extends SimalProperties {
    * Get all the categories known in this repository.
    * 
    * @return
-   * @throws SimalRepositoryException 
    * @throws SimalRepositoryException
    */
   public Set<IDoapCategory> getAllCategories() throws SimalRepositoryException {
@@ -510,14 +456,14 @@ public class SimalRepository extends SimalProperties {
     verifyInitialised();
 
     try {
-      addProject(SimalRepository.class.getResource("/testData/" + TEST_FILE_URI_NO_QNAME),
-          TEST_FILE_BASE_URL);
+      addProject(SimalRepository.class.getResource("/testData/"
+          + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
 
-      addProject(SimalRepository.class.getResource("/testData/" + TEST_FILE_URI_WITH_QNAME),
-          TEST_FILE_BASE_URL);
+      addProject(SimalRepository.class.getResource("/testData/"
+          + TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
 
-      addProject(SimalRepository.class.getResource("/testData/" + "ossWatchDOAP.xml"),
-          TEST_FILE_BASE_URL);
+      addProject(SimalRepository.class.getResource("/testData/"
+          + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
 
       addProject(SimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
@@ -668,10 +614,6 @@ public class SimalRepository extends SimalProperties {
           e);
     }
 
-    fileStoreDir = new File(getProperty(PROPERTY_SIMAL_DOAP_FILE_STORE)
-        + File.separator + "simal-uploads");
-    fileStoreDir.mkdirs();
-
     if (isTest) {
       addTestData();
     }
@@ -809,12 +751,14 @@ public class SimalRepository extends SimalProperties {
      */
     boolean validID = false;
     while (!validID) {
+      logger.debug("Testing person ID " + id + " for uniqueness");
       if (findPersonById(Long.toString(id)) == null) {
         validID = true;
       } else {
         id = id + 1;
       }
     }
+    logger.debug("Selected person ID " + id + " as new ID");
 
     long newId = id + 1;
     setProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, Long.toString(newId));
@@ -826,28 +770,6 @@ public class SimalRepository extends SimalProperties {
           "Unable to save properties file when creating the next person ID", e);
     }
     return Long.toString(id);
-  }
-
-  /**
-   * Get the directory in which DOAP files are stored locally when loaded into
-   * the repository. This store is intended be the backup store and contains the
-   * raw RDF files. Note, these files have been annotated by Simal.
-   * 
-   * @return
-   */
-  public File getDoapFileStore() {
-    return fileStoreDir;
-  }
-
-  /**
-   * Get the local, annotated version, of the file with the given name.
-   * 
-   * @return
-   */
-  public File getAnnotatedDoapFile(String filename) {
-    String path = fileStoreDir.getAbsolutePath();
-    File file = new File(path + File.separator + filename);
-    return file;
   }
 
   /**
@@ -867,8 +789,9 @@ public class SimalRepository extends SimalProperties {
   /**
    * Add the RDF data contained in the supplied data string.
    * 
-   * @param data the RDF data to add
-   * @throws SimalRepositoryException 
+   * @param data
+   *          the RDF data to add
+   * @throws SimalRepositoryException
    */
   public void add(String data) throws SimalRepositoryException {
     logger.debug("Attempting to add RDF: " + data);
@@ -878,15 +801,21 @@ public class SimalRepository extends SimalProperties {
       BufferedWriter bw = new BufferedWriter(fw);
       bw.write(data);
       bw.close();
-      
+
       addProject(file.toURL(), "");
     } catch (MalformedURLException mue) {
       // should never happen as we created the file here
-      throw new SimalRepositoryException("Strange... a file we created has a malformed URL", mue);
-    }  catch (IOException e) {
-      throw new SimalRepositoryException("Unable to write file from data string", e);
+      throw new SimalRepositoryException(
+          "Strange... a file we created has a malformed URL", mue);
+    } catch (IOException e) {
+      throw new SimalRepositoryException(
+          "Unable to write file from data string", e);
     } finally {
       file.delete();
     }
+  }
+
+  public Repository getSesameRepository() {
+    return _repository;
   }
 }
