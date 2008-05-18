@@ -23,7 +23,8 @@ import org.openrdf.elmo.annotations.rdf;
 import uk.ac.osswatch.simal.model.IFoafResourceBehaviour;
 
 @rdf("http://xmlns.com/foaf/0.1/Person")
-public class FoafResourceBehaviour extends ResourceBehavior implements IFoafResourceBehaviour {
+public class FoafResourceBehaviour extends ResourceBehavior implements
+    IFoafResourceBehaviour {
   private static final long serialVersionUID = -3852417254318582808L;
 
   public FoafResourceBehaviour(org.openrdf.concepts.foaf.Person person) {
@@ -51,30 +52,40 @@ public class FoafResourceBehaviour extends ResourceBehavior implements IFoafReso
     }
     return json.toString();
   }
-  
+
   private Person getFoafPerson() {
-    return (Person)elmoEntity;
+    return (Person) elmoEntity;
   }
-  
+
   /**
-   * Get the label for this person. The label for a person is derived
-   * from their known names. If the person does not have any defined
-   * names then the toString() method is used..
+   * Get the label for this person. The label for a person is derived from their
+   * known names. If the person does not have any defined names then the
+   * toString() method is used..
    * 
    * @return
    */
   public String getLabel() {
-    Set<Object> names = getFoafPerson().getFoafGivennames();
-    if (names.size() == 0) {
-      names = getFoafPerson().getFoafFirstNames();
+    Set<Object> givenNames = getFoafPerson().getFoafGivennames();
+    if (givenNames.size() == 0) {
+      givenNames = getFoafPerson().getFoafFirstNames();
     }
-    if (names == null ) {
+    Set<Object> familyNames = getFoafPerson().getFoafFamily_names();
+
+    if (familyNames == null && givenNames == null) {
       return toString();
     } else {
-      if (names.size() == 0) {
-        return getFoafPerson().getQName().toString();
+      String name = null;
+      if (familyNames != null && familyNames.size() > 0) {
+        name = (String) familyNames.toArray()[0];
       }
-      return (String)names.toArray()[0];
+      if (givenNames.size() > 0) {
+        if (name != null) {
+          name = (String) givenNames.toArray()[0] + " " + name;
+        } else {
+          name = (String) givenNames.toArray()[0];
+        }
+      }
+      return name;
     }
   }
 }

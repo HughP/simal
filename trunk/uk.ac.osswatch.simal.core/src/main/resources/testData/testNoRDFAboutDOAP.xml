@@ -70,17 +70,29 @@
 		
 	<maintainer>
 		<foaf:Person>
-			<foaf:givenname>Jane Blogs Maintainer</foaf:givenname>
+			<foaf:name>Jane Blogs Maintainer</foaf:name>
       <foaf:knows>
   		  <foaf:Person>
   		    <foaf:name>Janet Blogo</foaf:name>
   		    <foaf:mbox_sha1sum>242021fb0e6289f92815fc210f9e9137262c252a</foaf:mbox_sha1sum>
   		    <rdfs:seeAlso 
-  		      rdf:resource="http://rdfweb.org/people/danbri/foaf.rdf"/>
+  		      rdf:resource="http://rdfweb.org/people/jBlogo/foaf.rdf"/>
   		  </foaf:Person>
 	    </foaf:knows>
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~janeBlogs/foaf.rdf.xml" />
 		</foaf:Person>
 	</maintainer>
+  
+  
+  <!--  duplicate of Joe Blogs Maintainer, above, is deliberate for testing purposes -->
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Joe Blogs Maintainer</foaf:name>
+      <foaf:givenname>Joe</foaf:givenname>
+      <foaf:mbox rdf:resource="mailto:joe@blogs.org"/>
+      <rdfs:seeAlso
+        rdf:resource="http://foo.org/~joeBlogs/foaf.rdf.xml" />
+    </foaf:Person>
+  </maintainer>
 </Project>

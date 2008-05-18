@@ -70,7 +70,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testPersonsLoaded() {
-    assertEquals("Should have one maintainer",
+    assertEquals("Have got incorrect number of maintainers",
         BaseRepositoryTest.TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS,
         maintainers.size());
     assertEquals("Should have one developers", 1, developers.size());
@@ -233,9 +233,10 @@ public class TestProject extends BaseRepositoryTest {
     IPerson person;
     while (people.hasNext()) {
       person = people.next();
-      if (person.getLabel().equals(TEST_SIMAL_PROJECT_MAINTAINER_ONE)) {
+      String label = person.getLabel();
+      if (label.equals(TEST_SIMAL_PROJECT_MAINTAINER_ONE)) {
         hasMaintainerOne = true;
-      } else if (person.getLabel().equals(TEST_SIMAL_PROJECT_MAINTAINER_TWO)) {
+      } else if (label.equals(TEST_SIMAL_PROJECT_MAINTAINER_TWO)) {
         hasMaintainerTwo = true;
       }
     }
