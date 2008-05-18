@@ -476,7 +476,7 @@ public class SimalRepository extends SimalProperties {
     } catch (Exception e) {
       System.err.println("Can't add the test data, there's no point in carrying on");
       e.printStackTrace();
-      System.exit(0);
+      System.exit(1);
           
     }
   }
