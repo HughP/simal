@@ -454,10 +454,10 @@ public class SimalRepository extends SimalProperties {
    * 
    * @throws SimalRepositoryException
    */
-  private void addTestData() throws SimalRepositoryException {
-    verifyInitialised();
-
+  private void addTestData() {
     try {
+      verifyInitialised();
+      
       addProject(SimalRepository.class.getResource("/testData/"
           + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
 
@@ -474,8 +474,10 @@ public class SimalRepository extends SimalProperties {
           "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
           "http://simal.oss-watch.ac.uk");
     } catch (Exception e) {
-      throw new RuntimeException(
-          "Can't add the test data, there's no point in carrying on", e);
+      System.err.println("Can't add the test data, there's no point in carrying on");
+      e.printStackTrace();
+      System.exit(0);
+          
     }
   }
 
