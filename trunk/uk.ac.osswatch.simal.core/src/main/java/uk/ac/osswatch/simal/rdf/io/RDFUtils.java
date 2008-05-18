@@ -290,8 +290,6 @@ public class RDFUtils {
     } catch (Exception e) {
       throw new SimalRepositoryException(
           "Unable to prepare data for adding to the repository", e);
-    } finally {
-      annotatedFile.delete();
     }
     return annotatedFile;
   }
