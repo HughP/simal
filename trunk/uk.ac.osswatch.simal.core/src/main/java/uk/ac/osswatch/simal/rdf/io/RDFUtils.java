@@ -543,7 +543,7 @@ public class RDFUtils {
     String path = url.getPath();
     int startName = path.lastIndexOf("/");
     if (startName > 0) {
-      filename = path.substring(startName);
+      filename = path.substring(startName + 1);
     } else {
       filename = path;
     }
