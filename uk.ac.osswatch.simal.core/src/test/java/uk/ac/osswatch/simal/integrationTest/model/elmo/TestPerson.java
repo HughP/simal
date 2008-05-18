@@ -91,7 +91,7 @@ public class TestPerson extends BaseRepositoryTest {
     assertNotNull("Should know some people", knows);
     IPerson person = knows.iterator().next();
     String givenName = (String) person.getFoafGivennames().toArray()[0];
-    assertTrue("Should know Dan Brickley", givenName.contains("Dan Brickley"));
+    assertTrue("Should know Dan Brickley", givenName.contains("Dan"));
   }
 
   @Test
