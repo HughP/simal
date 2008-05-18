@@ -37,6 +37,7 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
@@ -175,11 +176,11 @@ public class TestDoapFormPage extends TestBase {
   
   @Test
   public void testUploadedFile() throws SimalRepositoryException, URISyntaxException {
-    File file = new File(UserApplication.getRepository().getAnnotatedDoapFile(DOAP_FORM_FILE));
+    File file = new File(RDFUtils.getAnnotatedDoapFile(DOAP_FORM_FILE));
     file.delete();
     
     uploadFile();
-    file = new File(UserApplication.getRepository().getAnnotatedDoapFile(DOAP_FORM_FILE));
+    file = new File(RDFUtils.getAnnotatedDoapFile(DOAP_FORM_FILE));
     assertTrue("Local copy of DOAP file does not exist, expected " + file.getAbsolutePath(), file.exists());}
 }
 
