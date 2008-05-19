@@ -176,7 +176,7 @@ public class RDFUtils {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
-        if (!el.hasAttributeNS(RDF_NS, "about")) {
+        if (!el.hasAttributeNS(RDF_NS, "about") || el.getAttributeNodeNS(RDF_NS, "about").getValue().equals("")) {
           String uri = SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI;
           Node nameNode = el.getElementsByTagNameNS(DOAP_NS, "name").item(0);
           uri = uri + nameNode.getFirstChild().getNodeValue();
@@ -280,6 +280,7 @@ public class RDFUtils {
       RDFUtils.checkPersonIDs(doc, repo);
       RDFUtils.checkPersonSHA1(doc, repo);
       RDFUtils.checkPersonNames(doc, repo);
+      RDFUtils.checkResources(doc, repo);
 
       OutputFormat format = new OutputFormat(doc);
       format.setIndenting(false);
@@ -292,6 +293,24 @@ public class RDFUtils {
           "Unable to prepare data for adding to the repository", e);
     }
     return annotatedFile;
+  }
+
+  /**
+   * Check that resources are correctly defined.
+   * 
+   * @param doc
+   * @param repo
+   */
+  private static void checkResources(Document doc, SimalRepository repo) {
+    NodeList homepages = doc.getElementsByTagNameNS(FOAF_NS, "homepage");
+    Element homepage;
+    for (int i = 0; i < homepages.getLength(); i = i + 1) {
+      homepage = (Element)homepages.item(i);
+      String resource = homepage.getAttributeNodeNS(RDF_NS, "resource").getValue();
+      if (resource.equals("")) {
+        homepage.getParentNode().removeChild(homepage);
+      }
+    }
   }
 
   /**
