@@ -467,7 +467,7 @@ public class SimalRepository extends SimalProperties {
       addProject(SimalRepository.class.getResource("/testData/"
           + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
 
-      addProject(SimalRepository.class.getClassLoader().getResource(
+      addRDFXML(SimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
 
       addProject(new URL(
