@@ -270,11 +270,22 @@ public class RDFUtils {
       annotatedFile = RDFUtils.getAnnotatedDoapFile(url);
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
       dbf.setNamespaceAware(true);
+      Document originalDoc = null;
       Document doc = null;
-
+      
       DocumentBuilder db = dbf.newDocumentBuilder();
-      doc = db.parse(url.openStream());
+      originalDoc = db.parse(url.openStream());
+      
+      // Strip any extra XML, such as Atom feed data
+      NodeList projects = originalDoc.getElementsByTagNameNS(DOAP_NS, "Project");
+      doc = db.newDocument();
+      Node root = doc.createElementNS(RDF_NS, "RDF");
+      for (int i = 0; i < projects.getLength(); i = i + 1) {
+        root.appendChild(doc.importNode(projects.item(i), true));
+      }
+      doc.appendChild(root);
 
+      // perform various checks on the document
       RDFUtils.removeBNodes(doc, repo);
       RDFUtils.deDupePeople(doc, repo);
       RDFUtils.checkProjectID(doc, repo);
