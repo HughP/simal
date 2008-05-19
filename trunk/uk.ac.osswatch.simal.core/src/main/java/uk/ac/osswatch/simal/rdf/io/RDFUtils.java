@@ -27,6 +27,7 @@ import java.util.StringTokenizer;
 import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMException;
@@ -176,7 +177,8 @@ public class RDFUtils {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
-        if (!el.hasAttributeNS(RDF_NS, "about") || el.getAttributeNodeNS(RDF_NS, "about").getValue().equals("")) {
+        if (!el.hasAttributeNS(RDF_NS, "about")
+            || el.getAttributeNodeNS(RDF_NS, "about").getValue().equals("")) {
           String uri = SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI;
           Node nameNode = el.getElementsByTagNameNS(DOAP_NS, "name").item(0);
           uri = uri + nameNode.getFirstChild().getNodeValue();
@@ -281,6 +283,7 @@ public class RDFUtils {
       RDFUtils.checkPersonSHA1(doc, repo);
       RDFUtils.checkPersonNames(doc, repo);
       RDFUtils.checkResources(doc, repo);
+      RDFUtils.escapeContent(doc, repo);
 
       OutputFormat format = new OutputFormat(doc);
       format.setIndenting(false);
@@ -296,6 +299,40 @@ public class RDFUtils {
   }
 
   /**
+   * Ensures that content that may contain HTML, such as doap:description is
+   * correctly escaped.
+   * 
+   * @param doc
+   * @param repo
+   * @throws SimalRepositoryException
+   */
+  private static void escapeContent(Document doc, SimalRepository repo)
+      throws SimalRepositoryException {
+    NodeList descriptions = doc.getElementsByTagNameNS(DOAP_NS, "description");
+    Element description;
+    for (int i = 0; i < descriptions.getLength(); i = i + 1) {
+      description = (Element) descriptions.item(i);
+      NodeList nodes = description.getChildNodes();
+      for (int ni = 0; ni < nodes.getLength(); ni = ni + 1) {
+        Node node = nodes.item(ni);
+        String escapedDescription = "";
+        if (node.getNodeType() == Node.TEXT_NODE) {
+          escapedDescription = escapedDescription + node.getNodeValue();
+        } else if (node.getNodeType() == Node.ELEMENT_NODE) {
+          if (!node.hasChildNodes()) {
+            escapedDescription = escapedDescription + "<"
+                + node.getNodeName() + " />";
+          } else {
+            throw new SimalRepositoryException(
+                "Unable to handle non-empty nodes in description");
+          }
+        }
+        description.replaceChild(doc.createTextNode(escapedDescription), node);
+      }
+    }
+  }
+
+  /**
    * Check that resources are correctly defined.
    * 
    * @param doc
@@ -305,8 +342,9 @@ public class RDFUtils {
     NodeList homepages = doc.getElementsByTagNameNS(FOAF_NS, "homepage");
     Element homepage;
     for (int i = 0; i < homepages.getLength(); i = i + 1) {
-      homepage = (Element)homepages.item(i);
-      String resource = homepage.getAttributeNodeNS(RDF_NS, "resource").getValue();
+      homepage = (Element) homepages.item(i);
+      String resource = homepage.getAttributeNodeNS(RDF_NS, "resource")
+          .getValue();
       if (resource.equals("")) {
         homepage.getParentNode().removeChild(homepage);
       }
