@@ -143,7 +143,7 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
-   * Add a an RDF file from a given URL.
+   * Add an RDF DOAP file from a given URL.
    * 
    * @param url
    * @throws SimalRepositoryException
