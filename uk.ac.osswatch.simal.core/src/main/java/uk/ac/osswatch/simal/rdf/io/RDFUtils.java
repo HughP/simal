@@ -262,6 +262,7 @@ public class RDFUtils {
    * @throws URISyntaxException
    * @throws IOException
    * @throws SimalRepositoryException
+   * @refactor there is no need for the baseURI
    */
   public static File preProcess(URL url, String baseURI, SimalRepository repo)
       throws SimalRepositoryException {
@@ -272,12 +273,13 @@ public class RDFUtils {
       dbf.setNamespaceAware(true);
       Document originalDoc = null;
       Document doc = null;
-      
+
       DocumentBuilder db = dbf.newDocumentBuilder();
       originalDoc = db.parse(url.openStream());
-      
+
       // Strip any extra XML, such as Atom feed data
-      NodeList projects = originalDoc.getElementsByTagNameNS(DOAP_NS, "Project");
+      NodeList projects = originalDoc
+          .getElementsByTagNameNS(DOAP_NS, "Project");
       doc = db.newDocument();
       Node root = doc.createElementNS(RDF_NS, "RDF");
       for (int i = 0; i < projects.getLength(); i = i + 1) {
@@ -331,8 +333,8 @@ public class RDFUtils {
           escapedDescription = escapedDescription + node.getNodeValue();
         } else if (node.getNodeType() == Node.ELEMENT_NODE) {
           if (!node.hasChildNodes()) {
-            escapedDescription = escapedDescription + "<"
-                + node.getNodeName() + " />";
+            escapedDescription = escapedDescription + "<" + node.getNodeName()
+                + " />";
           } else {
             throw new SimalRepositoryException(
                 "Unable to handle non-empty nodes in description");
@@ -389,11 +391,13 @@ public class RDFUtils {
               givenname.appendChild(text);
               person.appendChild(givenname);
             }
-            String token = tokeniser.nextToken();
-            Element familyName = doc.createElementNS(FOAF_NS, "family_name");
-            Text text = doc.createTextNode(token);
-            familyName.appendChild(text);
-            person.appendChild(familyName);
+            if (tokeniser.hasMoreTokens()) {
+              String token = tokeniser.nextToken();
+              Element familyName = doc.createElementNS(FOAF_NS, "family_name");
+              Text text = doc.createTextNode(token);
+              familyName.appendChild(text);
+              person.appendChild(familyName);
+            }
           }
         }
       }
