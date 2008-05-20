@@ -20,7 +20,7 @@ package uk.ac.osswatch.simal.rdf;
  * accessed correctly.
  * 
  */
-public class SimalRepositoryException extends Exception {
+public class SimalRepositoryException extends SimalException {
   private static final long serialVersionUID = 9157131958514241674L;
 
   /**
