@@ -289,6 +289,7 @@ public class RDFUtils {
 
       // perform various checks on the document
       RDFUtils.removeBNodes(doc, repo);
+      RDFUtils.deDupeProjects(doc, repo);
       RDFUtils.deDupePeople(doc, repo);
       RDFUtils.checkProjectID(doc, repo);
       RDFUtils.checkProjectSeeAlso(doc, url, repo);
@@ -539,8 +540,10 @@ public class RDFUtils {
   }
 
   /**
-   * Look for duplicate people and replace the QName with that already present
-   * in the repository.
+   * Look for duplicate people and, where they are found,
+   * replace the QName with that already present
+   * in the repository. This has the effect of merging
+   * people records.
    * 
    * @param doc
    *          an XML document representing the RDF data
@@ -559,7 +562,7 @@ public class RDFUtils {
       IPerson person = repo.findPersonBySha1Sum(sha1sum.getFirstChild()
           .getNodeValue().trim());
       if (person != null) {
-        logger.debug("Merging duplicate person (based on email SHA1): "
+        logger.info("Merging duplicate person (based on email SHA1): "
             + person.toString());
         Element personNode = (Element) sha1sum.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getQName()
@@ -576,12 +579,45 @@ public class RDFUtils {
       IPerson person = repo.findPersonBySeeAlso(seeAlso.getAttributeNS(RDF_NS,
           "resource"));
       if (person != null) {
-        logger.debug("Merging duplicate person (based on seeAlso): "
+        logger.info("Merging duplicate person (based on seeAlso): "
             + person.toString());
         Element personNode = (Element) seeAlso.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getQName()
             .getNamespaceURI()
             + person.getQName().getLocalPart());
+      }
+    }
+  }
+
+  /**
+   * Look for duplicate projects and, where they are found,
+   * replace the QName with that already present
+   * in the repository. This has the effect of merging
+   * project records.
+   * 
+   * @param doc
+   *          an XML document representing the RDF data
+   * @param repo
+   * @return
+   * @throws SimalRepositoryException
+   * @throws DOMException
+   */
+  private static void deDupeProjects(Document doc, SimalRepository repo)
+      throws DOMException, SimalRepositoryException {
+    // handle duplicate projects identified by their rdf:seeAlso
+    NodeList seeAlsos = doc.getElementsByTagNameNS(RDFS_NS, "seeAlso");
+    Element seeAlso;
+    for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
+      seeAlso = (Element) seeAlsos.item(i);
+      IProject project = repo.findProjectBySeeAlso(seeAlso.getAttributeNS(RDF_NS,
+          "resource"));
+      if (project != null) {
+        logger.info("Merging duplicate project (based on seeAlso): "
+            + project.toString());
+        Element projectNode = (Element) seeAlso.getParentNode();
+        projectNode.setAttributeNS(RDF_NS, "about", project.getQName()
+            .getNamespaceURI()
+            + project.getQName().getLocalPart());
       }
     }
   }
