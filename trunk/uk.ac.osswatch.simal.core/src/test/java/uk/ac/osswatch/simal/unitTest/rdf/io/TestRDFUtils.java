@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -152,5 +153,23 @@ public class TestRDFUtils extends BaseRepositoryTest {
     Element projectElement = (Element)projectNL.item(0);
     NodeList projectSeeAlso = projectElement.getElementsByTagNameNS(RDFUtils.RDFS_NS, "seeAlso");
     assertTrue("No rdfs:seeAlso elements defined for the project", projectSeeAlso.getLength() > 0);
+  }
+  
+  @Test
+  public void testDeDupeProjects() throws SimalRepositoryException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
+    URL url = TestRDFUtils.class.getResource("/testData/testDuplicatesDOAP.xml");
+    RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
+    File processedFile = RDFUtils.getAnnotatedDoapFile(url); 
+    
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setNamespaceAware(true);
+
+    DocumentBuilder db = dbf.newDocumentBuilder();
+    dom = db.parse(new FileInputStream(processedFile));
+    
+    NodeList projectNL = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
+    Element project = (Element)projectNL.item(0);
+    String about = project.getAttributeNS(RDFUtils.RDF_NS, "about");
+    assertEquals("rdf:about has not been set to that of the original file", "http://simal.oss-watch.ac.uk/simalTest#", about);
   }
 }
