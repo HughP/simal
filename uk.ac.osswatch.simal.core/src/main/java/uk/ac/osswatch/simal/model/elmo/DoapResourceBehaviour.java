@@ -90,8 +90,26 @@ public class DoapResourceBehaviour extends ResourceBehavior implements IDoapReso
     return names;
   }
 
+  /**
+   * Get the short description for this Project.
+   * Since some DOAP maintainers either don't set the short description
+   * or simply make the short description the
+   * same as the name of the project this method checks for this
+   * condition and, if true, returns the first 100 chars of the
+   * description instead. 
+   */
   public String getShortDesc() {
-    return getDoapResource().getDoapShortdesc();
+    String desc = getDoapResource().getDoapShortdesc();
+    if (desc == null || desc.toLowerCase().equals(getName().toLowerCase())) {
+      desc = getDescription();
+      if (desc == null) {
+        desc = "[No Description Available]";
+      }
+      if (desc.length() > 100) {
+        desc = desc.substring(0, 99) + "...";
+      }
+    }
+    return desc;
   }
 
   public void setShortDesc(String shortDesc) {
