@@ -307,7 +307,7 @@ public class RDFUtils {
       serializer.serialize(doc);
     } catch (Exception e) {
       throw new SimalRepositoryException(
-          "Unable to prepare data for adding to the repository", e);
+          "Unable to prepare data from " + url.toExternalForm() + " for adding to the repository", e);
     }
     return annotatedFile;
   }
