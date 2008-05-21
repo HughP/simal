@@ -64,6 +64,7 @@ public class BasePage extends WebPage {
     add(new BookmarkablePageLink("exhibitBrowserLink",
         ExhibitProjectBrowserPage.class));
     add(new BookmarkablePageLink("addDOAPLink", DoapFormPage.class));
+    add(new BookmarkablePageLink("toolsLink", ToolsPage.class));
     add(new Label("footer", "This is in the footer"));
   }
 
