@@ -98,6 +98,7 @@ public class TestRepository extends BaseRepositoryTest {
     while (itrProjects.hasNext()) {
       project = itrProjects.next();
       assertNotNull(project.getName());
+      logger.debug("Got project: " + project.getName());
     }
     logger.debug("Finished testGetAllProjects()");
   }
@@ -164,6 +165,14 @@ public class TestRepository extends BaseRepositoryTest {
     logger.debug("Finished testFindProjectByID()");
   }
 
+  @Test
+  public void testFindProjectBySeeAlso() throws SimalRepositoryException {
+    logger.debug("Starting testFindProjectBySeeAlso()");
+    IProject project = repository.findProjectBySeeAlso(project1SeeAlso);
+    assertNotNull(project);
+    logger.debug("Finished testFindProjectBySeeAlso()");
+  }
+  
   @Test
   public void testRemove() throws SimalRepositoryException, TransactionException, DuplicateQNameException {
     logger.debug("Starting testRemove()");
