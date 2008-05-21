@@ -16,7 +16,10 @@
 package uk.ac.osswatch.simal;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
@@ -33,9 +36,15 @@ import org.apache.commons.cli.PosixParser;
 import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
 
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
+
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.tools.PTSWImport;
 
 /**
  * The Command Line Interface for a Simal repository.
@@ -130,10 +139,55 @@ public class Simal {
         } else if (cmd.equals("writexml")) {
           writeXML(new QName((String) cmds[i + 1]));
           i++;
+        } else if (cmd.equals("importPTSW")) {
+          try {
+            importPTSW();
+          } catch (SimalException e) {
+            logger.error("Unable to Import from PTSW: " + e.getMessage() + "\n", e);
+            System.exit(1);
+          }
+          i++;
         } else {
           logger.info("Ignoring unrecognised command: " + cmd);
         }
       }
+    }
+  }
+
+  /**
+   * Import all the documents updated since the last time 
+   * we updated from PTSW.
+   * @throws SimalException 
+   */
+  private static void importPTSW() throws SimalException {
+    PTSWImport importer = new PTSWImport();
+    Document pings = importer.getLatestPingsAsRDF();
+    OutputFormat format = new OutputFormat (pings); 
+    StringWriter writer = new StringWriter();
+    XMLSerializer serial   = new XMLSerializer (writer, 
+        format);
+    try {
+      serial.serialize(pings);
+    } catch (IOException e) {
+      throw new SimalException("Unable to serialize PTSW response");
+    }
+    logger.info("Updated DOAP documents:\n");
+    logger.info(writer.toString());
+    
+    File tmpFile = new File(System.getProperty("java.io.tmpdir") + File.separator + "PTSWExport.xml");
+    FileWriter fw;
+    try {
+     fw = new FileWriter(tmpFile);
+     fw.write(writer.toString());
+     fw.close();
+    } catch (IOException e) {
+     throw new SimalException("Unable to write PTSW export file to temporary space");
+    }
+    
+    try {
+      repository.addProject(tmpFile.toURL(), tmpFile.toURL().toExternalForm());
+    } catch (MalformedURLException e) {
+      throw new SimalException("Unable to add projects from PTSW Export", e);
     }
   }
 
@@ -206,11 +260,12 @@ public class Simal {
     String header = "Options";
 
     StringBuffer footer = new StringBuffer("\n");
-    footer.append("Command   Argument(s)   Description\n\n");
-    footer.append("=======   ===========   ===========\n\n");
+    footer.append("Command      Argument(s)   Description\n\n");
+    footer.append("=======      ===========   ===========\n\n");
     footer
-        .append("addxml    FILE_OR_URL   add an RDF/XML file to the repository\n");
-    footer.append("writexml  QNAME         write RDF/XML to standard out");
+        .append("addxml       FILE_OR_URL   add an RDF/XML file to the repository\n");
+    footer.append("writexml     QNAME       retrive the RDF/XML with the supplied QName and write it to standard out");
+    footer.append("importPTSW               get the list of recently updated DOAp files from Ping The Semantic Web and import them into the repository. Note, this requires and account on Ping The Semantic Web.");
 
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
         header, opts, footer.toString(), false);
