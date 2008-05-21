@@ -97,6 +97,7 @@ public abstract class BaseRepositoryTest {
 
   protected static IProject project1;
   protected static String project1ID = "200";
+  protected static String project1SeeAlso = "http://foo.org/seeAlso";
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {

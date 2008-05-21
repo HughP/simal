@@ -343,16 +343,45 @@ public class SimalRepository extends SimalProperties {
     String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
         + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?person WHERE { " + "?person rdfs:seeAlso <"
+        + "SELECT DISTINCT ?person WHERE { "
+        + "?person rdf:type foaf:Person . "
+        + "?person rdfs:seeAlso <"
         + seeAlso + ">}";
     ElmoManager elmoManager = getManager();
     ElmoQuery query = elmoManager.createQuery(queryStr);
-    // query.setParameter("seeAlso", seeAlso);
 
     try {
       Object result = query.getSingleResult();
       IPerson person = elmoManager.designateEntity(IPerson.class, result);
       return person;
+    } catch (NoResultException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Get a project with a given rdf:seeAlso attribute.
+   * 
+   * @param seeAlso
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public IProject findProjectBySeeAlso(String seeAlso)
+      throws SimalRepositoryException {
+    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?project WHERE { "
+        + "?project a doap:Project . "
+        + "?project rdfs:seeAlso <"
+        + seeAlso + ">}";
+    ElmoManager elmoManager = getManager();
+    ElmoQuery query = elmoManager.createQuery(queryStr);
+
+    try {
+      Object result = query.getSingleResult();
+      IProject project = elmoManager.designateEntity(IProject.class, result);
+      return project;
     } catch (NoResultException e) {
       return null;
     }
