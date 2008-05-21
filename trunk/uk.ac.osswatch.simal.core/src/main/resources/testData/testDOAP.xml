@@ -179,4 +179,6 @@
         rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
     </foaf:Person>
   </developer>
+  
+  <rdfs:seeAlso rdf:resource="http://foo.org/seeAlso"/>
 </Project>
