@@ -20,7 +20,6 @@ package uk.ac.osswatch.simal.wicket.doap;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -37,7 +36,6 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
@@ -176,12 +174,19 @@ public class TestDoapFormPage extends TestBase {
   
   @Test
   public void testUploadedFile() throws SimalRepositoryException, URISyntaxException {
-    File file = new File(RDFUtils.getAnnotatedDoapFile(DOAP_FORM_FILE));
-    file.delete();
+    uploadFile(); // we need to run this first just in case this is the first test run and the repo is not initialised
+    initTester(); // and come back to the init state again
+    
+    File fileStoreDir = new File(SimalRepository
+        .getProperty(SimalRepository.PROPERTY_SIMAL_DOAP_FILE_STORE)
+        + File.separator + "simal-uploads");
+    int preCount = fileStoreDir.list().length;
     
     uploadFile();
-    file = new File(RDFUtils.getAnnotatedDoapFile(DOAP_FORM_FILE));
-    assertTrue("Local copy of DOAP file does not exist, expected " + file.getAbsolutePath(), file.exists());}
+    
+    int postCount = fileStoreDir.list().length;
+    assertEquals("No local copy of the uploaded file", preCount + 1, postCount);
+  }
 }
 
 
