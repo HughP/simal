@@ -604,6 +604,23 @@ public class RDFUtils {
    */
   private static void deDupeProjects(Document doc, SimalRepository repo)
       throws DOMException, SimalRepositoryException {
+    // handle duplicate projects identified by their homepage
+    NodeList homepages = doc.getElementsByTagNameNS(DOAP_NS, "homepage");
+    Element homepage;
+    for (int i = 0; i < homepages.getLength(); i = i + 1) {
+      homepage = (Element) homepages.item(i);
+      IProject project = repo.findProjectByHomepage(homepage.getAttributeNS(RDF_NS,
+          "resource"));
+      if (project != null) {
+        logger.info("Merging duplicate project (based on homepage): "
+            + project.toString());
+        Element projectNode = (Element) homepage.getParentNode();
+        projectNode.setAttributeNS(RDF_NS, "about", project.getQName()
+            .getNamespaceURI()
+            + project.getQName().getLocalPart());
+      }
+    }
+
     // handle duplicate projects identified by their rdf:seeAlso
     NodeList seeAlsos = doc.getElementsByTagNameNS(RDFS_NS, "seeAlso");
     Element seeAlso;

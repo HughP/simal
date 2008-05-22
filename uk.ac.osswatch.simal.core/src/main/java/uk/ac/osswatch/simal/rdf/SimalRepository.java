@@ -360,7 +360,7 @@ public class SimalRepository extends SimalProperties {
   }
 
   /**
-   * Get a project with a given rdf:seeAlso attribute.
+   * Get a project with a given rdf:seeAlso value.
    * 
    * @param seeAlso
    * @return
@@ -375,6 +375,34 @@ public class SimalRepository extends SimalProperties {
         + "?project a doap:Project . "
         + "?project rdfs:seeAlso <"
         + seeAlso + ">}";
+    ElmoManager elmoManager = getManager();
+    ElmoQuery query = elmoManager.createQuery(queryStr);
+
+    try {
+      Object result = query.getSingleResult();
+      IProject project = elmoManager.designateEntity(IProject.class, result);
+      return project;
+    } catch (NoResultException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Get a project with a given homepage.
+   * 
+   * @param homepage
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public IProject findProjectByHomepage(String homepage)
+      throws SimalRepositoryException {
+    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?project WHERE { "
+        + "?project a doap:Project . "
+        + "?project doap:homepage <"
+        + homepage + ">}";
     ElmoManager elmoManager = getManager();
     ElmoQuery query = elmoManager.createQuery(queryStr);
 
