@@ -67,7 +67,7 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_MAILING_LIST_TWO = "Mailing List 2";
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_HOMEPAGES = 2;
-  public static final String TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE = "http://simal.oss-watch.ac.uk";
+  public static final String TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE = "http://doapTest.oss-watch.ac.uk";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO = "http://code.google.com/p/simal";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE = "Project Home Page";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_NAME_TWO = "Developer Home Page";

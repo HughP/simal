@@ -23,7 +23,7 @@
 		A simple DOAP file used during automated testing.
 	</shortdesc>
 	<name>Simal (No rdf:about) DOAP Test</name>
-	<homepage rdf:resource="http://simal.oss-watch.ac.uk" />
+	<homepage rdf:resource="http://blankDoapTest.oss-watch.ac.uk" />
 
 	<mailing-list rdf:resource="http://foo.org/mailingList1"
 		dc:title="Mailing List 1" />

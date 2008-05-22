@@ -44,11 +44,7 @@ not add any new Projects or People.
   </description>
 
   <homepage rdfs:label="Project Home Page"
-    rdf:resource="http://simal.oss-watch.ac.uk" />
-  <homepage rdfs:label="Developer Home Page"
-    rdf:resource="http://code.google.com/p/simal" />
-  <old-homepage rdfs:label="Original home page at OSS Watch"
-    rdf:resource="http://www.oss-watch.ac.uk/simal" />
+    rdf:resource="http://duplicateDoapTest.oss-watch.ac.uk" />
 
   <mailing-list rdf:resource="http://foo.org/mailingList1"
     rdfs:label="Mailing List 1"

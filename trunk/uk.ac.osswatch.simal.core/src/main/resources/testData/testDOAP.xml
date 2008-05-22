@@ -36,7 +36,7 @@
   </description>
 
   <homepage rdfs:label="Project Home Page"
-    rdf:resource="http://simal.oss-watch.ac.uk" />
+    rdf:resource="http://doapTest.oss-watch.ac.uk" />
   <homepage rdfs:label="Developer Home Page"
     rdf:resource="http://code.google.com/p/simal" />
   <old-homepage rdfs:label="Original home page at OSS Watch"
