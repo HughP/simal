@@ -154,12 +154,14 @@ public class SimalRepository extends SimalProperties {
 
     verifyInitialised();
 
-    File annotatedFile = null;
+    Iterator<File> annotatedFiles = null;
     try {
       logger.info("Preprocessing file");
-      annotatedFile = RDFUtils.preProcess(url, baseURI, this);
+      annotatedFiles = RDFUtils.preProcess(url, baseURI, this).iterator();
       logger.info("Adding processed RDF/XML");
-      addRDFXML(annotatedFile.toURL(), baseURI);
+      while (annotatedFiles.hasNext()) {
+        addRDFXML(annotatedFiles.next().toURL(), baseURI);
+      }
     } catch (IOException e) {
       throw new SimalRepositoryException(
           "Unable to write the annotated RDF/XML file: " + e.getMessage(), e);

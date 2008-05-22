@@ -25,6 +25,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -171,5 +172,12 @@ public class TestRDFUtils extends BaseRepositoryTest {
     Element project = (Element)projectNL.item(0);
     String about = project.getAttributeNS(RDFUtils.RDF_NS, "about");
     assertEquals("rdf:about has not been set to that of the original file", "http://simal.oss-watch.ac.uk/simalTest#", about);
+  }
+  
+  @Test
+  public void testAddMultipleProjectsInASingleFile() throws SimalRepositoryException {
+    URL url = TestRDFUtils.class.getResource("/testData/testMultipleProjects.xml");
+    Set<File> files = RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
+    assertEquals("Incorrect number of proejct files created", 3, files.size());
   }
 }

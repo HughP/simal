@@ -22,6 +22,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.StringTokenizer;
 
 import javax.xml.namespace.QName;
@@ -253,6 +255,10 @@ public class RDFUtils {
 
   /**
    * Prepare the file at the supplied URL for addition to the Simal repository.
+   * Each individual doap:Project element found within the file is separated
+   * out. Each file is then processed to do useful things like remove blank
+   * nodes, merge duplicates, filtering content etc. The result is a set of
+   * files ready for importation into a Simal Repository.
    * 
    * @param url
    * @param baseURI
@@ -264,11 +270,10 @@ public class RDFUtils {
    * @throws SimalRepositoryException
    * @refactor there is no need for the baseURI
    */
-  public static File preProcess(URL url, String baseURI, SimalRepository repo)
-      throws SimalRepositoryException {
-    File annotatedFile = null;
+  public static Set<File> preProcess(URL url, String baseURI,
+      SimalRepository repo) throws SimalRepositoryException {
+    Set<File> annotatedFiles = new HashSet<File>();
     try {
-      annotatedFile = RDFUtils.getAnnotatedDoapFile(url);
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
       dbf.setNamespaceAware(true);
       Document originalDoc = null;
@@ -280,36 +285,41 @@ public class RDFUtils {
       // Strip any extra XML, such as Atom feed data
       NodeList projects = originalDoc
           .getElementsByTagNameNS(DOAP_NS, "Project");
-      doc = db.newDocument();
-      Node root = doc.createElementNS(RDF_NS, "RDF");
       for (int i = 0; i < projects.getLength(); i = i + 1) {
-        root.appendChild(doc.importNode(projects.item(i), true));
+        doc = db.newDocument();
+        Node root = doc.createElementNS(RDF_NS, "RDF");
+        Node project = projects.item(i);
+        root.appendChild(doc.importNode(project, true));
+        doc.appendChild(root);
+
+        // perform various checks on the document
+        RDFUtils.removeBNodes(doc, repo);
+        RDFUtils.deDupeProjects(doc, repo);
+        RDFUtils.deDupePeople(doc, repo);
+        RDFUtils.checkProjectID(doc, repo);
+        RDFUtils.checkProjectSeeAlso(doc, url, repo);
+        RDFUtils.checkPersonIDs(doc, repo);
+        RDFUtils.checkPersonSHA1(doc, repo);
+        RDFUtils.checkPersonNames(doc, repo);
+        RDFUtils.checkResources(doc, repo);
+        RDFUtils.escapeContent(doc, repo);
+
+        File annotatedFile = RDFUtils.getAnnotatedDoapFile(url);
+
+        OutputFormat format = new OutputFormat(doc);
+        format.setIndenting(false);
+        XMLSerializer serializer = new XMLSerializer(new FileOutputStream(
+            annotatedFile), format);
+        serializer.setNamespaces(true);
+        serializer.serialize(doc);
+
+        annotatedFiles.add(annotatedFile);
       }
-      doc.appendChild(root);
-
-      // perform various checks on the document
-      RDFUtils.removeBNodes(doc, repo);
-      RDFUtils.deDupeProjects(doc, repo);
-      RDFUtils.deDupePeople(doc, repo);
-      RDFUtils.checkProjectID(doc, repo);
-      RDFUtils.checkProjectSeeAlso(doc, url, repo);
-      RDFUtils.checkPersonIDs(doc, repo);
-      RDFUtils.checkPersonSHA1(doc, repo);
-      RDFUtils.checkPersonNames(doc, repo);
-      RDFUtils.checkResources(doc, repo);
-      RDFUtils.escapeContent(doc, repo);
-
-      OutputFormat format = new OutputFormat(doc);
-      format.setIndenting(false);
-      XMLSerializer serializer = new XMLSerializer(new FileOutputStream(
-          annotatedFile), format);
-      serializer.setNamespaces(true);
-      serializer.serialize(doc);
     } catch (Exception e) {
-      throw new SimalRepositoryException(
-          "Unable to prepare data from " + url.toExternalForm() + " for adding to the repository", e);
+      throw new SimalRepositoryException("Unable to prepare data from "
+          + url.toExternalForm() + " for adding to the repository", e);
     }
-    return annotatedFile;
+    return annotatedFiles;
   }
 
   /**
@@ -540,9 +550,8 @@ public class RDFUtils {
   }
 
   /**
-   * Look for duplicate people and, where they are found,
-   * replace the QName with that already present
-   * in the repository. This has the effect of merging
+   * Look for duplicate people and, where they are found, replace the QName with
+   * that already present in the repository. This has the effect of merging
    * people records.
    * 
    * @param doc
@@ -590,9 +599,8 @@ public class RDFUtils {
   }
 
   /**
-   * Look for duplicate projects and, where they are found,
-   * replace the QName with that already present
-   * in the repository. This has the effect of merging
+   * Look for duplicate projects and, where they are found, replace the QName
+   * with that already present in the repository. This has the effect of merging
    * project records.
    * 
    * @param doc
@@ -609,8 +617,8 @@ public class RDFUtils {
     Element homepage;
     for (int i = 0; i < homepages.getLength(); i = i + 1) {
       homepage = (Element) homepages.item(i);
-      IProject project = repo.findProjectByHomepage(homepage.getAttributeNS(RDF_NS,
-          "resource"));
+      IProject project = repo.findProjectByHomepage(homepage.getAttributeNS(
+          RDF_NS, "resource"));
       if (project != null) {
         logger.info("Merging duplicate project (based on homepage): "
             + project.toString());
@@ -626,8 +634,8 @@ public class RDFUtils {
     Element seeAlso;
     for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
       seeAlso = (Element) seeAlsos.item(i);
-      IProject project = repo.findProjectBySeeAlso(seeAlso.getAttributeNS(RDF_NS,
-          "resource"));
+      IProject project = repo.findProjectBySeeAlso(seeAlso.getAttributeNS(
+          RDF_NS, "resource"));
       if (project != null) {
         logger.info("Merging duplicate project (based on seeAlso): "
             + project.toString());
@@ -651,7 +659,10 @@ public class RDFUtils {
         + File.separator + "simal-uploads");
     fileStoreDir.mkdirs();
     String path = fileStoreDir.getAbsolutePath();
-    File file = new File(path + File.separator + filename);
+    if (!(filename.endsWith(".rdf") || filename.endsWith(".xml"))) {
+      filename = filename + ".rdf";
+    }
+    File file = new File(path + File.separator + System.currentTimeMillis() + "_" + filename);
     return file;
   }
 
