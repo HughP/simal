@@ -62,6 +62,7 @@ public class RDFUtils {
   public static final String RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   public static final String RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
   public static final String SIMAL_NS = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
+  private static File lastFile;
 
   /**
    * Load the RDF from a file and add rdf:about to all blank nodes. The
@@ -314,6 +315,7 @@ public class RDFUtils {
         serializer.serialize(doc);
 
         annotatedFiles.add(annotatedFile);
+        lastFile = annotatedFile;
       }
     } catch (Exception e) {
       throw new SimalRepositoryException("Unable to prepare data from "
@@ -682,5 +684,19 @@ public class RDFUtils {
       filename = path;
     }
     return getAnnotatedDoapFile(filename);
+  }
+
+  /**
+   * Get the File that contains the most recently processed data.
+   * Note that this is primarily to allow testing, it cannot be
+   * relied upon in product because when a source file has
+   * multiple projects within it that file will be split into
+   * multiple local files. Thus this method will only return 
+   * the File for the last Project in the original source file.
+   * 
+   * @return
+   */
+  public static File getLastProcessedFile() {
+    return lastFile;
   }
 }
