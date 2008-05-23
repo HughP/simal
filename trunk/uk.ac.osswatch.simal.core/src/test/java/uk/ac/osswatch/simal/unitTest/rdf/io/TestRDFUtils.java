@@ -55,7 +55,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   public static void beforeClass() throws URISyntaxException, IOException, SimalRepositoryException, ParserConfigurationException, SAXException {
     URL url = TestRDFUtils.class.getResource("/testData/testNoRDFAboutDOAP.xml");
     RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
-    File processedFile = RDFUtils.getAnnotatedDoapFile(url); 
+    File processedFile = RDFUtils.getLastProcessedFile(); 
     
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
@@ -160,7 +160,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   public void testDeDupeProjects() throws SimalRepositoryException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
     URL url = TestRDFUtils.class.getResource("/testData/testDuplicatesDOAP.xml");
     RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
-    File processedFile = RDFUtils.getAnnotatedDoapFile(url); 
+    File processedFile = RDFUtils.getLastProcessedFile(); 
     
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
