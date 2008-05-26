@@ -17,97 +17,40 @@
 <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
 <document> 
   <header> 
-    <title>Simal - A Project Support Framework</title> 
+    <title>Simal - A Project Registry Framework</title> 
   </header> 
   <body> 
   
-    <p>Simal is an open source tool for building project registries. 
-     Simal uses the Description of a Project (DOAP) schema to collect, store and present 
-     data about projects. Simal is available under the Apache software License V2.</p>
-      
-    <warning>Simal is very young at this time, it works, but is far from feature
-    rich. As such, we welcome input into the requirements and design of the 
-    initial system.</warning>
-      
-    <ul>
-      <li><a href="quickstart.html">Quick Start</a> - for the impatient who want to go straight to the code</li>
-    
-      <li><a href="http://data.oss-watch.ac.uk:8080/">Demo server</a> for those who want to take a look</li>
-    </ul>
-    
     <section>
       <title>Introduction</title>
-      
-      <p>Simal is an open source framework for building systems for use by those
-    who need to inform a community about the activities of multiple projects
-    that may be hosted in multiple locations. Each project maintains an entry 
-    within the Simal project catalogue by means of an RDF/XML file. This entry 
-    contains a description of what the project is doing, team members, community 
-    structure, deliverables, etc. Simal uses this file to gather a range of 
-    information about the projects and presents it in various forms to suit 
-    a variety of uses, such as a web site, or PDF document.</p>
-      
-      <p>Simal also provides a web application for the creation and management
-      of catalogues built using this system. This application allows users to
-      identity projects of interest to their community and generate customised 
-      catalogues for their own use, within their own projects website.</p>
-            
-      <p>The generated catalogues present a useful community 
-      development and support tool. They enable users to 
-      quickly and easily track activity in multiple related projects from 
-      a single location. Thus a project's outputs are visible beyond its
-      immediate community. By exposing relevant outputs to a wider community
-      we hope to increase the level of interaction between related projects.</p>
-      
-      <p>The project is very young at this time. As
-      such, we welcome input into the requirements and design of the
-      initial prototype system.</p>
-  </section>
-    
+	    <p>Simal is an open source tool for building project registries. 
+	     Simal uses the Description of a Project (DOAP) schema to collect, store and present 
+	     data about projects. Simal is available under the Apache software License V2.</p>
+	      
+	    <p id="missionStatement">The mission of the Simal project is to create 
+	    a software framework for the collection and management of essential details
+	    about open development projects. Using this data it will be possible
+	    to create a picture of development projects and communities, that allows
+	    for all increased awareness of existing projects and experts to be found 
+	    within.</p>
+	    
+	    <warning>Simal is very young at this time, it works, but is far from feature
+	    rich. As such, we welcome input into the requirements and design of the 
+	    initial system.</warning>
+	</section>
+
+	
     <section>
-      <title>Overview</title>
-      
-      <section>
-        <title>Project Catalogue</title>
-        <p>The project catalogue is built by importing Description of a Project (DOAP)
-          files from projects. Once made available to the system these DOAP files
-          are aggregated and presented in various ways that allow a catalogue of
-          projects to be presented and manipulated. This catalogue can be used to
-          find relationships (either existing or potential) between projects.</p>
-        
-        <section>
-          <title>Status</title>
-          <p>The catalogue is currently in an early prototype stage. To view the
-            current catalogue functionality follow the links in the catalogue menu
-            on the left. For more information about the current status and recent
-            changes in the catalogue code see the <a href="/changes.html">recent changes</a>
-            document (you can subscribe to a <a href="changes.rss">changes RSS feed</a> if you prefer).</p>
-          
-          <p>In order to move forward with the development of the catalogue we
-            need to increase the number of projects represented with DOAP files, and
-            we need to extend the information stored in current projects' files.</p>
-        </section>
-      </section>
-      
-      <section>
-        <title>Community Support</title>
-        <p>The community support systems allow individuals or groups to manage
-          public and private information concerning the communties that develop around
-          open source projects. The application allows project managers and developers
-          to effortlessly inform their communities about changes in the project
-          make-up and community tools. There is also a set of tools for identifying
-          potential collaboration points between communities.</p>
-        
-        <section>
-          <title>Status</title>
-          
-          <p>The community support features are still in an early stage of
-            planning. We welcome contributions to the initial requirements 
-            gathering processes.</p>
-        </section>
-      </section>
-    </section>
-    
+      <title>Quick Links</title>
+	    <ul>
+	      <li><a href="quickstart.html">Quick Start</a> - for the impatient who want to go straight to the code</li>
+	      
+	      <li><a href="overview.html">Overview</a> - for those who want the 20,000 foot view</li>
+	    
+	      <li><a href="http://data.oss-watch.ac.uk:8080/">Demo server</a> - for those who want to take a look</li>
+	    </ul>
+	</section>
+	
     <section>
       <title>Contributing</title>
       
@@ -127,11 +70,6 @@
       <p>Use the Contributor tab above to be taken to the <a href="contributor/index.html">contributor
         section</a> where you will find more information on how to help Simal
         improve.</p>
-    </section>
-    
-    <section>
-      <title>Why Simal?</title>
-      <p>What does the name <a href="whySimal.html">Simal</a> mean?</p>
     </section>
   </body>
 </document>
