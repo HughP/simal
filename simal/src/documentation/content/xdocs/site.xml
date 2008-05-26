@@ -37,11 +37,12 @@ See http://forrest.apache.org/docs/linking.html for more info
   See FAQ: "How can I use a start-up-page other than index.html?"
 -->
 
-<site label="MyProj" href=""  tab=""
+<site label="Simal" href=""  tab=""
   xmlns="http://apache.org/forrest/linkmap/1.0"
   xmlns:xi="http://www.w3.org/2001/XInclude">
   <about label="About" tab="home">
-    <index label="Index" href="index.html" description="Welcome to MyProj"/>
+    <index label="Home" href="index.html" description="Welcome to Simal"/>
+    <overview label="Overview" href="overview.html" description="Overview of the Simal project"/>
     <quickstart label="Quick Start" href="quickstart.html" description="The minimum you need to get started"/>
     <changes label="Changes" href="changes.html" description="Recent changes"/>
     <governance label="Governance" href="governance.html" description="How the project is run"/>
@@ -50,20 +51,6 @@ See http://forrest.apache.org/docs/linking.html for more info
     <whySimal label="Why Simal?" href="whySimal.html" description="What does the name Simal mean?"/>
     <credits label="Credits" href="credits.html" description="Simal would not exist without these people..."/>
   </about>
-  
-  <projects label="Demo Project Catalogue" href="projectDetails/" tab="catalogue">    
-      <exhibit label="Browser" href="../catalogueBrowser.html"
-        description="Browse all projects"/>
-      <languages label="Index by Language" href="index/byLang.html"
-        description="A list of all projects, indexed by language"/>
-      <languages label="Java Index" href="index/byLang/Java.html"
-        description="A list of Jave projects"/>
-      <languages label="Index by Category" href="index/byCategory.html"
-        description="A list of all projects, indexed by language"/>
-      <JSON label="JSON" href="allProjects.json"
-      description="All projects as a JSON file"/>
-       
-  </projects>
   
   <tagFeeds label="Tagged Info" tab="catalogue">    
     <taggedBookmarks label="JISCCommunityDevelopment bookmarks" href="JISCCommunityDevelopment.tagFeed.rss.html"/>
