@@ -62,6 +62,8 @@ See http://forrest.apache.org/docs/linking.html for more info
   <contributors label="Contributors" href="contributor/" tab="contributor">
     <index label="Index" href="index.html"/>
     
+    <documentationStructure label="Documentation Structure" href="documentationStructure.html"/>
+    
     <governance label="Governance" href="governance/index.html"/>
     
     <developSimal label="Development Environment" href="developSimal.html" description="How to get started on developing Simal"/>
@@ -89,6 +91,8 @@ See http://forrest.apache.org/docs/linking.html for more info
       <linking href="docs/linking.html"/>
     </forrest>
     <simal href="http://simal.oss-watch.ac.uk">
+      <projectSite href="http://simal.oss-watch.ac.uk"/>
+      <demoSite href="http://data.oss-watch.ac.uk:8080/"/>
       <devSite href="http://code.google.com/p/simal"/>
       <devList href="http://groups.google.com/group/simal-contributors"/>
       <userList href="http://groups.google.com/group/simal-contributors"/>
