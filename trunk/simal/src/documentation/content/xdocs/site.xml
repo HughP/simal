@@ -45,6 +45,8 @@ See http://forrest.apache.org/docs/linking.html for more info
     <overview label="Overview" href="overview.html" description="Overview of the Simal project"/>
     <quickstart label="Quick Start" href="quickstart.html" description="The minimum you need to get started"/>
     <changes label="Changes" href="changes.html" description="Recent changes"/>
+    <changes-rss href="/changes.rss"/>
+    <!--<simalCommunity label="Community" href="developingCommunity.html" description="How is the Simal community structured?"/>-->
     <whySimal label="Why Simal?" href="whySimal.html" description="What does the name Simal mean?"/>
     <credits label="Credits" href="credits.html" description="Simal would not exist without these people..."/>
   </about>
@@ -55,9 +57,6 @@ See http://forrest.apache.org/docs/linking.html for more info
   
   <users label="Using Simal" href="user/" tab="user">
     <index label="About" href="index.html"/>
-    <quickstart label="Quick Start" href="/quickstart.html" description="The minimum you need to get started"/>
-    <createCatalogue label="Create A Catalogue" href="createCatalogue.html"/>
-    <restAPI label="REST API" href="restAPI.html"/>
   </users>
     
   <useCases label="Use Cases" href="docs/" tab="user">
@@ -66,19 +65,10 @@ See http://forrest.apache.org/docs/linking.html for more info
   
   <contributors label="Contributors" href="contributor/" tab="contributor">
     <index label="Index" href="index.html"/>
+    
+    <governance label="Governance" href="governance/index.html"/>
+    
     <developSimal label="Development Environment" href="developSimal.html" description="How to get started on developing Simal"/>
-    
-    <community label="Community" tab="contributor">
-      <developing label="Developing Community" href="developingCommunity.html"/>
-    </community>
-    
-    <changes label="Changes" href="/changes.html"/>
-    <changes-rss href="/changes.rss"/>
-    
-    <governance label="Governance" href="governance/" tab="contributor">
-      <index label="Index" href="index.html"/>
-    </governance>
-    
   </contributors>
   
   <userResources label="Users" tab="home">  
