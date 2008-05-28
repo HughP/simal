@@ -81,34 +81,17 @@ See http://forrest.apache.org/docs/linking.html for more info
     
   </contributors>
   
-  <registryContributors label="Registry Application" href="contributor/registryApp/" tab="registryAppContributor">
-    <index label="Index" href="index.html"/>
-    <quickstart label="Quick Start" href="quickstart.html" description="The minimum you need to get started"/>
-  </registryContributors>
+  <userResources label="Users" tab="home">  
+    <userDocs label="User Docs" href="user/index.html"/>
+  </userResources> 
   
-  <managementAppContributors label="Management Application" href="contributor/managementApp/" tab="managementAppContributor">
-    <index label="Index" href="index.html"/>
-        
-    <howto label="How To" href="how-to/">
-      <index label="Overview" href="index.html"/>
-      <addMenuItem label="Add menu item" href="addMenuItem.html" description="How to add a menu item to the GUI"/>
-      <addField label="Add Field to Object" href="addFieldToObject.html" description="Add a field to an existing object and provide a means to edit it."/>
-      <addDataObject label="Add New Data Object" href="addNewDataObject.html" description="Add a new data object and provide a means to edit it."/>
-    </howto>
-    
-    <implementation label="Developer Notes" href="implementationNotes/">
-      <index label="Overview" description="What are Implmentation Notes" href="index.html"/>
-      <editorForms label="Editor Forms" href="editorForms.html" description="How are data editor forms created and managed?"/>
-    </implementation>
-  </managementAppContributors>
-  
-  <externalResources label="Developer Resources" tab="home">    
-    <devDocs label="Developer Docs" href="contributor/index.html"/>
-    <devSite label="Developer Site" href="ext:simal/devSite"/>
+  <contributorResources label="Contributors" tab="home">    
+    <devDocs label="Contributor Docs" href="contributor/index.html"/>
+    <devSite label="Contributor Site" href="ext:simal/devSite"/>
     <mailingList label="Mailing List" href="ext:simal/devList"/>
     <issueTracker label="Issue Tracker" href="ext:simal/issueTracker"/>
     <svn label="SVN" href="ext:simal/svn"/>
-  </externalResources>
+  </contributorResources>
     
   <useCases label="Use Cases" href="docs/" tab="contributor">
     <doapUser label="DOAP Management" href="developer/useCases/doapManagement.html"/>
