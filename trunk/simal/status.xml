@@ -68,8 +68,17 @@
         </section>
       </notes>
 
+      <action context="admin" dev="GM" type="update" importance="medium">
+ 		Created 
+ 		<link href="http://www.16degrees.com.au/hudson/">continuous integration server</link>.
+      </action>
+      
+      <action context="design" dev="RDG" type="update" importance="medium">
+ 		Complete migration of all features to an RDF repository.
+      </action>
+
       <action context="design" dev="RDG" type="add" importance="medium">
-            Deprecated 0.1 Forrest based prototype in favour of an RDF/XMl
+            Deprecated 0.1 Forrest based prototype in favour of an RDF/XML
             based solution. See <link href="http://groups.google.com/group/simal-contributors/browse_thread/thread/524e7fa478dc4aaf/8eb2b1af39eac273">Vote thread</link>. 
       </action>
 
