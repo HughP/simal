@@ -69,12 +69,13 @@ See http://forrest.apache.org/docs/linking.html for more info
   
   <userResources label="Users" tab="home">  
     <userDocs label="User Docs" href="user/index.html"/>
+    <userMailingList label="Mailing List" href="ext:simal/userList"/>
   </userResources> 
   
   <contributorResources label="Contributors" tab="home">    
     <devDocs label="Contributor Docs" href="contributor/index.html"/>
     <devSite label="Contributor Site" href="ext:simal/devSite"/>
-    <mailingList label="Mailing List" href="ext:simal/devList"/>
+    <devMailingList label="Mailing List" href="ext:simal/devList"/>
     <issueTracker label="Issue Tracker" href="ext:simal/issueTracker"/>
     <svn label="SVN" href="ext:simal/svn"/>
   </contributorResources>
