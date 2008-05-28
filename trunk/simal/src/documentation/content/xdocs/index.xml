@@ -47,7 +47,7 @@
 	      
 	      <li><a href="overview.html">Overview</a> - for those who want the 20,000 foot view</li>
 	    
-	      <li><a href="http://data.oss-watch.ac.uk:8080/">Demo server</a> - for those who want to take a look</li>
+	      <li><a href="ext:simal/demoSite">Demo server</a> - for those who want to take a look</li>
 	    </ul>
 	</section>
 	

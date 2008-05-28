@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document> 
+  <header> 
+    <title>Documentation Structure</title>
+  </header>
+  <body>
+    <p>There are three sites in the Simal project:</p>
+    
+    <ul>
+      <li><a href="ext:simal/projectSite">Project site</a> - jumping off point for everyone</li>
+      <li><a href="ext:simal/devSite">Contributor site - all the project management and development tools</a></li>
+      <li><a href="ext:simal/demoSite">Demo site - a demo site running a development version of Simal</a></li>
+    </ul>
+    
+<!-- 
+Linked from there you will find the "Informational Website" which goes to:
+
+http://simal.oss-watch.ac.uk/
+
+There is a small amount of dev focussed content on the google code site
+wiki. But the user focussed stuff is on the second site.
+
+The content is generated using Apache Forrest
+(http://forrest.apache.org) and the source for it can be found in
+trunk/simal/src/documentation/content/xdocs in SVN (check the "source"
+tab on the google code site).
+
+I'm not sure if you are comfortable editing XML and workin with a
+publishing framework like Forrest or not. If not then ask how to do
+specific stuff here and we will help.
+
+BUT...
+
+We are currently in a transition stage. Moving from the 0.1 prototype to
+our first real release 0.2 As a result I'm afriad our docs are in a bit
+of a state of flux and most of the developer stuff has not kept up with
+the 0.2 development. Ask and you will find the answers.
+
+To make things really confusing, what little documentation we have for
+the new stuff is written using Maven and split across the three modules
+that make up the 0.2 version of Simal. I'll not go into detail about
+where these are since you say you are not a developer and therefore I
+guess you are more interested in the user level docs, which are all as
+described above.
+
+Confused yet? I'm sure you are - when you have more specific questions
+like "what the hell are you on about, all I want to know is how to do X
+for goodness sake" I'd be happy to give more targetted answers ;-)
+
+What structure should we be heading for with our documentation?
+
+Forrest is a great tool for pulling content from multiple places and
+presenting it in a uniform way. So we can afford to have the content
+where it is most appropriate an easily editable.
+
+Current thinking (subject to change if seen as not appropriate):
+
+The http://simal.oss-watch.ac.uk site is where *all* documentation will
+be published.
+
+The Google code wiki will house the basic developer focussed stuff. Just
+enough to get people started.
+
+The developer focussed docs relating to specific modules in Simal will
+be maintained within the modules themselves. Currently the three modules
+that make up Simal are:
+
+uk.ac.osswatch.simal.core - the back end systems (data model, data
+services and repository engine)
+
+uk.ac.osswatch.simal.rest - a REST api to Simal core
+
+uk.ac.osswatch.simal.web - an Apache Wicket user interface to Simal core
+
+The "simal" module in SVN (the Forrest content object) will contain the
+source for user focussed content. This will typically include things
+like use cases, registry configuration, FAQs etc. Here I'm included both
+types of user, that is, the "end user" who just wants to know what to
+click on to make something happen and the "technical user" who doesn't
+want to get into the code, but does want to know how to install and
+maintain a complete system.
+
+Note that Apache Forrest is able to pull content from multiple locations
+so there is no need to duplicate content across multiple locations. For
+example, the "Getting Started" document is useful to both the technical
+user and the developer. It is currently housed in the Google code wiki
+so that it can appear on the dev site, but it also appears on the user
+focussed site. Both versions come from the same source file, they are
+just presented differently.
+
+Now, if you weren't confused before, you will be now. But at least we
+have gone some way to documenting this already - I'm off to add an issue
+to the tracker to remind us to extract a document from this thread. Keep
+the questions coming. 
+
+-->
+
+</body>
+</document>
