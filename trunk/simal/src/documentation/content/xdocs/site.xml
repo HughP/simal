@@ -51,10 +51,6 @@ See http://forrest.apache.org/docs/linking.html for more info
     <credits label="Credits" href="credits.html" description="Simal would not exist without these people..."/>
   </about>
   
-  <tagFeeds label="Tagged Info" tab="catalogue">    
-    <taggedBookmarks label="JISCCommunityDevelopment bookmarks" href="JISCCommunityDevelopment.tagFeed.rss.html"/>
-  </tagFeeds>
-  
   <users label="Using Simal" href="user/" tab="user">
     <index label="About" href="index.html"/>
   </users>
