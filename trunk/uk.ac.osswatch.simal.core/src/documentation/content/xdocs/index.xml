@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
  
  Copyright 2007 University of Oxford
@@ -16,17 +16,15 @@
  limitations under the License.
 
 -->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
 <document>
-  <properties>
-    <title>Welcome</title>
-    <author email="dev@maven.apache.org">The Maven Team</author>
-  </properties>
+  <header>
+    <title>Welcome to Simal Core</title>
+  </header>
   <body>
-    <section name="Welcome to an XDOC file!">
-      <p>
-        This is some text for the xdoc file.
-      </p>
-    </section>
+    <p>This is the documentation for the Simal Core module.
+    This documentation can be generated as a stand set of
+    documents or as part of the master document set found in
+    the Simal documentation module.</p>
   </body>
 </document>
-
