@@ -44,6 +44,7 @@ See http://forrest.apache.org/docs/linking.html for more info
     <index label="Home" href="index.html" description="Welcome to Simal"/>
     <overview label="Overview" href="overview.html" description="Overview of the Simal project"/>
     <quickstart label="Quick Start" href="quickstart.html" description="The minimum you need to get started"/>
+    <gettingSimal label="Getting Simal" href="gettingSimal.html" description="How to get the Simal application(s)"/>
     <changes label="Changes" href="changes.html" description="Recent changes"/>
     <changes-rss href="/changes.rss"/>
     <!--<simalCommunity label="Community" href="developingCommunity.html" description="How is the Simal community structured?"/>-->
@@ -68,6 +69,10 @@ See http://forrest.apache.org/docs/linking.html for more info
     
     <developSimal label="Development Environment" href="developSimal.html" description="How to get started on developing Simal"/>
   </contributors>
+
+  <coreModule label="Simal Core" tab="contributor" href="core/">
+    <xi:include href="cocoon://core/site.xml"/>
+  </coreModule>
   
   <userResources label="Users" tab="home">  
     <userDocs label="User Docs" href="user/index.html"/>
