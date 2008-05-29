@@ -33,8 +33,9 @@
   -->
 
   <tab id="home" label="Home" dir="" indexfile="index.html"/>
-   <tab id="user" label="User" dir="user"/>
+  <tab id="user" label="User" dir="user"/>
   <tab id="contributor" label="Contributor" dir="contributor"/>
+  <tab id="coreModule" label="Simal Core" dir="core/"/>
   <!-- Add new tabs here, eg:
   <tab id="contribute" label="Contributre" dir="" indexfile="index.html"/>
   <tab label="How-Tos" dir="community/howto/"/>

@@ -31,27 +31,15 @@
 				src="http://simal.googlecode.com/svn/wiki/GettingStarted.wiki" />
 		</match>
 
+    <!--  Locate core module documentation -->
+    <match pattern="project.core/**">
+      <!--  FIXME: can't have hard coded location like this -->
+      <location src="c:/projects/uk.ac.osswatch.simal.core/src/documentation/content/xdocs/{1}" />
+    </match>
+
 		<match pattern="dispatcher.themer">
 			<location
 				src="{properties:forrest.plugins}/uk.ac.osswatch.forrest.themes" />
-		</match>
-
-		<match pattern="doap.categoryDefinitions">
-			<location
-				src="http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/categoryDefinitions.xml" />
-		</match>
-		<!-- these were generated with:
-			
-			for file in *.xml ; do echo " <match pattern=\"doap.descriptor.jisc/"${file%.*}"\"><location src=\"{properties:content}rdf/www.jisc.ac.uk/"$file"\"/></match>" ; done 
-			
-		-->
-
-		<!-- ===============================================================
-			DOAP Files
-			=============================================================== -->
-
-		<match pattern="doap.descriptor.simal">
-			<location src="{properties:content}rdf/simal.xml" />
 		</match>
 
 	</locator>
