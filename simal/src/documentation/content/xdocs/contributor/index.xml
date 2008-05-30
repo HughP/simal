@@ -32,10 +32,12 @@
     
     <ul>
       <li><a href="developSimal.html">configuring Eclipse</a> for working on Simal</li>
+
+      <li>documentation for the <a href="/core/index.html">core functionality</a></li>
     
-      <li>contributor documentation for the <a href="managementApp/index.html">management application</a></li>
+      <li>documentation for the <a href="/rest/index.html">REST API</a></li>
       
-      <li>contributor documentation for the <a href="registryApp/index.html">registry application</a></li>
+      <li>documentation for the <a href="/web/index.html">web application</a></li>
       
       <li>Use Case descriptions covering use cases the Simal project 
       hopes to address (complete with an indication of how much of the use 
