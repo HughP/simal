@@ -36,6 +36,13 @@
       <!--  FIXME: can't have hard coded location like this -->
       <location src="c:/projects/uk.ac.osswatch.simal.core/src/documentation/content/xdocs/{1}" />
     </match>
+    
+    <!--  Locate rest module documentation -->
+    <match pattern="project.rest/**">
+      <!--  FIXME: can't have hard coded location like this -->
+      <location src="c:/projects/uk.ac.osswatch.simal.rest/src/documentation/content/xdocs/{1}" />
+    </match>
+    
 
 		<match pattern="dispatcher.themer">
 			<location
