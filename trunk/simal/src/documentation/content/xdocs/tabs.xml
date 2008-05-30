@@ -37,6 +37,7 @@
   <tab id="contributor" label="Contributor" dir="contributor"/>
   <tab id="coreModule" label="Simal Core" dir="core/"/>
   <tab id="restModule" label="Simal REST" dir="rest/"/>
+  <tab id="webModule" label="Simal Web" dir="web/"/>
   <!-- Add new tabs here, eg:
   <tab id="contribute" label="Contributre" dir="" indexfile="index.html"/>
   <tab label="How-Tos" dir="community/howto/"/>
