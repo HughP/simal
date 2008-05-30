@@ -55,10 +55,6 @@ See http://forrest.apache.org/docs/linking.html for more info
   <users label="Using Simal" href="user/" tab="user">
     <index label="About" href="index.html"/>
   </users>
-    
-  <useCases label="Use Cases" href="docs/" tab="user">
-    <doapUser label="DOAP Management" href="user/useCases/doapManagement.html"/>
-  </useCases>
   
   <contributors label="Contributors" href="contributor/" tab="contributor">
     <index label="Index" href="index.html"/>
@@ -100,11 +96,7 @@ See http://forrest.apache.org/docs/linking.html for more info
     <issueTracker label="Issue Tracker" href="ext:simal/issueTracker"/>
     <svn label="SVN" href="ext:simal/svn"/>
   </contributorResources>
-    
-  <useCases label="Use Cases" href="docs/" tab="contributor">
-    <doapUser label="DOAP Management" href="developer/useCases/doapManagement.html"/>
-  </useCases>
-  
+      
   <external-refs>
     <forrest href="http://forrest.apache.org/">
       <linking href="docs/linking.html"/>

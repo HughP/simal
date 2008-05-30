@@ -71,8 +71,10 @@
           <title>Developer Information</title>
           <p>The registry is found in our
           <a href="http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/">uk.ac.osswatch.simal.core</a>
-          SVN module. More information is available on our <a href="ext:simal/devSite">developer website</a>
+          SVN module. Project management tools are available on our <a href="ext:simal/devSite">developer website</a>
           and <a href="ext:simal/devList">mailing lists</a>.</p>
+          
+          <p><a href="core/index.html">Documentation</a> for the core module is available.</p>
         </section>
       </section>
       
@@ -100,8 +102,10 @@
           <title>Developer Information</title>
           <p>The Management Web Application is found in our
           <a href="http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/">uk.ac.osswatch.simal.web</a>
-          SVN module. More information is available on our <a href="ext:simal/devSite">developer website</a>
+          SVN module. Project management tools are available on our <a href="ext:simal/devSite">developer website</a>
           and <a href="ext:simal/devList">mailing lists</a>.</p>
+          
+          <p><a href="web/index.html">Documentation</a> for the web module is available.</p>
         </section>
       </section>
       
@@ -127,8 +131,10 @@
           <title>Developer Information</title>
           <p>The REST API is found in our
           <a href="http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.rest/">uk.ac.osswatch.simal.rest</a>
-          SVN module. More information is available on our <a href="ext:simal/devSite">developer website</a>
+          SVN module. Project management tools are available on our <a href="ext:simal/devSite">developer website</a>
           and <a href="ext:simal/devList">mailing lists</a>.</p>
+          
+          <p><a href="rest/index.html">Documentation</a> for the rest module is available.</p>
         </section>
       </section>
       
@@ -154,8 +160,10 @@
           <p>Open Social integration is currently a part of the
           management web app. See our
           <a href="http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/">uk.ac.osswatch.simal.web</a>
-          SVN module. More information is available on our <a href="ext:simal/devSite">developer website</a>
+          SVN module. Project management tools are available on our <a href="ext:simal/devSite">developer website</a>
           and <a href="ext:simal/devList">mailing lists</a>.</p>
+          
+          <p><a href="web/openSocial/buildingAGadget.html">Documentation</a> for the open soical module is available.</p>
         </section>
       </section>
   </body>
