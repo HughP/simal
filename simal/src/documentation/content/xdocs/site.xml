@@ -63,14 +63,17 @@ See http://forrest.apache.org/docs/linking.html for more info
   <contributors label="Contributors" href="contributor/" tab="contributor">
     <index label="Index" href="index.html"/>
     
-    <documentationStructure label="Documentation Structure" href="documentationStructure.html"/>
+    <issueTracker label="Issue Tracking" href="issueTracking.html" description="A description of how we use our issue tracker"/>
     
     <governance label="Governance" href="governance/">
       <model label="Project Management" href="index.html" description="Description of the project management rules of the Simal project"/>
       <newCommitters label="New Committers" href="newCommitters.html" description="Actions that need to be taken by new committers"/>
     </governance>
+
+    <developSimal label="Development Environment" href="developSimal.html" description="How to get started on developing Simal"/>    
     
-    <developSimal label="Development Environment" href="developSimal.html" description="How to get started on developing Simal"/>
+    <documentationStructure label="Documentation Structure" href="documentationStructure.html"/>
+    
   </contributors>
 
   <coreModule label="Simal Core" tab="contributor" href="core/">
