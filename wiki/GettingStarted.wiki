@@ -43,7 +43,7 @@ mvn install
 
 Now you need to configure the webapp for your server. 
 
-Create a file called {{{local.simal.properties}}} in {{$PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web}}} and open it in your favourite editor. This file contains the local configuation for your web application.
+Create a file called {{{local.simal.properties}}} in {{{$PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web}}} and open it in your favourite editor. This file contains the local configuation for your web application.
 
 As a minimum you must set the following properties:
 
