@@ -74,9 +74,13 @@ See http://forrest.apache.org/docs/linking.html for more info
     <xi:include href="cocoon://core/site.xml"/>
   </coreModule>
 
-  <coreModule label="Simal REST" tab="contributor" href="rest/">
+  <restModule label="Simal REST" tab="contributor" href="rest/">
     <xi:include href="cocoon://rest/site.xml"/>
-  </coreModule>
+  </restModule>
+
+  <restModule label="Simal Web Module" tab="contributor" href="web/">
+    <xi:include href="cocoon://web/site.xml"/>
+  </restModule>
   
   <userResources label="Users" tab="home">  
     <userDocs label="User Docs" href="user/index.html"/>

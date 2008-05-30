@@ -43,6 +43,11 @@
       <location src="c:/projects/uk.ac.osswatch.simal.rest/src/documentation/content/xdocs/{1}" />
     </match>
     
+    <!--  Locate web module documentation -->
+    <match pattern="project.web/**">
+      <!--  FIXME: can't have hard coded location like this -->
+      <location src="c:/projects/uk.ac.osswatch.simal.web/src/documentation/content/xdocs/{1}" />
+    </match>   
 
 		<match pattern="dispatcher.themer">
 			<location
