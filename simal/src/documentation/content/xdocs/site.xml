@@ -65,7 +65,10 @@ See http://forrest.apache.org/docs/linking.html for more info
     
     <documentationStructure label="Documentation Structure" href="documentationStructure.html"/>
     
-    <governance label="Governance" href="governance/index.html"/>
+    <governance label="Governance" href="governance/">
+      <model label="Project Management" href="index.html" description="Description of the project management rules of the Simal project"/>
+      <newCommitters label="New Committers" href="newCommitters.html" description="Actions that need to be taken by new committers"/>
+    </governance>
     
     <developSimal label="Development Environment" href="developSimal.html" description="How to get started on developing Simal"/>
   </contributors>
@@ -89,7 +92,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   
   <contributorResources label="Contributors" tab="home">    
     <devDocs label="Contributor Docs" href="contributor/index.html"/>
-    <devSite label="Contributor Site" href="ext:simal/devSite"/>
+    <devSite label="Developer Site" href="ext:simal/devSite"/>
     <devMailingList label="Mailing List" href="ext:simal/devList"/>
     <issueTracker label="Issue Tracker" href="ext:simal/issueTracker"/>
     <svn label="SVN" href="ext:simal/svn"/>
