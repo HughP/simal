@@ -52,7 +52,7 @@
 
   <steps title="Install and Configure Eclipse">
     <section>
-      <title>Essential Plugins</title>
+      <title>Recommended Plugins</title>
         
       <section>
         <title>Eclipse 3.3 + Web Tools Project 2.0</title>
@@ -99,19 +99,31 @@
     <section>
       <title>Maven</title>
       
-      <p>We use Maven to build simal. You need to <a href="http://maven.apache.org/download.html">
-      download and install</a> Maven 2 on your machine.</p> 
+      <p>We use Maven to build simal. If you want to use maven from the command line
+      you need to <a href="http://maven.apache.org/download.html">
+      download and install</a> Maven 2 on your machine. However, if
+      you only intend to use maven fro within Eclipse then you just
+      need the Q4E plugin described in the next section.</p> 
       
       <section>
-        <title>q3e</title>
+        <title>Q4e</title>
         
-        <p>If you are using Eclipse we also recommend the q4e plugin that allows
-        you to work with Maven projects within Eclipse. Q4E is available from the
+        <p>If you are using Eclipse we also recommend the Q4e plugin that allows
+        you to work with Maven projects within Eclipse. Q4e is available from the
         q4e <a href="http://q4e.googlecode.com/svn/trunk/updatesite/">update 
-        site</a>.</p>
+        site</a> and is installed as described for the subclipse plugin above.</p>
       </section>
     </section>
-        
+
+    <section>
+      <title>Wicket Bench</title>
+      
+      <p><a href="http://www.laughingpanda.org/mediawiki/index.php/Wicket_Bench">Wicket Bench</a> is
+      a plugin that makes working with Wicket files easier. It can be installed
+      from the <a href="http://www.laughingpanda.org/svn/wicket-bench/trunk/wicket-bench-site">update site</a>
+      using the method described above.</p>
+    </section>
+          
     <section>
       <title>Get Simal Sources</title>
       <p>The first thing you need to do is checkout the Simal source code. To do this
@@ -142,17 +154,18 @@
         <li>Right click on the <code>uk.ac.osswatch.simal.core</code> project and
         select Maven2 -> Enable Maven dependency management</li>
         
-        <li>Right click on the <code>uk.ac.osswatch.simal.core</code> project and
+        <li>Right click on the <code>uk.ac.osswatch.simal.rest</code> project and
         select Maven2 -> Locally install artifact</li>
         
         <li>Right click on the <code>uk.ac.osswatch.simal.web</code> project and
         select Maven2 -> Enable Maven dependency management</li>
       </ol>
       
-      <warning>At the time of writing there are some dependencies for core that 
-      are not available in public repositories. These need to be downloaded and 
-      deployed to your local Maven repository. See src/site/developing.apt for
-      more information.</warning>
+      <section>
+        <title>Mylyn Generic Issue Tracker Integration</title>
+        <fixme author="rdg">Describe out use of the Mylyn generic issue tracker to integrate with 
+        Google Code - see http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code</fixme>
+      </section>
       
     </section>
     
@@ -169,6 +182,12 @@
         <li>Wait for the tests to run, you should get a green bar for all 
         tests</li>
         
+        <li>right click on <code>uk.ac.osswatch.simal.rest/src/test/java</code>
+        and select <code>Run As -> JUnit Test</code></li>
+        
+        <li>Wait for the tests to run, you should get a green bar for all 
+        tests</li>
+        
         <li>right click on <code>uk.ac.osswatch.simal.web/src/test/java</code>
         and select <code>Run As -> JUnit Test</code></li>
         
@@ -180,22 +199,11 @@
     <section>
       <title>Start developing</title>
       
-      <p>Assuming all tests past you are now ready to start developing. It
-      is outside the scope of this document to go further, see the docs 
-      linked in the "Developers" menu on the right.</p>
+      <p>Assuming all tests past you are now ready to start developing.
+      Further assistance is available in the relevant sections of the Simal
+      documentation.</p>
     </section>
       
-    
-    
-    <section>
-      <title>Optional Plugins</title>
-      
-      <section>
-        <title>Mylyn Generic Issue Tracker Integration</title>
-        <fixme author="rdg">Describe out use of the Mylyn generic issue tracker to integrate with 
-        Google Code - see http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code</fixme>
-      </section>
-    </section>
   </steps>
 
 
@@ -248,6 +256,7 @@
   </tips>
   -->
  
+ <!-- 
   <references title="References">
         <ul>
       <li>An introduction to working with Deby in Eclipse <a
@@ -256,5 +265,5 @@
       
     </ul>
   </references>
-
+ -->
 </howto>
