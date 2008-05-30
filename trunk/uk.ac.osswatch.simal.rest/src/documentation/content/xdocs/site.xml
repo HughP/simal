@@ -37,7 +37,7 @@ See http://forrest.apache.org/docs/linking.html for more info
 -->
 <site label="MyProj" href="" xmlns="http://apache.org/forrest/linkmap/1.0" tab="">
   <developers label="Developers" tab="restModule">
-    <index label="Index" href="index.html" description="Welcome to MyProj"/>
+    <index label="Index" href="index.html" description="Welcome to the Simal REST Module"/>
   </developers>
   <external-refs>
     <forrest href="http://forrest.apache.org/">
