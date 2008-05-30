@@ -27,11 +27,21 @@
       to get each module in the various formats available.
     </p>
 
+    <note>
+      If you are a developer and wish to work with Eclipse you will find
+      our document on
+      <a href="contributor/developSimal.html">setting up Eclipse</a>
+      a more useful starting point.
+    </note>
+
     <section>
       <title>Simal Core</title>
-      <p>Simal core is the main repository and command line application. 
-      More information is available in the <a href="/overview.html">Simal overview.</a></p> 
-      
+      <p>
+        Simal core is the main repository and command line application.
+        More information is available in the
+        <a href="/overview.html">Simal overview.</a>
+      </p>
+
       <p>
         At present Simal Core is only available in source format. There
         will be a binary release in the near future.
@@ -79,25 +89,32 @@
           .
         </p>
       </section>
-    </section>    
+    </section>
 
     <section>
       <title>Simal REST Module</title>
-      
-      <p>The Simal REST module is a REST application for working with a Simal repository. 
-      More information is available in the <a href="/overview.html">Simal overview.</a></p>
-      
+
       <p>
-        At present Simal REST module is only available in source format. There
-        will be a binary release in the near future.
+        The Simal REST module is a REST application for working with a
+        Simal repository. More information is available in the
+        <a href="/overview.html">Simal overview.</a>
+      </p>
+
+      <p>
+        At present Simal REST module is only available in source format.
+        There will be a binary release in the near future.
       </p>
 
       <section>
         <title>Prerequisites</title>
 
-            <p>Simal REST is dependant on Simal Core (see above) which must be installed
-            in your local maven repository. Follow the instructions above and then run
-            <code>mvn install</code> from within the Simal Core directory.</p>
+        <p>
+          Simal REST is dependant on Simal Core (see above) which must
+          be installed in your local maven repository. Follow the
+          instructions above and then run
+          <code>mvn install</code>
+          from within the Simal Core directory.
+        </p>
       </section>
       <section>
         <title>Getting the Source</title>
@@ -123,21 +140,28 @@
 
     <section>
       <title>Simal Web Module</title>
-      
-      <p>The Simal Web module is a web application for working with a Simal repository. 
-      More information is available in the <a href="/overview.html">Simal overview.</a></p>
-      
+
       <p>
-        At present Simal Web module is only available in source format. There
-        will be a binary release in the near future.
+        The Simal Web module is a web application for working with a
+        Simal repository. More information is available in the
+        <a href="/overview.html">Simal overview.</a>
+      </p>
+
+      <p>
+        At present Simal Web module is only available in source format.
+        There will be a binary release in the near future.
       </p>
 
       <section>
         <title>Prerequisites</title>
 
-            <p>Simal Web is dependant on Simal Core (see above) which must be installed
-            in your local maven repository. Follow the instructions above and then run
-            <code>mvn install</code> from within the Simal Core directory.</p>
+        <p>
+          Simal Web is dependant on Simal Core (see above) which must be
+          installed in your local maven repository. Follow the
+          instructions above and then run
+          <code>mvn install</code>
+          from within the Simal Core directory.
+        </p>
       </section>
       <section>
         <title>Getting the Source</title>
