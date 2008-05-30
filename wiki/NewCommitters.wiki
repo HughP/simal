@@ -20,6 +20,4 @@ There are a few files you should edit as soon as your commit privileges have bee
 
 You should add yourself to the [http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/rdf/simal.xml Simal DOAP file]
 
-You should also add a note to the [ http://simal.googlecode.com/svn/trunk/simal/src/documentation/content/xdocs/projecthistory.xml project history] file.
-
-Of course, you should also note these two changes in the [http://simal.googlecode.com/svn/trunk/simal/status.xml status] file, ensuring you add yourself as a new developer if you are not already there.
+You should also note your addition to the team in the [http://simal.googlecode.com/svn/trunk/simal/status.xml status] file, ensuring you add yourself as a new developer if you are not already there.
