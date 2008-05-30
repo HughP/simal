@@ -73,6 +73,10 @@ See http://forrest.apache.org/docs/linking.html for more info
   <coreModule label="Simal Core" tab="contributor" href="core/">
     <xi:include href="cocoon://core/site.xml"/>
   </coreModule>
+
+  <coreModule label="Simal REST" tab="contributor" href="rest/">
+    <xi:include href="cocoon://rest/site.xml"/>
+  </coreModule>
   
   <userResources label="Users" tab="home">  
     <userDocs label="User Docs" href="user/index.html"/>
@@ -96,7 +100,12 @@ See http://forrest.apache.org/docs/linking.html for more info
       <linking href="docs/linking.html"/>
     </forrest>
     <simal href="http://simal.oss-watch.ac.uk">
-      <projectSite href="http://simal.oss-watch.ac.uk"/>
+      <projectSite href="http://simal.oss-watch.ac.uk/"/>
+      <coreModule href="core/">
+        <download href="download.html"/>
+      </coreModule>
+      <restModule href="http://simal.oss-watch.ac.uk/rest"/>
+      <webModule href="http://simal.oss-watch.ac.uk/web"/>
       <demoSite href="http://data.oss-watch.ac.uk:8080/"/>
       <devSite href="http://code.google.com/p/simal"/>
       <devList href="http://groups.google.com/group/simal-contributors"/>
