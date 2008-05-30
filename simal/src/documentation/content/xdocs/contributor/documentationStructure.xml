@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   Copyright 2007 University of Oxford
-
+  
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-
-      http://www.apache.org/licenses/LICENSE-2.0
-
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
   Unless required by applicable law or agreed to in writing, software
   distributed under the License is distributed on an "AS IS" BASIS,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,101 +15,175 @@
   limitations under the License.
 -->
 <!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
-<document> 
-  <header> 
+<document>
+  <header>
     <title>Documentation Structure</title>
   </header>
   <body>
     <p>There are three sites in the Simal project:</p>
-    
+
     <ul>
-      <li><a href="ext:simal/projectSite">Project site</a> - jumping off point for everyone</li>
-      <li><a href="ext:simal/devSite">Contributor site - all the project management and development tools</a></li>
-      <li><a href="ext:simal/demoSite">Demo site - a demo site running a development version of Simal</a></li>
+      <li>
+        <a href="ext:simal/projectSite">Project site</a>
+        - jumping off point for everyone
+      </li>
+      <li>
+        <a href="ext:simal/devSite">
+          Developer site - all the project management and development
+          tools
+        </a>
+      </li>
+      <li>
+        <a href="ext:simal/demoSite">
+          Demo site - a demo site running a development version of Simal
+        </a>
+      </li>
     </ul>
-    
-<!-- 
-Linked from there you will find the "Informational Website" which goes to:
 
-http://simal.oss-watch.ac.uk/
 
-There is a small amount of dev focussed content on the google code site
-wiki. But the user focussed stuff is on the second site.
+    <p>
+      There is also a small amount of dev focussed content on the
+      <a href="ext:simal/wiki">wiki</a>
+      . This content is either documentation for in-development
+      features, i.e. not to be published on the main Simal project site,
+      or it is content that relates to the management of the Simal
+      project but is not (in most cases) relevant to the project site.
+    </p>
 
-The content is generated using Apache Forrest
-(http://forrest.apache.org) and the source for it can be found in
-trunk/simal/src/documentation/content/xdocs in SVN (check the "source"
-tab on the google code site).
+    <section>
+      <title>Project Site</title>
 
-I'm not sure if you are comfortable editing XML and workin with a
-publishing framework like Forrest or not. If not then ask how to do
-specific stuff here and we will help.
+      <p>
+        The
+        <a href="ext:simal/projectSite">project site</a>
+        is the main information site for the Simal project. On this site
+        you will find:
+      </p>
 
-BUT...
+      <ul>
+        <li>User documentation</li>
+        <li>Developer documentation</li>
+        <li>Project management documentation</li>
+      </ul>
 
-We are currently in a transition stage. Moving from the 0.1 prototype to
-our first real release 0.2 As a result I'm afriad our docs are in a bit
-of a state of flux and most of the developer stuff has not kept up with
-the 0.2 development. Ask and you will find the answers.
+      <p>
+        The project site is generated using
+        <a href="http://forrest.apache.org">Apache Forrest</a>
+        . It consists of a master site and a number of subsites, one for
+        each of the modules found in the Simal project. The source for
+        the master site can be found in
+        <code>simal/src/documentation/content/xdocs</code>
+        in our
+        <a href="ext:simal/svn">SVN</a>
+        . Sources for each of the sub sites are found in the respective
+        svn modules, for example, the core module site sources are in
+        <code>
+          uk.ac.osswatch.simal.core/src/documentation/content/xdocs
+        </code>
+        .
+      </p>
 
-To make things really confusing, what little documentation we have for
-the new stuff is written using Maven and split across the three modules
-that make up the 0.2 version of Simal. I'll not go into detail about
-where these are since you say you are not a developer and therefore I
-guess you are more interested in the user level docs, which are all as
-described above.
+      <note>
+        A small number of pages in the project site are generated from
+        source in the developer site wiki. This is to prevent the need
+        to duplicate content accross the two sites. If you can't find
+        the source for a file in the above locations then it will almost
+        certainly be in the wiki. See the next section.
+      </note>
 
-Confused yet? I'm sure you are - when you have more specific questions
-like "what the hell are you on about, all I want to know is how to do X
-for goodness sake" I'd be happy to give more targetted answers ;-)
+      <p>
+        You can build either the main site documentation of any of the
+        individual subsites by running the following command in the root
+        directory of the relevant module (after installing Apache
+        Forrest):
+      </p>
 
-What structure should we be heading for with our documentation?
+      <source>forrest site</source>
 
-Forrest is a great tool for pulling content from multiple places and
-presenting it in a uniform way. So we can afford to have the content
-where it is most appropriate an easily editable.
+      <p>
+        This will build a static version of the site in the
+        <code>build/site</code>
+        directory.
+      </p>
 
-Current thinking (subject to change if seen as not appropriate):
+      <p>
+        When writing new content it is best to run a version of Forrest
+        in dynamic mode. This allows you to edit files and see the
+        changes immediatey. To run Forres in dynamic mode simply execute
+        the command
+        <code>forrest run</code>
+        , and then point your browser at
+        <code>http://localhost:8888</code>
+        .
+      </p>
 
-The http://simal.oss-watch.ac.uk site is where *all* documentation will
-be published.
+    </section>
 
-The Google code wiki will house the basic developer focussed stuff. Just
-enough to get people started.
+    <section>
+      <title>Developer Site</title>
 
-The developer focussed docs relating to specific modules in Simal will
-be maintained within the modules themselves. Currently the three modules
-that make up Simal are:
+      <p>
+        The
+        <a href="ext:simal/devSite">developer site</a>
+        is where you will find all the tools for project management and
+        developmenr, such as:
+      </p>
 
-uk.ac.osswatch.simal.core - the back end systems (data model, data
-services and repository engine)
+      <ul>
+        <li>Mailing lists</li>
+        <li>Issue tracker</li>
+        <li>svn</li>
+        <li>Wiki</li>
+      </ul>
 
-uk.ac.osswatch.simal.rest - a REST api to Simal core
+      <section>
+        <title>Wiki</title>
 
-uk.ac.osswatch.simal.web - an Apache Wicket user interface to Simal core
+        <p>The developer site wiki contains two types of data:</p>
 
-The "simal" module in SVN (the Forrest content object) will contain the
-source for user focussed content. This will typically include things
-like use cases, registry configuration, FAQs etc. Here I'm included both
-types of user, that is, the "end user" who just wants to know what to
-click on to make something happen and the "technical user" who doesn't
-want to get into the code, but does want to know how to install and
-maintain a complete system.
+        <ul>
+          <li>Documentation for in development features</li>
+          <li>
+            Project management documentation that is not applicable to
+            the main site
+          </li>
+        </ul>
 
-Note that Apache Forrest is able to pull content from multiple locations
-so there is no need to duplicate content across multiple locations. For
-example, the "Getting Started" document is useful to both the technical
-user and the developer. It is currently housed in the Google code wiki
-so that it can appear on the dev site, but it also appears on the user
-focussed site. Both versions come from the same source file, they are
-just presented differently.
+        <p>
+          The first type of content, documentation for in development
+          features, is content that is evolving quickly and should not
+          be placed on the main site. Often this documentation will be
+          incomplete or of a discussive nature.
+        </p>
 
-Now, if you weren't confused before, you will be now. But at least we
-have gone some way to documenting this already - I'm off to add an issue
-to the tracker to remind us to extract a document from this thread. Keep
-the questions coming. 
+        <p>
+          The second type of content, project manaement materials, is
+          content that is not of general interest to Simal users and
+          contributors. That is, it is content only of interest to the
+          project maintainers. It is kept on the wiki in order to
+          prevent it polluting searches of the project site.
+        </p>
 
--->
+        <p>
+          It is possible to include content from the wiki in the project
+          site. This will occasionally be necessary to prevent
+          duplication of content. Generally this practice should be
+          avoided.
+        </p>
+      </section>
+    </section>
 
-</body>
+    <section>
+      <title>Demo Site</title>
+      
+      <p>The <a href="ext:simal/demoSite">demo site</a> runs a recent version
+      of Simal for demonstration purposes. It is regularly updated and the 
+      repository is flushed and re-seeded with sample data.</p>
+      
+      <warning>As the demo site is used to show new features it will often be
+      the first place that bugs appear. As Simal stabalises we will set up 
+      a stable demo, but for now the demo site is assumed to be for test
+      purposes only.</warning>
+    </section>
+  </body>
 </document>

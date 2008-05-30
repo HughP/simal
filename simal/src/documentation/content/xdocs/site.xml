@@ -122,6 +122,7 @@ See http://forrest.apache.org/docs/linking.html for more info
       <userList href="http://groups.google.com/group/simal-contributors"/>
       <issueTracker href="http://code.google.com/p/simal/issues/list"/>
       <svn href="http://code.google.com/p/simal/source"/>
+      <wiki href="http://code.google.com/p/simal/w/list"/>
     </simal>
   </external-refs>
 
