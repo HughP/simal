@@ -1,0 +1,40 @@
+package uk.ac.osswatch.simal.wicket;
+
+/*
+ * Copyright 2008 University of Oxford
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");   *
+ * you may not use this file except in compliance with the License.  *
+ * You may obtain a copy of the License at                           *
+ *                                                                   *
+ *   http://www.apache.org/licenses/LICENSE-2.0                      *
+ *                                                                   *
+ * Unless required by applicable law or agreed to in writing,        *
+ * software distributed under the License is distributed on an       *
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY            *
+ * KIND, either express or implied.  See the License for the         *
+ * specific language governing permissions and limitations           *
+ * under the License.                                                *
+ */
+
+import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rest.RESTCommand;
+
+public class DemoOpenSocialPage extends OpenSocialPage {
+  private static final long serialVersionUID = -8125606657250912738L;
+  protected static final String SAKAI_BOOKCLUB_GADGET_URL = "http://users.skynet.be/fa266461/bookclub/bookclub.xml";
+  protected static final String MYEXPERIMENT_FRIENDS_GADGET_PATH = "gadgets/myExperimentFriendsNavigator.xml";
+  protected static final String FRIENDS_NAVIGATOR_GADGET_PATH = "gadgets/friendsNavigator.xml";
+
+  public DemoOpenSocialPage() {
+    String baseurl = SimalRepository
+        .getProperty(SimalRepository.PROPERTY_USER_WEBAPP_BASEURL);
+    addGadget("friendsNavigatorGadget",
+        baseurl + FRIENDS_NAVIGATOR_GADGET_PATH, RESTCommand.SOURCE_TYPE_SIMAL);
+    addGadget("myExperimentFriends",
+        baseurl + MYEXPERIMENT_FRIENDS_GADGET_PATH,
+        RESTCommand.SOURCE_TYPE_MYEXPERIMENT);
+    // addGadget("sakaiBookclubGadget", SAKAI_BOOKCLUB_GADGET_URL, null);
+
+  }
+}

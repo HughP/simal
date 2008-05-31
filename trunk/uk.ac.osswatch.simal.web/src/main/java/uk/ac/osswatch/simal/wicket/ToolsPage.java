@@ -22,6 +22,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +56,9 @@ public class ToolsPage extends BasePage {
         }
       }
     });
+    
+    add(new BookmarkablePageLink("openSocialDemoPageLink",
+        DemoOpenSocialPage.class));
   }
 
   private void importPTSW() throws UserReportableException {
