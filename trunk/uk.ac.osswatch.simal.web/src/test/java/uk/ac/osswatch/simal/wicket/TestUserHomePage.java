@@ -30,7 +30,6 @@ public class TestUserHomePage extends TestBase {
 		tester.assertRenderedPage(UserHomePage.class);
 		tester.assertVisible("projectList");
 		tester.assertVisible("featuredProject");
-    tester.assertVisible("friendsNavigatorGadget");
 		tester.assertVisible("footer");
 	}
 }
