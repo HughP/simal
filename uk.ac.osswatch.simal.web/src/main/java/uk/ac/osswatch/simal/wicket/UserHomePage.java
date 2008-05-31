@@ -17,27 +17,18 @@ package uk.ac.osswatch.simal.wicket;
  */
 
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 
-public class UserHomePage extends OpenSocialPage {
+public class UserHomePage extends BasePage {
 	private static final long serialVersionUID = -8125606657250912738L;
-	protected static final String SAKAI_BOOKCLUB_GADGET_URL = "http://users.skynet.be/fa266461/bookclub/bookclub.xml";
-	protected static final String MYEXPERIMENT_FRIENDS_GADGET_PATH = "gadgets/myExperimentFriendsNavigator.xml";
-  protected static final String FRIENDS_NAVIGATOR_GADGET_PATH = "gadgets/friendsNavigator.xml";
   
   public UserHomePage() {
-    String baseurl = SimalRepository.getProperty(SimalRepository.PROPERTY_USER_WEBAPP_BASEURL);
 		try {
 			add(new ProjectListPanel("projectList"));
 			add(new ProjectSummaryPanel("featuredProject", UserApplication
 					.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
-			addGadget("friendsNavigatorGadget", baseurl + FRIENDS_NAVIGATOR_GADGET_PATH, RESTCommand.SOURCE_TYPE_SIMAL);
-			addGadget("myExperimentFriends", baseurl + MYEXPERIMENT_FRIENDS_GADGET_PATH, RESTCommand.SOURCE_TYPE_MYEXPERIMENT);
-      //addGadget("sakaiBookclubGadget", SAKAI_BOOKCLUB_GADGET_URL, null);
 		} catch (SimalRepositoryException e) {
 			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));
