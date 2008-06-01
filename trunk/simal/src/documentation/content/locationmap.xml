@@ -35,6 +35,9 @@
     <match pattern="project.core/**">
       <location src="../../../uk.ac.osswatch.simal.core/src/documentation/content/xdocs/{1}" />
     </match>
+    <match pattern="project.useCases.core.**">
+      <location src="../../../../uk.ac.osswatch.simal.core/src/documentation/content/useCases/{1}.xml" />
+    </match>
     
     <!--  Locate rest module documentation -->
     <match pattern="project.rest/**">
