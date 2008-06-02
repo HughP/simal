@@ -40,4 +40,4 @@ A major contribution is a a significant change such as new feature, major bug fi
 
 To do this we require that major contributions are accompanied by a statement assigning a licence to use the copyright. Note this statement does not transfer copyright to the University of Oxford, it merely grants us the right to use your copyrighted contribution. OSS Watch has a useful document on such [http://www.oss-watch.ac.uk/resources/cla.xml Contribtor Licence Agreements].
 
-At the time of writing we have not yet drawn up a CLA, please see ISSUE21 to track this issue. If you want to make a major contribution please follow the checklist above but indicate that you do not wish to transfer copyright and request that we draw up a CLA for you instead.
+At the time of writing we have not yet drawn up a CLA, please see ISSUE 71 to track this issue. If you want to make a major contribution please follow the checklist above but indicate that you do not wish to transfer copyright and request that we draw up a CLA for you instead.
