@@ -31,24 +31,14 @@
 				src="http://simal.googlecode.com/svn/wiki/GettingStarted.wiki" />
 		</match>
 
-    <!--  Locate core module documentation -->
-    <match pattern="project.core/**">
-      <location src="../../../uk.ac.osswatch.simal.core/src/documentation/content/xdocs/{1}" />
+    <!--  Locate module documentation -->
+    <match pattern="project.*/**">
+      <location src="../../../uk.ac.osswatch.simal.{1}/src/documentation/content/xdocs/{2}" />
     </match>
-    <match pattern="project.useCases.core.**">
-      <location src="../../../../uk.ac.osswatch.simal.core/src/documentation/content/useCases/{1}.xml" />
-    </match>
-    
-    <!--  Locate rest module documentation -->
-    <match pattern="project.rest/**">
-      <location src="../../../uk.ac.osswatch.simal.rest/src/documentation/content/xdocs/{1}" />
+    <match pattern="project.useCases.*.**">
+      <location src="../../../../uk.ac.osswatch.simal.{1}/src/documentation/content/useCases/{2}.xml" />
     </match>
     
-    <!--  Locate web module documentation -->
-    <match pattern="project.web/**">
-      <location src="../../../uk.ac.osswatch.simal.web/src/documentation/content/xdocs/{1}" />
-    </match>   
-
 		<match pattern="dispatcher.themer">
 			<location
 				src="{properties:forrest.plugins}/uk.ac.osswatch.forrest.themes" />
