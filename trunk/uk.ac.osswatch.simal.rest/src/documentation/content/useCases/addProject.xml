@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ 
+ Copyright 2007 University of Oxford
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+-->
+<useCases>
+  <title>Uses Case for adding a project</title>
+  <useCase>
+    <title>Add a DOAP file using the REST API</title>
+    <description>
+      <p>
+        Add a project description to the registry by adding a DOAP file 
+        using the REST API.
+      </p>
+    </description>
+    <steps>
+      <step>
+        <title>Identify DOAP file</title>
+        <description>
+          Create or locate the DOAP file.
+        </description>
+        <result>You have an URL for the DOAP file.</result>        
+      </step>
+      <step>
+        <title>Submit DOAP file</title>
+        <description>
+          Submit the DOAP file using a POST request to 
+          <code>http://foo.com/simal-rest/addProject</code>.
+          Where the DOAP data is contained within a parameter 
+          called <code>rdf</code>.
+        </description>
+        <result>If the DOAP file is valid it is added to the repository. If it is not
+         valid a meaningful error message is provided.</result>  
+                
+        <fixme priority="Low">
+          Need to test quality of error reports.
+        </fixme>
+      </step>
+    </steps>
+  </useCase>
+</useCases>
