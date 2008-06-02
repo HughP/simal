@@ -40,6 +40,7 @@ import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.DoapFormPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonAdminPage;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
+import uk.ac.osswatch.simal.wicket.panel.StandardFooter;
 
 /**
  * The base page for a standard simal web page. It contains the standard markup
@@ -65,7 +66,7 @@ public class BasePage extends WebPage {
         ExhibitProjectBrowserPage.class));
     add(new BookmarkablePageLink("addDOAPLink", DoapFormPage.class));
     add(new BookmarkablePageLink("toolsLink", ToolsPage.class));
-    add(new Label("footer", "This is in the footer"));
+    add(new StandardFooter("footer"));
   }
 
   /**
