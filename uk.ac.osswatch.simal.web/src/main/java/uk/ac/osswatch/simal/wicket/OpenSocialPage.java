@@ -26,7 +26,6 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
 import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.wicket.panel.GadgetPanel;
-import uk.ac.osswatch.simal.wicket.panel.StandardFooter;
 
 /**
  * A Base page used for pages that contain open social gadgets. This page is

@@ -29,15 +29,15 @@ import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
  * This page provides facilities to manage people stored 
  * in the simal repository.
  */
-public class PersonAdminPage extends BasePage {
+public class PersonBrowserPage extends BasePage {
 
-  public PersonAdminPage() {
+  public PersonBrowserPage() {
     try {
       add(new PersonListPanel("personList"));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get people from the repository",
-          PersonAdminPage.class, e);
+          PersonBrowserPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
   }
