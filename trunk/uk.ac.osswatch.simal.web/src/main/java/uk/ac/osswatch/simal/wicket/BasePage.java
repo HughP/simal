@@ -38,7 +38,7 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.DoapFormPage;
-import uk.ac.osswatch.simal.wicket.foaf.PersonAdminPage;
+import uk.ac.osswatch.simal.wicket.foaf.PersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 import uk.ac.osswatch.simal.wicket.panel.StandardFooter;
 
@@ -59,7 +59,7 @@ public class BasePage extends WebPage {
     add(new BookmarkablePageLink("homePageLink",
         UserHomePage.class));
     add(new BookmarkablePageLink("personAdminPageLink",
-        PersonAdminPage.class));
+        PersonBrowserPage.class));
     add(new BookmarkablePageLink("categoryBrowserPageLink",
         CategoryBrowserPage.class));
     add(new BookmarkablePageLink("exhibitBrowserLink",

@@ -25,8 +25,8 @@ public class TestPersonAdminPage extends TestBase{
 
   @Test
   public void testPageRender() {
-    tester.startPage(PersonAdminPage.class);
-    tester.assertRenderedPage(PersonAdminPage.class);
+    tester.startPage(PersonBrowserPage.class);
+    tester.assertRenderedPage(PersonBrowserPage.class);
     tester.assertVisible("personList");
   }
 }
