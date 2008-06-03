@@ -574,7 +574,7 @@ public class RDFUtils {
           .getNodeValue().trim());
       if (person != null) {
         logger.info("Merging duplicate person (based on email SHA1): "
-            + person.toString());
+            + person.toString() + " into " + person.getQName());
         Element personNode = (Element) sha1sum.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getQName()
             .getNamespaceURI()
@@ -591,7 +591,7 @@ public class RDFUtils {
           "resource"));
       if (person != null) {
         logger.info("Merging duplicate person (based on seeAlso): "
-            + person.toString());
+            + person.toString() + " into " + person.getQName());
         Element personNode = (Element) seeAlso.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getQName()
             .getNamespaceURI()
@@ -623,7 +623,7 @@ public class RDFUtils {
           RDF_NS, "resource"));
       if (project != null) {
         logger.info("Merging duplicate project (based on homepage): "
-            + project.toString());
+            + project.toString() + " into " + project.getQName());
         Element projectNode = (Element) homepage.getParentNode();
         projectNode.setAttributeNS(RDF_NS, "about", project.getQName()
             .getNamespaceURI()
@@ -640,7 +640,7 @@ public class RDFUtils {
           RDF_NS, "resource"));
       if (project != null) {
         logger.info("Merging duplicate project (based on seeAlso): "
-            + project.toString());
+            + project.toString() + " into " + project.getQName());
         Element projectNode = (Element) seeAlso.getParentNode();
         projectNode.setAttributeNS(RDF_NS, "about", project.getQName()
             .getNamespaceURI()
