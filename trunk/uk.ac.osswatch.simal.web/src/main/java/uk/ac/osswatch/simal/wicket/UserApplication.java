@@ -35,6 +35,8 @@ public class UserApplication extends WebApplication {
 	public static final QName DEFAULT_PROJECT_QNAME = new QName(
 			"http://simal.oss-watch.ac.uk/simalTest#");
 
+  public static final QName DEFAULT_PERSON_QNAME = new QName("http://simal.oss-watch.ac.uk/foaf/Jane Blogs Maintainer#Person");
+
 	private static SimalRepository repository;
 
   private static boolean isTest;
