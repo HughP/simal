@@ -97,24 +97,24 @@ public class ConceptsAndBehaviours {
    */
   private static void conceptsAndBehaviours() throws RepositoryException,
       RDFHandlerException {
-    QName id = new QName(NS, "E340076");
-    ICar car = manager.designate(ICar.class, id);
-    IEngine engine = manager.designateEntity(IEngine.class, car);
+    QName carID = new QName(NS, "car");
+    ICar car = manager.designate(ICar.class, carID);
+    QName engineID = new QName(NS, "engine");
+    IEngine engine = manager.designate(IEngine.class, engineID);
+    car.setEngine(engine);
     
     logger.info("Cars current speed is " + car.getSpeed());
     // the accelerate method is provided by the DrivingBehaviour
-    // FIXME: don't allow acceleration if the engine is not started
     car.accelerate();
-    logger.info("Cars current speed is " + car.getSpeed() + "Should be zero since the engine is not started");
-    
-    // FIXME: we shouldn't be able to accelerate unless the engine is started
-    engine.startEngine();
-    
+    logger.info("Cars current speed is " + car.getSpeed() + " (Should be zero since the engine is not started)");
+
+    logger.info("Starting the engine");
+    car.getEngine().setIsStarted(true);    
     car.accelerate();
     logger.info("Cars current speed is " + car.getSpeed());
 
     // FIXME: the changes are not persisted
-    dumpXML(id);
+    dumpXML(carID);
   }
 
   private static void dumpXML(QName id) throws RepositoryException,

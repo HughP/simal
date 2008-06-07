@@ -35,10 +35,11 @@ public class DrivingBehaviour implements IDrivingBehaviour {
    */
   public void accelerate() {
     logger.info("Accelerating...");
-    // if (isStarted) {
-    car.setSpeed(car.getSpeed() + 30);
-    // } else {
-    // logger.info("Hmmmm... maybe you ought to start the engine first");
-    // }
+    IEngine engine = car.getEngine();
+    if (engine.getIsStarted()) {
+      car.setSpeed(car.getSpeed() + 30);
+    } else {
+     logger.info("Hmmmm... maybe you ought to start the engine first");
+    }
   }
 }
