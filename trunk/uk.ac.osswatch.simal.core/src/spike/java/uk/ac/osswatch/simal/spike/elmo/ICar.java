@@ -31,4 +31,14 @@ public interface ICar extends IDrivingBehaviour {
    */
   public void setSpeed(int speed);
 
+  /**
+   * Get the engine of the car.
+   *
+   * @return
+   */
+  @rdf("http://example.org/0.1/elmoExample#Engine")
+  public IEngine getEngine();
+
+  public void setEngine(IEngine engine);
+
 }
