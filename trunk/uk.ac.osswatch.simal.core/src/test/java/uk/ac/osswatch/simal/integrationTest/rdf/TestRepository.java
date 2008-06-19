@@ -62,6 +62,12 @@ public class TestRepository extends BaseRepositoryTest {
   public void testAddCategories() throws SimalRepositoryException {
     Set<IDoapCategory> cats = repository.getAllCategories();
     assertTrue("Not managed to get any categories from the repo", cats.size() > 0);
+    
+    Iterator<IDoapCategory> catsIt = cats.iterator();
+    while(catsIt.hasNext()) {
+      IDoapCategory cat = catsIt.next();
+      logger.debug("Got category: " + cat.getLabel());
+    }
   }
 
   @Test
