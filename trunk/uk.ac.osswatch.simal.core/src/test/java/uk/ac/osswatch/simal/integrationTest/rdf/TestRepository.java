@@ -34,6 +34,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
@@ -55,6 +56,12 @@ public class TestRepository extends BaseRepositoryTest {
     // The default test repository adds projects when it is instantiated
     assertTrue(repository.isInitialised());
     logger.debug("Finished testAddProject()");
+  }
+  
+  @Test
+  public void testAddCategories() throws SimalRepositoryException {
+    Set<IDoapCategory> cats = repository.getAllCategories();
+    assertTrue("Not managed to get any categories from the repo", cats.size() > 0);
   }
 
   @Test
@@ -91,7 +98,6 @@ public class TestRepository extends BaseRepositoryTest {
   public void testGetAllProjects() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllProjects()");
     Set<IProject> projects = repository.getAllProjects();
-    assertEquals(4, projects.size());
 
     Iterator<IProject> itrProjects = projects.iterator();
     IProject project;
@@ -100,6 +106,8 @@ public class TestRepository extends BaseRepositoryTest {
       assertNotNull(project.getName());
       logger.debug("Got project: " + project.getName());
     }
+    
+    assertEquals(5, projects.size());
     logger.debug("Finished testGetAllProjects()");
   }
 
