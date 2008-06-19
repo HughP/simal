@@ -24,7 +24,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public abstract class TestBase {
 
-  protected static final int NUMBER_OF_TEST_PROJECTS = 4;
+  protected static final int NUMBER_OF_TEST_PROJECTS = 5;
   protected static final int NUMBER_OF_TEST_PEOPLE = 16;
   protected static WicketTester tester;
 
