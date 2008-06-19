@@ -178,6 +178,6 @@ public class TestRDFUtils extends BaseRepositoryTest {
   public void testAddMultipleProjectsInASingleFile() throws SimalRepositoryException {
     URL url = TestRDFUtils.class.getResource("/testData/testMultipleProjects.xml");
     Set<File> files = RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
-    assertEquals("Incorrect number of proejct files created", 3, files.size());
+    assertEquals("Incorrect number of project files created", 3, files.size());
   }
 }
