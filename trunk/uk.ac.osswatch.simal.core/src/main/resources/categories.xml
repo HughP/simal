@@ -22,11 +22,50 @@
      of this data. However, once an official Simal repository
      is made available this file will be superceded by that
      repo. -->
-<categories
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xmlns:doap="http://usefulinc.com/ns/doap#"
-  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:asfext="http://projects.apache.org/ns/asfext#">
+
+  <doap:Project rdf:about="http://simal.oss-watch.ac.uk/categories">
+    <doap:name>Simal Categories</doap:name>
   
+    <doap:shortdesc xml:lang="en">
+      Defines the categories used by Simal.
+    </doap:shortdesc>
+    
+    <doap:description xml:lang="en">
+      A project to define the widest possible set of useful
+      categories for software proejcts. These categories are
+      given sensible human readable names using this project.
+      
+      Without this project we'd just have URI's displayed in
+      the Simal system.
+    </doap:description>
+
+    <doap:mailing-list
+      rdf:resource="http://groups.google.com/group/simal-contributors"
+      dc:title="Users/Contributors" />
+    <doap:mailing-list
+      rdf:resource="http://groups.google.com/group/simal-commits"
+      dc:title="Commits" />
+    <doap:bug-database
+      rdf:resource="http://code.google.com/p/simal/issues/list" />
+    
+    <doap:programming-language>RDF</doap:programming-language>
+    <doap:programming-language>XML</doap:programming-language>
+
+
+    <doap:maintainer>
+      <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
+        <foaf:name>Ross Gardler</foaf:name>
+        <rdf:seeAlso
+          rdf:resource="http://people.apache.org/~rgardler/foaf.rdf.xml" />
+      </foaf:Person>
+    </doap:maintainer>
+    
   <!-- Simal Categories -->
   <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" rdfs:label="DOAP Test"/>
   <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/socialNews" rdfs:label="Social News"/>
@@ -83,4 +122,5 @@
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" rdfs:label="E-Resources Theme"/>
   <doap:category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" rdfs:label="Information Environment Theme"/>
 
-</categories>
+</doap:Project>
+</rdf:RDF>
