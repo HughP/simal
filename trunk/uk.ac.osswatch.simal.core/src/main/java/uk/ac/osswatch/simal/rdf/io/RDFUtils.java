@@ -16,6 +16,7 @@
 package uk.ac.osswatch.simal.rdf.io;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -286,42 +287,72 @@ public class RDFUtils {
       // Strip any extra XML, such as Atom feed data
       NodeList projects = originalDoc
           .getElementsByTagNameNS(DOAP_NS, "Project");
-      for (int i = 0; i < projects.getLength(); i = i + 1) {
-        doc = db.newDocument();
-        Node root = doc.createElementNS(RDF_NS, "RDF");
-        Node project = projects.item(i);
-        root.appendChild(doc.importNode(project, true));
-        doc.appendChild(root);
-
-        // perform various checks on the document
-        RDFUtils.removeBNodes(doc, repo);
-        RDFUtils.deDupeProjects(doc, repo);
-        RDFUtils.deDupePeople(doc, repo);
-        RDFUtils.checkProjectID(doc, repo);
-        RDFUtils.checkProjectSeeAlso(doc, url, repo);
-        RDFUtils.checkPersonIDs(doc, repo);
-        RDFUtils.checkPersonSHA1(doc, repo);
-        RDFUtils.checkPersonNames(doc, repo);
-        RDFUtils.checkResources(doc, repo);
-        RDFUtils.escapeContent(doc, repo);
-
-        File annotatedFile = RDFUtils.getAnnotatedDoapFile(url);
-
-        OutputFormat format = new OutputFormat(doc);
-        format.setIndenting(false);
-        XMLSerializer serializer = new XMLSerializer(new FileOutputStream(
-            annotatedFile), format);
-        serializer.setNamespaces(true);
-        serializer.serialize(doc);
-
+      if (projects.getLength() == 0) {
+        Element docElement = originalDoc.getDocumentElement();
+        if (docElement.getLocalName().equals("RDF")) {
+          doc = originalDoc;
+        } else {
+          doc = db.newDocument();
+          Node root = doc.createElementNS(RDF_NS, "RDF");
+          root.appendChild(doc.importNode(docElement, true));
+          doc.appendChild(root);
+        }
+        
+        File annotatedFile = writeAnnotatedFile(url, doc);
         annotatedFiles.add(annotatedFile);
         lastFile = annotatedFile;
+      } else {
+        for (int i = 0; i < projects.getLength(); i = i + 1) {
+          doc = db.newDocument();
+          Node root = doc.createElementNS(RDF_NS, "RDF");
+          Node project = projects.item(i);
+          root.appendChild(doc.importNode(project, true));
+          doc.appendChild(root);
+
+          // perform various checks on the document
+          RDFUtils.removeBNodes(doc, repo);
+          RDFUtils.deDupeProjects(doc, repo);
+          RDFUtils.deDupePeople(doc, repo);
+          RDFUtils.checkProjectID(doc, repo);
+          RDFUtils.checkProjectSeeAlso(doc, url, repo);
+          RDFUtils.checkPersonIDs(doc, repo);
+          RDFUtils.checkPersonSHA1(doc, repo);
+          RDFUtils.checkPersonNames(doc, repo);
+          RDFUtils.checkResources(doc, repo);
+          RDFUtils.escapeContent(doc, repo);
+          
+          File annotatedFile = writeAnnotatedFile(url, doc);
+          annotatedFiles.add(annotatedFile);
+          lastFile = annotatedFile;
+        }
       }
     } catch (Exception e) {
       throw new SimalRepositoryException("Unable to prepare data from "
           + url.toExternalForm() + " for adding to the repository", e);
     }
     return annotatedFiles;
+  }
+
+  /**
+   * Write the annotated copy of the source file to disk.
+   * 
+   * @param sourceURL
+   * @param doc
+   * @return
+   * @throws FileNotFoundException
+   * @throws IOException
+   */
+  private static File writeAnnotatedFile(URL sourceURL, Document doc)
+      throws FileNotFoundException, IOException {
+    File annotatedFile = RDFUtils.getAnnotatedFile(sourceURL);
+
+    OutputFormat format = new OutputFormat(doc);
+    format.setIndenting(false);
+    XMLSerializer serializer = new XMLSerializer(new FileOutputStream(
+        annotatedFile), format);
+    serializer.setNamespaces(true);
+    serializer.serialize(doc);
+    return annotatedFile;
   }
 
   /**
@@ -664,7 +695,8 @@ public class RDFUtils {
     if (!(filename.endsWith(".rdf") || filename.endsWith(".xml"))) {
       filename = filename + ".rdf";
     }
-    File file = new File(path + File.separator + System.currentTimeMillis() + "_" + filename);
+    File file = new File(path + File.separator + System.currentTimeMillis()
+        + "_" + filename);
     return file;
   }
 
@@ -674,7 +706,7 @@ public class RDFUtils {
    * 
    * @return
    */
-  public static File getAnnotatedDoapFile(URL url) {
+  public static File getAnnotatedFile(URL url) {
     String filename;
     String path = url.getPath();
     int startName = path.lastIndexOf("/");
@@ -687,12 +719,11 @@ public class RDFUtils {
   }
 
   /**
-   * Get the File that contains the most recently processed data.
-   * Note that this is primarily to allow testing, it cannot be
-   * relied upon in product because when a source file has
-   * multiple projects within it that file will be split into
-   * multiple local files. Thus this method will only return 
-   * the File for the last Project in the original source file.
+   * Get the File that contains the most recently processed data. Note that this
+   * is primarily to allow testing, it cannot be relied upon in product because
+   * when a source file has multiple projects within it that file will be split
+   * into multiple local files. Thus this method will only return the File for
+   * the last Project in the original source file.
    * 
    * @return
    */
