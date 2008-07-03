@@ -60,6 +60,10 @@ public class TestRepository extends BaseRepositoryTest {
   
   @Test
   public void testAddCategories() throws SimalRepositoryException {
+    // FIXME: the following line is a workaround for ISSUE 127, 
+    // remove when the issue is resolved
+    getSimalTestProject().getCategories();
+    
     Set<IDoapCategory> cats = repository.getAllCategories();
     assertTrue("Not managed to get any categories from the repo", cats.size() > 0);
     
