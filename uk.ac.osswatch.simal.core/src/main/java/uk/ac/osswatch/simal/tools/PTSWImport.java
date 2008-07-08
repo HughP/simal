@@ -25,6 +25,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -33,9 +35,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import uk.ac.osswatch.simal.rdf.SimalException;
+import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public class PTSWImport {
+  private static final Logger logger = LoggerFactory.getLogger(PTSWImport.class);
   
   /**
    * Get latest pings as RDF/XML by retrieving the document
@@ -116,9 +120,10 @@ public class PTSWImport {
     Iterator<URL> pings = getListOfPings(export).iterator();
     Document projectDoc;
     Element projectRoot;
+    URL ping = null;
     while(pings.hasNext()) {
       try {
-        URL ping = pings.next();
+        ping = pings.next();
         projectDoc = db.parse(ping.openStream());
         projectRoot = projectDoc.getDocumentElement();
         if (!projectRoot.getLocalName().equals("Project")) {
@@ -140,8 +145,7 @@ public class PTSWImport {
         importedProjectNode.appendChild(seeAlso);
         root.appendChild(importedProjectNode);
       } catch (Exception e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        logger.warn("Ignoring illegal XML document loaded from " + ping, e);
       }
     }
     resultDoc.appendChild(root);
