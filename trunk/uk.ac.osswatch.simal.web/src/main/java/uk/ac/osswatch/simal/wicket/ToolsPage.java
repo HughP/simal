@@ -56,9 +56,6 @@ public class ToolsPage extends BasePage {
         }
       }
     });
-    
-    add(new BookmarkablePageLink("openSocialDemoPageLink",
-        DemoOpenSocialPage.class));
   }
 
   private void importPTSW() throws UserReportableException {
