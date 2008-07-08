@@ -17,15 +17,15 @@
 
 -->
 <pingthesemanticwebUpdate version="1.4" updated="2008-05-20 16:50:57">
-  <rdfdocument url="http://doapspace.org/doap/sf/argon"
+  <rdfdocument url="http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/src/main/resources/testData/ossWatchDOAP.xml"
     created="2008-05-19 21:54:52" updated="2008-05-20 16:48:27"
     serialization="xml"
     ns="http://usefulinc.com/ns/doap# http://xmlns.com/foaf/0.1/" />
-  <rdfdocument url="http://doapspace.org/doap/sf/httpunit"
+  <rdfdocument url="http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/src/main/resources/testData/testDOAP.xml"
     created="2008-05-20 17:07:44" updated="2008-05-20 17:07:44"
     serialization="xml"
     ns="http://usefulinc.com/ns/doap# http://xmlns.com/foaf/0.1/ " />
-  <rdfdocument url="http://doapspace.org/doap/sf/cuttingproblem"
+  <rdfdocument url="http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/src/main/resources/testData/testNoRDFAboutDOAP.xml"
     created="2007-12-06 10:00:47" updated="2008-05-20 17:07:19"
     serialization="xml"
     ns="http://usefulinc.com/ns/doap# http://xmlns.com/foaf/0.1/ " />
