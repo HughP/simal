@@ -84,7 +84,7 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 
 
 	public Iterator<IDoapResourceBehaviour> iterator(int first, int count) {
-		IDoapResourceBehaviourComparator comparator = new IDoapResourceBehaviourComparator();
+		DoapResourceBehaviourComparator comparator = new DoapResourceBehaviourComparator();
 		TreeSet<IDoapResourceBehaviour> treeSet = new TreeSet<IDoapResourceBehaviour>(comparator);
 		treeSet.addAll(resources);
 		TreeSet<IDoapResourceBehaviour> result = new TreeSet<IDoapResourceBehaviour>(comparator);
@@ -126,7 +126,7 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 		return resources.size();
 	}
 
-	private class IDoapResourceBehaviourComparator implements Comparator<IDoapResourceBehaviour> {
+	private class DoapResourceBehaviourComparator implements Comparator<IDoapResourceBehaviour> {
 
 		public int compare(IDoapResourceBehaviour resource1, IDoapResourceBehaviour resource2) {
 			if (resource1.equals(resource2)) { return 0; }
