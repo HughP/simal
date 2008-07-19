@@ -22,8 +22,8 @@ import org.junit.BeforeClass;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.sesame.SimalRepository;
 
 /**
  * A base class for repository integration tests. This class provides utility

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.rdf;
+package uk.ac.osswatch.simal.rdf.sesame;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -74,6 +74,9 @@ import uk.ac.osswatch.simal.model.elmo.DoapRepositoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapScreenshotBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapWikiBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
+import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
@@ -81,54 +84,9 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
  * instantiate this class but should interact with it via its methods.
  * 
  */
-public class SimalRepository extends SimalProperties {
+public class SimalRepository extends SimalProperties implements ISimalRepository {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepository.class);
-
-  // FIXME: standardise names of constants
-  public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
-  public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
-  public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
-  public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
-  public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
-  public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
-  public static final String DEFAULT_CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
-
-  public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
-  public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI + "Person";
-  public static final String FOAF_KNOWS_URI = FOAF_NAMESPACE_URI + "knows";
-  public static final String FOAF_MBOX_SHA1SUM_URI = FOAF_NAMESPACE_URI
-      + "mbox_sha1sum";
-
-  public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
-  public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
-  public static final String DOAP_CATEGORY_URI = DOAP_NAMESPACE_URI
-      + "category";
-  public static final String DOAP_MAINTAINER_URI = DOAP_NAMESPACE_URI
-      + "maintainer";
-  public static final String DOAP_DEVELOPER_URI = DOAP_NAMESPACE_URI
-      + "developer";
-  public static final String DOAP_DOCUMENTER_URI = DOAP_NAMESPACE_URI
-      + "documenter";
-  public static final String DOAP_HELPER_URI = DOAP_NAMESPACE_URI + "helper";
-  public static final String DOAP_TESTER_URI = DOAP_NAMESPACE_URI + "tester";
-  public static final String DOAP_TRANSLATOR_URI = DOAP_NAMESPACE_URI
-      + "translator";
-  public static final String DOAP_VERSION_URI = DOAP_NAMESPACE_URI + "Version";
-
-  public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
-  public static final String SIMAL_URI_PROJECT_ID = SIMAL_NAMESPACE_URI
-      + "projectId";
-  public static final String SIMAL_URI_PERSON_ID = SIMAL_NAMESPACE_URI
-      + "personId";
-
-  public static final String RDF_NAMESPACE_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-
-  public static final String RDFS_NAMESPACE_URI = "http://www.w3.org/2000/01/rdf-schema#";
-  public static final String RDFS_URI_SEE_ALSO = RDFS_NAMESPACE_URI + "seeAlso";
-
-  public final static String CATEGORIES_RDF = "categories.xml";
-
   private static SailRepository _repository;
   private boolean isTest = false;
 

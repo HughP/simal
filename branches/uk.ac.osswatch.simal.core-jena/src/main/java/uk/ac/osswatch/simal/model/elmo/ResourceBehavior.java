@@ -24,8 +24,8 @@ import org.openrdf.elmo.Entity;
 import org.openrdf.elmo.annotations.rdf;
 
 import uk.ac.osswatch.simal.model.IResourceBehaviour;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 /**
  * Provides functionality for a Resource object provided by Elmo.
@@ -117,7 +117,7 @@ public class ResourceBehavior implements IResourceBehaviour {
    */
   public String toXML() throws SimalRepositoryException {
     StringWriter writer = new StringWriter();
-    SimalRepository.getInstance().writeXML(writer, elmoEntity.getQName());
+    SimalRepositoryFactory.getInstance().writeXML(writer, elmoEntity.getQName());
     return writer.toString();
   }
 

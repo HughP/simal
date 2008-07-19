@@ -27,8 +27,8 @@ import org.openrdf.elmo.annotations.rdf;
 
 import uk.ac.osswatch.simal.model.IFoafPersonBehaviour;
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 
 /**
  * A behaviour for an Elmo object representing a FOAF Person.
@@ -55,9 +55,9 @@ public class FoafPersonBehaviour extends FoafResourceBehaviour implements IFoafP
    * @throws SimalRepositoryException
    */
   public Set<IPerson> getColleagues() throws SimalRepositoryException {
-    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
-        + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
-        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX foaf: <" + ISimalRepository.FOAF_NAMESPACE_URI + "> "
+        + "PREFIX doap: <" + ISimalRepository.DOAP_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + ISimalRepository.RDF_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?colleague WHERE { "
         + "?project rdf:type doap:Project . "
         + "{?project doap:maintainer $qname} UNION "
