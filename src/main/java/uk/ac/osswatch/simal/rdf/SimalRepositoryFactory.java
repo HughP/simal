@@ -2,9 +2,9 @@ package uk.ac.osswatch.simal.rdf;
 
 public class SimalRepositoryFactory {
 
-  private static final int TYPE_SESAME = 1;
-  private static final int TYPE_JENA = 2;
-  private static int TYPE_DEFAULT = TYPE_SESAME;
+  public static final int TYPE_SESAME = 1;
+  public static final int TYPE_JENA = 2;
+  public static int TYPE_DEFAULT = TYPE_SESAME;
 
   /**
    * Get the SimalRepository object using the default repository type.
