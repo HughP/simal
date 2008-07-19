@@ -66,17 +66,17 @@ Note, in all these cases the documentation is currently held in SVN, we've not g
 
 === Simal Web Application ===
 
-The Simal web module provides a web application that provides a GUI interface to a Simal repostory. [http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web/src/site/apt/developing.apt Instructions for running the webapp] can be found in svn.
+The Simal web module provides a web application that provides a GUI interface to a Simal repostory. [http://simal.oss-watch.ac.uk/web/developing.html Instructions for running the webapp] can be found in svn.
 
 === Simal Rest ===
 
-Simal rest is a module providing a REST API to Simal. Instructions for [http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.rest/src/site/apt/index.apt running and accessing the REST API] are in SVN.
+Simal rest is a module providing a REST API to Simal. Instructions for [http://simal.oss-watch.ac.uk/rest/index.html running and accessing the REST API] are in SVN.
 
 === Simal Core ===
 
 Simal core is the back end systems. It contains the data model, data services and repository. Simal core provides a command line interface.
 
-The documentation for [http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/src/site/apt/developing.apt running Simal core] can be found at in svn. We'll get around to publishing it one day.
+The documentation for [http://simal.oss-watch.ac.uk/core/developing.html running Simal core] can be found at in svn. We'll get around to publishing it one day.
 
 = Questions? =
 
