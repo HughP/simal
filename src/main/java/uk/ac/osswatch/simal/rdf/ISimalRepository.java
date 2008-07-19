@@ -351,4 +351,12 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    */
   public void initialise() throws SimalRepositoryException;
+
+  /**
+   * Return true if this repository has been successfully initialised and is
+   * ready to be used, otherwise return false.
+   * 
+   * @return
+   */
+  public boolean isInitialised();
 }

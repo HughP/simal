@@ -22,8 +22,9 @@ import org.junit.BeforeClass;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.sesame.SimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 /**
  * A base class for repository integration tests. This class provides utility
@@ -93,7 +94,7 @@ public abstract class BaseRepositoryTest {
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
 
-  protected static SimalRepository repository;
+  protected static ISimalRepository repository;
 
   protected static IProject project1;
   protected static String project1ID = "200";
@@ -110,7 +111,7 @@ public abstract class BaseRepositoryTest {
   }
   
   protected static void initRepository() throws SimalRepositoryException {
-    repository = SimalRepository.getInstance();
+    repository = SimalRepositoryFactory.getInstance();
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
       repository.initialise();
