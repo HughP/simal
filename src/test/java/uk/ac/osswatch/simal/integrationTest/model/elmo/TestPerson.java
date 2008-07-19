@@ -30,8 +30,8 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.sesame.SimalRepository;
 
 public class TestPerson extends BaseRepositoryTest {
 
