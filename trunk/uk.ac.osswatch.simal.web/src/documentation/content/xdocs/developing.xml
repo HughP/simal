@@ -94,12 +94,12 @@ mvn jetty:run
 
     <p>
       Now point your browser at
-      <code>http://localhost:8080/simal-webapp/</code>
+      <code>http://localhost:8080</code>
     </p>
 
     <p>
       An alternative way of starting a test version of the application
-      is to us the class
+      is to use the class
       <code>uk.ac.osswatch.simal.wicket.Start</code>
       , found in the
       <code>src/test</code>
