@@ -102,7 +102,7 @@ public class Simal {
       System.exit(1);
     }
 
-    PropertyConfigurator.configure("log4j.properties");
+    PropertyConfigurator.configure(Simal.class.getResource("/log4j.properties"));
 
     if (cl.hasOption('h')) {
       printHelp(opts);
