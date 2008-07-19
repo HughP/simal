@@ -1,10 +1,9 @@
 package uk.ac.osswatch.simal.rdf;
 
-import uk.ac.osswatch.simal.rdf.sesame.SimalRepository;
-
 public class SimalRepositoryFactory {
 
   private static final int TYPE_SESAME = 1;
+  private static final int TYPE_JENA = 2;
   private static int TYPE_DEFAULT = TYPE_SESAME;
 
   /**
@@ -29,7 +28,9 @@ public class SimalRepositoryFactory {
    */
   public static ISimalRepository getInstance(int type) throws SimalRepositoryException {
     if (type == TYPE_SESAME) {
-    return SimalRepository.getInstance();
+      return uk.ac.osswatch.simal.rdf.sesame.SimalRepository.getInstance();
+    } else if (type == TYPE_JENA) {
+      return uk.ac.osswatch.simal.rdf.jena.SimalRepository.getInstance();
     } else {
       throw new SimalRepositoryException("Unable to create repository instance of type " + type);
     }

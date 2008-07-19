@@ -90,7 +90,7 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
   private static SailRepository _repository;
   private boolean isTest = false;
 
-  private static SimalRepository instance;
+  private static ISimalRepository instance;
 
   private SimalRepository() throws SimalRepositoryException {
     super();
@@ -800,7 +800,7 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
    * @return
    * @throws SimalRepositoryException
    */
-  public static SimalRepository getInstance() throws SimalRepositoryException {
+  public static ISimalRepository getInstance() throws SimalRepositoryException {
     if (instance == null) {
       instance = new SimalRepository();
     }

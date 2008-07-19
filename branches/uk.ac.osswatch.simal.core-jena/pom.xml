@@ -102,6 +102,13 @@
       <version>0.5.1</version>
     </dependency>
     
+    <!-- JENA DEPENDENCIES -->
+    <dependency>
+      <groupId>com.hp.hpl.jena</groupId>
+      <artifactId>jena</artifactId>
+      <version>2.5.6</version>
+    </dependency> 
+    
     <!-- SESAME DEPENDENCIES -->
     <!-- FIXME: look out for sesame 2.0 making it into the maven repository and use it from there -->
 
