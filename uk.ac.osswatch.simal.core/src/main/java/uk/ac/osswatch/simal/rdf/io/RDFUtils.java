@@ -396,6 +396,7 @@ public class RDFUtils {
    * @param repo
    */
   private static void checkResources(Document doc, SimalRepository repo) {
+    logger.debug("Check resources found in RDF file");
     NodeList homepages = doc.getElementsByTagNameNS(FOAF_NS, "homepage");
     Element homepage;
     for (int i = 0; i < homepages.getLength(); i = i + 1) {
@@ -416,6 +417,7 @@ public class RDFUtils {
    * @param repo
    */
   private static void checkPersonNames(Document doc, SimalRepository repo) {
+    logger.debug("Check person names in RDF file");
     NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
     Element person;
     for (int i = 0; i < people.getLength(); i = i + 1) {
@@ -457,6 +459,7 @@ public class RDFUtils {
    */
   private static void checkPersonSHA1(Document doc, SimalRepository repo)
       throws SimalRepositoryException {
+    logger.debug("Check person SHA1 in RDF file");
     NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
     Element person;
     for (int i = 0; i < people.getLength(); i = i + 1) {
@@ -507,6 +510,7 @@ public class RDFUtils {
    */
   private static void checkProjectSeeAlso(Document doc, URL sourceURL,
       SimalRepository repo) {
+    logger.debug("Check project see also in RDF file");
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     if (projects.getLength() > 0) {
       Node project = projects.item(0);
@@ -525,6 +529,7 @@ public class RDFUtils {
    */
   private static void checkPersonIDs(Document doc, SimalRepository repo)
       throws SimalRepositoryException {
+    logger.debug("Check person IDs in RDF file");
     NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
     Element person;
     NodeList simalIDNL;
@@ -558,6 +563,7 @@ public class RDFUtils {
    */
   private static void checkProjectID(Document doc, SimalRepository repo)
       throws SimalRepositoryException {
+    logger.debug("Check project IDs in RDF file");
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     Element project;
     NodeList simalIDNL;
@@ -596,6 +602,7 @@ public class RDFUtils {
    */
   private static void deDupePeople(Document doc, SimalRepository repo)
       throws DOMException, SimalRepositoryException {
+    logger.debug("deDupePeople found in RDF file");
     // handle duplicate people identified by their mbox_sha1sum
     NodeList sha1sums = doc.getElementsByTagNameNS(FOAF_NS, "mbox_sha1sum");
     Node sha1sum;
@@ -645,6 +652,7 @@ public class RDFUtils {
    */
   private static void deDupeProjects(Document doc, SimalRepository repo)
       throws DOMException, SimalRepositoryException {
+    logger.debug("deDupeProjects found in RDF file");
     // handle duplicate projects identified by their homepage
     NodeList homepages = doc.getElementsByTagNameNS(DOAP_NS, "homepage");
     Element homepage;
