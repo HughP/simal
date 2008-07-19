@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/project_jmef.aspx">
-<shortdesc>A 3 year framework for monitoring and evaluating the use of electronic information services.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"/>
-<name>JISC's Monitoring and Evaluation Framework</name>
-</Project>

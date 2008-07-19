@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation/eli_melas.aspx">
-<shortdesc>The University of Wolverhampton was one of the first HEIs to experiment with SMS and other forms of mobile learning. The project will refine a sustainable institutional SMS strategy to improve retention and progression by extending and enriching the contact and support of students on- and off-campus.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Mobiles Enhancing Learning and Support (MELaS)</name>
-<homepage rdf:resource="http://www.wlv.ac.uk/celt/melas"/>
-</Project>

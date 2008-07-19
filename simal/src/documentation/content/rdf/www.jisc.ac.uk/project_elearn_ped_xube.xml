@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/project_elearn_ped_xube.aspx">
-<shortdesc>The overall aim of the project is to  illustrate a range of different approaches to e-learning, including at least one example from school sixth forms, further education, higher education and adult and community learning. The video case studies should include specific uses of Virtual Learning Environments as well as the use of modular e-learning tools in blended and in virtual contexts, and include tutor/teacher and learner testimony on the impact of the technology used.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Xube: Innovative e-Learning practice video case studies</name>
-</Project>

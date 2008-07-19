@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/raphaelite.aspx">
-<shortdesc>This project will create a unique research source for the study of the Pre-Raphaelites and British 19th-century art. It will be available open access to all users via the Birmingham Museums and Art Gallery website.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>Pre-Raphaelite resource site</name>
-</Project>

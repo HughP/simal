@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/toolkit_xmarks.aspx">
-<shortdesc>The XMarks project aims to facilitate the exchange of marks and assessment information between an institutions SRS and LMS, using a web services model. Another key aim of the project is to achieve this integration in a way that reduces the barriers to adoption of the web services model for other institutions.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>XMarks  exchanging assessment and marks data</name>
-<homepage rdf:resource="http://www.sussex.ac.uk/its/xmarks"/>
-</Project>

@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_asmima.aspx">
-<shortdesc>Cardiff University, through its Directorate of Information Services, intends to implement Shibboleth at an early date and to record its experiences in doing so. It further proposes to test the applicability of Shibboleth on a range of managed resource areas: an e-Science Application Target, Access to Secure NHS Resources from Overlapping User Communities, and Improving upon Athens for Validating Access to On-Line Data. The information and expertise acquired will be made available to JISC for the benefit of all.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
-<name>ASMIMA: Adoption of Shibboleth for Multiple Identity Management Applications</name>
-</Project>

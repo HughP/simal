@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_x4l_westmid.aspx">
-<shortdesc>The intention is to work towards the design of learning objects which will be have value for learners within Further &amp; Higher Education, ones which create meaningful learning pathways and are usable across different VLEs.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>X4L West Midlands: learning objects engineering &amp; ESOL</name>
-<homepage rdf:resource="http://www.solihull.ac.uk/"/>
-</Project>

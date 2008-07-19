@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle/project_4i.aspx">
-<shortdesc>The aim of this project is to further develop and implement a working model upon which to fully integrate VLE and library systems to provide users with personalised contextual linkage to library resources and services along with seamless access to protected resources.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>Linking Library and VLE systems: The 4i project</name>
-<homepage rdf:resource="http://www.ulster.ac.uk/library/4i"/>
-</Project>

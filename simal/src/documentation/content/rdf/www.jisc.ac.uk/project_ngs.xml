@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_ngs.aspx">
-<shortdesc>The NGS is the core UK grid, intended for the production use of computational and data grid resources. NGS is the core service resulting from the UK's e-Science programme. NGS is supported by JISC, and is run by the Grid Operations Centre (GOC).</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>National Grid Service</name>
-<homepage rdf:resource="http://www.ngs.ac.uk/"/>
-</Project>

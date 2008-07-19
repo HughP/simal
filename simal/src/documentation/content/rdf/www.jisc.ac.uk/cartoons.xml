@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/cartoons.aspx">
-<shortdesc>This project will digitise the Carl Giles Archive, the single most important archive of British newspaper cartoons, and a key resource for British political and social history that has never before been open to the public. The collection will become a major part of the existing University of Kent Cartoon Centre, thereby creating the largest archive of cartoons in the UK.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>British Cartoon Archive digitisation project</name>
-<homepage rdf:resource="http://library.kent.ac.uk/cartoons"/>
-</Project>

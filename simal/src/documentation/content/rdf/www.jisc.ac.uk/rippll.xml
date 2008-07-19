@@ -1,8 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/rippll.aspx">
-<shortdesc>This project will establish a national demonstration model of cross-sector collaboration in personal development planning technology to support Widening Participation.  
-It will make interoperable all the major study-based electronic Progress File systems in the Nottingham area.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"/>
-<name>RIPPLL - Regional Interoperability Project on Progression for Lifelong Learning</name>
-<homepage rdf:resource="http://www.nottingham.ac.uk/rippll"/>
-</Project>

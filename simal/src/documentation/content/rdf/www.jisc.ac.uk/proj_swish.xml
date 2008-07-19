@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_swish.aspx">
-<shortdesc>The University of Exeter has been using Athens DA for authenticated access to electronic resources since 1994.  With the JISC investigating Shibboleth as a possible successor to Athens, the primary activity of the SWISh project will be to pilot an authentication/authorisation system for electronic resources based on Shibboleth.  A secondary activity will be to explore the use of Shibboleth within the institution, with possible integration with the University portal, the institutional VLE and the Library management system.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
-<name>SWish: South West Implementation of Shibboleth</name>
-<homepage rdf:resource="http://www.exeter.ac.uk/swish"/>
-</Project>

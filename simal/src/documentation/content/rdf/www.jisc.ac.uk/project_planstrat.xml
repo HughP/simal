@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm/project_planstrat.aspx">
-<shortdesc>The project tested the practical application of the planning and strategy-related themes from the Study of the Records Lifecycle by developing and commencing the implementation of a retention schedule for planning and strategy records created throughout the University of Edinburgh.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>Records lifecycle for planning &amp; strategy</name>
-<homepage rdf:resource="http://www.recordsmanagement.ed.ac.uk/InfoStaff/rmstaff/RMprojects/JISCPlanFun.htm"/>
-</Project>

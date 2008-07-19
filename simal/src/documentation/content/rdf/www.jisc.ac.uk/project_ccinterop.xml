@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlip/project_ccinterop.aspx">
-<shortdesc>This project builds on the results of JISC's eLib Phase 3 programme in the area of resource discovery. It enhances the 'distributed' part of the JISC Information Environment, by bringing together, in a virtual way, distributed catalogues to offer richer search and retrieve possibilities for users.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlip.aspx"/>
-<name>Copac and CLUMPS interoperability project (CC-Interop)</name>
-<homepage rdf:resource="http://ccinterop.cdlr.strath.ac.uk/"/>
-</Project>

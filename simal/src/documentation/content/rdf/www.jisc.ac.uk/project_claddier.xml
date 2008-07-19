@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_claddier.aspx">
-<shortdesc>The CLADDIER Project will build and deploy a demonstration system linking publications held in two institutional repositories (Southampton University and the CCLRC) with data holdings in the British Atmospheric Data Centre.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>CLADDIER Project</name>
-<homepage rdf:resource="http://claddier.badc.ac.uk/"/>
-</Project>

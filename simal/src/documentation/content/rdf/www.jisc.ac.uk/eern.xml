@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/eern.aspx">
-<shortdesc>The project aims to deploy and pilot an East of England Educational Resource Network (EERN). The EERN solution is based on the JISC funded DELTA system that utilises the power of the semantic web in the searching of educational resources located in distributed repositories. By adopting EERN HE and FE Colleges in the region can share, deposit and annotate a full range of different types of learning resources.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>EERN: The East of England's Educational Resource Network</name>
-<homepage rdf:resource="http://www.essex.ac.uk/chimera/projects/DELTApilot.html"/>
-</Project>

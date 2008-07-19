@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation/programme_404/project_sherpa2.aspx">
-<shortdesc>This project will create a collaborative, shared preservation environment for the SHERPA institutional repositories project framed around the OAIS Reference Model</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>SHERPA Digital Preservation: Creating a Persistent Preservation Environment for Institutional Repositories</name>
-<homepage rdf:resource="http://ahds.ac.uk/about/projects/sherpa-dp/"/>
-</Project>
