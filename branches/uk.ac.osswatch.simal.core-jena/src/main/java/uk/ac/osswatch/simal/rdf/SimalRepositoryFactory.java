@@ -1,7 +1,12 @@
 package uk.ac.osswatch.simal.rdf;
 
-public class SimalRepositoryFactory {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+public class SimalRepositoryFactory {
+  private static final Logger logger = LoggerFactory
+  .getLogger(SimalRepositoryFactory.class);
+  
   public static final int TYPE_SESAME = 1;
   public static final int TYPE_JENA = 2;
   public static int TYPE_DEFAULT = TYPE_SESAME;
@@ -15,6 +20,7 @@ public class SimalRepositoryFactory {
    * @throws SimalRepositoryException
    */
   public static ISimalRepository getInstance() throws SimalRepositoryException {
+    logger.debug("Creating repository of default type");
     return getInstance(TYPE_DEFAULT );
   }
   
@@ -28,8 +34,10 @@ public class SimalRepositoryFactory {
    */
   public static ISimalRepository getInstance(int type) throws SimalRepositoryException {
     if (type == TYPE_SESAME) {
+      logger.debug("Creating Sesame repository");
       return uk.ac.osswatch.simal.rdf.sesame.SimalRepository.getInstance();
     } else if (type == TYPE_JENA) {
+      logger.debug("Creating Jena repository");
       return uk.ac.osswatch.simal.rdf.jena.SimalRepository.getInstance();
     } else {
       throw new SimalRepositoryException("Unable to create repository instance of type " + type);
