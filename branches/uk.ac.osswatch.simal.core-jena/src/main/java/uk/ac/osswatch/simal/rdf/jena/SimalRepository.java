@@ -126,8 +126,9 @@ public class SimalRepository extends AbstractSimalRepository {
   }
 
   public void destroy() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    
+    model.close();
+    model = null;
+    initialised = false;
   }
 
   public IDoapCategory findCategory(String uri) throws SimalRepositoryException {
