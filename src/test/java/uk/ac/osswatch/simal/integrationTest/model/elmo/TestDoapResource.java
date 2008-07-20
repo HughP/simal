@@ -75,10 +75,9 @@ public class TestDoapResource extends BaseRepositoryTest {
 
   @Test
   public void testGetLicences() {
-    assertTrue(project1.getLicences().toString().contains(
-        TEST_SIMAL_PROJECT_LICENCE_ONE));
-    assertTrue(project1.getLicences().toString().contains(
-        TEST_SIMAL_PROJECT_LICENCE_TWO));
+    String licences = project1.getLicences().toString();
+    assertTrue(licences.contains(TEST_SIMAL_PROJECT_LICENCE_ONE));
+    assertTrue(licences.contains(TEST_SIMAL_PROJECT_LICENCE_TWO));
   }
 
 }
