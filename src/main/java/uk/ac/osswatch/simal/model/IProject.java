@@ -15,16 +15,17 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import org.openrdf.concepts.doap.Project;
-import org.openrdf.elmo.annotations.rdf;
+import java.util.HashSet;
+import java.util.Set;
+
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * Extra data provided by simal.Project objects over and
  * above that provided by doap.Project objects.
  * 
  */
-@rdf("http://usefulinc.com/ns/doap#Project")
-public interface IProject extends Project, IDoapProjectBehaviour {
+public interface IProject extends IDoapResource, IProjectService {
 
   /**
    * Get the Simal ID for this project. This is a unique identifier
@@ -32,7 +33,6 @@ public interface IProject extends Project, IDoapProjectBehaviour {
    * 
    * @return 
    */
-  @rdf("http://simal.oss-watch.ac.uk/ns/0.2/simal#projectId")
   public String getSimalID();
 
   /**
@@ -42,4 +42,145 @@ public interface IProject extends Project, IDoapProjectBehaviour {
    * @return 
    */
   public void setSimalID(String newID);
+
+
+  /**
+   * Get all the people known to be engaged with this project.
+   * 
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public HashSet<IPerson> getAllPeople() throws SimalRepositoryException;
+  
+  /**
+   * Get the default name for this project.
+   */
+  public String getName();
+  
+
+  /**
+   * Get the default short description name for this project.
+   */
+  public String getShortDesc();
+
+  /**
+   * Set the default short description name for this project.
+   */
+  public void setShortDesc(String desc);
+
+  /**
+   * Get the default description name for this project.
+   */
+  public String getDescription();
+
+  /**
+   * Set the default description name for this project.
+   */
+  public void setDescription(String desc);
+  
+  /**
+   * Get a set of categories that this project belongs to.
+   */
+  public Set<IDoapCategory> getCategories(); 
+  
+  /**
+   * Get a set of homepages for this project.
+   * 
+   * @return
+   */
+  public Set<IDoapHomepage> getHomepages();
+  
+  /**
+   * Get a set of old homepages for this project.
+   * 
+   * @return
+   */
+  public Set<IDoapHomepage> getOldHomepages();
+  
+  /**
+   * Get all developers who work on this project.
+   */
+  public Set<IPerson> getDevelopers();
+  
+  /**
+   * Get all documenters who work on this project.
+   */
+  public Set<IPerson> getDocumenters();
+  
+  /**
+   * Get all helpers who work on this project.
+   */
+  public Set<IPerson> getHelpers();
+  
+  /**
+   * Get all maintainers who work on this project.
+   */
+  public Set<IPerson> getMaintainers();
+
+  /**
+   * Get all testers who work on this project.
+   */
+  public Set<IPerson> getTesters();
+
+  /**
+   * Get all translators who work on this project.
+   */
+  public Set<IPerson> getTranslators();
+  
+  /**
+   * Get all Issue Trackers registered for this project.
+   */
+  public Set<IDoapBugDatabase> getIssueTrackers();
+
+  /**
+   * Get all releases associated with this project.
+   */
+  public Set<IDoapRelease> getReleases();
+  /**
+   * Get all licences associated with this project.
+   */
+  public Set<IDoapLicence> getLicences();
+  
+  /**
+   * Get all mailing lists associated with this project.
+   */
+  public Set<IDoapMailingList> getMailingLists();
+
+  /**
+   * Get all repositories associated with this project.
+   */
+  public Set<IDoapRepository> getRepositories();
+
+  /**
+   * Get all screen shots associated with this project.
+   */
+  public Set<IDoapScreenshot> getScreenshots();
+
+  
+  /**
+   * Get all operating systems this project can be associated with.
+   * 
+   */
+  public Set<String> getOSes();
+  
+  /**
+   * Get all programming languages this project can be associated with.
+   * 
+   */
+  public Set<String> getProgrammingLanguages();
+  
+  /**
+   * Get all wikis associated with this project.
+   */
+  public Set<IDoapWiki> getWikis();
+  
+  /**
+   * Get all download pages associated with this project.
+   */
+  public Set<IDoapDownloadPage> getDownloadPages();
+  
+  /**
+   * Get all download mirrors associated with this project.
+   */
+  public Set<IDoapDownloadMirror> getDownloadMirrors();
 }

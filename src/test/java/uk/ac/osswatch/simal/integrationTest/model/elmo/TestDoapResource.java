@@ -39,50 +39,48 @@ public class TestDoapResource extends BaseRepositoryTest {
 
   @Test
   public void testGetShortDesc() {
-    assertEquals(TEST_SIMAL_PROJECT_SHORT_DESC, project1.getDoapShortdesc());
+    assertEquals(TEST_SIMAL_PROJECT_SHORT_DESC, project1.getShortDesc());
   }
 
   @Test
   public void testSetShortDesc() {
     String origDesc = project1.getShortDesc();
     String newDesc = "New short description";
-    project1.setDoapShortdesc(newDesc);
-    assertEquals(newDesc, project1.getDoapShortdesc());
-    project1.setDoapShortdesc(origDesc);
-    assertEquals(origDesc, project1.getDoapShortdesc());
+    project1.setShortDesc(newDesc);
+    assertEquals(newDesc, project1.getShortDesc());
+    project1.setShortDesc(origDesc);
+    assertEquals(origDesc, project1.getShortDesc());
   }
 
   @Test
   public void testGetCreated() {
-    assertEquals(TEST_SIMAL_PROJECT_CREATED, project1.getDoapCreated().toString());
+    assertEquals(TEST_SIMAL_PROJECT_CREATED, project1.getCreated().toString());
   }
 
   @Test
   public void testSetCreated() throws SimalRepositoryException {
     String newCreated = "2020-20-01";
-    Set<Object> set = new HashSet<Object>();
-    set.add(newCreated);
-    project1.setDoapCreated(set);
-    assertEquals(newCreated, project1.getDoapCreated().toString());
+    project1.setCreated(newCreated);
+    assertEquals(newCreated, project1.getCreated());
   }
 
   @Test
   public void testGetDescription() {
-    assertEquals(TEST_SIMAL_PROJECT_DESCRIPTION, project1.getDoapDescription());
+    assertEquals(TEST_SIMAL_PROJECT_DESCRIPTION, project1.getDescription());
   }
 
   @Test
   public void testSetDescription() {
     String newDesc = "modified description";
-    project1.setDoapDescription(newDesc);
-    assertEquals(newDesc, project1.getDoapDescription());
+    project1.setDescription(newDesc);
+    assertEquals(newDesc, project1.getDescription());
   }
 
   @Test
   public void testGetLicences() {
-    assertTrue(project1.getDoapLicenses().toString().contains(
+    assertTrue(project1.getLicences().toString().contains(
         TEST_SIMAL_PROJECT_LICENCE_ONE));
-    assertTrue(project1.getDoapLicenses().toString().contains(
+    assertTrue(project1.getLicences().toString().contains(
         TEST_SIMAL_PROJECT_LICENCE_TWO));
   }
 

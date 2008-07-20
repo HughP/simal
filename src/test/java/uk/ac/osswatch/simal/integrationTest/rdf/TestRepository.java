@@ -90,13 +90,13 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetRdfXml() throws SimalRepositoryException {
     logger.debug("Starting testGetRdfXML()");
-    QName qname = new QName(TEST_SIMAL_PROJECT_QNAME);
+    QName qname = new QName(TEST_SIMAL_PROJECT_URI);
 
     StringWriter sw = new StringWriter();
     repository.writeXML(sw, qname);
     String xml = sw.toString();
     assertTrue("XML does not contain the QName expected", xml
-        .contains("rdf:about=\"" + TEST_SIMAL_PROJECT_QNAME + "\""));
+        .contains("rdf:about=\"" + TEST_SIMAL_PROJECT_URI + "\""));
     int indexOf = xml.indexOf("<doap:Project");
     int lastIndexOf = xml.lastIndexOf("<doap:Project");
     assertTrue("XML appears to contain more than one project record",
@@ -149,7 +149,7 @@ public class TestRepository extends BaseRepositoryTest {
     IProject project;
     while (itrProjects.hasNext()) {
       project = itrProjects.next();
-      assertNotNull("All projects must have a QName", project.getQName());
+      assertNotNull("All projects must have a QName", project.getURI());
     }
     logger.debug("Finished testNullQNameHandling()");
   }

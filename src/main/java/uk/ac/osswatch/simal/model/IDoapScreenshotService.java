@@ -13,22 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.model.elmo;
+package uk.ac.osswatch.simal.model;
 
-import org.openrdf.elmo.annotations.rdf;
-
-import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
-import uk.ac.osswatch.simal.model.IDoapDownloadMirrorBehaviour;
-
-@rdf("http://usefulinc.com/ns/doap#download-mirror")
-public class DoapDownloadMirrorBehaviour extends DoapResourceBehaviour implements IDoapDownloadMirrorBehaviour {
-
-  /**
-   * Create a new download mirror behaviour to operate on a
-   * ICategory object.
-   */
-  public DoapDownloadMirrorBehaviour(IDoapDownloadMirror mirror) {
-    super(mirror);
-  }
-
+/**
+ * Behaviours to attach to a Screenshot resource.
+ *
+ */
+public interface IDoapScreenshotService extends IDoapResourceService {
+  
 }

@@ -13,22 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.model.elmo;
+package uk.ac.osswatch.simal.model;
 
-import org.openrdf.elmo.annotations.rdf;
-
-import uk.ac.osswatch.simal.model.IDoapScreenshot;
-import uk.ac.osswatch.simal.model.IDoapScreenshotBehaviour;
-
-@rdf("http://usefulinc.com/ns/doap#screenshot")
-public class DoapScreenshotBehaviour extends DoapResourceBehaviour implements IDoapScreenshotBehaviour {
-
-  /**
-   * Create a new Screenshot behaviour to operate on a
-   * ICategory object.
-   */
-  public DoapScreenshotBehaviour(IDoapScreenshot screenshot) {
-    super(screenshot);
-  }
-
+/**
+ * Behaviours to attach to an Issue tracker
+ * (bug database) resource.
+ *
+ */
+public interface IDoapBugDatabaseService extends IDoapResourceService {
+  
 }

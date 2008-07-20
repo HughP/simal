@@ -16,10 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * Behaviours to attach to an Issue tracker
- * (bug database) resource.
+ * Behaviours to attach to a Download Page resource.
  *
  */
-public interface IDoapBugDatabaseBehaviour extends IDoapResourceBehaviour {
+public interface IDoapDownloadPageService extends IDoapResourceService {
   
 }

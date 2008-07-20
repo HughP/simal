@@ -1,9 +1,9 @@
 package uk.ac.osswatch.simal.model.jena;
 
-import uk.ac.osswatch.simal.model.IResourceBehaviour;
+import uk.ac.osswatch.simal.model.IResourceService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class ResourceBehavior implements IResourceBehaviour{
+public class ResourceBehavior implements IResourceService{
 
   public void delete() throws SimalRepositoryException {
     // TODO Auto-generated method stub

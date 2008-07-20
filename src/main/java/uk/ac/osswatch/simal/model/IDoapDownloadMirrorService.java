@@ -13,25 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.spike.elmo;
+package uk.ac.osswatch.simal.model;
 
-import org.openrdf.elmo.annotations.rdf;
-
-@rdf("http://example.org/0.1/elmoExample#Engine")
-public interface IEngine extends IDriverBehaviour {
+/**
+ * Behaviours to attach to a Download Mirror resource.
+ *
+ */
+public interface IDoapDownloadMirrorService extends IDoapResourceService {
   
-  
-  /**
-   * Get current status of the engine.
-   * 
-   * @return
-   */
-  @rdf("http://example.org/0.1/elmoExample#Started")
-  public boolean getIsStarted();
-  /**
-   * Start and stop the engine.
-   * 
-   * @return true if started
-   */
-  public void setIsStarted(boolean start);
 }

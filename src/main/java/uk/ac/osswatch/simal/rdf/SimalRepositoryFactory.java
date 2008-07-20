@@ -33,10 +33,7 @@ public class SimalRepositoryFactory {
    * @throws SimalRepositoryException
    */
   public static ISimalRepository getInstance(int type) throws SimalRepositoryException {
-    if (type == TYPE_SESAME) {
-      logger.debug("Creating Sesame repository");
-      return uk.ac.osswatch.simal.rdf.sesame.SimalRepository.getInstance();
-    } else if (type == TYPE_JENA) {
+    if (type == TYPE_JENA) {
       logger.debug("Creating Jena repository");
       return uk.ac.osswatch.simal.rdf.jena.SimalRepository.getInstance();
     } else {

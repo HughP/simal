@@ -19,6 +19,7 @@ import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.net.URI;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -63,13 +64,13 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testNames() {
-    assertEquals("developer", developer.getFoafGivennames().toString());
+    assertEquals("developer", developer.getGivennames().toString());
   }
 
   @Test
   public void testHomePage() {
     assertEquals("http://example.org/person/developer", developer
-        .getFoafHomepages().toString());
+        .getHomepages().toString());
   }
 
   @Test
@@ -90,7 +91,7 @@ public class TestPerson extends BaseRepositoryTest {
     Set<IPerson> knows = developer.getKnows();
     assertNotNull("Should know some people", knows);
     IPerson person = knows.iterator().next();
-    String givenName = (String) person.getFoafGivennames().toArray()[0];
+    String givenName = (String) person.getGivennames().toArray()[0];
     assertTrue("Should know Dan Brickley", givenName.contains("Dan"));
   }
 
@@ -104,7 +105,7 @@ public class TestPerson extends BaseRepositoryTest {
     while (people.hasNext()) {
       IPerson person = people.next();
       assertNotNull("No person should have a null ID (see "
-          + person.getQName().toString() + ")", person.getSimalId());
+          + person.getURI().toString() + ")", person.getSimalId());
     }
   }
 
@@ -123,7 +124,7 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testSeeAlso() {
-    Set<Object> seeAlso = developer.getRdfsSeeAlso();
+    Set<URI> seeAlso = developer.getSeeAlso();
     assertEquals("There should be a single see also value", 1, seeAlso.size());
 
   }

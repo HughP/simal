@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.spike.elmo;
+package uk.ac.osswatch.simal.model;
 
-public interface IDrivingBehaviour {
-
-  /**
-   * Accelerate up to the maximum speed.
-   */
-  public void accelerate();
+/**
+ * Behaviours to attach to a category resource.
+ *
+ */
+public interface IDoapCategoryService extends IDoapResourceService {
+  
 }

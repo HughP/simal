@@ -15,18 +15,11 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import java.util.Set;
-
 /**
- * Behaviours to attach to a release resource.
+ * Behaviours to attach to a Mailing List
+ * resource.
  *
  */
-public interface IDoapReleaseBehaviour extends IDoapResourceBehaviour {
+public interface IDoapMailingListService extends IDoapResourceService {
   
-  /**
-   * Get all version identifiers for this release. A version
-   * identifier is a version number. In DOAP it corresponds to
-   * doap:revision.
-   */
-  public Set<String> getRevisions();
 }

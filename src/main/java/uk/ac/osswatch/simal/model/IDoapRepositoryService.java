@@ -13,22 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.model.elmo;
+package uk.ac.osswatch.simal.model;
 
-import org.openrdf.elmo.annotations.rdf;
+import java.util.Set;
 
-import uk.ac.osswatch.simal.model.IDoapDownloadPage;
-import uk.ac.osswatch.simal.model.IDoapDownloadPageBehaviour;
-
-@rdf("http://usefulinc.com/ns/doap#download-page")
-public class DoapDownloadPageBehaviour extends DoapResourceBehaviour implements IDoapDownloadPageBehaviour {
+/**
+ * Behaviours to attach to a repository resource.
+ *
+ */
+public interface IDoapRepositoryService extends IDoapResourceService {
 
   /**
-   * Create a new download page behaviour to operate on a
-   * ICategory object.
+   * Get the anonymous access repositories.
    */
-  public DoapDownloadPageBehaviour(IDoapDownloadPage page) {
-    super(page);
-  }
+  public Set<String> getAnonRoots();
+  
+  /**
+   * Get the locations for this repository.
+   */
+  public Set<String> getLocations();
 
+  /**
+   * Get the browseble locations for this repository.
+   */
+  public Set<String> getBrowse();
 }

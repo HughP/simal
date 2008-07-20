@@ -1,6 +1,7 @@
 package uk.ac.osswatch.simal.rdf.jena;
 
 import java.io.Writer;
+import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
@@ -85,7 +86,7 @@ public class SimalRepository extends AbstractSimalRepository {
     
   }
 
-  public IDoapCategory findCategory(QName qname)
+  public IDoapCategory findCategory(URI uri)
       throws SimalRepositoryException {
     // TODO Auto-generated method stub
     return null;
