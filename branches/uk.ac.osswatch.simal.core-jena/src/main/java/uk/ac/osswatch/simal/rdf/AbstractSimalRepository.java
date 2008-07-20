@@ -64,7 +64,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       addProject(ISimalRepository.class.getResource("/testData/"
           + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
 
-      addRDFXML(ISimalRepository.class.getClassLoader().getResource(
+      addProject(ISimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
 
       addProject(new URL(

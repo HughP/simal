@@ -9,6 +9,7 @@ import java.util.Set;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.jena.Category;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
@@ -94,8 +95,7 @@ public class SimalRepository extends AbstractSimalRepository {
   }
 
   public IDoapCategory findCategory(URI uri) throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
+    return new Category(model.getResource(uri.toString()));
   }
 
   public IPerson findPersonById(String id) throws SimalRepositoryException {
