@@ -92,8 +92,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapHomepage> getHomepages() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.HOMEPAGE);
+    Set<IDoapHomepage> trackers = new HashSet<IDoapHomepage>();
+    while (itr.hasNext()) {
+      trackers.add(new Homepage(itr.nextStatement().getResource()));
+    }
+    return trackers;
   }
 
   public Set<IDoapBugDatabase> getIssueTrackers() {
