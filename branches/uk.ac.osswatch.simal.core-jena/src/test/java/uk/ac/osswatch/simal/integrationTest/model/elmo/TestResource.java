@@ -18,6 +18,8 @@ package uk.ac.osswatch.simal.integrationTest.model.elmo;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.net.URISyntaxException;
+
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
@@ -31,7 +33,7 @@ public class TestResource extends BaseRepositoryTest {
   }
 
   @Test
-  public void testDeleteEntity() throws SimalRepositoryException {
+  public void testDeleteEntity() throws SimalRepositoryException, URISyntaxException {
     assertNotNull(project1);
     project1.delete();
     IProject project = getSimalTestProject();

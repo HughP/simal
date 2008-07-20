@@ -5,7 +5,6 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.IProjectService;
 
 public abstract class AbstractSimalRepository implements ISimalRepository {
 

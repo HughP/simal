@@ -15,10 +15,6 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import java.net.URL;
-import java.util.Set;
-
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * The definition of a behaviour for Elmo Doap Resources.

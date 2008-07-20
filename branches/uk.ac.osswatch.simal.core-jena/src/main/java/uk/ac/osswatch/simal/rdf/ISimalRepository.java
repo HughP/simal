@@ -22,10 +22,7 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
-import javax.xml.namespace.QName;
-
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IProjectService;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 
@@ -94,19 +91,19 @@ public interface ISimalRepository {
   /**
    * Get a project from the repository.
    * 
-   * @param qname
-   *          the QName of the project to retrieve
-   * @return the project, or if no project with the given QName exists Null
+   * @param uri
+   *          the URI of the project to retrieve
+   * @return the project, or if no project with the given URI exists Null
    * @throws SimalRepositoryException
    */
-  public IProject getProject(QName qname) throws SimalRepositoryException;
+  public IProject getProject(URI uri) throws SimalRepositoryException;
 
   /**
    * Get a project from the repository.
    * 
-   * @param qname
-   *          the QName of the project to retrieve
-   * @return the project, or if no project with the given QName exists Null
+   * @param uri
+   *          the URI of the project to retrieve
+   * @return the project, or if no project with the given URI exists Null
    * @throws SimalRepositoryException
    */
   public IDoapCategory findCategory(URI uri)
@@ -115,13 +112,13 @@ public interface ISimalRepository {
   /**
    * Get a person from the repository.
    * 
-   * @param qname
-   *          the QName of the repository to retrieve
-   * @return the repository or if no repository item with the given QName exists
+   * @param uri
+   *          the URI of the repository to retrieve
+   * @return the repository or if no repository item with the given URI exists
    *         Null
    * @throws SimalRepositoryException
    */
-  public IPerson getPerson(QName qname) throws SimalRepositoryException;
+  public IPerson getPerson(URI uri) throws SimalRepositoryException;
 
   /**
    * Get a person with a given simal id.
@@ -210,12 +207,12 @@ public interface ISimalRepository {
    * exist an empty RDF/XML document is written.
    * 
    * @param writer
-   * @param qname
+   * @param uri
    * @throws SimalRepositoryException
    * @throws RepositoryException
    * @throws RDFHandlerException
    */
-  public void writeXML(Writer writer, QName qname)
+  public void writeXML(Writer writer, URI uri)
       throws SimalRepositoryException;
 
   /**
@@ -253,11 +250,11 @@ public interface ISimalRepository {
    * @return
    * @throws SimalRepositoryException
    *           if an error is thrown whilst communicating with the repository
-   * @throws DuplicateQNameException
-   *           if an entity with the given QName already exists
+   * @throws DuplicateURIException
+   *           if an entity with the given URI already exists
    */
-  public IProject createProject(QName qname) throws SimalRepositoryException,
-      DuplicateQNameException;
+  public IProject createProject(URI uri) throws SimalRepositoryException,
+      DuplicateURIException;
 
   /**
    * Create a new person in the repository.
@@ -265,19 +262,19 @@ public interface ISimalRepository {
    * @return
    * @throws SimalRepositoryException
    *           if an error is thrown whilst communicating with the repository
-   * @throws DuplicateQNameException
-   *           if an entity with the given QName already exists
+   * @throws DuplicateURIException
+   *           if an entity with the given URI already exists
    */
-  public IPerson createPerson(QName qname) throws SimalRepositoryException,
-      DuplicateQNameException;
+  public IPerson createPerson(URI uri) throws SimalRepositoryException,
+      DuplicateURIException;
 
   /**
    * Remove an entity from the repository.
    * 
-   * @param qname
+   * @param uri
    * @throws SimalRepositoryException
    */
-  public void remove(QName qname) throws SimalRepositoryException;
+  public void remove(URI uri) throws SimalRepositoryException;
 
   /**
    * Create a new project ID and save the next value in the properties file.

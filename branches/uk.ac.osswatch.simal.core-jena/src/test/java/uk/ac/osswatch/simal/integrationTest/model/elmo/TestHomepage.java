@@ -23,7 +23,6 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IDoapHomepageService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestHomepage extends BaseRepositoryTest {

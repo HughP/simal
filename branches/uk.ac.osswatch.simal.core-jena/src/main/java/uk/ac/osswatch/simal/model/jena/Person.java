@@ -1,24 +1,39 @@
 package uk.ac.osswatch.simal.model.jena;
 
+import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.IDoapResourceService;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class DOAPResourceBehavior extends ResourceBehavior implements IDoapResourceService{
+public class Person extends Resource implements IPerson {
 
-  public void addName(String name) {
-    // TODO Auto-generated method stub
-    
+  public Person(com.hp.hpl.jena.rdf.model.Resource resource) {
+    super(resource);
   }
 
-  public String getCreated() {
+  public Set<IPerson> getColleagues() throws SimalRepositoryException {
     // TODO Auto-generated method stub
     return null;
   }
 
-  public String getDescription() {
+  public String getEmail() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Set<String> getGivennames() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Set<URL> getHomepages() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Set<IPerson> getKnows() {
     // TODO Auto-generated method stub
     return null;
   }
@@ -28,59 +43,14 @@ public class DOAPResourceBehavior extends ResourceBehavior implements IDoapResou
     return null;
   }
 
-  public Set<String> getLicences() {
+  public String getSimalId() {
     // TODO Auto-generated method stub
     return null;
   }
 
-  public String getName() {
+  public void setSimalId(String newId) {
     // TODO Auto-generated method stub
-    return null;
-  }
 
-  public Set<String> getNames() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public String getShortDesc() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public URL getURL() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public void setCreated(String newCreated) throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public void setDescription(String newDescription) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public void setShortDesc(String shortDesc) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public String toJSON() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public String toJSONRecord() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public void delete() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    
   }
 
   public String getComment() {
@@ -91,6 +61,26 @@ public class DOAPResourceBehavior extends ResourceBehavior implements IDoapResou
   public String getLabel(String defaultLabel) {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  public Set<URI> getSeeAlso() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public URI getURI() throws SimalRepositoryException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public URL getURL() throws SimalRepositoryException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public void delete() throws SimalRepositoryException {
+    // TODO Auto-generated method stub
+
   }
 
   public String toJSON(boolean asRecord) {

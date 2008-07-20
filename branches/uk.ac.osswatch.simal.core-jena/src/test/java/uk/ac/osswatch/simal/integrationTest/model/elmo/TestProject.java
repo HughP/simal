@@ -16,16 +16,15 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Set;
-
-import javax.xml.namespace.QName;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -40,9 +39,9 @@ import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestProject extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory
@@ -331,22 +330,22 @@ public class TestProject extends BaseRepositoryTest {
   }
 
   @Test
-  public void testAddProjectFromScratch() throws SimalRepositoryException {
-    QName qname = new QName(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+  public void testAddProjectFromScratch() throws SimalRepositoryException, URISyntaxException {
+    URI uri = new URI(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingProjectFromScratch");
     IProject project;
     try {
-      project = repository.createProject(qname);
+      project = repository.createProject(uri);
       project.addName("Testing");
       project.setShortDesc("Just testing adding a manually built project");
 
-      project = repository.getProject(qname);
+      project = repository.getProject(uri);
       assertNotNull("Project has not been added to repository", project);
       assertEquals("Project name is incorrectly set", "Testing", project
           .getName());
 
       project.delete();
-    } catch (DuplicateQNameException e) {
+    } catch (DuplicateURIException e) {
       fail(e.getMessage());
     }
   }
@@ -355,37 +354,38 @@ public class TestProject extends BaseRepositoryTest {
    * Test to ensure that project ids are being correctly generated.
    * 
    * @throws SimalRepositoryException
-   * @throws DuplicateQNameException
+   * @throws DuplicateURIException
+   * @throws URISyntaxException 
    */
   @Test
-  public void testId() throws SimalRepositoryException, DuplicateQNameException {
+  public void testId() throws SimalRepositoryException, DuplicateURIException, URISyntaxException {
     assertEquals("Test project ID incorrect", project1ID, project1.getSimalID());
 
-    QName qname1 = new QName(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    URI uri1 = new URI(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId1");
-    QName qname2 = new QName(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    URI uri2 = new URI(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId2");
 
     IProject project;
-    project = repository.createProject(qname1);
-    project = repository.getProject(qname1);
+    project = repository.createProject(uri1);
+    project = repository.getProject(uri1);
     String id1 = project.getSimalID();
 
-    project = repository.createProject(qname2);
-    project = repository.getProject(qname2);
+    project = repository.createProject(uri2);
+    project = repository.getProject(uri2);
     String id2 = project.getSimalID();
 
     assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1
         .equals(id2));
 
     // check IDs are being written to the repository
-    project = repository.getProject(qname1);
+    project = repository.getProject(uri1);
     String id3 = project.getSimalID();
     assertTrue("Project IDs don't appear to be written to the repo", id1
         .equals(id3));
 
-    repository.remove(qname1);
-    repository.remove(qname2);
+    repository.remove(uri1);
+    repository.remove(uri2);
   }
   
   @Test

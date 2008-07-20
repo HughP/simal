@@ -24,11 +24,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Set;
-
-import javax.xml.namespace.QName;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -37,7 +36,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.TransactionException;
@@ -59,7 +58,7 @@ public class TestRepository extends BaseRepositoryTest {
   }
   
   @Test
-  public void testAddCategories() throws SimalRepositoryException {
+  public void testAddCategories() throws SimalRepositoryException, URISyntaxException {
     // FIXME: the following line is a workaround for ISSUE 127, 
     // remove when the issue is resolved
     getSimalTestProject().getCategories();
@@ -75,10 +74,10 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testFindProject() throws SimalRepositoryException {
+  public void testFindProject() throws SimalRepositoryException, URISyntaxException {
     logger.debug("Starting testFindProject()");
-    QName qname = new QName("http://foo.org/nonExistent");
-    IProject project = repository.getProject(qname);
+    URI uri = new URI("http://foo.org/nonExistent");
+    IProject project = repository.getProject(uri);
     assertNull(project);
 
     // test a known valid file
@@ -88,12 +87,12 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testGetRdfXml() throws SimalRepositoryException {
+  public void testGetRdfXml() throws SimalRepositoryException, URISyntaxException {
     logger.debug("Starting testGetRdfXML()");
-    QName qname = new QName(TEST_SIMAL_PROJECT_URI);
+    URI uri = new URI(TEST_SIMAL_PROJECT_URI);
 
     StringWriter sw = new StringWriter();
-    repository.writeXML(sw, qname);
+    repository.writeXML(sw, uri);
     String xml = sw.toString();
     assertTrue("XML does not contain the QName expected", xml
         .contains("rdf:about=\"" + TEST_SIMAL_PROJECT_URI + "\""));
@@ -192,18 +191,18 @@ public class TestRepository extends BaseRepositoryTest {
   }
   
   @Test
-  public void testRemove() throws SimalRepositoryException, TransactionException, DuplicateQNameException {
+  public void testRemove() throws SimalRepositoryException, TransactionException, DuplicateURIException, URISyntaxException {
     logger.debug("Starting testRemove()");
-    QName qname1 = new QName(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    URI uri1 = new URI(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId1");
 
     IProject project;
-    project = repository.createProject(qname1);
-    project = repository.getProject(qname1);
+    project = repository.createProject(uri1);
+    project = repository.getProject(uri1);
     assertNotNull(project);
     
-    repository.remove(qname1);
-    project = repository.getProject(qname1);
+    repository.remove(uri1);
+    project = repository.getProject(uri1);
     assertNull("Failed to remove the test project", project);
     logger.debug("Finished testRemove()");
   }
