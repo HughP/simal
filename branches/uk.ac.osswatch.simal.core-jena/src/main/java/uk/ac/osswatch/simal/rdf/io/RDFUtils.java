@@ -19,9 +19,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
@@ -542,8 +544,7 @@ public class RDFUtils {
       if (simalIDNL.getLength() == 0) {
         IPerson simalPerson;
         try {
-          simalPerson = repo.getPerson(new URI(person
-              .getAttributeNodeNS(RDF_NS, "about").getNodeValue()));
+          simalPerson = repo.getPerson(person.getAttributeNodeNS(RDF_NS, "about").getNodeValue());
         } catch (Exception e) {
           throw new SimalRepositoryException("Unable to create URI for person", e);
         }
@@ -581,21 +582,23 @@ public class RDFUtils {
       if (simalIDNL.getLength() == 0) {
         IProject simalProject;
         try {
-          simalProject = repo.getProject(new URI(project
-            .getAttributeNodeNS(RDF_NS, "about").getNodeValue()));
+          String uri = project
+          .getAttributeNodeNS(RDF_NS, "about").getNodeValue();
+          if (repo.containsProject(uri)) {
+            // FIXME: it would be more efficient to just get the statement we want
+            simalProject = repo.getProject(uri);
+            id = simalProject.getSimalID();
+          } else {
+            id = repo.getNewProjectID();
+          }
         } catch (Exception e) {
           throw new SimalRepositoryException("Unable to create URI for project", e);
         }
-        if (simalProject != null) {
-          id = simalProject.getSimalID();
-        } else {
-          id = repo.getNewProjectID();
-        }
+        simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PROJECT_ID);
+        Node text = doc.createTextNode(id);
+        simalIDNode.appendChild(text);
+        project.appendChild(simalIDNode);
       }
-      simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PROJECT_ID);
-      Node text = doc.createTextNode(id);
-      simalIDNode.appendChild(text);
-      project.appendChild(simalIDNode);
     }
   }
 

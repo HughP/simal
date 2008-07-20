@@ -15,7 +15,6 @@
  */
 package uk.ac.osswatch.simal.integrationTest.rdf;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.junit.BeforeClass;
@@ -132,8 +131,7 @@ public abstract class BaseRepositoryTest {
   protected static IProject getSimalTestProject()
       throws SimalRepositoryException, URISyntaxException {
     IProject project;
-    URI uri = new URI(TEST_SIMAL_PROJECT_URI);
-    project = repository.getProject(uri);
+    project = repository.getProject(TEST_SIMAL_PROJECT_URI);
     return project;
   }
 

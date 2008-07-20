@@ -42,14 +42,14 @@ public class TestPerson extends BaseRepositoryTest {
     initRepository();
 
     developer = repository
-        .getPerson(new URI("http://foo.org/~developer/#me"));
+        .getPerson("http://foo.org/~developer/#me");
   }
 
   @Test
   public void testAddPersonFromScratch() throws SimalRepositoryException,
       DuplicateURIException, URISyntaxException {
-    URI uri = new URI(ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI
-        + "TestingPersonFromScratch");
+    String  uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI
+        + "TestingPersonFromScratch";
     IPerson person;
     person = repository.createPerson(uri);
 

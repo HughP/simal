@@ -26,7 +26,7 @@ public interface IResource extends IResourceService {
    * URI for the resource an exception is thrown.
    * @throws SimalRepositoryException 
    */
-  public URI getURI() throws SimalRepositoryException;
+  public String getURI() throws SimalRepositoryException;
 
 
   /**

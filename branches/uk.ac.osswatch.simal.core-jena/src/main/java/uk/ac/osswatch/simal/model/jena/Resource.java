@@ -49,9 +49,8 @@ public class Resource implements IResource {
     return null;
   }
 
-  public URI getURI() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
+  public String getURI() throws SimalRepositoryException {
+    return jenaResource.getURI();
   }
 
   public URL getURL() throws SimalRepositoryException {
