@@ -20,18 +20,18 @@ package uk.ac.osswatch.simal.rdf;
  * with an already existing QName
  * 
  */
-public class DuplicateQNameException extends Exception {
+public class DuplicateURIException extends Exception {
   private static final long serialVersionUID = 7147690671523551807L;
 
   /**
    * @param message
    * @param cause
    */
-  public DuplicateQNameException(String message, Throwable cause) {
+  public DuplicateURIException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public DuplicateQNameException(String message) {
+  public DuplicateURIException(String message) {
     super(message);
   }
 

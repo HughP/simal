@@ -20,17 +20,16 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Set;
-
-import javax.xml.namespace.QName;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -43,18 +42,18 @@ public class TestPerson extends BaseRepositoryTest {
     initRepository();
 
     developer = repository
-        .getPerson(new QName("http://foo.org/~developer/#me"));
+        .getPerson(new URI("http://foo.org/~developer/#me"));
   }
 
   @Test
   public void testAddPersonFromScratch() throws SimalRepositoryException,
-      DuplicateQNameException {
-    QName qname = new QName(ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI
+      DuplicateURIException, URISyntaxException {
+    URI uri = new URI(ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI
         + "TestingPersonFromScratch");
     IPerson person;
-    person = repository.createPerson(qname);
+    person = repository.createPerson(uri);
 
-    person = repository.getPerson(qname);
+    person = repository.getPerson(uri);
     assertNotNull("Person has not been added to repository", person);
 
     assertNotNull("Person simalID is incorrectly set", person.getSimalId());

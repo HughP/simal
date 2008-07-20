@@ -15,10 +15,6 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * Behaviour for a simal.Project object

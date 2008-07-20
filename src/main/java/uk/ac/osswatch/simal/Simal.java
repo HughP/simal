@@ -21,10 +21,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Iterator;
-
-import javax.xml.namespace.QName;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
@@ -38,14 +38,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.tools.PTSWImport;
+
+import com.sun.org.apache.xml.internal.serialize.OutputFormat;
+import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * The Command Line Interface for a Simal repository.
@@ -138,7 +138,11 @@ public class Simal {
           addXMLFile((String) cmds[i + 1]);
           i++;
         } else if (cmd.equals("writexml")) {
-          writeXML(new QName((String) cmds[i + 1]));
+          try {
+            writeXML(new URI((String) cmds[i + 1]));
+          } catch (URISyntaxException e) {
+            logger.error("Illegal URI " + (String) cmds[i + 1], e);
+          }
           i++;
         } else if (cmd.equals("importPTSW")) {
           try {
@@ -197,10 +201,10 @@ public class Simal {
    * 
    * @param qname
    */
-  private static void writeXML(final QName qname) {
-    logger.info("Writing XML for " + qname);
+  private static void writeXML(final URI uri) {
+    logger.info("Writing XML for " + uri);
     try {
-      repository.writeXML(new OutputStreamWriter(System.out), qname);
+      repository.writeXML(new OutputStreamWriter(System.out), uri);
     } catch (SimalRepositoryException e) {
       logger.error("Unable to write XML to standard out");
       System.exit(1);

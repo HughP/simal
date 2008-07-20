@@ -16,7 +16,6 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Set;

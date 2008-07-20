@@ -15,7 +15,6 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import java.util.Set;
 
 /**
  * Behaviours to attach to a release resource.

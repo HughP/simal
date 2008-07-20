@@ -15,7 +15,8 @@
  */
 package uk.ac.osswatch.simal.integrationTest.rdf;
 
-import javax.xml.namespace.QName;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import org.junit.BeforeClass;
 
@@ -110,9 +111,8 @@ public abstract class BaseRepositoryTest {
     initRepository();
   }
   
-  protected static void initRepository() throws SimalRepositoryException {
-    repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_SESAME);
-    //repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+  protected static void initRepository() throws SimalRepositoryException, URISyntaxException {
+    repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
       repository.initialise();
@@ -127,13 +127,13 @@ public abstract class BaseRepositoryTest {
    * 
    * @return
    * @throws SimalRepositoryException
+   * @throws URISyntaxException 
    */
   protected static IProject getSimalTestProject()
-      throws SimalRepositoryException {
-    QName qname;
+      throws SimalRepositoryException, URISyntaxException {
     IProject project;
-    qname = new QName(TEST_SIMAL_PROJECT_URI);
-    project = repository.getProject(qname);
+    URI uri = new URI(TEST_SIMAL_PROJECT_URI);
+    project = repository.getProject(uri);
     return project;
   }
 

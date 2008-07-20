@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.MessageDigest;
@@ -27,7 +28,6 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -43,8 +43,8 @@ import org.w3c.dom.Text;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
@@ -540,8 +540,13 @@ public class RDFUtils {
       person = (Element) people.item(i);
       simalIDNL = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID);
       if (simalIDNL.getLength() == 0) {
-        IPerson simalPerson = repo.getPerson(new QName(person
-            .getAttributeNodeNS(RDF_NS, "about").getNodeValue()));
+        IPerson simalPerson;
+        try {
+          simalPerson = repo.getPerson(new URI(person
+              .getAttributeNodeNS(RDF_NS, "about").getNodeValue()));
+        } catch (Exception e) {
+          throw new SimalRepositoryException("Unable to create URI for person", e);
+        }
         if (simalPerson != null) {
           id = simalPerson.getSimalId();
         } else {
@@ -574,8 +579,13 @@ public class RDFUtils {
       project = (Element) projects.item(i);
       simalIDNL = project.getElementsByTagNameNS(SIMAL_NS, SIMAL_PROJECT_ID);
       if (simalIDNL.getLength() == 0) {
-        IProject simalProject = repo.getProject(new QName(project
+        IProject simalProject;
+        try {
+          simalProject = repo.getProject(new URI(project
             .getAttributeNodeNS(RDF_NS, "about").getNodeValue()));
+        } catch (Exception e) {
+          throw new SimalRepositoryException("Unable to create URI for project", e);
+        }
         if (simalProject != null) {
           id = simalProject.getSimalID();
         } else {
