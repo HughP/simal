@@ -43,7 +43,7 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.sesame.SimalRepository;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 
 public class TestProject extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory
@@ -334,7 +334,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testAddProjectFromScratch() throws SimalRepositoryException {
-    QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    QName qname = new QName(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingProjectFromScratch");
     IProject project;
     try {
@@ -363,9 +363,9 @@ public class TestProject extends BaseRepositoryTest {
   public void testId() throws SimalRepositoryException, DuplicateQNameException {
     assertEquals("Test project ID incorrect", project1ID, project1.getSimalID());
 
-    QName qname1 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    QName qname1 = new QName(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId1");
-    QName qname2 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    QName qname2 = new QName(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId2");
 
     IProject project;
