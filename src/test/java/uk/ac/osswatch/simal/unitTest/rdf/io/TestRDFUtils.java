@@ -44,9 +44,9 @@ import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.rdf.sesame.SimalRepository;
 
 public class TestRDFUtils extends BaseRepositoryTest {
   static Document dom;
@@ -54,7 +54,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   @BeforeClass
   public static void beforeClass() throws URISyntaxException, IOException, SimalRepositoryException, ParserConfigurationException, SAXException {
     URL url = TestRDFUtils.class.getResource("/testData/testNoRDFAboutDOAP.xml");
-    RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
+    RDFUtils.preProcess(url, ISimalRepository.TEST_FILE_BASE_URL, repository);
     File processedFile = RDFUtils.getLastProcessedFile(); 
     
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -159,7 +159,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   @Test
   public void testDeDupeProjects() throws SimalRepositoryException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
     URL url = TestRDFUtils.class.getResource("/testData/testDuplicatesDOAP.xml");
-    RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
+    RDFUtils.preProcess(url, ISimalRepository.TEST_FILE_BASE_URL, repository);
     File processedFile = RDFUtils.getLastProcessedFile(); 
     
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -177,7 +177,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   @Test
   public void testAddMultipleProjectsInASingleFile() throws SimalRepositoryException {
     URL url = TestRDFUtils.class.getResource("/testData/testMultipleProjects.xml");
-    Set<File> files = RDFUtils.preProcess(url, SimalRepository.TEST_FILE_BASE_URL, repository);
+    Set<File> files = RDFUtils.preProcess(url, ISimalRepository.TEST_FILE_BASE_URL, repository);
     assertEquals("Incorrect number of project files created", 3, files.size());
   }
 }
