@@ -7,7 +7,10 @@ import java.util.Set;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class Resource implements IResource {
@@ -56,8 +59,10 @@ public class Resource implements IResource {
   }
 
   public void delete() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-
+    jenaResource.removeProperties();
+    Model model = jenaResource.getModel();
+    Property o = model.createProperty( "http://usefulinc.com/ns/doap#Project" );
+    model.remove(jenaResource, RDF.type, o);
   }
 
   public String toJSON(boolean asRecord) {

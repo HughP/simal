@@ -47,11 +47,6 @@ public class Person extends Resource implements IPerson {
 
   }
 
-  public void delete() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-
-  }
-
   public String toJSON(boolean asRecord) {
     // TODO Auto-generated method stub
     return null;

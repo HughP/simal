@@ -202,11 +202,6 @@ public class Project extends DoapResource implements IProject {
     jenaResource.addLiteral(SimalOntology.PROJECT_ID, newID);
   }
 
-  public void delete() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-
-  }
-
   public String toJSON(boolean asRecord) {
     // TODO Auto-generated method stub
     return null;
