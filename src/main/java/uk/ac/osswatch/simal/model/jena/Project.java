@@ -1,8 +1,8 @@
 package uk.ac.osswatch.simal.model.jena;
 
-import java.net.URI;
-import java.net.URL;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -18,25 +18,35 @@ import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IDoapScreenshot;
 import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
+import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
-public class Project extends Resource implements IProject {
+public class Project extends DoapResource implements IProject {
 
   private static final Logger logger = LoggerFactory.getLogger(Project.class);
-  
+
   public Project(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }
-  
+
   public HashSet<IPerson> getAllPeople() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    people.addAll((Collection<IPerson>) getMaintainers());
+    people.addAll((Collection<IPerson>) getDevelopers());
+    people.addAll((Collection<IPerson>) getDocumenters());
+    people.addAll((Collection<IPerson>) getHelpers());
+    people.addAll((Collection<IPerson>) getTesters());
+    people.addAll((Collection<IPerson>) getTranslators());
+    return people;
+
   }
 
   public Set<IDoapCategory> getCategories() {
@@ -59,8 +69,12 @@ public class Project extends Resource implements IProject {
   }
 
   public Set<IPerson> getDocumenters() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.DOCUMENTER);
+    Set<IPerson> people = new HashSet<IPerson>();
+    while (itr.hasNext()) {
+      people.add(new Person(itr.nextStatement().getResource()));
+    }
+    return people;
   }
 
   public Set<IDoapDownloadMirror> getDownloadMirrors() {
@@ -74,8 +88,12 @@ public class Project extends Resource implements IProject {
   }
 
   public Set<IPerson> getHelpers() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.HELPER);
+    Set<IPerson> people = new HashSet<IPerson>();
+    while (itr.hasNext()) {
+      people.add(new Person(itr.nextStatement().getResource()));
+    }
+    return people;
   }
 
   public Set<IDoapHomepage> getHomepages() {
@@ -84,8 +102,12 @@ public class Project extends Resource implements IProject {
   }
 
   public Set<IDoapBugDatabase> getIssueTrackers() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.BUG_DATABASE);
+    Set<IDoapBugDatabase> trackers = new HashSet<IDoapBugDatabase>();
+    while (itr.hasNext()) {
+      trackers.add(new BugDatabase(itr.nextStatement().getResource()));
+    }
+    return trackers;
   }
 
   public Set<IDoapLicence> getLicences() {
@@ -99,13 +121,12 @@ public class Project extends Resource implements IProject {
   }
 
   public Set<IPerson> getMaintainers() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public String getName() {
-    // TODO Auto-generated method stub
-    return null;
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    StmtIterator maintainers = jenaResource.listProperties(Doap.MAINTAINER);
+    while (maintainers.hasNext()) {
+      people.add(new Person(maintainers.nextStatement().getResource()));
+    }
+    return people;
   }
 
   public Set<String> getOSes() {
@@ -138,24 +159,27 @@ public class Project extends Resource implements IProject {
     return null;
   }
 
-  public String getShortDesc() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   public String getSimalID() {
-    // TODO Auto-generated method stub
-    return null;
+    Statement idStatement = jenaResource.getProperty(SimalOntology.PROJECT_ID);
+    return idStatement.getString();
   }
 
   public Set<IPerson> getTesters() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.TESTER);
+    Set<IPerson> people = new HashSet<IPerson>();
+    while (itr.hasNext()) {
+      people.add(new Person(itr.nextStatement().getResource()));
+    }
+    return people;
   }
 
   public Set<IPerson> getTranslators() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.TRANSLATOR);
+    Set<IPerson> people = new HashSet<IPerson>();
+    while (itr.hasNext()) {
+      people.add(new Person(itr.nextStatement().getResource()));
+    }
+    return people;
   }
 
   public Set<IDoapWiki> getWikis() {
@@ -163,69 +187,8 @@ public class Project extends Resource implements IProject {
     return null;
   }
 
-  public void setDescription(String desc) {
-    // TODO Auto-generated method stub
-
-  }
-
-  public void setShortDesc(String desc) {
-    // TODO Auto-generated method stub
-
-  }
-
   public void setSimalID(String newID) {
-    // TODO Auto-generated method stub
-
-  }
-
-  public void addName(String name) {
-    // TODO Auto-generated method stub
-
-  }
-
-  public String getCreated() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public String getLabel() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public Set<String> getNames() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public void setCreated(String newCreated) throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-
-  }
-
-  public String getComment() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public String getLabel(String defaultLabel) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public Set<URI> getSeeAlso() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public URI getURI() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public URL getURL() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
+    jenaResource.addLiteral(SimalOntology.PROJECT_ID, newID);
   }
 
   public void delete() throws SimalRepositoryException {
@@ -243,14 +206,56 @@ public class Project extends Resource implements IProject {
     return null;
   }
 
-  public String toJSON() {
-    // TODO Auto-generated method stub
-    return null;
+  protected String toJSONRecordContent() throws SimalRepositoryException {
+    StringBuffer json = new StringBuffer();
+    json.append(super.toJSONRecordContent());
+
+    json.append(", \"category\":" + toJSONValues(getCategories()));
+
+    HashSet<IPerson> people;
+    try {
+      people = getAllPeople();
+      json.append(", \"person\":" + toJSONValues(people));
+    } catch (SimalRepositoryException e) {
+      json.append(", \"person\":\"\"");
+    }
+
+    json.append(", \"programmingLanguage\":"
+        + toJSONValues(getProgrammingLanguages()));
+    return json.toString();
+  }
+  
+
+
+
+  /**
+   * Given a set of DOAP resources return a JSON representation
+   * of those resources. 
+   * @param resources
+   * @return
+   */
+  private String toJSONValues(Set<?> resources) {
+    if (resources == null) {
+      return null;
+    }
+    StringBuffer values = new StringBuffer();
+    Iterator<?> itr = resources.iterator();
+    Object resource;
+    values.append("[");
+    while (itr.hasNext()) {
+      resource = itr.next();
+      if (resource instanceof IDoapResource) {
+        values.append("\"" + ((IDoapResource) resource).getLabel() + "\"");
+      } else {
+        values.append("\"" + resource.toString() + "\"");
+      }
+      if (itr.hasNext()) {
+        values.append(", ");
+      }
+    }
+    values.append("]");
+    return values.toString();
   }
 
-  public String toJSONRecord() {
-    // TODO Auto-generated method stub
-    return null;
-  }
 
 }

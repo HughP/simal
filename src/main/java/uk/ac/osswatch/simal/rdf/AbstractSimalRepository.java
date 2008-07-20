@@ -4,9 +4,14 @@ import java.net.URL;
 
 import javax.xml.namespace.QName;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IProject;
 
 public abstract class AbstractSimalRepository implements ISimalRepository {
+  private static final Logger logger = LoggerFactory.getLogger(AbstractSimalRepository.class);
 
   protected static ISimalRepository instance;
   protected boolean isTest = false;
@@ -102,5 +107,35 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       strQName = strQName + (String) project.getNames().toArray()[0];
     }
     return new QName(strQName);
+  }
+
+  public String getNewProjectID() throws SimalRepositoryException {
+    String strID = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
+    long id = Long.parseLong(strID);
+
+    /**
+     * If the properties file is lost for any reason the next ID value will be
+     * lost. We therefore need to perform a sanity check that this is unique.
+     */
+    boolean validID = false;
+    while (!validID) {
+      if (findProjectById(Long.toString(id)) == null) {
+        validID = true;
+      } else {
+        id = id + 1;
+      }
+    }
+
+    long newId = id + 1;
+    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, Long.toString(newId));
+    try {
+      SimalProperties.save();
+    } catch (Exception e) {
+      logger.warn("Unable to save properties file", e);
+      throw new SimalRepositoryException(
+          "Unable to save properties file when creating the next project ID", e);
+    }
+    return Long.toString(id);
+
   }
 }

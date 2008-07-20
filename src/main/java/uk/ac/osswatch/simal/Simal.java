@@ -138,11 +138,7 @@ public class Simal {
           addXMLFile((String) cmds[i + 1]);
           i++;
         } else if (cmd.equals("writexml")) {
-          try {
-            writeXML(new URI((String) cmds[i + 1]));
-          } catch (URISyntaxException e) {
-            logger.error("Illegal URI " + (String) cmds[i + 1], e);
-          }
+          writeXML((String) cmds[i + 1]);
           i++;
         } else if (cmd.equals("importPTSW")) {
           try {
@@ -201,7 +197,7 @@ public class Simal {
    * 
    * @param qname
    */
-  private static void writeXML(final URI uri) {
+  private static void writeXML(final String uri) {
     logger.info("Writing XML for " + uri);
     try {
       repository.writeXML(new OutputStreamWriter(System.out), uri);

@@ -76,7 +76,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testFindProject() throws SimalRepositoryException, URISyntaxException {
     logger.debug("Starting testFindProject()");
-    URI uri = new URI("http://foo.org/nonExistent");
+    String uri = "http://foo.org/nonExistent";
     IProject project = repository.getProject(uri);
     assertNull(project);
 
@@ -89,7 +89,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetRdfXml() throws SimalRepositoryException, URISyntaxException {
     logger.debug("Starting testGetRdfXML()");
-    URI uri = new URI(TEST_SIMAL_PROJECT_URI);
+    String uri = TEST_SIMAL_PROJECT_URI;
 
     StringWriter sw = new StringWriter();
     repository.writeXML(sw, uri);
@@ -193,8 +193,8 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testRemove() throws SimalRepositoryException, TransactionException, DuplicateURIException, URISyntaxException {
     logger.debug("Starting testRemove()");
-    URI uri1 = new URI(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-        + "TestingId1");
+    String uri1 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingId1";
 
     IProject project;
     project = repository.createProject(uri1);

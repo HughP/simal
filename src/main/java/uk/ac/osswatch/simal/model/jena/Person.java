@@ -1,6 +1,5 @@
 package uk.ac.osswatch.simal.model.jena;
 
-import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
@@ -38,11 +37,6 @@ public class Person extends Resource implements IPerson {
     return null;
   }
 
-  public String getLabel() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   public String getSimalId() {
     // TODO Auto-generated method stub
     return null;
@@ -51,31 +45,6 @@ public class Person extends Resource implements IPerson {
   public void setSimalId(String newId) {
     // TODO Auto-generated method stub
 
-  }
-
-  public String getComment() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public String getLabel(String defaultLabel) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public Set<URI> getSeeAlso() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public URI getURI() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public URL getURL() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
   }
 
   public void delete() throws SimalRepositoryException {

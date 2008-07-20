@@ -1,11 +1,16 @@
 package uk.ac.osswatch.simal.rdf.jena;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -15,12 +20,19 @@ import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.vocabulary.RDF;
 
 public class SimalRepository extends AbstractSimalRepository {
-  
+  private static final Logger logger = LoggerFactory.getLogger(SimalRepository.class);
+
+ 
   private Model model;
 
   /**
@@ -59,11 +71,22 @@ public class SimalRepository extends AbstractSimalRepository {
   
   public void addProject(URL url, String baseURI)
       throws SimalRepositoryException {
+    logger.info("Adding a project from " + url.toString());
+
+    verifyInitialised();
+
+    Iterator<File> annotatedFiles = null;
     try {
-      model.read(url.openStream(), baseURI);
+      logger.info("Preprocessing file");
+      annotatedFiles = RDFUtils.preProcess(url, baseURI, this).iterator();
+      logger.info("Adding processed RDF/XML");
+      while (annotatedFiles.hasNext()) {
+        addRDFXML(annotatedFiles.next().toURL(), baseURI);
+      }
     } catch (IOException e) {
-      throw new SimalRepositoryException("Unable to open stream for " + url, e);
-    }    
+      throw new SimalRepositoryException(
+          "Unable to write the annotated RDF/XML file: " + e.getMessage(), e);
+    }  
   }
 
   public void add(String data) throws SimalRepositoryException {
@@ -71,22 +94,36 @@ public class SimalRepository extends AbstractSimalRepository {
     
   }
 
-  public void addRDFXML(URL url, String baseURL)
+  public void addRDFXML(URL url, String baseURI)
       throws SimalRepositoryException {
+    try {
+      model.read(url.openStream(), baseURI);
+    } catch (IOException e) {
+      throw new SimalRepositoryException("Unable to open stream for " + url, e);
+    }  
+  }
+
+  public IPerson createPerson(String uri) throws SimalRepositoryException,
+      DuplicateURIException {
     // TODO Auto-generated method stub
+    return null;
+  }
+
+  public IProject createProject(String uri) throws SimalRepositoryException,
+      DuplicateURIException {
+    if (containsProject(uri)) {
+      throw new DuplicateURIException(
+          "Attempt to create a second project with the URI " + uri);
+    }
+
+    Property o = model.createProperty( "http://usefulinc.com/ns/doap#Project" );
+    Resource r = model.createResource(uri.toString());
+    Statement s = model.createStatement(r, RDF.type, o);
+    model.add(s);
     
-  }
-
-  public IPerson createPerson(URI uri) throws SimalRepositoryException,
-      DuplicateURIException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public IProject createProject(URI uri) throws SimalRepositoryException,
-      DuplicateURIException {
-    // TODO Auto-generated method stub
-    return null;
+    IProject project = new Project(model.createResource(uri));
+    project.setSimalID(getNewProjectID());
+    return project;
   }
 
   public void destroy() throws SimalRepositoryException {
@@ -94,7 +131,7 @@ public class SimalRepository extends AbstractSimalRepository {
     
   }
 
-  public IDoapCategory findCategory(URI uri) throws SimalRepositoryException {
+  public IDoapCategory findCategory(String uri) throws SimalRepositoryException {
     return new Category(model.getResource(uri.toString()));
   }
 
@@ -157,28 +194,34 @@ public class SimalRepository extends AbstractSimalRepository {
     return null;
   }
 
-  public String getNewProjectID() throws SimalRepositoryException {
+  public IPerson getPerson(String uri) throws SimalRepositoryException {
     // TODO Auto-generated method stub
     return null;
   }
 
-  public IPerson getPerson(URI uri) throws SimalRepositoryException {
+  public IProject getProject(String uri) throws SimalRepositoryException {
+    if (containsProject(uri)) {
+      return new Project(model.getResource(uri.toString()));
+    } else {
+      return null;
+    }
+  }
+
+  public void remove(String uri) throws SimalRepositoryException {
     // TODO Auto-generated method stub
-    return null;
+    
   }
 
-  public IProject getProject(URI uri) throws SimalRepositoryException {
-    return new Project(model.getResource(uri.toString()));
-  }
-
-  public void remove(URI uri) throws SimalRepositoryException {
+  public void writeXML(Writer writer, String uri) throws SimalRepositoryException {
     // TODO Auto-generated method stub
     
   }
 
-  public void writeXML(Writer writer, URI uri) throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    
+  public boolean containsProject(String uri) {
+    Property o = model.createProperty( "http://usefulinc.com/ns/doap#Project" );
+    Resource r = model.createResource(uri.toString());
+    Statement s = model.createStatement(r, RDF.type, o);
+    return model.contains(s);
   }
 
 }

@@ -18,7 +18,6 @@ package uk.ac.osswatch.simal.rdf;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
@@ -89,36 +88,37 @@ public interface ISimalRepository {
   public void addProject(URL url, String baseURI) throws SimalRepositoryException;
 
   /**
-   * Get a project from the repository.
+   * Get a project from the repository. If the project does not
+   * exist then return null.
    * 
    * @param uri
-   *          the URI of the project to retrieve
-   * @return the project, or if no project with the given URI exists Null
+   *          the String of the project to retrieve
+   * @return the project, or if no project with the given String exists Null
    * @throws SimalRepositoryException
    */
-  public IProject getProject(URI uri) throws SimalRepositoryException;
+  public IProject getProject(String uri) throws SimalRepositoryException;
 
   /**
    * Get a project from the repository.
    * 
    * @param uri
-   *          the URI of the project to retrieve
-   * @return the project, or if no project with the given URI exists Null
+   *          the String of the project to retrieve
+   * @return the project, or if no project with the given String exists Null
    * @throws SimalRepositoryException
    */
-  public IDoapCategory findCategory(URI uri)
+  public IDoapCategory findCategory(String uri)
       throws SimalRepositoryException;
 
   /**
    * Get a person from the repository.
    * 
    * @param uri
-   *          the URI of the repository to retrieve
-   * @return the repository or if no repository item with the given URI exists
+   *          the String of the repository to retrieve
+   * @return the repository or if no repository item with the given String exists
    *         Null
    * @throws SimalRepositoryException
    */
-  public IPerson getPerson(URI uri) throws SimalRepositoryException;
+  public IPerson getPerson(String uri) throws SimalRepositoryException;
 
   /**
    * Get a person with a given simal id.
@@ -212,7 +212,7 @@ public interface ISimalRepository {
    * @throws RepositoryException
    * @throws RDFHandlerException
    */
-  public void writeXML(Writer writer, URI uri)
+  public void writeXML(Writer writer, String uri)
       throws SimalRepositoryException;
 
   /**
@@ -251,9 +251,9 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    *           if an error is thrown whilst communicating with the repository
    * @throws DuplicateURIException
-   *           if an entity with the given URI already exists
+   *           if an entity with the given String already exists
    */
-  public IProject createProject(URI uri) throws SimalRepositoryException,
+  public IProject createProject(String uri) throws SimalRepositoryException,
       DuplicateURIException;
 
   /**
@@ -263,9 +263,9 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    *           if an error is thrown whilst communicating with the repository
    * @throws DuplicateURIException
-   *           if an entity with the given URI already exists
+   *           if an entity with the given String already exists
    */
-  public IPerson createPerson(URI uri) throws SimalRepositoryException,
+  public IPerson createPerson(String uri) throws SimalRepositoryException,
       DuplicateURIException;
 
   /**
@@ -274,7 +274,7 @@ public interface ISimalRepository {
    * @param uri
    * @throws SimalRepositoryException
    */
-  public void remove(URI uri) throws SimalRepositoryException;
+  public void remove(String uri) throws SimalRepositoryException;
 
   /**
    * Create a new project ID and save the next value in the properties file.
@@ -330,4 +330,11 @@ public interface ISimalRepository {
    * @return
    */
   public boolean isInitialised();
+
+  /**
+   * Test to see if a project with the given String exists.
+   * @param uri
+   * @return
+   */
+  public boolean containsProject(String uri);
 }

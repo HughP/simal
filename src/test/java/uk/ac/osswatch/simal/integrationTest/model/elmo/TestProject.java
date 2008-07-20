@@ -16,6 +16,7 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -23,6 +24,7 @@ import static org.junit.Assert.fail;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -79,7 +81,7 @@ public class TestProject extends BaseRepositoryTest {
   }
 
   @Test
-  public void testGetQName() throws SimalRepositoryException {
+  public void testURI() throws SimalRepositoryException {
     assertEquals(TEST_SIMAL_PROJECT_URI, project1.getURI().toString());
   }
 
@@ -331,8 +333,8 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testAddProjectFromScratch() throws SimalRepositoryException, URISyntaxException {
-    URI uri = new URI(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-        + "TestingProjectFromScratch");
+    String uri = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingProjectFromScratch";
     IProject project;
     try {
       project = repository.createProject(uri);
@@ -361,10 +363,10 @@ public class TestProject extends BaseRepositoryTest {
   public void testId() throws SimalRepositoryException, DuplicateURIException, URISyntaxException {
     assertEquals("Test project ID incorrect", project1ID, project1.getSimalID());
 
-    URI uri1 = new URI(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-        + "TestingId1");
-    URI uri2 = new URI(ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-        + "TestingId2");
+    String uri1 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingId1";
+    String uri2 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingId2";
 
     IProject project;
     project = repository.createProject(uri1);
@@ -395,5 +397,12 @@ public class TestProject extends BaseRepositoryTest {
     // commit to get the CI working again.
     //assertTrue("XML does not contain rdf:RDF", xml.contains("rdf:RDF"));
     //assertTrue("XML does not contain doap:Project", xml.contains("doap:Project"));
+  }
+  
+  @Test
+  public void testGetAllPeople() throws SimalRepositoryException {
+    HashSet<IPerson> people = project1.getAllPeople();
+    assertNotNull(people);
+    assertEquals("Got the wrong number of people", BaseRepositoryTest.getNumberOfParticipants(), people.size());
   }
 }
