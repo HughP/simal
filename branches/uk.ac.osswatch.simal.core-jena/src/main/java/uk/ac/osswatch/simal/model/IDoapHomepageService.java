@@ -16,9 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * Behaviours to attach to a category resource.
+ * Behaviours to attach to a homepage resource.
  *
  */
-public interface IDoapCategoryBehaviour extends IDoapResourceBehaviour {
+public interface IDoapHomepageService extends IDoapResourceService{
   
 }

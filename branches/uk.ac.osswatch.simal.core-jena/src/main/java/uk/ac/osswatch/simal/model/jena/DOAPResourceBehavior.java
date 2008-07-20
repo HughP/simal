@@ -3,10 +3,10 @@ package uk.ac.osswatch.simal.model.jena;
 import java.net.URL;
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
+import uk.ac.osswatch.simal.model.IDoapResourceService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class DOAPResourceBehavior extends ResourceBehavior implements IDoapResourceBehaviour{
+public class DOAPResourceBehavior extends ResourceBehavior implements IDoapResourceService{
 
   public void addName(String name) {
     // TODO Auto-generated method stub

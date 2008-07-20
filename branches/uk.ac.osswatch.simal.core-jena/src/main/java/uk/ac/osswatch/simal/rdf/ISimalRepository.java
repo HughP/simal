@@ -18,16 +18,14 @@ package uk.ac.osswatch.simal.rdf;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.openrdf.repository.RepositoryException;
-import org.openrdf.rio.RDFHandlerException;
-
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
+import uk.ac.osswatch.simal.model.IProjectService;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 
@@ -111,7 +109,7 @@ public interface ISimalRepository {
    * @return the project, or if no project with the given QName exists Null
    * @throws SimalRepositoryException
    */
-  public IDoapCategory findCategory(QName qname)
+  public IDoapCategory findCategory(URI uri)
       throws SimalRepositoryException;
 
   /**
@@ -230,16 +228,6 @@ public interface ISimalRepository {
    */
   public void addRDFXML(URL url, String baseURL)
       throws SimalRepositoryException;
-
-  /**
-   * Get the default QName for a Project. The default QName should be used if
-   * the original resource does not provide a QName.
-   * 
-   * @param project
-   *          the project for which we need a QName
-   * @return
-   */
-  public QName getDefaultQName(IDoapProjectBehaviour project);
 
   /**
    * Get all the projects in the repository and return them in a single JSON

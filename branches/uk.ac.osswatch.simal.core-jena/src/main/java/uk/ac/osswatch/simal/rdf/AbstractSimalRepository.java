@@ -4,7 +4,8 @@ import java.net.URL;
 
 import javax.xml.namespace.QName;
 
-import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
+import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IProjectService;
 
 public abstract class AbstractSimalRepository implements ISimalRepository {
 
@@ -88,7 +89,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
    *          the project for which we need a QName
    * @return
    */
-  public QName getDefaultQName(IDoapProjectBehaviour project) {
+  public QName getDefaultQName(IProject project) {
     String strQName;
     if (project.getHomepages() == null
         || project.getHomepages().size() == 0) {

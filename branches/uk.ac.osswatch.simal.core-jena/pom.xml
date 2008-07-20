@@ -108,39 +108,6 @@
       <artifactId>jena</artifactId>
       <version>2.5.6</version>
     </dependency> 
-    
-    <!-- SESAME DEPENDENCIES -->
-    <!-- FIXME: look out for sesame 2.0 making it into the maven repository and use it from there -->
-
-    <dependency>
-      <groupId>org.openrdf</groupId>
-      <artifactId>sesame-onejar</artifactId>
-      <version>2.0</version>
-    </dependency>
-
-    <!-- ELMO DEPENDENCIES -->
-    <!-- FIXME: look out for this version making it into the maven repository and use it from there -->
-
-    <dependency>
-      <groupId>org.openrdf</groupId>
-      <artifactId>elmo</artifactId>
-      <version>1.0-beta2</version>
-    </dependency>
-    <dependency>
-      <groupId>org.openrdf</groupId>
-      <artifactId>elmo-concepts</artifactId>
-      <version>1.0-beta2</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>persistence-api</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>javassist</groupId>
-      <artifactId>javassist</artifactId>
-      <version>3.4.ga</version>
-    </dependency>
 
     <!-- LOGGING DEPENDENCIES - LOG4J -->
 

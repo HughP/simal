@@ -13,32 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.spike.elmo;
+package uk.ac.osswatch.simal.model;
 
-import org.openrdf.elmo.annotations.rdf;
-
-@rdf("http://example.org/0.1/elmoExample#Vehicle")
-public interface ICar extends IDrivingBehaviour {
+/**
+ * Behaviours to attach to a wiki resource.
+ *
+ */
+public interface IDoapWikiService extends IDoapResourceService {
   
-  /**
-   * Get the current speed of the car.
-   */
-  @rdf("http://example.org/0.1/elmoExample#speed")
-  public int getSpeed();
-  
-  /**
-   * Set the current speed of the car.
-   */
-  public void setSpeed(int speed);
-
-  /**
-   * Get the engine of the car.
-   *
-   * @return
-   */
-  @rdf("http://example.org/0.1/elmoExample#Engine")
-  public IEngine getEngine();
-
-  public void setEngine(IEngine engine);
-
 }

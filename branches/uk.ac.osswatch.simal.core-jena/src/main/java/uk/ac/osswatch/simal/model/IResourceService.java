@@ -20,35 +20,10 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 /**
  * A wrapper for an RDFS Resource in Elmo.
  * 
- * @see org.opeenrdf.sesame.elmo.concepts.rdfs.IResourceBehaviour
+ * @see org.opeenrdf.sesame.elmo.concepts.rdfs.IResourceService
  * 
  */
-public interface IResourceBehaviour {
-
-  /**
-   * Get the label for this resource. If the resource does not have a defined
-   * label return value of the toString() method.
-   * 
-   * @return
-   */
-  public String getLabel();
-
-  /**
-   * Get the label for this resource. If the resource does not have a defined
-   * label use the supplied default label (if not null) or the
-   * resource return value of the toString() method.
-   * 
-   * @param defaultLabel
-   * @return
-   */
-  public String getLabel(String defaultLabel);
-
-  /**
-   * A human readable comment describing the resource.
-   * 
-   * @return
-   */
-  public String getComment();
+public interface IResourceService {
 
   /**
    * Create a JSON representation of this resource.

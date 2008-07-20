@@ -10,7 +10,7 @@ import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
 import uk.ac.osswatch.simal.model.IDoapDownloadPage;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
-import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
+import uk.ac.osswatch.simal.model.IProjectService;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IDoapScreenshot;
@@ -18,7 +18,7 @@ import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class DOAPProjectBehaviour extends DOAPResourceBehavior implements IDoapProjectBehaviour{
+public class DOAPProjectBehaviour extends DOAPResourceBehavior implements IProjectService{
 
   public HashSet<IPerson> getAllPeople() throws SimalRepositoryException {
     // TODO Auto-generated method stub

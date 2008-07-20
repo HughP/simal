@@ -15,8 +15,31 @@
  */
 package uk.ac.osswatch.simal.model;
 
+import java.net.URL;
+import java.util.Set;
+
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
 /**
- * A behaviour definition for a FOAF Resource
+ * The definition of a behaviour for Elmo Doap Resources.
  */
-public interface IFoafResourceBehaviour extends IResourceBehaviour {
+public interface IDoapResourceService extends IResourceService {
+
+
+  /**
+   * Get a JSON representation of this resource.
+   * 
+   * @return
+   */
+  public abstract String toJSON();
+
+  /**
+   * Get a JSON representation of this resource as a JSON record, that is a
+   * representation that is not a complete JSON file but is intended to be
+   * inserted into another JSON file.
+   * 
+   * @return
+   */
+  public abstract String toJSONRecord();
+
 }

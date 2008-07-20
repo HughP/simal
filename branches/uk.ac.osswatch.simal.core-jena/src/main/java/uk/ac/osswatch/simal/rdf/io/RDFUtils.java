@@ -613,11 +613,9 @@ public class RDFUtils {
           .getNodeValue().trim());
       if (person != null) {
         logger.info("Merging duplicate person (based on email SHA1): "
-            + person.toString() + " into " + person.getQName());
+            + person.toString() + " into " + person.getURI());
         Element personNode = (Element) sha1sum.getParentNode();
-        personNode.setAttributeNS(RDF_NS, "about", person.getQName()
-            .getNamespaceURI()
-            + person.getQName().getLocalPart());
+        personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
       }
     }
 
@@ -630,11 +628,9 @@ public class RDFUtils {
           "resource"));
       if (person != null) {
         logger.info("Merging duplicate person (based on seeAlso): "
-            + person.toString() + " into " + person.getQName());
+            + person.toString() + " into " + person.getURI());
         Element personNode = (Element) seeAlso.getParentNode();
-        personNode.setAttributeNS(RDF_NS, "about", person.getQName()
-            .getNamespaceURI()
-            + person.getQName().getLocalPart());
+        personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
       }
     }
   }
@@ -663,11 +659,9 @@ public class RDFUtils {
           RDF_NS, "resource"));
       if (project != null) {
         logger.info("Merging duplicate project (based on homepage): "
-            + project.toString() + " into " + project.getQName());
+            + project.toString() + " into " + project.getURI());
         Element projectNode = (Element) homepage.getParentNode();
-        projectNode.setAttributeNS(RDF_NS, "about", project.getQName()
-            .getNamespaceURI()
-            + project.getQName().getLocalPart());
+        projectNode.setAttributeNS(RDF_NS, "about", project.getURI().toString());
       }
     }
 
@@ -680,11 +674,9 @@ public class RDFUtils {
           RDF_NS, "resource"));
       if (project != null) {
         logger.info("Merging duplicate project (based on seeAlso): "
-            + project.toString() + " into " + project.getQName());
+            + project.toString() + " into " + project.getURI());
         Element projectNode = (Element) seeAlso.getParentNode();
-        projectNode.setAttributeNS(RDF_NS, "about", project.getQName()
-            .getNamespaceURI()
-            + project.getQName().getLocalPart());
+        projectNode.setAttributeNS(RDF_NS, "about", project.getURI().toString());
       }
     }
   }

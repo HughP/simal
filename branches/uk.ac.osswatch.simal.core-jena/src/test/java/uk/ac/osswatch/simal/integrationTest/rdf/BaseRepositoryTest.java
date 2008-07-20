@@ -33,7 +33,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
  */
 public abstract class BaseRepositoryTest {
 
-  public static final String TEST_SIMAL_PROJECT_QNAME = "http://simal.oss-watch.ac.uk/simalTest#";
+  public static final String TEST_SIMAL_PROJECT_URI = "http://simal.oss-watch.ac.uk/simalTest#";
   public static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
   public static final String TEST_SIMAL_PROJECT_SHORT_DESC = "A simple DOAP file used during automated testing.";
   public static final String TEST_SIMAL_PROJECT_CREATED = "2007-08-08";
@@ -132,7 +132,7 @@ public abstract class BaseRepositoryTest {
       throws SimalRepositoryException {
     QName qname;
     IProject project;
-    qname = new QName(TEST_SIMAL_PROJECT_QNAME);
+    qname = new QName(TEST_SIMAL_PROJECT_URI);
     project = repository.getProject(qname);
     return project;
   }
