@@ -2,6 +2,7 @@ package uk.ac.osswatch.simal.model.jena;
 
 import java.util.Set;
 
+import com.hp.hpl.jena.sparql.vocabulary.DOAP;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 import uk.ac.osswatch.simal.model.Doap;
@@ -21,13 +22,11 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getCreated() {
-    // TODO Auto-generated method stub
-    return null;
+    return jenaResource.getProperty(Doap.CREATED).getString();
   }
 
   public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
+    return jenaResource.getProperty(Doap.DESCRIPTION).getString().trim();
   }
 
   public Set<IDoapLicence> getLicences() {
@@ -49,18 +48,18 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public void setCreated(String newCreated) throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    
+    jenaResource.removeAll(Doap.CREATED);
+    jenaResource.addLiteral(Doap.CREATED, newCreated);
   }
 
   public void setDescription(String newDescription) {
-    // TODO Auto-generated method stub
-    
+    jenaResource.removeAll(Doap.DESCRIPTION);
+    jenaResource.addLiteral(Doap.DESCRIPTION, newDescription);
   }
 
   public void setShortDesc(String shortDesc) {
-    // TODO Auto-generated method stub
-    
+    jenaResource.removeAll(Doap.SHORTDESC);
+    jenaResource.addLiteral(Doap.SHORTDESC, shortDesc);
   }
   
   public String toString() {

@@ -54,11 +54,6 @@ public class Project extends DoapResource implements IProject {
     return null;
   }
 
-  public String getDescription() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   public Set<IPerson> getDevelopers() {
     StmtIterator itr = jenaResource.listProperties(Doap.DEVELOPER);
     Set<IPerson> people = new HashSet<IPerson>();
@@ -111,8 +106,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapLicence> getLicences() {
-    // TODO Auto-generated method stub
-    return null;
+    HashSet<IDoapLicence> licences = new HashSet<IDoapLicence>();
+    StmtIterator statements = jenaResource.listProperties(Doap.LICENSE);
+    while (statements.hasNext()) {
+      licences.add(new Licence(statements.nextStatement().getResource()));
+    }
+    return licences;
   }
 
   public Set<IDoapMailingList> getMailingLists() {
