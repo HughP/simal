@@ -5,7 +5,6 @@ import java.net.URL;
 import javax.xml.namespace.QName;
 
 import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
-import uk.ac.osswatch.simal.rdf.sesame.SimalRepository;
 
 public abstract class AbstractSimalRepository implements ISimalRepository {
 
@@ -56,16 +55,16 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     try {
       verifyInitialised();
       
-      addProject(SimalRepository.class.getResource("/testData/"
+      addProject(ISimalRepository.class.getResource("/testData/"
           + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
 
-      addProject(SimalRepository.class.getResource("/testData/"
+      addProject(ISimalRepository.class.getResource("/testData/"
           + TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
 
-      addProject(SimalRepository.class.getResource("/testData/"
+      addProject(ISimalRepository.class.getResource("/testData/"
           + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
 
-      addRDFXML(SimalRepository.class.getClassLoader().getResource(
+      addRDFXML(ISimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
 
       addProject(new URL(
