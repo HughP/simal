@@ -30,8 +30,8 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.sesame.SimalRepository;
 
 public class TestPerson extends BaseRepositoryTest {
 
@@ -48,7 +48,7 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testAddPersonFromScratch() throws SimalRepositoryException,
       DuplicateQNameException {
-    QName qname = new QName(SimalRepository.DEFAULT_PERSON_NAMESPACE_URI
+    QName qname = new QName(ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI
         + "TestingPersonFromScratch");
     IPerson person;
     person = repository.createPerson(qname);
