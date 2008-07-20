@@ -28,6 +28,7 @@ import org.openrdf.repository.RepositoryException;
 import org.openrdf.rio.RDFHandlerException;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapProjectBehaviour;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 
@@ -92,20 +93,6 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    */
   public void addProject(URL url, String baseURI) throws SimalRepositoryException;
-
-
-  /**
-   * Add a new statement to the repository.
-   * 
-   * @param predicate
-   * @param subject
-   * @param object
-   * @throws SimalRepositoryException 
-   * @throws RepositoryException 
-   * @throws SimalRepositoryException
-   * @throws RepositoryException
-   */
-  public void add(URIImpl predicate, URIImpl subject, URIImpl object) throws RepositoryException, SimalRepositoryException;
 
   /**
    * Get a project from the repository.
@@ -253,7 +240,7 @@ public interface ISimalRepository {
    *          the project for which we need a QName
    * @return
    */
-  public QName getDefaultQName(org.openrdf.concepts.doap.Project project);
+  public QName getDefaultQName(IDoapProjectBehaviour project);
 
   /**
    * Get all the projects in the repository and return them in a single JSON

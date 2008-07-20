@@ -6,21 +6,18 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.openrdf.concepts.doap.Project;
-import org.openrdf.model.impl.URIImpl;
-import org.openrdf.repository.RepositoryException;
-
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class SimalRepository implements ISimalRepository {
-
-  private static ISimalRepository instance;
+public class SimalRepository extends AbstractSimalRepository {
   
+  private Object repository;
+
   /**
    * Use getInstance instead.
    */
@@ -40,11 +37,18 @@ public class SimalRepository implements ISimalRepository {
     }
     return instance;
   }
+  
 
-  public void add(URIImpl predicate, URIImpl subject, URIImpl object)
-      throws RepositoryException, SimalRepositoryException {
-    // TODO Auto-generated method stub
-    
+
+  public void initialise() throws SimalRepositoryException {
+    if (repository != null) {
+      throw new SimalRepositoryException(
+          "Illegal attempt to create a second SimalRepository in the same JAVA VM.");
+    }
+
+    if (isTest) {
+      addTestData();
+    }
   }
 
   public void add(String data) throws SimalRepositoryException {
@@ -141,11 +145,6 @@ public class SimalRepository implements ISimalRepository {
     return null;
   }
 
-  public QName getDefaultQName(Project project) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   public String getNewPersonID() throws SimalRepositoryException {
     // TODO Auto-generated method stub
     return null;
@@ -166,17 +165,7 @@ public class SimalRepository implements ISimalRepository {
     return null;
   }
 
-  public void initialise() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    
-  }
-
   public void remove(QName qname) throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    
-  }
-
-  public void setIsTest(boolean newValue) throws SimalRepositoryException {
     // TODO Auto-generated method stub
     
   }
@@ -185,16 +174,6 @@ public class SimalRepository implements ISimalRepository {
       throws SimalRepositoryException {
     // TODO Auto-generated method stub
     
-  }
-
-  /**
-   * Return true if this repository has been successfully initialised and is
-   * ready to be used, otherwise return false.
-   * 
-   * @return
-   */
-  public boolean isInitialised() {
-    return true;
   }
 
 }

@@ -74,6 +74,7 @@ import uk.ac.osswatch.simal.model.elmo.DoapRepositoryBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapScreenshotBehaviour;
 import uk.ac.osswatch.simal.model.elmo.DoapWikiBehaviour;
 import uk.ac.osswatch.simal.model.elmo.FoafPersonBehaviour;
+import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -84,13 +85,11 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
  * instantiate this class but should interact with it via its methods.
  * 
  */
-public class SimalRepository extends SimalProperties implements ISimalRepository {
+public class SimalRepository extends AbstractSimalRepository {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepository.class);
   private static SailRepository _repository;
   private boolean isTest = false;
-
-  private static ISimalRepository instance;
 
   private SimalRepository() throws SimalRepositoryException {
     super();
@@ -123,34 +122,6 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
     } catch (IOException e) {
       throw new SimalRepositoryException(
           "Unable to write the annotated RDF/XML file: " + e.getMessage(), e);
-    }
-  }
-
-
-  /**
-   * Add a new statement to the repository.
-   * 
-   * @param predicate
-   * @param subject
-   * @param object
-   * @throws SimalRepositoryException
-   * @throws RepositoryException
-   */
-  public void add(URIImpl predicate, URIImpl subject, URIImpl object)
-      throws RepositoryException, SimalRepositoryException {
-    getConnection().add(subject, predicate, object);
-  }
-
-  /**
-   * Checks to see if the repository has been correctly initialised. If it has
-   * not then an exception is thrown.
-   * 
-   * @throws SimalRepositoryException
-   */
-  private void verifyInitialised() throws SimalRepositoryException {
-    if (!isInitialised()) {
-      throw new SimalRepositoryException(
-          "SimalRepsotory has not been initialised. Call one of the initialise methods first.");
     }
   }
 
@@ -464,41 +435,6 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
   }
 
   /**
-   * Adds test data to the repo. be careful to only use this when the repo in
-   * use is a test repository.
-   * 
-   * @throws SimalRepositoryException
-   * 
-   * @throws SimalRepositoryException
-   */
-  private void addTestData() {
-    try {
-      verifyInitialised();
-      
-      addProject(SimalRepository.class.getResource("/testData/"
-          + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
-
-      addProject(SimalRepository.class.getResource("/testData/"
-          + TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
-
-      addProject(SimalRepository.class.getResource("/testData/"
-          + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
-
-      addRDFXML(SimalRepository.class.getClassLoader().getResource(
-          CATEGORIES_RDF), TEST_FILE_BASE_URL);
-
-      addProject(new URL(
-          "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
-          "http://simal.oss-watch.ac.uk");
-    } catch (Exception e) {
-      System.err.println("Can't add the test data, there's no point in carrying on");
-      e.printStackTrace();
-      System.exit(1);
-          
-    }
-  }
-
-  /**
    * Add an RDF/XML file, other than one supported by more specialised methods,
    * such as addProject(...).
    * 
@@ -533,30 +469,6 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
   }
 
   /**
-   * Get the default QName for a Project. The default QName should be used if
-   * the original resource does not provide a QName.
-   * 
-   * @param project
-   *          the project for which we need a QName
-   * @return
-   */
-  public QName getDefaultQName(org.openrdf.concepts.doap.Project project) {
-    String strQName;
-    if (project.getDoapHomepages() == null
-        || project.getDoapHomepages().size() == 0) {
-      strQName = "http://simal.oss-watch.ac.uk/project/unkownSource/"
-          + (String) project.getDoapNames().toArray()[0];
-    } else {
-      strQName = project.getDoapHomepages().toArray()[0].toString();
-      if (!strQName.endsWith("/")) {
-        strQName = strQName + "/";
-      }
-      strQName = strQName + (String) project.getDoapNames().toArray()[0];
-    }
-    return new QName(strQName);
-  }
-
-  /**
    * Get all the projects in the repository and return them in a single JSON
    * file.
    * 
@@ -576,16 +488,6 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
     }
     json.append("]}");
     return json.toString();
-  }
-
-  /**
-   * Return true if this repository has been successfully initialised and is
-   * ready to be used, otherwise return false.
-   * 
-   * @return
-   */
-  public boolean isInitialised() {
-    return _repository != null;
   }
 
   /**
@@ -634,6 +536,8 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
       throw new SimalRepositoryException("Unable to intialise the repository",
           e);
     }
+    
+    initialised = true;
 
     if (isTest) {
       addTestData();
@@ -646,7 +550,7 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
    * @return
    */
   private File getPersistentStoreFile() {
-    return new File(getProperty(PROPERTY_RDF_DATA_DIR));
+    return new File(SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
 
   /**
@@ -728,7 +632,7 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
    * @throws FileNotFoundException
    */
   public String getNewProjectID() throws SimalRepositoryException {
-    String strID = getProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
+    String strID = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
     long id = Long.parseLong(strID);
 
     /**
@@ -745,9 +649,9 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
     }
 
     long newId = id + 1;
-    setProperty(PROPERTY_SIMAL_NEXT_PROJECT_ID, Long.toString(newId));
+    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, Long.toString(newId));
     try {
-      save();
+      SimalProperties.save();
     } catch (Exception e) {
       logger.warn("Unable to save properties file", e);
       throw new SimalRepositoryException(
@@ -763,7 +667,7 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
    * @throws FileNotFoundException
    */
   public String getNewPersonID() throws SimalRepositoryException {
-    String strID = getProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
+    String strID = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
     long id = Long.parseLong(strID);
 
     /**
@@ -782,9 +686,9 @@ public class SimalRepository extends SimalProperties implements ISimalRepository
     logger.debug("Selected person ID " + id + " as new ID");
 
     long newId = id + 1;
-    setProperty(PROPERTY_SIMAL_NEXT_PERSON_ID, Long.toString(newId));
+    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID, Long.toString(newId));
     try {
-      save();
+      SimalProperties.save();
     } catch (Exception e) {
       logger.warn("Unable to save properties file", e);
       throw new SimalRepositoryException(
