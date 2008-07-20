@@ -4,6 +4,12 @@ import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
+
+import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -21,13 +27,21 @@ public class Resource implements IResource {
   }
 
   public String getLabel() {
-    // TODO Auto-generated method stub
-    return null;
+    return getLabel(null);
   }
 
   public String getLabel(String defaultLabel) {
-    // TODO Auto-generated method stub
-    return null;
+    String label;
+    Statement labelStatement = jenaResource.getProperty(RDFS.label);
+    if (labelStatement == null) {
+      label = defaultLabel;
+    } else {
+      label = labelStatement.getString();
+    }
+    if (label == null) {
+      label = jenaResource.getURI();
+    }
+    return label;
   }
 
   public Set<URI> getSeeAlso() {
