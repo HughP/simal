@@ -23,7 +23,6 @@ import java.util.Set;
 
 import javax.xml.namespace.QName;
 
-import org.openrdf.model.impl.URIImpl;
 import org.openrdf.repository.RepositoryException;
 import org.openrdf.rio.RDFHandlerException;
 
