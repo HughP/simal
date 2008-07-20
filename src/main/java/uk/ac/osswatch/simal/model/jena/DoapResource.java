@@ -2,9 +2,6 @@ package uk.ac.osswatch.simal.model.jena;
 
 import java.util.Set;
 
-import com.hp.hpl.jena.sparql.vocabulary.DOAP;
-import com.hp.hpl.jena.vocabulary.RDF;
-
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapResource;

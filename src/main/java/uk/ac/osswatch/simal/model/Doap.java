@@ -1,6 +1,9 @@
 /* CVS $Id: $ */
 package uk.ac.osswatch.simal.model; 
-import com.hp.hpl.jena.rdf.model.*;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
  
 /**
  * Vocabulary definitions from http://usefulinc.com/ns/doap# 
