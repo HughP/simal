@@ -144,8 +144,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapRelease> getReleases() {
-    // TODO Auto-generated method stub
-    return null;
+    HashSet<IDoapRelease> releases = new HashSet<IDoapRelease>();
+    StmtIterator statements = jenaResource.listProperties(Doap.RELEASE);
+    while (statements.hasNext()) {
+      releases.add(new Release(statements.nextStatement().getResource()));
+    }
+    return releases;
   }
 
   public Set<IDoapRepository> getRepositories() {
