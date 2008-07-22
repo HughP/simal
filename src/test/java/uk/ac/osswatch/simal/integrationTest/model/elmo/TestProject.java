@@ -251,7 +251,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetOSes() {
-    assertEquals(TEST_SIMAL_PROJECT_OS, project1.getOSes().toString());
+    assertEquals(TEST_SIMAL_PROJECT_OS, project1.getOSes().toArray()[0].toString());
   }
 
   @Test

@@ -50,8 +50,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapCategory> getCategories() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.CATEGORY);
+    Set<IDoapCategory> cats = new HashSet<IDoapCategory>();
+    while (itr.hasNext()) {
+      cats.add(new Category(itr.nextStatement().getResource()));
+    }
+    return cats;
   }
 
   public Set<IPerson> getDevelopers() {
@@ -73,13 +77,21 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapDownloadMirror> getDownloadMirrors() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.DOWNLOAD_MIRROR);
+    Set<IDoapDownloadMirror> mirrors = new HashSet<IDoapDownloadMirror>();
+    while (itr.hasNext()) {
+      mirrors.add(new DownloadMirror(itr.nextStatement().getResource()));
+    }
+    return mirrors;
   }
 
   public Set<IDoapDownloadPage> getDownloadPages() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.DOWNLOAD_PAGE);
+    Set<IDoapDownloadPage> pages = new HashSet<IDoapDownloadPage>();
+    while (itr.hasNext()) {
+      pages.add(new DownloadPage(itr.nextStatement().getResource()));
+    }
+    return pages;
   }
 
   public Set<IPerson> getHelpers() {
@@ -93,11 +105,11 @@ public class Project extends DoapResource implements IProject {
 
   public Set<IDoapHomepage> getHomepages() {
     StmtIterator itr = jenaResource.listProperties(Doap.HOMEPAGE);
-    Set<IDoapHomepage> trackers = new HashSet<IDoapHomepage>();
+    Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
-      trackers.add(new Homepage(itr.nextStatement().getResource()));
+      pages.add(new Homepage(itr.nextStatement().getResource()));
     }
-    return trackers;
+    return pages;
   }
 
   public Set<IDoapBugDatabase> getIssueTrackers() {
@@ -119,8 +131,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapMailingList> getMailingLists() {
-    // TODO Auto-generated method stub
-    return null;
+    HashSet<IDoapMailingList> lists = new HashSet<IDoapMailingList>();
+    StmtIterator statements = jenaResource.listProperties(Doap.MAILING_LIST);
+    while (statements.hasNext()) {
+      lists.add(new MailingList(statements.nextStatement().getResource()));
+    }
+    return lists;
   }
 
   public Set<IPerson> getMaintainers() {
@@ -133,18 +149,30 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<String> getOSes() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.OS);
+    Set<String> langs = new HashSet<String>();
+    while (itr.hasNext()) {
+      langs.add(itr.nextStatement().getString());
+    }
+    return langs;
   }
 
   public Set<IDoapHomepage> getOldHomepages() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.OLD_HOMEPAGE);
+    Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
+    while (itr.hasNext()) {
+      pages.add(new Homepage(itr.nextStatement().getResource()));
+    }
+    return pages;
   }
 
   public Set<String> getProgrammingLanguages() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.PROGRAMMING_LANGUAGE);
+    Set<String> langs = new HashSet<String>();
+    while (itr.hasNext()) {
+      langs.add(itr.nextStatement().getString());
+    }
+    return langs;
   }
 
   public Set<IDoapRelease> getReleases() {
@@ -166,8 +194,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapScreenshot> getScreenshots() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.SCREENSHOTS);
+    Set<IDoapScreenshot> langs = new HashSet<IDoapScreenshot>();
+    while (itr.hasNext()) {
+      langs.add(new Screenshot(itr.nextStatement().getResource()));
+    }
+    return langs;
   }
 
   public String getSimalID() {
@@ -194,8 +226,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapWiki> getWikis() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.WIKI);
+    Set<IDoapWiki> pages = new HashSet<IDoapWiki>();
+    while (itr.hasNext()) {
+      pages.add(new Wiki(itr.nextStatement().getResource()));
+    }
+    return pages;
   }
 
   public void setSimalID(String newID) {

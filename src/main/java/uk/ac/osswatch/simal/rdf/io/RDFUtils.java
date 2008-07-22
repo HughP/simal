@@ -317,7 +317,6 @@ public class RDFUtils {
           RDFUtils.checkProjectSeeAlso(doc, url, repo);
           RDFUtils.checkPersonIDs(doc, repo);
           RDFUtils.checkPersonSHA1(doc, repo);
-          RDFUtils.checkPersonNames(doc, repo);
           RDFUtils.checkResources(doc, repo);
           RDFUtils.escapeContent(doc, repo);
           
@@ -405,47 +404,6 @@ public class RDFUtils {
           .getValue();
       if (resource.equals("")) {
         homepage.getParentNode().removeChild(homepage);
-      }
-    }
-  }
-
-  /**
-   * For every person convert foafL:name into foaf:givename and foaf:family_name
-   * elements.
-   * 
-   * @param doc
-   * @param repo
-   */
-  private static void checkPersonNames(Document doc, ISimalRepository repo) {
-    logger.debug("Check person names in RDF file");
-    NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
-    Element person;
-    for (int i = 0; i < people.getLength(); i = i + 1) {
-      person = (Element) people.item(i);
-      NodeList names = person.getElementsByTagNameNS(FOAF_NS, "name");
-      for (int ni = 0; ni < names.getLength(); ni = ni + 1) {
-        Element nameElement = (Element) names.item(ni);
-        if (nameElement != null) {
-          if (nameElement.getParentNode() == person) {
-            String name = nameElement.getFirstChild().getNodeValue().trim();
-            StringTokenizer tokeniser = new StringTokenizer(name, " ");
-
-            for (int nn = 0; nn < tokeniser.countTokens(); nn = nn + 1) {
-              String token = tokeniser.nextToken();
-              Element givenname = doc.createElementNS(FOAF_NS, "givenname");
-              Text text = doc.createTextNode(token);
-              givenname.appendChild(text);
-              person.appendChild(givenname);
-            }
-            if (tokeniser.hasMoreTokens()) {
-              String token = tokeniser.nextToken();
-              Element familyName = doc.createElementNS(FOAF_NS, "family_name");
-              Text text = doc.createTextNode(token);
-              familyName.appendChild(text);
-              person.appendChild(familyName);
-            }
-          }
-        }
       }
     }
   }

@@ -14,8 +14,7 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public void addName(String name) {
-    // TODO Auto-generated method stub
-    
+    jenaResource.addLiteral(Doap.NAME, name);
   }
 
   public String getCreated() {

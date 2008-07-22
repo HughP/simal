@@ -91,6 +91,24 @@ public class Person extends Resource implements IPerson {
     return names;
   }
 
+  public Set<String> getNames() {
+    StmtIterator itr = jenaResource.listProperties(Foaf.NAME);
+    Set<String> names = new HashSet<String>();
+    while (itr.hasNext()) {
+      names.add(itr.nextStatement().getString());
+    }
+    return names;
+  }
+
+  public Set<String> getFirstnames() {
+    StmtIterator itr = jenaResource.listProperties(Foaf.FIRST_NAME);
+    Set<String> names = new HashSet<String>();
+    while (itr.hasNext()) {
+      names.add(itr.nextStatement().getString());
+    }
+    return names;
+  }
+
   public Set<Homepage> getHomepages() {
     StmtIterator itr = jenaResource.listProperties(Foaf.HOMEPAGE);
     Set<Homepage> homepages = new HashSet<Homepage>();
@@ -116,6 +134,37 @@ public class Person extends Resource implements IPerson {
 
   public void setSimalID(String newId) {
     jenaResource.addLiteral(SimalOntology.PERSON_ID, newId);
+  }
+  
+
+  
+
+  
+  /**
+   * Get the label for this person. The label for a person is derived
+   * from their known names. If the person does not have any defined
+   * names then the toString() method is used..
+   * 
+   * @return
+   */
+  public String getLabel() {
+    Set<String> names = getNames();
+    if (names.size() == 0) {
+      names = getGivennames();
+    }
+    if (names == null ) {
+      return toString();
+    } else {
+      if (names.size() == 0) {
+        try {
+          return getURI();
+        } catch (SimalRepositoryException e) {
+          logger.warn("Unable to generate URI for Person", e);
+          return "Error: No valid label";
+        }
+      }
+      return (String)names.toArray()[0];
+    }
   }
 
 }
