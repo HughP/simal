@@ -20,15 +20,11 @@ public interface IResource extends IResourceService {
   
 
   /**
-   * Get the URI for this resource. Attempts to construct a URI
-   * for this resource from the QName. This will often work if a resource
-   * is defined by rdf:resource. If it is not possible to create an
-   * URI for the resource an exception is thrown.
+   * Get the URI for this resource. 
    * @throws SimalRepositoryException 
    */
   public String getURI() throws SimalRepositoryException;
-
-
+  
   /**
    * Get the label for this resource. If the resource does not have a defined
    * label return value of the toString() method.

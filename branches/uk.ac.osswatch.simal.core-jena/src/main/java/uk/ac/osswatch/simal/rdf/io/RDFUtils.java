@@ -546,7 +546,7 @@ public class RDFUtils {
           throw new SimalRepositoryException("Unable to create URI for person", e);
         }
         if (simalPerson != null) {
-          id = simalPerson.getSimalId();
+          id = simalPerson.getSimalID();
         } else {
           id = repo.getNewPersonID();
         }

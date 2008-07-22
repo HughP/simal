@@ -15,9 +15,10 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import java.net.URL;
 import java.util.Set;
 
+import uk.ac.osswatch.simal.model.jena.InternetAddress;
+import uk.ac.osswatch.simal.model.jena.Homepage;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 
@@ -50,7 +51,7 @@ public interface IPerson extends IResource {
    * 
    * @return 
    */
-  public String getSimalId();
+  public String getSimalID();
 
   /**
    * Set the Simal ID for this person. This is a unique identifier
@@ -58,7 +59,7 @@ public interface IPerson extends IResource {
    * 
    * @return 
    */
-  public void setSimalId(String newId);
+  public void setSimalID(String newId);
   
   /**
    * Get all the people that this person knows
@@ -79,7 +80,7 @@ public interface IPerson extends IResource {
    * 
    * @return
    */
-  public String getEmail();
+  public Set<InternetAddress> getEmail();
 
 
   /**
@@ -93,6 +94,6 @@ public interface IPerson extends IResource {
    * Get all the homepages for this person.
    * @return
    */
-  public Set<URL> getHomepages();
+  public Set<Homepage> getHomepages();
 
 }

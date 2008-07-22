@@ -118,7 +118,7 @@ public abstract class BaseRepositoryTest {
     }
     project1 = getSimalTestProject();
     IPerson developer = project1.getDevelopers().iterator().next();
-    developer.setSimalId("15");
+    developer.setSimalID("15");
   }
 
   /**

@@ -1,19 +1,27 @@
 package uk.ac.osswatch.simal.model.jena;
 
+import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class Resource implements IResource {
+  private static final Logger logger = LoggerFactory.getLogger(Resource.class);
 
   protected com.hp.hpl.jena.rdf.model.Resource jenaResource ;
   
@@ -45,8 +53,16 @@ public class Resource implements IResource {
   }
 
   public Set<URI> getSeeAlso() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Foaf.MBOX);
+    Set<URI> uris = new HashSet<URI>();
+    while (itr.hasNext()) {
+      try {
+        uris.add(new URI(itr.nextStatement().getResource().getURI()));
+      } catch (Exception e) {
+        logger.warn("Unable to generate URI for seeAlso - ignoring", e);
+      }
+    }
+    return uris;
   }
 
   public String getURI() throws SimalRepositoryException {
@@ -54,8 +70,11 @@ public class Resource implements IResource {
   }
 
   public URL getURL() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
+    try {
+      return new URL(getURI());
+    } catch (MalformedURLException e) {
+      throw new SimalRepositoryException("Unable to create an URL for resource, this method is deprecated, use getURI() instead", e);
+    }
   }
 
   public void delete() throws SimalRepositoryException {
@@ -66,8 +85,18 @@ public class Resource implements IResource {
   }
 
   public String toJSON(boolean asRecord) {
-    // TODO Auto-generated method stub
-    return null;
+    StringBuffer json = new StringBuffer();
+    if (!asRecord) {
+      json.append("{ \"items\": [");
+    }
+    json.append("{");
+    json.append("\"id\":\"" + jenaResource.getURI() + "\",");
+    json.append("\"label\":\"" + getLabel() + "\",");
+    json.append("}");
+    if (!asRecord) {
+      json.append("]}");
+    }
+    return json.toString();
   }
 
   public String toXML() throws SimalRepositoryException {
