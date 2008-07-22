@@ -142,7 +142,7 @@ public class TestProject extends BaseRepositoryTest {
         hasDeveloper = true;
       }
       assertNotNull("No person should have a null ID (see "
-          + person.getURI().toString() + ")", person.getSimalId());
+          + person.getURI().toString() + ")", person.getSimalID());
     }
     assertTrue("Project does not appear to have developer "
         + TEST_SIMAL_PROJECT_DEVELOPERS, hasDeveloper);

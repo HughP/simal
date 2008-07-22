@@ -29,6 +29,7 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.jena.InternetAddress;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -56,26 +57,26 @@ public class TestPerson extends BaseRepositoryTest {
     person = repository.getPerson(uri);
     assertNotNull("Person has not been added to repository", person);
 
-    assertNotNull("Person simalID is incorrectly set", person.getSimalId());
+    assertNotNull("Person simalID is incorrectly set", person.getSimalID());
     
     person.delete();
   }
 
   @Test
   public void testNames() {
-    assertEquals("developer", developer.getGivennames().toString());
+    assertEquals("developer", developer.getGivennames().toArray()[0].toString());
   }
 
   @Test
   public void testHomePage() {
-    assertEquals("http://example.org/person/developer", developer
-        .getHomepages().toString());
+    assertTrue("developer home page is missing", developer
+        .getHomepages().toString().contains("http://example.org/person/developer"));
   }
 
   @Test
   public void testEmail() {
-    assertEquals("mailto:developer@foo.org", developer
-        .getEmail());
+    Set<InternetAddress> emails = developer.getEmail();
+    assertTrue("Emails are incorrect", emails.toString().contains("mailto:developer@foo.org"));
   }
 
   @Test
@@ -104,20 +105,20 @@ public class TestPerson extends BaseRepositoryTest {
     while (people.hasNext()) {
       IPerson person = people.next();
       assertNotNull("No person should have a null ID (see "
-          + person.getURI().toString() + ")", person.getSimalId());
+          + person.getURI().toString() + ")", person.getSimalID());
     }
   }
 
   @Test
   public void testSuppliedSimalId() {
-    String id = developer.getSimalId();
+    String id = developer.getSimalID();
     assertEquals("Test developer ID incorrect", "15", id);
 
   }
 
   @Test
   public void testGeneratedSimalId() throws SimalRepositoryException {
-    String id = developer.getColleagues().iterator().next().getSimalId();
+    String id = developer.getColleagues().iterator().next().getSimalID();
     assertNotNull("Test developer ID incorrect", id);
   }
 

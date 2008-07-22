@@ -10,10 +10,12 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.Category;
+import uk.ac.osswatch.simal.model.jena.Person;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
@@ -104,8 +106,18 @@ public class SimalRepository extends AbstractSimalRepository {
 
   public IPerson createPerson(String uri) throws SimalRepositoryException,
       DuplicateURIException {
-    // TODO Auto-generated method stub
-    return null;
+    if (containsPerson(uri)) {
+      throw new DuplicateURIException(
+          "Attempt to create a second person with the URI " + uri);
+    }
+
+    Resource r = model.createResource(uri.toString());
+    Statement s = model.createStatement(r, RDF.type, Foaf.PERSON);
+    model.add(s);
+    
+    IPerson person = new Person(model.createResource(uri));
+    person.setSimalID(getNewPersonID());
+    return person;
   }
 
   public IProject createProject(String uri) throws SimalRepositoryException,
@@ -193,14 +205,12 @@ public class SimalRepository extends AbstractSimalRepository {
     return null;
   }
 
-  public String getNewPersonID() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   public IPerson getPerson(String uri) throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
+    if (containsPerson(uri)) {
+      return new Person(model.getResource(uri.toString()));
+    } else {
+      return null;
+    }
   }
 
   public IProject getProject(String uri) throws SimalRepositoryException {
@@ -225,6 +235,12 @@ public class SimalRepository extends AbstractSimalRepository {
     Property o = model.createProperty( "http://usefulinc.com/ns/doap#Project" );
     Resource r = model.createResource(uri.toString());
     Statement s = model.createStatement(r, RDF.type, o);
+    return model.contains(s);
+  }
+
+  public boolean containsPerson(String uri) {
+    Resource r = model.createResource(uri.toString());
+    Statement s = model.createStatement(r, RDF.type, Foaf.PERSON);
     return model.contains(s);
   }
 
