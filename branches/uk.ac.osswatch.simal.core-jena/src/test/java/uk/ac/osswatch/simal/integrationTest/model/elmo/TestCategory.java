@@ -16,7 +16,7 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 
 import java.net.URISyntaxException;
 
@@ -35,8 +35,7 @@ public class TestCategory extends BaseRepositoryTest {
 
     String uri = "http://example.org/does/not/exist";
     category = repository.findCategory(uri);
-    label = category.getLabel();
-    assertNotSame("Somehow we have a valid label for a resource that does not exist",
-        uri, category.getURI());
+    assertNull("Somehow we have a category that should not exist",
+        category);
   }
 }

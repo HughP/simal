@@ -337,4 +337,11 @@ public interface ISimalRepository {
    * @return
    */
   public boolean containsProject(String uri);
+
+  /**
+   * Test to see if a category with the given String exists.
+   * @param uri
+   * @return
+   */
+  public boolean containsCategory(String uri);
 }
