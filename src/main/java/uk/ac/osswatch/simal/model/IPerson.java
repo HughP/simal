@@ -91,6 +91,12 @@ public interface IPerson extends IResource {
 
 
   /**
+   * Get all names for this person.
+   * @return
+   */
+  public Set<String> getNames();
+  
+  /**
    * Get all the homepages for this person.
    * @return
    */
