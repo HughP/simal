@@ -113,9 +113,7 @@
 
   <maintainer>
     <foaf:Person rdf:about="http://foo.org/~janeBlogs/#me">
-      <foaf:givenname>Jane</foaf:givenname>
-      <foaf:givenname>Blogs</foaf:givenname>
-      <foaf:family_name>Maintainer</foaf:family_name>
+      <foaf:name>Jane Maintainer</foaf:name>
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~janeBlogs/foaf.rdf.xml" />
     </foaf:Person>
