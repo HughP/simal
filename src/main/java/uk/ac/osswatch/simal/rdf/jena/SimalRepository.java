@@ -132,7 +132,11 @@ public class SimalRepository extends AbstractSimalRepository {
   }
 
   public IDoapCategory findCategory(String uri) throws SimalRepositoryException {
-    return new Category(model.getResource(uri.toString()));
+    if (containsCategory(uri)) {
+      return new Category(model.getResource(uri.toString()));
+    } else {
+      return null;
+    }
   }
 
   public IPerson findPersonById(String id) throws SimalRepositoryException {
@@ -222,6 +226,11 @@ public class SimalRepository extends AbstractSimalRepository {
     Resource r = model.createResource(uri.toString());
     Statement s = model.createStatement(r, RDF.type, o);
     return model.contains(s);
+  }
+
+  public boolean containsCategory(String uri) {
+    Resource r = model.createResource(uri.toString());
+    return model.containsResource(r);
   }
 
 }
