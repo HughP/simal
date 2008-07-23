@@ -36,7 +36,7 @@ public class PersonDetailsPage extends BasePage {
     IPerson person;
     try {
       person = UserApplication.getRepository().getPerson(
-          UserApplication.DEFAULT_PERSON_QNAME);
+          UserApplication.DEFAULT_PERSON_URI);
       populatePage(person);
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(

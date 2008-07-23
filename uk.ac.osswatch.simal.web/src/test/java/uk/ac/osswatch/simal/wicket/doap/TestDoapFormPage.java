@@ -33,8 +33,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -46,10 +47,10 @@ public class TestDoapFormPage extends TestBase {
 	private static final String TEST_NAME = "Form Project";
 	private static final String TEST_SHORT_DESC = "A project added by filling in the DOAP form";
 	private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
-	private static final String TEST_RAW_RDF_QNAME = "http://simal.oss-watch.ac.uk/loadFromRawRDF#";
-	private static final String TEST_RAW_RDF = "<Project xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:foaf=\"http://xmlns.com/foaf/0.1/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns=\"http://usefulinc.com/ns/doap#\" rdf:about=\"" + TEST_RAW_RDF_QNAME + "\"> <created>2008-02-22</created> <name>Load From RAW RDF Test</name> </Project>";
+	private static final String TEST_RAW_RDF_URI = "http://simal.oss-watch.ac.uk/loadFromRawRDF#";
+	private static final String TEST_RAW_RDF = "<Project xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:foaf=\"http://xmlns.com/foaf/0.1/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns=\"http://usefulinc.com/ns/doap#\" rdf:about=\"" + TEST_RAW_RDF_URI + "\"> <created>2008-02-22</created> <name>Load From RAW RDF Test</name> </Project>";
   
-	private static QName formInputQName = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI + TEST_NAME);
+	private static String formInputURI = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI + TEST_NAME;
 
 	@Before
   public void initTester() throws SimalRepositoryException {
@@ -60,8 +61,8 @@ public class TestDoapFormPage extends TestBase {
 	
 	@After
 	public void cleanUp() throws SimalRepositoryException {
-	  UserApplication.getRepository().remove(new QName("http://simal.oss-watch.ac.uk/loadFromFormTest#"));
-    UserApplication.getRepository().remove(formInputQName);
+	  UserApplication.getRepository().getProject("http://simal.oss-watch.ac.uk/loadFromFormTest#").delete();
+    UserApplication.getRepository().getProject(formInputURI).delete();
 	}
 	
 	/**
@@ -135,11 +136,11 @@ public class TestDoapFormPage extends TestBase {
 	  tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
     
-    IProject project = UserApplication.getRepository().getProject(new QName(TEST_RAW_RDF_QNAME));
+    IProject project = UserApplication.getRepository().getProject(TEST_RAW_RDF_URI);
     assertNotNull(project);
     
     project.delete();
-    project = UserApplication.getRepository().getProject(new QName(TEST_RAW_RDF_QNAME));
+    project = UserApplication.getRepository().getProject(TEST_RAW_RDF_URI);
     assertNull(project);
 	}
 
@@ -156,7 +157,7 @@ public class TestDoapFormPage extends TestBase {
     tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
     
-    IProject project = UserApplication.getRepository().getProject(formInputQName);
+    IProject project = UserApplication.getRepository().getProject(formInputURI);
     assertNotNull(project);
     assertEquals("Name is not correct", TEST_NAME, project.getName());
     assertEquals("Short descritpion is not correct", TEST_SHORT_DESC, project.getShortDesc());
@@ -177,8 +178,8 @@ public class TestDoapFormPage extends TestBase {
     uploadFile(); // we need to run this first just in case this is the first test run and the repo is not initialised
     initTester(); // and come back to the init state again
     
-    File fileStoreDir = new File(SimalRepository
-        .getProperty(SimalRepository.PROPERTY_SIMAL_DOAP_FILE_STORE)
+    File fileStoreDir = new File(SimalProperties
+        .getProperty(SimalProperties.PROPERTY_SIMAL_DOAP_FILE_STORE)
         + File.separator + "simal-uploads");
     int preCount = fileStoreDir.list().length;
     
