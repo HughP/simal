@@ -38,6 +38,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 import uk.ac.osswatch.simal.model.IPerson;
 
+
 /**
  * A panel for displaying project information.
  */
@@ -58,10 +59,10 @@ public class PersonSummaryPanel extends Panel {
 
 	private void populatePage(final IPerson person) {
 		add(new Label("personName", person.getLabel()));
-		add(new Label("personId", person.getSimalId()));
-		add(new Label("emails", person.getFoafMboxes().toString()));
-		add(new Label("homepages", person.getFoafHomepages().toString()));
-		String friendsURL = "http://localhost:8080/simal-rest/allColleagues/person-" + person.getSimalId() + "/xml";
+		add(new Label("personId", person.getSimalID()));
+		add(new Label("emails", person.getEmail().toString()));
+		add(new Label("homepages", person.getHomepages().toString()));
+		String friendsURL = "http://localhost:8080/simal-rest/allColleagues/person-" + person.getSimalID() + "/xml";
 		add(new ExternalLink("friendsLink", friendsURL));
 	}
 

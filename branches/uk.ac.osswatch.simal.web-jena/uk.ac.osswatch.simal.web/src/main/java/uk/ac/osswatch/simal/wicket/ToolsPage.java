@@ -28,8 +28,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.tools.PTSWImport;
 
@@ -59,7 +59,7 @@ public class ToolsPage extends BasePage {
   }
 
   private void importPTSW() throws UserReportableException {
-    SimalRepository repo;
+    ISimalRepository repo;
     int preProjectCount;
     try {
       repo = UserApplication.getRepository();

@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.model.IFoafResourceBehaviour;
+import uk.ac.osswatch.simal.model.IFoafResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.TransactionException;
 import uk.ac.osswatch.simal.wicket.TestBase;
@@ -55,8 +55,8 @@ public class TestSortablePersonDataProvider extends TestBase{
 		int pageSize = NUMBER_OF_TEST_PEOPLE - 1;
 
 		// test the default sort is by label
-		Iterator<IFoafResourceBehaviour> iterator = provider.iterator(0, pageSize);
-		IFoafResourceBehaviour person;
+		Iterator<IFoafResource> iterator = provider.iterator(0, pageSize);
+		IFoafResource person;
 		String prev = null;
 		String current;
 		int count = 0;

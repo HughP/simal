@@ -16,9 +16,6 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
-
-import javax.xml.namespace.QName;
-
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 
@@ -29,21 +26,21 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
 public class DetachableProjectModel extends LoadableDetachableModel implements
 		IModel {
 	private static final long serialVersionUID = -9017519516676203598L;
-	QName qname;
+	String uri;
 
-	public DetachableProjectModel(IProject project) {
-		this.qname = project.getQName();
+	public DetachableProjectModel(IProject project) throws SimalRepositoryException {
+		this.uri = project.getURI();
 	}
 
-	public DetachableProjectModel(QName qname) {
-		this.qname = qname;
+	public DetachableProjectModel(String uri) {
+		this.uri = uri;
 	}
 
 	@Override
 	protected Object load() {
 		IProject project;
 		try {
-			project = UserApplication.getRepository().getProject(qname);
+			project = UserApplication.getRepository().getProject(uri);
 		} catch (SimalRepositoryException e) {
 			e.printStackTrace();
 			project = null;
