@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
+import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -72,9 +73,9 @@ public class Person extends Resource implements IPerson {
     return colleagues;
   }
 
-  public Set<InternetAddress> getEmail() {
+  public Set<IInternetAddress> getEmail() {
     StmtIterator itr = jenaResource.listProperties(Foaf.MBOX);
-    Set<InternetAddress> emails = new HashSet<InternetAddress>();
+    Set<IInternetAddress> emails = new HashSet<IInternetAddress>();
     while (itr.hasNext()) {
       emails.add(new InternetAddress(itr.nextStatement().getResource()));
     }

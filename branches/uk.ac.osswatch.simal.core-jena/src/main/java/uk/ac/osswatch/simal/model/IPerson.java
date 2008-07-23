@@ -80,7 +80,7 @@ public interface IPerson extends IFoafResource {
    * 
    * @return
    */
-  public Set<InternetAddress> getEmail();
+  public Set<IInternetAddress> getEmail();
 
 
   /**
