@@ -30,8 +30,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IFoafResource;
+import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.jena.InternetAddress;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -159,10 +159,10 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider {
         String email1;
         String email2;
         try {
-          Set<InternetAddress> internetAdd = ((IPerson) resource1).getEmail();
-          email1 = ((InternetAddress) internetAdd.toArray()[0]).getAddress();
+          Set<IInternetAddress> internetAdd = ((IPerson) resource1).getEmail();
+          email1 = ((IInternetAddress) internetAdd.toArray()[0]).getAddress();
           internetAdd = ((IPerson) resource2).getEmail();
-          email2 = ((InternetAddress) internetAdd.toArray()[0]).getAddress();
+          email2 = ((IInternetAddress) internetAdd.toArray()[0]).getAddress();
         } catch (SimalRepositoryException e) {
           logger.warn("Unable to retrieive email address from repo");
           email1 = "Error";
