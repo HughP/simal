@@ -267,15 +267,7 @@ public interface ISimalRepository {
    */
   public IPerson createPerson(String uri) throws SimalRepositoryException,
       DuplicateURIException;
-
-  /**
-   * Remove an entity from the repository.
-   * 
-   * @param uri
-   * @throws SimalRepositoryException
-   */
-  public void remove(String uri) throws SimalRepositoryException;
-
+  
   /**
    * Create a new project ID and save the next value in the properties file.
    * 

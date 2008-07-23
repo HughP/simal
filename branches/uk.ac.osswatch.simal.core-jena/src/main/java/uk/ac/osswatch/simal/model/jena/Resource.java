@@ -104,5 +104,9 @@ public class Resource implements IResource {
     return null;
   }
 
+  public String toString() {
+    return getLabel();
+  }
+
 
 }

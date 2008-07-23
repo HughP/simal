@@ -58,10 +58,6 @@ public class TestRepository extends BaseRepositoryTest {
   
   @Test
   public void testAddCategories() throws SimalRepositoryException, URISyntaxException {
-    // FIXME: the following line is a workaround for ISSUE 127, 
-    // remove when the issue is resolved
-    getSimalTestProject().getCategories();
-    
     Set<IDoapCategory> cats = repository.getAllCategories();
     assertTrue("Not managed to get any categories from the repo", cats.size() > 0);
     
@@ -129,7 +125,7 @@ public class TestRepository extends BaseRepositoryTest {
     while (itrPeople.hasNext()) {
       person = itrPeople.next();
       assertNotNull(person.getLabel());
-      logger.debug("Got person: " + person + " : " + person.getLabel());
+      logger.debug("Got person: " + person + " : " + person.getURI());
     }
 
     assertEquals(16, people.size());
@@ -188,24 +184,7 @@ public class TestRepository extends BaseRepositoryTest {
     assertNotNull(project);
     logger.debug("Finished testFindProjectBySeeAlso()");
   }
-  
-  @Test
-  public void testRemove() throws SimalRepositoryException, TransactionException, DuplicateURIException, URISyntaxException {
-    logger.debug("Starting testRemove()");
-    String uri1 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-        + "TestingId1";
-
-    IProject project;
-    project = repository.createProject(uri1);
-    project = repository.getProject(uri1);
-    assertNotNull(project);
     
-    repository.remove(uri1);
-    project = repository.getProject(uri1);
-    assertNull("Failed to remove the test project", project);
-    logger.debug("Finished testRemove()");
-  }
-  
   @Test
   public void testAdd() throws SimalRepositoryException, URISyntaxException, IOException {
     logger.debug("Starting testAdd(data)");
