@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.model.jena;
 
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
@@ -9,7 +10,6 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -21,6 +21,8 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class Resource implements IResource {
+  private static final long serialVersionUID = -10828811166985970L;
+
   private static final Logger logger = LoggerFactory.getLogger(Resource.class);
 
   protected com.hp.hpl.jena.rdf.model.Resource jenaResource ;
@@ -30,8 +32,14 @@ public class Resource implements IResource {
   }
   
   public String getComment() {
-    // TODO Auto-generated method stub
-    return null;
+    Statement commentStatement = jenaResource.getProperty(RDFS.comment);
+    String comment;
+    if (commentStatement == null) {
+      comment = "";
+    } else {
+      comment = commentStatement.getString();
+    }
+    return comment;
   }
 
   public String getLabel() {
@@ -53,7 +61,7 @@ public class Resource implements IResource {
   }
 
   public Set<URI> getSeeAlso() {
-    StmtIterator itr = jenaResource.listProperties(Foaf.MBOX);
+    StmtIterator itr = jenaResource.listProperties(RDFS.seeAlso);
     Set<URI> uris = new HashSet<URI>();
     while (itr.hasNext()) {
       try {
@@ -100,8 +108,9 @@ public class Resource implements IResource {
   }
 
   public String toXML() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
+    StringWriter writer = new StringWriter();
+    jenaResource.getModel().write(writer);
+    return writer.toString();
   }
 
   public String toString() {

@@ -1,13 +1,16 @@
 package uk.ac.osswatch.simal.model.jena;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class DoapResource extends Resource implements IDoapResource {
 
@@ -28,8 +31,12 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public Set<IDoapLicence> getLicences() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.LICENSE);
+    Set<IDoapLicence> results = new HashSet<IDoapLicence>();
+    while (itr.hasNext()) {
+      results.add(new Licence(itr.nextStatement().getResource()));
+    }
+    return results;
   }
 
   public String getName() {
@@ -42,8 +49,12 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public Set<String> getNames() {
-    // TODO Auto-generated method stub
-    return null;
+    StmtIterator itr = jenaResource.listProperties(Doap.LICENSE);
+    Set<String> results = new HashSet<String>();
+    while (itr.hasNext()) {
+      results.add(itr.nextStatement().getString().trim());
+    }
+    return results;
   }
 
   public String getShortDesc() {
@@ -53,7 +64,6 @@ public class DoapResource extends Resource implements IDoapResource {
     } else {
       return null;
     }
-
   }
 
   public void setCreated(String newCreated) throws SimalRepositoryException {

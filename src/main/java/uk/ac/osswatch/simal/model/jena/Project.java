@@ -237,17 +237,7 @@ public class Project extends DoapResource implements IProject {
   public void setSimalID(String newID) {
     jenaResource.addLiteral(SimalOntology.PROJECT_ID, newID);
   }
-
-  public String toJSON(boolean asRecord) {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
-  public String toXML() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
+  
   protected String toJSONRecordContent() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer();
     json.append(super.toJSONRecordContent());

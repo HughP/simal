@@ -261,8 +261,29 @@ public class SimalRepository extends AbstractSimalRepository {
 
   public IProject findProjectByHomepage(String homepage)
       throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-    return null;
+    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
+    + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+    + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+    + "SELECT DISTINCT ?project WHERE { "
+    + "?project a doap:Project . "
+    + "?project doap:homepage <"
+    + homepage + ">}";
+
+    Query query = QueryFactory.create(queryStr);
+    QueryExecution qe = QueryExecutionFactory.create(query, model);
+    ResultSet results = qe.execSelect();
+
+    IProject project = null;
+    while (results.hasNext()) {
+      QuerySolution soln = results.nextSolution();
+      RDFNode node = soln.get("project");
+      if (node.isResource()) {
+        project = new Project((com.hp.hpl.jena.rdf.model.Resource) node);
+      }
+    }
+    qe.close();
+
+    return project;
   }
 
   public IProject findProjectById(String id) throws SimalRepositoryException {
