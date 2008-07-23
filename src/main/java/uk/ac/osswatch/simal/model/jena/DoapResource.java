@@ -2,6 +2,8 @@ package uk.ac.osswatch.simal.model.jena;
 
 import java.util.Set;
 
+import com.hp.hpl.jena.rdf.model.Statement;
+
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapResource;
@@ -40,7 +42,13 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getShortDesc() {
-    return jenaResource.getProperty(Doap.SHORTDESC).getString().trim();
+    Statement desc = jenaResource.getProperty(Doap.SHORTDESC);
+    if ( desc!= null) {
+      return desc.getString().trim();
+    } else {
+      return null;
+    }
+    
   }
 
   public void setCreated(String newCreated) throws SimalRepositoryException {

@@ -384,8 +384,9 @@ public class TestProject extends BaseRepositoryTest {
     assertTrue("Project IDs don't appear to be written to the repo", id1
         .equals(id3));
 
-    repository.remove(uri1);
-    repository.remove(uri2);
+    project.delete();
+    project = repository.getProject(uri2);
+    project.delete();
   }
   
   @Test

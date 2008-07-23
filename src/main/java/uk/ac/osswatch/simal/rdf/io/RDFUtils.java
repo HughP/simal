@@ -138,6 +138,8 @@ public class RDFUtils {
                 .item(0);
             if (locationNode != null) {
               uri = locationNode.getFirstChild().getNodeValue();
+              uri = uri.substring(uri.indexOf("@") + 1);
+              uri = "cvs:" + uri.substring(0, uri.indexOf(":")) + uri.substring(uri.indexOf(":") + 1);
             }
           }
 
