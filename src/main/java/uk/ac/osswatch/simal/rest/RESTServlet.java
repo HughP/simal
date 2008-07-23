@@ -25,8 +25,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rest.IAPIHandler;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
@@ -50,7 +51,7 @@ public class RESTServlet extends HttpServlet {
     String response = "Could not handle request for " + req.getPathInfo();
 
     try {
-      SimalRepository repo = SimalRepository.getInstance();
+      ISimalRepository repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
       if (!repo.isInitialised()) {
         repo.initialise();
       }
