@@ -65,7 +65,7 @@ public class Resource implements IResource {
     return uris;
   }
 
-  public String getURI() throws SimalRepositoryException {
+  public String getURI() {
     return jenaResource.getURI();
   }
 

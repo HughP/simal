@@ -21,6 +21,6 @@ package uk.ac.osswatch.simal.model;
  * of a doap:Project.  
  *
  */
-public interface IDoapDownloadMirror {
+public interface IDoapDownloadMirror extends IDoapResource {
 
 }

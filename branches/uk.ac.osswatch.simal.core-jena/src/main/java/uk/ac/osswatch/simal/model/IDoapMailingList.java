@@ -21,6 +21,6 @@ package uk.ac.osswatch.simal.model;
  * of doap:Project.  
  *
  */
-public interface IDoapMailingList extends IResource {
+public interface IDoapMailingList extends IDoapResource {
 
 }
