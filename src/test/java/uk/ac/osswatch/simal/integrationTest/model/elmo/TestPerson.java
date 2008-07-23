@@ -28,8 +28,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.jena.InternetAddress;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -75,7 +75,7 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testEmail() {
-    Set<InternetAddress> emails = developer.getEmail();
+    Set<IInternetAddress> emails = developer.getEmail();
     assertTrue("Emails are incorrect", emails.toString().contains("mailto:developer@foo.org"));
   }
 
