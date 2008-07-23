@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.model;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URL;
 import java.util.Set;
@@ -10,7 +11,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * An RDF resource.
  *
  */
-public interface IResource extends IResourceService {
+public interface IResource extends IResourceService, Serializable {
 
 
   /**
