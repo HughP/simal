@@ -23,7 +23,12 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getCreated() {
-    return jenaResource.getProperty(Doap.CREATED).getString();
+    Statement created = jenaResource.getProperty(Doap.CREATED);
+    if (created != null) {
+      return created.getString();
+    } else {
+      return "";
+    }
   }
 
   public String getDescription() {
