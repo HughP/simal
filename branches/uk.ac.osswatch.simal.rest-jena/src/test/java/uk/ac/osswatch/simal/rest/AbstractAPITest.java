@@ -19,16 +19,17 @@ package uk.ac.osswatch.simal.rest;
 
 import org.junit.BeforeClass;
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 public abstract class AbstractAPITest {
 
-  protected static SimalRepository repo;
+  protected static ISimalRepository repo;
 
   @BeforeClass
   public static void setUpRepo() throws SimalRepositoryException {
-    repo = SimalRepository.getInstance();
+    repo = SimalRepositoryFactory.getInstance();
     if (!repo.isInitialised()) {
       repo.setIsTest(true);
       repo.initialise();

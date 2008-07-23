@@ -92,12 +92,12 @@ public class PersonAPI extends AbstractHandler {
       result.append("<container>");
 
       result.append("<people>");
-      result.append("<person id=\"" + person.getSimalId() + "\" name=\"" + person.getFoafGivennames() + "\">");
+      result.append("<person id=\"" + person.getSimalID() + "\" name=\"" + person.getGivennames() + "\">");
       IPerson friend;
       while (friends.hasNext()) {
         friend = friends.next();
         result.append("<friend>");
-        result.append(friend.getSimalId());
+        result.append(friend.getSimalID());
         result.append("</friend>");
       }
       result.append("</person>");
@@ -105,7 +105,7 @@ public class PersonAPI extends AbstractHandler {
       friends = colleaguesAndFriends.iterator();
       while (friends.hasNext()) {
         friend = friends.next();
-        result.append("<person id=\"" + friend.getSimalId() + "\" name=\"" + friend.getFoafGivennames() + "\">");
+        result.append("<person id=\"" + friend.getSimalID() + "\" name=\"" + friend.getGivennames() + "\">");
         result.append("</person>");
       }
       result.append("</people>");
