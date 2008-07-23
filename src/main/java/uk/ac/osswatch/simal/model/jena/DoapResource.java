@@ -37,11 +37,7 @@ public class DoapResource extends Resource implements IDoapResource {
     if (name != null) {
       return name.getString();
     } else {
-      try {
-        return getURI();
-      } catch (SimalRepositoryException e) {
-        warn("Error getting URI")
-      }
+      return getURI();
     }
   }
 
