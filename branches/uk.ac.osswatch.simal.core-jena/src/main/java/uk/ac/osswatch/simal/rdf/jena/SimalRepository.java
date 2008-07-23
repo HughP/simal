@@ -1,9 +1,12 @@
 package uk.ac.osswatch.simal.rdf.jena;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.Writer;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -104,12 +107,26 @@ public class SimalRepository extends AbstractSimalRepository {
 
   public void add(String data) throws SimalRepositoryException {
     logger.debug("Adding RDF data string:\n\t" + data);
-    StringReader reader = new StringReader(data);
+
+    File file = new File("testingAddData.rdf");
     try {
-      model.read(reader, null);
-    } catch (Exception e) {
-      throw new SimalRepositoryException("Unable to read data", e);
+      FileWriter fw = new FileWriter(file);
+      BufferedWriter bw = new BufferedWriter(fw);
+      bw.write(data);
+      bw.close();
+
+      addProject(file.toURL(), "");
+    } catch (MalformedURLException mue) {
+      // should never happen as we created the file here
+      throw new SimalRepositoryException(
+          "Strange... a file we created has a malformed URL", mue);
+    } catch (IOException e) {
+      throw new SimalRepositoryException(
+          "Unable to write file from data string", e);
+    } finally {
+      file.delete();
     }
+
   }
 
   public void addRDFXML(URL url, String baseURI)
