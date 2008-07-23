@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/ibvre.aspx">
-<shortdesc>The overall aim of the IBVRE project is to extend the Integrative Biology (IB) infrastructure to become a virtual research environment for computational biology.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>IBVRE: VRE to support the Integrative Biology Research Consortium</name>
-<homepage rdf:resource="http://www.vre.ox.ac.uk/ibvre"/>
-</Project>

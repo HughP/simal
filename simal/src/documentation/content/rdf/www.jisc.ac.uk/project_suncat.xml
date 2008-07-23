@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlip/project_suncat.aspx">
-<shortdesc>During Phase 1, SUNCAT will aim to achieve a critical mass of journal records by making use of the ISSN World Serials database and CONSER, the database of MARC21 serials records available from the Library of Congress in the USA, and will also work closely with 22 key national and academic libraries holding major serials collections in the UK.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlip.aspx"/>
-<name>SUNCAT: the National Serials Union Catalogue</name>
-<homepage rdf:resource="http://www.suncat.ac.uk/"/>
-</Project>

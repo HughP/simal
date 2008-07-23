@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_lichen.aspx">
-<shortdesc>The proposal arose from existing work being undertaken by the project partners (Southampton, Bristol and Manchester) in the UKERNA Wireless Advisory Group (WAG) and Location Independent Networking (LIN) pilot.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
-<name>LICHEN: Location Independent Collaboration in Higher Education Networks</name>
-<homepage rdf:resource="http://www.iam.ecs.soton.ac.uk/projects/LICHEN.html"/>
-</Project>

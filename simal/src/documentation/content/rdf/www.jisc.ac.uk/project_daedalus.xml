@@ -1,8 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair/project_daedalus.aspx">
-<shortdesc>DAEDALUS will establish a network of Open Archives compliant digital collections at the University of Glasgow. These collections will include: Academic [Published] papers
-Pre-prints, grey Literature and working papers, Theses, Research Resource Finding Aids (Archives and Special Collections), Institutional Management, and Policy and Regulatory documents.  We will also build an Open Archives compliant search service to enable users to retrieve assets across the spectrum of data providers.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>DAEDALUS: Data providers for Academic E-content and the Disclosure of Assets for Learning, Understanding and Scholarship</name>
-<homepage rdf:resource="http://www.lib.gla.ac.uk/daedalus/"/>
-</Project>

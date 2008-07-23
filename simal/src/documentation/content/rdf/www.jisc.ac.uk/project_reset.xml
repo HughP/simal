@@ -1,8 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_reset.aspx">
-<shortdesc>This project aims to produce 200-300 reusable learning objects suitable for use by teachers on HNC, HND and Foundation Degree programmes in science, engineering and technology subjects and deposit these in JORUM.
-The project will also produce guidelines for the workflow involved in the selection of suitable legacy resources through to integration of learning objects into a VLE and JORUM.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>ReSET</name>
-<homepage rdf:resource="http://esdstudent.gcal.ac.uk/reset"/>
-</Project>

@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/ssirmtip.aspx">
-<shortdesc>Some administrators feel themselves unable satisfactorily to gauge or estimate some information essential as critical inputs into project management tools, such as the widely used JISCinfoNet project management toolkit. Duke and Jordan have been commissioned to provide a scoping study to establish the nature and scale of the information required by administrators and managers.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
-<name>Scoping study into the information requirements for the management of technology implementation projects</name>
-<homepage rdf:resource="http://dukeandjordan.co.uk/currworkprojmngmnt.htm"/>
-</Project>

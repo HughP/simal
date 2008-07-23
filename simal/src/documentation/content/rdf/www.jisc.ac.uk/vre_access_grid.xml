@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_access_grid.aspx">
-<shortdesc>This project aims to extend the Access Grid's VRE infrastructure with new collaboration functionalities from the CoAKTinG project.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>MEMETIC: Meeting Memory Technology Informing Collaboration</name>
-<homepage rdf:resource="http://www.memetic-vre.net/"/>
-</Project>

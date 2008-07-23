@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/demo_designshare.aspx">
-<shortdesc>The project addresses difficulties that are faced by a practitioner who is considering using a Unit of Learning (UOL) defined in IMS Learning Design, relating to the discovery, adaptation and publishing of the UOL. The project will link the repository to an IMS Learning Design editor (Reload), to enable the discovery and sharing of learning designs. The project will develop a module within Reload and adapt the OpenDocument.net system to allow a user to query the OpenDocument.net repository network to discover UOLs.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>DesignShare</name>
-<homepage rdf:resource="http://designshare.opendocument.net/Application/index.php?action=page&amp;page=About+DesignShare"/>
-</Project>

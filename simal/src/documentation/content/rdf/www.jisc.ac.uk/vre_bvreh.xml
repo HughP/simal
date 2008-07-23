@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_bvreh.aspx">
-<shortdesc>A preliminary survey of ICT use in research projects within the Humanities Division in the University of Oxford carried out in summer 2004 has identified a number of areas of need and overlapping interest which provide a context for the creation and deployment of VRE tools for Humanities researchers.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>Building a Virtual Research Environment for the Humanities (BVREH)</name>
-<homepage rdf:resource="http://bvreh.humanities.ox.ac.uk/"/>
-</Project>

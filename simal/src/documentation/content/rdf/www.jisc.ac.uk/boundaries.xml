@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/boundaries.aspx">
-<shortdesc>This project will create a comprehensive digital library of historic administrative boundaries for Britain through a combination of scanning historical maps and creating vector boundaries for selected geographies.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>Portsmouth University: Historic boundaries of Britain</name>
-<homepage rdf:resource="http://www.visionofbritain.org.uk/"/>
-</Project>

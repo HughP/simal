@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_iugo.aspx">
-<shortdesc>This project aims to develop a proof of concept system to enable the integration of web-based content (and references to non web-based content), related to individual conferences and individual sessions within conferences.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>IUGO: Conference Information Integration</name>
-<homepage rdf:resource="http://iugo.ilrt.bris.ac.uk/"/>
-</Project>

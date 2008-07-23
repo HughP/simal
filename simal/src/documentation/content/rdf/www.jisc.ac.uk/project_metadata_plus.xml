@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals2/project_metadata_plus.aspx">
-<shortdesc>The project will develop an interoperability demonstrator to explore the technical aspects of providing machine services to facilitate metadata discovery and aggregation in different presentational contexts.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals2.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>metadata+: Machine Services for Metadata Discovery and Aggregation</name>
-</Project>

@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/project_medical_journals.aspx">
-<shortdesc>The JISC in partnership with The Wellcome Trust and the U.S. National Library of Medicine have joined forces to digitise the complete back files of a number of important and historically significant medical journals. The digitised content will be made freely available on the internet  via PubMed Central (http://www.pubmedcentral.gov). The funding of £1.25 million (£750,000 from the Trust, £500,000 from the JISC) will digitise around 1.7 million pages of complete back files.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>Medical journal backfiles</name>
-<homepage rdf:resource="http://library.wellcome.ac.uk/backfiles"/>
-</Project>

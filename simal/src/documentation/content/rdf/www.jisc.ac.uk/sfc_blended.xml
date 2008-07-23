@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc/sfc_blended.aspx">
-<shortdesc>The BlendEd project seeks to adopt a holistic approach to the introduction of blended delivery in specific curricular areas and in so doing explore the associated issues challenges and benefits.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>BlendEd: Collaborative transformation of course delivery</name>
-<homepage rdf:resource="http://www.blend-ed.ac.uk/"/>
-</Project>

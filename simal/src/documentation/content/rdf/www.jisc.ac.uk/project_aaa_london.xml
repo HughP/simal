@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa/project_aaa_london.aspx">
-<shortdesc>The project will recommend whether PAPI, could be potentially used as a fine-grain authorisation component in the proposed overall Access Management solution necessary to fully realise the vision of the JISC Information Environment.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
-<name>GLAM: Global access management</name>
-<homepage rdf:resource="http://www.glam.lon.ac.uk/"/>
-</Project>

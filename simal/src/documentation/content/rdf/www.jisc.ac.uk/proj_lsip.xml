@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_lsip.aspx">
-<shortdesc>The University of Liverpool Computing Services Department has made significant progress in making almost all of its user service systems use a single directory for user authentication.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
-<name>LSIP: Liverpool Shibboleth Implementation Programme</name>
-<homepage rdf:resource="http://www.liv.ac.uk/LSIP/"/>
-</Project>

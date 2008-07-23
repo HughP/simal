@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/project_smirkboard.aspx">
-<shortdesc>The aim of this project will be to remove membership data and interfaces within Smirkboard, and use those QuestionMark Perception instead.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Connecting Smirkboard to Perception via Sweet.net</name>
-<homepage rdf:resource="http://smirkboard.herts.ac.uk/smirkboard%5Fsweet%5Fperception/"/>
-</Project>

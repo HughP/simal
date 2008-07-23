@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/pamphlets.aspx">
-<shortdesc>This project will provide online access to the most significant collections of 19th century pamphlets held in UK research libraries. Digitising around 30,000 paper copy pamphlets, which focus on the political, economic and social issues that fuelled the great Parliamentary debates and controversies of the 19th century.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>19th century pamphlets online: Phase 1</name>
-</Project>

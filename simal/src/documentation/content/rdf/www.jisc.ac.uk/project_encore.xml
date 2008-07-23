@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle/project_encore.aspx">
-<shortdesc>The aim of the project is to enable both staff and students to access the wide range of internal and external electronic resources currently available in ways that are simple and intuitive.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>EnCoRe: Enriching Courses with Resources</name>
-<homepage rdf:resource="http://lib.derby.ac.uk/encore/encore.html"/>
-</Project>

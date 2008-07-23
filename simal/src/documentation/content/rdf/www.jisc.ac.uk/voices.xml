@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/voices.aspx">
-<shortdesc>The project will deliver 600 hours of unique moving image materials and digitised contextual documents to educational communities and the public across the UK. It will pursue a curated and thematic approach; demonstrating how the key social, political and economic issues of our time have been represented, illustrated, expressed and debated through moving image media forms.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>Voices: Moving images in the public sphere</name>
-</Project>
