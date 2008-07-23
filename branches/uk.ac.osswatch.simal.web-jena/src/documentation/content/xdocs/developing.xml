@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Developing the Simal Web Module</title>
+  </header>
+  <body>
+    <p>
+      This document describes how to get started with development of the
+      Simal Web Module. It is intended for those users wishing to get
+      their hands dirty with the
+      <a href="ext:simal/svn">source code</a>
+      .
+    </p>
+
+    <section>
+      <title>Prerequisites</title>
+
+      <p>
+        You must have set up the prerequisites and downloaded the source
+        for Simal Web.
+      </p>
+    </section>
+
+    <section>
+      <title>Building with Maven</title>
+
+      <p>
+        To build Simal Web application with Maven all you need to do is
+        (from within your Simal Web home directory):
+      </p>
+
+      <source>
+mvn war:war
+</source>
+
+      <p>This will build a war file in your SIMAL_WEB/target directory.</p>
+      
+      <p>Simal Web comes complete with a test suite, to run it you need:</p>
+
+      <source>
+mvn test
+</source>
+</section>
+
+      <section>
+        <title>Building Reports</title>
+
+        <p>
+          If you are working on the code of Simal Web then you will want
+          to build the reports to check everything is OK, simply use:
+        </p>
+
+        <source>
+mvn site
+</source>
+
+        <p>
+          The site will be built in
+          <code>SIMAL_WEB/target/site</code>.
+        </p>
+      </section>
+
+      <section>
+      <title>Running Simal Web</title>
+
+    <p>
+      To run the Simal Web application you can either use the Maven
+      Jetty plugin to run locally or you can deploy the war generated
+      above in your favourite servlet engine. The later is outside the
+      scope of this document, instead we will focus on running locally
+      as part of your development cycle. To start the server run the
+      following command:
+    </p>
+
+    <source>
+mvn jetty:run
+</source>
+
+    <p>
+      Now point your browser at
+      <code>http://localhost:8080</code>
+    </p>
+
+    <p>
+      An alternative way of starting a test version of the application
+      is to use the class
+      <code>uk.ac.osswatch.simal.wicket.Start</code>
+      , found in the
+      <code>src/test</code>
+      directory. This class is useful when running within an IDE.
+    </p>
+
+    </section>
+
+    <section>
+      <title>Now What?</title>
+
+      <p>So you have Simal Web installed, now what?</p>
+
+      <p>
+        Simal is a very early stage project, we need your help. We
+        encourage you to join our
+        <a href="ext:simal/devList">mailing list</a>
+        .
+      </p>
+    </section>
+
+  </body>
+</document>
