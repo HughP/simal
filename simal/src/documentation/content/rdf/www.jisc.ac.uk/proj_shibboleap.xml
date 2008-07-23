@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_shibboleap.aspx">
-<shortdesc>The project will create a Shibboleth Identity-Provider (Origin) service for all academic and support staff (at each of seven partner institutions in the SHERPA-LEAP consortium) who are involved in controlled access to their respective institutional Eprints servers, and will implement modifications to their respective Eprints servers to enable them all as Shibboleth Resource-Providers (Targets).</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
-<name>ShibboLEAP</name>
-<homepage rdf:resource="http://www.angel.ac.uk/ShibboLEAP/"/>
-</Project>

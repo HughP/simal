@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_ethos.aspx">
-<shortdesc>The purpose of EThOS is to deliver, a fully operational, easily scaleable and financially viable prototype UK e-theses online service, and supporting infrastructure, that will enable students, researchers and other end-users to search a UK Database of Theses (UKDoT) and to access, from the desktop, the full text, in secure format, of electronically stored theses, following selection from the UKDoT. It will also enable HE institutions, in partnership with the British Library to promote and increase usage of their theses output.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>EThOS project</name>
-<homepage rdf:resource="http://www.ethos.ac.uk/"/>
-</Project>

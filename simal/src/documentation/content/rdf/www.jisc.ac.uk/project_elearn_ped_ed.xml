@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation/project_elearn_ped_ed.aspx">
-<shortdesc>The overall aim of this project is to produce five short video case case studies, each a few minutes in length. They will be created in collaboration with the team developing case studies in e-learning practice based at the Open University.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Video Case Study in Innovative e-Learning Practice: Edinburgh University</name>
-</Project>

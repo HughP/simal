@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/elp_ld4p.aspx">
-<shortdesc>The project has a special focus on IMS Learning Design (IMS LD). The aims of the project are to develop an interface to an IMS LD authoring tool suitable for use by teaching practitioners and to produce learning designs and investigate the sharing of these.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>LD4P</name>
-<homepage rdf:resource="http://www.hope.ac.uk/ld4p/"/>
-</Project>

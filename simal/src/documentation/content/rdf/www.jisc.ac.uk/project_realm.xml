@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_realm.aspx">
-<shortdesc>This project aims to repurpose and re-use a minimum of 170 learning objects for business and management, leisure and tourism and performing arts courses and deposit a minimum of 50 re-used learning materials in Jorum.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>REALM</name>
-<homepage rdf:resource="http://realm.virtualcollege.ac.uk/"/>
-</Project>

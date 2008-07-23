@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_nabatea.aspx">
-<shortdesc>At Thames Valley University, Learning and Research Support currently maintain separate Athens usernames and passwords for all students by carrying out regular bulk uploads of data taken from the student records database. The project will provide a case study looking at the impact of implementing Shibboleth in a large mixed sector institution.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
-<name>NABATEA</name>
-<homepage rdf:resource="http://www.tvu.ac.uk/shibboleth"/>
-</Project>

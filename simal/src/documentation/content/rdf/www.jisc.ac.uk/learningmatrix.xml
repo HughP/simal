@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/learningmatrix.aspx">
-<shortdesc>The project will provide a set of services to partner institutions to allow pre-HE and other students to discover learning packages offered by learning provider institutions, register on courses and access resources. Services will also be made available to support students including placing outcomes for each student in a "progress file" which could later form the basis for an e-portfolio.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>The Learning Matrix</name>
-</Project>

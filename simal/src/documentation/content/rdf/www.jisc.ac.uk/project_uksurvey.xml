@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_uksurvey.aspx">
-<shortdesc>The project will produce online learning objects teaching materials based upon British Election Study data which provide a unique source of information for students wishing to explore a range of contemporary political issues in Britain.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>X4L SdiT</name>
-<homepage rdf:resource="http://x4l.data-archive.ac.uk/"/>
-</Project>

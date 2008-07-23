@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_evocational.aspx">
-<shortdesc>The project aim is to develop a framework of online learning resources repurposed from wide ranging existing content to support FE and training in specified vocational areas that are key to economic development and government policy in FE and training.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>ELVIS: E-learning for Vocational Skills</name>
-<homepage rdf:resource="http://www.elvis.ac.uk/"/>
-</Project>

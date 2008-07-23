@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/demo_resourcebrowser.aspx">
-<shortdesc>This project will enable users to browse their online social networks for resources, which will promote the development of online communities. By combining resource sharing with social networking tools, we hope to establish much stronger links between practitioners, whilst continuing to emphasise the ownership and originating sources for these sharable resources.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>ResourceBrowser</name>
-<homepage rdf:resource="http://www.essex.ac.uk/projects/ResourceBrowser.html"/>
-</Project>

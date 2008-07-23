@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/deleteaws.aspx">
-<shortdesc>The software is intended to extend an existing piece of software developed at the University of Huddersfield by providing a Web Service interface to the existing functionality. The software allows learners to insert annotations directly into the content of the web page and share these annotations with other learners. Annotations can take the form of text, rollover notes, images or links. Reports can be obtained by learners showing their own annotations to a specific web page. It is hoped that content developers will be able to use the system to identify areas where the content can be improved to benefit all learners.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>DeL eTools - eLearning Annotation Web Service (for annotation of online documents)</name>
-<homepage rdf:resource="http://eel.hud.ac.uk/"/>
-</Project>

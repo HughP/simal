@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/proj_shibgrid.aspx">
-<shortdesc>ShibGrid builds on the work of ESP-GRID and related projects and aims to develop a prototype system that will allow National Grid Service (NGS) users to access NGS facilities securely through federated authentication mechanisms employed at their institutions.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
-<name>ShibGrid</name>
-<homepage rdf:resource="http://www.oesc.ox.ac.uk/activities/projects/index.xml?ID=ShibGrid"/>
-</Project>

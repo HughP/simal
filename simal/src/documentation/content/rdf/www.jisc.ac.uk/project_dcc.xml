@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation/project_dcc.aspx">
-<shortdesc>The DCC will support expertise and practice in data curation and preservation, prompting collaboration between the Universities and the Research Councils to ensure that there is continuing access to data of scholarly interest.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>Digital Curation Centre</name>
-<homepage rdf:resource="http://www.dcc.ac.uk/"/>
-</Project>

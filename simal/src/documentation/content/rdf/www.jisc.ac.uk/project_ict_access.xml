@@ -1,5 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/project_ict_access.aspx">
-<shortdesc>This project aims to assess the extent of the restrictions in access to ICT by staff in FE and HE institutions in the UK, and to evaluate the impact on the effectiveness of the individuals and institutions of any such restrictions.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
-<name>Staff access to ICT</name>
-</Project>
