@@ -6,6 +6,13 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.Doap;
+import uk.ac.osswatch.simal.model.Foaf;
+import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.SimalOntology;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -15,13 +22,6 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
-
-import uk.ac.osswatch.simal.model.Doap;
-import uk.ac.osswatch.simal.model.Foaf;
-import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.SimalOntology;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Person extends Resource implements IPerson {
   
