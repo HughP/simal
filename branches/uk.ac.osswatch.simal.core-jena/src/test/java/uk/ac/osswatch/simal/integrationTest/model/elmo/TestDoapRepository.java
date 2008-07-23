@@ -90,7 +90,7 @@ public class TestDoapRepository extends BaseRepositoryTest {
         assertNotNull(repo.toString() + " does not have a browse", browse);
         
         Set<String> module = repo.getModule();
-        assertNotNull(repo.toString() + " does not have a browse", browse);
+        assertNotNull(repo.toString() + " does not have a browse", module);
       }
     }
   }
