@@ -28,6 +28,8 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
+import com.hp.hpl.jena.db.DBConnection;
+import com.hp.hpl.jena.db.IDBConnection;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -36,6 +38,7 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.ModelMaker;
 import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -76,7 +79,33 @@ public class SimalRepository extends AbstractSimalRepository {
           "Illegal attempt to create a second SimalRepository in the same JAVA VM.");
     }
 
-    model = ModelFactory.createDefaultModel();
+    if (isTest) {
+      model = ModelFactory.createDefaultModel();
+    } else {
+      String className = "org.apache.derby.jdbc.EmbeddedDriver"; // path of
+                                                                  // driver
+                                                                  // class
+      try {
+        Class.forName(className);
+      } catch (ClassNotFoundException e) {
+        throw new SimalRepositoryException("Unablew to find derby driver", e);
+      }
+      String DB_URL = "jdbc:derby:simal;create=true";
+      String DB_USER = "";
+      String DB_PASSWD = "";
+      String DB = "Derby";
+
+      // Create database connection
+      IDBConnection conn = new DBConnection(DB_URL, DB_USER, DB_PASSWD, DB);
+      ModelMaker maker = ModelFactory.createModelRDBMaker(conn);
+
+      // create or open the default model
+      model = maker.createDefaultModel();
+
+      // Close the database connection
+      // conn.close();
+    }
+    
     initialised = true;
 
     if (isTest) {
@@ -262,12 +291,10 @@ public class SimalRepository extends AbstractSimalRepository {
   public IProject findProjectByHomepage(String homepage)
       throws SimalRepositoryException {
     String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
-    + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
-    + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
-    + "SELECT DISTINCT ?project WHERE { "
-    + "?project a doap:Project . "
-    + "?project doap:homepage <"
-    + homepage + ">}";
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?project WHERE { " + "?project a doap:Project . "
+        + "?project doap:homepage <" + homepage + ">}";
 
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
@@ -288,11 +315,11 @@ public class SimalRepository extends AbstractSimalRepository {
 
   public IProject findProjectById(String id) throws SimalRepositoryException {
     String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
-    + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
-    + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
-    + "SELECT DISTINCT ?project WHERE { "
-    + "?project rdf:type doap:Project . "
-    + "?project simal:projectId \"" + id + "\"}";
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?project WHERE { "
+        + "?project rdf:type doap:Project . " + "?project simal:projectId \""
+        + id + "\"}";
 
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
@@ -314,12 +341,10 @@ public class SimalRepository extends AbstractSimalRepository {
   public IProject findProjectBySeeAlso(String seeAlso)
       throws SimalRepositoryException {
     String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
-    + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
-    + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
-    + "SELECT DISTINCT ?project WHERE { "
-    + "?project a doap:Project . "
-    + "?project rdfs:seeAlso <"
-    + seeAlso + ">}";
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?project WHERE { " + "?project a doap:Project . "
+        + "?project rdfs:seeAlso <" + seeAlso + ">}";
 
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
