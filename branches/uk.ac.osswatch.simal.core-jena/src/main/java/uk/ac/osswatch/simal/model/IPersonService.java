@@ -23,7 +23,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A behaviour for FOAF people objects.
  * 
  */
-public interface IPersonService extends IFoafResourceService {
+public interface IPersonService extends IFoafResource {
 
   /**
    * Get all the colleagues of this person. A colleague is defined as anyone who

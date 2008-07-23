@@ -29,7 +29,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 
-public interface IPerson extends IResource {
+public interface IPerson extends IFoafResource {
   
   /**
    * Get a set of people who this person knows. They are deemed to know someone
