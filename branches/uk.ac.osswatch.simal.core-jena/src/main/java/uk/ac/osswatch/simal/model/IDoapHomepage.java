@@ -16,11 +16,10 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * A category is part of the project classification system.
- * It is a resource used to define the doap:category entries
- * of a doap:Project.  
+ * A homepage defines a resource available on the web, 
+ * usually a web site.  
  *
  */
-public interface IDoapHomepage extends IDoapResource {
+public interface IDoapHomepage extends IDoapLocation {
 
 }
