@@ -3,10 +3,10 @@ package uk.ac.osswatch.simal.model.jena;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.hp.hpl.jena.rdf.model.StmtIterator;
-
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapRelease;
+
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class Release extends DoapResource implements IDoapRelease {
 

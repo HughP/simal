@@ -2,12 +2,12 @@ package uk.ac.osswatch.simal.model.jena;
 
 import java.util.Set;
 
-import com.hp.hpl.jena.rdf.model.Statement;
-
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
+import com.hp.hpl.jena.rdf.model.Statement;
 
 public class DoapResource extends Resource implements IDoapResource {
 

@@ -1,6 +1,6 @@
 package uk.ac.osswatch.simal.model.jena;
 
-import uk.ac.osswatch.simal.model.IDoapMailingList;;
+import uk.ac.osswatch.simal.model.IDoapMailingList;
 
 public class MailingList extends DoapResource implements IDoapMailingList {
 

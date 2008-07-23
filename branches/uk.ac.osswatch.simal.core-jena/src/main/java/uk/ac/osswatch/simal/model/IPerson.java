@@ -17,8 +17,8 @@ package uk.ac.osswatch.simal.model;
 
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.jena.InternetAddress;
 import uk.ac.osswatch.simal.model.jena.Homepage;
+import uk.ac.osswatch.simal.model.jena.InternetAddress;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 
