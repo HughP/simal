@@ -49,7 +49,7 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public Set<String> getNames() {
-    StmtIterator itr = jenaResource.listProperties(Doap.LICENSE);
+    StmtIterator itr = jenaResource.listProperties(Doap.NAME);
     Set<String> results = new HashSet<String>();
     while (itr.hasNext()) {
       results.add(itr.nextStatement().getString().trim());
