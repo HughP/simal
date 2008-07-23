@@ -189,5 +189,10 @@ public class Doap {
      *  code source.</p>
      */
     public static final Resource CVSREPOSITORY = m_model.createResource( "http://usefulinc.com/ns/doap#CVSRepository" );
+
+    /** <p>SVN source code repository.Repositorio SVN del código fuente.Dépôt SVN du 
+     *  code source.</p>
+     */
+    public static final Resource SVNREPOSITORY = m_model.createResource( "http://usefulinc.com/ns/doap#SVNRepository" );
     
 }

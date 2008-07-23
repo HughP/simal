@@ -15,38 +15,12 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import java.util.Set;
-
 /**
- * A repository that is known to apply be used by a project
- * It is a resource used to define the doap:repository entries
- * of doap:Project.  
+ * A category is part of the project classification system.
+ * It is a resource used to define the doap:category entries
+ * of a doap:Project.  
  *
  */
-public interface IDoapRepository extends IDoapResource {
-
-  /**
-   * Return the anonymous roots for his repository.
-   * @return
-   */
-  Set<String> getAnonRoots();
-  
-  Set<String> getModule();
-
-  Set<IDoapLocation> getLocations();
-
-  Set<IDoapLocation> getBrowse();
-
-  boolean isARCH();
-  
-  boolean isBK();
-
-  /**
-   * If this repository is a CVS repository return true.
-   * @return
-   */
-  boolean isCVS();
-  
-  boolean isSVN();
+public interface IDoapLocation extends IDoapResource {
 
 }
