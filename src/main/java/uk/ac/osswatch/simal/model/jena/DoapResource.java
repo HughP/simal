@@ -33,7 +33,16 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getName() {
-    return jenaResource.getProperty(Doap.NAME).getString();
+    Statement name = jenaResource.getProperty(Doap.NAME);
+    if (name != null) {
+      return name.getString();
+    } else {
+      try {
+        return getURI();
+      } catch (SimalRepositoryException e) {
+        warn("Error getting URI")
+      }
+    }
   }
 
   public Set<String> getNames() {
@@ -43,12 +52,12 @@ public class DoapResource extends Resource implements IDoapResource {
 
   public String getShortDesc() {
     Statement desc = jenaResource.getProperty(Doap.SHORTDESC);
-    if ( desc!= null) {
+    if (desc != null) {
       return desc.getString().trim();
     } else {
       return null;
     }
-    
+
   }
 
   public void setCreated(String newCreated) throws SimalRepositoryException {
@@ -65,11 +74,10 @@ public class DoapResource extends Resource implements IDoapResource {
     jenaResource.removeAll(Doap.SHORTDESC);
     jenaResource.addLiteral(Doap.SHORTDESC, shortDesc);
   }
-  
+
   public String toString() {
     return getLabel() + " (" + getNames() + ")";
   }
-
 
   public String toJSON() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer();
@@ -95,6 +103,5 @@ public class DoapResource extends Resource implements IDoapResource {
     json.append("\"shortdesc\":\"" + getShortDesc() + "\"");
     return json.toString();
   }
-
 
 }

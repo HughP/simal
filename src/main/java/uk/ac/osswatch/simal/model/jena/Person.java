@@ -24,7 +24,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class Person extends Resource implements IPerson {
-  
+
   private static final Logger logger = LoggerFactory.getLogger(Person.class);
 
   public Person(com.hp.hpl.jena.rdf.model.Resource resource) {
@@ -34,13 +34,11 @@ public class Person extends Resource implements IPerson {
   public Set<IPerson> getColleagues() throws SimalRepositoryException {
     String uri = getURI();
     String queryStr = "PREFIX foaf: <" + Foaf.NS + "> " + "PREFIX doap: <"
-        + Doap.NS + "> " 
-        + "PREFIX rdf: <" + ISimalRepository.RDF_NAMESPACE_URI + "> " 
-        + "SELECT DISTINCT ?colleague WHERE { "
-        + "?project rdf:type doap:Project . "
-        + "{?project doap:maintainer <" + uri + "> } UNION "
-        + "{?project doap:developer <" + uri + "> } UNION "
-        + "{?project doap:documentor <" + uri + "> } UNION "
+        + Doap.NS + "> " + "PREFIX rdf: <" + ISimalRepository.RDF_NAMESPACE_URI
+        + "> " + "SELECT DISTINCT ?colleague WHERE { "
+        + "?project rdf:type doap:Project . " + "{?project doap:maintainer <"
+        + uri + "> } UNION " + "{?project doap:developer <" + uri
+        + "> } UNION " + "{?project doap:documentor <" + uri + "> } UNION "
         + "{?project doap:helper <" + uri + "> } UNION "
         + "{?project doap:tester <" + uri + "> } UNION "
         + "{?project doap:translator <" + uri + "> } . "
@@ -52,18 +50,19 @@ public class Person extends Resource implements IPerson {
         + "{?project doap:translator ?colleague} " + "}";
     logger.debug(("Executing SPARQL query:\n" + queryStr));
     Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, jenaResource.getModel());
+    QueryExecution qe = QueryExecutionFactory.create(query, jenaResource
+        .getModel());
     ResultSet results = qe.execSelect();
-    
+
     Set<IPerson> colleagues = new HashSet<IPerson>();
     IPerson colleague;
-    while(results.hasNext()) {
-      QuerySolution soln = results.nextSolution() ;
+    while (results.hasNext()) {
+      QuerySolution soln = results.nextSolution();
       RDFNode node = soln.get("colleague");
       if (node.isResource()) {
         colleague = new Person((com.hp.hpl.jena.rdf.model.Resource) node);
         String id = colleague.getSimalID();
-        if (!id.equals(getSimalID())) {        
+        if (!id.equals(getSimalID())) {
           colleagues.add(colleague);
         }
       }
@@ -135,15 +134,11 @@ public class Person extends Resource implements IPerson {
   public void setSimalID(String newId) {
     jenaResource.addLiteral(SimalOntology.PERSON_ID, newId);
   }
-  
 
-  
-
-  
   /**
-   * Get the label for this person. The label for a person is derived
-   * from their known names. If the person does not have any defined
-   * names then the toString() method is used..
+   * Get the label for this person. The label for a person is derived from their
+   * known names. If the person does not have any defined names then the
+   * toString() method is used..
    * 
    * @return
    */
@@ -152,18 +147,13 @@ public class Person extends Resource implements IPerson {
     if (names.size() == 0) {
       names = getGivennames();
     }
-    if (names == null ) {
+    if (names == null) {
       return toString();
     } else {
       if (names.size() == 0) {
-        try {
-          return getURI();
-        } catch (SimalRepositoryException e) {
-          logger.warn("Unable to generate URI for Person", e);
-          return "Error: No valid label";
-        }
+        return getURI();
       }
-      return (String)names.toArray()[0];
+      return (String) names.toArray()[0];
     }
   }
 

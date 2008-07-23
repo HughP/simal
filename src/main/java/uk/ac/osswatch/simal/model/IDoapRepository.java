@@ -15,12 +15,20 @@
  */
 package uk.ac.osswatch.simal.model;
 
+import java.util.Set;
+
 /**
  * A repository that is known to apply be used by a project
  * It is a resource used to define the doap:repository entries
  * of doap:Project.  
  *
  */
-public interface IDoapRepository {
+public interface IDoapRepository extends IDoapResource {
+
+  Set<String> getAnonRoots();
+
+  Set<String> getLocations();
+
+  Set<String> getBrowse();
 
 }
