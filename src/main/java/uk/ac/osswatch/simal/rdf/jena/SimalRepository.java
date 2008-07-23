@@ -103,9 +103,10 @@ public class SimalRepository extends AbstractSimalRepository {
   }
 
   public void add(String data) throws SimalRepositoryException {
+    logger.debug("Adding RDF data string:\n\t" + data);
     StringReader reader = new StringReader(data);
     try {
-    model.read(reader, null);
+      model.read(reader, null);
     } catch (Exception e) {
       throw new SimalRepositoryException("Unable to read data", e);
     }
