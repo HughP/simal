@@ -15,8 +15,7 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import org.openrdf.concepts.rdfs.Resource;
-import org.openrdf.elmo.annotations.rdf;
+import java.util.Set;
 
 /**
  * A release of a project.
@@ -24,7 +23,12 @@ import org.openrdf.elmo.annotations.rdf;
  * of doap:Project.  
  *
  */
-@rdf("http://usefulinc.com/ns/doap#release")
-public interface IDoapRelease extends Resource, IDoapReleaseBehaviour {
+public interface IDoapRelease extends IDoapResource {
 
+  /**
+   * Get all version identifiers for this release. A version
+   * identifier is a version number. In DOAP it corresponds to
+   * doap:revision.
+   */
+  public Set<String> getRevisions();
 }

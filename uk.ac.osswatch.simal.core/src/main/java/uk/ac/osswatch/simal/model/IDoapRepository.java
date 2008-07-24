@@ -15,8 +15,7 @@
  */
 package uk.ac.osswatch.simal.model;
 
-import org.openrdf.concepts.doap.Repository;
-import org.openrdf.elmo.annotations.rdf;
+import java.util.Set;
 
 /**
  * A repository that is known to apply be used by a project
@@ -24,7 +23,30 @@ import org.openrdf.elmo.annotations.rdf;
  * of doap:Project.  
  *
  */
-@rdf("http://usefulinc.com/ns/doap#repository")
-public interface IDoapRepository extends Repository, IDoapRepositoryBehaviour {
+public interface IDoapRepository extends IDoapResource {
+
+  /**
+   * Return the anonymous roots for his repository.
+   * @return
+   */
+  Set<String> getAnonRoots();
+  
+  Set<String> getModule();
+
+  Set<IDoapLocation> getLocations();
+
+  Set<IDoapLocation> getBrowse();
+
+  boolean isARCH();
+  
+  boolean isBK();
+
+  /**
+   * If this repository is a CVS repository return true.
+   * @return
+   */
+  boolean isCVS();
+  
+  boolean isSVN();
 
 }

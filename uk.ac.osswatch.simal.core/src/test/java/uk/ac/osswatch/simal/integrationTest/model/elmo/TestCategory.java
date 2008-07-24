@@ -16,9 +16,9 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertNull;
 
-import javax.xml.namespace.QName;
+import java.net.URISyntaxException;
 
 import org.junit.Test;
 
@@ -28,17 +28,14 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestCategory extends BaseRepositoryTest {
   @Test
-  public void testGetCategoryLabel() throws SimalRepositoryException {
-    String uri = "http://simal.oss-watch.ac.uk/category/socialNews";
-    IDoapCategory category = repository.findCategory(new QName(uri));
+  public void testGetCategoryLabel() throws SimalRepositoryException, URISyntaxException {
+    IDoapCategory category = repository.findCategory("http://simal.oss-watch.ac.uk/category/socialNews");
     String label = category.getLabel();
     assertEquals("Category Label is incorrect", "Social News", label);
 
-    uri = "http://example.org/does/not/exist";
-    QName qname = new QName(uri);
-    category = repository.findCategory(qname);
-    label = category.getLabel();
-    assertNotSame("Somehow we have a valid label for a resource that does not exist",
-        qname, category.getQName());
+    String uri = "http://example.org/does/not/exist";
+    category = repository.findCategory(uri);
+    assertNull("Somehow we have a category that should not exist",
+        category);
   }
 }
