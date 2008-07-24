@@ -18,8 +18,9 @@ package uk.ac.osswatch.simal.rest;
 
 
 import uk.ac.osswatch.simal.myExperiment.MyExperimentHandlerFactory;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 /**
  * A factory class for REST command handlers.
@@ -27,7 +28,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public class HandlerFactory {
 
-  private static SimalRepository simalRepo;
+  private static ISimalRepository simalRepo;
   private static HandlerFactory factory;
 
   /**
@@ -37,13 +38,13 @@ public class HandlerFactory {
    */
   private HandlerFactory() throws SimalAPIException {
     try {
-      simalRepo = SimalRepository.getInstance();
+      simalRepo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to create HandlerFactory", e);
     }
   }
 
-  public HandlerFactory(SimalRepository repo) throws SimalAPIException {
+  public HandlerFactory(ISimalRepository repo) throws SimalAPIException {
     if (!repo.isInitialised()) {
       throw new SimalAPIException("Supplied repository has not been initialised, please initialise before handing to the HandlerFactory");
     }
@@ -57,7 +58,7 @@ public class HandlerFactory {
    * @return
    * @throws SimalAPIException
    */
-  public static IAPIHandler get(RESTCommand cmd, SimalRepository repo) throws SimalAPIException {
+  public static IAPIHandler get(RESTCommand cmd, ISimalRepository repo) throws SimalAPIException {
     initFactory(repo);
     
     if (cmd.getSource().equals(RESTCommand.SOURCE_TYPE_SIMAL)) {
@@ -77,7 +78,7 @@ public class HandlerFactory {
    * 
    * @throws SimalAPIException
    */
-  private static void initFactory(SimalRepository repo) throws SimalAPIException {
+  private static void initFactory(ISimalRepository repo) throws SimalAPIException {
     if (factory == null) {
       factory = new HandlerFactory(repo);
     }
@@ -99,7 +100,7 @@ public class HandlerFactory {
    * Get the Simal repository this HandlerFactory is working with.
    * @throws SimalAPIException if unable to connect to the repo
    */
-  public static SimalRepository getSimalRepository() throws SimalAPIException {
+  public static ISimalRepository getSimalRepository() throws SimalAPIException {
     initFactory();
     return simalRepo;
   }

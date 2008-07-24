@@ -1,4 +1,6 @@
 package uk.ac.osswatch.simal.rest;
+
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,9 +18,6 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
-
-import uk.ac.osswatch.simal.rdf.SimalRepository;
-
 /**
  * A factory class for generating a specific handler for a
  * given API request.
@@ -34,7 +33,7 @@ public class SimalHandlerFactory {
    * @return
    * @throws SimalAPIException 
    */
-  public static IAPIHandler createHandler(RESTCommand command, SimalRepository repo) throws SimalAPIException {
+  public static IAPIHandler createHandler(RESTCommand command, ISimalRepository repo) throws SimalAPIException {
     IAPIHandler handler = null;
     if (command.isGetAllProjects() || command.isGetProject() || command.isAddProject()) {
       handler = new ProjectAPI(command);
