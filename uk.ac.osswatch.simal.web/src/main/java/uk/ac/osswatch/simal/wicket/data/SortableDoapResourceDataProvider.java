@@ -25,10 +25,15 @@ import java.util.TreeSet;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
 
 /**
  * A DOAP resource data provider that allows the DOAP Resources to be sorted.
@@ -36,6 +41,7 @@ import uk.ac.osswatch.simal.model.IProject;
  */
 public class SortableDoapResourceDataProvider extends SortableDataProvider {
 	private static final long serialVersionUID = -6674850425804180338L;
+	private static final Logger logger = LoggerFactory.getLogger(SortableDoapResourceDataProvider.class);
 	
 	public static final String SORT_PROPERTY_NAME = "name";
 	public static final String SORT_PROPERTY_SHORTDESC = "shortDesc";
@@ -43,14 +49,14 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 	/**
 	 * The set of DoapResources we are providing access to.
 	 */
-	private Set<IDoapResourceBehaviour> resources;
+	private Set<IDoapResource> resources;
 
 	/** 
 	 * Create a data provider for the supplied resources.
 	 */
 	@SuppressWarnings("unchecked")
-	public SortableDoapResourceDataProvider(Set<? extends IDoapResourceBehaviour> resources) {
-		this.resources = (Set<IDoapResourceBehaviour>) resources;
+	public SortableDoapResourceDataProvider(Set<? extends IDoapResource> resources) {
+		this.resources = (Set<IDoapResource>) resources;
 	}
 
 	@Override
@@ -83,14 +89,14 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 
 
 
-	public Iterator<IDoapResourceBehaviour> iterator(int first, int count) {
+	public Iterator<IDoapResource> iterator(int first, int count) {
 		DoapResourceBehaviourComparator comparator = new DoapResourceBehaviourComparator();
-		TreeSet<IDoapResourceBehaviour> treeSet = new TreeSet<IDoapResourceBehaviour>(comparator);
+		TreeSet<IDoapResource> treeSet = new TreeSet<IDoapResource>(comparator);
 		treeSet.addAll(resources);
-		TreeSet<IDoapResourceBehaviour> result = new TreeSet<IDoapResourceBehaviour>(comparator);
+		TreeSet<IDoapResource> result = new TreeSet<IDoapResource>(comparator);
 		int idx = 0;
-		Iterator<IDoapResourceBehaviour> all = treeSet.iterator();
-		IDoapResourceBehaviour current;
+		Iterator<IDoapResource> all = treeSet.iterator();
+		IDoapResource current;
 		while (all.hasNext() && idx - (first + count) < 0) {
 			current = all.next();
 			if (idx >= first) {
@@ -107,11 +113,12 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 	 * 
 	 * @return
 	 */
-	public Iterator<IDoapResourceBehaviour> iterator() {
+	public Iterator<IDoapResource> iterator() {
 		return iterator(0, resources.size());
 	}
 
 	public IModel model(Object object) {
+	  try {
 		if (object instanceof IProject) {
 		  return new DetachableProjectModel((IProject)object);	  
 		} else if (object instanceof IDoapCategory) {
@@ -119,6 +126,10 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 		} else {
 			throw new IllegalArgumentException("sortableDoapResourceDataProvider only works for Project models - should it work for more? Your help appreciated.");
 		}
+	  } catch (SimalRepositoryException e) {
+	    logger.warn("Error reading from repository", e);
+	    return new Model("Error");
+	  }
 		
 	}
 
@@ -126,9 +137,9 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 		return resources.size();
 	}
 
-	private class DoapResourceBehaviourComparator implements Comparator<IDoapResourceBehaviour> {
+	private class DoapResourceBehaviourComparator implements Comparator<IDoapResource> {
 
-		public int compare(IDoapResourceBehaviour resource1, IDoapResourceBehaviour resource2) {
+		public int compare(IDoapResource resource1, IDoapResource resource2) {
 			if (resource1.equals(resource2)) { return 0; }
 			
 			int result = 0;

@@ -41,7 +41,7 @@ public class ProjectDetailPage extends BasePage {
     IProject project;
     try {
       project = UserApplication.getRepository().getProject(
-          UserApplication.DEFAULT_PROJECT_QNAME);
+          UserApplication.DEFAULT_PROJECT_URI);
       populatePage(project);
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(

@@ -33,7 +33,8 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
+import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.model.IDoapResourceService;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
@@ -99,10 +100,10 @@ public class BasePage extends WebPage {
   protected RepeatingView getRepeatingLinks(String repeaterWicketID,
       String linkWicketID, String defaultLabel,
       SortableDataProvider resources, boolean fetchLabels) {
-    Iterator<IDoapResourceBehaviour> itr = resources.iterator(0, resources.size());
+    Iterator<IDoapResource> itr = resources.iterator(0, resources.size());
     RepeatingView repeating = new RepeatingView(repeaterWicketID);
     WebMarkupContainer item;
-    IDoapResourceBehaviour resource;
+    IDoapResource resource;
     String label;
     String comment;
     String url;
@@ -113,7 +114,7 @@ public class BasePage extends WebPage {
       resource = itr.next();
       comment = resource.getComment();
       try {
-        url = resource.getURL().toString();
+        url = resource.getURI().toString();
       } catch (SimalRepositoryException e) {
         logger.warn("Unable to get a URL for " + resource, e);
         url = "#";

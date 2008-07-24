@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.data;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
-
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
@@ -25,9 +25,14 @@ import java.util.TreeSet;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.IFoafResourceBehaviour;
+import uk.ac.osswatch.simal.model.IFoafResource;
+import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * A FOAF resource data provider that allows the FOAF Resources to be sorted.
@@ -35,6 +40,8 @@ import uk.ac.osswatch.simal.model.IPerson;
  */
 public class SortableFoafResourceDataProvider extends SortableDataProvider {
   private static final long serialVersionUID = -6674850425804180338L;
+  private static final Logger logger = LoggerFactory
+      .getLogger(SortableFoafResourceDataProvider.class);
 
   public static final String SORT_PROPERTY_LABEL = "label";
   public static final String SORT_PROPERTY_EMAIL = "email";
@@ -42,15 +49,14 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider {
   /**
    * The set of FoafResources we are providing access to.
    */
-  private Set<IFoafResourceBehaviour> resources;
+  private Set<IFoafResource> resources;
 
   /**
    * Create a data provider for the supplied resources.
    */
   @SuppressWarnings("unchecked")
-  public SortableFoafResourceDataProvider(
-      Set<? extends IFoafResourceBehaviour> resources) {
-    this.resources = (Set<IFoafResourceBehaviour>) resources;
+  public SortableFoafResourceDataProvider(Set<? extends IFoafResource> resources) {
+    this.resources = (Set<IFoafResource>) resources;
   }
 
   @Override
@@ -83,16 +89,14 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider {
     return property.equals(SORT_PROPERTY_LABEL);
   }
 
-  public Iterator<IFoafResourceBehaviour> iterator(int first, int count) {
+  public Iterator<IFoafResource> iterator(int first, int count) {
     IFoafResourceBehaviourComparator comparator = new IFoafResourceBehaviourComparator();
-    TreeSet<IFoafResourceBehaviour> treeSet = new TreeSet<IFoafResourceBehaviour>(
-        comparator);
+    TreeSet<IFoafResource> treeSet = new TreeSet<IFoafResource>(comparator);
     treeSet.addAll(resources);
-    TreeSet<IFoafResourceBehaviour> result = new TreeSet<IFoafResourceBehaviour>(
-        comparator);
+    TreeSet<IFoafResource> result = new TreeSet<IFoafResource>(comparator);
     int idx = 0;
-    Iterator<IFoafResourceBehaviour> all = treeSet.iterator();
-    IFoafResourceBehaviour current;
+    Iterator<IFoafResource> all = treeSet.iterator();
+    IFoafResource current;
     while (all.hasNext() && idx - (first + count) < 0) {
       current = all.next();
       if (idx >= first) {
@@ -109,7 +113,7 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider {
    * 
    * @return
    */
-  public Iterator<IFoafResourceBehaviour> iterator() {
+  public Iterator<IFoafResource> iterator() {
     return iterator(0, resources.size());
   }
 
@@ -118,7 +122,12 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider {
       throw new IllegalArgumentException(
           "sortableFoafResourceDataProvider only works for Person models - should it work for more? Your help appreciated.");
     }
-    return new DetachablePersonModel((IPerson) object);
+    try {
+      return new DetachablePersonModel((IPerson) object);
+    } catch (SimalRepositoryException e) {
+      logger.warn("Unable to read person object from repository", e);
+      return new Model("Error");
+    }
   }
 
   public int size() {
@@ -126,10 +135,9 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider {
   }
 
   private class IFoafResourceBehaviourComparator implements
-      Comparator<IFoafResourceBehaviour> {
+      Comparator<IFoafResource> {
 
-    public int compare(IFoafResourceBehaviour resource1,
-        IFoafResourceBehaviour resource2) {
+    public int compare(IFoafResource resource1, IFoafResource resource2) {
       if (resource1.equals(resource2)) {
         return 0;
       }
@@ -148,8 +156,18 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider {
         result = name1.compareTo(name2);
       } else if (sortField.equals(SORT_PROPERTY_EMAIL)
           && resource1 instanceof IPerson && resource2 instanceof IPerson) {
-        String email1 = ((IPerson)resource1).getEmail();
-        String email2 = ((IPerson)resource2).getEmail();
+        String email1;
+        String email2;
+        try {
+          Set<IInternetAddress> internetAdd = ((IPerson) resource1).getEmail();
+          email1 = ((IInternetAddress) internetAdd.toArray()[0]).getAddress();
+          internetAdd = ((IPerson) resource2).getEmail();
+          email2 = ((IInternetAddress) internetAdd.toArray()[0]).getAddress();
+        } catch (SimalRepositoryException e) {
+          logger.warn("Unable to retrieive email address from repo");
+          email1 = "Error";
+          email2 = "Error";
+        }
         if (email1 == null) {
           result = 1;
         } else if (email2 == null) {

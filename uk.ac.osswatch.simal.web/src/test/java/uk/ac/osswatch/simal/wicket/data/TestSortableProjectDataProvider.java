@@ -25,7 +25,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.model.IDoapResourceBehaviour;
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.TransactionException;
 import uk.ac.osswatch.simal.wicket.TestBase;
@@ -57,8 +57,8 @@ public class TestSortableProjectDataProvider extends TestBase{
 		int pageSize = NUMBER_OF_TEST_PROJECTS - 1;
 
 		// test the default sort is by name
-		Iterator<IDoapResourceBehaviour> iterator = provider.iterator(0, pageSize);
-		IDoapResourceBehaviour project;
+		Iterator<IDoapResource> iterator = provider.iterator(0, pageSize);
+		IDoapResource project;
 		String prev = null;
 		String current;
 		int count = 0;

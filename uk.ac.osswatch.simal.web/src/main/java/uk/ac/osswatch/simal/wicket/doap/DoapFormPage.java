@@ -43,8 +43,8 @@ import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
 
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
@@ -90,7 +90,7 @@ public class DoapFormPage extends BasePage {
       super.onSubmit();
       String rdf = StringEscapeUtils.unescapeXml(rdfField.getValue());
       try {
-        SimalRepository repo = UserApplication.getRepository();
+        ISimalRepository repo = UserApplication.getRepository();
         repo.add(rdf);
         setResponsePage(new UserHomePage());
       } catch (SimalRepositoryException e) {
@@ -147,7 +147,7 @@ public class DoapFormPage extends BasePage {
 
           try {
             UserApplication.getRepository().addProject(
-                newFile.toURL(), UserApplication.DEFAULT_PROJECT_QNAME.getLocalPart());
+                newFile.toURL(), UserApplication.DEFAULT_PROJECT_URI);
             setResponsePage(new UserHomePage());
           } catch (SimalRepositoryException e) {
             setResponsePage(new ErrorReportPage(new UserReportableException(
@@ -186,17 +186,17 @@ public class DoapFormPage extends BasePage {
       super.onSubmit();
 
       if (!this.hasError()) {
-        QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-            + inputModel.getName());
+        String uri = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+            + inputModel.getName();
         try {
-          SimalRepository repo = UserApplication.getRepository();
+          ISimalRepository repo = UserApplication.getRepository();
 
-          IProject project = repo.createProject(qname);
+          IProject project = repo.createProject(uri);
           project.addName(inputModel.getName());
           project.setShortDesc(inputModel.getShortDesc());
           project.setDescription(inputModel.getDescription());
           setResponsePage(new UserHomePage());
-        } catch (DuplicateQNameException e) {
+        } catch (DuplicateURIException e) {
           error("Name must be unique within the registry");
         } catch (SimalRepositoryException e) {
           setResponsePage(new ErrorReportPage(new UserReportableException(
