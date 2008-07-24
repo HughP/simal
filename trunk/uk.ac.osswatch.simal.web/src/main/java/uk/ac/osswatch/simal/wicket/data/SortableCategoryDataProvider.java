@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.data;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,10 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
@@ -24,16 +28,19 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  * A project data provider that allows the projects to be sorted.
  * 
  */
-public class SortableCategoryDataProvider extends SortableDoapResourceDataProvider {
-	private static final long serialVersionUID = -7078982000589847543L;
+public class SortableCategoryDataProvider extends
+    SortableDoapResourceDataProvider {
+  private static final long serialVersionUID = -7078982000589847543L;
+  private static final Logger logger = LoggerFactory
+      .getLogger(SortableCategoryDataProvider.class);
 
-	/**
-	 * Create a SortableDataProvider containing all projects in the repository
-	 * 
-	 * @param size
-	 * @throws SimalRepositoryException 
-	 */
-	public SortableCategoryDataProvider() throws SimalRepositoryException {
-		super(UserApplication.getRepository().getAllCategories());
-	}
+  /**
+   * Create a SortableDataProvider containing all projects in the repository
+   * 
+   * @param size
+   * @throws SimalRepositoryException
+   */
+  public SortableCategoryDataProvider() throws SimalRepositoryException {
+    super(UserApplication.getRepository().getAllCategories());
+  }
 }

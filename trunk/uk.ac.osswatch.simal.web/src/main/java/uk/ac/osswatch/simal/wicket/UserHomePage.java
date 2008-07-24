@@ -28,7 +28,7 @@ public class UserHomePage extends BasePage {
 		try {
 			add(new ProjectListPanel("projectList"));
 			add(new ProjectSummaryPanel("featuredProject", UserApplication
-					.getRepository().getProject(UserApplication.DEFAULT_PROJECT_QNAME)));
+					.getRepository().getProject(UserApplication.DEFAULT_PROJECT_URI)));
 		} catch (SimalRepositoryException e) {
 			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));

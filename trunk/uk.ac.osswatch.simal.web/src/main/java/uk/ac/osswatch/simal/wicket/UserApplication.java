@@ -21,8 +21,9 @@ import javax.xml.namespace.QName;
 
 import org.apache.wicket.protocol.http.WebApplication;
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 /**
  * The UserApp is the main user facing appliation. This application allows users
@@ -32,12 +33,12 @@ public class UserApplication extends WebApplication {
 	/**
 	 * The qname for the project to use if no other project is specified.
 	 */
-	public static final QName DEFAULT_PROJECT_QNAME = new QName(
-			"http://simal.oss-watch.ac.uk/simalTest#");
+	public static final String DEFAULT_PROJECT_URI = 
+			"http://simal.oss-watch.ac.uk/simalTest#";
 
-  public static final QName DEFAULT_PERSON_QNAME = new QName("http://simal.oss-watch.ac.uk/foaf/Jane Blogs Maintainer#Person");
+  public static final String DEFAULT_PERSON_URI = "http://simal.oss-watch.ac.uk/foaf/Jane Blogs Maintainer#Person";
 
-	private static SimalRepository repository;
+	private static ISimalRepository repository;
 
   private static boolean isTest;
 
@@ -62,9 +63,9 @@ public class UserApplication extends WebApplication {
 	 * @return
 	 * @throws SimalRepositoryException
 	 */
-	public static SimalRepository getRepository() throws SimalRepositoryException {
+	public static ISimalRepository getRepository() throws SimalRepositoryException {
 		if (repository == null) {
-			repository = SimalRepository.getInstance();
+			repository = SimalRepositoryFactory.getInstance();
 			repository.setIsTest(isTest);
 			if (!repository.isInitialised()) {
 				repository.initialise();
