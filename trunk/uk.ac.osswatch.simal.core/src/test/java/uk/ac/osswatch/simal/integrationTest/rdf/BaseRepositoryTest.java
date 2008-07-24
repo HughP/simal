@@ -15,15 +15,16 @@
  */
 package uk.ac.osswatch.simal.integrationTest.rdf;
 
-import javax.xml.namespace.QName;
+import java.net.URISyntaxException;
 
 import org.junit.BeforeClass;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 /**
  * A base class for repository integration tests. This class provides utility
@@ -32,7 +33,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public abstract class BaseRepositoryTest {
 
-  public static final String TEST_SIMAL_PROJECT_QNAME = "http://simal.oss-watch.ac.uk/simalTest#";
+  public static final String TEST_SIMAL_PROJECT_URI = "http://simal.oss-watch.ac.uk/simalTest#";
   public static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
   public static final String TEST_SIMAL_PROJECT_SHORT_DESC = "A simple DOAP file used during automated testing.";
   public static final String TEST_SIMAL_PROJECT_CREATED = "2007-08-08";
@@ -56,11 +57,11 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE = "Java";
   public static final String TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO = "XML";
   public static final String TEST_SIMAL_PROJECT_OS = "Cross Platform";
-  public static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "http://www.oss-watch.ac.uk/simal";
+  public static final String TEST_SIMAL_PROJECT_OLD_HOMEPAGES = "Original home page at OSS Watch";
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS = 3;
-  public static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "Joe Maintainer";
-  public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "Jane Maintainer";
+  public static final String TEST_SIMAL_PROJECT_MAINTAINER_ONE = "Joe Blogs Maintainer";
+  public static final String TEST_SIMAL_PROJECT_MAINTAINER_TWO = "Jane Blogs Maintainer";
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_MAILING_LIST = 2;
   public static final String TEST_SIMAL_PROJECT_MAILING_LIST_ONE = "Mailing List 1";
@@ -93,7 +94,7 @@ public abstract class BaseRepositoryTest {
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
 
-  protected static SimalRepository repository;
+  protected static ISimalRepository repository;
 
   protected static IProject project1;
   protected static String project1ID = "200";
@@ -109,15 +110,15 @@ public abstract class BaseRepositoryTest {
     initRepository();
   }
   
-  protected static void initRepository() throws SimalRepositoryException {
-    repository = SimalRepository.getInstance();
+  protected static void initRepository() throws SimalRepositoryException, URISyntaxException {
+    repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
       repository.initialise();
     }
     project1 = getSimalTestProject();
     IPerson developer = project1.getDevelopers().iterator().next();
-    developer.setSimalId("15");
+    developer.setSimalID("15");
   }
 
   /**
@@ -125,13 +126,12 @@ public abstract class BaseRepositoryTest {
    * 
    * @return
    * @throws SimalRepositoryException
+   * @throws URISyntaxException 
    */
   protected static IProject getSimalTestProject()
-      throws SimalRepositoryException {
-    QName qname;
+      throws SimalRepositoryException, URISyntaxException {
     IProject project;
-    qname = new QName(TEST_SIMAL_PROJECT_QNAME);
-    project = repository.getProject(qname);
+    project = repository.getProject(TEST_SIMAL_PROJECT_URI);
     return project;
   }
 

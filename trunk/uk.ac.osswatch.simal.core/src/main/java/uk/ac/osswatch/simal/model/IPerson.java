@@ -17,9 +17,8 @@ package uk.ac.osswatch.simal.model;
 
 import java.util.Set;
 
-import org.openrdf.concepts.foaf.Person;
-import org.openrdf.elmo.annotations.rdf;
-
+import uk.ac.osswatch.simal.model.jena.Homepage;
+import uk.ac.osswatch.simal.model.jena.InternetAddress;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 
@@ -30,8 +29,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 
-@rdf("http://xmlns.com/foaf/0.1/Person")
-public interface IPerson extends Person, IFoafPersonBehaviour {
+public interface IPerson extends IFoafResource {
   
   /**
    * Get a set of people who this person knows. They are deemed to know someone
@@ -53,8 +51,7 @@ public interface IPerson extends Person, IFoafPersonBehaviour {
    * 
    * @return 
    */
-  @rdf("http://simal.oss-watch.ac.uk/ns/0.2/simal#personId")
-  public String getSimalId();
+  public String getSimalID();
 
   /**
    * Set the Simal ID for this person. This is a unique identifier
@@ -62,5 +59,47 @@ public interface IPerson extends Person, IFoafPersonBehaviour {
    * 
    * @return 
    */
-  public void setSimalId(String newId);
+  public void setSimalID(String newId);
+  
+  /**
+   * Get all the people that this person knows
+   */
+  public Set<IPerson> getKnows();
+
+  /**
+   * Get the label for this person. The label for a person is derived
+   * from their known names. If the person does not have any defined
+   * names then the toString() method is used..
+   * 
+   * @return
+   */
+  public String getLabel();
+
+  /**
+   * Get the default email address for this person.
+   * 
+   * @return
+   */
+  public Set<IInternetAddress> getEmail();
+
+
+  /**
+   * Get all given names for this person.
+   * @return
+   */
+  public Set<String> getGivennames();
+
+
+  /**
+   * Get all names for this person.
+   * @return
+   */
+  public Set<String> getNames();
+  
+  /**
+   * Get all the homepages for this person.
+   * @return
+   */
+  public Set<Homepage> getHomepages();
+
 }

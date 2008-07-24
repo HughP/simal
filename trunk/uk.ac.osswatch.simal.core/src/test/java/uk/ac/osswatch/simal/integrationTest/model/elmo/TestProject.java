@@ -16,20 +16,18 @@
 package uk.ac.osswatch.simal.integrationTest.model.elmo;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.xml.namespace.QName;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.openrdf.concepts.foaf.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,31 +39,31 @@ import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.DuplicateQNameException;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestProject extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory
   .getLogger(TestProject.class);
 
-  private static Set<Person> maintainers;
-  private static Set<Person> developers;
-  private static Set<Person> documenters;
-  private static Set<Person> helpers;
-  private static Set<Person> translators;
-  private static Set<Person> testers;
+  private static Set<IPerson> maintainers;
+  private static Set<IPerson> developers;
+  private static Set<IPerson> documenters;
+  private static Set<IPerson> helpers;
+  private static Set<IPerson> translators;
+  private static Set<IPerson> testers;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
     initRepository();
 
-    maintainers = project1.getDoapMaintainers();
-    developers = project1.getDoapDevelopers();
-    helpers = project1.getDoapHelpers();
-    documenters = project1.getDoapHelpers();
-    translators = project1.getDoapTranslators();
-    testers = project1.getDoapTesters();
+    maintainers = project1.getMaintainers();
+    developers = project1.getDevelopers();
+    helpers = project1.getHelpers();
+    documenters = project1.getHelpers();
+    translators = project1.getTranslators();
+    testers = project1.getTesters();
   }
 
   @Test
@@ -81,9 +79,8 @@ public class TestProject extends BaseRepositoryTest {
   }
 
   @Test
-  public void testGetQName() {
-    assertEquals(TEST_SIMAL_PROJECT_QNAME, project1.getQName()
-        .getNamespaceURI());
+  public void testURI() throws SimalRepositoryException {
+    assertEquals(TEST_SIMAL_PROJECT_URI, project1.getURI().toString());
   }
 
   @Test
@@ -109,7 +106,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetIssueTracker() {
-    String issueTrackers = project1.getDoapBugDatabases().toString();
+    String issueTrackers = project1.getIssueTrackers().toString();
     assertTrue(issueTrackers.contains(TEST_SIMAL_PROJECT_ISSUE_TRACKER));
   }
 
@@ -145,7 +142,7 @@ public class TestProject extends BaseRepositoryTest {
         hasDeveloper = true;
       }
       assertNotNull("No person should have a null ID (see "
-          + person.getQName().toString() + ")", person.getSimalId());
+          + person.getURI().toString() + ")", person.getSimalID());
     }
     assertTrue("Project does not appear to have developer "
         + TEST_SIMAL_PROJECT_DEVELOPERS, hasDeveloper);
@@ -168,13 +165,13 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetDownloadMirrors() {
-    String mirrors = project1.getDoapDownloadMirrors().toString();
+    String mirrors = project1.getDownloadMirrors().toString();
     assertTrue(mirrors.contains(TEST_SIMAL_PROJECT_DOWNLOAD_MIRRORS));
   }
 
   @Test
   public void testGetDownloadPages() {
-    String downloads = project1.getDoapDownloadPages().toString();
+    String downloads = project1.getDownloadPages().toString();
     assertTrue(downloads.contains(TEST_SIMAL_PROJECT_DOWNLOAD_PAGES));
   }
 
@@ -248,20 +245,20 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetOldHomepages() {
-    String oldHomes = project1.getDoapOldHomepages().toString();
+    String oldHomes = project1.getOldHomepages().toString();
     assertTrue(oldHomes.contains(TEST_SIMAL_PROJECT_OLD_HOMEPAGES));
   }
 
   @Test
   public void testGetOSes() {
-    assertEquals(TEST_SIMAL_PROJECT_OS, project1.getDoapOses().toString());
+    assertEquals(TEST_SIMAL_PROJECT_OS, project1.getOSes().toArray()[0].toString());
   }
 
   @Test
   public void testGetProgrammingLangauges() {
-    assertTrue(project1.getDoapProgrammingLanguages().toString().contains(
+    assertTrue(project1.getProgrammingLanguages().toString().contains(
         TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_ONE));
-    assertTrue(project1.getDoapProgrammingLanguages().toString().contains(
+    assertTrue(project1.getProgrammingLanguages().toString().contains(
         TEST_SIMAL_PROJECT_PROGRAMMING_LANGUAGE_TWO));
   }
 
@@ -292,7 +289,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetScreenshots() {
-    String screenshots = project1.getDoapScreenshots().toString();
+    String screenshots = project1.getScreenshots().toString();
     assertTrue(screenshots.contains(TEST_SIMAL_PROJECT_SCREENSHOTS));
   }
 
@@ -328,27 +325,27 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetWikis() {
-    String wikis = project1.getDoapWikis().toString();
+    String wikis = project1.getWikis().toString();
     assertTrue(wikis.contains(TEST_SIMAL_PROJECT_WIKIS));
   }
 
   @Test
-  public void testAddProjectFromScratch() throws SimalRepositoryException {
-    QName qname = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-        + "TestingProjectFromScratch");
+  public void testAddProjectFromScratch() throws SimalRepositoryException, URISyntaxException {
+    String uri = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingProjectFromScratch";
     IProject project;
     try {
-      project = repository.createProject(qname);
+      project = repository.createProject(uri);
       project.addName("Testing");
-      project.setDoapShortdesc("Just testing adding a manually built project");
+      project.setShortDesc("Just testing adding a manually built project");
 
-      project = repository.getProject(qname);
+      project = repository.getProject(uri);
       assertNotNull("Project has not been added to repository", project);
       assertEquals("Project name is incorrectly set", "Testing", project
           .getName());
 
-      repository.remove(project.getQName());
-    } catch (DuplicateQNameException e) {
+      project.delete();
+    } catch (DuplicateURIException e) {
       fail(e.getMessage());
     }
   }
@@ -357,37 +354,39 @@ public class TestProject extends BaseRepositoryTest {
    * Test to ensure that project ids are being correctly generated.
    * 
    * @throws SimalRepositoryException
-   * @throws DuplicateQNameException
+   * @throws DuplicateURIException
+   * @throws URISyntaxException 
    */
   @Test
-  public void testId() throws SimalRepositoryException, DuplicateQNameException {
+  public void testId() throws SimalRepositoryException, DuplicateURIException, URISyntaxException {
     assertEquals("Test project ID incorrect", project1ID, project1.getSimalID());
 
-    QName qname1 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-        + "TestingId1");
-    QName qname2 = new QName(SimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
-        + "TestingId2");
+    String uri1 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingId1";
+    String uri2 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        + "TestingId2";
 
     IProject project;
-    project = repository.createProject(qname1);
-    project = repository.getProject(qname1);
+    project = repository.createProject(uri1);
+    project = repository.getProject(uri1);
     String id1 = project.getSimalID();
 
-    project = repository.createProject(qname2);
-    project = repository.getProject(qname2);
+    project = repository.createProject(uri2);
+    project = repository.getProject(uri2);
     String id2 = project.getSimalID();
 
     assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1
         .equals(id2));
 
     // check IDs are being written to the repository
-    project = repository.getProject(qname1);
+    project = repository.getProject(uri1);
     String id3 = project.getSimalID();
     assertTrue("Project IDs don't appear to be written to the repo", id1
         .equals(id3));
 
-    repository.remove(qname1);
-    repository.remove(qname2);
+    project.delete();
+    project = repository.getProject(uri2);
+    project.delete();
   }
   
   @Test
@@ -397,5 +396,12 @@ public class TestProject extends BaseRepositoryTest {
     // commit to get the CI working again.
     //assertTrue("XML does not contain rdf:RDF", xml.contains("rdf:RDF"));
     //assertTrue("XML does not contain doap:Project", xml.contains("doap:Project"));
+  }
+  
+  @Test
+  public void testGetAllPeople() throws SimalRepositoryException {
+    HashSet<IPerson> people = project1.getAllPeople();
+    assertNotNull(people);
+    assertEquals("Got the wrong number of people", BaseRepositoryTest.getNumberOfParticipants(), people.size());
   }
 }

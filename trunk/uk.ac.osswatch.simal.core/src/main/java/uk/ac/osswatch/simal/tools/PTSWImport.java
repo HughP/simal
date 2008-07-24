@@ -35,7 +35,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import uk.ac.osswatch.simal.rdf.SimalException;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public class PTSWImport {
@@ -82,20 +81,20 @@ public class PTSWImport {
    * Export from Ping The Semantic Web.
    */ 
   public Set<URL> getListOfPings(Document export) {
+    String strURL = null;
     HashSet<URL> urls = new HashSet<URL>();
     Element root = export.getDocumentElement();
     NodeList pings = root.getElementsByTagName("rdfdocument");
     for (int i = 0; i < pings.getLength(); i ++) {
       Element ping = (Element)pings.item(i);
       try {
-        String strURL = ping.getAttributeNode("url").getValue();
+        strURL = ping.getAttributeNode("url").getValue();
         if (strURL.startsWith("http://doapspace.org")) {
           strURL = strURL + ".rdf";
         }
         urls.add(new URL(strURL));
       } catch (MalformedURLException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+        logger.warn("Unable to process URL" + strURL, e);
       }
     }
     return urls;

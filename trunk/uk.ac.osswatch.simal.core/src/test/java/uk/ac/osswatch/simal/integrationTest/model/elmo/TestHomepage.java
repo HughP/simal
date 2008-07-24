@@ -23,7 +23,6 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IDoapHomepageBehaviour;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestHomepage extends BaseRepositoryTest {
@@ -36,9 +35,9 @@ public class TestHomepage extends BaseRepositoryTest {
 
     while (homepages.hasNext()) {
       IDoapHomepage homepage = homepages.next();
-      if (homepage.getURL().toString().equals(TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE)) {
+      if (homepage.getURI().toString().equals(TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE)) {
         hasHomepageOne = true;
-      } else if (homepage.getURL().toString().equals(TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO)) {
+      } else if (homepage.getURI().toString().equals(TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO)) {
         hasHomepageTwo = true;
       }
     }
@@ -55,7 +54,7 @@ public class TestHomepage extends BaseRepositoryTest {
     Iterator<IDoapHomepage> homepages = project1.getHomepages().iterator();
     String label;
     while (homepages.hasNext()) {
-      IDoapHomepageBehaviour homepage = (IDoapHomepageBehaviour) homepages
+      IDoapHomepage homepage = (IDoapHomepage) homepages
           .next();
       label = homepage.getLabel();
       if (label.equals(TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE)) {

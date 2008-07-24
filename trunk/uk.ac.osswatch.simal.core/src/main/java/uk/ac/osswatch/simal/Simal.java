@@ -24,8 +24,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 
-import javax.xml.namespace.QName;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
@@ -38,13 +36,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.tools.PTSWImport;
+
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-
-import uk.ac.osswatch.simal.rdf.SimalException;
-import uk.ac.osswatch.simal.rdf.SimalRepository;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.tools.PTSWImport;
 
 /**
  * The Command Line Interface for a Simal repository.
@@ -52,7 +51,7 @@ import uk.ac.osswatch.simal.tools.PTSWImport;
  */
 public class Simal {
   private static final Logger logger = LoggerFactory.getLogger(Simal.class);
-  private static SimalRepository repository;
+  private static ISimalRepository repository;
 
   public Simal() throws SimalRepositoryException {
   }
@@ -64,7 +63,7 @@ public class Simal {
   @SuppressWarnings( { "unchecked", "static-access" })
   public static void main(String[] args) {
     try {
-      repository = SimalRepository.getInstance();
+      repository = SimalRepositoryFactory.getInstance();
     } catch (SimalRepositoryException e) {
       throw new RuntimeException("Unable to create repository", e);
     }
@@ -137,7 +136,7 @@ public class Simal {
           addXMLFile((String) cmds[i + 1]);
           i++;
         } else if (cmd.equals("writexml")) {
-          writeXML(new QName((String) cmds[i + 1]));
+          writeXML((String) cmds[i + 1]);
           i++;
         } else if (cmd.equals("importPTSW")) {
           try {
@@ -196,10 +195,10 @@ public class Simal {
    * 
    * @param qname
    */
-  private static void writeXML(final QName qname) {
-    logger.info("Writing XML for " + qname);
+  private static void writeXML(final String uri) {
+    logger.info("Writing XML for " + uri);
     try {
-      repository.writeXML(new OutputStreamWriter(System.out), qname);
+      repository.writeXML(new OutputStreamWriter(System.out), uri);
     } catch (SimalRepositoryException e) {
       logger.error("Unable to write XML to standard out");
       System.exit(1);
@@ -246,7 +245,7 @@ public class Simal {
 
   private static void printVersion() {
     logger.info("Simal version   : "
-        + SimalRepository.getProperty(SimalRepository.PROPERTY_SIMAL_VERSION));
+        + SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_VERSION));
     logger.info("Java version    : " + System.getProperty("java.version"));
     logger.info("Java vendor     : " + System.getProperty("java.vendor"));
     logger.info("OS              : " + System.getProperty("os.name"));
@@ -272,7 +271,7 @@ public class Simal {
     System.exit(0);
   }
 
-  public static SimalRepository getRepository() {
+  public static ISimalRepository getRepository() {
     return repository;
   }
 
