@@ -20,7 +20,7 @@ package uk.ac.osswatch.simal.rest;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import uk.ac.osswatch.simal.rdf.SimalRepository;
+import uk.ac.osswatch.simal.SimalProperties;
 
 /**
  * An abstract handler for the REST API. All handlers should 
@@ -39,7 +39,7 @@ public abstract class AbstractHandler implements IAPIHandler {
    */
   protected AbstractHandler(RESTCommand cmd) {
     this.command = cmd;
-    this.baseurl = SimalRepository.getProperty(SimalRepository.PROPERTY_REST_BASEURL);
+    this.baseurl = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL);
   }
   
   public URI getStateURI() throws URISyntaxException {
