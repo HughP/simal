@@ -276,6 +276,7 @@
         <artifactId>rat-maven-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>build/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
             <exclude>simalRepository/**/*</exclude>
             <exclude>local.simal.properties</exclude>
