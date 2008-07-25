@@ -1,0 +1,21 @@
+#summary A description of code auditing in Simal
+= Introduction =
+
+Simal uses a number of tools to check source code for common issues. This document describes the audit tools in use and what they tell us.
+
+= Licence Audit =
+
+[http://incubator.apache.org/rat RAT] is used to audit source files for correct licence headers and other legal requiremets.
+
+RAT is run every time we try and do an install of a Simal artifact. If any problems occur the build will be aborted and an error message shown.
+
+The report from RAT is output to {{{target/rat.txt}}} this will give more information about any problems found.
+
+RAT can be run manually with the command:
+
+{{{mvn rat:check}}}
+
+== Adding Licence Headers ==
+
+RAT can also be used to automatically add licence headers.
+
