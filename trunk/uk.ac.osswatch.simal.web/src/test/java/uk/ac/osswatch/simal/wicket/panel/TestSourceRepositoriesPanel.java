@@ -47,8 +47,5 @@ public class TestSourceRepositoriesPanel extends TestBase {
 		        }
 		 });
 		tester.assertVisible("panel:sourceRepositories");
-		tester.assertVisible("panel:sourceRepositories:1:anonRoots");
-		tester.assertVisible("panel:sourceRepositories:1:devLocations:1:devLink");
-		tester.assertVisible("panel:sourceRepositories:1:browseRoots:1:browseLink");
 	}
 }
