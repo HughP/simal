@@ -22,12 +22,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -44,6 +44,18 @@ public class ToolsPage extends BasePage {
   private static final Logger logger = LoggerFactory.getLogger(ToolsPage.class);
 
   public ToolsPage() {
+    add(new Link("importTestData") {
+
+      public void onClick() {
+        try {
+          importTestData();
+          setResponsePage(new UserHomePage());
+        } catch (UserReportableException e) {
+          setResponsePage(new ErrorReportPage(e));
+        }
+      }
+    });
+    
     add(new Link("importPTSWLink") {
       private static final long serialVersionUID = -6938957715376331902L;
 
@@ -56,6 +68,19 @@ public class ToolsPage extends BasePage {
         }
       }
     });
+  }
+  
+
+
+  private void importTestData() throws UserReportableException {
+    ISimalRepository repo;
+    try {
+      repo = UserApplication.getRepository();
+    } catch (SimalRepositoryException e) {
+      throw new UserReportableException(
+          "Unable to get the count of projects", ToolsPage.class, e);
+    }
+    ModelSupport.addTestData(repo);
   }
 
   private void importPTSW() throws UserReportableException {
