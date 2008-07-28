@@ -32,11 +32,18 @@ package uk.ac.osswatch.simal.wicket.panel;
  */
 
 
+import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.UserReportableException;
+import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
 
 /**
@@ -44,6 +51,7 @@ import uk.ac.osswatch.simal.model.IPerson;
  */
 public class PersonSummaryPanel extends Panel {
 	private static final long serialVersionUID = -6078043900380156791L;
+  private IPerson person;
 
 	/**
 	 * Create a summary page for a specific person.
@@ -58,12 +66,41 @@ public class PersonSummaryPanel extends Panel {
 	}
 
 	private void populatePage(final IPerson person) {
+	  this.person = person;
 		add(new Label("personName", person.getLabel()));
 		add(new Label("personId", person.getSimalID()));
 		add(new Label("emails", person.getEmail().toString()));
 		add(new Label("homepages", person.getHomepages().toString()));
 		String friendsURL = "http://localhost:8080/simal-rest/allColleagues/person-" + person.getSimalID() + "/xml";
 		add(new ExternalLink("friendsLink", friendsURL));
+
+
+    add(new Link("removePersonActionLink") {
+      private static final long serialVersionUID = -5596547501782436339L;
+
+      public void onClick() {
+        try {
+          removePerson();
+          setResponsePage(this.getPage());
+        } catch (UserReportableException e) {
+          setResponsePage(new ErrorReportPage(e));
+        }
+      }
+    });
 	}
+
+  private void removePerson() throws UserReportableException{
+    Page page = this.getPage();
+    if (page instanceof ProjectDetailPage) {
+      IProject project = ((ProjectDetailPage)page).getProject();
+      try {
+        project.removeDeveloper(person);
+      } catch (SimalRepositoryException e) {
+        throw new UserReportableException("Unable to removePerson", PersonSummaryPanel.class, e);
+      }
+    } else {
+      throw new UserReportableException("Unable to removePerson when parent page is type " + page.getClass().getName(), PersonSummaryPanel.class);
+    }
+  }
 
 }
