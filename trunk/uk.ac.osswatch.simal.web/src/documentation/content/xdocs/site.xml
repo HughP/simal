@@ -40,6 +40,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   <developers label="Developers" tab="webModule">
     <index label="Index" href="index.html" description="Welcome to the Simal Web Module"/>
     <developing label="Developing" href="developing.html" description="Getting started with development of the Simal Web module"/>
+    <tools label="Tools" href="tools/index.html" description="Developer tools included in Simal"/>
   </developers>
   
   <openSocial label="Open Social" href="openSocial/" tab="webModule">
