@@ -183,4 +183,25 @@ public interface IProject extends IDoapResource, IProjectService {
    * Get all download mirrors associated with this project.
    */
   public Set<IDoapDownloadMirror> getDownloadMirrors();
+
+  /**
+   * Remove a person as a developer on this project.
+   * If the person is assigned other roles in the project
+   * these will remain intact. 
+   * This method does not
+   * remove the person record from the repository.
+   * 
+   * @param person
+   * @throws SimalRepositoryException 
+   */
+  public void removeDeveloper(IPerson person) throws SimalRepositoryException;
+
+  /**
+   * Add a person as a developer on this project. If the person
+   * dows not yet exist in the repository they will be added to
+   * the repository first.
+   * 
+   * @param person
+   */
+  public void addDeveloper(IPerson person);
 }

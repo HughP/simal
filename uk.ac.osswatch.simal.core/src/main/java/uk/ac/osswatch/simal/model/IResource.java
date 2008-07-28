@@ -77,4 +77,9 @@ public interface IResource extends IResourceService, Serializable {
    * @return
    */
   public Set<URI> getSeeAlso();
+  
+  /**
+   * Get the raw resource as it is stored in the repository.
+   */
+  public Object getRepositoryResource();
 }

@@ -135,5 +135,9 @@ public class Resource implements IResource {
     return getLabel();
   }
 
+  public Object getRepositoryResource() {
+    return jenaResource;
+  }
+
 
 }
