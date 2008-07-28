@@ -18,9 +18,12 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 
 import org.apache.wicket.Page;
+import org.apache.wicket.Response;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.request.target.basic.StringRequestTarget;
+import org.apache.wicket.response.StringResponse;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -36,6 +39,7 @@ import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
 public class ProjectDetailPage extends BasePage {
   private static final long serialVersionUID = 8719708525508677833L;
+  private IProject project;
 
   public ProjectDetailPage() {
     IProject project;
@@ -50,16 +54,14 @@ public class ProjectDetailPage extends BasePage {
       setResponsePage(new ErrorReportPage(error));
     }
   }
-
+  
   public ProjectDetailPage(IProject project) {
     populatePage(project);
   }
 
   private void populatePage(final IProject project) {
+    this.project = project;
     final Link deleteProjectActionLink = new Link("deleteProjectActionLink") {
-        /**
-       * 
-       */
       private static final long serialVersionUID = 2387446194207003694L;
 
         public void onClick() {
@@ -73,6 +75,20 @@ public class ProjectDetailPage extends BasePage {
         }
     };
     add(deleteProjectActionLink);
+    
+    final Link doapLink = new Link("doapLink") {
+      public void onClick() {
+        Response rep = getRequestCycle().getResponse(); 
+        rep.setContentType("text/xml");
+        try {
+          getRequestCycle().setRequestTarget(new StringRequestTarget(project.toXML()));
+        } catch (SimalRepositoryException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        } 
+      }
+    };
+    add(doapLink);
     
     add(new Label("projectName", project.getName()));
     add(new Label("shortDesc", project.getShortDesc()));
@@ -150,5 +166,9 @@ public class ProjectDetailPage extends BasePage {
       }
     };
     return link;
+  }
+
+  public IProject getProject() {
+    return project;
   }
 }
