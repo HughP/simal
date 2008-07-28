@@ -65,43 +65,6 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
           "SimalRepsotory has not been initialised. Call one of the initialise methods first.");
     }
   }
-  
-  /**
-   * Adds test data to the repo. be careful to only use this when the repo in
-   * use is a test repository.
-   * 
-   * @throws SimalRepositoryException
-   * 
-   * @throws SimalRepositoryException
-   */
-  protected void addTestData() {
-    try {
-      verifyInitialised();
-      
-      addProject(ISimalRepository.class.getResource("/testData/"
-          + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
-
-      addProject(ISimalRepository.class.getResource("/testData/"
-          + TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
-
-      addProject(ISimalRepository.class.getResource("/testData/"
-          + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
-
-      addProject(ISimalRepository.class.getClassLoader().getResource(
-          CATEGORIES_RDF), TEST_FILE_BASE_URL);
-
-      addProject(new URL(
-          "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
-          "http://simal.oss-watch.ac.uk");
-    } catch (Exception e) {
-      System.err.println("Can't add the test data, there's no point in carrying on");
-      e.printStackTrace();
-      System.exit(1);
-          
-    }
-  }
-  
-
 
   /**
    * Get the default QName for a Project. The default QName should be used if

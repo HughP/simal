@@ -1,0 +1,52 @@
+package uk.ac.osswatch.simal.model;
+
+import java.net.URL;
+
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
+/**
+ * Utility methods for working with a Simal model.
+ *
+ */
+public class ModelSupport {
+  public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
+  public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
+  public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
+  public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
+
+  public final static String CATEGORIES_RDF = "categories.xml";
+  
+  /**
+   * Adds test data to the repo. be careful to only use this when the repo in
+   * use is a test repository.
+   * 
+   * @throws SimalRepositoryException
+   * 
+   * @throws SimalRepositoryException
+   */
+  public static void addTestData(ISimalRepository repo) {
+    try {      
+      repo.addProject(ISimalRepository.class.getResource("/testData/"
+          + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
+
+      repo.addProject(ISimalRepository.class.getResource("/testData/"
+          + TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
+
+      repo.addProject(ISimalRepository.class.getResource("/testData/"
+          + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
+
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(
+          CATEGORIES_RDF), TEST_FILE_BASE_URL);
+
+      repo.addProject(new URL(
+          "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
+          "http://simal.oss-watch.ac.uk");
+    } catch (Exception e) {
+      System.err.println("Can't add the test data, there's no point in carrying on");
+      e.printStackTrace();
+      System.exit(1);
+          
+    }
+  }
+}

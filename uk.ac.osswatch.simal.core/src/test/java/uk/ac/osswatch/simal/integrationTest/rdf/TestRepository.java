@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -190,7 +191,7 @@ public class TestRepository extends BaseRepositoryTest {
     project1 = getSimalTestProject();
     assertNull("Project has not been deleted as expected", project1);
     
-    File testFile = new File(ISimalRepository.class.getResource("/testData/" + ISimalRepository.TEST_FILE_URI_WITH_QNAME).toURI());
+    File testFile = new File(ISimalRepository.class.getResource("/testData/" + ModelSupport.TEST_FILE_URI_WITH_QNAME).toURI());
     FileInputStream fis = new FileInputStream(testFile);
     int x= fis.available();
     byte b[]= new byte[x];

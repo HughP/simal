@@ -34,11 +34,6 @@ import uk.ac.osswatch.simal.model.IProject;
  * service class for the model object
  */
 public interface ISimalRepository {
-  // FIXME: standardise names of constants
-  public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
-  public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
-  public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
-  public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
   public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
   public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
   public static final String DEFAULT_CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
@@ -75,8 +70,6 @@ public interface ISimalRepository {
 
   public static final String RDFS_NAMESPACE_URI = "http://www.w3.org/2000/01/rdf-schema#";
   public static final String RDFS_URI_SEE_ALSO = RDFS_NAMESPACE_URI + "seeAlso";
-
-  public final static String CATEGORIES_RDF = "categories.xml";
 
   /**
    * Add an RDF DOAP file from a given URL.

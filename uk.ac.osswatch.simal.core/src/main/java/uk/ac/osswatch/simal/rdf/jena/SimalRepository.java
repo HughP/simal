@@ -37,6 +37,7 @@ import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.model.jena.Category;
 import uk.ac.osswatch.simal.model.jena.Person;
 import uk.ac.osswatch.simal.model.jena.Project;
@@ -127,7 +128,7 @@ public class SimalRepository extends AbstractSimalRepository {
     initialised = true;
 
     if (isTest) {
-      addTestData();
+      ModelSupport.addTestData(this);
     }
   }
 
