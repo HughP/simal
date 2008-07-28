@@ -404,4 +404,17 @@ public class TestProject extends BaseRepositoryTest {
     assertNotNull(people);
     assertEquals("Got the wrong number of people", BaseRepositoryTest.getNumberOfParticipants(), people.size());
   }
+  
+  @Test 
+  public void testAddAndRemoveDeveloper() throws SimalRepositoryException {
+    Set<IPerson> prePeople = project1.getDevelopers();
+    IPerson person = (IPerson) prePeople.toArray()[0];
+    project1.removeDeveloper(person);
+    Set<IPerson> postPeople = project1.getDevelopers();
+    assertEquals("Failed to remove a developer from the project", prePeople.size() - 1, postPeople.size());
+    
+    project1.addDeveloper(person);
+    postPeople = project1.getDevelopers();
+    assertEquals("Failed to add a developer to the project", prePeople.size(), postPeople.size());
+  }
 }

@@ -44,6 +44,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
@@ -305,6 +306,18 @@ public class Project extends DoapResource implements IProject {
     }
     values.append("]");
     return values.toString();
+  }
+
+  public void removeDeveloper(IPerson person) throws SimalRepositoryException {
+    Model model = jenaResource.getModel(); 
+    Statement statement = model.createStatement(jenaResource, Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    model.remove(statement);
+  }
+
+  public void addDeveloper(IPerson person) {
+    Model model = jenaResource.getModel(); 
+    Statement statement = model.createStatement(jenaResource, Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    model.add(statement);
   }
 
 
