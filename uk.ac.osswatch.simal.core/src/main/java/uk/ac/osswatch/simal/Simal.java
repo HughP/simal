@@ -78,6 +78,10 @@ public class Simal {
         "Print the version number of Simal and exit");
     opts.addOption(version);
 
+    Option directory = new Option("d", "dir", true,
+        "The directory in which the persistent data store resides");
+    opts.addOption(directory);
+    
     Option test = new Option(
         "t",
         "test",
@@ -108,7 +112,6 @@ public class Simal {
     } else if (cl.hasOption('v')) {
       printVersion();
     } else {
-
       Iterator<Option> options = cl.iterator();
       Option opt;
       while (options.hasNext()) {
@@ -123,9 +126,12 @@ public class Simal {
           }
         }
       }
-
+      
+      String dir = cl.getOptionValue("dir");
+      logger.info("Setting database directory to " + dir);
+      
       logger.info("Initialising repository...");
-      initRepository();
+      initRepository(dir);
       logger.info("Executing commands...");
 
       String[] cmds = cl.getArgs();
@@ -244,9 +250,9 @@ public class Simal {
   
 
 
-  private static void initRepository() {
+  private static void initRepository(String directory) {
     try {
-      repository.initialise();
+      repository.initialise(directory);
     } catch (SimalRepositoryException e) {
       logger.error("Unable to start repository: {}", e.getMessage());
       e.printStackTrace();
