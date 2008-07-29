@@ -250,9 +250,13 @@ public class Simal {
   
 
 
-  private static void initRepository(String directory) {
+  private static void initRepository(String dir) {
     try {
-      repository.initialise(directory);
+      if (dir == null || dir.equals("")) {
+        repository.initialise();
+      } else {
+        repository.initialise(dir);
+      }
     } catch (SimalRepositoryException e) {
       logger.error("Unable to start repository: {}", e.getMessage());
       e.printStackTrace();
