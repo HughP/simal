@@ -467,5 +467,5 @@ public class SimalRepository extends AbstractSimalRepository {
     Resource r = model.createResource(uri.toString());
     return model.containsResource(r);
   }
-
+  
 }

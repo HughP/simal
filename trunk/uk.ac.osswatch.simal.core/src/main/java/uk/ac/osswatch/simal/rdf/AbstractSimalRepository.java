@@ -18,7 +18,9 @@ Copyright 2007 University of Oxford *
  */
 
 
-import java.net.URL;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.net.MalformedURLException;
 
 import javax.xml.namespace.QName;
 
@@ -146,5 +148,33 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
           "Unable to save properties file when creating the next project ID", e);
     }
     return Long.toString(id);
+  }
+  
+  public void addXMLDirectory(final String dirName) throws SimalRepositoryException {
+    logger.info("Adding XML from " + dirName);
+    File dir = new File(dirName);
+    if (!dir.isDirectory()) {
+      logger.error("addxmldirectory requires a directory name as the first parameter");
+    }
+    FilenameFilter filter = new FilenameFilter(){
+      public boolean accept(File dir, String name) {
+        if (name.endsWith(".xml") || name.endsWith(".rdf")) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+    
+    };
+    File[] files = dir.listFiles(filter);
+    for (int i = 0; i < files.length; i++) {
+        try {
+          addProject(files[i].toURL(), "");
+          logger.info("Added XML from " + files[i].getAbsoluteFile());
+        } catch (MalformedURLException e) {
+          logger.error("Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(), e);
+          throw new SimalRepositoryException("Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(), e);
+        }
+    }
   }
 }

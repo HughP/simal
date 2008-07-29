@@ -336,4 +336,13 @@ public interface ISimalRepository {
    * @return
    */
   public boolean containsCategory(String uri);
+  
+
+  /**
+   * Add all RDF/XML files found in a directory to the repository.
+   * Only files with a ".xml" or ".rdf" extension will be processed.
+   * Subdirectories will be ignored.
+   * @throws SimalRepositoryException 
+   */
+  public void addXMLDirectory(final String dirName) throws SimalRepositoryException;
 }
