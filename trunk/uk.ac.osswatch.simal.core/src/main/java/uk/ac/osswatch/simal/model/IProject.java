@@ -198,10 +198,119 @@ public interface IProject extends IDoapResource, IProjectService {
 
   /**
    * Add a person as a developer on this project. If the person
-   * dows not yet exist in the repository they will be added to
+   * does not yet exist in the repository they will be added to
    * the repository first.
    * 
    * @param person
    */
   public void addDeveloper(IPerson person);
+
+  /**
+   * Remove a person as a maintainer on this project.
+   * If the person is assigned other roles in the project
+   * these will remain intact. 
+   * This method does not
+   * remove the person record from the repository.
+   * 
+   * @param person
+   * @throws SimalRepositoryException 
+   */
+  public void removeMaintainer(IPerson person) throws SimalRepositoryException;
+
+  /**
+   * Add a person as a maintainer on this project. If the person
+   * does not yet exist in the repository they will be added to
+   * the repository first.
+   * 
+   * @param person
+   */
+  public void addMaintainer(IPerson person);
+
+
+  /**
+   * Remove a person as a tester on this project.
+   * If the person is assigned other roles in the project
+   * these will remain intact. 
+   * This method does not
+   * remove the person record from the repository.
+   * 
+   * @param person
+   * @throws SimalRepositoryException 
+   */
+  public void removeTester(IPerson person) throws SimalRepositoryException;
+
+  /**
+   * Add a person as a tester on this project. If the person
+   * dows not yet exist in the repository they will be added to
+   * the repository first.
+   * 
+   * @param person
+   */
+  public void addTester(IPerson person);
+
+
+  /**
+   * Remove a person as a helper on this project.
+   * If the person is assigned other roles in the project
+   * these will remain intact. 
+   * This method does not
+   * remove the person record from the repository.
+   * 
+   * @param person
+   * @throws SimalRepositoryException 
+   */
+  public void removeHelper(IPerson person) throws SimalRepositoryException;
+
+  /**
+   * Add a person as a helper on this project. If the person
+   * dows not yet exist in the repository they will be added to
+   * the repository first.
+   * 
+   * @param person
+   */
+  public void addHelper(IPerson person);
+
+
+  /**
+   * Remove a person as a documenter on this project.
+   * If the person is assigned other roles in the project
+   * these will remain intact. 
+   * This method does not
+   * remove the person record from the repository.
+   * 
+   * @param person
+   * @throws SimalRepositoryException 
+   */
+  public void removeDocumenter(IPerson person) throws SimalRepositoryException;
+
+  /**
+   * Add a person as a documenter on this project. If the person
+   * dows not yet exist in the repository they will be added to
+   * the repository first.
+   * 
+   * @param person
+   */
+  public void addDocumenter(IPerson person);
+
+
+  /**
+   * Remove a person as a translator on this project.
+   * If the person is assigned other roles in the project
+   * these will remain intact. 
+   * This method does not
+   * remove the person record from the repository.
+   * 
+   * @param person
+   * @throws SimalRepositoryException 
+   */
+  public void removeTranslator(IPerson person) throws SimalRepositoryException;
+
+  /**
+   * Add a person as a translator on this project. If the person
+   * dows not yet exist in the repository they will be added to
+   * the repository first.
+   * 
+   * @param person
+   */
+  public void addTranslator(IPerson person);
 }
