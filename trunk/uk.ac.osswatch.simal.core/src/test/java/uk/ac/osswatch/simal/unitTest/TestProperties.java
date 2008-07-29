@@ -38,7 +38,7 @@ public class TestProperties {
   @Test
   public void testDefaults() {
     assertEquals("false", props.getProperty(SimalProperties.PROPERTY_TEST));
-    assertEquals("simalRepository", props
+    assertEquals("/tmp", props
         .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
 
