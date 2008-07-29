@@ -298,15 +298,28 @@ public interface ISimalRepository {
    */
   public void setIsTest(boolean newValue) throws SimalRepositoryException;
   
+
   /**
-   * Initialise a default repository. Currently this creates a volatile
-   * repository populated with test data.
+   * Initialise a default repository. if the repository is not
+   * in test mode then a database will be created in the 
+   * system directory with the name "simal".
    * 
-   * @throws SimalRepositoryException
    * 
    * @throws SimalRepositoryException
    */
   public void initialise() throws SimalRepositoryException;
+  
+  /**
+   * Initialise a repository. 
+   * 
+   * @param directory the directory for the database if 
+   * it is a persistent repository (i.e. not a test repo).
+   * A null results in the database being stored in the 
+   * system directory.
+   * 
+   * @throws SimalRepositoryException
+   */
+  public void initialise(String directory) throws SimalRepositoryException;
 
   /**
    * Return true if this repository has been successfully initialised and is

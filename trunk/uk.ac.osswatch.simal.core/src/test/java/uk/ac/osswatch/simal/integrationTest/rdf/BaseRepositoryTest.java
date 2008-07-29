@@ -114,7 +114,7 @@ public abstract class BaseRepositoryTest {
     repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
-      repository.initialise();
+      repository.initialise(null);
     }
     project1 = getSimalTestProject();
     IPerson developer = project1.getDevelopers().iterator().next();

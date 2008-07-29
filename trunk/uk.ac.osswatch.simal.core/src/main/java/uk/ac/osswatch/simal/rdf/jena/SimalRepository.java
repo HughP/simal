@@ -92,7 +92,14 @@ public class SimalRepository extends AbstractSimalRepository {
     return instance;
   }
 
-  public void initialise() throws SimalRepositoryException {
+  /**
+   * Initialise the repository.
+   * 
+   * @param directory the directory for the database if 
+   * it is a persistent repository (i.e. not a test repo)
+   * @throws SimalRepositoryException
+   */
+  public void initialise(String directory) throws SimalRepositoryException {
     if (model != null) {
       throw new SimalRepositoryException(
           "Illegal attempt to create a second SimalRepository in the same JAVA VM.");
@@ -109,7 +116,12 @@ public class SimalRepository extends AbstractSimalRepository {
       } catch (ClassNotFoundException e) {
         throw new SimalRepositoryException("Unablew to find derby driver", e);
       }
-      String DB_URL = "jdbc:derby:simal;create=true";
+      String DB_URL;
+      if (directory != null) {
+        DB_URL = "jdbc:derby:" + directory + "/simal;create=true";
+      } else {
+        DB_URL = "jdbc:derby:simal;create=true";
+      }
       String DB_USER = "";
       String DB_PASSWD = "";
       String DB = "Derby";
@@ -466,6 +478,10 @@ public class SimalRepository extends AbstractSimalRepository {
   public boolean containsCategory(String uri) {
     Resource r = model.createResource(uri.toString());
     return model.containsResource(r);
+  }
+
+  public void initialise() throws SimalRepositoryException {
+    initialise(null);
   }
   
 }
