@@ -300,10 +300,10 @@ public interface ISimalRepository {
   
 
   /**
-   * Initialise a default repository. if the repository is not
-   * in test mode then a database will be created in the 
-   * system directory with the name "simal".
-   * 
+   * Initialise a default repository. If the repository is not
+   * in test mode then a database will be created in the
+   * locations set in the default.simal.properties or
+   * local.simal.properties files.
    * 
    * @throws SimalRepositoryException
    */
@@ -314,8 +314,9 @@ public interface ISimalRepository {
    * 
    * @param directory the directory for the database if 
    * it is a persistent repository (i.e. not a test repo).
-   * A null results in the database being stored in the 
-   * system directory.
+   * A null results in the database being stored in the
+   * locations set in the default.simal.properties or
+   * local.simal.properties files.
    * 
    * @throws SimalRepositoryException
    */
