@@ -276,6 +276,8 @@
         <artifactId>rat-maven-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>derby.log</exclude>
+            <exclude>simal/**/*</exclude>
             <exclude>build/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
             <exclude>simalRepository/**/*</exclude>
