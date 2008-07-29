@@ -135,7 +135,15 @@ public class Simal {
         if (cmd.equals("addxml")) {
           addXMLFile((String) cmds[i + 1]);
           i++;
-        } else if (cmd.equals("writexml")) {
+        } else if (cmd.equals("addxmldir")) {
+          try {
+            repository.addXMLDirectory((String) cmds[i + 1]);
+          } catch (SimalRepositoryException e) {
+            logger.error("Error adding data - adborting", e);
+            System.exit(1);
+          }
+          i++;
+        }  else if (cmd.equals("writexml")) {
           writeXML((String) cmds[i + 1]);
           i++;
         } else if (cmd.equals("importPTSW")) {
@@ -233,6 +241,8 @@ public class Simal {
     }
     logger.info("Data added.");
   }
+  
+
 
   private static void initRepository() {
     try {
@@ -263,6 +273,8 @@ public class Simal {
     footer.append("=======      ===========   ===========\n\n");
     footer
         .append("addxml       FILE_OR_URL   add an RDF/XML file to the repository\n");
+    footer
+        .append("addxmldir    DIRECTORY     add all RDF/XML files found in the supplied directory to the repository\n");
     footer.append("writexml     QNAME       retrive the RDF/XML with the supplied QName and write it to standard out");
     footer.append("importPTSW               get the list of recently updated DOAp files from Ping The Semantic Web and import them into the repository. Note, this requires and account on Ping The Semantic Web.");
 
