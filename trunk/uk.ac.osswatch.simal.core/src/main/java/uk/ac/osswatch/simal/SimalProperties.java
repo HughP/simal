@@ -38,6 +38,7 @@ public class SimalProperties {
 
   private static final String DEFAULT_PROPERTIES_FILE = "default.simal.properties";
   public static final String PROPERTY_RDF_DATA_DIR = "simal.repository.dir";
+  public static final String PROPERTY_RDF_DATA_FILENAME = "simal.repository.filename";
   public static final String PROPERTY_TEST = "simal.test";
   public static final String PROPERTY_SIMAL_VERSION = "simal.version";
   public static final String PROPERTY_SIMAL_NEXT_PROJECT_ID = "simal.nextProjectID";

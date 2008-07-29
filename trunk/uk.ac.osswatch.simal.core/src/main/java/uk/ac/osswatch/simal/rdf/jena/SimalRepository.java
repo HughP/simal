@@ -32,6 +32,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -118,15 +119,16 @@ public class SimalRepository extends AbstractSimalRepository {
       }
       String DB_URL;
       if (directory != null) {
-        DB_URL = "jdbc:derby:" + directory + "/simal;create=true";
+        DB_URL = "jdbc:derby:" + directory + "/" + SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME) + ";create=true";
       } else {
-        DB_URL = "jdbc:derby:simal;create=true";
+        DB_URL = "jdbc:derby:" + SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR) + "/"  + SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME) + ";create=true";
       }
       String DB_USER = "";
       String DB_PASSWD = "";
       String DB = "Derby";
 
       // Create database connection
+      logger.debug("Creating DB with URL " + DB_URL);
       IDBConnection conn = new DBConnection(DB_URL, DB_USER, DB_PASSWD, DB);
       ModelMaker maker = ModelFactory.createModelRDBMaker(conn);
 
@@ -481,7 +483,7 @@ public class SimalRepository extends AbstractSimalRepository {
   }
 
   public void initialise() throws SimalRepositoryException {
-    initialise(null);
+    initialise(SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
   
 }
