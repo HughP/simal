@@ -50,7 +50,14 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getDescription() {
-    return jenaResource.getProperty(Doap.DESCRIPTION).getString().trim();
+    Statement resource = jenaResource.getProperty(Doap.DESCRIPTION);
+    String desc;
+    if (resource == null) {
+      desc = getShortDesc();
+    } else {
+      desc = resource.getString().trim(); 
+    }
+    return desc;
   }
 
   public Set<IDoapLicence> getLicences() {
