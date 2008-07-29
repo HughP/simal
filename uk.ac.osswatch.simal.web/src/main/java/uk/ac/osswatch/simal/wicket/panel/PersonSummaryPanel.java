@@ -37,11 +37,14 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
@@ -51,6 +54,7 @@ import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
  */
 public class PersonSummaryPanel extends Panel {
 	private static final long serialVersionUID = -6078043900380156791L;
+  private static final Logger logger = LoggerFactory.getLogger(PersonSummaryPanel.class);
   private IPerson person;
 
 	/**
@@ -81,7 +85,12 @@ public class PersonSummaryPanel extends Panel {
       public void onClick() {
         try {
           removePerson();
-          setResponsePage(this.getPage());
+          if (this.getPage() instanceof ProjectDetailPage) {
+            setResponsePage(new ProjectDetailPage(((ProjectDetailPage)this.getPage()).getProject()));
+          } else {
+            logger.warn("Removing person from an unknown page, returning to user home page");
+            setResponsePage(new UserHomePage());
+          }
         } catch (UserReportableException e) {
           setResponsePage(new ErrorReportPage(e));
         }
@@ -94,7 +103,12 @@ public class PersonSummaryPanel extends Panel {
     if (page instanceof ProjectDetailPage) {
       IProject project = ((ProjectDetailPage)page).getProject();
       try {
+        project.removeDocumenter(person);
         project.removeDeveloper(person);
+        project.removeHelper(person);
+        project.removeMaintainer(person);
+        project.removeTester(person);
+        project.removeTranslator(person);
       } catch (SimalRepositoryException e) {
         throw new UserReportableException("Unable to removePerson", PersonSummaryPanel.class, e);
       }
