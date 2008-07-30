@@ -21,6 +21,8 @@ Copyright 2007 University of Oxford *
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapResource;
@@ -136,7 +138,7 @@ public class DoapResource extends Resource implements IDoapResource {
     json.append("\"id\":\"" + getURI() + "\",");
     json.append("\"label\":\"" + getLabel() + "\",");
     json.append("\"name\":\"" + getName() + "\",");
-    json.append("\"shortdesc\":\"" + getShortDesc() + "\"");
+    json.append("\"shortdesc\":\"" + StringEscapeUtils.escapeJavaScript(getShortDesc()) + "\"");
     return json.toString();
   }
 
