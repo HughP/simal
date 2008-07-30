@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE faqs PUBLIC "-//APACHE//DTD FAQ V2.0//EN" "http://forrest.apache.org/dtd/faq-v20.dtd">
+<faqs>
+  <title>Frequently Asked Questions (Users)</title>
+  <faqsection id="CLI">
+    <title>Command Line</title>
+    <faq id="CLI-basic">
+      <question>
+        How can I operate o the repository from the command line?
+      </question>
+      <answer>
+        <p>
+          The core module brings with it a Command Line Interface.
+          In order to use it you must first <a href ="/gettingSimal.html#Simal+Core">retrieve</a>
+          a copy of the core module. Once you have that you can
+          run the CLI using a command such as (this command will
+          display the help message):
+        </p>
+        <source>
+        java -cp
+        target/simal-core-0.2-SNAPSHOT-jar-with-dependencies.jar
+        uk.ac.osswatch.simal.Simal -h
+        </source>
+      </answer>
+    </faq>
+    
+    <faq id="CLI-add">
+      <question>
+        How can I add projects to the repository using the command line?
+      </question>
+      <answer>
+        <p>
+          To add a single RDF/XML DOAP file to the repository use 
+          the following command:
+        </p>
+        <source>
+        java -cp
+        target/simal-core-0.2-SNAPSHOT-jar-with-dependencies.jar
+        uk.ac.osswatch.simal.Simal addxml FILENAME_OR_URL
+        </source>
+        <p>Where <code>FILENAME_OR_URL</code> is the local filename
+        ir the remote URL for a DOAP file.</p>
+        <p>To add all the RDF/XML DOAP files in a directory to the
+        repository use the command:</p>
+        <source>
+        java -cp
+        target/simal-core-0.2-SNAPSHOT-jar-with-dependencies.jar
+        uk.ac.osswatch.simal.Simal addxmldir DIRECTORY
+        </source>
+        <p>Where <code>DIRECTORY</code> is replaced by the 
+        directory containing the DOAP files.</p> 
+      </answer>
+    </faq>
+    
+    <faq>
+      <question>How can I set the location of the persistent store for
+      the repository</question>
+      <answer>
+        <p>From the command line you can use the 
+        <code>--dir DIRECTORY</code> switch to set the directory of the 
+        persistent store. Replace <code>DIRECTORY</code> with
+        the path to your data directory.</p>
+        <p>You can also set the following property values in
+        your <code>local.simal.properties</code> files.</p>
+        <source>
+simal.repository.dir=/path/to/database/directory
+simal.repository.filename=databaseName
+        </source>
+        <p>Note the command line switches take precedence over
+        the settings in the local properties file.</p>
+      </answer>
+    </faq>
+<!-- More faqs or parts here -->
+  </faqsection>
+</faqs>

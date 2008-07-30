@@ -54,6 +54,10 @@
         </section>
       </notes>
       
+      <action context="docs" dev="RDG" type="ass" importance="high">
+        <p>Added a User FAQ section.</p>
+      </action>
+      
       <action context="docs" dev="RDG" type="update" importance="high">
         <p>All documentation is now managed by Apache Forrest. To build the whole 
         documentation do "forrest run" in the simal module.</p>
