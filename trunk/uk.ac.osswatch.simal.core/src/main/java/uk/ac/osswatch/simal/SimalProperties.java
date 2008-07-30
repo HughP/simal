@@ -205,4 +205,14 @@ public class SimalProperties {
           + propsFile, e);
     }
   }
+
+  /**
+   * Get a property as an Integer.
+   * 
+   * @param name
+   * @return
+   */
+  public static Integer getIntegerProperty(String name) {
+    return Integer.valueOf(getProperty(name));
+  }
 }
