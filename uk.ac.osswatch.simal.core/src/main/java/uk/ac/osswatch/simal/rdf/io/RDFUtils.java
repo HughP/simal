@@ -31,6 +31,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -411,17 +412,34 @@ public class RDFUtils {
    */
   private static void checkResources(Document doc, ISimalRepository repo) {
     logger.debug("Check resources found in RDF file");
-    NodeList homepages = doc.getElementsByTagNameNS(FOAF_NS, "homepage");
-    Element homepage;
-    for (int i = 0; i < homepages.getLength(); i = i + 1) {
-      homepage = (Element) homepages.item(i);
-      String resource = homepage.getAttributeNodeNS(RDF_NS, "resource")
-          .getValue();
-      if (resource.equals("")) {
-        homepage.getParentNode().removeChild(homepage);
-      }
-    }
+    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "bug-database"));
+    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "download-page"));
+    validateResourceDefinition(doc.getElementsByTagNameNS(FOAF_NS, "homepage"));
+    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "license"));
+    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "mailing-list"));
+    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "wiki"));
   }
+
+  /**
+   * Checks to see if resources are correctly identified. If not then
+   * drop the element.
+   * 
+   * @TODO This is a bit draconian, we should be looking to see if the
+   * DOAP is incorrectly encoded (i.e. provides a URI as content) and try 
+   * and correct things rather than just dumping them.
+   * 
+   * @param nodes
+   */
+    private static void validateResourceDefinition(NodeList nodes) {
+        Element el;
+        for (int i = 0; i < nodes.getLength(); i = i + 1) {
+          el = (Element) nodes.item(i);
+          Attr resource = el.getAttributeNodeNS(RDF_NS, "resource");
+          if (resource == null || resource.getValue().equals("")) {
+            el.getParentNode().removeChild(el);
+          }
+        }
+    }
 
   /**
    * For every mailbox associated with a person create an sha1 checksum.
