@@ -44,6 +44,18 @@ public class ToolsPage extends BasePage {
   private static final Logger logger = LoggerFactory.getLogger(ToolsPage.class);
 
   public ToolsPage() {
+    add(new Link("removeAllData") {
+
+      public void onClick() {
+        try {
+          removeAllData();
+          setResponsePage(new UserHomePage());
+        } catch (UserReportableException e) {
+          setResponsePage(new ErrorReportPage(e));
+        }
+      }
+    });
+
     add(new Link("importTestData") {
 
       public void onClick() {
@@ -72,13 +84,28 @@ public class ToolsPage extends BasePage {
   
 
 
-  private void importTestData() throws UserReportableException {
+  /**
+   * Remove all data from the repository. 
+   * @throws UserReportableException 
+   */
+  private void removeAllData() throws UserReportableException {
     ISimalRepository repo;
     try {
       repo = UserApplication.getRepository();
     } catch (SimalRepositoryException e) {
       throw new UserReportableException(
           "Unable to get the count of projects", ToolsPage.class, e);
+    }
+    repo.removeAllData();
+  }
+
+  private void importTestData() throws UserReportableException {
+    ISimalRepository repo;
+    try {
+      repo = UserApplication.getRepository();
+    } catch (SimalRepositoryException e) {
+      throw new UserReportableException(
+          "Unable to import test data", ToolsPage.class, e);
     }
     ModelSupport.addTestData(repo);
   }
