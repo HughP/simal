@@ -19,8 +19,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
@@ -84,10 +86,11 @@ public class RDFUtils {
    * @param url
    *          the URL of the file to parse
    * @return
-   * @throws URISyntaxException
+   * @throws DOMException 
+   * @throws UnsupportedEncodingException 
    */
   private static void removeBNodes(Document doc, ISimalRepository repo)
-      throws URISyntaxException {
+      throws DOMException, UnsupportedEncodingException {
 
     NodeList nl = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     removeBlankProjectNodes(nl);
@@ -120,9 +123,11 @@ public class RDFUtils {
    * it.
    * 
    * @param nl
+   * @throws UnsupportedEncodingException 
+   * @throws DOMException 
    * @throws DOMException
    */
-  private static void removeBlankRepositoryNodes(NodeList nl) {
+  private static void removeBlankRepositoryNodes(NodeList nl) throws DOMException, UnsupportedEncodingException {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
@@ -154,7 +159,7 @@ public class RDFUtils {
           }
           uri = uri + "doap#";
           uri = uri + el.getNodeName();
-          el.setAttributeNS(RDF_NS, "rdf:about", uri);
+          el.setAttributeNS(RDF_NS, "rdf:about", URLEncoder.encode(uri, "UTF-8"));
         }
       }
     }
@@ -192,8 +197,9 @@ public class RDFUtils {
    * 
    * @param nl
    * @throws DOMException
+   * @throws UnsupportedEncodingException 
    */
-  private static void removeBlankProjectNodes(NodeList nl) throws DOMException {
+  private static void removeBlankProjectNodes(NodeList nl) throws DOMException, UnsupportedEncodingException {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
@@ -203,7 +209,7 @@ public class RDFUtils {
           Node nameNode = el.getElementsByTagNameNS(DOAP_NS, "name").item(0);
           uri = uri + nameNode.getFirstChild().getNodeValue();
           uri = uri + "#Project";
-          el.setAttributeNS(RDF_NS, "rdf:about", uri);
+          el.setAttributeNS(RDF_NS, "rdf:about", URLEncoder.encode(uri, "UTF-8"));
         }
       }
     }
@@ -214,15 +220,15 @@ public class RDFUtils {
    * have a rdf:about attribute. If any do not have the attribute then add it.
    * 
    * @param nl
-   * @throws DOMException
+   * @throws DOMException 
+   * @throws UnsupportedEncodingException 
    */
-  private static void removeBlankPersonNodes(NodeList nl) throws DOMException {
+  private static void removeBlankPersonNodes(NodeList nl) throws DOMException, UnsupportedEncodingException {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
         if (!el.hasAttributeNS(RDF_NS, "about")) {
           String name = null;
-          String uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
           Node nameNode = el.getElementsByTagNameNS(FOAF_NS, "name").item(0);
           if (nameNode != null && nameNode.getParentNode().equals((Node) el)) {
             name = nameNode.getFirstChild().getNodeValue();
@@ -237,9 +243,10 @@ public class RDFUtils {
               name = name + " " + nameNode.getFirstChild().getNodeValue();
             }
           }
+          String uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
           uri = uri + name;
           uri = uri + "#Person";
-          el.setAttributeNS(RDF_NS, "rdf:about", uri);
+          el.setAttributeNS(RDF_NS, "rdf:about", URLEncoder.encode(uri, "UTF-8"));
         }
 
       }
@@ -252,8 +259,9 @@ public class RDFUtils {
    * 
    * @param nl
    * @throws DOMException
+   * @throws UnsupportedEncodingException 
    */
-  private static void removeBlankVersionNodes(NodeList nl) throws DOMException {
+  private static void removeBlankVersionNodes(NodeList nl) throws DOMException, UnsupportedEncodingException {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
@@ -265,7 +273,7 @@ public class RDFUtils {
               .item(0);
           uri = uri + "/" + revisionNode.getFirstChild().getNodeValue();
           uri = uri + "#Version";
-          el.setAttributeNS(RDF_NS, "rdf:about", uri);
+          el.setAttributeNS(RDF_NS, "rdf:about", URLEncoder.encode(uri, "UTF-8"));
         }
       }
     }
