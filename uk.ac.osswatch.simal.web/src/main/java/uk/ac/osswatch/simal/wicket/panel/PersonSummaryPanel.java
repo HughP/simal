@@ -40,6 +40,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -75,7 +76,7 @@ public class PersonSummaryPanel extends Panel {
 		add(new Label("personId", person.getSimalID()));
 		add(new Label("emails", person.getEmail().toString()));
 		add(new Label("homepages", person.getHomepages().toString()));
-		String friendsURL = "http://localhost:8080/simal-rest/allColleagues/person-" + person.getSimalID() + "/xml";
+		String friendsURL = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + "/simal-rest/allColleagues/person-" + person.getSimalID() + "/xml";
 		add(new ExternalLink("friendsLink", friendsURL));
 
 
