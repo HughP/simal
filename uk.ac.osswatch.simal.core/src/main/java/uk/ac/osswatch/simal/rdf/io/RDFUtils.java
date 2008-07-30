@@ -144,7 +144,7 @@ public class RDFUtils {
 
           if (uri == null) {
             uri = "http://simal.oss-watch.ac.uk/"
-                + getProjectName((Element) el.getParentNode()) + "#"
+                + getProjectName(getProjectElement(el)) + "#"
                 + el.getLocalName();
           }
 
@@ -160,6 +160,20 @@ public class RDFUtils {
   }
 
   /**
+   * Work up the tree until we find the parent project element.
+   * @param el
+   * @return
+   */
+  private static Element getProjectElement(Element el) {
+    Node node = el.getParentNode();
+    if (node.getLocalName().equals("Project") && node.getNamespaceURI().equals(DOAP_NS)) {
+        return (Element)node;
+    } else {
+        return getProjectElement((Element)node);
+    }
+}
+
+/**
    * Get the project name from the supplied doiap:Project node.
    * 
    * @param project
