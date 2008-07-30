@@ -76,7 +76,7 @@ public class PersonSummaryPanel extends Panel {
 		add(new Label("personId", person.getSimalID()));
 		add(new Label("emails", person.getEmail().toString()));
 		add(new Label("homepages", person.getHomepages().toString()));
-		String friendsURL = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + "/simal-rest/allColleagues/person-" + person.getSimalID() + "/xml";
+		String friendsURL = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + "/allColleagues/person-" + person.getSimalID() + "/xml";
 		add(new ExternalLink("friendsLink", friendsURL));
 
 
