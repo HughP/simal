@@ -359,4 +359,11 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException 
    */
   public void addXMLDirectory(final String dirName) throws SimalRepositoryException;
+
+  /**
+   * Remove all data from this repository.
+   * Be very careful with this method. It does not provide a
+   * way to retrieve the data.
+   */
+  public void removeAllData();
 }

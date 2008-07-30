@@ -485,5 +485,9 @@ public class SimalRepository extends AbstractSimalRepository {
   public void initialise() throws SimalRepositoryException {
     initialise(SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
+
+  public void removeAllData() {
+    model.removeAll();
+  }
   
 }
