@@ -32,6 +32,9 @@ package uk.ac.osswatch.simal.wicket.panel;
  */
 
 
+import java.util.Random;
+import java.util.Set;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
@@ -39,7 +42,9 @@ import org.apache.wicket.markup.html.link.PageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
@@ -49,6 +54,25 @@ import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 public class ProjectSummaryPanel extends Panel {
 	private static final long serialVersionUID = -6078043900380156791L;
 
+  /**
+   * Create a summary page for a random project.
+   * 
+   * @param panelID
+   */
+  public ProjectSummaryPanel(String panelID) {
+    super(panelID);
+    IProject project;
+    try {
+      Set<IProject> allProjects = UserApplication.getRepository().getAllProjects();
+      Random rand = new Random();
+      int idx = rand.nextInt(allProjects.size());
+      project = (IProject)allProjects.toArray()[idx];
+    } catch (SimalRepositoryException e) {
+      project = null;
+    }
+    populatePage(project);
+  }
+  
 	/**
 	 * Create a summary page for a specific project.
 	 * 
