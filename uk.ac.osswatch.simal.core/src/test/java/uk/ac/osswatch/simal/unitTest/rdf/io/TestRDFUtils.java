@@ -16,6 +16,7 @@
 package uk.ac.osswatch.simal.unitTest.rdf.io;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -172,6 +173,25 @@ public class TestRDFUtils extends BaseRepositoryTest {
     Element project = (Element)projectNL.item(0);
     String about = project.getAttributeNS(RDFUtils.RDF_NS, "about");
     assertEquals("rdf:about has not been set to that of the original file", "http://simal.oss-watch.ac.uk/simalTest#", about);
+  }
+  
+  @Test
+  public void testRemoveBlankPersonNodes() throws SimalRepositoryException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
+    URL url = TestRDFUtils.class.getResource("/testData/testDOAP.xml");
+    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, repository);
+    File processedFile = RDFUtils.getLastProcessedFile(); 
+    
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setNamespaceAware(true);
+
+    DocumentBuilder db = dbf.newDocumentBuilder();
+    dom = db.parse(new FileInputStream(processedFile));
+    
+    NodeList personNL = dom.getElementsByTagNameNS(RDFUtils.FOAF_NS, "Person");
+    Element person = (Element)personNL.item(0);
+    String about = person.getAttributeNS(RDFUtils.RDF_NS, "about");
+    assertFalse("rdf:about is empty", about.equals(""));
+    assertTrue("rdf:about contains spaces - " + about, about.indexOf(" ") < 0);
   }
   
   @Test
