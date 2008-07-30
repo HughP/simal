@@ -31,6 +31,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class DoapResource extends Resource implements IDoapResource {
 
@@ -76,7 +77,12 @@ public class DoapResource extends Resource implements IDoapResource {
     if (name != null) {
       return name.getString();
     } else {
-      return getURI();
+      name = jenaResource.getProperty(RDFS.label);
+      if (name != null) {
+        return name.getString();
+      } else {
+        return getURI();
+      }
     }
   }
 
