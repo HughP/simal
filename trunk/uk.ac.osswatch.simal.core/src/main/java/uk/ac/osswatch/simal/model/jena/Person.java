@@ -26,8 +26,10 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -127,9 +129,9 @@ public class Person extends Resource implements IPerson {
     return names;
   }
 
-  public Set<Homepage> getHomepages() {
+  public Set<IDoapHomepage> getHomepages() {
     StmtIterator itr = jenaResource.listProperties(Foaf.HOMEPAGE);
-    Set<Homepage> homepages = new HashSet<Homepage>();
+    Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
       homepages.add(new Homepage(itr.nextStatement().getResource()));
     }
@@ -174,6 +176,41 @@ public class Person extends Resource implements IPerson {
       }
       return (String) names.toArray()[0];
     }
+  }
+
+  public Set<IProject> getProjects() {
+    String uri = getURI();
+    String queryStr = "PREFIX foaf: <" + Foaf.NS + "> " + "PREFIX doap: <"
+        + Doap.NS + "> " + "PREFIX rdf: <" + ISimalRepository.RDF_NAMESPACE_URI
+        + "> " + "SELECT DISTINCT ?project WHERE { "
+        + "?project rdf:type doap:Project . " + "{?project doap:maintainer <"
+        + uri + "> } UNION " + "{?project doap:developer <" + uri
+        + "> } UNION " + "{?project doap:documentor <" + uri + "> } UNION "
+        + "{?project doap:helper <" + uri + "> } UNION "
+        + "{?project doap:tester <" + uri + "> } UNION "
+        + "{?project doap:translator <" + uri + "> }}";
+    logger.debug(("Executing SPARQL query:\n" + queryStr));
+    Query query = QueryFactory.create(queryStr);
+    QueryExecution qe = QueryExecutionFactory.create(query, jenaResource
+        .getModel());
+    ResultSet results = qe.execSelect();
+
+    Set<IProject> projects = new HashSet<IProject>();
+    IProject project;
+    while (results.hasNext()) {
+      QuerySolution soln = results.nextSolution();
+      RDFNode node = soln.get("project");
+      if (node.isResource()) {
+        project = new Project((com.hp.hpl.jena.rdf.model.Resource) node);
+        String id = project.getSimalID();
+        if (!id.equals(getSimalID())) {
+          projects.add(project);
+        }
+      }
+    }
+    qe.close();
+
+    return projects;
   }
 
 }
