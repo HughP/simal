@@ -109,7 +109,7 @@
       <p>
         When writing new content it is best to run a version of Forrest
         in dynamic mode. This allows you to edit files and see the
-        changes immediatey. To run Forres in dynamic mode simply execute
+        changes immediately. To run Forrest in dynamic mode simply execute
         the command
         <code>forrest run</code>
         , and then point your browser at
@@ -126,7 +126,7 @@
         The
         <a href="ext:simal/devSite">developer site</a>
         is where you will find all the tools for project management and
-        developmenr, such as:
+        development, such as:
       </p>
 
       <ul>
@@ -157,7 +157,7 @@
         </p>
 
         <p>
-          The second type of content, project manaement materials, is
+          The second type of content, project management materials, is
           content that is not of general interest to Simal users and
           contributors. That is, it is content only of interest to the
           project maintainers. It is kept on the wiki in order to
@@ -181,7 +181,7 @@
       repository is flushed and re-seeded with sample data.</p>
       
       <warning>As the demo site is used to show new features it will often be
-      the first place that bugs appear. As Simal stabalises we will set up 
+      the first place that bugs appear. As Simal stabilises we will set up 
       a stable demo, but for now the demo site is assumed to be for test
       purposes only.</warning>
     </section>
