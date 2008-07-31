@@ -50,6 +50,10 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class Project extends DoapResource implements IProject {
 
+  /**
+   * 
+   */
+  private static final long serialVersionUID = 1960364043645152134L;
   private static final Logger logger = LoggerFactory.getLogger(Project.class);
 
   public Project(com.hp.hpl.jena.rdf.model.Resource resource) {
@@ -380,5 +384,8 @@ public class Project extends DoapResource implements IProject {
     model.remove(statement);
   }
 
+  public String toString() {
+    return getNames().toString();
+  }
 
 }
