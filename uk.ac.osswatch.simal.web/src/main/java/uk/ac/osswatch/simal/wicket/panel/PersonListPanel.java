@@ -82,7 +82,7 @@ public class PersonListPanel extends Panel {
      * populateItem(Item cellItem, String componentId, IModel model) {
      * cellItem.add(new ActionPanel(componentId, model)); } });
      */
-    columns.add(new LinkPropertyColumn(new Model("Label"), "label", "label") {
+    columns.add(new LinkPropertyColumn(new Model("Name"), "label", "label") {
 
       @Override
       public void onClick(Item item, String componentId, IModel model) {
@@ -93,6 +93,8 @@ public class PersonListPanel extends Panel {
     });
     columns
         .add(new PropertyColumn(new Model("EMail"), "email", "email"));
+    columns
+    .add(new PropertyColumn(new Model("Projects"), "projects", "projects"));
 
     SortableDataProvider dataProvider = new SortablePersonDataProvider(people);
     dataProvider.setSort(SortablePersonDataProvider.SORT_PROPERTY_LABEL, true);
