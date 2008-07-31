@@ -65,7 +65,7 @@
 
       <p>
         We use a combination of the priority and milestone labels to
-        provide an indication of when an issue will be address. The
+        provide an indication of when an issue will be addressed. The
         milestone label indicates which release the issue is currently
         scheduled for whilst the priority indicates how likely it is
         that it will actually make it into the release. That is, the

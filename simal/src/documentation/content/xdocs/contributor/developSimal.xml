@@ -22,7 +22,7 @@
 
     <version>0.2</version>
 
-    <abstract>This How-To describes how to set up your development envirnment
+    <abstract>This How-To describes how to set up your development environment
     for working with Simal. Since Simal uses many Eclipse plugins in components
     of the Simal project it makes most sense for you to work within the Eclipse
     environment (although this is not a requirement, it just makes your life
@@ -57,7 +57,7 @@
       <section>
         <title>Eclipse 3.3 + Web Tools Project 2.0</title>
         
-        <p class="instruction">If you do not currently have eclipse installed we recomend that you 
+        <p class="instruction">If you do not currently have eclipse installed we recommend that you 
         download and unpack the 
         <a href="http://download.eclipse.org/webtools/downloads/">Eclipse + WTP</a> All in one
         package.</p>
@@ -102,7 +102,7 @@
       <p>We use Maven to build simal. If you want to use maven from the command line
       you need to <a href="http://maven.apache.org/download.html">
       download and install</a> Maven 2 on your machine. However, if
-      you only intend to use maven fro within Eclipse then you just
+      you only intend to use maven from within Eclipse then you just
       need the Q4E plugin described in the next section.</p> 
       
       <section>
@@ -163,7 +163,7 @@
       
       <section>
         <title>Mylyn Generic Issue Tracker Integration</title>
-        <fixme author="rdg">Describe out use of the Mylyn generic issue tracker to integrate with 
+        <fixme author="rdg">Describe our use of the Mylyn generic issue tracker to integrate with 
         Google Code - see http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code</fixme>
       </section>
       
