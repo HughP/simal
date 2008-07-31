@@ -29,7 +29,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 public class ModelSupport {
-  public static final String TEST_FILE_BASE_URL = "http://exmple.org/baseURI";
+  public static final String TEST_FILE_BASE_URL = "http://example.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
   public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
