@@ -30,6 +30,7 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -126,6 +127,11 @@ public class TestPerson extends BaseRepositoryTest {
   public void testSeeAlso() {
     Set<URI> seeAlso = developer.getSeeAlso();
     assertEquals("There should be a single see also value", 1, seeAlso.size());
-
+  }
+  
+  @Test
+  public void testGetProjects() {
+    Set<IProject> projects = developer.getProjects();
+    assertEquals("Developer is not in the correct number of projects", projects.size(), 1);
   }
 }

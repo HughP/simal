@@ -17,7 +17,6 @@ package uk.ac.osswatch.simal.model;
 
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.jena.Homepage;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 
@@ -99,6 +98,12 @@ public interface IPerson extends IFoafResource {
    * Get all the homepages for this person.
    * @return
    */
-  public Set<Homepage> getHomepages();
+  public Set<IDoapHomepage> getHomepages();
+  
+  /**
+   * Get all the projects that involve this person.
+   * @return
+   */
+  public Set<IProject> getProjects();
 
 }
