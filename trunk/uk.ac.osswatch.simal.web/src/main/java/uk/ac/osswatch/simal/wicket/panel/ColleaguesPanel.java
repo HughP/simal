@@ -1,4 +1,5 @@
-package uk.ac.osswatch.simal.wicket.data;
+package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,38 +16,26 @@ package uk.ac.osswatch.simal.wicket.data;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
-
-import java.util.Set;
+import org.apache.wicket.markup.html.panel.Panel;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
+import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.UserReportableException;
 
-/**
- * A person data provider that allows the persons to be sorted.
- * 
- */
-public class SortablePersonDataProvider extends SortableFoafResourceDataProvider {
-	private static final long serialVersionUID = -2975592768329164790L;
+public class ColleaguesPanel extends Panel {
+  private static final long serialVersionUID = 1L;
 
-  /**
-	 * Create a SortableDataProvider containing all people in the repository
-	 * 
-	 * @param size
-	 * @throws SimalRepositoryException 
-	 */
-	public SortablePersonDataProvider() throws SimalRepositoryException {
-		super(UserApplication.getRepository().getAllPeople());
-	}
+  public ColleaguesPanel(String id, IPerson person) {
+    super(id);
 
-  /**
-   * Create a SortableDataProvider containing all people supplied.
-   * 
-   * @param size
-   * @throws SimalRepositoryException 
-   */
-  public SortablePersonDataProvider(Set<IPerson> people) throws SimalRepositoryException {
-    super(people);
+    try {
+      add(new PersonListPanel("colleaguesList", "Colleagues", person.getColleagues()));
+    } catch (SimalRepositoryException e) {
+      UserReportableException error = new UserReportableException(
+          "Unable to get people from the repository", ColleaguesPanel.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    }
   }
+
 }

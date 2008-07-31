@@ -35,7 +35,7 @@ public class TestErrorReportPage extends TestBase {
 		tester.assertVisible("footer");
 		
 		Label details = (Label) tester.getComponentFromLastRenderedPage("errorDetails");
-		String strDetails = (String)details.getModel().getObject();
+		String strDetails = (String)details.getDefaultModel().getObject();
 		assertTrue("Error report does not appear to contain the error message", strDetails.contains("Just testing"));
 		assertTrue("Error report does not appear to contain the reporting class details", strDetails.contains("ErrorReportPage"));
 		assertTrue("Error report does not appear to contain the cause report", strDetails.contains("IllegalArgumentException"));

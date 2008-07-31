@@ -33,7 +33,7 @@ public class PersonBrowserPage extends BasePage {
 
   public PersonBrowserPage() {
     try {
-      add(new PersonListPanel("personList"));
+      add(new PersonListPanel("personList", "All People"));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get people from the repository",
