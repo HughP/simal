@@ -17,9 +17,12 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
@@ -34,12 +37,22 @@ public class SortableCategoryDataProvider extends
       .getLogger(SortableCategoryDataProvider.class);
 
   /**
-   * Create a SortableDataProvider containing all projects in the repository
+   * Create a SortableDataProvider containing all categories in the repository
    * 
    * @param size
    * @throws SimalRepositoryException
    */
   public SortableCategoryDataProvider() throws SimalRepositoryException {
     super(UserApplication.getRepository().getAllCategories());
+  }
+  
+  /**
+   * Create a SortableDataProvider containing a supplied set of categories.
+   * 
+   * @param size
+   * @throws SimalRepositoryException
+   */
+  public SortableCategoryDataProvider(Set<IDoapCategory> categories) {
+    super(categories);
   }
 }

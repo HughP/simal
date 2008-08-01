@@ -33,6 +33,7 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
+import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
@@ -118,8 +119,7 @@ public class ProjectDetailPage extends BasePage {
         new SortableDoapResourceDataProvider(project.getScreenshots()), false));
 
     // facets
-    add(getRepeatingLinks("categories", "category",
-        new SortableDoapResourceDataProvider(project.getCategories()), true));
+    add(new CategoryListPanel("categoryList", project.getCategories()));
     add(getRepeatingLabels("OSes", "OS", project.getOSes()));
     add(getRepeatingLabels("programmingLanguages", "programmingLanguage",
         project.getProgrammingLanguages()));
