@@ -36,7 +36,7 @@ public class UserApplication extends WebApplication {
 	public static final String DEFAULT_PROJECT_URI = 
 			"http://simal.oss-watch.ac.uk/simalTest#";
 
-  public static final String DEFAULT_PERSON_URI = "http://simal.oss-watch.ac.uk/foaf/Jane Blogs Maintainer#Person";
+  public static final String DEFAULT_PERSON_URI = "http://simal.oss-watch.ac.uk/foaf/Jane%20Blogs%20Maintainer#Person";
 
 	private static ISimalRepository repository;
 
