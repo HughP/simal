@@ -42,5 +42,11 @@ public class TestResource extends BaseRepositoryTest {
     repository.destroy();
     initRepository();
   }
+  
+  @Test
+  public void testToXML() throws SimalRepositoryException {
+    String xml = project1.toXML();
+    assertNotNull(xml);
+  }
 
 }
