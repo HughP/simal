@@ -33,6 +33,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.RDFWriter;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -126,9 +127,11 @@ public class Resource implements IResource {
   }
 
   public String toXML() throws SimalRepositoryException {
-    StringWriter writer = new StringWriter();
-    jenaResource.getModel().write(writer);
-    return writer.toString();
+    Model model = jenaResource.getModel();
+    RDFWriter writer = model.getWriter("RDF/XML-ABBREV");
+    StringWriter sw = new StringWriter();
+    writer.write(model, sw, null);
+    return sw.toString();
   }
 
   public String toString() {
