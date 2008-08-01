@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.wicket;
 
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 
