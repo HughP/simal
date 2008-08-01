@@ -71,7 +71,7 @@ public class Person extends Resource implements IPerson {
         + "{?project doap:translator ?colleague} " + "}";
     logger.debug(("Executing SPARQL query:\n" + queryStr));
     Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, jenaResource
+    QueryExecution qe = QueryExecutionFactory.create(query, getJenaResource()
         .getModel());
     ResultSet results = qe.execSelect();
 
@@ -94,7 +94,7 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<IInternetAddress> getEmail() {
-    StmtIterator itr = jenaResource.listProperties(Foaf.MBOX);
+    StmtIterator itr = getJenaResource().listProperties(Foaf.MBOX);
     Set<IInternetAddress> emails = new HashSet<IInternetAddress>();
     while (itr.hasNext()) {
       emails.add(new InternetAddress(itr.nextStatement().getResource()));
@@ -103,7 +103,7 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<String> getGivennames() {
-    StmtIterator itr = jenaResource.listProperties(Foaf.GIVENNAME);
+    StmtIterator itr = getJenaResource().listProperties(Foaf.GIVENNAME);
     Set<String> names = new HashSet<String>();
     while (itr.hasNext()) {
       names.add(itr.nextStatement().getString());
@@ -112,7 +112,7 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<String> getNames() {
-    StmtIterator itr = jenaResource.listProperties(Foaf.NAME);
+    StmtIterator itr = getJenaResource().listProperties(Foaf.NAME);
     Set<String> names = new HashSet<String>();
     while (itr.hasNext()) {
       names.add(itr.nextStatement().getString());
@@ -121,7 +121,7 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<String> getFirstnames() {
-    StmtIterator itr = jenaResource.listProperties(Foaf.FIRST_NAME);
+    StmtIterator itr = getJenaResource().listProperties(Foaf.FIRST_NAME);
     Set<String> names = new HashSet<String>();
     while (itr.hasNext()) {
       names.add(itr.nextStatement().getString());
@@ -130,7 +130,7 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<IDoapHomepage> getHomepages() {
-    StmtIterator itr = jenaResource.listProperties(Foaf.HOMEPAGE);
+    StmtIterator itr = getJenaResource().listProperties(Foaf.HOMEPAGE);
     Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
       homepages.add(new Homepage(itr.nextStatement().getResource()));
@@ -139,7 +139,7 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<IPerson> getKnows() {
-    StmtIterator itr = jenaResource.listProperties(Foaf.KNOWS);
+    StmtIterator itr = getJenaResource().listProperties(Foaf.KNOWS);
     Set<IPerson> people = new HashSet<IPerson>();
     while (itr.hasNext()) {
       people.add(new Person(itr.nextStatement().getResource()));
@@ -148,12 +148,12 @@ public class Person extends Resource implements IPerson {
   }
 
   public String getSimalID() {
-    Statement idStatement = jenaResource.getProperty(SimalOntology.PERSON_ID);
+    Statement idStatement = getJenaResource().getProperty(SimalOntology.PERSON_ID);
     return idStatement.getString();
   }
 
   public void setSimalID(String newId) {
-    jenaResource.addLiteral(SimalOntology.PERSON_ID, newId);
+    getJenaResource().addLiteral(SimalOntology.PERSON_ID, newId);
   }
 
   /**
@@ -191,7 +191,7 @@ public class Person extends Resource implements IPerson {
         + "{?project doap:translator <" + uri + "> }}";
     logger.debug(("Executing SPARQL query:\n" + queryStr));
     Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, jenaResource
+    QueryExecution qe = QueryExecutionFactory.create(query, getJenaResource()
         .getModel());
     ResultSet results = qe.execSelect();
 

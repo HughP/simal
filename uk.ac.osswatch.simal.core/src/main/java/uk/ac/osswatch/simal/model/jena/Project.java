@@ -73,7 +73,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapCategory> getCategories() {
-    StmtIterator itr = jenaResource.listProperties(Doap.CATEGORY);
+    StmtIterator itr = getJenaResource().listProperties(Doap.CATEGORY);
     Set<IDoapCategory> cats = new HashSet<IDoapCategory>();
     while (itr.hasNext()) {
       cats.add(new Category(itr.nextStatement().getResource()));
@@ -82,7 +82,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IPerson> getDevelopers() {
-    StmtIterator itr = jenaResource.listProperties(Doap.DEVELOPER);
+    StmtIterator itr = getJenaResource().listProperties(Doap.DEVELOPER);
     Set<IPerson> people = new HashSet<IPerson>();
     while (itr.hasNext()) {
       people.add(new Person(itr.nextStatement().getResource()));
@@ -91,7 +91,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IPerson> getDocumenters() {
-    StmtIterator itr = jenaResource.listProperties(Doap.DOCUMENTER);
+    StmtIterator itr = getJenaResource().listProperties(Doap.DOCUMENTER);
     Set<IPerson> people = new HashSet<IPerson>();
     while (itr.hasNext()) {
       people.add(new Person(itr.nextStatement().getResource()));
@@ -100,7 +100,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapDownloadMirror> getDownloadMirrors() {
-    StmtIterator itr = jenaResource.listProperties(Doap.DOWNLOAD_MIRROR);
+    StmtIterator itr = getJenaResource().listProperties(Doap.DOWNLOAD_MIRROR);
     Set<IDoapDownloadMirror> mirrors = new HashSet<IDoapDownloadMirror>();
     while (itr.hasNext()) {
       mirrors.add(new DownloadMirror(itr.nextStatement().getResource()));
@@ -109,7 +109,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapDownloadPage> getDownloadPages() {
-    StmtIterator itr = jenaResource.listProperties(Doap.DOWNLOAD_PAGE);
+    StmtIterator itr = getJenaResource().listProperties(Doap.DOWNLOAD_PAGE);
     Set<IDoapDownloadPage> pages = new HashSet<IDoapDownloadPage>();
     while (itr.hasNext()) {
       pages.add(new DownloadPage(itr.nextStatement().getResource()));
@@ -118,7 +118,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IPerson> getHelpers() {
-    StmtIterator itr = jenaResource.listProperties(Doap.HELPER);
+    StmtIterator itr = getJenaResource().listProperties(Doap.HELPER);
     Set<IPerson> people = new HashSet<IPerson>();
     while (itr.hasNext()) {
       people.add(new Person(itr.nextStatement().getResource()));
@@ -127,7 +127,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapHomepage> getHomepages() {
-    StmtIterator itr = jenaResource.listProperties(Doap.HOMEPAGE);
+    StmtIterator itr = getJenaResource().listProperties(Doap.HOMEPAGE);
     Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
       pages.add(new Homepage(itr.nextStatement().getResource()));
@@ -136,7 +136,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapBugDatabase> getIssueTrackers() {
-    StmtIterator itr = jenaResource.listProperties(Doap.BUG_DATABASE);
+    StmtIterator itr = getJenaResource().listProperties(Doap.BUG_DATABASE);
     Set<IDoapBugDatabase> trackers = new HashSet<IDoapBugDatabase>();
     while (itr.hasNext()) {
       trackers.add(new BugDatabase(itr.nextStatement().getResource()));
@@ -146,7 +146,7 @@ public class Project extends DoapResource implements IProject {
 
   public Set<IDoapLicence> getLicences() {
     HashSet<IDoapLicence> licences = new HashSet<IDoapLicence>();
-    StmtIterator statements = jenaResource.listProperties(Doap.LICENSE);
+    StmtIterator statements = getJenaResource().listProperties(Doap.LICENSE);
     while (statements.hasNext()) {
       licences.add(new Licence(statements.nextStatement().getResource()));
     }
@@ -155,7 +155,7 @@ public class Project extends DoapResource implements IProject {
 
   public Set<IDoapMailingList> getMailingLists() {
     HashSet<IDoapMailingList> lists = new HashSet<IDoapMailingList>();
-    StmtIterator statements = jenaResource.listProperties(Doap.MAILING_LIST);
+    StmtIterator statements = getJenaResource().listProperties(Doap.MAILING_LIST);
     while (statements.hasNext()) {
       lists.add(new MailingList(statements.nextStatement().getResource()));
     }
@@ -164,7 +164,7 @@ public class Project extends DoapResource implements IProject {
 
   public Set<IPerson> getMaintainers() {
     HashSet<IPerson> people = new HashSet<IPerson>();
-    StmtIterator maintainers = jenaResource.listProperties(Doap.MAINTAINER);
+    StmtIterator maintainers = getJenaResource().listProperties(Doap.MAINTAINER);
     while (maintainers.hasNext()) {
       people.add(new Person(maintainers.nextStatement().getResource()));
     }
@@ -172,7 +172,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<String> getOSes() {
-    StmtIterator itr = jenaResource.listProperties(Doap.OS);
+    StmtIterator itr = getJenaResource().listProperties(Doap.OS);
     Set<String> langs = new HashSet<String>();
     while (itr.hasNext()) {
       langs.add(itr.nextStatement().getString());
@@ -181,7 +181,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapHomepage> getOldHomepages() {
-    StmtIterator itr = jenaResource.listProperties(Doap.OLD_HOMEPAGE);
+    StmtIterator itr = getJenaResource().listProperties(Doap.OLD_HOMEPAGE);
     Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
       pages.add(new Homepage(itr.nextStatement().getResource()));
@@ -190,7 +190,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<String> getProgrammingLanguages() {
-    StmtIterator itr = jenaResource.listProperties(Doap.PROGRAMMING_LANGUAGE);
+    StmtIterator itr = getJenaResource().listProperties(Doap.PROGRAMMING_LANGUAGE);
     Set<String> langs = new HashSet<String>();
     while (itr.hasNext()) {
       langs.add(itr.nextStatement().getString());
@@ -200,7 +200,7 @@ public class Project extends DoapResource implements IProject {
 
   public Set<IDoapRelease> getReleases() {
     HashSet<IDoapRelease> releases = new HashSet<IDoapRelease>();
-    StmtIterator statements = jenaResource.listProperties(Doap.RELEASE);
+    StmtIterator statements = getJenaResource().listProperties(Doap.RELEASE);
     while (statements.hasNext()) {
       releases.add(new Release(statements.nextStatement().getResource()));
     }
@@ -209,7 +209,7 @@ public class Project extends DoapResource implements IProject {
 
   public Set<IDoapRepository> getRepositories() {
     HashSet<IDoapRepository> repos= new HashSet<IDoapRepository>();
-    StmtIterator statements = jenaResource.listProperties(Doap.REPOSITORY);
+    StmtIterator statements = getJenaResource().listProperties(Doap.REPOSITORY);
     while (statements.hasNext()) {
       repos.add(new Repository(statements.nextStatement().getResource()));
     }
@@ -217,7 +217,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapScreenshot> getScreenshots() {
-    StmtIterator itr = jenaResource.listProperties(Doap.SCREENSHOTS);
+    StmtIterator itr = getJenaResource().listProperties(Doap.SCREENSHOTS);
     Set<IDoapScreenshot> langs = new HashSet<IDoapScreenshot>();
     while (itr.hasNext()) {
       langs.add(new Screenshot(itr.nextStatement().getResource()));
@@ -226,12 +226,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public String getSimalID() {
-    Statement idStatement = jenaResource.getProperty(SimalOntology.PROJECT_ID);
+    Statement idStatement = getJenaResource().getProperty(SimalOntology.PROJECT_ID);
     return idStatement.getString();
   }
 
   public Set<IPerson> getTesters() {
-    StmtIterator itr = jenaResource.listProperties(Doap.TESTER);
+    StmtIterator itr = getJenaResource().listProperties(Doap.TESTER);
     Set<IPerson> people = new HashSet<IPerson>();
     while (itr.hasNext()) {
       people.add(new Person(itr.nextStatement().getResource()));
@@ -240,7 +240,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IPerson> getTranslators() {
-    StmtIterator itr = jenaResource.listProperties(Doap.TRANSLATOR);
+    StmtIterator itr = getJenaResource().listProperties(Doap.TRANSLATOR);
     Set<IPerson> people = new HashSet<IPerson>();
     while (itr.hasNext()) {
       people.add(new Person(itr.nextStatement().getResource()));
@@ -249,7 +249,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapWiki> getWikis() {
-    StmtIterator itr = jenaResource.listProperties(Doap.WIKI);
+    StmtIterator itr = getJenaResource().listProperties(Doap.WIKI);
     Set<IDoapWiki> pages = new HashSet<IDoapWiki>();
     while (itr.hasNext()) {
       pages.add(new Wiki(itr.nextStatement().getResource()));
@@ -258,7 +258,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void setSimalID(String newID) {
-    jenaResource.addLiteral(SimalOntology.PROJECT_ID, newID);
+    getJenaResource().addLiteral(SimalOntology.PROJECT_ID, newID);
   }
   
   protected String toJSONRecordContent() throws SimalRepositoryException {
@@ -313,74 +313,74 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void removeDeveloper(IPerson person) throws SimalRepositoryException {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.remove(statement);
   }
 
   public void addDeveloper(IPerson person) {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.add(statement);
   }
 
   public void addDocumenter(IPerson person) {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.DOCUMENTER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.DOCUMENTER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.add(statement);
   }
 
   public void addHelper(IPerson person) {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.HELPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.HELPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.add(statement);
   }
 
   public void addMaintainer(IPerson person) {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.MAINTAINER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.MAINTAINER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.add(statement);
   }
 
   public void addTester(IPerson person) {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.TESTER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.TESTER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.add(statement);
   }
 
   public void addTranslator(IPerson person) {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.TRANSLATOR, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.TRANSLATOR, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.add(statement);
   }
 
   public void removeDocumenter(IPerson person) throws SimalRepositoryException {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.DOCUMENTER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.DOCUMENTER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.remove(statement);
   }
 
   public void removeHelper(IPerson person) throws SimalRepositoryException {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.HELPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.HELPER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.remove(statement);
   }
 
   public void removeMaintainer(IPerson person) throws SimalRepositoryException {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.MAINTAINER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.MAINTAINER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.remove(statement);
   }
 
   public void removeTester(IPerson person) throws SimalRepositoryException {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.TESTER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.TESTER, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.remove(statement);
   }
 
   public void removeTranslator(IPerson person) throws SimalRepositoryException {
-    Model model = jenaResource.getModel(); 
-    Statement statement = model.createStatement(jenaResource, Doap.TRANSLATOR, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), Doap.TRANSLATOR, (com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource());
     model.remove(statement);
   }
 

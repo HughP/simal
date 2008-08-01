@@ -21,6 +21,8 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
+import com.hp.hpl.jena.rdf.model.Resource;
+
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -366,4 +368,5 @@ public interface ISimalRepository {
    * way to retrieve the data.
    */
   public void removeAllData();
+
 }
