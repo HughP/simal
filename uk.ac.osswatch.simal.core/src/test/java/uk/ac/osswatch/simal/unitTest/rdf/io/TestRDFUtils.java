@@ -80,17 +80,17 @@ public class TestRDFUtils extends BaseRepositoryTest {
     Node personNode = personNL.item(0);
     atts = personNode.getAttributes();
     about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
-    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Joe Blogs Maintainer#Person", about);
+    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Joe%20Blogs%20Maintainer#Person", about);
 
     personNode = personNL.item(1);
     atts = personNode.getAttributes();
     about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
-    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Jane Blogs Maintainer#Person", about);
+    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Jane%20Blogs%20Maintainer#Person", about);
     
     personNode = personNL.item(2);
     atts = personNode.getAttributes();
     about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
-    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Janet Blogo#Person", about);
+    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Janet%20Blogo#Person", about);
   }
 
   @Test
@@ -118,7 +118,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
     Node projectNode = getProjectNode();
     NamedNodeMap atts = projectNode.getAttributes();
     String about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
-    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/doap/Simal (No rdf:about) DOAP Test#Project", about);
+    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/doap/Simal%20(No%20rdf:about)%20DOAP%20Test#Project", about);
   }
 
   private Node getProjectNode() {

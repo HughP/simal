@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
@@ -159,7 +158,7 @@ public class RDFUtils {
           }
           uri = uri + "doap#";
           uri = uri + el.getNodeName();
-          el.setAttributeNS(RDF_NS, "rdf:about", URLEncoder.encode(uri, "UTF-8"));
+          el.setAttributeNS(RDF_NS, "rdf:about", encode(uri));
         }
       }
     }
@@ -209,7 +208,7 @@ public class RDFUtils {
           Node nameNode = el.getElementsByTagNameNS(DOAP_NS, "name").item(0);
           uri = uri + nameNode.getFirstChild().getNodeValue();
           uri = uri + "#Project";
-          el.setAttributeNS(RDF_NS, "rdf:about", URLEncoder.encode(uri, "UTF-8"));
+          el.setAttributeNS(RDF_NS, "rdf:about", encode(uri));
         }
       }
     }
@@ -246,11 +245,21 @@ public class RDFUtils {
           String uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
           uri = uri + name;
           uri = uri + "#Person";
-          el.setAttributeNS(RDF_NS, "rdf:about", URLEncoder.encode(uri, "UTF-8"));
+          el.setAttributeNS(RDF_NS, "rdf:about", encode(uri));
         }
 
       }
     }
+  }
+
+  /**
+   * Encode the given string so that it can be used to create a valid URI.
+   * FOr example, encode ' ' as %20
+   * @param uri
+   * @return
+   */
+  private static String encode(String uri) {
+    return uri.replace(" ", "%20");
   }
 
   /**
@@ -273,7 +282,7 @@ public class RDFUtils {
               .item(0);
           uri = uri + "/" + revisionNode.getFirstChild().getNodeValue();
           uri = uri + "#Version";
-          el.setAttributeNS(RDF_NS, "rdf:about", URLEncoder.encode(uri, "UTF-8"));
+          el.setAttributeNS(RDF_NS, "rdf:about", encode(uri));
         }
       }
     }
