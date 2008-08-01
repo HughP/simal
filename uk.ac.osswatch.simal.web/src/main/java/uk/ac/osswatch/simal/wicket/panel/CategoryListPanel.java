@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.wicket.panel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
@@ -43,7 +44,17 @@ public class CategoryListPanel extends Panel {
 
   public CategoryListPanel(String id) throws SimalRepositoryException {
     super(id);
+    SortableDataProvider dataProvider = new SortableCategoryDataProvider();
+    addCategoryList(dataProvider);
+  }
 
+  public CategoryListPanel(String id, Set<IDoapCategory> categories) {
+    super(id);
+    SortableDataProvider dataProvider = new SortableCategoryDataProvider(categories);
+    addCategoryList(dataProvider);
+  }
+
+  private void addCategoryList(SortableDataProvider dataProvider) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     /*
      * columns.add(new AbstractColumn(new Model("Actions")) { public void
@@ -59,8 +70,6 @@ public class CategoryListPanel extends Panel {
       }
 
     });
-
-    SortableDataProvider dataProvider = new SortableCategoryDataProvider();
     dataProvider.setSort(SortableCategoryDataProvider.SORT_PROPERTY_NAME, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
   }
