@@ -40,11 +40,11 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public void addName(String name) {
-    jenaResource.addLiteral(Doap.NAME, name);
+    getJenaResource().addLiteral(Doap.NAME, name);
   }
 
   public String getCreated() {
-    Statement created = jenaResource.getProperty(Doap.CREATED);
+    Statement created = getJenaResource().getProperty(Doap.CREATED);
     if (created != null) {
       return created.getString();
     } else {
@@ -53,7 +53,7 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getDescription() {
-    Statement resource = jenaResource.getProperty(Doap.DESCRIPTION);
+    Statement resource = getJenaResource().getProperty(Doap.DESCRIPTION);
     String desc;
     if (resource == null) {
       desc = getShortDesc();
@@ -64,7 +64,7 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public Set<IDoapLicence> getLicences() {
-    StmtIterator itr = jenaResource.listProperties(Doap.LICENSE);
+    StmtIterator itr = getJenaResource().listProperties(Doap.LICENSE);
     Set<IDoapLicence> results = new HashSet<IDoapLicence>();
     while (itr.hasNext()) {
       results.add(new Licence(itr.nextStatement().getResource()));
@@ -73,11 +73,11 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getName() {
-    Statement name = jenaResource.getProperty(Doap.NAME);
+    Statement name = getJenaResource().getProperty(Doap.NAME);
     if (name != null) {
       return name.getString();
     } else {
-      name = jenaResource.getProperty(RDFS.label);
+      name = getJenaResource().getProperty(RDFS.label);
       if (name != null) {
         return name.getString();
       } else {
@@ -87,7 +87,7 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public Set<String> getNames() {
-    StmtIterator itr = jenaResource.listProperties(Doap.NAME);
+    StmtIterator itr = getJenaResource().listProperties(Doap.NAME);
     Set<String> results = new HashSet<String>();
     while (itr.hasNext()) {
       results.add(itr.nextStatement().getString().trim());
@@ -96,7 +96,7 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getShortDesc() {
-    Statement desc = jenaResource.getProperty(Doap.SHORTDESC);
+    Statement desc = getJenaResource().getProperty(Doap.SHORTDESC);
     if (desc != null) {
       return desc.getString().trim();
     } else {
@@ -105,18 +105,18 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public void setCreated(String newCreated) throws SimalRepositoryException {
-    jenaResource.removeAll(Doap.CREATED);
-    jenaResource.addLiteral(Doap.CREATED, newCreated);
+    getJenaResource().removeAll(Doap.CREATED);
+    getJenaResource().addLiteral(Doap.CREATED, newCreated);
   }
 
   public void setDescription(String newDescription) {
-    jenaResource.removeAll(Doap.DESCRIPTION);
-    jenaResource.addLiteral(Doap.DESCRIPTION, newDescription);
+    getJenaResource().removeAll(Doap.DESCRIPTION);
+    getJenaResource().addLiteral(Doap.DESCRIPTION, newDescription);
   }
 
   public void setShortDesc(String shortDesc) {
-    jenaResource.removeAll(Doap.SHORTDESC);
-    jenaResource.addLiteral(Doap.SHORTDESC, shortDesc);
+    getJenaResource().removeAll(Doap.SHORTDESC);
+    getJenaResource().addLiteral(Doap.SHORTDESC, shortDesc);
   }
 
   public String toString() {

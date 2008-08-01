@@ -38,7 +38,7 @@ public class Repository extends DoapResource implements IDoapRepository {
 
   public Repository(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
-    Resource type = jenaResource.getProperty(RDF.type).getResource();
+    Resource type = getJenaResource().getProperty(RDF.type).getResource();
     if (type.equals(Doap.ARCH_REPOSITORY)) {
       isARCH = true;
     }
@@ -55,7 +55,7 @@ public class Repository extends DoapResource implements IDoapRepository {
 
   public Set<String> getAnonRoots() {
     HashSet<String> locations = new HashSet<String>();
-    StmtIterator itr = jenaResource.listProperties(Doap.ANON_ROOT);
+    StmtIterator itr = getJenaResource().listProperties(Doap.ANON_ROOT);
     while (itr.hasNext()) {
       locations.add(itr.nextStatement().getString());
     }
@@ -64,7 +64,7 @@ public class Repository extends DoapResource implements IDoapRepository {
 
   public Set<IDoapLocation> getLocations() {
     HashSet<IDoapLocation> locations = new HashSet<IDoapLocation>();
-    StmtIterator itr = jenaResource.listProperties(Doap.LOCATION);
+    StmtIterator itr = getJenaResource().listProperties(Doap.LOCATION);
     while (itr.hasNext()) {
       locations.add(new Location(itr.nextStatement().getResource()));
     }
@@ -89,7 +89,7 @@ public class Repository extends DoapResource implements IDoapRepository {
 
   public Set<String> getModule() {
     HashSet<String> modules = new HashSet<String>();
-    StmtIterator itr = jenaResource.listProperties(Doap.MODULE);
+    StmtIterator itr = getJenaResource().listProperties(Doap.MODULE);
     while (itr.hasNext()) {
       modules.add(itr.nextStatement().getString());
     }
@@ -98,7 +98,7 @@ public class Repository extends DoapResource implements IDoapRepository {
 
   public Set<IDoapLocation> getBrowse() {
     HashSet<IDoapLocation> locations = new HashSet<IDoapLocation>();
-    StmtIterator itr = jenaResource.listProperties(Doap.BROWSE);
+    StmtIterator itr = getJenaResource().listProperties(Doap.BROWSE);
     while (itr.hasNext()) {
       locations.add(new Location(itr.nextStatement().getResource()));
     }

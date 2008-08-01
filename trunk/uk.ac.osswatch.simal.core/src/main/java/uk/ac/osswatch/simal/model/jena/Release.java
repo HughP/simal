@@ -34,7 +34,7 @@ public class Release extends DoapResource implements IDoapRelease {
 
   public Set<String> getRevisions() {
     HashSet<String> revisions = new HashSet<String>();
-    StmtIterator statements = jenaResource.listProperties(Doap.REVISION);
+    StmtIterator statements = getJenaResource().listProperties(Doap.REVISION);
     while (statements.hasNext()) {
       revisions.add(statements.nextStatement().getString());
     }

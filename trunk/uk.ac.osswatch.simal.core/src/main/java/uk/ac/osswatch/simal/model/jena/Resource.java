@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.model.jena;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +18,6 @@ Copyright 2007 University of Oxford *
  * 
  */
 
-
 import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -29,7 +29,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -44,14 +46,56 @@ public class Resource implements IResource {
 
   private static final Logger logger = LoggerFactory.getLogger(Resource.class);
 
-  protected com.hp.hpl.jena.rdf.model.Resource jenaResource ;
-  
+  /**
+   * A copy of the jena resource in use. This should never be referenced directly
+   * as it is transient and may not have been reinstated after serialisation.
+   * Instead use the getJenaResource() method which will reinstate the object
+   * when necessary.
+   */
+  transient private com.hp.hpl.jena.rdf.model.Resource jenaResource;
+  String uri;
+
   public Resource(com.hp.hpl.jena.rdf.model.Resource resource) {
+    setJenaResource(resource);
+  }
+
+  /**
+   * The JENA resource object is transient (since it should be serialised to the
+   * repository). Therefore we need to capture the URI as well as the resource
+   * itself. This method will do both for us.
+   * 
+   * @param resource
+   */
+  private void setJenaResource(com.hp.hpl.jena.rdf.model.Resource resource) {
     jenaResource = resource;
+    uri = resource.getURI();
   }
   
+  /**
+   * If we have a copy of the JENA resource then return it.
+   * If not then we must have deserialised this object from
+   * somewhere other than the repository, therefore we need
+   * to grab the JENA resource from the repository and return
+   * that instead.
+   * 
+   * @return
+   */
+  protected com.hp.hpl.jena.rdf.model.Resource getJenaResource() {
+    if (jenaResource == null) {
+      try {
+        ISimalRepository repo = SimalRepository.getInstance();
+        return ((SimalRepository)repo).getResource(getURI());
+      } catch (SimalRepositoryException e) {
+        logger.warn("Unable to get hold of the repository, but we are already running, this should be impossible", e);
+        return null;
+      }
+    } else {
+      return jenaResource; 
+    }
+  }
+
   public String getComment() {
-    Statement commentStatement = jenaResource.getProperty(RDFS.comment);
+    Statement commentStatement = getJenaResource().getProperty(RDFS.comment);
     String comment;
     if (commentStatement == null) {
       comment = "";
@@ -67,20 +111,20 @@ public class Resource implements IResource {
 
   public String getLabel(String defaultLabel) {
     String label;
-    Statement labelStatement = jenaResource.getProperty(RDFS.label);
+    Statement labelStatement = getJenaResource().getProperty(RDFS.label);
     if (labelStatement == null) {
       label = defaultLabel;
     } else {
       label = labelStatement.getString();
     }
     if (label == null) {
-      label = jenaResource.getURI();
+      label = getJenaResource().getURI();
     }
     return label;
   }
 
   public Set<URI> getSeeAlso() {
-    StmtIterator itr = jenaResource.listProperties(RDFS.seeAlso);
+    StmtIterator itr = getJenaResource().listProperties(RDFS.seeAlso);
     Set<URI> uris = new HashSet<URI>();
     while (itr.hasNext()) {
       try {
@@ -93,21 +137,23 @@ public class Resource implements IResource {
   }
 
   public String getURI() {
-    return jenaResource.getURI();
+    return uri;
   }
 
   public URL getURL() throws SimalRepositoryException {
     try {
       return new URL(getURI());
     } catch (MalformedURLException e) {
-      throw new SimalRepositoryException("Unable to create an URL for resource, this method is deprecated, use getURI() instead", e);
+      throw new SimalRepositoryException(
+          "Unable to create an URL for resource, this method is deprecated, use getURI() instead",
+          e);
     }
   }
 
   public void delete() throws SimalRepositoryException {
-    jenaResource.removeProperties();
-    Model model = jenaResource.getModel();
-    Property o = model.createProperty( "http://usefulinc.com/ns/doap#Project" );
+    getJenaResource().removeProperties();
+    Model model = getJenaResource().getModel();
+    Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
     model.remove(jenaResource, RDF.type, o);
   }
 
@@ -117,7 +163,7 @@ public class Resource implements IResource {
       json.append("{ \"items\": [");
     }
     json.append("{");
-    json.append("\"id\":\"" + jenaResource.getURI() + "\",");
+    json.append("\"id\":\"" + getJenaResource().getURI() + "\",");
     json.append("\"label\":\"" + getLabel() + "\",");
     json.append("}");
     if (!asRecord) {
@@ -127,7 +173,7 @@ public class Resource implements IResource {
   }
 
   public String toXML() throws SimalRepositoryException {
-    Model model = jenaResource.getModel();
+    Model model = getJenaResource().getModel();
     RDFWriter writer = model.getWriter("RDF/XML-ABBREV");
     StringWriter sw = new StringWriter();
     writer.write(model, sw, null);
@@ -141,6 +187,4 @@ public class Resource implements IResource {
   public Object getRepositoryResource() {
     return jenaResource;
   }
-
-
 }

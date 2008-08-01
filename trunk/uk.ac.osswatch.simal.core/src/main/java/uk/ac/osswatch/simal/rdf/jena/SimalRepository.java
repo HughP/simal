@@ -115,7 +115,7 @@ public class SimalRepository extends AbstractSimalRepository {
       try {
         Class.forName(className);
       } catch (ClassNotFoundException e) {
-        throw new SimalRepositoryException("Unablew to find derby driver", e);
+        throw new SimalRepositoryException("Unable to find derby driver", e);
       }
       String DB_URL;
       if (directory != null) {
@@ -488,6 +488,15 @@ public class SimalRepository extends AbstractSimalRepository {
 
   public void removeAllData() {
     model.removeAll();
+  }
+
+  /**
+   * Get a Jena Resource. 
+   * @param uri
+   * @return
+   */
+  public Resource getResource(String uri) {
+    return model.getResource(uri);
   }
   
 }
