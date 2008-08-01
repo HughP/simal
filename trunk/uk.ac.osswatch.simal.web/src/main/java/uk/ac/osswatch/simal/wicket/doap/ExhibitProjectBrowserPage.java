@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.wicket;
+package uk.ac.osswatch.simal.wicket.doap;
 /*
  * Copyright 2008 University of Oxford
  *
@@ -24,6 +24,11 @@ import java.net.URL;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
+
+import uk.ac.osswatch.simal.wicket.BasePage;
+import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.UserApplication;
+import uk.ac.osswatch.simal.wicket.UserReportableException;
 
 /**
  * Creates a page which contains an <a
