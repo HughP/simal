@@ -27,6 +27,6 @@ public class TestPersonBrowsePage extends TestBase{
   public void testPageRender() {
     tester.startPage(PersonBrowserPage.class);
     tester.assertRenderedPage(PersonBrowserPage.class);
-    tester.assertVisible("personList");
+    tester.assertVisible("footer");
   }
 }

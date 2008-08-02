@@ -45,9 +45,7 @@ public class TestProjectDetailPage extends TestBase {
 		
 		tester.assertVisible("developers");
 		
-		tester.assertVisible("categories");
-		tester.assertVisible("categories:1:category");
-		tester.assertLabel("categories:1:category:label", "DOAP Test");
+		tester.assertVisible("categoryList");
 		
 		tester.assertVisible("footer");
 	}
