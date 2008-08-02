@@ -26,7 +26,6 @@ import org.apache.commons.lang.StringEscapeUtils;
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -83,6 +82,16 @@ public class DoapResource extends Resource implements IDoapResource {
       } else {
         return getURI();
       }
+    }
+  }
+  
+  @Override
+  public String getLabel() {
+    Statement name = getJenaResource().getProperty(Doap.NAME);
+    if (name == null) {
+    return super.getLabel();
+    } else {
+      return name.getString();
     }
   }
 
