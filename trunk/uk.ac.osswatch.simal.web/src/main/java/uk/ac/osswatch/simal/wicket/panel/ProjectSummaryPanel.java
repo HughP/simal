@@ -67,7 +67,7 @@ public class ProjectSummaryPanel extends Panel {
       Random rand = new Random();
       int idx = rand.nextInt(allProjects.size());
       project = (IProject)allProjects.toArray()[idx];
-    } catch (SimalRepositoryException e) {
+    } catch (Exception e) {
       project = null;
     }
     populatePage(project);
