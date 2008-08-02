@@ -50,7 +50,7 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_REPOSITORIES_BROWSE_URL = "http://svn.foo.org/viewvc/simal/trunk/";
   public static final String TEST_SIMAL_PROJECT_REPOSITORIES_LOCATIONS = "https://svn.foo.org/svnroot/simalTest";
 
-  public static final String TEST_SIMAL_PROJECT_RELEASES = "http://simal.oss-watch.ac.uk/simalTest#simal-0.1";
+  public static final String TEST_SIMAL_PROJECT_RELEASES = "Simal Project Registry";
   public static final String TEST_SIMAL_PROJECT_RELEASES_FILE_RELEASES = "";
   public static final String TEST_SIMAL_PROJECT_RELEASES_REVISIONS = "0.1";
 

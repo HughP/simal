@@ -21,8 +21,6 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
-import com.hp.hpl.jena.rdf.model.Resource;
-
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -229,6 +227,16 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    */
   public String getAllProjectsAsJSON() throws SimalRepositoryException;
+  
+  /**
+   * Get all the people in the repository and return them in a single JSON
+   * file.
+   * 
+   * @return
+   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
+   */
+  public String getAllPeopleAsJSON() throws SimalRepositoryException;
 
   /**
    * Shutdown the repository cleanly.

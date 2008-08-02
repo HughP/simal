@@ -106,4 +106,11 @@ public interface IPerson extends IFoafResource {
    */
   public Set<IProject> getProjects();
 
+  /**
+   * Get this person as a JSON record.
+   * @return
+   * @throws SimalRepositoryException 
+   */
+  public String toJSONRecord() throws SimalRepositoryException;
+
 }

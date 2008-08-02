@@ -157,6 +157,16 @@ public class TestRepository extends BaseRepositoryTest {
     logger.debug("Finished testGetAllProjectsAsJSON()");
   }
 
+  @Test
+  public void testGetAllPeopleAsJSON() throws SimalRepositoryException {
+    logger.debug("Starting testGetAllPeopleAsJSON()");
+    String json = repository.getAllPeopleAsJSON();
+    assertTrue("JSON file does not appear to be correct", json
+        .startsWith("{ \"items\": ["));
+    assertTrue("JSON file does not appear to be correct", json.endsWith("]}"));
+    logger.debug("Finished testGetAllPeoplesAsJSON()");
+  }
+
   /* 
   @Test
   public void testFindPersonById() throws SimalRepositoryException {

@@ -19,6 +19,7 @@ Copyright 2007 University of Oxford *
 
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -26,10 +27,12 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
+import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -45,7 +48,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class Person extends Resource implements IPerson {
-
+  private static final long serialVersionUID = -6510798839142810644L;
   private static final Logger logger = LoggerFactory.getLogger(Person.class);
 
   public Person(com.hp.hpl.jena.rdf.model.Resource resource) {
@@ -116,6 +119,10 @@ public class Person extends Resource implements IPerson {
     Set<String> names = new HashSet<String>();
     while (itr.hasNext()) {
       names.add(itr.nextStatement().getString());
+    }
+
+    if (names.size() == 0) {
+      names = getGivennames();
     }
     return names;
   }
@@ -211,6 +218,60 @@ public class Person extends Resource implements IPerson {
     qe.close();
 
     return projects;
+  }
+
+  public String toJSONRecord() throws SimalRepositoryException {
+    StringBuffer json = new StringBuffer();
+    json.append("{");
+    json.append(toJSONRecordContent());
+    json.append("}");
+    return json.toString();
+  }
+
+  protected String toJSONRecordContent() throws SimalRepositoryException {
+    StringBuffer json = new StringBuffer();
+    json.append("\"id\":\"" + getURI() + "\",");
+    json.append("\"label\":\"" + getLabel() + "\",");
+    json.append("\"name\":\"" + getNames() + "\"");
+    Set<IProject> projects = getProjects();
+    json.append(", \"project\":" + toJSONValues(projects));
+    Iterator<IProject> itr = projects.iterator();
+    Set<IDoapCategory> categories = new HashSet<IDoapCategory>();
+    while (itr.hasNext()) {
+      categories.addAll(itr.next().getCategories());
+    }
+    json.append(", \"category\":" + toJSONValues(categories));
+    
+    return json.toString();
+  }
+  
+  /**
+   * Given a set of DOAP resources return a JSON representation
+   * of those resources. 
+   * @param resources
+   * @return
+   */
+  private String toJSONValues(Set<?> resources) {
+    if (resources == null) {
+      return null;
+    }
+    StringBuffer values = new StringBuffer();
+    Iterator<?> itr = resources.iterator();
+    Object resource;
+    values.append("[");
+    while (itr.hasNext()) {
+      resource = itr.next();
+      if (resource instanceof IResource) {
+        values.append("\"" + ((IResource) resource).getLabel() + "\"");
+      } else {
+        values.append("\"" + resource.toString() + "\"");
+      }
+      if (itr.hasNext()) {
+        values.append(", ");
+      }
+    }
+    values.append("]");
+    return values.toString();
   }
 
 }
