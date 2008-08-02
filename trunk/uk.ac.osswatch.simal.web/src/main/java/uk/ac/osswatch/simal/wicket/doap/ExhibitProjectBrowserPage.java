@@ -38,7 +38,7 @@ import uk.ac.osswatch.simal.wicket.UserReportableException;
 public class ExhibitProjectBrowserPage extends BasePage {
 	private static final long serialVersionUID = 2675836864409849552L;
 	private static final CompressedResourceReference EXHIBIT_CSS = new CompressedResourceReference(
-			UserApplication.class, "exhibit.css");
+	    ExhibitProjectBrowserPage.class, "exhibit.css");
 
 	public ExhibitProjectBrowserPage() {
 		URL dir = UserApplication.class.getResource("default.css");

@@ -16,30 +16,46 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
+import java.io.File;
+import java.io.FileWriter;
+import java.net.URL;
 
-import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.behavior.HeaderContributor;
+import org.apache.wicket.behavior.StringHeaderContributor;
+import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
-import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
+import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 
 /**
- * This page provides facilities to manage people stored 
- * in the simal repository.
+ * Creates a page which contains an <a
+ * href="http://simile.mit.edu/wiki/Exhibit">Exhibit 2.0</a> Browser. This is a
+ * faceted browser for People.
  */
 public class PersonBrowserPage extends BasePage {
 
+  private static final CompressedResourceReference EXHIBIT_CSS = new CompressedResourceReference(
+      ExhibitProjectBrowserPage.class, "exhibit.css");
+
   public PersonBrowserPage() {
+    URL dir = UserApplication.class.getResource("default.css");
     try {
-      add(new PersonListPanel("personList", "All People"));
-    } catch (SimalRepositoryException e) {
-      UserReportableException error = new UserReportableException(
-          "Unable to get people from the repository",
-          PersonBrowserPage.class, e);
+      File outFile = new File(new File(dir.toURI()).getParent() + File.separator + "people.js");
+      FileWriter out = new FileWriter(outFile);
+      out.write(UserApplication.getRepository().getAllPeopleAsJSON());
+      out.close();
+    } catch (Exception e) {
+      UserReportableException error = new UserReportableException("Unable to write JSON file", PersonBrowserPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
+    add(HeaderContributor.forCss(EXHIBIT_CSS));
+    add(HeaderContributor
+        .forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
+    add(new StringHeaderContributor(
+        "<link href=\"/resources/uk.ac.osswatch.simal.wicket.UserApplication/people.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
   }
 }
 
