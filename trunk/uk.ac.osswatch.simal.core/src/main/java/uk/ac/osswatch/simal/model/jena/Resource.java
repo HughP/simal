@@ -25,6 +25,7 @@ import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +41,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
+import com.sun.java.util.jar.pack.ConstantPool.StringEntry;
 
 public class Resource implements IResource {
   private static final long serialVersionUID = -10828811166985970L;
@@ -164,7 +166,7 @@ public class Resource implements IResource {
     }
     json.append("{");
     json.append("\"id\":\"" + getJenaResource().getURI() + "\",");
-    json.append("\"label\":\"" + getLabel() + "\",");
+    json.append("\"label\":\"" + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\",");
     json.append("}");
     if (!asRecord) {
       json.append("]}");
