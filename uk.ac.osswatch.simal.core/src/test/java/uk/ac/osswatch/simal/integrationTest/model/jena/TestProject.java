@@ -230,6 +230,7 @@ public class TestProject extends BaseRepositoryTest {
     IPerson person;
     while (people.hasNext()) {
       person = people.next();
+      logger.debug("Got a maintainer with the label " + person.getLabel());
       String label = person.getLabel();
       if (label.equals(TEST_SIMAL_PROJECT_MAINTAINER_ONE)) {
         hasMaintainerOne = true;
