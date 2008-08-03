@@ -343,15 +343,16 @@ public class RDFUtils {
           doc.appendChild(root);
 
           // perform various checks on the document
-          RDFUtils.removeBNodes(doc, repo);
-          RDFUtils.deDupeProjects(doc, repo);
-          RDFUtils.deDupePeople(doc, repo);
-          RDFUtils.checkProjectID(doc, repo);
-          RDFUtils.checkProjectSeeAlso(doc, url, repo);
-          RDFUtils.checkPersonIDs(doc, repo);
-          RDFUtils.checkPersonSHA1(doc, repo);
-          RDFUtils.checkResources(doc, repo);
-          RDFUtils.escapeContent(doc, repo);
+          removeBNodes(doc, repo);
+          deDupeProjects(doc, repo);
+          deDupePeople(doc, repo);
+          checkProjectID(doc, repo);
+          checkProjectSeeAlso(doc, url, repo);
+          checkPersonIDs(doc, repo);
+          checkPersonSHA1(doc, repo);
+          checkResources(doc, repo);
+          addProjectToPeople(doc, repo);
+          escapeContent(doc, repo);
           
           File annotatedFile = writeAnnotatedFile(url, doc);
           annotatedFiles.add(annotatedFile);
@@ -417,6 +418,25 @@ public class RDFUtils {
           }
         }
         description.replaceChild(doc.createTextNode(escapedDescription), node);
+      }
+    }
+  }
+
+  /**
+   * Adds a 
+   * @param doc
+   * @param repo
+   */
+  private static void addProjectToPeople(Document doc, ISimalRepository repo) {
+    NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
+    for (int iper = 0; iper < people.getLength(); iper = iper + 1) {
+      Node person = people.item(iper);
+      NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
+      for (int iproj = 0; iproj < projects.getLength(); iproj = iproj + 1) {
+        String uri = projects.item(iproj).getAttributes().getNamedItemNS(RDF_NS, "about").getNodeValue();
+        Element projNode = doc.createElementNS(FOAF_NS, "currentProject");
+        projNode.setAttributeNS(RDF_NS, "resource", uri);
+        person.appendChild(projNode);
       }
     }
   }
@@ -558,11 +578,11 @@ public class RDFUtils {
         } else {
           id = repo.getNewPersonID();
         }
+        simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PERSON_ID);
+        Node text = doc.createTextNode(id);
+        simalIDNode.appendChild(text);
+        person.appendChild(simalIDNode);
       }
-      simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PERSON_ID);
-      Node text = doc.createTextNode(id);
-      simalIDNode.appendChild(text);
-      person.appendChild(simalIDNode);
     }
   }
 
