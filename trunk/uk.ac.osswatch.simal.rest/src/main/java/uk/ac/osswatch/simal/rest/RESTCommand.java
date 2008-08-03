@@ -360,7 +360,7 @@ public class RESTCommand {
    * 
    * @return
    */
-  public String toPathInfo() {
+  public String getPath() {
     StringBuffer sb = new StringBuffer();
     sb.append(getCommandMethod());
     sb.append(PARAM_SOURCE);

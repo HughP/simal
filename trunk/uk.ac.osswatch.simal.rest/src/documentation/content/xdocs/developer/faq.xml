@@ -27,7 +27,7 @@
       <answer>
         <p>First you need to <a href="#createCommand">create</a>
         a <code>RESTCommand</code> object. Then use the
-        <code>getPathInfo()</code> method to return the path
+        <code>getPath()</code> method to return the path
         of the URL.</p>
       </answer>
     </faq>
