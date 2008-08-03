@@ -87,6 +87,13 @@ See http://forrest.apache.org/docs/linking.html for more info
     <userMailingList label="Mailing List" href="ext:simal/userList"/>
   </users>
   
+  <developers label="Developing with Simal" tab="home">
+    <coreIndex label="Core" href="core/index.html"/>
+    <webIndex label="WebApp" href="web/faq.html"/>
+    <restIndex label="REST" href="rest/developer/index.html"/>
+    <userMailingList label="Mailing List" href="ext:simal/userList"/>
+  </developers>
+  
   <contributorResources label="Contributors" tab="home">    
     <devDocs label="Contributor Docs" href="contributor/index.html"/>
     <devSite label="Developer Site" href="ext:simal/devSite"/>
