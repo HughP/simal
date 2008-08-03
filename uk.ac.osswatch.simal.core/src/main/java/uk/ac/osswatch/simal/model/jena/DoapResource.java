@@ -151,9 +151,9 @@ public class DoapResource extends Resource implements IDoapResource {
   protected String toJSONRecordContent() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer();
     json.append("\"id\":\"" + getURI() + "\",");
-    json.append("\"label\":\"" + getLabel() + "\",");
-    json.append("\"name\":\"" + getName() + "\",");
-    json.append("\"shortdesc\":\"" + StringEscapeUtils.escapeJavaScript(getShortDesc()) + "\"");
+    json.append("\"label\":\"" + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\",");
+    json.append("\"name\":\"" + StringEscapeUtils.escapeJavaScript(getName().trim()) + "\",");
+    json.append("\"shortdesc\":\"" + StringEscapeUtils.escapeJavaScript(getShortDesc().trim()) + "\"");
     return json.toString();
   }
 
