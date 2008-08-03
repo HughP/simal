@@ -43,7 +43,7 @@ public abstract class AbstractHandler implements IAPIHandler {
   }
   
   public URI getStateURI() throws URISyntaxException {
-    URI uri = new URI(baseurl + command.toPathInfo());
+    URI uri = new URI(baseurl + command.getPath());
     return uri;
   }
 

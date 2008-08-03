@@ -50,6 +50,6 @@ public class TestRESTCommand {
   public void testToPathInfo() {
     String cmdString = RESTCommand.COMMAND_ALL_COLLEAGUES + RESTCommand.PARAM_SOURCE + RESTCommand.SOURCE_TYPE_MYEXPERIMENT + RESTCommand.PARAM_PERSON_ID + "1" + RESTCommand.FORMAT_JSON;
     RESTCommand cmd = RESTCommand.createCommand(cmdString);
-    assertEquals("Path info is incorrect", cmdString, cmd.toPathInfo());
+    assertEquals("Path info is incorrect", cmdString, cmd.getPath());
   }
 }
