@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE faqs PUBLIC "-//APACHE//DTD FAQ V2.0//EN" "http://forrest.apache.org/dtd/faq-v20.dtd">
+<faqs>
+  <title>Frequently Asked Questions (REST Developers)</title>
+  <faqsection id="programaticUse">
+    <title>Programmmatic Use</title>
+    
+    <faq id="createURL">
+      <question>
+        How do I create a REST URL programmatically"
+      </question>
+      <answer>
+        <p>First you need to <a href="#createCommand">create</a>
+        a <code>RESTCommand</code> object. Then use the
+        <code>getPathInfo()</code> method to return the path
+        of the URL.</p>
+      </answer>
+    </faq>
+    
+    <faq id="createCommand">
+      <question>
+        How do I create a REST command programmtically?
+      </question>
+      <answer>
+        <p>Use the <code>RESTCommand.create*</code> helper 
+        methods. If there is no helper method for the command
+        you wish to create then use 
+        <code>RESTCommand.createCommand(url)</code>, where
+        <code>url</code> is the path of the URL you would
+        normally use.</p>
+        
+        <p>Note that there are a number of constants in the
+        <code>RESTCommand</code> class that can be used to
+        construct the URL in the latter case.</p>
+        
+        <note>The use of <code>RESTCommand.createCommand(url)</code>
+        is discouraged because it does not protect your application
+        from changes in the URL scheme during alpha stages of
+        development.</note>
+      </answer>
+    </faq>
+  </faqsection>
+</faqs>
