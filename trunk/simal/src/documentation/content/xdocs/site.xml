@@ -52,10 +52,6 @@ See http://forrest.apache.org/docs/linking.html for more info
     <credits label="Credits" href="credits.html" description="Simal would not exist without these people..."/>
   </about>
   
-  <users label="Using Simal" href="user/" tab="user">
-    <index label="About" href="index.html"/>
-  </users>
-  
   <contributors label="Contributors" href="contributor/" tab="contributor">
     <index label="Index" href="index.html"/>
     
@@ -84,10 +80,12 @@ See http://forrest.apache.org/docs/linking.html for more info
     <xi:include href="cocoon://web/site.xml"/>
   </restModule>
   
-  <userResources label="Users" tab="home">  
-    <userDocs label="User Docs" href="user/index.html"/>
+  <users label="Using Simal" tab="home">
+    <coreIndex label="Core" href="core/user/index.html"/>
+    <webIndex label="WebApp" href="web/user/faq.html"/>
+    <restIndex label="REST" href="rest/index.html"/>
     <userMailingList label="Mailing List" href="ext:simal/userList"/>
-  </userResources> 
+  </users>
   
   <contributorResources label="Contributors" tab="home">    
     <devDocs label="Contributor Docs" href="contributor/index.html"/>
