@@ -444,7 +444,8 @@ public class SimalRepository extends AbstractSimalRepository {
 
   public String getAllPeopleAsJSON() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer("{ \"items\": [");
-    Iterator<IPerson> people = getAllPeople().iterator();
+    Set<IPerson> setOfPeople = getAllPeople();
+    Iterator<IPerson> people = setOfPeople.iterator();
     IPerson person;
     while (people.hasNext()) {
       person = people.next();

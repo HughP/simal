@@ -103,8 +103,9 @@ public interface IPerson extends IFoafResource {
   /**
    * Get all the projects that involve this person.
    * @return
+   * @throws SimalRepositoryException 
    */
-  public Set<IProject> getProjects();
+  public Set<IProject> getProjects() throws SimalRepositoryException;
 
   /**
    * Get this person as a JSON record.

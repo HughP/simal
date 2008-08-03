@@ -159,7 +159,8 @@
   </documenter>
 
   <developer>
-    <foaf:Person rdf:about="http://foo.org/~developer/#me">
+    <foaf:Person rdf:about="http://foo.org/~developer/#me">    
+      <simal:personId>15</simal:personId>
       <foaf:givenname>developer</foaf:givenname>
       <foaf:knows>
         <foaf:Person>

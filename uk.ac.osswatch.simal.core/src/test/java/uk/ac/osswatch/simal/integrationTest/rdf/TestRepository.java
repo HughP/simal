@@ -160,7 +160,12 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetAllPeopleAsJSON() throws SimalRepositoryException {
     logger.debug("Starting testGetAllPeopleAsJSON()");
+    Long targetTime = new Long(50);
+    Long startTime = System.currentTimeMillis();
     String json = repository.getAllPeopleAsJSON();
+    Long endTime = System.currentTimeMillis();
+    Long actualTime = endTime - startTime;
+    assertTrue("Time to create JSON for all people is longer than " + targetTime + " took " + actualTime, actualTime <= targetTime);
     assertTrue("JSON file does not appear to be correct", json
         .startsWith("{ \"items\": ["));
     assertTrue("JSON file does not appear to be correct", json.endsWith("]}"));

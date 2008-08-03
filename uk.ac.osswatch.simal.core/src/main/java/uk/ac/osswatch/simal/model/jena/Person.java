@@ -22,6 +22,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,6 +37,7 @@ import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -185,38 +187,12 @@ public class Person extends Resource implements IPerson {
     }
   }
 
-  public Set<IProject> getProjects() {
-    String uri = getURI();
-    String queryStr = "PREFIX foaf: <" + Foaf.NS + "> " + "PREFIX doap: <"
-        + Doap.NS + "> " + "PREFIX rdf: <" + ISimalRepository.RDF_NAMESPACE_URI
-        + "> " + "SELECT DISTINCT ?project WHERE { "
-        + "?project rdf:type doap:Project . " + "{?project doap:maintainer <"
-        + uri + "> } UNION " + "{?project doap:developer <" + uri
-        + "> } UNION " + "{?project doap:documentor <" + uri + "> } UNION "
-        + "{?project doap:helper <" + uri + "> } UNION "
-        + "{?project doap:tester <" + uri + "> } UNION "
-        + "{?project doap:translator <" + uri + "> }}";
-    logger.debug(("Executing SPARQL query:\n" + queryStr));
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, getJenaResource()
-        .getModel());
-    ResultSet results = qe.execSelect();
-
+  public Set<IProject> getProjects() throws SimalRepositoryException {
+    StmtIterator itr = getJenaResource().listProperties(Foaf.CURRENT_PROJECT);
     Set<IProject> projects = new HashSet<IProject>();
-    IProject project;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("project");
-      if (node.isResource()) {
-        project = new Project((com.hp.hpl.jena.rdf.model.Resource) node);
-        String id = project.getSimalID();
-        if (!id.equals(getSimalID())) {
-          projects.add(project);
-        }
-      }
+    while (itr.hasNext()) {
+      projects.add(new Project(itr.nextStatement().getResource()));
     }
-    qe.close();
-
     return projects;
   }
 
@@ -262,9 +238,10 @@ public class Person extends Resource implements IPerson {
     while (itr.hasNext()) {
       resource = itr.next();
       if (resource instanceof IResource) {
-        values.append("\"" + ((IResource) resource).getLabel() + "\"");
+        String label = ((IResource) resource).getLabel();
+        values.append("\"" + StringEscapeUtils.escapeJavaScript(label.trim()) + "\"");
       } else {
-        values.append("\"" + resource.toString() + "\"");
+        values.append("\"" + StringEscapeUtils.escapeJavaScript(resource.toString().trim()) + "\"");
       }
       if (itr.hasNext()) {
         values.append(", ");

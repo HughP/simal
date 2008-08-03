@@ -41,7 +41,6 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
-import com.sun.java.util.jar.pack.ConstantPool.StringEntry;
 
 public class Resource implements IResource {
   private static final long serialVersionUID = -10828811166985970L;
