@@ -197,7 +197,7 @@
 
           <p>To retrieve the details of a single project use:</p>
 
-          <source>http://foo.com/simal-rest/project/PROJECT-ID/FORMAT</source>
+          <source>http://foo.com/simal-rest/project/project-ID/FORMAT</source>
         </section>
 
         <section>
@@ -228,7 +228,7 @@
             repository use:
           </p>
 
-          <source>http://foo.com/simal-rest/allColleagues/PERSON_ID/FORMAT</source>
+          <source>http://foo.com/simal-rest/allColleagues/person-ID/FORMAT</source>
 
           <p>
             Where PERSON_ID is replaced with the Simal ID of the person
