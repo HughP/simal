@@ -26,6 +26,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 public abstract class AbstractAPITest {
 
   protected static ISimalRepository repo;
+  static final String PROJECT_ID = "200";
 
   @BeforeClass
   public static void setUpRepo() throws SimalRepositoryException {

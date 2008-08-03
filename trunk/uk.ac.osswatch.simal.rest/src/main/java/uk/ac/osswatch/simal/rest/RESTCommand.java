@@ -1,6 +1,4 @@
 package uk.ac.osswatch.simal.rest;
-
-import java.util.HashMap;
 /*
  * Copyright 2008 University of Oxford
  *
@@ -17,6 +15,8 @@ import java.util.HashMap;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
+
+import java.util.HashMap;
 
 
 /**
@@ -54,12 +54,16 @@ public class RESTCommand {
    * This class should not be instantiated directly, use the create*(...)
    * methods instead.
    */
-  private RESTCommand(String personID, String source, String command,
+  private RESTCommand(String resourceID, String source, String command,
       String format) {
     this.source = source;
-    this.personID = personID;
     this.commandMethod = command;
     this.format = format;
+    if (isPersonCommand()) {
+      this.personID = resourceID;
+    } else {
+      this.projectID = resourceID;
+    }
   }
 
   /**
@@ -84,6 +88,24 @@ public class RESTCommand {
   public static RESTCommand createGetColleagues(String personID, String source,
       String format) {
     return new RESTCommand(personID, source, COMMAND_ALL_COLLEAGUES, format);
+  }
+
+  /**
+   * Create a command to retrieve the RDF for a project, from a given
+   * source.
+   * 
+   * @param projectID
+   *          the ID of the project 
+   * @param source
+   *          the source of the data required. See the SOURCE_TYPE_* constants
+   * @param format
+   *          the format that the data should be returned in. See the FORMAT_*
+   *          constants
+   * @return
+   */
+  public static RESTCommand createGetProject(String projectID, String source, 
+      String format) {
+    return new RESTCommand(projectID, source, COMMAND_PROJECT, format);
   }
   
   /**
@@ -343,8 +365,13 @@ public class RESTCommand {
     sb.append(getCommandMethod());
     sb.append(PARAM_SOURCE);
     sb.append(getSource());
-    sb.append(PARAM_PERSON_ID);
-    sb.append(getPersonID());
+    if (isPersonCommand()) {
+      sb.append(PARAM_PERSON_ID);
+      sb.append(getPersonID());
+    } else {
+      sb.append(PARAM_PROJECT_ID);
+      sb.append(getProjectID());
+    }
     sb.append(getFormat());
     return sb.toString();
   }
