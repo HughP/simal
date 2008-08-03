@@ -16,8 +16,34 @@
 -->
 <!DOCTYPE faqs PUBLIC "-//APACHE//DTD FAQ V2.0//EN" "http://forrest.apache.org/dtd/faq-v20.dtd">
 <faqs>
-  <title>Frequently Asked Questions (Users)</title>
-  <faqsection id="CLI">
+  <title>Frequently Asked Questions (Web Users)</title>
+  
+  <faqsection id="data">
+    <title>Working with data in general</title>
+    <faq id="exportData">
+      <question>
+        How do I export data for use in my own application?
+      </question>
+      <answer>
+        <p>There are two main ways of exporting data from
+        Simal. One is to use the 
+        <a href="http://simal.oss-watch.ac.uk/rest">REST API</a> ,
+        the other is to use one of the web based browsers to 
+        filter the information to the set of data you want and then
+        export it using one of the export tools.</p>
+        
+        <p>To do this click the orange scissors icon in the
+        browsers once you have filtered the data accordingly.
+        You will be presented with a number of export formats,
+        select one and you will be presented with the data you
+        require. Simply copy and paste it into your 
+        chosen application.</p> 
+      </answer>
+    </faq>
+<!-- More faqs or parts here -->
+  </faqsection>
+  
+  <faqsection id="people">
     <title>Working with people</title>
     <faq id="findingPeople">
       <question>
@@ -46,27 +72,5 @@
         that are active in the access management field.</p>
       </answer>
     </faq>
-    
-    <faq id="exportData">
-      <question>
-        How do I export data for use in my own application?
-      </question>
-      <answer>
-        <p>There are two main ways of exporting data from
-        Simal. One is to use the 
-        <a href="http://simal.oss-watch.ac.uk/rest">REST API</a> ,
-        the other is to use one of the web based browsers to 
-        filter the information to the set of data you want and then
-        export it using one of the export tools.</p>
-        
-        <p>To do this click the orange scissors icon in the
-        browsers once you have filtered the data accordingly.
-        You will be presented with a number of export formats,
-        select one and you will be presented with the data you
-        require. Simply copy and paste it into your 
-        chosen application.</p> 
-      </answer>
-    </faq>
-<!-- More faqs or parts here -->
   </faqsection>
 </faqs>
