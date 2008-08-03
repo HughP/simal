@@ -27,10 +27,18 @@
     is subject to change in response to discussion on the
     <a href="ext:simal/devList">Developer mailing list</a>.</warning>
     
-    <note>Our documentation is quite sparse at present. Please ask
-    for help on our <a href="ext:simal/devList">mailing list</a> and
-    we'll be sure to expand the documentation in response to your 
-    questions. Unless you ask, we don;t know what people need to
-    see.</note> 
+    <section>
+      <title>Documentation</title>
+      
+      <note>Our documentation is quite sparse at present. Please ask
+      for help on our <a href="ext:simal/devList">mailing list</a> and
+      we'll be sure to expand the documentation in response to your 
+      questions. Unless you ask, we don't know what people need to
+      see.</note>
+      
+      <ul>
+        <li><a href="user/faq.html">Frequently Asked Questions from users</a></li>
+      </ul>
+    </section> 
   </body>
 </document>
