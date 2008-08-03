@@ -18,14 +18,14 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 
 import org.apache.wicket.Page;
-import org.apache.wicket.Response;
+import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.IPageLink;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.request.target.basic.StringRequestTarget;
-
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -60,6 +60,7 @@ public class ProjectDetailPage extends BasePage {
 
   private void populatePage(final IProject project) {
     this.project = project;
+    
     final Link deleteProjectActionLink = new Link("deleteProjectActionLink") {
       private static final long serialVersionUID = 2387446194207003694L;
 
@@ -75,19 +76,11 @@ public class ProjectDetailPage extends BasePage {
     };
     add(deleteProjectActionLink);
     
-    final Link doapLink = new Link("doapLink") {
-      public void onClick() {
-        Response rep = getRequestCycle().getResponse(); 
-        rep.setContentType("text/xml");
-        try {
-          getRequestCycle().setRequestTarget(new StringRequestTarget(project.toXML()));
-        } catch (SimalRepositoryException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        } 
-      }
-    };
-    add(doapLink);
+    RESTCommand cmd = RESTCommand.createGetProject(project.getSimalID(), RESTCommand.SOURCE_TYPE_SIMAL, RESTCommand.FORMAT_XML);
+    add(new ExternalLink("doapLink", cmd.getURL()));
+    String rdfLink = "<link href=\"" + cmd.getURL() + "\" rel=\"meta\" title=\"DOAP\" type=\"application/rdf+xml\" />";
+    add(new StringHeaderContributor(rdfLink));
+    
     
     add(new Label("projectName", project.getName()));
     add(new Label("shortDesc", project.getShortDesc()));
