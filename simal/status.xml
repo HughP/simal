@@ -54,8 +54,8 @@
         </section>
       </notes>
       
-      <action context="docs" dev="RDG" type="ass" importance="high">
-        <p>Added a User FAQ section.</p>
+      <action context="docs" dev="RDG" type="add" importance="high">
+        <p>Add links to user documentation sections.</p>
       </action>
       
       <action context="docs" dev="RDG" type="update" importance="high">
