@@ -44,9 +44,10 @@ See http://forrest.apache.org/docs/linking.html for more info
     <addProject label="Add Project" href="docs/user/useCases/addProject.html" description="Adding a project to the repository"/>
   </userDocs>
   
-  <userDocs label="Developer Documentation" tab="restModule">
+  <devDocs label="Developer Documentation" tab="restModule">
+    <faq label="FAQ" href="developer/faq.html" description="Frequently asked questions from developers"/>
     <addProject label="Add Project" href="docs/developer/useCases/addProject.html" description="Adding a project to the repository"/>
-  </userDocs>
+  </devDocs>
   
   <external-refs>
     <forrest href="http://forrest.apache.org/">
