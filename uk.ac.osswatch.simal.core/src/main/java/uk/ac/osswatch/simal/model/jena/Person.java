@@ -167,7 +167,8 @@ public class Person extends Resource implements IPerson {
 
   /**
    * Get the label for this person. The label for a person is derived from their
-   * known names. If the person does not have any defined names then the
+   * known names (if more than one is known then the longest is used). 
+   * If the person does not have any defined names then the
    * toString() method is used..
    * 
    * @return
@@ -183,8 +184,18 @@ public class Person extends Resource implements IPerson {
       if (names.size() == 0) {
         return getURI();
       }
-      return (String) names.toArray()[0];
     }
+    int maxLength = 0;
+    String name = null;
+    Object[] arr = names.toArray();
+    for (int i = 0; i < names.size(); i++) {
+      String curName = (String)arr[i];
+      if (curName.length() > maxLength) {
+        name = curName;
+        maxLength = curName.length();
+      }
+    }
+    return name;
   }
 
   public Set<IProject> getProjects() throws SimalRepositoryException {
