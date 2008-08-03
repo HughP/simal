@@ -153,7 +153,17 @@ public class DoapResource extends Resource implements IDoapResource {
     json.append("\"id\":\"" + getURI() + "\",");
     json.append("\"label\":\"" + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\",");
     json.append("\"name\":\"" + StringEscapeUtils.escapeJavaScript(getName().trim()) + "\",");
-    json.append("\"shortdesc\":\"" + StringEscapeUtils.escapeJavaScript(getShortDesc().trim()) + "\"");
+    String desc = getShortDesc();
+    if (desc == null || desc.equals("")) {
+      desc = getDescription();
+      if (desc.length() > 128) {
+        desc = desc.substring(128);
+      }
+    }
+    if (desc == null) {
+      desc = "No description available";
+    }
+    json.append("\"shortdesc\":\"" + StringEscapeUtils.escapeJavaScript(desc.trim()) + "\"");
     return json.toString();
   }
 
