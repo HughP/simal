@@ -48,6 +48,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   </openSocial>  
   
   <userDocs label="User Documentation" tab="webModule">
+    <faq label="FAQ" href="user/faq.html" description="Frequantly Asked Questions from users"/>
     <addProject label="Add Project" href="docs/user/useCases/addProject.html" description="Adding a project to the repository"/>
   </userDocs>
   
