@@ -244,7 +244,7 @@
           Simal can retrieve data from sources other than the standard
           Simal repository. Such as the
           <a href="http://www.myexperiment.org">MyExperiment</a>
-          social netowrking tool for scientific research. In order to
+          social networking tool for scientific research. In order to
           use alternative data sources use the "source" parameter as
           follows:
         </p>
