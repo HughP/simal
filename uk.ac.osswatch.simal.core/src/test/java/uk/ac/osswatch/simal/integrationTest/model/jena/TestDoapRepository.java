@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.integrationTest.model.elmo;
+package uk.ac.osswatch.simal.integrationTest.model.jena;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
