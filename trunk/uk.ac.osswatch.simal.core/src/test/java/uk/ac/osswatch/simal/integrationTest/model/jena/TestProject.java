@@ -360,7 +360,7 @@ public class TestProject extends BaseRepositoryTest {
    */
   @Test
   public void testId() throws SimalRepositoryException, DuplicateURIException, URISyntaxException {
-    assertEquals("Test project ID incorrect", project1ID, project1.getSimalID());
+    assertEquals("Test project ID incorrect", TEST_SIMAL_PROJECT_SIMAL_ID, project1.getSimalID());
 
     String uri1 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId1";

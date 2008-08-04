@@ -93,12 +93,14 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#";
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
+  
+  public static final String TEST_SIMAL_PROJECT_SIMAL_ID = "200";
 
+  protected static String project1SeeAlso = "http://foo.org/seeAlso";
+  
   protected static ISimalRepository repository;
 
   protected static IProject project1;
-  protected static String project1ID = "200";
-  protected static String project1SeeAlso = "http://foo.org/seeAlso";
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
