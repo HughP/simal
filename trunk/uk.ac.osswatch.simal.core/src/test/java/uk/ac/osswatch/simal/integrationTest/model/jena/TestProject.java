@@ -87,20 +87,26 @@ public class TestProject extends BaseRepositoryTest {
   public void testToJSON() throws SimalRepositoryException {
     String json = project1.toJSONRecord();
     logger.debug("Project JSON record is :\n" + json);
+    
     assertTrue(
         "JSON file has incorrect project name: " + json,
         json.contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
+    
+    assertTrue("JSON file does not contain simalID", json.contains("\"simalID\":\"" + TEST_SIMAL_PROJECT_SIMAL_ID));
+    
     assertTrue(
         "JSON file has incorrect short description: " + json,
         json.contains("\",\"shortdesc\":\"" + TEST_SIMAL_PROJECT_SHORT_DESC));
+    
     assertTrue(
         "JSON record (incorrectly) has items structure: : " + json,
         !json.startsWith("{ \"items\": ["));
 
     json = project1.toJSON();
     logger.debug("Project JSON file is :\n" + json);
+    
     assertTrue(
-        "JSON file does not have items structure: : " + json,
+        "JSON file does not have items structure: " + json,
         json.startsWith("{ \"items\": ["));
   }
 
