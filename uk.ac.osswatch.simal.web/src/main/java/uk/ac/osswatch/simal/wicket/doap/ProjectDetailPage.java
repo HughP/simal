@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 
 import org.apache.wicket.Page;
+import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
@@ -39,17 +40,25 @@ import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 public class ProjectDetailPage extends BasePage {
   private static final long serialVersionUID = 8719708525508677833L;
   private IProject project;
-
-  public ProjectDetailPage() {
-    IProject project;
-    try {
-      project = UserApplication.getRepository().getProject(
-          UserApplication.DEFAULT_PROJECT_URI);
-      populatePage(project);
-    } catch (SimalRepositoryException e) {
+  
+  public ProjectDetailPage(PageParameters parameters) {
+    String id = null;
+    if (parameters.containsKey("simalID")) {
+        id = parameters.getString("simalID");
+        
+        try {
+          project = UserApplication.getRepository().findProjectById(id);
+          populatePage(project);
+        } catch (SimalRepositoryException e) {
+          UserReportableException error = new UserReportableException(
+              "Unable to get project from the repository",
+              ProjectDetailPage.class, e);
+          setResponsePage(new ErrorReportPage(error));
+        }
+    } else {
       UserReportableException error = new UserReportableException(
-          "Unable to get project from the repository",
-          ProjectDetailPage.class, e);
+          "Unable to get simalID parameter from URL",
+          ProjectDetailPage.class);
       setResponsePage(new ErrorReportPage(error));
     }
   }
