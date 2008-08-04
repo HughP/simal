@@ -17,13 +17,16 @@ package uk.ac.osswatch.simal.integrationTest.model.jena;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.net.URISyntaxException;
+import java.util.Set;
 
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestCategory extends BaseRepositoryTest {
@@ -37,5 +40,14 @@ public class TestCategory extends BaseRepositoryTest {
     category = repository.findCategory(uri);
     assertNull("Somehow we have a category that should not exist",
         category);
+  }
+  
+  @Test
+  public void testGetProjects() {
+    IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
+    Set<IProject> projects = category.getProjects();
+    
+    assertTrue("We haven't got the project we expected from category.getPRojects()",
+        projects.toString().contains(project1.toString()));
   }
 }
