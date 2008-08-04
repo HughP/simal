@@ -28,7 +28,8 @@
         <p>First you need to <a href="#createCommand">create</a>
         a <code>RESTCommand</code> object. Then use the
         <code>getPath()</code> method to return the path
-        of the URL.</p>
+        of the URL, or the <code>getURL()</code> method to
+        get the full URL.</p>
       </answer>
     </faq>
     
