@@ -186,7 +186,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testFindProjectById() throws SimalRepositoryException {
     logger.debug("Starting testFindProjectByID()");
-    IProject project = repository.findProjectById(project1ID);
+    IProject project = repository.findProjectById(TEST_SIMAL_PROJECT_SIMAL_ID);
     assertNotNull(project);
     logger.debug("Finished testFindProjectByID()");
   }
