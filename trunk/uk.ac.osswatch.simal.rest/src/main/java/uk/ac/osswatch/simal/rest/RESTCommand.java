@@ -18,6 +18,8 @@ package uk.ac.osswatch.simal.rest;
 
 import java.util.HashMap;
 
+import uk.ac.osswatch.simal.SimalProperties;
+
 
 /**
  * Command objects for the REST API. This object is used to represent a command
@@ -374,6 +376,13 @@ public class RESTCommand {
     }
     sb.append(getFormat());
     return sb.toString();
+  }
+  
+  /**
+   * Get the URL for this REST command.
+   */
+  public String getURL() {
+    return SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + getPath();
   }
 
   @Override
