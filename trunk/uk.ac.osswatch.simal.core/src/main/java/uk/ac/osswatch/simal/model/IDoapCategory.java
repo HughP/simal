@@ -15,12 +15,19 @@
  */
 package uk.ac.osswatch.simal.model;
 
+import java.util.Set;
+
 /**
  * A category is part of the project classification system.
  * It is a resource used to define the doap:category entries
  * of a doap:Project.  
  *
  */
-public interface IDoapCategory extends IDoapResource {
+public interface IDoapCategory extends IDoapResource {  
+  /**
+   * Get all the projects that are within this category.
+   * @return
+   */
+  public Set<IProject> getProjects();
 
 }
