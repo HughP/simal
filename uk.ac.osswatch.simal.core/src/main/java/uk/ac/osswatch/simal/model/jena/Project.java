@@ -265,6 +265,8 @@ public class Project extends DoapResource implements IProject {
     StringBuffer json = new StringBuffer();
     json.append(super.toJSONRecordContent());
 
+    json.append(", \"simalID\":\"" + getSimalID() + "\"");
+    
     json.append(", \"category\":" + toJSONValues(getCategories()));
 
     HashSet<IPerson> people;
