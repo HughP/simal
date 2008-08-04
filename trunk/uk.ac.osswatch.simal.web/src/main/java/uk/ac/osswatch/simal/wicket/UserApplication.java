@@ -16,14 +16,14 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
-
-import javax.xml.namespace.QName;
-
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.target.coding.QueryStringUrlCodingStrategy;
 
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
+import uk.ac.osswatch.simal.wicket.foaf.PersonDetailsPage;
 
 /**
  * The UserApp is the main user facing appliation. This application allows users
@@ -43,10 +43,14 @@ public class UserApplication extends WebApplication {
   private static boolean isTest;
 
 	public UserApplication() {
-		init();
 	}
 
+	@Override
 	public void init() {
+    mountBookmarkablePage("/project/detail", ProjectDetailPage.class);
+	  mount(new QueryStringUrlCodingStrategy("/project/detailencoded", ProjectDetailPage.class));
+	  
+	  mountBookmarkablePage("/person/detail", PersonDetailsPage.class);
 	}
 
 	@Override
@@ -76,8 +80,8 @@ public class UserApplication extends WebApplication {
 
 	/**
 	 * If IsTest is set to true then a test (in memory)
-	 * repository will be used, othersiwe a real repository
-	 * is usef.
+	 * repository will be used, otherwise a real repository
+	 * is used.
 	 * 
 	 * @param value
 	 */
