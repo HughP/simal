@@ -23,6 +23,7 @@ import java.util.Set;
 
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
@@ -70,6 +71,8 @@ public class CategoryListPanel extends Panel {
       }
 
     });
+    columns.add(new PropertyColumn(new Model("Projects"), "projects", "projects"));
+    
     dataProvider.setSort(SortableCategoryDataProvider.SORT_PROPERTY_NAME, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
   }
