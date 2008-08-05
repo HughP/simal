@@ -31,13 +31,14 @@ import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
  */
 public class TestProjectDetailPage extends TestBase {
 
+  @SuppressWarnings("serial")
   @Test
   public void testRenderPage() {
     tester.startPage(new ITestPageSource() {
       public Page getTestPage() {
         try {
           return new ProjectDetailPage(UserApplication.getRepository()
-              .getProject(TEST_SIMAL_PROJECT_URI));
+              .getProject(UserApplication.DEFAULT_PROJECT_URI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
           System.exit(1);
