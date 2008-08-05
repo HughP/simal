@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.doap;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,10 +17,13 @@ package uk.ac.osswatch.simal.wicket.doap;
  * under the License.                                                *
  */
 
-
+import org.apache.wicket.Page;
+import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
+import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
 /**
@@ -27,26 +31,37 @@ import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
  */
 public class TestProjectDetailPage extends TestBase {
 
-	@Test
-	public void testRenderPage() {
-		tester.startPage(ProjectDetailPage.class);
-		tester.assertRenderedPage(ProjectDetailPage.class);
-		
-		tester.assertVisible("projectName");
-		tester.assertVisible("shortDesc");
-		tester.assertVisible("created");
-		tester.assertVisible("description");
-		
-		tester.assertVisible("mailingLists");
-		
-		tester.assertVisible("maintainers");
-		tester.assertVisible("maintainers:1:maintainer");
-		tester.assertVisible("maintainers:2:maintainer");
-		
-		tester.assertVisible("developers");
-		
-		tester.assertVisible("categoryList");
-		
-		tester.assertVisible("footer");
-	}
+  @Test
+  public void testRenderPage() {
+    tester.startPage(new ITestPageSource() {
+      public Page getTestPage() {
+        try {
+          return new ProjectDetailPage(UserApplication.getRepository()
+              .getProject(TEST_SIMAL_PROJECT_URI));
+        } catch (SimalRepositoryException e) {
+          System.err.println("Can't find the test project");
+          System.exit(1);
+          return null;
+        }
+      }
+    });
+    tester.assertRenderedPage(ProjectDetailPage.class);
+
+    tester.assertVisible("projectName");
+    tester.assertVisible("shortDesc");
+    tester.assertVisible("created");
+    tester.assertVisible("description");
+
+    tester.assertVisible("mailingLists");
+
+    tester.assertVisible("maintainers");
+    tester.assertVisible("maintainers:1:maintainer");
+    tester.assertVisible("maintainers:2:maintainer");
+
+    tester.assertVisible("developers");
+
+    tester.assertVisible("categoryList");
+
+    tester.assertVisible("footer");
+  }
 }
