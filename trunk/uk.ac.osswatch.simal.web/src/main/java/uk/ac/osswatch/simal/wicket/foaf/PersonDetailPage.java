@@ -28,10 +28,10 @@ import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 /**
  * A page for displaying the details of a single person.
  */
-public class PersonDetailsPage extends BasePage {
+public class PersonDetailPage extends BasePage {
   private static final long serialVersionUID = -2362335968055139016L;
   
-  public PersonDetailsPage() {
+  public PersonDetailPage() {
     IPerson person;
     try {
       person = UserApplication.getRepository().getPerson(
@@ -40,11 +40,11 @@ public class PersonDetailsPage extends BasePage {
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get person from the repository",
-          PersonDetailsPage.class, e);
+          PersonDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
   }
-  public PersonDetailsPage(IPerson person) {
+  public PersonDetailPage(IPerson person) {
     populatePage(person);
   }
 
