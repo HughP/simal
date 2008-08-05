@@ -40,7 +40,7 @@ public class DetachableCategoryModel extends LoadableDetachableModel implements
 	protected Object load() {
 		IDoapCategory category;
 		try {
-			category = UserApplication.getRepository().findCategory(uri);
+			category = UserApplication.getRepository().getCategory(uri);
 		} catch (SimalRepositoryException e) {
 			e.printStackTrace();
 			category= null;
