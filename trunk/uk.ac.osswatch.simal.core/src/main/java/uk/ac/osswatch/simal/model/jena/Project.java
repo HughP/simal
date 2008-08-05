@@ -230,6 +230,10 @@ public class Project extends DoapResource implements IProject {
     return idStatement.getString();
   }
 
+  public void setSimalID(String newID) {
+    getJenaResource().addLiteral(SimalOntology.PROJECT_ID, newID);
+  }
+
   public Set<IPerson> getTesters() {
     StmtIterator itr = getJenaResource().listProperties(Doap.TESTER);
     Set<IPerson> people = new HashSet<IPerson>();
@@ -255,10 +259,6 @@ public class Project extends DoapResource implements IProject {
       pages.add(new Wiki(itr.nextStatement().getResource()));
     }
     return pages;
-  }
-
-  public void setSimalID(String newID) {
-    getJenaResource().addLiteral(SimalOntology.PROJECT_ID, newID);
   }
   
   protected String toJSONRecordContent() throws SimalRepositoryException {
