@@ -35,7 +35,7 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.data.SortablePersonDataProvider;
-import uk.ac.osswatch.simal.wicket.foaf.PersonDetailsPage;
+import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
@@ -87,7 +87,7 @@ public class PersonListPanel extends Panel {
       @Override
       public void onClick(Item item, String componentId, IModel model) {
         IPerson person = (IPerson) model.getObject();
-        getRequestCycle().setResponsePage(new PersonDetailsPage(person));
+        getRequestCycle().setResponsePage(new PersonDetailPage(person));
       }
 
     });
