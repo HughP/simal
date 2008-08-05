@@ -121,6 +121,35 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     return Long.toString(id);
   }
 
+  public String getNewCategoryID() throws SimalRepositoryException {
+    String strID = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, "1");
+    long id = Long.parseLong(strID);
+
+    /**
+     * If the properties file is lost for any reason the next ID value will be
+     * lost. We therefore need to perform a sanity check that this is unique.
+     */
+    boolean validID = false;
+    while (!validID) {
+      if (findCategoryById(Long.toString(id)) == null) {
+        validID = true;
+      } else {
+        id = id + 1;
+      }
+    }
+
+    long newId = id + 1;
+    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, Long.toString(newId));
+    try {
+      SimalProperties.save();
+    } catch (Exception e) {
+      logger.warn("Unable to save properties file", e);
+      throw new SimalRepositoryException(
+          "Unable to save properties file when creating the next category ID", e);
+    }
+    return Long.toString(id);
+  }
+
   public String getNewPersonID() throws SimalRepositoryException {
     String strID = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
     long id = Long.parseLong(strID);
@@ -145,7 +174,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     } catch (Exception e) {
       logger.warn("Unable to save properties file", e);
       throw new SimalRepositoryException(
-          "Unable to save properties file when creating the next project ID", e);
+          "Unable to save properties file when creating the next person ID", e);
     }
     return Long.toString(id);
   }

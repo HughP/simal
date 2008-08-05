@@ -16,6 +16,7 @@
 package uk.ac.osswatch.simal.integrationTest.model.jena;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -32,12 +33,12 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class TestCategory extends BaseRepositoryTest {
   @Test
   public void testGetCategoryLabel() throws SimalRepositoryException, URISyntaxException {
-    IDoapCategory category = repository.findCategory("http://simal.oss-watch.ac.uk/category/socialNews");
+    IDoapCategory category = repository.getCategory("http://simal.oss-watch.ac.uk/category/socialNews");
     String label = category.getLabel();
     assertEquals("Category Label is incorrect", "Social News", label);
 
     String uri = "http://example.org/does/not/exist";
-    category = repository.findCategory(uri);
+    category = repository.getCategory(uri);
     assertNull("Somehow we have a category that should not exist",
         category);
   }
@@ -49,5 +50,20 @@ public class TestCategory extends BaseRepositoryTest {
     
     assertTrue("We haven't got the project we expected from category.getPRojects()",
         projects.toString().contains(project1.toString()));
+  }
+  
+  @Test
+  public void testSetId() {
+    IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
+    category.setSimalID("testing");
+    String id = category.getSimalID();
+    assertEquals("Simal ID has not been changed correctly", id, "testing");
+  }
+  
+  @Test
+  public void testGetId() {
+    IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
+    String id = category.getSimalID();
+    assertNotNull(id);
   }
 }

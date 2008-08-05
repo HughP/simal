@@ -188,4 +188,12 @@ public class Resource implements IResource {
   public Object getRepositoryResource() {
     return jenaResource;
   }
+
+  public String getSimalID() {
+    return null;
+  }
+
+  public void setSimalID(String newID) {
+    logger.warn("Attempt to set the Simal ID on a base resource, must override the setSimalID method in the model.");
+  }
 }
