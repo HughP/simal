@@ -124,7 +124,7 @@ public class TestRepository extends BaseRepositoryTest {
       logger.debug("Got project: " + project.getName());
     }
     
-    assertEquals(5, projects.size());
+    assertEquals(6, projects.size());
     logger.debug("Finished testGetAllProjects()");
   }
 
@@ -141,7 +141,7 @@ public class TestRepository extends BaseRepositoryTest {
       logger.debug("Got person: " + person + " : " + person.getURI());
     }
 
-    assertEquals(16, people.size());
+    assertEquals(18, people.size());
     
     logger.debug("Finished testGetAllPeople()");
   }

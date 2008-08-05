@@ -34,18 +34,30 @@ public class ModelSupport {
   public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
 
-  public final static String CATEGORIES_RDF = "categories.xml";
+  public final static String CATEGORIES_RDF = "testData/categories.xml";
+
+  /**
+   * Adds Simal defined data to the repo. The simal data includes
+   * the DOAP for Simal itself, which in turn includes descriptions
+   * of all the appropriate categories used by Simal.
+   * @throws SimalRepositoryException 
+   * 
+   * @throws SimalRepositoryException
+   */
+  public static void addSimalData(ISimalRepository repo) throws SimalRepositoryException {
+    repo.addProject(ISimalRepository.class.getResource("/simal.rdf"), TEST_FILE_BASE_URL);
+  }
   
   /**
    * Adds test data to the repo. be careful to only use this when the repo in
    * use is a test repository.
    * 
    * @throws SimalRepositoryException
-   * 
-   * @throws SimalRepositoryException
    */
   public static void addTestData(ISimalRepository repo) {
-    try {      
+    try {     
+      addSimalData(repo);
+      
       repo.addProject(ISimalRepository.class.getResource("/testData/"
           + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
 
