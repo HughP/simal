@@ -37,7 +37,6 @@ import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -218,6 +217,7 @@ public class Person extends Resource implements IPerson {
   protected String toJSONRecordContent() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer();
     json.append("\"id\":\"" + getURI() + "\",");
+    json.append("\"simalID\":\"" + getSimalID() + "\",");
     json.append("\"label\":\"" + getLabel() + "\",");
     json.append("\"name\":\"" + getNames() + "\"");
     Set<IProject> projects = getProjects();
