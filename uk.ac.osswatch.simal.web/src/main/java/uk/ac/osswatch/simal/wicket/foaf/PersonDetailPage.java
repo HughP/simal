@@ -16,6 +16,8 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
+import org.apache.wicket.PageParameters;
+
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
@@ -30,20 +32,30 @@ import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
  */
 public class PersonDetailPage extends BasePage {
   private static final long serialVersionUID = -2362335968055139016L;
+  IPerson person;
   
-  public PersonDetailPage() {
-    IPerson person;
-    try {
-      person = UserApplication.getRepository().getPerson(
-          UserApplication.DEFAULT_PERSON_URI);
-      populatePage(person);
-    } catch (SimalRepositoryException e) {
+  public PersonDetailPage(PageParameters parameters) {
+    String id = null;
+    if (parameters.containsKey("simalID")) {
+        id = parameters.getString("simalID");
+        
+        try {
+          person = UserApplication.getRepository().findPersonById(id);
+          populatePage(person);
+        } catch (SimalRepositoryException e) {
+          UserReportableException error = new UserReportableException(
+              "Unable to get project from the repository",
+              PersonDetailPage.class, e);
+          setResponsePage(new ErrorReportPage(error));
+        }
+    } else {
       UserReportableException error = new UserReportableException(
-          "Unable to get person from the repository",
-          PersonDetailPage.class, e);
+          "Unable to get simalID parameter from URL",
+          PersonDetailPage.class);
       setResponsePage(new ErrorReportPage(error));
     }
   }
+  
   public PersonDetailPage(IPerson person) {
     populatePage(person);
   }

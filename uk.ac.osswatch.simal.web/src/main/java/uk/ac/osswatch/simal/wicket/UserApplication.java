@@ -23,7 +23,7 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
-import uk.ac.osswatch.simal.wicket.foaf.PersonDetailsPage;
+import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 
 /**
  * The UserApp is the main user facing appliation. This application allows users
@@ -50,7 +50,8 @@ public class UserApplication extends WebApplication {
     mountBookmarkablePage("/project/detail", ProjectDetailPage.class);
 	  mount(new QueryStringUrlCodingStrategy("/project/detailencoded", ProjectDetailPage.class));
 	  
-	  mountBookmarkablePage("/person/detail", PersonDetailsPage.class);
+	  mountBookmarkablePage("/person/detail", PersonDetailPage.class);
+    mount(new QueryStringUrlCodingStrategy("/person/detailencoded", PersonDetailPage.class));
 	}
 
 	@Override
