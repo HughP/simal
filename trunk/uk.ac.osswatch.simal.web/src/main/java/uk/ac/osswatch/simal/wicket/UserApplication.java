@@ -22,7 +22,10 @@ import org.apache.wicket.request.target.coding.QueryStringUrlCodingStrategy;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
+import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
+import uk.ac.osswatch.simal.wicket.foaf.PersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 
 /**
@@ -47,11 +50,20 @@ public class UserApplication extends WebApplication {
 
 	@Override
 	public void init() {
+	  // Project pages
     mountBookmarkablePage("/project/detail", ProjectDetailPage.class);
 	  mount(new QueryStringUrlCodingStrategy("/project/detailencoded", ProjectDetailPage.class));
 	  
+	  mountBookmarkablePage("/projectBrowser", ExhibitProjectBrowserPage.class);
+	  
+	  //Person Pages	  
 	  mountBookmarkablePage("/person/detail", PersonDetailPage.class);
     mount(new QueryStringUrlCodingStrategy("/person/detailencoded", PersonDetailPage.class));
+        
+    mountBookmarkablePage("/personBrowser", PersonBrowserPage.class);
+    
+    // Category Pages
+    mountBookmarkablePage("/categoryBrowser", CategoryBrowserPage.class);
 	}
 
 	@Override
