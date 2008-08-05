@@ -71,7 +71,7 @@ public class CategoryListPanel extends Panel {
       }
 
     });
-    columns.add(new PropertyColumn(new Model("Projects"), "projects", "projects"));
+    columns.add(new PropertyColumn(new Model("Projects"), "projects.size"));
     
     dataProvider.setSort(SortableCategoryDataProvider.SORT_PROPERTY_NAME, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
