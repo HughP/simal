@@ -28,14 +28,6 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public interface IProject extends IDoapResource, IProjectService {
 
   /**
-   * Get the Simal ID for this project. This is a unique identifier
-   * within the repository from which it was retrieved.
-   * 
-   * @return 
-   */
-  public String getSimalID();
-
-  /**
    * Set the Simal ID for this project. This is a unique identifier
    * within the repository from which it was retrieved.
    * 

@@ -82,4 +82,21 @@ public interface IResource extends IResourceService, Serializable {
    * Get the raw resource as it is stored in the repository.
    */
   public Object getRepositoryResource();
+
+  /**
+   * Get the Simal ID for this resource. This is a unique identifier
+   * within the repository from which it was retrieved.
+   * 
+   * Not all resources are given a SimalID.
+   * 
+   * @return the Simal ID or null if none has been defined
+   */
+  public String getSimalID();
+  
+  /**
+   * Set the Simal ID for this resource. This is a unique identifier
+   * within the repository from which it was retrieved.
+   * 
+   */
+  public void setSimalID(String newID);
 }

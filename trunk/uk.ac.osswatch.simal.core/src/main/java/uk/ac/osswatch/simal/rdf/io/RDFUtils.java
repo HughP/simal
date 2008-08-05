@@ -41,8 +41,10 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -54,6 +56,7 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
  * 
  */
 public class RDFUtils {
+  private static final String SIMAL_CATEGORY_ID = "categoryId";
   private static final String SIMAL_PERSON_ID = "personId";
   private static final String SIMAL_PROJECT_ID = "projectId";
 
@@ -348,6 +351,7 @@ public class RDFUtils {
           deDupePeople(doc, repo);
           checkProjectID(doc, repo);
           checkProjectSeeAlso(doc, url, repo);
+          checkCategoryIDs(doc, repo);
           checkPersonIDs(doc, repo);
           checkPersonSHA1(doc, repo);
           checkResources(doc, repo);
@@ -549,6 +553,43 @@ public class RDFUtils {
   }
 
   /**
+   * Check that all categories have an ID associated with them.
+   * 
+   * @param doc
+   * @param repo
+   * @throws ISimalRepositoryException
+   */
+  private static void checkCategoryIDs(Document doc, ISimalRepository repo)
+      throws SimalRepositoryException {
+    logger.debug("Check category IDs in RDF file");
+    NodeList categories = doc.getElementsByTagNameNS(DOAP_NS, "category");
+    Element category;
+    Attr  simalIDAtt;
+    String id = null;
+    for (int i = 0; i < categories.getLength(); i = i + 1) {
+      category = (Element) categories.item(i);
+      simalIDAtt = category.getAttributeNodeNS(SimalOntology.NS, SIMAL_CATEGORY_ID);
+      if (simalIDAtt == null) {
+        IDoapCategory simalCategory;
+        try {
+          Attr att = category.getAttributeNodeNS(RDF_NS, "resource");
+          simalCategory = repo.getCategory(att.getNodeValue());
+          if (simalCategory != null) {
+            id = simalCategory.getSimalID();
+          } else {
+            id = repo.getNewPersonID();
+          }
+          simalIDAtt = doc.createAttributeNS(SIMAL_NS, SIMAL_CATEGORY_ID);
+          simalIDAtt.setValue(id);
+          category.setAttributeNode(simalIDAtt);
+        } catch (Exception e) {
+          throw new SimalRepositoryException("Unable to get category", e);
+        }
+      }
+    }
+  }
+
+  /**
    * Check that all people elements have an ID associated with them.
    * 
    * @param doc
@@ -571,7 +612,7 @@ public class RDFUtils {
         try {
           simalPerson = repo.getPerson(person.getAttributeNodeNS(RDF_NS, "about").getNodeValue());
         } catch (Exception e) {
-          throw new SimalRepositoryException("Unable to create URI for person", e);
+          throw new SimalRepositoryException("Unable to get person", e);
         }
         if (simalPerson != null) {
           id = simalPerson.getSimalID();

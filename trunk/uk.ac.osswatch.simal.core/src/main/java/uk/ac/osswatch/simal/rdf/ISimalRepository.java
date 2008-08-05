@@ -99,9 +99,18 @@ public interface ISimalRepository {
    * @return the project, or if no project with the given String exists Null
    * @throws SimalRepositoryException
    */
-  public IDoapCategory findCategory(String uri)
+  public IDoapCategory getCategory(String uri)
       throws SimalRepositoryException;
 
+  /**
+   * Get a category with a given simal id.
+   * 
+   * @param id
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public IDoapCategory findCategoryById(String id) throws SimalRepositoryException;
+  
   /**
    * Get a person from the repository.
    * 
@@ -279,6 +288,14 @@ public interface ISimalRepository {
    */
   public String getNewProjectID() throws SimalRepositoryException;
 
+  /**
+   * Create a new category ID and save the next value in the properties file.
+   * 
+   * @throws IOException
+   * @throws FileNotFoundException
+   */
+  public String getNewCategoryID() throws SimalRepositoryException;
+  
   /**
    * Create a new person ID and save the next value in the properties file.
    * 

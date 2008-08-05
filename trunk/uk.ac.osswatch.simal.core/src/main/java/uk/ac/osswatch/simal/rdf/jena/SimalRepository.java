@@ -238,7 +238,7 @@ public class SimalRepository extends AbstractSimalRepository {
     initialised = false;
   }
 
-  public IDoapCategory findCategory(String uri) throws SimalRepositoryException {
+  public IDoapCategory getCategory(String uri) throws SimalRepositoryException {
     if (containsCategory(uri)) {
       return new Category(model.getResource(uri.toString()));
     } else {
@@ -246,6 +246,30 @@ public class SimalRepository extends AbstractSimalRepository {
     }
   }
 
+  public IDoapCategory findCategoryById(String id) throws SimalRepositoryException {
+    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
+    + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+    + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+    + "SELECT DISTINCT ?category WHERE { "
+    + "?category simal:categoryId \"" + id
+    + "\"}";
+    Query query = QueryFactory.create(queryStr);
+    QueryExecution qe = QueryExecutionFactory.create(query, model);
+    ResultSet results = qe.execSelect();
+
+    IDoapCategory category = null;
+    while (results.hasNext()) {
+      QuerySolution soln = results.nextSolution();
+      RDFNode node = soln.get("category");
+      if (node.isResource()) {
+        category = new Category((com.hp.hpl.jena.rdf.model.Resource) node);
+      }
+    }
+    qe.close();
+
+    return category;
+  }
+  
   public IPerson findPersonById(String id) throws SimalRepositoryException {
     String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"

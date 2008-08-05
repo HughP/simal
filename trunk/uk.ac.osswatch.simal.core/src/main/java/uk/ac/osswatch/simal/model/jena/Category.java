@@ -28,9 +28,11 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.rdf.model.Statement;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 public class Category extends DoapResource implements IDoapCategory {
@@ -65,5 +67,18 @@ public class Category extends DoapResource implements IDoapCategory {
     qe.close();
 
     return projects;
+  }
+
+  public String getSimalID() {
+    Statement idStatement = getJenaResource().getProperty(SimalOntology.CATEGORY_ID);
+    if (idStatement != null) {
+      return idStatement.getString();
+    } else {
+      return null;
+    }
+  }
+
+  public void setSimalID(String newID) {
+    getJenaResource().addLiteral(SimalOntology.CATEGORY_ID, newID);
   }
 }

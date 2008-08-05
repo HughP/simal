@@ -98,6 +98,20 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
+  public void testGetAllCategories() throws SimalRepositoryException, IOException {
+    Set<IDoapCategory> cats = repository.getAllCategories();
+
+    Iterator<IDoapCategory> itrCats = cats.iterator();
+    IDoapCategory cat;
+    while (itrCats.hasNext()) {
+      cat = itrCats.next();
+      logger.debug("Got category: " + cat.getSimalID() + " : " + cat.getURI());
+    }
+    
+    assertEquals("Got wrong number of categories", 52, cats.size());
+  }
+
+  @Test
   public void testGetAllProjects() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllProjects()");
     Set<IProject> projects = repository.getAllProjects();
@@ -172,16 +186,21 @@ public class TestRepository extends BaseRepositoryTest {
     logger.debug("Finished testGetAllPeoplesAsJSON()");
   }
 
-  /* 
+  @Test
+  public void testFindCategoryById() throws SimalRepositoryException {
+    IDoapCategory cat = repository.findCategoryById("1");
+    assertNotNull(cat);
+    assertEquals("Category name is incorrect", cat.getName(), "Simal ID Test");
+  }
+
   @Test
   public void testFindPersonById() throws SimalRepositoryException {
     logger.debug("Starting testFindPersonByID()");
     IPerson person = repository.findPersonById("15");
     assertNotNull(person);
-    assertEquals("developer", person.getFoafGivennames().toString());
+    assertEquals("[Ross Gardler]", person.getNames().toString());
     logger.debug("Finished testFindPersonByID()");
   }
-  */
 
   @Test
   public void testFindProjectById() throws SimalRepositoryException {

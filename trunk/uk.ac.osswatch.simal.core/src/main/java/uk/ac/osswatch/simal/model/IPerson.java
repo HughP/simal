@@ -42,15 +42,6 @@ public interface IPerson extends IFoafResource {
    */
   public Set<IPerson> getColleagues() throws SimalRepositoryException;
   
-
-  /**
-   * Get the Simal ID for this person. This is a unique identifier
-   * within the repository from which it was retrieved.
-   * 
-   * @return 
-   */
-  public String getSimalID();
-
   /**
    * Set the Simal ID for this person. This is a unique identifier
    * within the repository from which it was retrieved.
