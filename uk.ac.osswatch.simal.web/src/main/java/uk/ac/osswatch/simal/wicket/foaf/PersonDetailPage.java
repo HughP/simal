@@ -44,7 +44,7 @@ public class PersonDetailPage extends BasePage {
           populatePage(person);
         } catch (SimalRepositoryException e) {
           UserReportableException error = new UserReportableException(
-              "Unable to get project from the repository",
+              "Unable to get person from the repository",
               PersonDetailPage.class, e);
           setResponsePage(new ErrorReportPage(error));
         }
