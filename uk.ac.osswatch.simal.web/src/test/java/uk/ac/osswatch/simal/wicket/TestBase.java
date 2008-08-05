@@ -23,8 +23,6 @@ import org.junit.BeforeClass;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public abstract class TestBase {
-  public static final String TEST_SIMAL_PROJECT_URI = "http://simal.oss-watch.ac.uk/simalTest#";
-  
   protected static final int NUMBER_OF_TEST_PROJECTS = 5;
   protected static final int NUMBER_OF_TEST_PEOPLE = 16;
   protected static WicketTester tester;
