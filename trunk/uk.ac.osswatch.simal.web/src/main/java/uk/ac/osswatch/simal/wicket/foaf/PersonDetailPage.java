@@ -63,6 +63,9 @@ public class PersonDetailPage extends BasePage {
   private void populatePage(IPerson person) {
     add(new PersonSummaryPanel("summary", person));
     add(new ColleaguesPanel("colleagues", person));
+
+    // source
+    add(getRepeatingDataSourcePanel("sources", "seeAlso", person.getSources()));
   }
 }
 

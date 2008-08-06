@@ -143,6 +143,9 @@ public class ProjectDetailPage extends BasePage {
     add(getRepeatingLinks("downloadMirrors", "downloadMirror",
         "Download Mirror", new SortableDoapResourceDataProvider(project
             .getDownloadMirrors()), false));
+    
+    // sources
+    add(getRepeatingDataSourcePanel("sources", "seeAlso", project.getSources()));
 
     add(new Label("created", project.getCreated()));
   }
