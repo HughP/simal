@@ -27,6 +27,7 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -65,5 +66,13 @@ public class TestCategory extends BaseRepositoryTest {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     String id = category.getSimalID();
     assertNotNull(id);
+  }
+  
+  @Test
+  public void testGetPeople() throws SimalRepositoryException {
+    IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
+    Set<IPerson> people = category.getPeople();
+    assertEquals("Not got engouh people for the test category", 10, people.size());
+    
   }
 }
