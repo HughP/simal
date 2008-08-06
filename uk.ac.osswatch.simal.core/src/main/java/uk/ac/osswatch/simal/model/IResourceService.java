@@ -15,6 +15,8 @@
  */
 package uk.ac.osswatch.simal.model;
 
+import java.util.Set;
+
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -45,4 +47,11 @@ public interface IResourceService {
    * Delete this resource from the repository.
    */
   public void delete() throws SimalRepositoryException;
+  
+  /**
+   * Get all the sources for the data we hold about
+   * this resource. This translates to the rdfs:seeAlso
+   * triples.
+   */
+  public Set<String> getSources();
 }

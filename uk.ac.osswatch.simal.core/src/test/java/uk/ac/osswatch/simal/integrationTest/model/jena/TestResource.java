@@ -18,16 +18,15 @@ package uk.ac.osswatch.simal.integrationTest.model.jena;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.URISyntaxException;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -75,6 +74,12 @@ public class TestResource extends BaseRepositoryTest {
     assertNotNull(project);
     assertEquals("URI after serialisation is not the same", project.getURI(), project1.getURI());
     assertEquals("Label after serialisation is not the same", project.getLabel(), project1.getLabel());
+  }
+  
+  @Test
+  public void testSources() throws SimalRepositoryException {
+    Set sources = project1.getSources();
+    assertEquals("Not enough data sources identified", 2, sources.size());
   }
 
 }

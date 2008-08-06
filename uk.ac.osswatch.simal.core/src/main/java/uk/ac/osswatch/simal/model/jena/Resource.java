@@ -196,4 +196,14 @@ public class Resource implements IResource {
   public void setSimalID(String newID) {
     logger.warn("Attempt to set the Simal ID on a base resource, must override the setSimalID method in the model.");
   }
+
+  public Set<String> getSources() {
+    HashSet<String> result = new HashSet<String>();
+    StmtIterator sources = jenaResource.listProperties(RDFS.seeAlso);
+    while (sources.hasNext()) {
+      Statement stmt = sources.nextStatement();
+      result.add(stmt.getObject().toString());
+    }
+    return result;
+  }
 }
