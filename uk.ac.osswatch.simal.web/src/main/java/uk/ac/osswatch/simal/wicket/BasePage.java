@@ -41,6 +41,7 @@ import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.DoapFormPage;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonBrowserPage;
+import uk.ac.osswatch.simal.wicket.panel.DataSourceSummaryPanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 import uk.ac.osswatch.simal.wicket.panel.StandardFooter;
 
@@ -200,6 +201,33 @@ public class BasePage extends WebPage {
       repeating.add(item);
       person = itr.next();
       item.add(new PersonSummaryPanel(personWicketID, person));
+    }
+    return repeating;
+  }
+
+  /**
+   * Get a simple repeating view displaying a number of data source
+   * (as in rdfs:seeAlso) summary panels.
+   * 
+   * @param repeaterWicketID
+   *          the wicket ID of the repeating view
+   * @param sourceWicketID
+   *          the wicket ID for the repeating person panel
+   * @param sources
+   *          the set of URIs for sources to display in this repeating view
+   * @return
+   */
+  protected RepeatingView getRepeatingDataSourcePanel(String repeaterWicketID,
+      String sourceWicketID, Set<String> sources) {
+    Iterator<String> itr = sources.iterator();
+    RepeatingView repeating = new RepeatingView(repeaterWicketID);
+    WebMarkupContainer item;
+    String uri;
+    while (itr.hasNext()) {
+      item = new WebMarkupContainer(repeating.newChildId());
+      repeating.add(item);
+      uri = itr.next();
+      item.add(new DataSourceSummaryPanel(sourceWicketID, uri));
     }
     return repeating;
   }

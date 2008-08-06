@@ -74,6 +74,9 @@ Copyright 2008 University of Oxford *
   margin: 5px 5px 5px 5px;
 }
 
+.footnote {
+  font-size:75%; 
+}
 
 .created {
   float: right;
