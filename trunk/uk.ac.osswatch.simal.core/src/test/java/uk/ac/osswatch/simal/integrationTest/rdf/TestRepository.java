@@ -190,7 +190,7 @@ public class TestRepository extends BaseRepositoryTest {
   public void testFindCategoryById() throws SimalRepositoryException {
     IDoapCategory cat = repository.findCategoryById("1");
     assertNotNull(cat);
-    assertEquals("Category name is incorrect", cat.getName(), "Simal ID Test");
+    assertEquals("Category name is incorrect", "Simal ID Test", cat.getName());
   }
 
   @Test
