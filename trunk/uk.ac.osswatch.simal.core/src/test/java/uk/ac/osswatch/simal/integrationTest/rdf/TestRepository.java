@@ -108,7 +108,7 @@ public class TestRepository extends BaseRepositoryTest {
       logger.debug("Got category: " + cat.getSimalID() + " : " + cat.getURI());
     }
     
-    assertEquals("Got wrong number of categories", 52, cats.size());
+    assertTrue("Got too few categories", 50 < cats.size());
   }
 
   @Test
