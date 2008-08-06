@@ -1,19 +1,5 @@
-/*
- * Copyright 2007 University of Oxford
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -31,9 +17,9 @@ package uk.ac.osswatch.simal.wicket.panel;
  * under the License.                                                *
  */
 
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
@@ -54,30 +40,59 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
  * A panel that will list all the Projects in the repository.
  */
 public class ProjectListPanel extends Panel {
-	private static final long serialVersionUID = -890741585742505383L;
+  private static final long serialVersionUID = -890741585742505383L;
 
-	@SuppressWarnings("serial")
-	public ProjectListPanel(String id) throws SimalRepositoryException {
-		super(id);
-		
-		List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
-/*
- * columns.add(new AbstractColumn(new Model("Actions")) { public void
- * populateItem(Item cellItem, String componentId, IModel model) {
- * cellItem.add(new ActionPanel(componentId, model)); } });
- */
-        columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
-			@Override
-			public void onClick(Item item, String componentId, IModel model) {
-			       IProject project = (IProject)model.getObject();
-			       getRequestCycle().setResponsePage(new ProjectDetailPage(project));
-			}
-        
-        });
-        columns.add(new PropertyColumn(new Model("Description"), "shortDesc", "shortDesc"));
-        
-        SortableDataProvider dataProvider = new SortableProjectDataProvider();
-        dataProvider.setSort("name", true);
-        add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
-	}
+  /**
+   * List all projects in the repository.
+   * 
+   * @param id
+   * @throws SimalRepositoryException
+   */
+  @SuppressWarnings("serial")
+  public ProjectListPanel(String id) throws SimalRepositoryException {
+    super(id);
+    populatePanel(null);
+  }
+
+  /**
+   * List a set of given projects.
+   * 
+   * @param string
+   * @param projects
+   * @throws SimalRepositoryException 
+   */
+  public ProjectListPanel(String id, Set<IProject> projects) throws SimalRepositoryException {
+    super(id);
+    populatePanel(projects);
+  }
+
+  /**
+   * Populate the panel with data.
+   * 
+   * @param projects - the list of projects to display or null if all projects in the repo
+   * are to be displayed.
+   * @throws SimalRepositoryException
+   */
+  private void populatePanel(Set<IProject> projects) throws SimalRepositoryException {
+    List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
+    columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
+      @Override
+      public void onClick(Item item, String componentId, IModel model) {
+        IProject project = (IProject) model.getObject();
+        getRequestCycle().setResponsePage(new ProjectDetailPage(project));
+      }
+
+    });
+    columns.add(new PropertyColumn(new Model("Description"), "shortDesc",
+        "shortDesc"));
+
+    SortableDataProvider dataProvider;
+    if (projects == null) {
+      dataProvider = new SortableProjectDataProvider();
+    } else {
+      dataProvider = new SortableProjectDataProvider(projects);
+    }
+    dataProvider.setSort("name", true);
+    add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
+  }
 }
