@@ -33,6 +33,7 @@ import org.apache.wicket.model.Model;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableCategoryDataProvider;
+import uk.ac.osswatch.simal.wicket.doap.CategoryDetailPage;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
@@ -57,17 +58,12 @@ public class CategoryListPanel extends Panel {
 
   private void addCategoryList(SortableDataProvider dataProvider) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
-    /*
-     * columns.add(new AbstractColumn(new Model("Actions")) { public void
-     * populateItem(Item cellItem, String componentId, IModel model) {
-     * cellItem.add(new ActionPanel(componentId, model)); } });
-     */
     columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
 
       @Override
       public void onClick(Item item, String componentId, IModel model) {
-        IDoapCategory person = (IDoapCategory) model.getObject();
-        // getRequestCycle().setResponsePage(new PersonDetailPage(project));
+        IDoapCategory category = (IDoapCategory) model.getObject();
+        getRequestCycle().setResponsePage(new CategoryDetailPage(category));
       }
 
     });
