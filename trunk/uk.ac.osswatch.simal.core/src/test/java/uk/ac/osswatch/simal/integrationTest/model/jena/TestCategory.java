@@ -72,7 +72,7 @@ public class TestCategory extends BaseRepositoryTest {
   public void testGetPeople() throws SimalRepositoryException {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     Set<IPerson> people = category.getPeople();
-    assertEquals("Not got engouh people for the test category", 10, people.size());
+    assertTrue("Not got engouh people for the test category", people.size() >= 10);
     
   }
 }
