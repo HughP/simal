@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.model.jena;
  */
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import com.hp.hpl.jena.query.Query;
@@ -31,15 +32,13 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.SimalOntology;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 public class Category extends DoapResource implements IDoapCategory {
-
-  /**
-   * 
-   */
   private static final long serialVersionUID = -1351331995566931903L;
 
   public Category(com.hp.hpl.jena.rdf.model.Resource resource) {
@@ -80,5 +79,14 @@ public class Category extends DoapResource implements IDoapCategory {
 
   public void setSimalID(String newID) {
     getJenaResource().addLiteral(SimalOntology.CATEGORY_ID, newID);
+  }
+
+  public Set<IPerson> getPeople() throws SimalRepositoryException {
+    Iterator<IProject> projects = getProjects().iterator();
+    HashSet<IPerson> people = new HashSet<IPerson>();
+    while(projects.hasNext()) {
+      people.addAll(projects.next().getAllPeople());
+    }
+    return people;
   }
 }
