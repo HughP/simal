@@ -56,7 +56,8 @@ public class ModelSupport {
    */
   public static void addTestData(ISimalRepository repo) {
     try {     
-      addSimalData(repo);
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(
+          CATEGORIES_RDF), TEST_FILE_BASE_URL);
       
       repo.addProject(ISimalRepository.class.getResource("/testData/"
           + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
@@ -67,8 +68,7 @@ public class ModelSupport {
       repo.addProject(ISimalRepository.class.getResource("/testData/"
           + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
 
-      repo.addProject(ISimalRepository.class.getClassLoader().getResource(
-          CATEGORIES_RDF), TEST_FILE_BASE_URL);
+      addSimalData(repo);
 
       repo.addProject(new URL(
           "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
