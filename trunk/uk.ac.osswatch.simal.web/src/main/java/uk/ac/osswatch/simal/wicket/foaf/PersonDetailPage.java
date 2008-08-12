@@ -26,6 +26,7 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.panel.ColleaguesPanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
+import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 
 /**
  * A page for displaying the details of a single person.
@@ -57,12 +58,20 @@ public class PersonDetailPage extends BasePage {
   }
   
   public PersonDetailPage(IPerson person) {
-    populatePage(person);
+    try {
+      populatePage(person);
+    } catch (SimalRepositoryException e) {
+      UserReportableException error = new UserReportableException(
+          "Unable to populate person detail page",
+          PersonDetailPage.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    }
   }
 
-  private void populatePage(IPerson person) {
+  private void populatePage(IPerson person) throws SimalRepositoryException {
     add(new PersonSummaryPanel("summary", person));
     add(new ColleaguesPanel("colleagues", person));
+    add(new ProjectListPanel("projects", person.getProjects()));
 
     // source
     add(getRepeatingDataSourcePanel("sources", "seeAlso", person.getSources()));
