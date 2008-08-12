@@ -17,13 +17,13 @@ package uk.ac.osswatch.simal.rdf;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
 
 /**
  * A class for handling common repository actions. Applications should not
@@ -205,19 +205,6 @@ public interface ISimalRepository {
   public Set<IPerson> getAllPeople() throws SimalRepositoryException;
 
   /**
-   * Write an RDF/XML document representing a project. If the project does not
-   * exist an empty RDF/XML document is written.
-   * 
-   * @param writer
-   * @param uri
-   * @throws SimalRepositoryException
-   * @throws RepositoryException
-   * @throws RDFHandlerException
-   */
-  public void writeXML(Writer writer, String uri)
-      throws SimalRepositoryException;
-
-  /**
    * Add an RDF/XML file, other than one supported by more specialised methods,
    * such as addProject(...).
    * 
@@ -393,5 +380,13 @@ public interface ISimalRepository {
    * way to retrieve the data.
    */
   public void removeAllData();
+
+  /**
+   * Get a resource of unknown type.
+   * 
+   * @param uri the URI of the resource
+   * @return
+   */
+  public IResource getResource(String uri);
 
 }

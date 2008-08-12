@@ -36,6 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -212,7 +213,8 @@ public class Simal {
   private static void writeXML(final String uri) {
     logger.info("Writing XML for " + uri);
     try {
-      repository.writeXML(new OutputStreamWriter(System.out), uri);
+      IResource resource = repository.getResource(uri);
+      System.out.print(resource.toXML());
     } catch (SimalRepositoryException e) {
       logger.error("Unable to write XML to standard out");
       System.exit(1);

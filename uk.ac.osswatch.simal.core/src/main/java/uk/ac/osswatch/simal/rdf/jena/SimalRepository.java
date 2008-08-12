@@ -38,10 +38,12 @@ import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.model.jena.Category;
 import uk.ac.osswatch.simal.model.jena.Person;
 import uk.ac.osswatch.simal.model.jena.Project;
+import uk.ac.osswatch.simal.model.jena.Resource;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -62,7 +64,6 @@ import com.hp.hpl.jena.rdf.model.ModelMaker;
 import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -206,7 +207,7 @@ public class SimalRepository extends AbstractSimalRepository {
           "Attempt to create a second person with the URI " + uri);
     }
 
-    Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
     Statement s = model.createStatement(r, RDF.type, Foaf.PERSON);
     model.add(s);
 
@@ -223,7 +224,7 @@ public class SimalRepository extends AbstractSimalRepository {
     }
 
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
-    Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
     Statement s = model.createStatement(r, RDF.type, o);
     model.add(s);
 
@@ -498,27 +499,21 @@ public class SimalRepository extends AbstractSimalRepository {
     }
   }
 
-  public void writeXML(Writer writer, String uri)
-      throws SimalRepositoryException {
-    Resource resource = model.getResource(uri);
-    resource.getModel().write(writer);
-  }
-
   public boolean containsProject(String uri) {
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
-    Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
     Statement s = model.createStatement(r, RDF.type, o);
     return model.contains(s);
   }
 
   public boolean containsPerson(String uri) {
-    Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
     Statement s = model.createStatement(r, RDF.type, Foaf.PERSON);
     return model.contains(s);
   }
 
   public boolean containsCategory(String uri) {
-    Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
     return model.containsResource(r);
   }
 
@@ -535,8 +530,12 @@ public class SimalRepository extends AbstractSimalRepository {
    * @param uri
    * @return
    */
-  public Resource getResource(String uri) {
+  public com.hp.hpl.jena.rdf.model.Resource getJenaResource(String uri) {
     return model.getResource(uri);
+  }
+
+  public IResource getResource(String uri) {
+    return new Resource(model.getResource(uri));
   }
   
 }
