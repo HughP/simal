@@ -39,6 +39,7 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFWriter;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.util.ResourceUtils;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
@@ -174,7 +175,7 @@ public class Resource implements IResource {
   }
 
   public String toXML() throws SimalRepositoryException {
-    Model model = getJenaResource().getModel();
+    Model model = ResourceUtils.reachableClosure(getJenaResource());
     RDFWriter writer = model.getWriter("RDF/XML-ABBREV");
     StringWriter sw = new StringWriter();
     writer.write(model, sw, null);
