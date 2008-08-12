@@ -85,7 +85,7 @@ public class Resource implements IResource {
     if (jenaResource == null) {
       try {
         ISimalRepository repo = SimalRepository.getInstance();
-        return ((SimalRepository)repo).getResource(getURI());
+        return ((SimalRepository)repo).getJenaResource(getURI());
       } catch (SimalRepositoryException e) {
         logger.warn("Unable to get hold of the repository, but we are already running, this should be impossible", e);
         return null;
