@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
-
 import java.util.Iterator;
 import java.util.Set;
 
@@ -25,28 +25,27 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * API functionality for working with Person objects.
- *
+ * 
  */
 public class PersonAPI extends AbstractHandler {
 
   /**
-   * Create a PersonAPI that will operate on a given Simal
-   * Repository. Handlers should not be instantiated directly,
-   * use HandlerFactory.createHandler(...) instead.
+   * Create a PersonAPI that will operate on a given Simal Repository. Handlers
+   * should not be instantiated directly, use HandlerFactory.createHandler(...)
+   * instead.
    * 
    * @param repo
-   * @throws SimalAPIException 
+   * @throws SimalAPIException
    */
   protected PersonAPI(RESTCommand cmd) {
     super(cmd);
   }
 
-
   /**
    * Execute a command.
    * 
    * @param cmd
-   * @throws SimalAPIException 
+   * @throws SimalAPIException
    */
   public String execute() throws SimalAPIException {
     if (command.isGetColleagues()) {
@@ -57,7 +56,7 @@ public class PersonAPI extends AbstractHandler {
   }
 
   /**
-   * Get all the colleagues for this 
+   * Get all the colleagues for this
    * 
    * @param cmd
    * @return
@@ -78,45 +77,44 @@ public class PersonAPI extends AbstractHandler {
       colleaguesAndFriends = person.getColleagues();
       colleaguesAndFriends.addAll(person.getKnows());
       friends = colleaguesAndFriends.iterator();
+    
+      if (cmd.isJSON()) {
+        while (friends.hasNext()) {
+          result.append("{ \"items\": [");
+          result.append(friends.next().toJSON(true));
+          result.append("]}");
+        }
+      } else if (cmd.isXML()) {
+        result.append("<container>");
+  
+        result.append("<people>");
+        result.append("<person id=\"" + person.getSimalID() + "\" name=\"" + person.getGivennames() + "\">");
+        IPerson friend;
+        while (friends.hasNext()) {
+          friend = friends.next();
+          result.append("<friend>");
+          result.append(friend.getSimalID());
+          result.append("</friend>");
+        }
+        result.append("</person>");
+        
+        friends = colleaguesAndFriends.iterator();
+        while (friends.hasNext()) {
+          friend = friends.next();
+          result.append("<person id=\"" + friend.getSimalID() + "\" name=\"" + friend.getGivennames() + "\">");
+          result.append("</person>");
+        }
+        result.append("</people>");
+      
+        result.append("</container>"); 
+      } else {
+        throw new SimalAPIException("Unkown format requested - "
+            + cmd);
+      }
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to get colleagues for person with id " + id, e);
-    }
-    
-    if (cmd.isJSON()) {
-      while (friends.hasNext()) {
-        result.append("{ \"items\": [");
-        result.append(friends.next().toJSON(true));
-        result.append("]}");
-      }
-    } else if (cmd.isXML()) {
-      result.append("<container>");
-
-      result.append("<people>");
-      result.append("<person id=\"" + person.getSimalID() + "\" name=\"" + person.getGivennames() + "\">");
-      IPerson friend;
-      while (friends.hasNext()) {
-        friend = friends.next();
-        result.append("<friend>");
-        result.append(friend.getSimalID());
-        result.append("</friend>");
-      }
-      result.append("</person>");
-      
-      friends = colleaguesAndFriends.iterator();
-      while (friends.hasNext()) {
-        friend = friends.next();
-        result.append("<person id=\"" + friend.getSimalID() + "\" name=\"" + friend.getGivennames() + "\">");
-        result.append("</person>");
-      }
-      result.append("</people>");
-      
-      result.append("</container>"); 
-    } else {
-      throw new SimalAPIException("Unkown format requested - "
-          + cmd);
     }
     response = result.toString();
     return response;
   }
-
 }
