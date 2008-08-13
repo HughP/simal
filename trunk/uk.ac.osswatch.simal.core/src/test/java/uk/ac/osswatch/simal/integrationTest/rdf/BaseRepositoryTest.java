@@ -34,6 +34,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 public abstract class BaseRepositoryTest {
 
   public static final String TEST_SIMAL_PROJECT_URI = "http://simal.oss-watch.ac.uk/simalTest#";
+  public static final String TEST_SIMAL_DEVELOPER_URI = "http://foo.org/~developer/#me";
   public static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
   public static final String TEST_SIMAL_PROJECT_SHORT_DESC = "A simple DOAP file used during automated testing.";
   public static final String TEST_SIMAL_PROJECT_CREATED = "2007-08-08";
@@ -82,7 +83,7 @@ public abstract class BaseRepositoryTest {
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_DOCUMENTERS = 1;
   public static final String TEST_SIMAL_PROJECT_DOCUMENTERS = "documenter";
 
-  public static final int TEST_SIMAL_PROJECT_NUMBER_OF_DEVELOPERS = 1;
+  public static final int TEST_SIMAL_PROJECT_NUMBER_OF_DEVELOPERS = 2;
   public static final String TEST_SIMAL_PROJECT_DEVELOPERS = "developer";
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS = 1;
@@ -119,7 +120,7 @@ public abstract class BaseRepositoryTest {
       repository.initialise(null);
     }
     project1 = getSimalTestProject();
-    IPerson developer = project1.getDevelopers().iterator().next();
+    IPerson developer = repository.getPerson(TEST_SIMAL_DEVELOPER_URI);
     developer.setSimalID("15");
   }
 

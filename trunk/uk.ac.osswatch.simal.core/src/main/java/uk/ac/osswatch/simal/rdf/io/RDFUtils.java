@@ -348,14 +348,17 @@ public class RDFUtils {
           // perform various checks on the document
           removeBNodes(doc, repo);
           deDupeProjects(doc, repo);
-          deDupePeople(doc, repo);
           checkProjectID(doc, repo);
           checkProjectSeeAlso(doc, url, repo);
           checkCategoryIDs(doc, repo);
+
+          deDupePeople(doc, repo);
           checkPersonIDs(doc, repo);
           checkPersonSHA1(doc, repo);
           checkResources(doc, repo);
+          
           addProjectToPeople(doc, repo);
+          
           escapeContent(doc, repo);
           
           File annotatedFile = writeAnnotatedFile(url, doc);

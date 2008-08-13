@@ -23,7 +23,6 @@ import static junit.framework.Assert.assertTrue;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Set;

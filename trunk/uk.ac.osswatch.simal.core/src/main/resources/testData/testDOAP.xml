@@ -179,5 +179,7 @@
     </foaf:Person>
   </developer>
   
+  <developer rdf:resource="http://foo.org/~secondDeveloper#me"/>
+  
   <rdfs:seeAlso rdf:resource="http://foo.org/seeAlso"/>
 </Project>

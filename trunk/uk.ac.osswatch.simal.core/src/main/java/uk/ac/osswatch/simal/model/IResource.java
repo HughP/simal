@@ -90,8 +90,9 @@ public interface IResource extends IResourceService, Serializable {
    * Not all resources are given a SimalID.
    * 
    * @return the Simal ID or null if none has been defined
+   * @throws SimalRepositoryException 
    */
-  public String getSimalID();
+  public String getSimalID() throws SimalRepositoryException;
   
   /**
    * Set the Simal ID for this resource. This is a unique identifier

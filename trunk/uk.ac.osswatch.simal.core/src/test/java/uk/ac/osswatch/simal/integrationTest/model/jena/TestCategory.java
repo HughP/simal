@@ -54,7 +54,7 @@ public class TestCategory extends BaseRepositoryTest {
   }
   
   @Test
-  public void testSetId() {
+  public void testSetId() throws SimalRepositoryException {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     category.setSimalID("testing");
     String id = category.getSimalID();
@@ -62,7 +62,7 @@ public class TestCategory extends BaseRepositoryTest {
   }
   
   @Test
-  public void testGetId() {
+  public void testGetId() throws SimalRepositoryException {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     String id = category.getSimalID();
     assertNotNull(id);

@@ -71,11 +71,11 @@ public class TestProject extends BaseRepositoryTest {
     assertEquals("Have got incorrect number of maintainers",
         BaseRepositoryTest.TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS,
         maintainers.size());
-    assertEquals("Should have one developers", 1, developers.size());
-    assertEquals("Should have one helpers", 1, helpers.size());
-    assertEquals("Should have one documenters", 1, documenters.size());
-    assertEquals("Should have one translators", 1, translators.size());
-    assertEquals("Should have one testers", 1, testers.size());
+    assertEquals("Should have one developers", TEST_SIMAL_PROJECT_NUMBER_OF_DEVELOPERS, developers.size());
+    assertEquals("Should have one helpers", TEST_SIMAL_PROJECT_NUMBER_OF_HELPERS, helpers.size());
+    assertEquals("Should have one documenters", TEST_SIMAL_PROJECT_NUMBER_OF_DOCUMENTERS, documenters.size());
+    assertEquals("Should have one translators", TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS, translators.size());
+    assertEquals("Should have one testers", TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS, testers.size());
   }
 
   @Test
