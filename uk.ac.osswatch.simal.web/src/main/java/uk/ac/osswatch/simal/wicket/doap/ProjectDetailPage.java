@@ -85,11 +85,17 @@ public class ProjectDetailPage extends BasePage {
     };
     add(deleteProjectActionLink);
     
-    RESTCommand cmd = RESTCommand.createGetProject(project.getSimalID(), RESTCommand.SOURCE_TYPE_SIMAL, RESTCommand.FORMAT_XML);
-    add(new ExternalLink("doapLink", cmd.getURL()));
-    String rdfLink = "<link href=\"" + cmd.getURL() + "\" rel=\"meta\" title=\"DOAP\" type=\"application/rdf+xml\" />";
-    add(new StringHeaderContributor(rdfLink));
-    
+    try {
+      RESTCommand cmd = RESTCommand.createGetProject(project.getSimalID(), RESTCommand.SOURCE_TYPE_SIMAL, RESTCommand.FORMAT_XML);
+      add(new ExternalLink("doapLink", cmd.getURL()));
+      String rdfLink = "<link href=\"" + cmd.getURL() + "\" rel=\"meta\" title=\"DOAP\" type=\"application/rdf+xml\" />";
+      add(new StringHeaderContributor(rdfLink));
+    } catch (SimalRepositoryException e) {
+      UserReportableException error = new UserReportableException(
+          "Unable to get new person ID from the repository",
+          ExhibitProjectBrowserPage.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    }   
     
     add(new Label("projectName", project.getName()));
     add(new Label("shortDesc", project.getShortDesc()));

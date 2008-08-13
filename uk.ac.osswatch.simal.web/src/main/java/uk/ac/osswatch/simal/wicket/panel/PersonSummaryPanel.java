@@ -49,13 +49,14 @@ public class PersonSummaryPanel extends Panel {
 	 * @param panelID
 	 * @param person
 	 *            the person to display in this panel
+	 * @throws SimalRepositoryException 
 	 */
-	public PersonSummaryPanel(String panelId, IPerson person) {
+	public PersonSummaryPanel(String panelId, IPerson person) throws SimalRepositoryException {
 		super(panelId);
 		populatePage(person);
-	}
+  }
 
-	private void populatePage(final IPerson person) {
+	private void populatePage(final IPerson person) throws SimalRepositoryException {
 	  this.person = person;
 		add(new Label("personName", person.getLabel()));
 		add(new Label("personId", person.getSimalID()));
