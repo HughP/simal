@@ -247,6 +247,8 @@
           <source>1.5</source>
           <target>1.5</target>
           <compilerVersion>1.5</compilerVersion>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
         </configuration>
       </plugin>
       
