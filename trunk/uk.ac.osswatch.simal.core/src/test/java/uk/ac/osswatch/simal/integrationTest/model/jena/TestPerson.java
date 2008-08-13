@@ -102,8 +102,6 @@ public class TestPerson extends BaseRepositoryTest {
     assertNotNull(colleagues);
     assertEquals("Got an incorrect nmber of colleagues", BaseRepositoryTest
         .getNumberOfParticipants() - 1, colleagues.size());
-    // [Joe Blogs Maintainer, helper, Firstname lastname, Translator, Tester, Jane Blogs Maintainer, documenter, http://foo.org/~secondDeveloper#me]
-    // [Firstname lastname, documenter, Jane Blogs Maintainer, Translator, helper, Tester, Joe Blogs Maintainer]
     Iterator<IPerson> people = colleagues.iterator();
     while (people.hasNext()) {
       IPerson person = people.next();
