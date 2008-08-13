@@ -16,7 +16,6 @@
 package uk.ac.osswatch.simal.integrationTest.model.jena;
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
