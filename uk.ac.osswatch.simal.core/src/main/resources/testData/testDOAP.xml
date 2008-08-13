@@ -153,6 +153,7 @@
   <documenter>
     <foaf:Person rdf:about="http://foo.org/~documentor/#me">
       <foaf:givenname>documenter</foaf:givenname>
+      <foaf:homepage rdf:resource=""/>
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~documentor/foaf.rdf.xml" />
     </foaf:Person>

@@ -16,6 +16,7 @@
 package uk.ac.osswatch.simal.integrationTest.model.jena;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -28,6 +29,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -38,13 +40,16 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class TestPerson extends BaseRepositoryTest {
 
   private static IPerson developer;
+  private static IPerson documentor;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
     initRepository();
 
     developer = repository
-        .getPerson("http://foo.org/~developer/#me");
+        .getPerson(TEST_SIMAL_DEVELOPER_URI);
+    documentor = repository
+        .getPerson(TEST_SIMAL_DOCUMENTOR_URI);
   }
 
   @Test
@@ -133,5 +138,11 @@ public class TestPerson extends BaseRepositoryTest {
   public void testGetProjects() throws SimalRepositoryException {
     Set<IProject> projects = developer.getProjects();
     assertEquals("Developer is not in the correct number of projects", projects.size(), 1);
+  }
+  
+  @Test
+  public void testEmptyResources() throws SimalRepositoryException {
+    Set<IDoapHomepage> homepages = documentor.getHomepages();
+    assertEquals("Documentor homepage should not contain any resources as it has an empty resource attribute", 0, homepages.size());
   }
 }
