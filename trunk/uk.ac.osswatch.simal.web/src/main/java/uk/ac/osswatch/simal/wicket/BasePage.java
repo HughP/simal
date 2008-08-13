@@ -34,7 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.IDoapResourceService;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
@@ -200,7 +199,11 @@ public class BasePage extends WebPage {
       item = new WebMarkupContainer(repeating.newChildId());
       repeating.add(item);
       person = itr.next();
-      item.add(new PersonSummaryPanel(personWicketID, person));
+      try {
+        item.add(new PersonSummaryPanel(personWicketID, person));
+      } catch (SimalRepositoryException e) {
+        logger.warn("Can't display person: " + person.toString(), e);
+      }
     }
     return repeating;
   }
