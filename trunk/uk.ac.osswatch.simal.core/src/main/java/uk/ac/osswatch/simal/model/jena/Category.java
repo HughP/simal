@@ -22,6 +22,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.SimalOntology;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
+
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -30,13 +37,6 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
-
-import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.SimalOntology;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 public class Category extends DoapResource implements IDoapCategory {
   private static final long serialVersionUID = -1351331995566931903L;
