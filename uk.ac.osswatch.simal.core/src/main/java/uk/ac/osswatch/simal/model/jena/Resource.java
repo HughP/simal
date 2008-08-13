@@ -190,7 +190,7 @@ public class Resource implements IResource {
     return jenaResource;
   }
 
-  public String getSimalID() {
+  public String getSimalID() throws SimalRepositoryException {
     return null;
   }
 
