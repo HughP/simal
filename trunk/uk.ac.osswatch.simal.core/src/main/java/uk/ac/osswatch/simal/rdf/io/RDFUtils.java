@@ -36,6 +36,7 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
@@ -478,9 +479,12 @@ public class RDFUtils {
         Element el;
         for (int i = 0; i < nodes.getLength(); i = i + 1) {
           el = (Element) nodes.item(i);
+          Node parent = el.getParentNode();
+          NamedNodeMap atts = parent.getAttributes();
           Attr resource = el.getAttributeNodeNS(RDF_NS, "resource");
           if (resource == null || resource.getValue().equals("")) {
-            el.getParentNode().removeChild(el);
+            parent.removeChild(el);
+            i = i - 1;
           }
         }
     }
