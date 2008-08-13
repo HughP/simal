@@ -47,9 +47,7 @@ public class TestPersonSummaryPanel extends TestBase {
 						}
 		        }
 		 });
-		tester.assertVisible("panel:personName");
-		tester.assertLabel("panel:personName", "developer");
-		
+		tester.assertVisible("panel:personName");		
 		tester.assertVisible("panel:homepages");
 	}
 }
