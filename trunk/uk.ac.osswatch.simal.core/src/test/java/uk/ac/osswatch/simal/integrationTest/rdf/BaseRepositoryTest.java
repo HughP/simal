@@ -35,6 +35,7 @@ public abstract class BaseRepositoryTest {
 
   public static final String TEST_SIMAL_PROJECT_URI = "http://simal.oss-watch.ac.uk/simalTest#";
   public static final String TEST_SIMAL_DEVELOPER_URI = "http://foo.org/~developer/#me";
+  public static final String TEST_SIMAL_DOCUMENTOR_URI = "http://foo.org/~documentor/#me";
   public static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
   public static final String TEST_SIMAL_PROJECT_SHORT_DESC = "A simple DOAP file used during automated testing.";
   public static final String TEST_SIMAL_PROJECT_CREATED = "2007-08-08";
