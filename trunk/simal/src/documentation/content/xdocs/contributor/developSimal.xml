@@ -161,12 +161,6 @@
         select Maven2 -> Enable Maven dependency management</li>
       </ol>
       
-      <section>
-        <title>Mylyn Generic Issue Tracker Integration</title>
-        <fixme author="rdg">Describe our use of the Mylyn generic issue tracker to integrate with 
-        Google Code - see http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code</fixme>
-      </section>
-      
     </section>
     
     <section>
@@ -194,6 +188,68 @@
         <li>Wait for the tests to run, you should get a green bar for all 
         tests</li>
       </ul>
+    </section>
+    
+    <section>
+      <title>Optional Steps</title>
+      
+      <section>
+        <title>Task Management</title>
+        
+        <p>These plugins are useful in tracking and managing
+        tasks.</p>
+        
+        <section>
+          <title>Mylyn Generic Issue Tracker Integration</title>
+          <fixme author="rdg">Describe out use of the Mylyn 
+          generic issue tracker to 
+          <a href="http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code">integrate</a> with Google 
+          Code</fixme>
+        </section>
+      </section>
+      
+      <section>
+        <title>Code Quality</title>
+        <p>The plugins are used for managing code quality in Simal.
+        They typically generate a number of reports indicating
+        potential problems with code quality. It is good practice
+        to run these reports on a periodic basis and to fix as many 
+        issues they highlight as is possible.</p>
+        
+        <p>Many of these plugins integrated with our Maven builds
+        and our <a href="http://16degrees.com.au/hudson">continuous integration</a>
+        server. This allows us to keep an eye on the quality trends within 
+        our code.</p>
+        
+        <section>
+          <title>PMD</title>
+          
+          <p><a href="http://pmd.sourceforge.net/">PMD</a> scans Java source code and looks for 
+          potential problems like:</p>
+  
+          <ul>
+            <li>Possible bugs - empty try/catch/finally/switch statements</li>
+            <li>Dead code - unused local variables, parameters and private methods</li>
+            <li>Suboptimal code - wasteful String/StringBuffer usage</li>
+            <li>Overcomplicated expressions - unnecessary if statements, for loops that could be while loops</li>
+            <li>Duplicate code - copied/pasted code means copied/pasted bugs</li>
+          </ul>
+          
+          <p>Use the <a href="http://pmd.sourceforge.net/eclipse/">PMD Eclipse update</a> 
+          site to install this plugin.</p>  
+        </section>
+        
+        <section>
+          <title>FindBugs</title>
+          
+          <p><a href="http://findbugs.sourceforge.net/">FindBugs</a> uses static analysis to look for 
+          bugs in Java code.</p>
+          
+          <p>Use the <a href="http://findbugs.cs.umd.edu/eclipse-daily/">FindBugs Eclipse update</a> 
+          site to install this plugin.</p>  
+        </section>
+      </section>
+          
     </section>
     
     <section>
