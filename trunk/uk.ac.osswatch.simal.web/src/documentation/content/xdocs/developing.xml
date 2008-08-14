@@ -112,6 +112,20 @@ mvn jetty:run
       <title>Now What?</title>
 
       <p>So you have Simal Web installed, now what?</p>
+      
+      <section>
+        <title>Add Some Data</title>
+                  
+        <p>To get going quickly you can add some test data
+        by clicking the tools link at the top of the page. On
+        the resulting page are various options for working with
+        test data.</p>
+        
+        <p>If you have some DOAP files handy you can add them
+        by clicking the <code>DOAP Form</code> link. On the
+        resulting page you will be presented with a number of
+        ways of uploading content to the repository.</p>
+      </section>
 
       <p>
         Simal is a very early stage project, we need your help. We
