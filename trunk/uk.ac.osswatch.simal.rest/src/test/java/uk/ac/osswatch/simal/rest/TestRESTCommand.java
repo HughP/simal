@@ -25,7 +25,7 @@ public class TestRESTCommand extends AbstractAPITest {
 
   @Test
   public void testProjectCommand() {
-    RESTCommand cmd =RESTCommand.createGetProject(PROJECT_ID, RESTCommand.SOURCE_TYPE_SIMAL, RESTCommand.FORMAT_XML);
+    RESTCommand cmd =RESTCommand.createGetProject(PROJECT_ID, RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
     assertNotNull(cmd);
     
     String path = cmd.getPath();
