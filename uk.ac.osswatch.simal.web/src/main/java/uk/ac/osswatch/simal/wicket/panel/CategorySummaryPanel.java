@@ -17,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  */
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;

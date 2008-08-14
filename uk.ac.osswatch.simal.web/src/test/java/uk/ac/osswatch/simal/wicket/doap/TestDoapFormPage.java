@@ -24,8 +24,6 @@ import static org.junit.Assert.assertNull;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import javax.xml.namespace.QName;
-
 import org.apache.wicket.util.file.File;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;

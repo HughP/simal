@@ -20,10 +20,7 @@ package uk.ac.osswatch.simal.wicket.doap;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import java.util.Locale;
-
-import javax.xml.namespace.QName;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
