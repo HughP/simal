@@ -87,7 +87,7 @@ public class ProjectDetailPage extends BasePage {
     add(deleteProjectActionLink);
     
     try {
-      RESTCommand cmd = RESTCommand.createGetProject(project.getSimalID(), RESTCommand.SOURCE_TYPE_SIMAL, RESTCommand.FORMAT_XML);
+      RESTCommand cmd = RESTCommand.createGetProject(project.getSimalID(), RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
       add(new ExternalLink("doapLink", cmd.getURL()));
       String rdfLink = "<link href=\"" + cmd.getURL() + "\" rel=\"meta\" title=\"DOAP\" type=\"application/rdf+xml\" />";
       add(new StringHeaderContributor(rdfLink));
