@@ -28,7 +28,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class TestHomepage extends BaseRepositoryTest {
 
   @Test
-  public void TestURL() throws SimalRepositoryException {
+  public void testURL() throws SimalRepositoryException {
     Iterator<IDoapHomepage> homepages = project1.getHomepages().iterator();
     boolean hasHomepageOne = false;
     boolean hasHomepageTwo = false;

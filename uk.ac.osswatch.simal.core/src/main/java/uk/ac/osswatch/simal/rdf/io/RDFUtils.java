@@ -785,16 +785,19 @@ public class RDFUtils {
    * @return
    */
   public static File getAnnotatedDoapFile(String filename) {
+    String writefile;
     File fileStoreDir = new File(SimalProperties
         .getProperty(SimalProperties.PROPERTY_SIMAL_DOAP_FILE_STORE)
         + File.separator + "simal-uploads");
     fileStoreDir.mkdirs();
     String path = fileStoreDir.getAbsolutePath();
     if (!(filename.endsWith(".rdf") || filename.endsWith(".xml"))) {
-      filename = filename + ".rdf";
+      writefile = filename + ".rdf";
+    } else {
+      writefile = filename;
     }
     File file = new File(path + File.separator + System.currentTimeMillis()
-        + "_" + filename);
+        + "_" + writefile);
     return file;
   }
 

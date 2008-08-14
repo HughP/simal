@@ -1,3 +1,4 @@
+package uk.ac.osswatch.simal;
 /*
  * Copyright 2007 University of Oxford
  *
@@ -13,7 +14,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -65,7 +65,7 @@ public class Simal {
     try {
       repository = SimalRepositoryFactory.getInstance();
     } catch (SimalRepositoryException e) {
-      throw new RuntimeException("Unable to create repository", e);
+      throw new IllegalStateException("Unable to create repository", e);
     }
 
     Options opts = new Options();
@@ -205,7 +205,7 @@ public class Simal {
   }
 
   /**
-   * Write an XML file for the given QName to standard out.
+   * Write an XML file for the given QName to the log.
    * 
    * @param qname
    */
@@ -213,7 +213,7 @@ public class Simal {
     logger.info("Writing XML for " + uri);
     try {
       IResource resource = repository.getResource(uri);
-      System.out.print(resource.toXML());
+      logger.info(resource.toXML());
     } catch (SimalRepositoryException e) {
       logger.error("Unable to write XML to standard out");
       System.exit(1);
