@@ -18,8 +18,8 @@ package uk.ac.osswatch.simal.rest;
 
 
 import uk.ac.osswatch.simal.myExperiment.MyExperimentHandlerFactory;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 /**

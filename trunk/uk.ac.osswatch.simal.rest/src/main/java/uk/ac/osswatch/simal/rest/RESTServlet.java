@@ -28,8 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.rest.IAPIHandler;
-import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 /**
  * A servlet class that allows multiple resources to be used for retrieving

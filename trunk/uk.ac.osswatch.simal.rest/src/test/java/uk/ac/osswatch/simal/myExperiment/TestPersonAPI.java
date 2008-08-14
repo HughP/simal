@@ -17,12 +17,8 @@ package uk.ac.osswatch.simal.myExperiment;
  */
 
 
-import static org.junit.Assert.assertNotNull;
-
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.rest.IAPIHandler;
-import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 public class TestPersonAPI {
