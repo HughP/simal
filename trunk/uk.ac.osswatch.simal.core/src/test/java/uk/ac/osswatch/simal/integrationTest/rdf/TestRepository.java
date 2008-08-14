@@ -169,7 +169,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetAllPeopleAsJSON() throws SimalRepositoryException {
     logger.debug("Starting testGetAllPeopleAsJSON()");
-    Long targetTime = new Long(50);
+    Long targetTime = Long.valueOf(50);
     Long startTime = System.currentTimeMillis();
     String json = getRepository().getAllPeopleAsJSON();
     Long endTime = System.currentTimeMillis();

@@ -21,6 +21,9 @@ package uk.ac.osswatch.simal.model;
 
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -29,6 +32,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 public class ModelSupport {
+  private static final Logger logger = LoggerFactory
+     .getLogger(ModelSupport.class);
   public static final String TEST_FILE_BASE_URL = "http://example.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
   public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
@@ -74,7 +79,7 @@ public class ModelSupport {
           "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
           "http://simal.oss-watch.ac.uk");
     } catch (Exception e) {
-      System.err.println("Can't add the test data, there's no point in carrying on");
+      logger.error("Can't add the test data, there's no point in carrying on");
       e.printStackTrace();
       System.exit(1);
           

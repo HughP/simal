@@ -67,7 +67,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
 
-public class SimalRepository extends AbstractSimalRepository {
+public final class SimalRepository extends AbstractSimalRepository {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepository.class);
 
