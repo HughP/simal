@@ -28,7 +28,7 @@ public class TestPersonAPI extends AbstractAPITest {
   @Test
   public void testAllColleaguesJSON() throws SimalAPIException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.ALL_COLLEAGUES + RESTCommand.PARAM_PERSON_ID + "15" + RESTCommand.FORMAT_JSON);
-    IAPIHandler handler = SimalHandlerFactory.createHandler(command, repo);
+    IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
     String result = handler.execute();
     assertNotNull(result);
   }
@@ -36,7 +36,7 @@ public class TestPersonAPI extends AbstractAPITest {
   @Test
   public void testAllColleaguesXML() throws SimalAPIException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.ALL_COLLEAGUES + RESTCommand.PARAM_PERSON_ID + "15" + RESTCommand.FORMAT_XML);
-    IAPIHandler handler = SimalHandlerFactory.createHandler(command, repo);
+    IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
     String result = handler.execute();
     assertNotNull(result);
     

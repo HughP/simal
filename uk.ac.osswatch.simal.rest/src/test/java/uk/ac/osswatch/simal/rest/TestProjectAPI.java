@@ -33,7 +33,7 @@ public class TestProjectAPI extends AbstractAPITest{
   public void addDOAP() throws SimalAPIException, URISyntaxException, IOException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.PROJECT_ADD);
     command.addParameter("rdf", "illegal RDF data");
-    IAPIHandler handler = SimalHandlerFactory.createHandler(command, repo);
+    IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
     try {
       handler.execute();
     } catch (SimalAPIException e) {
@@ -47,7 +47,7 @@ public class TestProjectAPI extends AbstractAPITest{
     String data = new String(b);
     
     command.addParameter(RESTCommand.PARAM_RDF, data);
-    handler = SimalHandlerFactory.createHandler(command, repo);
+    handler = SimalHandlerFactory.createHandler(command, getRepo());
     try {
       handler.execute();
     } catch (SimalAPIException e) {

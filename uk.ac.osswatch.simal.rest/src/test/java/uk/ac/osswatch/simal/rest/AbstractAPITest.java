@@ -25,7 +25,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 public abstract class AbstractAPITest {
 
-  protected static ISimalRepository repo;
+  private static ISimalRepository repo;
   static final String PROJECT_ID = "200";
 
   @BeforeClass
@@ -35,5 +35,9 @@ public abstract class AbstractAPITest {
       repo.setIsTest(true);
       repo.initialise();
     }
+  }
+  
+  public ISimalRepository getRepo() {
+    return repo;
   }
 }
