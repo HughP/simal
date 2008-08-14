@@ -27,7 +27,7 @@ public class SimalRepositoryFactory {
   
   public static final int TYPE_SESAME = 1;
   public static final int TYPE_JENA = 2;
-  public static int TYPE_DEFAULT = TYPE_JENA;
+  public static final int TYPE_DEFAULT = TYPE_JENA;
 
   /**
    * Get the SimalRepository object using the default repository type.
