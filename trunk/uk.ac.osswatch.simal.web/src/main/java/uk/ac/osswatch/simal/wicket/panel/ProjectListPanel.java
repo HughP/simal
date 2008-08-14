@@ -73,9 +73,12 @@ public class ProjectListPanel extends Panel {
    * are to be displayed.
    * @throws SimalRepositoryException
    */
+  @SuppressWarnings("unchecked")
   private void populatePanel(Set<IProject> projects) throws SimalRepositoryException {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
+      private static final long serialVersionUID = -2174061702366979017L;
+
       @Override
       public void onClick(Item item, String componentId, IModel model) {
         IProject project = (IProject) model.getObject();
