@@ -31,7 +31,7 @@ public class TestProjectAPI extends AbstractAPITest{
 
   @Test
   public void addDOAP() throws SimalAPIException, URISyntaxException, IOException {
-    RESTCommand command = RESTCommand.createCommand(RESTCommand.COMMAND_PROJECT_ADD);
+    RESTCommand command = RESTCommand.createCommand(RESTCommand.PROJECT_ADD);
     command.addParameter("rdf", "illegal RDF data");
     IAPIHandler handler = SimalHandlerFactory.createHandler(command, repo);
     try {

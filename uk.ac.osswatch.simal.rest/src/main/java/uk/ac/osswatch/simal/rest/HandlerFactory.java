@@ -61,9 +61,9 @@ public class HandlerFactory {
   public static IAPIHandler get(RESTCommand cmd, ISimalRepository repo) throws SimalAPIException {
     initFactory(repo);
     
-    if (cmd.getSource().equals(RESTCommand.SOURCE_TYPE_SIMAL)) {
+    if (cmd.getSource().equals(RESTCommand.TYPE_SIMAL)) {
       return SimalHandlerFactory.createHandler(cmd, simalRepo);
-    } else if (cmd.getSource().equals(RESTCommand.SOURCE_TYPE_MYEXPERIMENT)) {
+    } else if (cmd.getSource().equals(RESTCommand.TYPE_MYEXPERIMENT)) {
       return MyExperimentHandlerFactory.createHandler(cmd);
     } else {
       throw new SimalAPIException("Unable to get handler for source type "

@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.rest;
  */
 
 import java.util.HashMap;
+import java.util.Map;
 
 import uk.ac.osswatch.simal.SimalProperties;
 
@@ -25,12 +26,12 @@ import uk.ac.osswatch.simal.SimalProperties;
  * Command objects for the REST API. This object is used to represent a command
  * in the API and provides convenience methods for extracting parameters.
  */
-public class RESTCommand {
+public final class RESTCommand {
 
-  public static final String COMMAND_ALL_PROJECTS = "/allProjects";
-  public static final String COMMAND_PROJECT = "/project";
-  public static final String COMMAND_PROJECT_ADD = "/addProject";
-  public static final String COMMAND_ALL_COLLEAGUES = "/allColleagues";
+  public static final String ALL_PROJECTS = "/allProjects";
+  public static final String PROJECT = "/project";
+  public static final String PROJECT_ADD = "/addProject";
+  public static final String ALL_COLLEAGUES = "/allColleagues";
   
   public static final String PARAM_PERSON_ID = "/person-";
   public static final String PARAM_PROJECT_ID = "/project-";
@@ -40,10 +41,10 @@ public class RESTCommand {
   public static final String FORMAT_XML = "/xml";
   public static final String FORMAT_JSON = "/json";
 
-  public static String SOURCE_TYPE_SIMAL = "simal";
-  public static String SOURCE_TYPE_MYEXPERIMENT = "myExperiment";
+  public static final String TYPE_SIMAL = "simal";
+  public static final String TYPE_MYEXPERIMENT = "myExperiment";
 
-  private HashMap<String, String> params = new HashMap<String, String>();  
+  private transient Map<String, String> params = new HashMap<String, String>();  
   
   // TODO: move all these into the params HashMap
   private String source;
@@ -81,7 +82,7 @@ public class RESTCommand {
    * @param personID
    *          the ID of the person we are searching on
    * @param source
-   *          the source of the data required. See the SOURCE_TYPE_* constants
+   *          the source of the data required. See the TYPE_* constants
    * @param format
    *          the format that the data should be returned in. See the FORMAT_*
    *          constants
@@ -89,7 +90,7 @@ public class RESTCommand {
    */
   public static RESTCommand createGetColleagues(String personID, String source,
       String format) {
-    return new RESTCommand(personID, source, COMMAND_ALL_COLLEAGUES, format);
+    return new RESTCommand(personID, source, ALL_COLLEAGUES, format);
   }
 
   /**
@@ -99,7 +100,7 @@ public class RESTCommand {
    * @param projectID
    *          the ID of the project 
    * @param source
-   *          the source of the data required. See the SOURCE_TYPE_* constants
+   *          the source of the data required. See the TYPE_* constants
    * @param format
    *          the format that the data should be returned in. See the FORMAT_*
    *          constants
@@ -107,7 +108,7 @@ public class RESTCommand {
    */
   public static RESTCommand createGetProject(String projectID, String source, 
       String format) {
-    return new RESTCommand(projectID, source, COMMAND_PROJECT, format);
+    return new RESTCommand(projectID, source, PROJECT, format);
   }
   
   /**
@@ -148,7 +149,7 @@ public class RESTCommand {
    * @return
    */
   public boolean isGetColleagues() {
-    if (commandMethod.equals(COMMAND_ALL_COLLEAGUES)) {
+    if (commandMethod.equals(ALL_COLLEAGUES)) {
       return true;
     }
     return false;
@@ -218,7 +219,7 @@ public class RESTCommand {
   private static String extractSource(String cmdString) {
     int paramStart = cmdString.indexOf(PARAM_SOURCE);
     if (paramStart < 0) {
-      return SOURCE_TYPE_SIMAL;
+      return TYPE_SIMAL;
     } else {
       paramStart = paramStart + PARAM_SOURCE.length();
     }
@@ -279,7 +280,7 @@ public class RESTCommand {
   }
 
   /**
-   * Get a string that represents the command method. See the COMMAND_*
+   * Get a string that represents the command method. See the *
    * constants
    * 
    * @return
@@ -289,7 +290,7 @@ public class RESTCommand {
   }
 
   /**
-   * Set the command method. See the COMMAND_* constants
+   * Set the command method. See the * constants
    * 
    * @return
    */
@@ -327,7 +328,7 @@ public class RESTCommand {
    * @return
    */
   public boolean isGetAllProjects() {
-    if (commandMethod.equals(COMMAND_ALL_PROJECTS)) {
+    if (commandMethod.equals(ALL_PROJECTS)) {
       return true;
     }
     return false;
@@ -339,7 +340,7 @@ public class RESTCommand {
    * @return
    */
   public boolean isGetProject() {
-    if (commandMethod.equals(COMMAND_PROJECT)) {
+    if (commandMethod.equals(PROJECT)) {
       return true;
     }
     return false;
@@ -351,7 +352,7 @@ public class RESTCommand {
    * @return
    */
   public boolean isAddProject() {
-    if (commandMethod.equals(COMMAND_PROJECT_ADD)) {
+    if (commandMethod.equals(PROJECT_ADD)) {
       return true;
     }
     return false;

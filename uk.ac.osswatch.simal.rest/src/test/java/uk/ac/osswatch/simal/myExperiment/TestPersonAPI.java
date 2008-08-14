@@ -22,7 +22,6 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 public class TestPersonAPI {
-  private String personID = "15"; // ID for Ross Gardler
 
   @Test
   public void testAllColleaguesJSON() throws SimalAPIException {

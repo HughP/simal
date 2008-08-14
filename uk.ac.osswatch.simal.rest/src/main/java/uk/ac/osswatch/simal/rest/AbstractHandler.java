@@ -52,9 +52,9 @@ public abstract class AbstractHandler implements IAPIHandler {
    * @return
    */
   public String getBaseURI() {
-    if (command.getSource().equals(RESTCommand.SOURCE_TYPE_SIMAL)) {
+    if (command.getSource().equals(RESTCommand.TYPE_SIMAL)) {
       return baseurl;
-    } else if (command.getSource().equals(RESTCommand.SOURCE_TYPE_MYEXPERIMENT)) {
+    } else if (command.getSource().equals(RESTCommand.TYPE_MYEXPERIMENT)) {
       return "http://www.myexperiment.org";
     }
     return null;
