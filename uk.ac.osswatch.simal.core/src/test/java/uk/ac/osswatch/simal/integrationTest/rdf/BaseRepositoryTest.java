@@ -98,9 +98,9 @@ public abstract class BaseRepositoryTest {
   
   public static final String TEST_SIMAL_PROJECT_SIMAL_ID = "200";
 
-  protected static String project1SeeAlso = "http://foo.org/seeAlso";
+  protected final static String project1SeeAlso = "http://foo.org/seeAlso";
   
-  protected static ISimalRepository repository;
+  private static ISimalRepository repository;
 
   protected static IProject project1;
 
@@ -152,6 +152,10 @@ public abstract class BaseRepositoryTest {
     colleagues += TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS;
     colleagues += TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS;
     return colleagues;
+  }
+  
+  public static ISimalRepository getRepository() {
+    return repository;
   }
 
 }

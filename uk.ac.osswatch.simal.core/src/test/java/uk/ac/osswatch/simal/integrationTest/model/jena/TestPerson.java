@@ -45,9 +45,9 @@ public class TestPerson extends BaseRepositoryTest {
   public static void setUpBeforeClass() throws Exception {
     initRepository();
 
-    developer = repository
+    developer = getRepository()
         .getPerson(TEST_SIMAL_DEVELOPER_URI);
-    documentor = repository
+    documentor = getRepository()
         .getPerson(TEST_SIMAL_DOCUMENTOR_URI);
   }
 
@@ -57,9 +57,9 @@ public class TestPerson extends BaseRepositoryTest {
     String  uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI
         + "TestingPersonFromScratch";
     IPerson person;
-    person = repository.createPerson(uri);
+    person = getRepository().createPerson(uri);
 
-    person = repository.getPerson(uri);
+    person = getRepository().getPerson(uri);
     assertNotNull("Person has not been added to repository", person);
 
     assertNotNull("Person simalID is incorrectly set", person.getSimalID());
@@ -110,7 +110,7 @@ public class TestPerson extends BaseRepositoryTest {
     while (people.hasNext()) {
       IPerson person = people.next();
       assertNotNull("No person should have a null ID (see "
-          + person.getURI().toString() + ")", person.getSimalID());
+          + person.getURI() + ")", person.getSimalID());
     }
   }
 
