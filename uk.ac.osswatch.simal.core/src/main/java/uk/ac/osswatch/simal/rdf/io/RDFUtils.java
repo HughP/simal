@@ -29,6 +29,7 @@ import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -367,7 +369,16 @@ public class RDFUtils {
           lastFile = annotatedFile;
         }
       }
-    } catch (Exception e) {
+    } catch (SAXException e) {
+      throw new SimalRepositoryException("Unable to prepare data from "
+          + url.toExternalForm() + " for adding to the repository", e);
+    } catch (FileNotFoundException e) {
+      throw new SimalRepositoryException("Unable to prepare data from "
+          + url.toExternalForm() + " for adding to the repository", e);
+    } catch (IOException e) {
+      throw new SimalRepositoryException("Unable to prepare data from "
+          + url.toExternalForm() + " for adding to the repository", e);
+    } catch (ParserConfigurationException e) {
       throw new SimalRepositoryException("Unable to prepare data from "
           + url.toExternalForm() + " for adding to the repository", e);
     }
