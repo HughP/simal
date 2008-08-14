@@ -50,13 +50,13 @@ public class TestRepository extends BaseRepositoryTest {
   public void testAddProject() throws SimalRepositoryException {
     logger.debug("Starting testAddProject()");
     // The default test repository adds projects when it is instantiated
-    assertTrue(repository.isInitialised());
+    assertTrue(getRepository().isInitialised());
     logger.debug("Finished testAddProject()");
   }
   
   @Test
   public void testAddCategories() throws SimalRepositoryException, URISyntaxException {
-    Set<IDoapCategory> cats = repository.getAllCategories();
+    Set<IDoapCategory> cats = getRepository().getAllCategories();
     assertTrue("Not managed to get any categories from the repo", cats.size() > 0);
     
     Iterator<IDoapCategory> catsIt = cats.iterator();
@@ -70,7 +70,7 @@ public class TestRepository extends BaseRepositoryTest {
   public void testFindProject() throws SimalRepositoryException, URISyntaxException {
     logger.debug("Starting testFindProject()");
     String uri = "http://foo.org/nonExistent";
-    IProject project = repository.getProject(uri);
+    IProject project = getRepository().getProject(uri);
     assertNull(project);
 
     // test a known valid file
@@ -94,7 +94,7 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testGetAllCategories() throws SimalRepositoryException, IOException {
-    Set<IDoapCategory> cats = repository.getAllCategories();
+    Set<IDoapCategory> cats = getRepository().getAllCategories();
 
     Iterator<IDoapCategory> itrCats = cats.iterator();
     IDoapCategory cat;
@@ -109,7 +109,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetAllProjects() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllProjects()");
-    Set<IProject> projects = repository.getAllProjects();
+    Set<IProject> projects = getRepository().getAllProjects();
 
     Iterator<IProject> itrProjects = projects.iterator();
     IProject project;
@@ -126,7 +126,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetAllPeople() throws SimalRepositoryException, IOException {
     logger.debug("Starting testGetAllPeople()");
-    Set<IPerson> people = repository.getAllPeople();
+    Set<IPerson> people = getRepository().getAllPeople();
 
     Iterator<IPerson> itrPeople = people.iterator();
     IPerson person;
@@ -145,7 +145,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testNullQNameHandling() throws SimalRepositoryException {
     logger.debug("Starting testNullQNameHandling()");
-    Set<IProject> projects = repository.getAllProjects();
+    Set<IProject> projects = getRepository().getAllProjects();
 
     Iterator<IProject> itrProjects = projects.iterator();
     IProject project;
@@ -159,7 +159,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetAllProjectsAsJSON() throws SimalRepositoryException {
     logger.debug("Starting testGetAllProjectsAsJSON()");
-    String json = repository.getAllProjectsAsJSON();
+    String json = getRepository().getAllProjectsAsJSON();
     assertTrue("JSON file does not appear to be correct", json
         .startsWith("{ \"items\": ["));
     assertTrue("JSON file does not appear to be correct", json.endsWith("]}"));
@@ -171,7 +171,7 @@ public class TestRepository extends BaseRepositoryTest {
     logger.debug("Starting testGetAllPeopleAsJSON()");
     Long targetTime = new Long(50);
     Long startTime = System.currentTimeMillis();
-    String json = repository.getAllPeopleAsJSON();
+    String json = getRepository().getAllPeopleAsJSON();
     Long endTime = System.currentTimeMillis();
     Long actualTime = endTime - startTime;
     assertTrue("Time to create JSON for all people is longer than " + targetTime + " took " + actualTime, actualTime <= targetTime);
@@ -183,7 +183,7 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testFindCategoryById() throws SimalRepositoryException {
-    IDoapCategory cat = repository.findCategoryById("1");
+    IDoapCategory cat = getRepository().findCategoryById("1");
     assertNotNull(cat);
     assertEquals("Category name is incorrect", "Simal ID Test", cat.getName());
   }
@@ -191,7 +191,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testFindPersonById() throws SimalRepositoryException {
     logger.debug("Starting testFindPersonByID()");
-    IPerson person = repository.findPersonById("15");
+    IPerson person = getRepository().findPersonById("15");
     assertNotNull(person);
     assertEquals("[Ross Gardler]", person.getNames().toString());
     logger.debug("Finished testFindPersonByID()");
@@ -200,7 +200,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testFindProjectById() throws SimalRepositoryException {
     logger.debug("Starting testFindProjectByID()");
-    IProject project = repository.findProjectById(TEST_SIMAL_PROJECT_SIMAL_ID);
+    IProject project = getRepository().findProjectById(TEST_SIMAL_PROJECT_SIMAL_ID);
     assertNotNull(project);
     logger.debug("Finished testFindProjectByID()");
   }
@@ -208,7 +208,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testFindProjectBySeeAlso() throws SimalRepositoryException {
     logger.debug("Starting testFindProjectBySeeAlso()");
-    IProject project = repository.findProjectBySeeAlso(project1SeeAlso);
+    IProject project = getRepository().findProjectBySeeAlso(project1SeeAlso);
     assertNotNull(project);
     logger.debug("Finished testFindProjectBySeeAlso()");
   }
@@ -226,7 +226,7 @@ public class TestRepository extends BaseRepositoryTest {
     byte b[]= new byte[x];
     fis.read(b);
     String data = new String(b);
-    repository.add(data);
+    getRepository().add(data);
     
     project1 = getSimalTestProject();
     assertNotNull("We don't seem to have added the test data as expected", project1);

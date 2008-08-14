@@ -342,11 +342,11 @@ public class TestProject extends BaseRepositoryTest {
         + "TestingProjectFromScratch";
     IProject project;
     try {
-      project = repository.createProject(uri);
+      project = getRepository().createProject(uri);
       project.addName("Testing");
       project.setShortDesc("Just testing adding a manually built project");
 
-      project = repository.getProject(uri);
+      project = getRepository().getProject(uri);
       assertNotNull("Project has not been added to repository", project);
       assertEquals("Project name is incorrectly set", "Testing", project
           .getName());
@@ -374,25 +374,25 @@ public class TestProject extends BaseRepositoryTest {
         + "TestingId2";
 
     IProject project;
-    project = repository.createProject(uri1);
-    project = repository.getProject(uri1);
+    project = getRepository().createProject(uri1);
+    project = getRepository().getProject(uri1);
     String id1 = project.getSimalID();
 
-    project = repository.createProject(uri2);
-    project = repository.getProject(uri2);
+    project = getRepository().createProject(uri2);
+    project = getRepository().getProject(uri2);
     String id2 = project.getSimalID();
 
     assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1
         .equals(id2));
 
     // check IDs are being written to the repository
-    project = repository.getProject(uri1);
+    project = getRepository().getProject(uri1);
     String id3 = project.getSimalID();
     assertTrue("Project IDs don't appear to be written to the repo", id1
         .equals(id3));
 
     project.delete();
-    project = repository.getProject(uri2);
+    project = getRepository().getProject(uri2);
     project.delete();
   }
   

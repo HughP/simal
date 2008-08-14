@@ -55,7 +55,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   @BeforeClass
   public static void beforeClass() throws URISyntaxException, IOException, SimalRepositoryException, ParserConfigurationException, SAXException {
     URL url = TestRDFUtils.class.getResource("/testData/testNoRDFAboutDOAP.xml");
-    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, repository);
+    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, getRepository());
     File processedFile = RDFUtils.getLastProcessedFile(); 
     
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -160,7 +160,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   @Test
   public void testDeDupeProjects() throws SimalRepositoryException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
     URL url = TestRDFUtils.class.getResource("/testData/testDuplicatesDOAP.xml");
-    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, repository);
+    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, getRepository());
     File processedFile = RDFUtils.getLastProcessedFile(); 
     
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -178,7 +178,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   @Test
   public void testRemoveBlankPersonNodes() throws SimalRepositoryException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
     URL url = TestRDFUtils.class.getResource("/testData/testDOAP.xml");
-    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, repository);
+    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, getRepository());
     File processedFile = RDFUtils.getLastProcessedFile(); 
     
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -197,7 +197,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
   @Test
   public void testAddMultipleProjectsInASingleFile() throws SimalRepositoryException {
     URL url = TestRDFUtils.class.getResource("/testData/testMultipleProjects.xml");
-    Set<File> files = RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, repository);
+    Set<File> files = RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, getRepository());
     assertEquals("Incorrect number of project files created", 3, files.size());
   }
 }

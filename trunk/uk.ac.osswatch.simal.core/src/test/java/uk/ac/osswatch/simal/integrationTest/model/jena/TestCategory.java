@@ -34,12 +34,12 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class TestCategory extends BaseRepositoryTest {
   @Test
   public void testGetCategoryLabel() throws SimalRepositoryException, URISyntaxException {
-    IDoapCategory category = repository.getCategory("http://simal.oss-watch.ac.uk/category/socialNews");
+    IDoapCategory category = getRepository().getCategory("http://simal.oss-watch.ac.uk/category/socialNews");
     String label = category.getLabel();
     assertEquals("Category Label is incorrect", "Social News", label);
 
     String uri = "http://example.org/does/not/exist";
-    category = repository.getCategory(uri);
+    category = getRepository().getCategory(uri);
     assertNull("Somehow we have a category that should not exist",
         category);
   }

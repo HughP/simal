@@ -47,7 +47,7 @@ public class TestResource extends BaseRepositoryTest {
     IProject project = getSimalTestProject();
     assertNull("The simal project should have been deleted", project);
     // force the repo to be rebuilt
-    repository.destroy();
+    getRepository().destroy();
     initRepository();
   }
   
