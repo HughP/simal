@@ -50,11 +50,12 @@ import uk.ac.osswatch.simal.wicket.panel.StandardFooter;
  * extend this page.
  */
 public class BasePage extends WebPage {
+  public static final String DEFAULT_CSS_LOC = "style/default.css";
   private static final long serialVersionUID = 7789964685286908825L;
   private static final Logger logger = LoggerFactory.getLogger(BasePage.class);
 
   private static final CompressedResourceReference DEFAULT_CSS = new CompressedResourceReference(
-      UserApplication.class, "default.css");
+      UserApplication.class, DEFAULT_CSS_LOC);
 
   public BasePage() {
     add(HeaderContributor.forCss(DEFAULT_CSS));

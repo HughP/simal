@@ -38,10 +38,10 @@ import uk.ac.osswatch.simal.wicket.UserReportableException;
 public class ExhibitProjectBrowserPage extends BasePage {
 	private static final long serialVersionUID = 2675836864409849552L;
 	private static final CompressedResourceReference EXHIBIT_CSS = new CompressedResourceReference(
-	    ExhibitProjectBrowserPage.class, "exhibit.css");
+	    BasePage.class, "style/exhibit.css");
 
 	public ExhibitProjectBrowserPage() {
-		URL dir = UserApplication.class.getResource("default.css");
+		URL dir = UserApplication.class.getResource(DEFAULT_CSS_LOC);
 		try {
 			File outFile = new File(new File(dir.toURI()).getParent() + File.separator + "projects.js");
 			FileWriter out = new FileWriter(outFile);
@@ -55,6 +55,6 @@ public class ExhibitProjectBrowserPage extends BasePage {
 		add(HeaderContributor
 				.forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
 		add(new StringHeaderContributor(
-				"<link href=\"/resources/uk.ac.osswatch.simal.wicket.UserApplication/projects.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
+				"<link href=\"/resources/uk.ac.osswatch.simal.wicket.UserApplication/style/projects.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
 	}
 }
