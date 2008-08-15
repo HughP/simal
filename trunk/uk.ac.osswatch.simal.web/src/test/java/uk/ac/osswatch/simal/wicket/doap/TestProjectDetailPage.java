@@ -17,10 +17,19 @@ package uk.ac.osswatch.simal.wicket.doap;
  * under the License.                                                *
  */
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Iterator;
+import java.util.Set;
+
 import org.apache.wicket.Page;
+import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.ITestPageSource;
+import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -31,8 +40,8 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
 public class TestProjectDetailPage extends TestBase {
 
   @SuppressWarnings("serial")
-  @Test
-  public void testRenderPage() {
+  @Before
+  public void initTester() throws SimalRepositoryException {
     tester.startPage(new ITestPageSource() {
       public Page getTestPage() {
         try {
@@ -46,7 +55,10 @@ public class TestProjectDetailPage extends TestBase {
       }
     });
     tester.assertRenderedPage(ProjectDetailPage.class);
-
+  }
+  
+  @Test
+  public void testRenderPage() {
     tester.assertVisible("projectName");
     tester.assertVisible("shortDesc");
     tester.assertVisible("created");
@@ -54,14 +66,66 @@ public class TestProjectDetailPage extends TestBase {
 
     tester.assertVisible("mailingLists");
 
-    tester.assertVisible("maintainers");
-    tester.assertVisible("maintainers:1:maintainer");
-    tester.assertVisible("maintainers:2:maintainer");
-
     tester.assertVisible("developers");
 
     tester.assertVisible("categoryList");
 
     tester.assertVisible("footer");
+  }
+
+  /**
+   * Check the add Maintainer form is working OK.
+   * @throws SimalRepositoryException 
+   */
+  @Test
+  public void testAddMaintainer() throws SimalRepositoryException {
+    Set<IPerson> peopleBefore = UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_URI).getMaintainers();
+    
+    tester.assertVisible("addMaintainer");
+    tester.assertVisible("addMaintainer:newLink");
+    
+    tester.assertInvisible("addMaintainer:personForm");
+    tester.assertVisible("addMaintainer:newLink");
+    tester.clickLink("addMaintainer:newLink");
+    
+    tester.assertVisible("addMaintainer:personForm");
+    tester.assertInvisible("addMaintainer:newLink");
+    
+    FormTester formTester = tester.newFormTester("addMaintainer:personForm");
+    tester.clickLink("addMaintainer:personForm:cancelLink");
+    tester.assertInvisible("addMaintainer:personForm");
+    
+    /**
+     * Commented out as the submit does not seem to work with an Ajax form
+     * 
+    tester.clickLink("addMaintainer:newLink");
+    formTester = tester.newFormTester("addMaintainer:personForm");
+    formTester.setValue("name", "New Person");
+    formTester.submit();
+    tester.assertInvisible("addMaintainer:personForm");
+    
+    Set<IPerson> peopleAfter = UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_URI).getMaintainers();
+    assertEquals("We should have one more person after sumbitting the form", peopleBefore.size() + 1, peopleAfter.size());
+    Iterator<IPerson> itr = peopleAfter.iterator();
+    boolean hasNewPerson = false;
+    while(itr.hasNext() && !hasNewPerson ) {
+      IPerson person = itr.next();
+      hasNewPerson = person.getNames().toString().contains("New Person");
+    }
+    assertTrue("We haven't succesfully added the person to the repository", hasNewPerson);
+    */
+    
+    // FIXME: ensure that the new person has been displayed in the list
+    
+  }
+
+  /**
+   * Check maintainers are rendered as expected
+   */
+  @Test
+  public void testMaintainers() {
+    tester.assertVisible("maintainers");
+    tester.assertVisible("maintainers:1:maintainer");
+    tester.assertVisible("maintainers:2:maintainer");
   }
 }
