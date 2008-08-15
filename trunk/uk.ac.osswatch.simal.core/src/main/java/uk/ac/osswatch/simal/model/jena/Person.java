@@ -45,9 +45,11 @@ import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
 public class Person extends Resource implements IPerson {
   private static final long serialVersionUID = -6510798839142810644L;
@@ -253,7 +255,7 @@ public class Person extends Resource implements IPerson {
     StringBuffer values = new StringBuffer();
     Iterator<?> itr = resources.iterator();
     Object resource;
-    values.append("[");
+    values.append('[');
     while (itr.hasNext()) {
       resource = itr.next();
       if (resource instanceof IResource) {
@@ -266,8 +268,14 @@ public class Person extends Resource implements IPerson {
         values.append(", ");
       }
     }
-    values.append("]");
+    values.append(']');
     return values.toString();
+  }
+
+  public void addName(String name) {
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), FOAF.name, name);
+    model.add(statement);
   }
 
 }
