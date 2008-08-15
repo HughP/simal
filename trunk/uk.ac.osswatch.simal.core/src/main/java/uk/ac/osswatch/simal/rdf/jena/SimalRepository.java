@@ -272,12 +272,12 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
   
   public IPerson findPersonById(String id) throws SimalRepositoryException {
-    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
+    String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
+        + "> " + "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { "
-        + "?person rdf:type foaf:Person . " + "?person simal:personId \"" + id
-        + "\"}";
+        + "?person simal:personId \"" + id + "\"^^xsd:string }";
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
     ResultSet results = qe.execSelect();
@@ -372,12 +372,13 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   public IProject findProjectById(String id) throws SimalRepositoryException {
-    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
+    String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
+        + "> " + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?project WHERE { "
-        + "?project rdf:type doap:Project . " + "?project simal:projectId \""
-        + id + "\"}";
+        + "SELECT DISTINCT ?project WHERE { " 
+        + "?project simal:projectId \""
+        + id + "\"^^xsd:string }";
 
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);

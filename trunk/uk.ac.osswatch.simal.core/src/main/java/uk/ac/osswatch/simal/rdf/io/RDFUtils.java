@@ -41,6 +41,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.SimalProperties;
@@ -248,14 +249,20 @@ public class RDFUtils {
               name = name + " " + nameNode.getFirstChild().getNodeValue();
             }
           }
-          String uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
-          uri = uri + name;
-          uri = uri + "#Person";
-          el.setAttributeNS(RDF_NS, "rdf:about", encode(uri));
+          String uri = getDefaultPersonURI(name);
+          el.setAttributeNS(RDF_NS, "rdf:about", uri);
         }
 
       }
     }
+  }
+
+  public static String getDefaultPersonURI(String name) {
+    String uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
+    uri = uri + name;
+    uri = uri + "#Person";
+    uri = encode(uri);
+    return uri;
   }
 
   /**
@@ -638,6 +645,10 @@ public class RDFUtils {
           id = repo.getNewPersonID();
         }
         simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PERSON_ID);
+        Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI, "datatype");
+        attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
+        ((Element)simalIDNode).setAttributeNodeNS(attr);
+        
         Node text = doc.createTextNode(id);
         simalIDNode.appendChild(text);
         person.appendChild(simalIDNode);
@@ -679,6 +690,11 @@ public class RDFUtils {
           throw new SimalRepositoryException("Unable to create URI for project", e);
         }
         simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PROJECT_ID);
+        
+        Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI, "datatype");
+        attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
+        ((Element)simalIDNode).setAttributeNodeNS(attr);
+
         Node text = doc.createTextNode(id);
         simalIDNode.appendChild(text);
         project.appendChild(simalIDNode);

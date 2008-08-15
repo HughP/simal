@@ -70,6 +70,8 @@ public interface ISimalRepository {
 
   public static final String RDFS_NAMESPACE_URI = "http://www.w3.org/2000/01/rdf-schema#";
   public static final String RDFS_URI_SEE_ALSO = RDFS_NAMESPACE_URI + "seeAlso";
+  
+  public static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema#";
 
   /**
    * Add an RDF DOAP file from a given URL.
