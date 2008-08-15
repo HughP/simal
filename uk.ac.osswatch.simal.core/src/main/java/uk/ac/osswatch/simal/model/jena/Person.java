@@ -165,12 +165,13 @@ public class Person extends Resource implements IPerson {
       id = SimalRepository.getInstance().getNewPersonID();
       setSimalID(id);
     } else {
-      id = idStatement.getString();;
+      id = idStatement.getString();
     }
     return id;
   }
 
   public void setSimalID(String newId) {
+    logger.info("Setting simalId for " + this + " to " + newId);
     getJenaResource().addLiteral(SimalOntology.PERSON_ID, newId);
   }
 
