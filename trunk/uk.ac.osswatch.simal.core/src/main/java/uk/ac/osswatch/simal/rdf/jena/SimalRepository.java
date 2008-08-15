@@ -278,19 +278,7 @@ public final class SimalRepository extends AbstractSimalRepository {
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { "
         + "?person simal:personId \"" + id + "\"^^xsd:string }";
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-
-    IPerson person = null;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("person");
-      if (node.isResource()) {
-        person = new Person((com.hp.hpl.jena.rdf.model.Resource) node);
-      }
-    }
-    qe.close();
+    IPerson person = findPersonBySPARQL(queryStr);
 
     return person;
   }
@@ -304,6 +292,19 @@ public final class SimalRepository extends AbstractSimalRepository {
         + "?person rdf:type foaf:Person . " + "?person rdfs:seeAlso <"
         + seeAlso + ">}";
 
+    IPerson person = findPersonBySPARQL(queryStr);
+
+    return person;
+  }
+
+  /**
+   * Find a single person by executing a SPARQL
+   * query.
+   * 
+   * @param queryStr
+   * @return
+   */
+  private IPerson findPersonBySPARQL(String queryStr) {
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
     ResultSet results = qe.execSelect();
@@ -317,7 +318,6 @@ public final class SimalRepository extends AbstractSimalRepository {
       }
     }
     qe.close();
-
     return person;
   }
 
@@ -329,19 +329,7 @@ public final class SimalRepository extends AbstractSimalRepository {
         + "?project rdf:type foaf:Person . " + "?person foaf:mbox_sha1sum \""
         + sha1sum + "\"}";
 
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-
-    IPerson person = null;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("person");
-      if (node.isResource()) {
-        person = new Person((com.hp.hpl.jena.rdf.model.Resource) node);
-      }
-    }
-    qe.close();
+    IPerson person = findPersonBySPARQL(queryStr);
 
     return person;
   }
@@ -354,19 +342,7 @@ public final class SimalRepository extends AbstractSimalRepository {
         + "SELECT DISTINCT ?project WHERE { " + "?project a doap:Project . "
         + "?project doap:homepage <" + homepage + ">}";
 
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-
-    IProject project = null;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("project");
-      if (node.isResource()) {
-        project = new Project((com.hp.hpl.jena.rdf.model.Resource) node);
-      }
-    }
-    qe.close();
+    IProject project = findProjectBySPARQL(queryStr);
 
     return project;
   }
@@ -380,19 +356,7 @@ public final class SimalRepository extends AbstractSimalRepository {
         + "?project simal:projectId \""
         + id + "\"^^xsd:string }";
 
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-
-    IProject project = null;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("project");
-      if (node.isResource()) {
-        project = new Project((com.hp.hpl.jena.rdf.model.Resource) node);
-      }
-    }
-    qe.close();
+    IProject project = findProjectBySPARQL(queryStr);
 
     return project;
   }
@@ -405,6 +369,19 @@ public final class SimalRepository extends AbstractSimalRepository {
         + "SELECT DISTINCT ?project WHERE { " + "?project a doap:Project . "
         + "?project rdfs:seeAlso <" + seeAlso + ">}";
 
+    IProject project = findProjectBySPARQL(queryStr);
+
+    return project;
+  }
+
+  /**
+   * Find a single project by executing a PARQL
+   * query.
+   * 
+   * @param queryStr
+   * @return
+   */
+  private IProject findProjectBySPARQL(String queryStr) {
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
     ResultSet results = qe.execSelect();
@@ -418,7 +395,6 @@ public final class SimalRepository extends AbstractSimalRepository {
       }
     }
     qe.close();
-
     return project;
   }
 
