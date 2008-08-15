@@ -28,7 +28,6 @@ import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
-import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 
 /**
  * Creates a page which contains an <a
@@ -38,10 +37,10 @@ import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 public class PersonBrowserPage extends BasePage {
 
   private static final CompressedResourceReference EXHIBIT_CSS = new CompressedResourceReference(
-      ExhibitProjectBrowserPage.class, "exhibit.css");
+      BasePage.class, "style/exhibit.css");
 
   public PersonBrowserPage() {
-    URL dir = UserApplication.class.getResource("default.css");
+    URL dir = UserApplication.class.getResource(DEFAULT_CSS_LOC);
     try {
       File outFile = new File(new File(dir.toURI()).getParent() + File.separator + "people.js");
       FileWriter out = new FileWriter(outFile);
@@ -55,7 +54,7 @@ public class PersonBrowserPage extends BasePage {
     add(HeaderContributor
         .forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
     add(new StringHeaderContributor(
-        "<link href=\"/resources/uk.ac.osswatch.simal.wicket.UserApplication/people.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
+        "<link href=\"/resources/uk.ac.osswatch.simal.wicket.UserApplication/style/people.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
   }
 }
 
