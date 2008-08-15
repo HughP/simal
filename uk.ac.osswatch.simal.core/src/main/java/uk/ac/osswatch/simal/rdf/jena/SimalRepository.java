@@ -275,7 +275,7 @@ public final class SimalRepository extends AbstractSimalRepository {
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { "
-        + "?project rdf:type foaf:Person . " + "?person simal:personId \"" + id
+        + "?person rdf:type foaf:Person . " + "?person simal:personId \"" + id
         + "\"}";
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
