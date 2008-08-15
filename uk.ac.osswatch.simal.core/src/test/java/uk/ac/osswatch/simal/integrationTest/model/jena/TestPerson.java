@@ -144,4 +144,13 @@ public class TestPerson extends BaseRepositoryTest {
     Set<IDoapHomepage> homepages = documentor.getHomepages();
     assertEquals("Documentor homepage should not contain any resources as it has an empty resource attribute", 0, homepages.size());
   }
+  
+  @Test
+  public void testAddName() {
+    Set<String> before = developer.getNames();
+    String name = "Test Name";
+    developer.addName(name);
+    Set<String> after = developer.getNames();
+    assertEquals("We haven't added a name succesfully", before.size(), after.size());
+  }
 }
