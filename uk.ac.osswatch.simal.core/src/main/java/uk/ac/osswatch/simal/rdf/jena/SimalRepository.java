@@ -71,12 +71,13 @@ public final class SimalRepository extends AbstractSimalRepository {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepository.class);
 
-  private Model model;
+  private transient Model model;
 
   /**
    * Use getInstance instead.
    */
   private SimalRepository() {
+    super();
   }
 
   /**
