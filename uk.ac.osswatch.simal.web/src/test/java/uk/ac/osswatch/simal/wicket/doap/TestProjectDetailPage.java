@@ -81,28 +81,28 @@ public class TestProjectDetailPage extends TestBase {
   public void testAddMaintainer() throws SimalRepositoryException {
     Set<IPerson> peopleBefore = UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_URI).getMaintainers();
     
-    tester.assertVisible("addMaintainer");
-    tester.assertVisible("addMaintainer:newLink");
+    tester.assertVisible("addMaintainerPanel");
+    tester.assertVisible("addMaintainerPanel:newLink");
     
-    tester.assertInvisible("addMaintainer:personForm");
-    tester.assertVisible("addMaintainer:newLink");
-    tester.clickLink("addMaintainer:newLink");
+    tester.assertInvisible("addMaintainerPanel:personForm");
+    tester.assertVisible("addMaintainerPanel:newLink");
+    tester.clickLink("addMaintainerPanel:newLink");
     
-    tester.assertVisible("addMaintainer:personForm");
-    tester.assertInvisible("addMaintainer:newLink");
+    tester.assertVisible("addMaintainerPanel:personForm");
+    tester.assertInvisible("addMaintainerPanel:newLink");
     
-    FormTester formTester = tester.newFormTester("addMaintainer:personForm");
-    tester.clickLink("addMaintainer:personForm:cancelLink");
-    tester.assertInvisible("addMaintainer:personForm");
+    FormTester formTester = tester.newFormTester("addMaintainerPanel:personForm");
+    tester.clickLink("addMaintainerPanel:personForm:cancelLink");
+    tester.assertInvisible("addMaintainerPanel:personForm");
     
     /**
      * Commented out as the submit does not seem to work with an Ajax form
      * 
-    tester.clickLink("addMaintainer:newLink");
-    formTester = tester.newFormTester("addMaintainer:personForm");
+    tester.clickLink("addMaintainerPanel:newLink");
+    formTester = tester.newFormTester("addMaintainerPanel:personForm");
     formTester.setValue("name", "New Person");
     formTester.submit();
-    tester.assertInvisible("addMaintainer:personForm");
+    tester.assertInvisible("addMaintainerPanel:personForm");
     
     Set<IPerson> peopleAfter = UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_URI).getMaintainers();
     assertEquals("We should have one more person after sumbitting the form", peopleBefore.size() + 1, peopleAfter.size());

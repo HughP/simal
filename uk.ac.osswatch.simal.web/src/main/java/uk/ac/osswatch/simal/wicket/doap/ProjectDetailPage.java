@@ -17,33 +17,17 @@ package uk.ac.osswatch.simal.wicket.doap;
  */
 
 
-import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.Page;
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormValidatingBehavior;
-import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
-import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.behavior.StringHeaderContributor;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.RequiredTextField;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.IPageLink;
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.util.time.Duration;
-import org.apache.wicket.validation.validator.EmailAddressValidator;
-import org.apache.wicket.validation.validator.StringValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.wicket.BasePage;
@@ -52,7 +36,7 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
-import uk.ac.osswatch.simal.wicket.foaf.FoafFormInputModel;
+import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
 import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
@@ -155,16 +139,26 @@ public class ProjectDetailPage extends BasePage {
     // contributors
     add(getRepeatingPersonPanel("maintainers", "maintainer", project
         .getMaintainers()));
-    add(new AddPersonContainer("addMaintainer"));
+    add(new AddPersonPanel("addMaintainerPanel", getProject(), AddPersonPanel.MAINTAINER));
     
     add(getRepeatingPersonPanel("developers", "developer", project
         .getDevelopers()));
+    add(new AddPersonPanel("addDeveloperPanel", getProject(), AddPersonPanel.DEVELOPER));
+    
     add(getRepeatingPersonPanel("testers", "tester", project.getTesters()));
+    add(new AddPersonPanel("addTesterPanel", getProject(), AddPersonPanel.TESTER));
+    
+    
     add(getRepeatingPersonPanel("helpers", "helper", project.getHelpers()));
+    add(new AddPersonPanel("addHelperPanel", getProject(), AddPersonPanel.HELPER));
+    
     add(getRepeatingPersonPanel("documenters", "documenter", project
         .getDocumenters()));
+    add(new AddPersonPanel("addDocumentorPanel", getProject(), AddPersonPanel.DOCUMENTOR));
+    
     add(getRepeatingPersonPanel("translators", "translator", project
         .getTranslators()));
+    add(new AddPersonPanel("addTranslatorPanel", getProject(), AddPersonPanel.TRANSLATOR));
 
     // downlaod
     add(getRepeatingLinks("downloadPages", "downloadPage", "Downloads",
@@ -203,180 +197,5 @@ public class ProjectDetailPage extends BasePage {
   public IProject getProject() {
     return project;
   }
-  
-  /**
-   * Container for showing either the new person link, 
-   * or the person form.
-   */
-  public class AddPersonContainer extends WebMarkupContainer {
-    private static final long serialVersionUID = 8348295085251890400L;
-    /** Visibility toggle so that either the link or the form is visible. */
-    private boolean formVisible = false;
-    private FoafFormInputModel inputModel = new FoafFormInputModel();
-    TextField<String> nameField;
-    TextField<String> emailField;
-    FeedbackPanel feedback;
-    
-    public AddPersonContainer(String id) {
-      super(id);
-      setOutputMarkupId(true);
-      add(new NewPersonLink("newLink"));
-      add(new AddPersonForm("personForm"));
-    }
 
-    /**
-     * Called when the new person link is clicked.
-     * Shows the form, and hides the link.
-     * 
-     * @param target
-     *            the request target.
-     */
-    void onShowPersonForm(AjaxRequestTarget target) {
-        formVisible = true;
-        target.addComponent(this);
-    }
-
-    /**
-     * Called when the cancel link is clicked.
-     * Hides the form, and shows the link.
-     * 
-     * @param target
-     *            the request target.
-     */
-    void onHidePersonForm(AjaxRequestTarget target) {
-        formVisible = false;
-        target.addComponent(this);
-    }
-    
-    /** 
-     * Link for adding a person described in the form to
-     * the repository.
-     *
-     */
-    private final class AddPersonButton extends AjaxFallbackButton {
-        /** Constructor. */
-        private AddPersonButton(String id, Form form) {
-            super(id, form);
-        }
-
-        /**
-         * onclick handler.
-         * 
-         * @param target
-         *            the request target.
-         */
-        @Override
-        public void onSubmit(AjaxRequestTarget target, Form form) {
-            IPerson person;
-            inputModel.setName(nameField.getValue());
-            inputModel.setEmail(emailField.getValue());
-            try {
-              person = inputModel.getPerson();
-              project.addMaintainer(person);
-            } catch (SimalRepositoryException e) {
-              UserReportableException error = new UserReportableException(
-                  "Unable to generate a person from the given form data",
-                  ProjectDetailPage.class, e);
-              setResponsePage(new ErrorReportPage(error));
-            }
-            onHidePersonForm(target);
-        }
-
-        protected void onError(AjaxRequestTarget target, Form form) {
-            target.addComponent(feedback);
-        }
-    }
-    
-    /** Link for cancelling a new person action. */
-    @SuppressWarnings("unchecked")
-    private final class CancelLink extends AjaxFallbackLink {
-      private static final long serialVersionUID = 8333095362462779919L;
-
-      public CancelLink(String id) {
-        super(id);
-      }
-
-      /**
-       * When the link is clicked the form is shown and the link is hidden.
-       * 
-       * @param target
-       *            the request target.
-       */
-      @Override
-      public void onClick(AjaxRequestTarget target) {
-          onHidePersonForm(target);
-      }
-
-    }
-    
-    /** Link for displaying the AddPersonForm. */
-    @SuppressWarnings("unchecked")
-    private final class NewPersonLink extends AjaxFallbackLink {
-      private static final long serialVersionUID = 8333095362462779919L;
-
-      public NewPersonLink(String id) {
-        super(id);
-      }
-
-      /**
-       * When the link is clicked the form is shown and the link is hidden.
-       * 
-       * @param target
-       *            the request target.
-       */
-      @Override
-      public void onClick(AjaxRequestTarget target) {
-          onShowPersonForm(target);
-      }
-      
-      @Override
-      public boolean isVisible() {
-          return !formVisible;
-      }
-
-    }
-    
-    /**
-     * Displays a form for creating a person record.
-     * The visibility of this component is mutually exclusive
-     * with the visibility of the new person link.
-     */
-    private final class AddPersonForm extends Form<FoafFormInputModel> {
-      private static final long serialVersionUID = 2931852197898067993L;
-      
-      public AddPersonForm(String id) {
-        super(id, new CompoundPropertyModel<FoafFormInputModel>(inputModel));
-        setOutputMarkupId(true);
-        
-        feedback = new FeedbackPanel("feedback");
-        feedback.setOutputMarkupId(true);
-        add(feedback);
-        
-        add(nameField = new RequiredTextField<String>("name"));
-        nameField.add(StringValidator.minimumLength(4));
-        
-        add(emailField = new RequiredTextField<String>("email"));
-        emailField.add(EmailAddressValidator.getInstance());
-        
-        AjaxFormValidatingBehavior.addToAllFormComponents(this, "onkeyup", Duration.ONE_SECOND);
-        
-        add(new AddPersonButton("addPersonButton", this));
-        add(new CancelLink("cancelLink"));
-      }
-      
-      @Override
-      public boolean isVisible() {
-          return formVisible;
-      }
-    }
-    
-    /**
-     * Cancel addition of a person.
-     * @param target
-     */
-    void onCancel(AjaxRequestTarget target) {
-      formVisible = false;
-      target.addComponent(this);
-    }
-  }
 }
