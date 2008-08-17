@@ -25,7 +25,6 @@ import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
@@ -64,18 +63,33 @@ public class FoafFormInputModel implements IClusterable {
    * @throws SimalRepositoryException 
    */
   public IPerson getPerson() throws SimalRepositoryException {
+    IPerson duplicate = RDFUtils.getDuplicate(getEmail());
+    if (duplicate != null) {
+      populatePerson(duplicate);
+      return duplicate;
+    }
+    
     ISimalRepository repo = UserApplication.getRepository();
-    String uri = RDFUtils.getDefaultPersonURI(getName());
+    String id = repo.getNewPersonID();
+    String uri = RDFUtils.getDefaultPersonURI(id);
     IPerson person;
     try {
       person = repo.createPerson(uri);
-      person.setName(getName());
-      // FIXME: person.addEmail(getEmail());
+      person.setSimalID(id);
+      populatePerson(person);
     } catch (DuplicateURIException e) {
-      logger.warn("Found a person in the repo with the URI " + uri + ". Assuming they are the same.");
-      person = repo.getPerson(uri);
+      throw new SimalRepositoryException("Unable to create a new person", e);
     }
     return person;
+  }
+
+  /**
+   * Populate the person by adding all the data in this form to it.
+   * @param duplicate
+   */
+  private void populatePerson(IPerson person) {
+    person.setName(getName());
+    person.addEmail(getEmail());
   }
 
   /**
