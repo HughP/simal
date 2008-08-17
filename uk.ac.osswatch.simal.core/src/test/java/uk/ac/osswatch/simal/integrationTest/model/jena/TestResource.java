@@ -79,7 +79,7 @@ public class TestResource extends BaseRepositoryTest {
   @Test
   public void testSources() throws SimalRepositoryException {
     Set sources = project1.getSources();
-    assertEquals("Not enough data sources identified", 2, sources.size());
+    assertEquals("Not enough data sources identified", 3, sources.size());
   }
 
 }

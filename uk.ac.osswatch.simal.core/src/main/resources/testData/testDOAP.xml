@@ -156,6 +156,7 @@
       <foaf:homepage rdf:resource=""/>
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~documentor/foaf.rdf.xml" />
+      <simal:personId>16</simal:personId>
     </foaf:Person>
   </documenter>
 

@@ -273,7 +273,7 @@ public class Person extends Resource implements IPerson {
     return values.toString();
   }
 
-  public void addName(String name) {
+  public void setName(String name) {
     Model model = getJenaResource().getModel(); 
     Statement statement = model.createStatement(getJenaResource(), FOAF.name, name);
     model.add(statement);

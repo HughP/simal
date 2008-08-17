@@ -34,10 +34,6 @@ import uk.ac.osswatch.simal.model.IResource;
  * service class for the model object
  */
 public interface ISimalRepository {
-  public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
-  public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
-  public static final String DEFAULT_CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
-
   public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
   public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI + "Person";
   public static final String FOAF_KNOWS_URI = FOAF_NAMESPACE_URI + "knows";

@@ -73,24 +73,23 @@ public class TestRDFUtils extends BaseRepositoryTest {
   }
   
   @Test
-  public void testRemovePersonBNodes() {
-    NamedNodeMap atts;
-    String about;
-    NodeList personNL = dom.getElementsByTagNameNS(RDFUtils.FOAF_NS, "Person");
-    Node personNode = personNL.item(0);
-    atts = personNode.getAttributes();
-    about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
-    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Joe%20Blogs%20Maintainer#Person", about);
-
-    personNode = personNL.item(1);
-    atts = personNode.getAttributes();
-    about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
-    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Jane%20Blogs%20Maintainer#Person", about);
-    
-    personNode = personNL.item(2);
-    atts = personNode.getAttributes();
-    about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
-    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/foaf/Janet%20Blogo#Person", about);
+  public void testProjectAbout() {
+    NodeList projectNL = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
+    for (int i = 0; i < projectNL.getLength(); i ++) {
+      Element projectElement = (Element)projectNL.item(i);
+      String about = projectElement.getAttributeNS(RDFUtils.RDF_NS, "about");
+      assertTrue("rdf:about is incorrect", about.startsWith(RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI));
+    }
+  }
+  
+  @Test
+  public void testPersonAbout() {
+    NodeList projectNL = dom.getElementsByTagNameNS(RDFUtils.FOAF_NS, "Person");
+    for (int i = 0; i < projectNL.getLength(); i ++) {
+      Element projectElement = (Element)projectNL.item(i);
+      String about = projectElement.getAttributeNS(RDFUtils.RDF_NS, "about");
+      assertTrue("rdf:about is incorrect", about.startsWith(RDFUtils.DEFAULT_PERSON_NAMESPACE_URI));
+    }
   }
 
   @Test
@@ -111,14 +110,6 @@ public class TestRDFUtils extends BaseRepositoryTest {
     atts = repositoryNode.getAttributes();
     about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
     assertEquals("rdf:about incorrect", "https://svn.foo.org/svnroot/simalTest/doap#SVNRepository", about);
-  }
-
-  @Test
-  public void testRemoveProjectBNodes() {
-    Node projectNode = getProjectNode();
-    NamedNodeMap atts = projectNode.getAttributes();
-    String about = atts.getNamedItemNS(RDFUtils.RDF_NS, "about").getNodeValue();
-    assertEquals("rdf:about incorrect", "http://simal.oss-watch.ac.uk/doap/Simal%20(No%20rdf:about)%20DOAP%20Test#Project", about);
   }
 
   private Node getProjectNode() {
@@ -155,24 +146,6 @@ public class TestRDFUtils extends BaseRepositoryTest {
     Element projectElement = (Element)projectNL.item(0);
     NodeList projectSeeAlso = projectElement.getElementsByTagNameNS(RDFUtils.RDFS_NS, "seeAlso");
     assertTrue("No rdfs:seeAlso elements defined for the project", projectSeeAlso.getLength() > 0);
-  }
-  
-  @Test
-  public void testDeDupeProjects() throws SimalRepositoryException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
-    URL url = TestRDFUtils.class.getResource("/testData/testDuplicatesDOAP.xml");
-    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, getRepository());
-    File processedFile = RDFUtils.getLastProcessedFile(); 
-    
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setNamespaceAware(true);
-
-    DocumentBuilder db = dbf.newDocumentBuilder();
-    dom = db.parse(new FileInputStream(processedFile));
-    
-    NodeList projectNL = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
-    Element project = (Element)projectNL.item(0);
-    String about = project.getAttributeNS(RDFUtils.RDF_NS, "about");
-    assertEquals("rdf:about has not been set to that of the original file", "http://simal.oss-watch.ac.uk/simalTest#", about);
   }
   
   @Test

@@ -62,7 +62,7 @@
     <doap:maintainer>
       <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
         <foaf:name>Ross Gardler</foaf:name>
-        <rdf:seeAlso
+        <rdfs:seeAlso
           rdf:resource="http://people.apache.org/~rgardler/foaf.rdf.xml" />
       </foaf:Person>
     </doap:maintainer>

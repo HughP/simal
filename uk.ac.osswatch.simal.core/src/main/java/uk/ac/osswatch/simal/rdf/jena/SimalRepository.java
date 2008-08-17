@@ -326,7 +326,7 @@ public final class SimalRepository extends AbstractSimalRepository {
     String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { "
-        + "?project rdf:type foaf:Person . " + "?person foaf:mbox_sha1sum \""
+        + "?person foaf:mbox_sha1sum \""
         + sha1sum + "\"}";
 
     IPerson person = findPersonBySPARQL(queryStr);

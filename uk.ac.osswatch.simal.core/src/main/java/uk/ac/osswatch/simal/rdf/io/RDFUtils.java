@@ -37,11 +37,9 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.SimalProperties;
@@ -60,6 +58,10 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
  * 
  */
 public class RDFUtils {
+  public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
+  public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
+  public static final String DEFAULT_CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
+
   private static final String SIMAL_CATEGORY_ID = "categoryId";
   private static final String SIMAL_PERSON_ID = "personId";
   private static final String SIMAL_PROJECT_ID = "projectId";
@@ -74,12 +76,9 @@ public class RDFUtils {
   private static File lastFile;
 
   /**
-   * Load the RDF from a file and add rdf:about to all blank nodes. The
-   * resulting blank nodes will look like:<br/>
-   * 
-   * 
-   * Project: http://simal.oss-watch.ac.uk/doap/PROJECT_NAME#Project<br/>
-   * Repository:
+   * Add rdf:about to all blank nodes other than project and people. Projects
+   * and people are dealt with separately once we have worked out the simalID
+   * value.
    * 
    * @rdf:resource/doap#Repository<br/> ArchRepository:
    * @rdf:resource/doap#ArchRepository<br/> BKRepository:
@@ -92,16 +91,13 @@ public class RDFUtils {
    * @param url
    *          the URL of the file to parse
    * @return
-   * @throws DOMException 
-   * @throws UnsupportedEncodingException 
+   * @throws DOMException
+   * @throws UnsupportedEncodingException
    */
   private static void removeBNodes(Document doc, ISimalRepository repo)
       throws DOMException, UnsupportedEncodingException {
 
-    NodeList nl = doc.getElementsByTagNameNS(DOAP_NS, "Project");
-    removeBlankProjectNodes(nl);
-
-    nl = doc.getElementsByTagNameNS(DOAP_NS, "Repository");
+    NodeList nl = doc.getElementsByTagNameNS(DOAP_NS, "Repository");
     removeBlankRepositoryNodes(nl);
 
     nl = doc.getElementsByTagNameNS(DOAP_NS, "ArchRepository");
@@ -118,9 +114,6 @@ public class RDFUtils {
 
     nl = doc.getElementsByTagNameNS(DOAP_NS, "Version");
     removeBlankVersionNodes(nl);
-
-    nl = doc.getElementsByTagNameNS(FOAF_NS, "Person");
-    removeBlankPersonNodes(nl);
   }
 
   /**
@@ -129,11 +122,12 @@ public class RDFUtils {
    * it.
    * 
    * @param nl
-   * @throws UnsupportedEncodingException 
-   * @throws DOMException 
+   * @throws UnsupportedEncodingException
+   * @throws DOMException
    * @throws DOMException
    */
-  private static void removeBlankRepositoryNodes(NodeList nl) throws DOMException, UnsupportedEncodingException {
+  private static void removeBlankRepositoryNodes(NodeList nl)
+      throws DOMException, UnsupportedEncodingException {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
@@ -150,7 +144,8 @@ public class RDFUtils {
             if (locationNode != null) {
               uri = locationNode.getFirstChild().getNodeValue();
               uri = uri.substring(uri.indexOf("@") + 1);
-              uri = "cvs:" + uri.substring(0, uri.indexOf(":")) + uri.substring(uri.indexOf(":") + 1);
+              uri = "cvs:" + uri.substring(0, uri.indexOf(":"))
+                  + uri.substring(uri.indexOf(":") + 1);
             }
           }
 
@@ -173,19 +168,21 @@ public class RDFUtils {
 
   /**
    * Work up the tree until we find the parent project element.
+   * 
    * @param el
    * @return
    */
   private static Element getProjectElement(Element el) {
     Node node = el.getParentNode();
-    if (node.getLocalName().equals("Project") && node.getNamespaceURI().equals(DOAP_NS)) {
-        return (Element)node;
+    if (node.getLocalName().equals("Project")
+        && node.getNamespaceURI().equals(DOAP_NS)) {
+      return (Element) node;
     } else {
-        return getProjectElement((Element)node);
+      return getProjectElement((Element) node);
     }
-}
+  }
 
-/**
+  /**
    * Get the project name from the supplied doiap:Project node.
    * 
    * @param project
@@ -197,77 +194,26 @@ public class RDFUtils {
     return nameNode.getFirstChild().getNodeValue();
   }
 
-  /**
-   * Examine each of the project nodes in the supplied node list and check they
-   * have a rdf:about attribute. If any do not have the attribute then add it.
-   * 
-   * @param nl
-   * @throws DOMException
-   * @throws UnsupportedEncodingException 
-   */
-  private static void removeBlankProjectNodes(NodeList nl) throws DOMException, UnsupportedEncodingException {
-    if (nl != null && nl.getLength() > 0) {
-      for (int i = 0; i < nl.getLength(); i++) {
-        Element el = (Element) nl.item(i);
-        if (!el.hasAttributeNS(RDF_NS, "about")
-            || el.getAttributeNodeNS(RDF_NS, "about").getValue().equals("")) {
-          String uri = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI;
-          Node nameNode = el.getElementsByTagNameNS(DOAP_NS, "name").item(0);
-          uri = uri + nameNode.getFirstChild().getNodeValue();
-          uri = uri + "#Project";
-          el.setAttributeNS(RDF_NS, "rdf:about", encode(uri));
-        }
-      }
-    }
-  }
-
-  /**
-   * Examine each of the person nodes in the supplied node list and check they
-   * have a rdf:about attribute. If any do not have the attribute then add it.
-   * 
-   * @param nl
-   * @throws DOMException 
-   * @throws UnsupportedEncodingException 
-   */
-  private static void removeBlankPersonNodes(NodeList nl) throws DOMException, UnsupportedEncodingException {
-    if (nl != null && nl.getLength() > 0) {
-      for (int i = 0; i < nl.getLength(); i++) {
-        Element el = (Element) nl.item(i);
-        if (!el.hasAttributeNS(RDF_NS, "about")) {
-          String name = null;
-          Node nameNode = el.getElementsByTagNameNS(FOAF_NS, "name").item(0);
-          if (nameNode != null && nameNode.getParentNode().equals((Node) el)) {
-            name = nameNode.getFirstChild().getNodeValue();
-          } else {
-            nameNode = el.getElementsByTagNameNS(FOAF_NS, "givenname").item(0);
-            if (nameNode != null) {
-              name = nameNode.getFirstChild().getNodeValue();
-            }
-            nameNode = el.getElementsByTagNameNS(FOAF_NS, "family_name")
-                .item(0);
-            if (nameNode != null) {
-              name = name + " " + nameNode.getFirstChild().getNodeValue();
-            }
-          }
-          String uri = getDefaultPersonURI(name);
-          el.setAttributeNS(RDF_NS, "rdf:about", uri);
-        }
-
-      }
-    }
-  }
-
   public static String getDefaultPersonURI(String name) {
-    String uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI;
+    String uri = DEFAULT_PERSON_NAMESPACE_URI;
     uri = uri + name;
     uri = uri + "#Person";
     uri = encode(uri);
     return uri;
   }
 
+  public static String getDefaultProjectURI(String id) {
+    String uri = DEFAULT_PROJECT_NAMESPACE_URI;
+    uri = uri + id;
+    uri = uri + "#Project";
+    uri = encode(uri);
+    return uri;
+  }
+
   /**
-   * Encode the given string so that it can be used to create a valid URI.
-   * FOr example, encode ' ' as %20
+   * Encode the given string so that it can be used to create a valid URI. FOr
+   * example, encode ' ' as %20
+   * 
    * @param uri
    * @return
    */
@@ -281,14 +227,15 @@ public class RDFUtils {
    * 
    * @param nl
    * @throws DOMException
-   * @throws UnsupportedEncodingException 
+   * @throws UnsupportedEncodingException
    */
-  private static void removeBlankVersionNodes(NodeList nl) throws DOMException, UnsupportedEncodingException {
+  private static void removeBlankVersionNodes(NodeList nl) throws DOMException,
+      UnsupportedEncodingException {
     if (nl != null && nl.getLength() > 0) {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
         if (!el.hasAttributeNS(RDF_NS, "about")) {
-          String uri = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI;
+          String uri = DEFAULT_PROJECT_NAMESPACE_URI;
           Node nameNode = el.getElementsByTagNameNS(DOAP_NS, "name").item(0);
           uri = uri + nameNode.getFirstChild().getNodeValue();
           Node revisionNode = el.getElementsByTagNameNS(DOAP_NS, "revision")
@@ -343,7 +290,7 @@ public class RDFUtils {
           root.appendChild(doc.importNode(docElement, true));
           doc.appendChild(root);
         }
-        
+
         File annotatedFile = writeAnnotatedFile(url, doc);
         annotatedFiles.add(annotatedFile);
         lastFile = annotatedFile;
@@ -356,21 +303,25 @@ public class RDFUtils {
           doc.appendChild(root);
 
           // perform various checks on the document
-          removeBNodes(doc, repo);
           deDupeProjects(doc, repo);
           checkProjectID(doc, repo);
-          checkProjectSeeAlso(doc, url, repo);
-          checkCategoryIDs(doc, repo);
 
           deDupePeople(doc, repo);
           checkPersonIDs(doc, repo);
+
+          createSimalURIs(doc, repo);
+
+          removeBNodes(doc, repo);
+
+          addProjectSeeAlso(doc, url, repo);
+          checkCategoryIDs(doc, repo);
           checkPersonSHA1(doc, repo);
           checkResources(doc, repo);
-          
+
           addProjectToPeople(doc, repo);
-          
+
           escapeContent(doc, repo);
-          
+
           File annotatedFile = writeAnnotatedFile(url, doc);
           annotatedFiles.add(annotatedFile);
           lastFile = annotatedFile;
@@ -390,6 +341,62 @@ public class RDFUtils {
           + url.toExternalForm() + " for adding to the repository", e);
     }
     return annotatedFiles;
+  }
+
+  /**
+   * Ensure that every resource that we wish to "own" the data for has a Simal
+   * defined URI and that the original about URI is in a rdfs:seeAlso element.
+   * 
+   * @param doc
+   * @param repo
+   */
+  private static void createSimalURIs(Document doc, ISimalRepository repo) {
+    // project URIs
+    NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
+    for (int i = 0; i < projects.getLength(); i++) {
+      Element project = (Element) projects.item(i);
+      String originalURI = project.getAttributeNS(RDF_NS, "about");
+      if (!originalURI.startsWith(DEFAULT_PROJECT_NAMESPACE_URI)) {
+        NodeList simalIDs = project.getElementsByTagNameNS(SIMAL_NS,
+            SIMAL_PROJECT_ID);
+        String id = simalIDs.item(0).getTextContent();
+        String uri = getDefaultProjectURI(id);
+        project.setAttributeNS(RDF_NS, "about", uri);
+        addSeeAlso(project, originalURI);
+        logger.info("resource with URI " + originalURI + " given a local URI of " + uri);
+      }
+    }
+
+    // people URIs
+    NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
+    for (int i = 0; i < people.getLength(); i++) {
+      Element person = (Element) people.item(i);
+      String originalURI = person.getAttributeNS(RDF_NS, "about");
+      if (!originalURI.startsWith(DEFAULT_PERSON_NAMESPACE_URI)) {
+        String id = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID)
+            .item(0).getTextContent();
+        String uri = getDefaultPersonURI(id);
+        person.setAttributeNS(RDF_NS, "about", uri);
+        addSeeAlso(person, originalURI);
+      }
+    }
+  }
+
+  /**
+   * Add a see also element to an existing element.
+   * 
+   * @param node
+   * @param originalURI
+   */
+  private static void addSeeAlso(Node node, String uri) {
+    if (uri == null || uri.equals("")) {
+      logger.warn("Attempt to set seeAlso to a null or empty value");
+      return;
+    }
+    Element seeAlso = node.getOwnerDocument().createElementNS(RDFS_NS,
+        "seeAlso");
+    seeAlso.setAttributeNS(RDFS_NS, "resource", uri);
+    node.appendChild(seeAlso);
   }
 
   /**
@@ -416,7 +423,7 @@ public class RDFUtils {
 
   /**
    * Ensures that content that may contain HTML, such as doap:description is
-   * correctly escaped.
+   * correctly escaped. 
    * 
    * @param doc
    * @param repo
@@ -449,7 +456,8 @@ public class RDFUtils {
   }
 
   /**
-   * Adds a 
+   * Adds a
+   * 
    * @param doc
    * @param repo
    */
@@ -459,7 +467,8 @@ public class RDFUtils {
       Node person = people.item(iper);
       NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
       for (int iproj = 0; iproj < projects.getLength(); iproj = iproj + 1) {
-        String uri = projects.item(iproj).getAttributes().getNamedItemNS(RDF_NS, "about").getNodeValue();
+        String uri = projects.item(iproj).getAttributes().getNamedItemNS(
+            RDF_NS, "about").getNodeValue();
         Element projNode = doc.createElementNS(FOAF_NS, "currentProject");
         projNode.setAttributeNS(RDF_NS, "resource", uri);
         person.appendChild(projNode);
@@ -475,37 +484,39 @@ public class RDFUtils {
    */
   private static void checkResources(Document doc, ISimalRepository repo) {
     logger.debug("Check resources found in RDF file");
-    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "bug-database"));
-    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "download-page"));
+    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS,
+        "bug-database"));
+    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS,
+        "download-page"));
     validateResourceDefinition(doc.getElementsByTagNameNS(FOAF_NS, "homepage"));
     validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "license"));
-    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "mailing-list"));
+    validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS,
+        "mailing-list"));
     validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS, "wiki"));
   }
 
   /**
-   * Checks to see if resources are correctly identified. If not then
-   * drop the element.
+   * Checks to see if resources are correctly identified. If not then drop the
+   * element.
    * 
-   * @TODO This is a bit draconian, we should be looking to see if the
-   * DOAP is incorrectly encoded (i.e. provides a URI as content) and try 
-   * and correct things rather than just dumping them.
+   * @TODO This is a bit draconian, we should be looking to see if the DOAP is
+   *       incorrectly encoded (i.e. provides a URI as content) and try and
+   *       correct things rather than just dumping them.
    * 
    * @param nodes
    */
-    private static void validateResourceDefinition(NodeList nodes) {
-        Element el;
-        for (int i = 0; i < nodes.getLength(); i = i + 1) {
-          el = (Element) nodes.item(i);
-          Node parent = el.getParentNode();
-          NamedNodeMap atts = parent.getAttributes();
-          Attr resource = el.getAttributeNodeNS(RDF_NS, "resource");
-          if (resource == null || resource.getValue().equals("")) {
-            parent.removeChild(el);
-            i = i - 1;
-          }
-        }
+  private static void validateResourceDefinition(NodeList nodes) {
+    Element el;
+    for (int i = 0; i < nodes.getLength(); i = i + 1) {
+      el = (Element) nodes.item(i);
+      Node parent = el.getParentNode();
+      Attr resource = el.getAttributeNodeNS(RDF_NS, "resource");
+      if (resource == null || resource.getValue().equals("")) {
+        parent.removeChild(el);
+        i = i - 1;
+      }
     }
+  }
 
   /**
    * For every mailbox associated with a person create an sha1 checksum.
@@ -565,15 +576,13 @@ public class RDFUtils {
    * @param sourceURL
    * @param repo
    */
-  private static void checkProjectSeeAlso(Document doc, URL sourceURL,
+  private static void addProjectSeeAlso(Document doc, URL sourceURL,
       ISimalRepository repo) {
     logger.debug("Check project see also in RDF file");
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
-    if (projects.getLength() > 0) {
-      Node project = projects.item(0);
-      Element seeAlso = doc.createElementNS(RDFS_NS, "seeAlso");
-      seeAlso.setAttributeNS(RDF_NS, "resource", sourceURL.toExternalForm());
-      project.appendChild(seeAlso);
+    for (int i = 0; i < projects.getLength(); i++) {
+      Node project = projects.item(i);
+      addSeeAlso(project, sourceURL.toExternalForm());
     }
   }
 
@@ -589,11 +598,12 @@ public class RDFUtils {
     logger.debug("Check category IDs in RDF file");
     NodeList categories = doc.getElementsByTagNameNS(DOAP_NS, "category");
     Element category;
-    Attr  simalIDAtt;
+    Attr simalIDAtt;
     String id = null;
     for (int i = 0; i < categories.getLength(); i = i + 1) {
       category = (Element) categories.item(i);
-      simalIDAtt = category.getAttributeNodeNS(SimalOntology.NS, SIMAL_CATEGORY_ID);
+      simalIDAtt = category.getAttributeNodeNS(SimalOntology.NS,
+          SIMAL_CATEGORY_ID);
       if (simalIDAtt == null) {
         IDoapCategory simalCategory;
         try {
@@ -635,20 +645,27 @@ public class RDFUtils {
       if (simalIDNL.getLength() == 0) {
         IPerson simalPerson;
         try {
-          simalPerson = repo.getPerson(person.getAttributeNodeNS(RDF_NS, "about").getNodeValue());
+          Attr about = person.getAttributeNodeNS(RDF_NS, "about");
+          if (about != null && !about.equals("")) {
+            String uri = about.getNodeValue();
+            simalPerson = repo.getPerson(uri);
+            if (simalPerson != null) {
+              id = simalPerson.getSimalID();
+            } else {
+              id = repo.getNewPersonID();
+            }
+          } else {
+            id = repo.getNewPersonID();
+          }
         } catch (Exception e) {
           throw new SimalRepositoryException("Unable to get person", e);
         }
-        if (simalPerson != null) {
-          id = simalPerson.getSimalID();
-        } else {
-          id = repo.getNewPersonID();
-        }
         simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PERSON_ID);
-        Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI, "datatype");
+        Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
+            "datatype");
         attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
-        ((Element)simalIDNode).setAttributeNodeNS(attr);
-        
+        ((Element) simalIDNode).setAttributeNodeNS(attr);
+
         Node text = doc.createTextNode(id);
         simalIDNode.appendChild(text);
         person.appendChild(simalIDNode);
@@ -675,25 +692,28 @@ public class RDFUtils {
       project = (Element) projects.item(i);
       simalIDNL = project.getElementsByTagNameNS(SIMAL_NS, SIMAL_PROJECT_ID);
       if (simalIDNL.getLength() == 0) {
-        IProject simalProject;
         try {
-          String uri = project
-          .getAttributeNodeNS(RDF_NS, "about").getNodeValue();
-          if (repo.containsProject(uri)) {
-            // FIXME: it would be more efficient to just get the statement we want
-            simalProject = repo.getProject(uri);
-            id = simalProject.getSimalID();
+          Attr about = project.getAttributeNodeNS(RDF_NS, "about");
+          if (about != null && !about.equals("")) {
+            String uri = about.getNodeValue();
+            if (repo.containsProject(uri)) {
+              id = repo.getProject(uri).getSimalID();
+            } else {
+              id = repo.getNewProjectID();
+            }
           } else {
             id = repo.getNewProjectID();
           }
         } catch (Exception e) {
-          throw new SimalRepositoryException("Unable to create URI for project", e);
+          throw new SimalRepositoryException(
+              "Unable to create URI for project", e);
         }
         simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PROJECT_ID);
-        
-        Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI, "datatype");
+
+        Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
+            "datatype");
         attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
-        ((Element)simalIDNode).setAttributeNodeNS(attr);
+        ((Element) simalIDNode).setAttributeNodeNS(attr);
 
         Node text = doc.createTextNode(id);
         simalIDNode.appendChild(text);
@@ -737,8 +757,8 @@ public class RDFUtils {
     Element seeAlso;
     for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
       seeAlso = (Element) seeAlsos.item(i);
-      IPerson person = repo.findPersonBySeeAlso(seeAlso.getAttributeNS(RDF_NS,
-          "resource"));
+      String uri = seeAlso.getAttributeNS(RDF_NS, "resource");
+      IPerson person = repo.findPersonBySeeAlso(uri);
       if (person != null) {
         logger.info("Merging duplicate person (based on seeAlso): "
             + person.toString() + " into " + person.getURI());
@@ -774,7 +794,8 @@ public class RDFUtils {
         logger.info("Merging duplicate project (based on homepage): "
             + project.toString() + " into " + project.getURI());
         Element projectNode = (Element) homepage.getParentNode();
-        projectNode.setAttributeNS(RDF_NS, "about", project.getURI().toString());
+        projectNode
+            .setAttributeNS(RDF_NS, "about", project.getURI().toString());
       }
     }
 
@@ -789,7 +810,8 @@ public class RDFUtils {
         logger.info("Merging duplicate project (based on seeAlso): "
             + project.toString() + " into " + project.getURI());
         Element projectNode = (Element) seeAlso.getParentNode();
-        projectNode.setAttributeNS(RDF_NS, "about", project.getURI().toString());
+        projectNode
+            .setAttributeNS(RDF_NS, "about", project.getURI().toString());
       }
     }
   }

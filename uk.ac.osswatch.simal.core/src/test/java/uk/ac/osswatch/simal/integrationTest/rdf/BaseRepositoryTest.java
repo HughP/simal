@@ -25,6 +25,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
  * A base class for repository integration tests. This class provides utility
@@ -33,9 +34,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
  */
 public abstract class BaseRepositoryTest {
 
-  public static final String TEST_SIMAL_PROJECT_URI = "http://simal.oss-watch.ac.uk/simalTest#";
-  public static final String TEST_SIMAL_DEVELOPER_URI = "http://foo.org/~developer/#me";
-  public static final String TEST_SIMAL_DOCUMENTOR_URI = "http://foo.org/~documentor/#me";
+  public static final String TEST_SIMAL_PROJECT_URI = RDFUtils.getDefaultProjectURI("200");
+  public static final String TEST_SIMAL_DEVELOPER_URI = RDFUtils.getDefaultPersonURI("15");
+  public static final String TEST_SIMAL_DOCUMENTOR_URI = RDFUtils.getDefaultPersonURI("16");
   public static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
   public static final String TEST_SIMAL_PROJECT_SHORT_DESC = "A simple DOAP file used during automated testing.";
   public static final String TEST_SIMAL_PROJECT_CREATED = "2007-08-08";
