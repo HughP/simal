@@ -63,7 +63,7 @@ public class FoafFormInputModel implements IClusterable {
    * @throws SimalRepositoryException 
    */
   public IPerson getPerson() throws SimalRepositoryException {
-    IPerson duplicate = RDFUtils.getDuplicate(getEmail());
+    IPerson duplicate = UserApplication.getRepository().getDuplicate(getEmail());
     if (duplicate != null) {
       populatePerson(duplicate);
       return duplicate;
