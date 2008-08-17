@@ -33,8 +33,8 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
@@ -45,12 +45,12 @@ public class TestDoapFormPage extends TestBase {
   private static final String TEST_NAME = "Form Project";
   private static final String TEST_SHORT_DESC = "A project added by filling in the DOAP form";
   private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
-  private static final String TEST_RAW_RDF_URI = "http://simal.oss-watch.ac.uk/loadFromRawRDF#";
-  private static final String TEST_RAW_RDF = "<Project xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:foaf=\"http://xmlns.com/foaf/0.1/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns=\"http://usefulinc.com/ns/doap#\" rdf:about=\""
+  private static final String TEST_RAW_RDF_URI = RDFUtils.getDefaultProjectURI("99999");
+  private static final String TEST_RAW_RDF = "<Project xmlns:simal=\"http://simal.oss-watch.ac.uk/ns/0.2/simal#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:foaf=\"http://xmlns.com/foaf/0.1/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns=\"http://usefulinc.com/ns/doap#\" rdf:about=\""
       + TEST_RAW_RDF_URI
-      + "\"> <created>2008-02-22</created> <name>Load From RAW RDF Test</name> </Project>";
+      + "\"> <simal:projectId>99999</simal:projectId> <created>2008-02-22</created> <name>Load From RAW RDF Test</name> </Project>";
 
-  private static String formInputURI = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+  private static String formInputURI = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
       + TEST_NAME;
 
   @Before

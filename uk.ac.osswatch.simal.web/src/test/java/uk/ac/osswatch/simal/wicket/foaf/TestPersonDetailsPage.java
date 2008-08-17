@@ -16,11 +16,11 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
-
 import org.apache.wicket.Page;
 import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -33,7 +33,7 @@ public class TestPersonDetailsPage extends TestBase{
       public Page getTestPage() {
         try {
           return new PersonDetailPage(UserApplication.getRepository()
-              .getPerson(UserApplication.DEFAULT_PERSON_URI));
+              .getPerson(BaseRepositoryTest.TEST_SIMAL_DEVELOPER_URI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
           System.exit(1);

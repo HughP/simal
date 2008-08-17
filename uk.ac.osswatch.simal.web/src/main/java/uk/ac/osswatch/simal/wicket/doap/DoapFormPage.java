@@ -43,6 +43,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -183,7 +184,7 @@ public class DoapFormPage extends BasePage {
       super.onSubmit();
 
       if (!this.hasError()) {
-        String uri = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+        String uri = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
             + inputModel.getName();
         try {
           ISimalRepository repo = UserApplication.getRepository();
