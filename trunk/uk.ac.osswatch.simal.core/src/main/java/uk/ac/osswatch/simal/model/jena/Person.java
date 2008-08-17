@@ -295,7 +295,7 @@ public class Person extends Resource implements IPerson {
       email = "mailto:" + email;
     }
     Model model = getJenaResource().getModel(); 
-    Statement statement = model.createStatement(getJenaResource(), FOAF.mbox, email);
+    Statement statement = model.createStatement(getJenaResource(), FOAF.mbox, model.createResource(email));
     model.add(statement);
     try {
       addSHA1Sum(RDFUtils.getSHA1(email));
