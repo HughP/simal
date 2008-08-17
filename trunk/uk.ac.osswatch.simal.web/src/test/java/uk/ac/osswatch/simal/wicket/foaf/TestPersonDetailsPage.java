@@ -20,7 +20,6 @@ import org.apache.wicket.Page;
 import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
