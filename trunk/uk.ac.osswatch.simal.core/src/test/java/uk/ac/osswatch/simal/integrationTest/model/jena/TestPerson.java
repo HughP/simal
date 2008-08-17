@@ -33,8 +33,8 @@ import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public class TestPerson extends BaseRepositoryTest {
 
@@ -54,7 +54,7 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testAddPersonFromScratch() throws SimalRepositoryException,
       DuplicateURIException, URISyntaxException {
-    String  uri = ISimalRepository.DEFAULT_PERSON_NAMESPACE_URI
+    String  uri = RDFUtils.DEFAULT_PERSON_NAMESPACE_URI
         + "TestingPersonFromScratch";
     IPerson person;
     person = getRepository().createPerson(uri);
@@ -146,11 +146,12 @@ public class TestPerson extends BaseRepositoryTest {
   }
   
   @Test
-  public void testAddName() {
+  public void testSetName() {
     Set<String> before = developer.getNames();
     String name = "Test Name";
-    developer.addName(name);
+    developer.setName(name);
     Set<String> after = developer.getNames();
-    assertEquals("We haven't added a name succesfully", before.size(), after.size());
+    assertEquals("We haven't set the name succesfully", name, developer.getNames().toArray()[0]);
+    developer.setName("developer");
   }
 }

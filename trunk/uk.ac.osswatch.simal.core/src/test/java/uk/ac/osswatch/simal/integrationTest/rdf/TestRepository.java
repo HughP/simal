@@ -37,6 +37,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
  * test common activities relating to Projects.
@@ -231,6 +232,28 @@ public class TestRepository extends BaseRepositoryTest {
     project1 = getSimalTestProject();
     assertNotNull("We don't seem to have added the test data as expected", project1);
     logger.debug("Starting testAdd(data)");
+  }
+  
+  @Test
+  public void testDuplicatePeople() throws SimalRepositoryException {
+    Set<IPerson> before = getRepository().getAllPeople();
+    ModelSupport.addSimalData(getRepository());
+    Set<IPerson> after = getRepository().getAllPeople();
+    Iterator<IPerson> itr = after.iterator();
+    logger.debug("People in second run are:");
+    while (itr.hasNext()) {
+      IPerson person = itr.next();
+      logger.debug(person.toString());
+    }
+    assertEquals("Adding the test data a second time has resulted in duplicate people entries", before.size(), after.size());
+  }
+  
+  @Test
+  public void testDuplicateProjects() throws SimalRepositoryException {
+    Set<IProject> before = getRepository().getAllProjects();
+    ModelSupport.addSimalData(getRepository());
+    Set<IProject> after = getRepository().getAllProjects();
+    assertEquals("Adding the test data a second time has resulted in duplicate project entries", before.size(), after.size());
   }
 
 }

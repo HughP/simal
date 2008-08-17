@@ -88,7 +88,7 @@ public interface IPerson extends IFoafResource {
   /**
    * Add a name to the list of names for this person.
    */
-  public void addName(String name);
+  public void setName(String name);
   
   /**
    * Get all the homepages for this person.

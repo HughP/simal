@@ -40,8 +40,8 @@ import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public class TestProject extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory
@@ -338,7 +338,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testAddProjectFromScratch() throws SimalRepositoryException, URISyntaxException {
-    String uri = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    String uri = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingProjectFromScratch";
     IProject project;
     try {
@@ -368,9 +368,9 @@ public class TestProject extends BaseRepositoryTest {
   public void testId() throws SimalRepositoryException, DuplicateURIException, URISyntaxException {
     assertEquals("Test project ID incorrect", TEST_SIMAL_PROJECT_SIMAL_ID, project1.getSimalID());
 
-    String uri1 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    String uri1 = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId1";
-    String uri2 = ISimalRepository.DEFAULT_PROJECT_NAMESPACE_URI
+    String uri2 = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
         + "TestingId2";
 
     IProject project;
