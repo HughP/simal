@@ -33,7 +33,7 @@ public class TestPersonDetailsPage extends TestBase{
       public Page getTestPage() {
         try {
           return new PersonDetailPage(UserApplication.getRepository()
-              .getPerson(BaseRepositoryTest.TEST_SIMAL_DEVELOPER_URI));
+              .getPerson(TEST_SIMAL_DEVELOPER_URI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
           System.exit(1);
