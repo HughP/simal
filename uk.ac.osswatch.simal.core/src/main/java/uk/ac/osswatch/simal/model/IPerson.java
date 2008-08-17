@@ -110,4 +110,26 @@ public interface IPerson extends IFoafResource {
    */
   public String toJSONRecord() throws SimalRepositoryException;
 
+  /**
+   * Get the SHA1 sums of this persons known mailboxes.
+   * 
+   * @return
+   */
+  public Set<String> getSHA1Sums();
+
+  /**
+   * Assign an email address to this person. This method will
+   * automatically add an SHA1 hash of the email.
+   * 
+   * @param email
+   */
+  public void addEmail(String email);
+  
+  /**
+   * Add an SHA1 hash of an email address to this person.
+   * 
+   * @param sha1 the hash to add
+   */
+  public void addSHA1Sum(String sha1);
+
 }
