@@ -25,7 +25,6 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -43,7 +42,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -875,31 +873,5 @@ public class RDFUtils {
    */
   public static File getLastProcessedFile() {
     return lastFile;
-  }
-
-  /**
-   * Check to see if a person already exists in the repository with the supplied
-   * EMail address. If they exist return the person otherwise return null.
-   * 
-   * @param person
-   * @return the duplicate personor null
-   * @throws SimalRepositoryException
-   */
-  public static IPerson getDuplicate(String email)
-      throws SimalRepositoryException {
-    String sha1sum;
-    try {
-      sha1sum = getSHA1(email);
-    } catch (NoSuchAlgorithmException e) {
-      throw new SimalRepositoryException(
-          "Unable to generate SHA1Sum for email address");
-    }
-    IPerson duplicate = SimalRepository.getInstance().findPersonBySha1Sum(
-        sha1sum);
-    if (duplicate != null) {
-      return duplicate;
-    } else {
-      return null;
-    }
   }
 }

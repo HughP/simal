@@ -387,4 +387,14 @@ public interface ISimalRepository {
    */
   public IResource getResource(String uri);
 
+  /**
+   * Check to see if a person already exists in the repository with the supplied
+   * EMail address. If they exist return the person otherwise return null.
+   * 
+   * @param person
+   * @return the duplicate person or null
+   * @throws SimalRepositoryException
+   */
+  public IPerson getDuplicate(String email)
+      throws SimalRepositoryException;
 }

@@ -21,6 +21,7 @@ Copyright 2007 University of Oxford *
 import java.io.File;
 import java.io.FilenameFilter;
 import java.net.MalformedURLException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.xml.namespace.QName;
 
@@ -28,7 +29,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 public abstract class AbstractSimalRepository implements ISimalRepository {
   private static final Logger logger = LoggerFactory.getLogger(AbstractSimalRepository.class);
@@ -204,6 +208,32 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
           logger.error("Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(), e);
           throw new SimalRepositoryException("Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(), e);
         }
+    }
+  }
+
+  /**
+   * Check to see if a person already exists in the repository with the supplied
+   * EMail address. If they exist return the person otherwise return null.
+   * 
+   * @param person
+   * @return the duplicate person or null
+   * @throws SimalRepositoryException
+   */
+  public IPerson getDuplicate(String email)
+      throws SimalRepositoryException {
+    String sha1sum;
+    try {
+      sha1sum = RDFUtils.getSHA1(email);
+    } catch (NoSuchAlgorithmException e) {
+      throw new SimalRepositoryException(
+          "Unable to generate SHA1Sum for email address");
+    }
+    IPerson duplicate = SimalRepository.getInstance().findPersonBySha1Sum(
+        sha1sum);
+    if (duplicate != null) {
+      return duplicate;
+    } else {
+      return null;
     }
   }
 }
