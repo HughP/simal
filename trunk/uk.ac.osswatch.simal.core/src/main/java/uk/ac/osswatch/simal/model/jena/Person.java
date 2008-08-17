@@ -18,6 +18,7 @@ Copyright 2007 University of Oxford *
  */
 
 
+import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -37,6 +38,7 @@ import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.query.Query;
@@ -276,6 +278,35 @@ public class Person extends Resource implements IPerson {
   public void setName(String name) {
     Model model = getJenaResource().getModel(); 
     Statement statement = model.createStatement(getJenaResource(), FOAF.name, name);
+    model.add(statement);
+  }
+
+  public Set<String> getSHA1Sums() {
+    StmtIterator itr = getJenaResource().listProperties(Foaf.MBOX_SHA1SUM);
+    Set<String> hashes = new HashSet<String>();
+    while (itr.hasNext()) {
+      hashes.add(itr.nextStatement().getString());
+    }
+    return hashes;
+  }
+
+  public void addEmail(String email) {
+    if (!email.startsWith("mailto:")) {
+      email = "mailto:" + email;
+    }
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), FOAF.mbox, email);
+    model.add(statement);
+    try {
+      addSHA1Sum(RDFUtils.getSHA1(email));
+    } catch (NoSuchAlgorithmException e) {
+      logger.warn("Unable to add the SHA1 has of an email address", e);
+    }
+  }
+
+  public void addSHA1Sum(String sha1) {
+    Model model = getJenaResource().getModel(); 
+    Statement statement = model.createStatement(getJenaResource(), FOAF.mbox_sha1sum, sha1);
     model.add(statement);
   }
 
