@@ -69,7 +69,7 @@ public class FoafFormInputModel implements IClusterable {
     IPerson person;
     try {
       person = repo.createPerson(uri);
-      person.addName(getName());
+      person.setName(getName());
       // FIXME: person.addEmail(getEmail());
     } catch (DuplicateURIException e) {
       logger.warn("Found a person in the repo with the URI " + uri + ". Assuming they are the same.");

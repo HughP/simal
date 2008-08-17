@@ -22,6 +22,7 @@ import org.apache.wicket.request.target.coding.QueryStringUrlCodingStrategy;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
@@ -37,9 +38,7 @@ public class UserApplication extends WebApplication {
 	 * The qname for the project to use if no other project is specified.
 	 */
 	public static final String DEFAULT_PROJECT_URI = 
-			"http://simal.oss-watch.ac.uk/simalTest#";
-
-  public static final String DEFAULT_PERSON_URI = "http://simal.oss-watch.ac.uk/foaf/Jane%20Blogs%20Maintainer#Person";
+			RDFUtils.getDefaultProjectURI("200");
 
 	private static ISimalRepository repository;
 
