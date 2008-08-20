@@ -1,10 +1,18 @@
 #summary A description of code auditing in Simal
+#labels Phase-QA
 = Introduction =
 
 Simal uses a number of tools to check source code for common issues. This document describes the audit tools in use and what they tell us.
 
-Perhaps the most important tool is our Continuous Integration server generously [http://www.16degrees.com.au/hudson hosted] by [http://www.16degrees.com.au 16degrees.com.au]. This server builds the code and runs all tests within 15 minutes of any SVN commit, it will also build all downstream projects. Any failures in the uild or tests will be sent to the developer mailing list.
+Perhaps the most important tool is our [http://www.16degrees.com.au/hudson Continuous Integration] server generously hosted by [http://www.16degrees.com.au 16degrees.com.au]. This server builds the code and runs all tests within 15 minutes of any SVN commit, it will also build all downstream projects. Any failures in the uild or tests will be sent to the developer mailing list.
 
+= Unit and Integration Tests =
+
+All code contributed to Simal must be accompanied by integration and/or unit tests.
+
+To run these tests locally use {{{mvn test}}}
+
+All tests are run by the continuous integration server at least once every night and after a change is detected in SVN.
 
 = PMD =
 
