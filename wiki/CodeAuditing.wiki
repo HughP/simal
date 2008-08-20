@@ -3,6 +3,23 @@
 
 Simal uses a number of tools to check source code for common issues. This document describes the audit tools in use and what they tell us.
 
+Perhaps the most important tool is our Continuous Integration server generously [http://www.16degrees.com.au/hudson hosted] by [http://www.16degrees.com.au 16degrees.com.au]. This server builds the code and runs all tests within 15 minutes of any SVN commit, it will also build all downstream projects. Any failures in the uild or tests will be sent to the developer mailing list.
+
+
+= PMD =
+
+[http://pmd.sourceforge.net/ PMD] scans Java source code and looks for potential problems like:
+
+  * Possible bugs - empty try/catch/finally/switch statements
+  * Dead code - unused local variables, parameters and private methods
+  * Suboptimal code - wasteful String/StringBuffer usage
+  * Overcomplicated expressions - unnecessary if statements, for loops that could be while loops
+  * Duplicate code - copied/pasted code means copied/pasted bugs
+
+To run PMD on the Simal code locally use {{{mvn pmd:pmd}}}
+
+PMD is run against our code as part of the Continuous Integration server where history graphs are maintained so that we can track code quality.
+
 = Licence Audit =
 
 [http://incubator.apache.org/rat RAT] is used to audit source files for correct licence headers and other legal requiremets.
@@ -18,4 +35,3 @@ RAT can be run manually with the command:
 == Adding Licence Headers ==
 
 RAT can also be used to automatically add licence headers.
-
