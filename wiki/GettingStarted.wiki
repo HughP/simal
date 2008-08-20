@@ -48,15 +48,11 @@ Create a file called {{{local.simal.properties}}} in {{{$PROJECT_HOME/simal-trun
 As a minimum you must set the following properties:
 
 {{{
-simal.user.webapp.baseurl=http://foo.org:8080
-simal.rest.baseurl=http://foo.org:8080/simal-rest
+simal.user.webapp.baseurl=http://localhost:8080
+simal.rest.baseurl=http://localhost:8080/simal-rest
 }}}
 
 Other configuration proerties are available. See {{{$PROJECT_HOME/uk.ac.osswatch.simal.core/src/main/resources/default.simal.properties}}} for details.
-
-_Yes, we know_ the default webapp properties should be set in the webapp module. See issue 118
-
-(Note that Simal Web does not need to be installed)
 
 == Running ==
 
@@ -66,17 +62,17 @@ Note, in all these cases the documentation is currently held in SVN, we've not g
 
 === Simal Web Application ===
 
-The Simal web module provides a web application that provides a GUI interface to a Simal repostory. [http://simal.oss-watch.ac.uk/web/developing.html Instructions for running the webapp] can be found in svn.
+The Simal web module provides a web application that provides a GUI interface to a Simal repostory. [http://simal.oss-watch.ac.uk/web/developing.html Instructions for running the webapp] are available in the webapp docs (hint "mvn jetty:run" after installing the core and rest modules in your Maven repository - see above).
 
 === Simal Rest ===
 
-Simal rest is a module providing a REST API to Simal. Instructions for [http://simal.oss-watch.ac.uk/rest/index.html running and accessing the REST API] are in SVN.
+Simal rest is a module providing a REST API to Simal. Instructions for [http://simal.oss-watch.ac.uk/rest/index.html running and accessing the REST API] are available in the REST module docs (hint "mvn jetty:run" after installing the core module in your Maven repository - see above).
 
 === Simal Core ===
 
 Simal core is the back end systems. It contains the data model, data services and repository. Simal core provides a command line interface.
 
-The documentation for [http://simal.oss-watch.ac.uk/core/developing.html running Simal core] can be found at in svn. We'll get around to publishing it one day.
+See the documentation for [http://simal.oss-watch.ac.uk/core/developing.html running Simal core] via the command line.
 
 = Questions? =
 
