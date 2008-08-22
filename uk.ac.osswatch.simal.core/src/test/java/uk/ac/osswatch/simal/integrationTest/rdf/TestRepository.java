@@ -37,7 +37,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
  * test common activities relating to Projects.
