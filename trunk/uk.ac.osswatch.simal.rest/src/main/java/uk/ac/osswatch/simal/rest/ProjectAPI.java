@@ -52,7 +52,7 @@ public class ProjectAPI extends AbstractHandler {
       addProject(command);
       return null;
     } else {
-      throw new SimalAPIException("Unkown command: " + command);
+      throw new SimalAPIException("Unknown command: " + command);
     }
   }
 
