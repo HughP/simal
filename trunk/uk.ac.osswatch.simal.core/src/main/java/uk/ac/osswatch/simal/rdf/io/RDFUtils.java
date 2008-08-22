@@ -49,7 +49,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
@@ -661,6 +660,9 @@ public class RDFUtils {
             }
           } else {
             id = repo.getNewPersonID();
+            if (about == null || about.equals("")) {
+              logger.warn("Person without an rdf:about attribute. ID = " + id);
+            }
           }
         } catch (Exception e) {
           throw new SimalRepositoryException("Unable to get person", e);
