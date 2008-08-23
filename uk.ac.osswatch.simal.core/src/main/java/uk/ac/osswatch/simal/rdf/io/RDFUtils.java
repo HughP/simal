@@ -746,9 +746,9 @@ public class RDFUtils {
     logger.debug("deDupePeople found in RDF file");
     // handle duplicate people identified by their mbox_sha1sum
     NodeList sha1sums = doc.getElementsByTagNameNS(FOAF_NS, "mbox_sha1sum");
-    Node sha1sum;
+    Element sha1sum;
     for (int i = 0; i < sha1sums.getLength(); i = i + 1) {
-      sha1sum = sha1sums.item(i);
+      sha1sum = (Element)sha1sums.item(i);
       IPerson person = repo.findPersonBySha1Sum(sha1sum.getFirstChild()
           .getNodeValue().trim());
       if (person != null) {
@@ -756,6 +756,15 @@ public class RDFUtils {
             + person.toString() + " into " + person.getURI());
         Element personNode = (Element) sha1sum.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
+      }
+      for (int idx = 0; idx < sha1sums.getLength(); idx = idx + 1) {
+        String thisSum = sha1sums.item(idx).getFirstChild().getNodeValue().trim();
+        if (i != idx && sha1sum.equals(thisSum)) {
+          logger.info("Merging duplicate person in original file (based on email SHA1): "
+              + thisSum);
+          Element personNode = (Element) sha1sums.item(idx).getParentNode();
+          personNode.setAttributeNS(RDF_NS, "about", sha1sum.getAttributeNS(RDF_NS, "about"));
+        }
       }
     }
 
@@ -771,6 +780,15 @@ public class RDFUtils {
             + person.toString() + " into " + person.getURI());
         Element personNode = (Element) seeAlso.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
+      }
+      for (int idx = 0; idx < seeAlsos.getLength(); idx = idx + 1) {
+        String thisURI = ((Element)seeAlsos.item(idx)).getAttributeNS(RDF_NS, "resource");
+        if (i != idx && uri.equals(thisURI)) {
+          logger.info("Merging duplicate person in original file (based on seeAlso): "
+              + thisURI);
+          Element personNode = (Element) seeAlsos.item(idx).getParentNode();
+          personNode.setAttributeNS(RDF_NS, "resource", seeAlso.getAttributeNS(RDF_NS, "resource"));
+        }
       }
     }
   }
