@@ -1,8 +1,6 @@
-/* CVS $Id: $ */
 package uk.ac.osswatch.simal.model; 
 /*
- * 
-Copyright 2007 University of Oxford * 
+ * Copyright 2007 University of Oxford 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -59,157 +57,129 @@ public class Doap {
     /** <p>A category of project.Une catégorie de projet.Una categoría de proyecto.</p> */
     public static final Property CATEGORY = m_model.createProperty( "http://usefulinc.com/ns/doap#category" );
     
-    /** <p>Fecha en la que algo fue creado, en formato AAAA-MM-DD. e.g. 2004-04-05Date 
-     *  when something was created, in YYYY-MM-DD form. e.g. 2004-04-05Date à laquelle 
-     *  a été créé quelque chose, au format AAAA-MM-JJ (par ex. 2004-04-05)</p>
+    /** <p>Date 
+     *  when something was created, in YYYY-MM-DD form. e.g. 2004-04-05</p>
      */
     public static final Property CREATED = m_model.createProperty( "http://usefulinc.com/ns/doap#created" );
     
-    /** <p>Descripción en texto plano de un proyecto, de 2 a 4 enunciados de longitud.Plain 
-     *  text description of a project, of 2-4 sentences in length.Texte descriptif 
-     *  d'un projet, long de 2 à 4 phrases.</p>
+    /** <p>Plain 
+     *  text description of a project, of 2-4 sentences in length.</p>
      */
     public static final Property DESCRIPTION = m_model.createProperty( "http://usefulinc.com/ns/doap#description" );
     
-    /** <p>Développeur pour le projet.Developer of software for the project.Desarrollador 
-     *  de software para el proyecto.</p>
+    /** <p>Developer of software for the project.</p>
      */
     public static final Property DEVELOPER = m_model.createProperty( "http://usefulinc.com/ns/doap#developer" );
     
-    /** <p>Contributor of documentation to the project.Collaborateur à la documentation 
-     *  du projet.Proveedor de documentación para el proyecto.</p>
+    /** <p>Contributor of documentation to the project.</p>
      */
     public static final Property DOCUMENTER = m_model.createProperty( "http://usefulinc.com/ns/doap#documenter" );
     
-    /** <p>Mirror of software download web page.Mirror de la página web de descarga.Miroir 
-     *  de la page de téléchargement du programme.</p>
+    /** <p>Mirror of software download web page.</p>
      */
     public static final Property DOWNLOAD_MIRROR = m_model.createProperty( "http://usefulinc.com/ns/doap#download-mirror" );
     
-    /** <p>Web page from which the project software can be downloaded.Page web à partir 
-     *  de laquelle on peut télécharger le programme.Página web de la cuál se puede 
-     *  bajar el software.</p>
+    /** <p>Web page from which the project software can be downloaded.</p>
      */
     public static final Property DOWNLOAD_PAGE = m_model.createProperty( "http://usefulinc.com/ns/doap#download-page" );
     
     /** <p>URI of download associated with this release.</p> */
     public static final Property FILE_RELEASE = m_model.createProperty( "http://usefulinc.com/ns/doap#file-release" );
     
-    /** <p>Project contributor.Colaborador del proyecto.Collaborateur au projet.</p> */
+    /** <p>Project contributor.</p> */
     public static final Property HELPER = m_model.createProperty( "http://usefulinc.com/ns/doap#helper" );
     
-    /** <p>URL of a project's homepage, associated with exactly one project.L'URL de 
-     *  la page web d'un projet, associée avec un unique projet.El URL de la página 
-     *  de un proyecto, asociada con exactamente un proyecto.</p>
+    /** <p>URL of a project's homepage, associated with exactly one project.</p>
      */
     public static final Property HOMEPAGE = m_model.createProperty( "http://usefulinc.com/ns/doap#homepage" );
     
-    /** <p>The URI of an RDF description of the license the software is distributed under.El 
-     *  URI de una descripción RDF de la licencia bajo la cuál se distribuye el software.L'URI 
-     *  d'une description RDF de la licence sous laquelle le programme est distribué.</p>
+    /** <p>The URI of an RDF description of the license the software is distributed under.</p>
      */
     public static final Property LICENSE = m_model.createProperty( "http://usefulinc.com/ns/doap#license" );
     
-    /** <p>Emplacement d'un dépôt.lugar de un repositorio.Location of a repository.</p> */
+    /** <p>Location of a repository.</p> */
     public static final Property LOCATION = m_model.createProperty( "http://usefulinc.com/ns/doap#location" );
     
-    /** <p>Mailing list home page or email address.Página web de la lista de correo o 
-     *  dirección de correo.Page web de la liste de diffusion, ou adresse de courriel.</p>
+    /** <p>Mailing list home page or email address.</p>
      */
     public static final Property MAILING_LIST = m_model.createProperty( "http://usefulinc.com/ns/doap#mailing-list" );
     
-    /** <p>Desarrollador principal de un proyecto, un líder de proyecto.Maintainer of 
-     *  a project, a project leader.Développeur principal d'un projet, un meneur du 
-     *  projet.</p>
+    /** <p>Maintainer of 
+     *  a project, a project leader.</p>
      */
     public static final Property MAINTAINER = m_model.createProperty( "http://usefulinc.com/ns/doap#maintainer" );
     
-    /** <p>Nombre del módulo de un repositorio CVS, BitKeeper o Arch.Nom du module d'un 
-     *  dépôt CVS, BitKeeper ou Arch.Module name of a CVS, BitKeeper or Arch repository.</p>
+    /** <p>Module name of a CVS, BitKeeper or Arch repository.</p>
      */
     public static final Property MODULE = m_model.createProperty( "http://usefulinc.com/ns/doap#module" );
     
-    /** <p>El nombre de algo.Le nom de quelque chose.A name of something.</p> */
+    /** <p>A name of something.</p> */
     public static final Property NAME = m_model.createProperty( "http://usefulinc.com/ns/doap#name" );
     
-    /** <p>URL of a project's past homepage, associated with exactly one project.L'URL 
-     *  d'une ancienne page web d'un projet, associée avec un unique projet.El URL 
-     *  de la antigua página de un proyecto, asociada con exactamente un proyecto.</p>
+    /** <p>URL of a project's past homepage, associated with exactly one project.</p>
      */
     public static final Property OLD_HOMEPAGE = m_model.createProperty( "http://usefulinc.com/ns/doap#old-homepage" );
     
     /** <p>Operating system that a project is limited to. Omit this property if the project 
-     *  is not OS-specific.Sistema opertivo al cuál está limitado el proyecto. Omita 
-     *  esta propiedad si el proyecto no es específico de un sistema opertaivo en 
-     *  particular.Système d'exploitation auquel est limité le projet. Omettez cette 
-     *  propriété si le projet n'est pas limité à un système d'exploitation.</p>
+     *  is not OS-specific.</p>
      */
     public static final Property OS = m_model.createProperty( "http://usefulinc.com/ns/doap#os" );
     
-    /** <p>Langage de programmation avec lequel un projet est implémenté, ou avec lequel 
-     *  il est prévu de l'utiliser.Programming language a project is implemented in 
-     *  or intended for use with.Lenguaje de programación en el que un proyecto es 
-     *  implementado o con el cuál pretende usarse.</p>
+    /** <p>Programming language a project is implemented in 
+     *  or intended for use with.</p>
      */
     public static final Property PROGRAMMING_LANGUAGE = m_model.createProperty( "http://usefulinc.com/ns/doap#programming-language" );
     
-    /** <p>Un release (versión) de un proyecto.Une release (révision) d'un projet.A project 
+    /** <p>A project 
      *  release.</p>
      */
     public static final Property RELEASE = m_model.createProperty( "http://usefulinc.com/ns/doap#release" );
     
-    /** <p>Repositorio del código fuente.Source code repository.Dépôt du code source.</p> */
+    /** <p>Source code repository.</p> */
     public static final Property REPOSITORY = m_model.createProperty( "http://usefulinc.com/ns/doap#repository" );
     
-    /** <p>Identifiant de révision d'une release du programme.Indentificador de la versión 
-     *  de un release de software.Revision identifier of a software release.</p>
+    /** <p>Revision identifier of a software release.</p>
      */
     public static final Property REVISION = m_model.createProperty( "http://usefulinc.com/ns/doap#revision" );
     
-    /** <p>Página web con capturas de pantalla del proyecto.Web page with screenshots 
-     *  of project.Page web avec des captures d'écran du projet.</p>
+    /** <p>Web page with screenshots 
+     *  of project.</p>
      */
     public static final Property SCREENSHOTS = m_model.createProperty( "http://usefulinc.com/ns/doap#screenshots" );
     
-    /** <p>Descripción corta (8 o 9 palabras) en texto plano de un proyecto.Short (8 
-     *  or 9 words) plain text description of a project.Texte descriptif concis (8 
-     *  ou 9 mots) d'un projet.</p>
+    /** <p>Short (8 
+     *  or 9 words) plain text description of a project.</p>
      */
     public static final Property SHORTDESC = m_model.createProperty( "http://usefulinc.com/ns/doap#shortdesc" );
     
-    /** <p>A tester or other quality control contributor.Un testeur ou un collaborateur 
-     *  au contrôle qualité.Un tester u otro proveedor de control de calidad.</p>
+    /** <p>A tester or other quality control contributor.</p>
      */
     public static final Property TESTER = m_model.createProperty( "http://usefulinc.com/ns/doap#tester" );
     
-    /** <p>Proveedor de traducciones al proyecto.Collaborateur à la traduction du projet.Contributor 
+    /** <p>Contributor 
      *  of translations to the project.</p>
      */
     public static final Property TRANSLATOR = m_model.createProperty( "http://usefulinc.com/ns/doap#translator" );
     
-    /** <p>L'URL du Wiki pour la discussion collaborative sur le projet.URL del Wiki 
-     *  para discusión colaborativa del proyecto.URL of Wiki for collaborative discussion 
+    /** <p>URL of Wiki for collaborative discussion 
      *  of project.</p>
      */
     public static final Property WIKI = m_model.createProperty( "http://usefulinc.com/ns/doap#wiki" );
     
-    /** <p>Repositorio GNU Arch del código fuente.GNU Arch source code repository.Dépôt 
-     *  GNU Arch du code source.</p>
+    /** <p>GNU Arch source code repository.</p>
      */
     public static final Resource ARCH_REPOSITORY = m_model.createResource( "http://usefulinc.com/ns/doap#ArchRepository" );
     
-    /** <p>Repositorio BitKeeper del código fuente.Dépôt BitKeeper du code source.BitKeeper 
+    /** <p>BitKeeper 
      *  source code repository.</p>
      */
     public static final Resource BKREPOSITORY = m_model.createResource( "http://usefulinc.com/ns/doap#BKRepository" );
     
-    /** <p>CVS source code repository.Repositorio CVS del código fuente.Dépôt CVS du 
-     *  code source.</p>
+    /** <p>CVS source code repository.</p>
      */
     public static final Resource CVSREPOSITORY = m_model.createResource( "http://usefulinc.com/ns/doap#CVSRepository" );
 
-    /** <p>SVN source code repository.Repositorio SVN del código fuente.Dépôt SVN du 
-     *  code source.</p>
+    /** <p>SVN source code repository.</p>
      */
     public static final Resource SVNREPOSITORY = m_model.createResource( "http://usefulinc.com/ns/doap#SVNRepository" );
     
