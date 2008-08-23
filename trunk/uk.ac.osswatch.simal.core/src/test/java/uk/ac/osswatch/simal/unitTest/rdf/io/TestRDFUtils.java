@@ -78,7 +78,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
     for (int i = 0; i < projectNL.getLength(); i ++) {
       Element projectElement = (Element)projectNL.item(i);
       String about = projectElement.getAttributeNS(RDFUtils.RDF_NS, "about");
-      assertTrue("rdf:about is incorrect", about.startsWith(RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI));
+      assertTrue("rdf:about is incorrect", about.startsWith(RDFUtils.PROJECT_NAMESPACE_URI));
     }
   }
   
@@ -88,7 +88,7 @@ public class TestRDFUtils extends BaseRepositoryTest {
     for (int i = 0; i < projectNL.getLength(); i ++) {
       Element projectElement = (Element)projectNL.item(i);
       String about = projectElement.getAttributeNS(RDFUtils.RDF_NS, "about");
-      assertTrue("rdf:about is incorrect", about.startsWith(RDFUtils.DEFAULT_PERSON_NAMESPACE_URI));
+      assertTrue("rdf:about is incorrect", about.startsWith(RDFUtils.PERSON_NAMESPACE_URI));
     }
   }
 

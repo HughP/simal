@@ -54,7 +54,7 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testAddPersonFromScratch() throws SimalRepositoryException,
       DuplicateURIException, URISyntaxException {
-    String  uri = RDFUtils.DEFAULT_PERSON_NAMESPACE_URI
+    String  uri = RDFUtils.PERSON_NAMESPACE_URI
         + "TestingPersonFromScratch";
     IPerson person;
     person = getRepository().createPerson(uri);
