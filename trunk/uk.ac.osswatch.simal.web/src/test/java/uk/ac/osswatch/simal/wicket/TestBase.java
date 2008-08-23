@@ -25,7 +25,7 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public abstract class TestBase {
   protected static final int NUMBER_OF_TEST_PROJECTS = 6;
-  protected static final int NUMBER_OF_TEST_PEOPLE = 18;
+  protected static final int NUMBER_OF_TEST_PEOPLE = 17;
   public static final String TEST_SIMAL_DEVELOPER_URI = RDFUtils.getDefaultPersonURI("15");  protected static WicketTester tester;
 
   @BeforeClass
