@@ -89,6 +89,16 @@ public class UserApplication extends WebApplication {
 		}
 		return repository;
 	}
+	
+	/**
+	 * Destroy the repository object used by this application.
+	 * 
+	 * @throws SimalRepositoryException
+	 */
+	public static void destroyRepository() throws SimalRepositoryException {
+	  repository.destroy();
+	  repository = null;
+	}
 
 	/**
 	 * If IsTest is set to true then a test (in memory)

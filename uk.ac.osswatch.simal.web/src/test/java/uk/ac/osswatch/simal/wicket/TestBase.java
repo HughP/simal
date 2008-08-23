@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
