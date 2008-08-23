@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
@@ -32,9 +34,6 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.tools.PTSWImport;
-
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * The tools page provides access to a number of useful Admin tools.
@@ -151,8 +150,8 @@ public class ToolsPage extends BasePage {
     }
 
     try {
-      repo.addProject(tmpFile.toURL(),
-          tmpFile.toURL().toExternalForm());
+      repo.addProject(tmpFile.toURI().toURL(),
+          tmpFile.toURI().toURL().toExternalForm());
       int postProjectCount = repo.getAllProjects().size();
       logger.info("Imported " + (postProjectCount - preProjectCount) + " project records from PTSW");
     } catch (Exception e) {
