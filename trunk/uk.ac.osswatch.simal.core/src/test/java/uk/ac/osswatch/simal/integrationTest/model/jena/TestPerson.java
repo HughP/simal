@@ -130,7 +130,7 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testSeeAlso() {
     Set<URI> seeAlso = developer.getSeeAlso();
-    assertEquals("There should be a single see also value", 1, seeAlso.size());
+    assertEquals("There should be a single see also value", 2, seeAlso.size());
   }
   
   @Test
@@ -147,10 +147,8 @@ public class TestPerson extends BaseRepositoryTest {
   
   @Test
   public void testSetName() {
-    Set<String> before = developer.getNames();
     String name = "Test Name";
     developer.setName(name);
-    Set<String> after = developer.getNames();
     assertEquals("We haven't set the name succesfully", name, developer.getNames().toArray()[0]);
     developer.setName("developer");
   }
