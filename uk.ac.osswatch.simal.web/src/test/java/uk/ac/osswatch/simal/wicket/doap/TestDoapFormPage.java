@@ -50,7 +50,7 @@ public class TestDoapFormPage extends TestBase {
       + TEST_RAW_RDF_URI
       + "\"> <simal:projectId>99999</simal:projectId> <created>2008-02-22</created> <name>Load From RAW RDF Test</name> </Project>";
 
-  private static String formInputURI = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
+  private static String formInputURI = RDFUtils.PROJECT_NAMESPACE_URI
       + TEST_NAME;
 
   @Before
