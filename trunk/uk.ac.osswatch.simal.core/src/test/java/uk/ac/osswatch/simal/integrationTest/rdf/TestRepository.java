@@ -136,7 +136,7 @@ public class TestRepository extends BaseRepositoryTest {
       logger.debug("Got person: " + person + " : " + person.getURI());
     }
 
-    assertEquals(18, people.size());
+    assertEquals(17, people.size());
     
     logger.debug("Finished testGetAllPeople()");
   }
