@@ -31,6 +31,7 @@ public final class RESTCommand {
   public static final String ALL_PROJECTS = "/allProjects";
   public static final String PROJECT = "/project";
   public static final String PROJECT_ADD = "/addProject";
+  public static final String PERSON = "/person";
   public static final String ALL_COLLEAGUES = "/allColleagues";
   
   public static final String PARAM_PERSON_ID = "/person-";
@@ -110,6 +111,24 @@ public final class RESTCommand {
       String format) {
     return new RESTCommand(projectID, source, PROJECT, format);
   }
+
+  /**
+   * Create a command to retrieve the RDF for a person, from a given
+   * source.
+   * 
+   * @param personID
+   *          the ID of the person 
+   * @param source
+   *          the source of the data required. See the TYPE_* constants
+   * @param format
+   *          the format that the data should be returned in. See the FORMAT_*
+   *          constants
+   * @return
+   */
+  public static RESTCommand createGetPerson(String personID, String source, 
+      String format) {
+    return new RESTCommand(personID, source, PERSON, format);
+  }
   
   /**
    * A code that indicates the data source against this command should be run.
@@ -129,6 +148,20 @@ public final class RESTCommand {
   public String getPersonID() {
     return personID;
   }
+  
+  /**
+   * Test to see if this command is a person command. That is, a command that
+   * operates on a person.
+   * 
+   * @return
+   */
+  public boolean isProjectCommand() {
+    if (isGetAllProjects() || isGetProject() || isAddProject()) {
+      return true;
+    } else  {
+      return false;
+    }
+  } 
 
   /**
    * Test to see if this command is a person command. That is, a command that
@@ -137,7 +170,19 @@ public final class RESTCommand {
    * @return
    */
   public boolean isPersonCommand() {
-    if (isGetColleagues()) {
+    if (isGetPerson() || isGetColleagues()) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Test to see if this command is a getPerson command.
+   * 
+   * @return
+   */
+  public boolean isGetPerson() {
+    if (commandMethod.equals(PERSON)) {
       return true;
     }
     return false;
@@ -362,8 +407,9 @@ public final class RESTCommand {
    * Return the path info part of the URI that represents this command.
    * 
    * @return
+   * @throws SimalAPIException if the method of the command is unrecognised
    */
-  public String getPath() {
+  public String getPath() throws SimalAPIException {
     StringBuffer sb = new StringBuffer();
     sb.append(getCommandMethod());
     sb.append(PARAM_SOURCE);
@@ -371,9 +417,11 @@ public final class RESTCommand {
     if (isPersonCommand()) {
       sb.append(PARAM_PERSON_ID);
       sb.append(getPersonID());
-    } else {
+    } else if (isProjectCommand()) {
       sb.append(PARAM_PROJECT_ID);
       sb.append(getProjectID());
+    } else {
+      throw new SimalAPIException("Don't recognise the command type");
     }
     sb.append(getFormat());
     return sb.toString();
@@ -381,8 +429,9 @@ public final class RESTCommand {
   
   /**
    * Get the URL for this REST command.
+   * @throws SimalAPIException If the method of the command is unrecognised
    */
-  public String getURL() {
+  public String getURL() throws SimalAPIException {
     return SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + getPath();
   }
 

@@ -214,6 +214,14 @@
 
       <section>
         <title>Person Data</title>
+        
+        <section>
+          <title>Retrieve a Single Person</title>
+
+          <p>To retrieve the details of a single person use:</p>
+
+          <source>http://foo.com/simal-rest/person/person-ID/FORMAT</source>
+        </section>
 
         <section>
           <title>All Colleagues</title>

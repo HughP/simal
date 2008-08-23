@@ -24,7 +24,7 @@ import org.junit.Test;
 public class TestRESTCommand extends AbstractAPITest {
 
   @Test
-  public void testProjectCommand() {
+  public void testProjectCommand() throws SimalAPIException {
     RESTCommand cmd =RESTCommand.createGetProject(PROJECT_ID, RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
     assertNotNull(cmd);
     
