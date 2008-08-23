@@ -39,13 +39,11 @@ public class Doap {
     /** <p>The namespace of the vocabulary as a resource</p> */
     public static final Resource NAMESPACE = m_model.createResource( NS );
     
-    /** <p>Repositorio para acceso anónimo.Repository for anonymous access.Dépôt pour 
-     *  accès anonyme.</p>
+    /** <p>Repository for anonymous access.</p>
      */
     public static final Property ANON_ROOT = m_model.createProperty( "http://usefulinc.com/ns/doap#anon-root" );
     
-    /** <p>Interface web del repositorio.Web browser interface to repository.Interface 
-     *  web au dépôt.</p>
+    /** <p>Web browser interface to repository.</p>
      */
     public static final Property BROWSE = m_model.createProperty( "http://usefulinc.com/ns/doap#browse" );
     
@@ -54,7 +52,7 @@ public class Doap {
      */
     public static final Property BUG_DATABASE = m_model.createProperty( "http://usefulinc.com/ns/doap#bug-database" );
     
-    /** <p>A category of project.Une catégorie de projet.Una categoría de proyecto.</p> */
+    /** <p>A category of project.</p> */
     public static final Property CATEGORY = m_model.createProperty( "http://usefulinc.com/ns/doap#category" );
     
     /** <p>Date 
