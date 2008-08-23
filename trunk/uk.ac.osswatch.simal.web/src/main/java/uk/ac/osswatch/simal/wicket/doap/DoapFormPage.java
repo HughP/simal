@@ -184,7 +184,7 @@ public class DoapFormPage extends BasePage {
       super.onSubmit();
 
       if (!this.hasError()) {
-        String uri = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
+        String uri = RDFUtils.PROJECT_NAMESPACE_URI
             + inputModel.getName();
         try {
           ISimalRepository repo = UserApplication.getRepository();
