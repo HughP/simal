@@ -17,8 +17,6 @@ package uk.ac.osswatch.simal.wicket.foaf;
  */
 
 import org.apache.wicket.IClusterable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
