@@ -14,6 +14,12 @@ To run these tests locally use {{{mvn test}}}
 
 All tests are run by the continuous integration server at least once every night and after a change is detected in SVN.
 
+= Compiler Warnings =
+
+We use our [http://www.16degrees.com.au/hudson Continuous Integration] server to track trends in compiler warnings. 
+
+The CI server to fail a build when the number of warnings goes over 15. The health of the project is also dependant on the number of warnings, requiring less than five for a "sunny" outlook and less than 10 for an "overcast" outlook.
+
 = PMD =
 
 [http://pmd.sourceforge.net/ PMD] scans Java source code and looks for potential problems like:
@@ -26,7 +32,9 @@ All tests are run by the continuous integration server at least once every night
 
 To run PMD on the Simal code locally use {{{mvn pmd:pmd}}}
 
-PMD is run against our code as part of the Continuous Integration server where history graphs are maintained so that we can track code quality.
+== PMD and COntinuous Integration ==
+
+The CI server to fail a build when the number of PMD warnings goes over 10. The health of the project is also dependant on the number of warnings, requiring less than 3 for a "sunny" outlook and less than 7 for an "overcast" outlook.
 
 = Licence Audit =
 
