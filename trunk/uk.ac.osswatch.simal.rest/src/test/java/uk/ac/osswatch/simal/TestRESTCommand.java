@@ -22,6 +22,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.rest.RESTCommand;
+import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 public class TestRESTCommand {
 
@@ -47,7 +48,7 @@ public class TestRESTCommand {
   
 
   @Test
-  public void testToPathInfo() {
+  public void testToPathInfo() throws SimalAPIException {
     String cmdString = RESTCommand.ALL_COLLEAGUES + RESTCommand.PARAM_SOURCE + RESTCommand.TYPE_MYEXPERIMENT + RESTCommand.PARAM_PERSON_ID + "1" + RESTCommand.FORMAT_JSON;
     RESTCommand cmd = RESTCommand.createCommand(cmdString);
     assertEquals("Path info is incorrect", cmdString, cmd.getPath());

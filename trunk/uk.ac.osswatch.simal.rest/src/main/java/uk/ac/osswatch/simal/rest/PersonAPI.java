@@ -48,10 +48,50 @@ public class PersonAPI extends AbstractHandler {
    * @throws SimalAPIException
    */
   public String execute() throws SimalAPIException {
-    if (command.isGetColleagues()) {
+    if (command.isGetPerson()) {
+      return getPerson(command);
+    } else if (command.isGetColleagues()) {
       return getAllColleagues(command);
     } else {
       throw new SimalAPIException("Unkown command: " + command);
+    }
+  }
+
+  /**
+   * Get all a person record.
+   * 
+   * @param cmd
+   * @return
+   * @throws SimalAPIException
+   */
+  public String getPerson(RESTCommand cmd)
+      throws SimalAPIException {
+    String id = command.getPersonID();
+
+    if (command.isXML()) {
+      try {
+        IPerson person = HandlerFactory.getSimalRepository().findPersonById(
+            id);
+        if (person == null) {
+          throw new SimalAPIException("Person with Simal ID " + id
+              + " does not exist");
+        }
+        return person.toXML();
+      } catch (SimalRepositoryException e) {
+        throw new SimalAPIException(
+            "Unable to get XML representation of project from the repository",
+            e);
+      }
+    } else if (command.isJSON()) {
+      try {
+        return HandlerFactory.getSimalRepository().findPersonById(id).toJSON(false);
+      } catch (SimalRepositoryException e) {
+        throw new SimalAPIException(
+            "Unable to get JSON representation of project from the repository",
+            e);
+      }
+    } else {
+      throw new SimalAPIException("Unkown format requested - " + command);
     }
   }
 

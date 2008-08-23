@@ -43,7 +43,12 @@ public abstract class AbstractHandler implements IAPIHandler {
   }
   
   public URI getStateURI() throws URISyntaxException {
-    URI uri = new URI(baseurl + command.getPath());
+    URI uri;
+    try {
+      uri = new URI(baseurl + command.getPath());
+    } catch (SimalAPIException e) {
+      throw new URISyntaxException("Can't create state URI", e.getMessage());
+    }
     return uri;
   }
 
