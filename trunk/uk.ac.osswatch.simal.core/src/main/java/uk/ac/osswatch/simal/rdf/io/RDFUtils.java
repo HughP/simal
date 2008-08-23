@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rdf.io;
+
 /*
  * Copyright 2007 University of Oxford
  *
@@ -93,8 +94,8 @@ public class RDFUtils {
    * @throws DOMException
    * @throws UnsupportedEncodingException
    */
-  private static void removeBNodes(final Document doc)
-      throws DOMException, UnsupportedEncodingException {
+  private static void removeBNodes(final Document doc) throws DOMException,
+      UnsupportedEncodingException {
 
     NodeList nl = doc.getElementsByTagNameNS(DOAP_NS, "Repository");
     removeBlankRepositoryNodes(nl);
@@ -750,7 +751,7 @@ public class RDFUtils {
     NodeList sha1sums = doc.getElementsByTagNameNS(FOAF_NS, "mbox_sha1sum");
     Element sha1sum;
     for (int i = 0; i < sha1sums.getLength(); i = i + 1) {
-      sha1sum = (Element)sha1sums.item(i);
+      sha1sum = (Element) sha1sums.item(i);
       IPerson person = repo.findPersonBySha1Sum(sha1sum.getFirstChild()
           .getNodeValue().trim());
       if (person != null) {
@@ -760,12 +761,15 @@ public class RDFUtils {
         personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
       }
       for (int idx = 0; idx < sha1sums.getLength(); idx = idx + 1) {
-        String thisSum = sha1sums.item(idx).getFirstChild().getNodeValue().trim();
+        String thisSum = sha1sums.item(idx).getFirstChild().getNodeValue()
+            .trim();
         if (i != idx && sha1sum.equals(thisSum)) {
-          logger.info("Merging duplicate person in original file (based on email SHA1): "
-              + thisSum);
+          logger
+              .info("Merging duplicate person in original file (based on email SHA1): "
+                  + thisSum);
           Element personNode = (Element) sha1sums.item(idx).getParentNode();
-          personNode.setAttributeNS(RDF_NS, "about", sha1sum.getAttributeNS(RDF_NS, "about"));
+          personNode.setAttributeNS(RDF_NS, "about", sha1sum.getAttributeNS(
+              RDF_NS, "about"));
         }
       }
     }
@@ -784,12 +788,15 @@ public class RDFUtils {
         personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
       }
       for (int idx = 0; idx < seeAlsos.getLength(); idx = idx + 1) {
-        String thisURI = ((Element)seeAlsos.item(idx)).getAttributeNS(RDF_NS, "resource");
+        String thisURI = ((Element) seeAlsos.item(idx)).getAttributeNS(RDF_NS,
+            "resource");
         if (i != idx && uri.equals(thisURI)) {
-          logger.info("Merging duplicate person in original file (based on seeAlso): "
-              + thisURI);
+          logger
+              .info("Merging duplicate person in original file (based on seeAlso): "
+                  + thisURI);
           Element personNode = (Element) seeAlsos.item(idx).getParentNode();
-          personNode.setAttributeNS(RDF_NS, "resource", seeAlso.getAttributeNS(RDF_NS, "resource"));
+          personNode.setAttributeNS(RDF_NS, "resource", seeAlso.getAttributeNS(
+              RDF_NS, "resource"));
         }
       }
     }
@@ -831,13 +838,27 @@ public class RDFUtils {
     Element seeAlso;
     for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
       seeAlso = (Element) seeAlsos.item(i);
-      IProject project = repo.findProjectBySeeAlso(seeAlso.getAttributeNS(
-          RDF_NS, "resource"));
+      String uri = seeAlso.getAttributeNS(RDF_NS, "resource");
+      IProject project = repo.findProjectBySeeAlso(uri);
       if (project != null) {
         logger.info("Merging duplicate project (based on seeAlso): "
             + project.toString() + " into " + project.getURI());
         Element projectNode = (Element) seeAlso.getParentNode();
         projectNode
+            .setAttributeNS(RDF_NS, "about", project.getURI().toString());
+      }
+    }
+
+    // handle duplicates with supplied URI
+    NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
+    for (int i = 0; i < projects.getLength(); i = i + 1) {
+      Element projectElement = (Element) projects.item(i);
+      String uri = projectElement.getAttributeNS(RDF_NS, "about");
+      IProject project = repo.findProjectBySeeAlso(uri);
+      if (project != null) {
+        logger.info("Merging duplicate project (based on rdf:about): "
+            + project.toString() + " into " + project.getURI());
+        projectElement
             .setAttributeNS(RDF_NS, "about", project.getURI().toString());
       }
     }
