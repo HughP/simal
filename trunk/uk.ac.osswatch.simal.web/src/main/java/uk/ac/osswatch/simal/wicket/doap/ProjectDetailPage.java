@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rest.RESTCommand;
+import uk.ac.osswatch.simal.rest.SimalAPIException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -99,6 +100,11 @@ public class ProjectDetailPage extends BasePage {
       UserReportableException error = new UserReportableException(
           "Unable to get new person ID from the repository",
           ExhibitProjectBrowserPage.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    } catch (SimalAPIException e) {
+      UserReportableException error = new UserReportableException(
+          "Unable to get a RESTful URI for the project RDF/XML document",
+          ProjectDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }   
     

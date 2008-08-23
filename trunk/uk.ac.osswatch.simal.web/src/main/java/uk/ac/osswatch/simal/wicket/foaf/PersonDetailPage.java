@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.foaf;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -17,9 +18,13 @@ package uk.ac.osswatch.simal.wicket.foaf;
  */
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.behavior.StringHeaderContributor;
+import org.apache.wicket.markup.html.link.ExternalLink;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rest.RESTCommand;
+import uk.ac.osswatch.simal.rest.SimalAPIException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -34,36 +39,34 @@ import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 public class PersonDetailPage extends BasePage {
   private static final long serialVersionUID = -2362335968055139016L;
   IPerson person;
-  
+
   public PersonDetailPage(PageParameters parameters) {
     String id = null;
     if (parameters.containsKey("simalID")) {
-        id = parameters.getString("simalID");
-        
-        try {
-          person = UserApplication.getRepository().findPersonById(id);
-          populatePage(person);
-        } catch (SimalRepositoryException e) {
-          UserReportableException error = new UserReportableException(
-              "Unable to get person from the repository",
-              PersonDetailPage.class, e);
-          setResponsePage(new ErrorReportPage(error));
-        }
+      id = parameters.getString("simalID");
+
+      try {
+        person = UserApplication.getRepository().findPersonById(id);
+        populatePage(person);
+      } catch (SimalRepositoryException e) {
+        UserReportableException error = new UserReportableException(
+            "Unable to get person from the repository", PersonDetailPage.class,
+            e);
+        setResponsePage(new ErrorReportPage(error));
+      }
     } else {
       UserReportableException error = new UserReportableException(
-          "Unable to get simalID parameter from URL",
-          PersonDetailPage.class);
+          "Unable to get simalID parameter from URL", PersonDetailPage.class);
       setResponsePage(new ErrorReportPage(error));
     }
   }
-  
+
   public PersonDetailPage(IPerson person) {
     try {
       populatePage(person);
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
-          "Unable to populate person detail page",
-          PersonDetailPage.class, e);
+          "Unable to populate person detail page", PersonDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
   }
@@ -75,6 +78,20 @@ public class PersonDetailPage extends BasePage {
 
     // source
     add(getRepeatingDataSourcePanel("sources", "seeAlso", person.getSources()));
+
+    // FOAF link
+    try {
+      RESTCommand cmd = RESTCommand.createGetPerson(person.getSimalID(),
+          RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
+      add(new ExternalLink("rdfLink", cmd.getURL()));
+      String rdfLink = "<link href=\"" + cmd.getURL()
+          + "\" rel=\"meta\" title=\"RDF\" type=\"application/rdf+xml\" />";
+      add(new StringHeaderContributor(rdfLink));
+    } catch (SimalAPIException e) {
+      UserReportableException error = new UserReportableException(
+          "Unable to get a RESTful URI for the person RDF/XML document",
+          PersonDetailPage.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    }
   }
 }
-
