@@ -28,6 +28,7 @@ import org.apache.wicket.util.file.File;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,6 +53,15 @@ public class TestDoapFormPage extends TestBase {
 
   private static String formInputURI = RDFUtils.PROJECT_NAMESPACE_URI
       + TEST_NAME;
+
+  /**
+   * Delete the repository to ensure that subsequent tests have clean data.
+   * @throws SimalRepositoryException
+   */
+  @AfterClass
+  public static void deleteRepostiroy() throws SimalRepositoryException {
+    UserApplication.getRepository().destroy();
+  }
 
   @Before
   public void initTester() throws SimalRepositoryException {
@@ -97,6 +107,7 @@ public class TestDoapFormPage extends TestBase {
     formTester.submit();
 
     tester.assertRenderedPage(UserHomePage.class);
+    logProjectData("after");
   }
 
   /**
@@ -113,6 +124,8 @@ public class TestDoapFormPage extends TestBase {
 
     uploadFile();
     tester.assertRenderedPage(UserHomePage.class);
+
+    logProjectData("after");
   }
 
   @Test
@@ -121,6 +134,8 @@ public class TestDoapFormPage extends TestBase {
     tester.assertVisible("doapForm:name");
     tester.assertVisible("doapForm:shortDesc");
     tester.assertVisible("doapForm:description");
+
+    logProjectData("after");
   }
 
   @Test
@@ -154,6 +169,8 @@ public class TestDoapFormPage extends TestBase {
     project.delete();
     project = UserApplication.getRepository().getProject(TEST_RAW_RDF_URI);
     assertNull(project);
+
+    logProjectData("after");
   }
 
   @Test
@@ -176,6 +193,8 @@ public class TestDoapFormPage extends TestBase {
         .getShortDesc());
     assertEquals("Description is not correct", TEST_DESCRIPTION, project
         .getDescription());
+
+    logProjectData("after");
   }
 
   private void uploadFile() throws SimalRepositoryException, URISyntaxException {
@@ -203,5 +222,7 @@ public class TestDoapFormPage extends TestBase {
 
     int postCount = fileStoreDir.list().length;
     assertEquals("No local copy of the uploaded file", preCount + 1, postCount);
+
+    logProjectData("after");
   }
 }
