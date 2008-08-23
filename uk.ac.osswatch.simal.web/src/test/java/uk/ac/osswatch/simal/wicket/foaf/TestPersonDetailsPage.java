@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.wicket.foaf;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.util.tester.ITestPageSource;
+import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -26,9 +27,11 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class TestPersonDetailsPage extends TestBase{
 
-  @Test
-  public void testPageRender() {
+  @Before
+  public void createTester() {
     tester.startPage(new ITestPageSource() {
+      private static final long serialVersionUID = -3617918915250612206L;
+
       public Page getTestPage() {
         try {
           return new PersonDetailPage(UserApplication.getRepository()
@@ -40,7 +43,17 @@ public class TestPersonDetailsPage extends TestBase{
         }
       }
     });
+  }
+  
+  @Test
+  public void testPersonPageRender() {
+    createTester();
     tester.assertRenderedPage(PersonDetailPage.class);
     tester.assertVisible("summary");
+  }
+  
+  @Test
+  public void testPersonRDF() {
+    tester.assertVisible("rdfLink");
   }
 }
