@@ -395,7 +395,7 @@ public class RDFUtils {
     }
     Element seeAlso = node.getOwnerDocument().createElementNS(RDFS_NS,
         "seeAlso");
-    seeAlso.setAttributeNS(RDFS_NS, "resource", uri);
+    seeAlso.setAttributeNS(RDF_NS, "resource", uri);
     node.appendChild(seeAlso);
   }
 
