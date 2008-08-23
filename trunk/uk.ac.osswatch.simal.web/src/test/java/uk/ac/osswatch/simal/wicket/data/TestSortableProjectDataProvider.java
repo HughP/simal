@@ -24,6 +24,8 @@ import static org.junit.Assert.fail;
 import java.util.Iterator;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -31,10 +33,12 @@ import uk.ac.osswatch.simal.rdf.TransactionException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 
 public class TestSortableProjectDataProvider extends TestBase{
-
+  private static final Logger logger = LoggerFactory.getLogger(TestSortableProjectDataProvider.class);
+  
 	@Test
 	public void testSize() throws SimalRepositoryException, TransactionException {
 		SortableProjectDataProvider provider = new SortableProjectDataProvider();
+		logger.debug("Projects in the project data provider are: " + provider.toString());
 		assertEquals(NUMBER_OF_TEST_PROJECTS, provider.size());
 	}
 
