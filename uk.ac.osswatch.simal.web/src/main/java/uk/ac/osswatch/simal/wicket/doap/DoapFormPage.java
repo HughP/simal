@@ -145,7 +145,7 @@ public class DoapFormPage extends BasePage {
 
           try {
             UserApplication.getRepository().addProject(
-                newFile.toURL(), UserApplication.DEFAULT_PROJECT_URI);
+                newFile.toURI().toURL(), UserApplication.DEFAULT_PROJECT_URI);
             setResponsePage(new UserHomePage());
           } catch (SimalRepositoryException e) {
             setResponsePage(new ErrorReportPage(new UserReportableException(
