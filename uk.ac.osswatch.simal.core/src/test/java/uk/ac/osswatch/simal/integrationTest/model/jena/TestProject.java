@@ -338,7 +338,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testAddProjectFromScratch() throws SimalRepositoryException, URISyntaxException {
-    String uri = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
+    String uri = RDFUtils.PROJECT_NAMESPACE_URI
         + "TestingProjectFromScratch";
     IProject project;
     try {
@@ -368,9 +368,9 @@ public class TestProject extends BaseRepositoryTest {
   public void testId() throws SimalRepositoryException, DuplicateURIException, URISyntaxException {
     assertEquals("Test project ID incorrect", TEST_SIMAL_PROJECT_SIMAL_ID, project1.getSimalID());
 
-    String uri1 = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
+    String uri1 = RDFUtils.PROJECT_NAMESPACE_URI
         + "TestingId1";
-    String uri2 = RDFUtils.DEFAULT_PROJECT_NAMESPACE_URI
+    String uri2 = RDFUtils.PROJECT_NAMESPACE_URI
         + "TestingId2";
 
     IProject project;

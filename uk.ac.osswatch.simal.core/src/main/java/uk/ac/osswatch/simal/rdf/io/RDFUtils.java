@@ -1,3 +1,4 @@
+package uk.ac.osswatch.simal.rdf.io;
 /*
  * Copyright 2007 University of Oxford
  *
@@ -13,14 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.rdf.io;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -58,9 +57,9 @@ import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
  * 
  */
 public class RDFUtils {
-  public static final String DEFAULT_PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
-  public static final String DEFAULT_PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
-  public static final String DEFAULT_CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
+  public static final String PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
+  public static final String PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
+  public static final String CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
 
   private static final String SIMAL_CATEGORY_ID = "categoryId";
   private static final String SIMAL_PERSON_ID = "personId";
@@ -94,7 +93,7 @@ public class RDFUtils {
    * @throws DOMException
    * @throws UnsupportedEncodingException
    */
-  private static void removeBNodes(Document doc, ISimalRepository repo)
+  private static void removeBNodes(final Document doc)
       throws DOMException, UnsupportedEncodingException {
 
     NodeList nl = doc.getElementsByTagNameNS(DOAP_NS, "Repository");
@@ -195,7 +194,7 @@ public class RDFUtils {
   }
 
   public static String getDefaultPersonURI(String name) {
-    String uri = DEFAULT_PERSON_NAMESPACE_URI;
+    String uri = PERSON_NAMESPACE_URI;
     uri = uri + name;
     uri = uri + "#Person";
     uri = encode(uri);
@@ -203,7 +202,7 @@ public class RDFUtils {
   }
 
   public static String getDefaultProjectURI(String id) {
-    String uri = DEFAULT_PROJECT_NAMESPACE_URI;
+    String uri = PROJECT_NAMESPACE_URI;
     uri = uri + id;
     uri = uri + "#Project";
     uri = encode(uri);
@@ -235,7 +234,7 @@ public class RDFUtils {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
         if (!el.hasAttributeNS(RDF_NS, "about")) {
-          String uri = DEFAULT_PROJECT_NAMESPACE_URI;
+          String uri = PROJECT_NAMESPACE_URI;
           Node nameNode = el.getElementsByTagNameNS(DOAP_NS, "name").item(0);
           uri = uri + nameNode.getFirstChild().getNodeValue();
           Node revisionNode = el.getElementsByTagNameNS(DOAP_NS, "revision")
@@ -309,18 +308,18 @@ public class RDFUtils {
           deDupePeople(doc, repo);
           checkPersonIDs(doc, repo);
 
-          createSimalURIs(doc, repo);
+          createSimalURIs(doc);
 
-          removeBNodes(doc, repo);
+          removeBNodes(doc);
 
-          addProjectSeeAlso(doc, url, repo);
+          addProjectSeeAlso(doc, url);
           checkCategoryIDs(doc, repo);
-          checkPersonSHA1(doc, repo);
-          checkResources(doc, repo);
+          checkPersonSHA1(doc);
+          checkResources(doc);
 
-          addProjectToPeople(doc, repo);
+          addProjectToPeople(doc);
 
-          escapeContent(doc, repo);
+          escapeContent(doc);
 
           File annotatedFile = writeAnnotatedFile(url, doc);
           annotatedFiles.add(annotatedFile);
@@ -350,13 +349,13 @@ public class RDFUtils {
    * @param doc
    * @param repo
    */
-  private static void createSimalURIs(Document doc, ISimalRepository repo) {
+  private static void createSimalURIs(Document doc) {
     // project URIs
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     for (int i = 0; i < projects.getLength(); i++) {
       Element project = (Element) projects.item(i);
       String originalURI = project.getAttributeNS(RDF_NS, "about");
-      if (!originalURI.startsWith(DEFAULT_PROJECT_NAMESPACE_URI)) {
+      if (!originalURI.startsWith(PROJECT_NAMESPACE_URI)) {
         NodeList simalIDs = project.getElementsByTagNameNS(SIMAL_NS,
             SIMAL_PROJECT_ID);
         String id = simalIDs.item(0).getTextContent();
@@ -373,7 +372,7 @@ public class RDFUtils {
     for (int i = 0; i < people.getLength(); i++) {
       Element person = (Element) people.item(i);
       String originalURI = person.getAttributeNS(RDF_NS, "about");
-      if (!originalURI.startsWith(DEFAULT_PERSON_NAMESPACE_URI)) {
+      if (!originalURI.startsWith(PERSON_NAMESPACE_URI)) {
         String id = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID)
             .item(0).getTextContent();
         String uri = getDefaultPersonURI(id);
@@ -430,7 +429,7 @@ public class RDFUtils {
    * @param repo
    * @throws ISimalRepositoryException
    */
-  private static void escapeContent(Document doc, ISimalRepository repo)
+  private static void escapeContent(Document doc)
       throws SimalRepositoryException {
     NodeList descriptions = doc.getElementsByTagNameNS(DOAP_NS, "description");
     Element description;
@@ -462,7 +461,7 @@ public class RDFUtils {
    * @param doc
    * @param repo
    */
-  private static void addProjectToPeople(Document doc, ISimalRepository repo) {
+  private static void addProjectToPeople(Document doc) {
     NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
     for (int iper = 0; iper < people.getLength(); iper = iper + 1) {
       Node person = people.item(iper);
@@ -483,7 +482,7 @@ public class RDFUtils {
    * @param doc
    * @param repo
    */
-  private static void checkResources(Document doc, ISimalRepository repo) {
+  private static void checkResources(Document doc) {
     logger.debug("Check resources found in RDF file");
     validateResourceDefinition(doc.getElementsByTagNameNS(DOAP_NS,
         "bug-database"));
@@ -526,7 +525,7 @@ public class RDFUtils {
    * @param repo
    * @throws ISimalRepositoryException
    */
-  private static void checkPersonSHA1(Document doc, ISimalRepository repo)
+  private static void checkPersonSHA1(Document doc)
       throws SimalRepositoryException {
     logger.debug("Check person SHA1 in RDF file");
     NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
@@ -555,18 +554,22 @@ public class RDFUtils {
    * A simple method for getting an SHA1 hash from a string.
    */
   public static String getSHA1(String data) throws NoSuchAlgorithmException {
+    String addr;
     if (data.startsWith("mailto:")) {
-      data = data.substring(7);
+      addr = data.substring(7);
+    } else {
+      addr = data;
     }
     MessageDigest md = MessageDigest.getInstance("SHA");
     StringBuffer sb = new StringBuffer();
 
-    md.update(data.getBytes());
+    md.update(addr.getBytes());
     byte[] digest = md.digest();
     for (int i = 0; i < digest.length; i++) {
       String hex = Integer.toHexString(digest[i]);
-      if (hex.length() == 1)
+      if (hex.length() == 1) {
         hex = "0" + hex;
+      }
       hex = hex.substring(hex.length() - 2);
       sb.append(hex);
     }
@@ -580,8 +583,7 @@ public class RDFUtils {
    * @param sourceURL
    * @param repo
    */
-  private static void addProjectSeeAlso(Document doc, URL sourceURL,
-      ISimalRepository repo) {
+  private static void addProjectSeeAlso(Document doc, URL sourceURL) {
     logger.debug("Check project see also in RDF file");
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     for (int i = 0; i < projects.getLength(); i++) {
