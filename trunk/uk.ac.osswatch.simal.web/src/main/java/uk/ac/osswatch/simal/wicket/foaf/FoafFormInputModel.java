@@ -33,7 +33,7 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  */
 public class FoafFormInputModel implements IClusterable {
   private static final long serialVersionUID = -9089647575258232806L;
-  private static final Logger logger = LoggerFactory.getLogger(FoafFormInputModel.class);
+  //private static final Logger logger = LoggerFactory.getLogger(FoafFormInputModel.class);
   private String name;
   private String email;
 
