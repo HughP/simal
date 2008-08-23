@@ -60,7 +60,7 @@ public class TestDoapFormPage extends TestBase {
    */
   @AfterClass
   public static void deleteRepostiroy() throws SimalRepositoryException {
-    UserApplication.getRepository().destroy();
+    UserApplication.destroyRepository();
   }
 
   @Before
