@@ -17,9 +17,15 @@ package uk.ac.osswatch.simal.wicket;
  */
 
 
+import java.util.Iterator;
+import java.util.Set;
+
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
@@ -27,10 +33,24 @@ public abstract class TestBase {
   protected static final int NUMBER_OF_TEST_PROJECTS = 6;
   protected static final int NUMBER_OF_TEST_PEOPLE = 17;
   public static final String TEST_SIMAL_DEVELOPER_URI = RDFUtils.getDefaultPersonURI("15");  protected static WicketTester tester;
+  
+  private static final Logger logger = LoggerFactory.getLogger(TestBase.class);
 
   @BeforeClass
   public static void setUpBeforeClass() throws SimalRepositoryException {
     UserApplication.setIsTest(true);
     tester = new WicketTester();
+    logProjectData("before");
+  }
+
+  public static void logProjectData(String beforeOrAfter) throws SimalRepositoryException {
+    Set<IProject> projects = UserApplication.getRepository().getAllProjects();
+    logger.debug("Number of projects " + beforeOrAfter +" test: " + projects.size());
+    
+    logger.debug("Project: ");
+    Iterator<IProject> itr = projects.iterator();
+    while (itr.hasNext()) {
+      logger.debug(itr.next().toString());
+    }
   }
 }

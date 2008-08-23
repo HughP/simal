@@ -38,7 +38,6 @@ public class TestSortableProjectDataProvider extends TestBase{
 	@Test
 	public void testSize() throws SimalRepositoryException, TransactionException {
 		SortableProjectDataProvider provider = new SortableProjectDataProvider();
-		logger.debug("Projects in the project data provider are: " + provider.toString());
 		assertEquals(NUMBER_OF_TEST_PROJECTS, provider.size());
 	}
 
@@ -86,10 +85,11 @@ public class TestSortableProjectDataProvider extends TestBase{
 		iterator = provider.iterator(0, 10);
 		prev = null;
 		count = 0;
+		logger.debug("Projects in the project data provider are:");
 		while (iterator.hasNext()) {
 			project = iterator.next();
 			current = project.getShortDesc();
-			System.out.println(current);
+			logger.debug(current);
 			if (prev != null && current != null) {
 				assertTrue("Incorrect sort order: " + prev + " preceeds "
 						+ current, current.compareTo(prev) >= 0);
