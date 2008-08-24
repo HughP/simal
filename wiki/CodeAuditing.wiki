@@ -14,7 +14,7 @@ To run these tests locally use {{{mvn test}}}
 
 All tests are run by the continuous integration server at least once every night and after a change is detected in SVN.
 
-= FindBugs =
+= Find Bugs =
 
 [http://findbugs.sourceforge.net/ FindBugs™] is a program to find bugs in Java programs. It looks for instances of "bug patterns" --- code instances that are likely to be errors.
 
