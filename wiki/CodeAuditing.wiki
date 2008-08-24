@@ -14,11 +14,17 @@ To run these tests locally use {{{mvn test}}}
 
 All tests are run by the continuous integration server at least once every night and after a change is detected in SVN.
 
+= FindBugs =
+
+[http://findbugs.sourceforge.net/ FindBugs™] is a program to find bugs in Java programs. It looks for instances of "bug patterns" --- code instances that are likely to be errors.
+
+We use our [http://www.16degrees.com.au/hudson Continuous Integration] server to track trends in FindBugs warnings. 
+
 = Compiler Warnings =
 
 We use our [http://www.16degrees.com.au/hudson Continuous Integration] server to track trends in compiler warnings. 
 
-The CI server to fail a build when the number of warnings goes over 15. The health of the project is also dependant on the number of warnings, requiring less than five for a "sunny" outlook and less than 10 for an "overcast" outlook.
+The CI server is set to fail a build when the number of warnings goes over 15. The health of the project is also dependant on the number of warnings, requiring less than five for a "sunny" outlook and less than 10 for an "overcast" outlook.
 
 = PMD =
 
@@ -32,9 +38,9 @@ The CI server to fail a build when the number of warnings goes over 15. The heal
 
 To run PMD on the Simal code locally use {{{mvn pmd:pmd}}}
 
-== PMD and COntinuous Integration ==
+== PMD and Continuous Integration ==
 
-The CI server to fail a build when the number of PMD warnings goes over 10. The health of the project is also dependant on the number of warnings, requiring less than 3 for a "sunny" outlook and less than 7 for an "overcast" outlook.
+The CI server is set to fail a build when the number of PMD warnings goes over 10. The health of the project is also dependant on the number of warnings, requiring less than 3 for a "sunny" outlook and less than 7 for an "overcast" outlook.
 
 = Licence Audit =
 
