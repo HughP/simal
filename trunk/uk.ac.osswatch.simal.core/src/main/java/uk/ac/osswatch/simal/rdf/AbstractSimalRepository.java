@@ -202,7 +202,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     File[] files = dir.listFiles(filter);
     for (int i = 0; i < files.length; i++) {
         try {
-          addProject(files[i].toURL(), "");
+          addProject(files[i].toURI().toURL(), "");
           logger.info("Added XML from " + files[i].getAbsoluteFile());
         } catch (MalformedURLException e) {
           logger.error("Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(), e);
