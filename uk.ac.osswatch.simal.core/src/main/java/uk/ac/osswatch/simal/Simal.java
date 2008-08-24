@@ -197,7 +197,7 @@ public class Simal {
     }
     
     try {
-      repository.addProject(tmpFile.toURL(), tmpFile.toURL().toExternalForm());
+      repository.addProject(tmpFile.toURI().toURL(), tmpFile.toURI().toURL().toExternalForm());
     } catch (MalformedURLException e) {
       throw new SimalException("Unable to add projects from PTSW Export", e);
     }
@@ -229,7 +229,7 @@ public class Simal {
       URL fileURL;
       if (!filenameOrURL.contains("://")) {
         fileURL = new File(System.getProperty("user.dir") + File.separator
-            + filenameOrURL).toURL();
+            + filenameOrURL).toURI().toURL();
       } else {
         fileURL = new URL(filenameOrURL);
       }
