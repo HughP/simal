@@ -37,7 +37,7 @@ public class InternetAddress extends Resource implements IInternetAddress {
   }
 
   public String getAddress() throws SimalRepositoryException {
-     String url = getURL().toString();
+     String url = getURI().toString();
      return url;
   }
   
