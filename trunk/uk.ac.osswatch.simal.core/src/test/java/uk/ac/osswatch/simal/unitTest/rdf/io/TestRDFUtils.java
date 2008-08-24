@@ -148,6 +148,23 @@ public class TestRDFUtils extends BaseRepositoryTest {
   }
   
   @Test
+  public void testAddMultipleProjectsInASingleFile() throws SimalRepositoryException {
+    URL url = TestRDFUtils.class.getResource("/testData/testMultipleProjects.xml");
+    Set<File> files = RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, getRepository());
+    assertEquals("Incorrect number of project files created", 3, files.size());
+  }
+  
+  /**
+   * Check to see that elements that may contain HTML or other such
+   * markup are correctly marked up as CData.
+   */
+  @Test
+  public void testCData() {
+    Node desc = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "description").item(0);
+    assertTrue("Description node content is not a CData section", desc.getFirstChild().getNodeType() == Node.CDATA_SECTION_NODE);
+  }
+  
+  @Test
   public void testRemoveBlankPersonNodes() throws SimalRepositoryException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
     URL url = TestRDFUtils.class.getResource("/testData/testDOAP.xml");
     RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, getRepository());
@@ -164,12 +181,5 @@ public class TestRDFUtils extends BaseRepositoryTest {
     String about = person.getAttributeNS(RDFUtils.RDF_NS, "about");
     assertFalse("rdf:about is empty", about.equals(""));
     assertTrue("rdf:about contains spaces - " + about, about.indexOf(" ") < 0);
-  }
-  
-  @Test
-  public void testAddMultipleProjectsInASingleFile() throws SimalRepositoryException {
-    URL url = TestRDFUtils.class.getResource("/testData/testMultipleProjects.xml");
-    Set<File> files = RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, getRepository());
-    assertEquals("Incorrect number of project files created", 3, files.size());
   }
 }
