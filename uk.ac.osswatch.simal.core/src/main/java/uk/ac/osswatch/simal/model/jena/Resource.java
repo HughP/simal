@@ -142,6 +142,9 @@ public class Resource implements IResource {
     return uri;
   }
 
+  /**
+   * @deprecated use getURI()
+   */
   public URL getURL() throws SimalRepositoryException {
     try {
       return new URL(getURI());
