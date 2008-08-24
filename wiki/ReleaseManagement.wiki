@@ -3,6 +3,14 @@
 
 *NOTE* This document refers to the process for 0.1, the core was redesigned for 0.2 and this document is no longer fully accurate. Pease update.
 
+= Pre-Requisites =
+
+Before a release can be made a number of requirements must be met.
+
+ * Check all CodeAuditing reports are satisfactory (satisfactory means there are no warnings from the code audit tools)
+ * All source code has been formatted according to the projects coding standards
+ * All documentation has been updated to reflect the new efatures in this release
+
 = Change src version numbers to reflect release candidate build =
 
 We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-SNAPSHOT" to "-rc1", "-rc2", "rc3" etc.
