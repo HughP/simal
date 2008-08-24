@@ -235,16 +235,24 @@ public class TestRepository extends BaseRepositoryTest {
   
   @Test
   public void testDuplicatePeople() throws SimalRepositoryException {
-    Set<IPerson> before = getRepository().getAllPeople();
+    int beforeSize = getRepository().getAllPeople().size();
+    Iterator<IPerson> itr = getRepository().getAllPeople().iterator();
+    logger.debug("People before second data addition:");
+    while (itr.hasNext()) {
+      IPerson person = itr.next();
+      logger.debug(person.toString());
+    }    
+    
     ModelSupport.addSimalData(getRepository());
-    Set<IPerson> after = getRepository().getAllPeople();
-    Iterator<IPerson> itr = after.iterator();
-    logger.debug("People in second run are:");
+    
+    int afterSize = getRepository().getAllPeople().size();
+    itr = getRepository().getAllPeople().iterator();
+    logger.debug("People after second data addition are:");
     while (itr.hasNext()) {
       IPerson person = itr.next();
       logger.debug(person.toString());
     }
-    assertEquals("Adding the test data a second time has resulted in duplicate people entries", before.size(), after.size());
+    assertEquals("Adding the test data a second time has resulted in duplicate people entries", beforeSize, afterSize);
   }
   
   @Test
