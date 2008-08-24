@@ -306,6 +306,7 @@ public class RDFUtils {
           deDupeProjects(doc, repo);
           checkProjectID(doc, repo);
 
+          checkPersonSHA1(doc);
           deDupePeople(doc, repo);
           checkPersonIDs(doc, repo);
 
@@ -315,7 +316,6 @@ public class RDFUtils {
 
           addProjectSeeAlso(doc, url);
           checkCategoryIDs(doc, repo);
-          checkPersonSHA1(doc);
           checkResources(doc);
 
           addProjectToPeople(doc);
@@ -344,17 +344,16 @@ public class RDFUtils {
   }
 
   /**
-   * Some of the RDF elements may contain HTML. This content
-   * should be within a CData section to prevent it being 
-   * interpreted as RDF. This method will look at these sections
-   * and, if necessary, will mark it as CData.
+   * Some of the RDF elements may contain HTML. This content should be within a
+   * CData section to prevent it being interpreted as RDF. This method will look
+   * at these sections and, if necessary, will mark it as CData.
    * 
    * @param doc
    */
-  private static void checkCDataSections(Document doc) {    
+  private static void checkCDataSections(Document doc) {
     NodeList nodes = doc.getElementsByTagNameNS(DOAP_NS, "description");
     validateCData(nodes);
-    
+
     nodes = doc.getElementsByTagNameNS(DOAP_NS, "shortdesc");
     validateCData(nodes);
   }
@@ -365,7 +364,8 @@ public class RDFUtils {
       for (int childIdx = 0; childIdx < dataNodes.getLength(); childIdx++) {
         Node child = dataNodes.item(childIdx);
         if (child.getNodeType() != Node.CDATA_SECTION_NODE) {
-          CDATASection newDataNode = child.getOwnerDocument().createCDATASection(makeTextual(child));
+          CDATASection newDataNode = child.getOwnerDocument()
+              .createCDATASection(makeTextual(child));
           child.getParentNode().replaceChild(newDataNode, child);
         }
       }
@@ -373,8 +373,7 @@ public class RDFUtils {
   }
 
   /**
-   * Convert any elements within a node
-   * into their textual representation.
+   * Convert any elements within a node into their textual representation.
    * 
    * @param item
    */
@@ -387,7 +386,7 @@ public class RDFUtils {
     data.append("<");
     data.append(item.getNodeName());
     data.append(">");
-    for (int childIdx = 0; childIdx < children.getLength(); childIdx ++) {
+    for (int childIdx = 0; childIdx < children.getLength(); childIdx++) {
       data.append(makeTextual(children.item(childIdx)));
     }
     data.append("</");
@@ -766,56 +765,77 @@ public class RDFUtils {
   private static void deDupePeople(Document doc, ISimalRepository repo)
       throws DOMException, SimalRepositoryException {
     logger.debug("deDupePeople found in RDF file");
+    
     // handle duplicate people identified by their mbox_sha1sum
     NodeList sha1sums = doc.getElementsByTagNameNS(FOAF_NS, "mbox_sha1sum");
-    Element sha1sum;
     for (int i = 0; i < sha1sums.getLength(); i = i + 1) {
-      sha1sum = (Element) sha1sums.item(i);
-      IPerson person = repo.findPersonBySha1Sum(sha1sum.getFirstChild()
-          .getNodeValue().trim());
+      Element sha1sumNode = (Element) sha1sums.item(i);
+      String sha1Sum = sha1sumNode.getFirstChild().getNodeValue().trim();
+      IPerson person = repo.findPersonBySha1Sum(sha1Sum);
       if (person != null) {
         logger.info("Merging duplicate person (based on email SHA1): "
             + person.toString() + " into " + person.getURI());
-        Element personNode = (Element) sha1sum.getParentNode();
+        Element personNode = (Element) sha1sumNode.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
       }
+      
+      // Check there are no duplicates in the same file
       for (int idx = 0; idx < sha1sums.getLength(); idx = idx + 1) {
         String thisSum = sha1sums.item(idx).getFirstChild().getNodeValue()
             .trim();
-        if (i != idx && sha1sum.equals(thisSum)) {
+        if (i != idx && sha1sumNode.equals(thisSum)) {
           logger
               .info("Merging duplicate person in original file (based on email SHA1): "
                   + thisSum);
           Element personNode = (Element) sha1sums.item(idx).getParentNode();
-          personNode.setAttributeNS(RDF_NS, "about", sha1sum.getAttributeNS(
+          personNode.setAttributeNS(RDF_NS, "about", sha1sumNode.getAttributeNS(
               RDF_NS, "about"));
         }
       }
     }
 
-    // handle duplicate people identified by their rdf:seeAlso
-    NodeList seeAlsos = doc.getElementsByTagNameNS(RDFS_NS, "seeAlso");
-    Element seeAlso;
-    for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
-      seeAlso = (Element) seeAlsos.item(i);
-      String uri = seeAlso.getAttributeNS(RDF_NS, "resource");
-      IPerson person = repo.findPersonBySeeAlso(uri);
-      if (person != null) {
-        logger.info("Merging duplicate person (based on seeAlso): "
-            + person.toString() + " into " + person.getURI());
-        Element personNode = (Element) seeAlso.getParentNode();
-        personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
+    NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
+    for (int personIdx = 0; personIdx < people.getLength(); personIdx++) {
+      Element personNode = (Element) people.item(personIdx);
+
+      // handle duplicate people identified by their rdf:about
+      String aboutURI = personNode.getAttributeNS(RDF_NS, "about");
+      if (!aboutURI.equals("")) {
+        IPerson person = repo.findPersonBySeeAlso(aboutURI);
+        if (person != null) {
+          logger.info("Merging duplicate person (based on rdf:about): "
+              + person.toString() + " into " + person.getURI());
+          personNode
+              .setAttributeNS(RDF_NS, "about", person.getURI().toString());
+        }
       }
-      for (int idx = 0; idx < seeAlsos.getLength(); idx = idx + 1) {
-        String thisURI = ((Element) seeAlsos.item(idx)).getAttributeNS(RDF_NS,
-            "resource");
-        if (i != idx && uri.equals(thisURI)) {
-          logger
-              .info("Merging duplicate person in original file (based on seeAlso): "
-                  + thisURI);
-          Element personNode = (Element) seeAlsos.item(idx).getParentNode();
-          personNode.setAttributeNS(RDF_NS, "resource", seeAlso.getAttributeNS(
-              RDF_NS, "resource"));
+
+      // handle duplicate people identified by their rdfs:seeAlso
+      NodeList seeAlsos = personNode.getElementsByTagNameNS(RDFS_NS, "seeAlso");
+      Element seeAlso;
+      for (int seeAlsoIdx = 0; seeAlsoIdx < seeAlsos.getLength(); seeAlsoIdx = seeAlsoIdx + 1) {
+        seeAlso = (Element) seeAlsos.item(seeAlsoIdx);
+        String uri = seeAlso.getAttributeNS(RDF_NS, "resource");
+        IPerson person = repo.findPersonBySeeAlso(uri);
+        if (person != null) {
+          logger.info("Merging duplicate person (based on seeAlso): "
+              + person.toString() + " into " + person.getURI());
+          personNode
+              .setAttributeNS(RDF_NS, "about", person.getURI().toString());
+        }
+                
+        // Handle duplicates of the same person in the same RDF file
+        NodeList allSeeAlsos = doc.getElementsByTagNameNS(RDFS_NS, "seeAlso");
+        for (int idx = 0; idx < allSeeAlsos.getLength(); idx = idx + 1) {
+          Element thisSeeAlso = (Element) allSeeAlsos.item(idx);
+          String thisURI = thisSeeAlso.getAttributeNS(RDF_NS,
+              "resource");
+          if (!thisSeeAlso.equals(seeAlso) && uri.equals(thisURI)) {
+            logger
+                .info("Merging duplicate person in original file (based on seeAlso): "
+                    + thisURI);
+            personNode.setAttributeNS(RDF_NS, "resource", uri);
+          }
         }
       }
     }
@@ -877,8 +897,8 @@ public class RDFUtils {
       if (project != null) {
         logger.info("Merging duplicate project (based on rdf:about): "
             + project.toString() + " into " + project.getURI());
-        projectElement
-            .setAttributeNS(RDF_NS, "about", project.getURI().toString());
+        projectElement.setAttributeNS(RDF_NS, "about", project.getURI()
+            .toString());
       }
     }
   }
