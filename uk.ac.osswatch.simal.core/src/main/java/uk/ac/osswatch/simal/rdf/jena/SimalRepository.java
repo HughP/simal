@@ -159,7 +159,7 @@ public final class SimalRepository extends AbstractSimalRepository {
       annotatedFiles = RDFUtils.preProcess(url, baseURI, this).iterator();
       logger.info("Adding processed RDF/XML");
       while (annotatedFiles.hasNext()) {
-        addRDFXML(annotatedFiles.next().toURL(), baseURI);
+        addRDFXML(annotatedFiles.next().toURI().toURL(), baseURI);
       }
     } catch (IOException e) {
       throw new SimalRepositoryException(
@@ -177,7 +177,7 @@ public final class SimalRepository extends AbstractSimalRepository {
       bw.write(data);
       bw.close();
 
-      addProject(file.toURL(), "");
+      addProject(file.toURI().toURL(), "");
     } catch (MalformedURLException mue) {
       // should never happen as we created the file here
       throw new SimalRepositoryException(
