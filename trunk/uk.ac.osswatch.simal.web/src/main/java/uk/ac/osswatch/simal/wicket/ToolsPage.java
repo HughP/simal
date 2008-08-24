@@ -59,7 +59,7 @@ public class ToolsPage extends BasePage {
       public void onClick() {
         try {
           removeAllData();
-          setResponsePage(new UserHomePage());
+          setResponsePage(new ToolsPage());
         } catch (UserReportableException e) {
           setResponsePage(new ErrorReportPage(e));
         }
@@ -71,7 +71,7 @@ public class ToolsPage extends BasePage {
       public void onClick() {
         try {
           importTestData();
-          setResponsePage(new UserHomePage());
+          setResponsePage(new ToolsPage());
         } catch (UserReportableException e) {
           setResponsePage(new ErrorReportPage(e));
         }
