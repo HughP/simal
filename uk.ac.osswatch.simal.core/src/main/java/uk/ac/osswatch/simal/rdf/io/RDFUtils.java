@@ -36,6 +36,7 @@ import org.apache.xml.serialize.XMLSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
+import org.w3c.dom.CDATASection;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -319,7 +320,7 @@ public class RDFUtils {
 
           addProjectToPeople(doc);
 
-          escapeContent(doc);
+          checkCDataSections(doc);
 
           File annotatedFile = writeAnnotatedFile(url, doc);
           annotatedFiles.add(annotatedFile);
@@ -340,6 +341,59 @@ public class RDFUtils {
           + url.toExternalForm() + " for adding to the repository", e);
     }
     return annotatedFiles;
+  }
+
+  /**
+   * Some of the RDF elements may contain HTML. This content
+   * should be within a CData section to prevent it being 
+   * interpreted as RDF. This method will look at these sections
+   * and, if necessary, will mark it as CData.
+   * 
+   * @param doc
+   */
+  private static void checkCDataSections(Document doc) {    
+    NodeList nodes = doc.getElementsByTagNameNS(DOAP_NS, "description");
+    validateCData(nodes);
+    
+    nodes = doc.getElementsByTagNameNS(DOAP_NS, "shortdesc");
+    validateCData(nodes);
+  }
+
+  private static void validateCData(NodeList nodes) {
+    for (int i = 0; i < nodes.getLength(); i++) {
+      NodeList dataNodes = nodes.item(i).getChildNodes();
+      for (int childIdx = 0; childIdx < dataNodes.getLength(); childIdx++) {
+        Node child = dataNodes.item(childIdx);
+        if (child.getNodeType() != Node.CDATA_SECTION_NODE) {
+          CDATASection newDataNode = child.getOwnerDocument().createCDATASection(makeTextual(child));
+          child.getParentNode().replaceChild(newDataNode, child);
+        }
+      }
+    }
+  }
+
+  /**
+   * Convert any elements within a node
+   * into their textual representation.
+   * 
+   * @param item
+   */
+  private static String makeTextual(Node item) {
+    if (item.getNodeType() == Node.TEXT_NODE) {
+      return item.getTextContent();
+    }
+    StringBuffer data = new StringBuffer();
+    NodeList children = item.getChildNodes();
+    data.append("<");
+    data.append(item.getNodeName());
+    data.append(">");
+    for (int childIdx = 0; childIdx < children.getLength(); childIdx ++) {
+      data.append(makeTextual(children.item(childIdx)));
+    }
+    data.append("</");
+    data.append(item.getNodeName());
+    data.append(">");
+    return data.toString();
   }
 
   /**
@@ -419,40 +473,6 @@ public class RDFUtils {
     serializer.setNamespaces(true);
     serializer.serialize(doc);
     return annotatedFile;
-  }
-
-  /**
-   * Ensures that content that may contain HTML, such as doap:description is
-   * correctly escaped.
-   * 
-   * @param doc
-   * @param repo
-   * @throws ISimalRepositoryException
-   */
-  private static void escapeContent(Document doc)
-      throws SimalRepositoryException {
-    NodeList descriptions = doc.getElementsByTagNameNS(DOAP_NS, "description");
-    Element description;
-    for (int i = 0; i < descriptions.getLength(); i = i + 1) {
-      description = (Element) descriptions.item(i);
-      NodeList nodes = description.getChildNodes();
-      for (int ni = 0; ni < nodes.getLength(); ni = ni + 1) {
-        Node node = nodes.item(ni);
-        String escapedDescription = "";
-        if (node.getNodeType() == Node.TEXT_NODE) {
-          escapedDescription = escapedDescription + node.getNodeValue();
-        } else if (node.getNodeType() == Node.ELEMENT_NODE) {
-          if (!node.hasChildNodes()) {
-            escapedDescription = escapedDescription + "<" + node.getNodeName()
-                + " />";
-          } else {
-            throw new SimalRepositoryException(
-                "Unable to handle non-empty nodes in description");
-          }
-        }
-        description.replaceChild(doc.createTextNode(escapedDescription), node);
-      }
-    }
   }
 
   /**

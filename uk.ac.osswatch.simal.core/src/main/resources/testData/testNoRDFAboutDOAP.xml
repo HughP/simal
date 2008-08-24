@@ -22,6 +22,16 @@
 	<shortdesc>
 		A simple DOAP file used during automated testing.
 	</shortdesc>
+  <description>
+    <p>A simple DOAP file used during automated testing. This is an <strong>HTML</strong>
+    description without CData sections. It is used to test the conversion of such
+    sections to CData sections.</p>
+  </description>
+  <description>
+    <![CDATA[<p>A simple DOAP file used during automated testing. This is an <strong>HTML</strong>
+    description with CData sections. It is used to test the conversion of such
+    sections to CData sections.</p>]]>
+  </description>
 	<name>Simal (No rdf:about) DOAP Test</name>
 	<homepage rdf:resource="http://blankDoapTest.oss-watch.ac.uk" />
 
