@@ -26,6 +26,8 @@ import java.util.Set;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -37,6 +39,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public class TestPerson extends BaseRepositoryTest {
+  private static final Logger logger = LoggerFactory.getLogger(TestPerson.class);
 
   private static IPerson developer;
   private static IPerson documentor;
@@ -104,14 +107,15 @@ public class TestPerson extends BaseRepositoryTest {
   public void testGetColleagues() throws SimalRepositoryException {
     Set<IPerson> colleagues = developer.getColleagues();
     assertNotNull(colleagues);
-    assertEquals("Got an incorrect nmber of colleagues", BaseRepositoryTest
-        .getNumberOfParticipants() - 1, colleagues.size());
     Iterator<IPerson> people = colleagues.iterator();
     while (people.hasNext()) {
       IPerson person = people.next();
+      logger.debug("Got colleaue: " + person);
       assertNotNull("No person should have a null ID (see "
           + person.getURI() + ")", person.getSimalID());
     }
+    assertEquals("Got an incorrect number of colleagues", BaseRepositoryTest
+        .getNumberOfParticipants() - 1, colleagues.size());
   }
 
   @Test
