@@ -22,6 +22,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -43,6 +44,16 @@ public class ToolsPage extends BasePage {
   private static final Logger logger = LoggerFactory.getLogger(ToolsPage.class);
 
   public ToolsPage() {
+    
+    try {
+      add(new Label("numOfProjects", Integer.toString(UserApplication.getRepository().getAllProjects().size())));
+      add(new Label("numOfPeople", Integer.toString(UserApplication.getRepository().getAllPeople().size())));
+      add(new Label("numOfCategories", Integer.toString(UserApplication.getRepository().getAllCategories().size())));
+    } catch (SimalRepositoryException e) {
+      UserReportableException error = new UserReportableException("Unable to get project(s) from the repository", ToolsPage.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    }
+    
     add(new Link("removeAllData") {
 
       public void onClick() {
