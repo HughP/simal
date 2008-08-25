@@ -40,9 +40,8 @@ public interface IProject extends IDoapResource, IProjectService {
    * Get all the people known to be engaged with this project.
    * 
    * @return
-   * @throws SimalRepositoryException
    */
-  public HashSet<IPerson> getAllPeople() throws SimalRepositoryException;
+  public HashSet<IPerson> getAllPeople();
   
   /**
    * Get the default name for this project.
