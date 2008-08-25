@@ -85,14 +85,14 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider<IReso
      * @param property
      * @return
      */
-	private boolean validateSortProperty(String property) {
+	protected boolean validateSortProperty(String property) {
 		return property.equals(SORT_PROPERTY_NAME) || property.equals(SORT_PROPERTY_SHORTDESC);
 	}
 
 
 
 	public Iterator<IDoapResource> iterator(int first, int count) {
-		DoapResourceBehaviourComparator comparator = new DoapResourceBehaviourComparator();
+		Comparator<IDoapResource> comparator = getComparator();
 		TreeSet<IDoapResource> treeSet = new TreeSet<IDoapResource>(comparator);
 		treeSet.addAll(resources);
 		TreeSet<IDoapResource> result = new TreeSet<IDoapResource>(comparator);
@@ -108,6 +108,11 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider<IReso
 		}
 		return result.iterator();
 	}
+
+  protected Comparator<IDoapResource> getComparator() {
+    DoapResourceBehaviourComparator comparator = new DoapResourceBehaviourComparator();
+    return comparator;
+  }
 
 	/**
 	 * Get an iterator over all resources. The resources will be sorted
@@ -140,7 +145,7 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider<IReso
 		return resources.size();
 	}
 
-	private class DoapResourceBehaviourComparator implements Comparator<IDoapResource>, Serializable {
+	class DoapResourceBehaviourComparator implements Comparator<IDoapResource>, Serializable {
     private static final long serialVersionUID = 1044456562070022248L;
 
     public int compare(IDoapResource resource1, IDoapResource resource2) {
@@ -150,7 +155,7 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider<IReso
 			
 			String sortField;
 			if (getSort() == null) {
-				sortField = "name";
+				sortField = SORT_PROPERTY_NAME;
 			} else {
 				sortField = getSort().getProperty();
 			}

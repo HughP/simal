@@ -31,6 +31,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableCategoryDataProvider;
 import uk.ac.osswatch.simal.wicket.doap.CategoryDetailPage;
@@ -46,20 +47,23 @@ public class CategoryListPanel extends Panel {
 
   public CategoryListPanel(String id) throws SimalRepositoryException {
     super(id);
-    SortableDataProvider dataProvider = new SortableCategoryDataProvider();
+    SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider();
     addCategoryList(dataProvider);
   }
 
   public CategoryListPanel(String id, Set<IDoapCategory> categories) {
     super(id);
-    SortableDataProvider dataProvider = new SortableCategoryDataProvider(categories);
+    SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(categories);
     addCategoryList(dataProvider);
   }
 
-  private void addCategoryList(SortableDataProvider dataProvider) {
+  @SuppressWarnings("unchecked")
+  private void addCategoryList(SortableDataProvider<IResource> dataProvider) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
-    columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
+    columns.add(new LinkPropertyColumn(new Model<String>("Name"), "name", "name") {
+      private static final long serialVersionUID = 2731613682674835708L;
 
+      @SuppressWarnings("unchecked")
       @Override
       public void onClick(Item item, String componentId, IModel model) {
         IDoapCategory category = (IDoapCategory) model.getObject();
@@ -67,8 +71,8 @@ public class CategoryListPanel extends Panel {
       }
 
     });
-    columns.add(new PropertyColumn(new Model("Projects"), "projects.size"));
-    columns.add(new PropertyColumn(new Model("People"), "people.size"));
+    columns.add(new PropertyColumn(new Model("Projects"), "projects", "projects.size"));
+    columns.add(new PropertyColumn(new Model("People"), "people", "people.size"));
     
     dataProvider.setSort(SortableCategoryDataProvider.SORT_PROPERTY_NAME, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
