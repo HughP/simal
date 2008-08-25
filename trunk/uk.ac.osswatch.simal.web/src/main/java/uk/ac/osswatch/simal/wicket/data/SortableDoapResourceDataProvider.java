@@ -41,7 +41,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A DOAP resource data provider that allows the DOAP Resources to be sorted.
  * 
  */
-public class SortableDoapResourceDataProvider extends SortableDataProvider<IResource> implements Serializable {
+public class SortableDoapResourceDataProvider extends SortableDataProvider<IResource> {
 	private static final long serialVersionUID = -6674850425804180338L;
 	private static final Logger logger = LoggerFactory.getLogger(SortableDoapResourceDataProvider.class);
 	
@@ -140,9 +140,10 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider<IReso
 		return resources.size();
 	}
 
-	private class DoapResourceBehaviourComparator implements Comparator<IDoapResource> {
+	private class DoapResourceBehaviourComparator implements Comparator<IDoapResource>, Serializable {
+    private static final long serialVersionUID = 1044456562070022248L;
 
-		public int compare(IDoapResource resource1, IDoapResource resource2) {
+    public int compare(IDoapResource resource1, IDoapResource resource2) {
 			if (resource1.equals(resource2)) { return 0; }
 			
 			int result = 0;

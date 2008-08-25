@@ -39,7 +39,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A FOAF resource data provider that allows the FOAF Resources to be sorted.
  * 
  */
-public class SortableFoafResourceDataProvider extends SortableDataProvider<IFoafResource> implements Serializable {
+public class SortableFoafResourceDataProvider extends SortableDataProvider<IFoafResource> {
   private static final long serialVersionUID = -6674850425804180338L;
   private static final Logger logger = LoggerFactory
       .getLogger(SortableFoafResourceDataProvider.class);
@@ -137,7 +137,8 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider<IFoaf
   }
 
   private class IFoafResourceBehaviourComparator implements
-      Comparator<IFoafResource> {
+      Comparator<IFoafResource>, Serializable {
+    private static final long serialVersionUID = -8067880844650642351L;
 
     public int compare(IFoafResource resource1, IFoafResource resource2) {
       if (resource1.equals(resource2)) {
