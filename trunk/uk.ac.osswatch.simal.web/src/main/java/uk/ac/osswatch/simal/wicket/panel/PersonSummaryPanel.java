@@ -21,6 +21,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.link.PageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,7 @@ import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
+import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 
 
 /**
@@ -58,8 +60,9 @@ public class PersonSummaryPanel extends Panel {
 
 	private void populatePage(final IPerson person) throws SimalRepositoryException {
 	  this.person = person;
-		add(new Label("personName", person.getLabel()));
-		add(new Label("personId", person.getSimalID()));
+	  PageLink detailLink = new PageLink("detailLink", PersonDetailPage.getLink(person));
+    detailLink.add(new Label("personName", person.getLabel()));
+    add(detailLink);
 		add(new Label("emails", person.getEmail().toString()));
 		add(new Label("homepages", person.getHomepages().toString()));
 		String friendsURL = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + "/allColleagues/person-" + person.getSimalID() + "/xml";

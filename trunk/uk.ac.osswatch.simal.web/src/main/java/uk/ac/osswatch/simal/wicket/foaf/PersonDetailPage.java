@@ -17,9 +17,11 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
+import org.apache.wicket.Page;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.link.IPageLink;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -93,5 +95,26 @@ public class PersonDetailPage extends BasePage {
           PersonDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
+  }
+
+  /**
+   * Get a link to a PersonDetailPage for a person.
+   * 
+   * @param person
+   *          the person we want a detail page link for
+   * @return
+   */
+  @SuppressWarnings("serial")
+  public static IPageLink getLink(final IPerson person) {
+    IPageLink link = new IPageLink() {
+      public Page getPage() {
+        return new PersonDetailPage(person);
+      }
+
+      public Class<PersonDetailPage> getPageIdentity() {
+        return PersonDetailPage.class;
+      }
+    };
+    return link;
   }
 }
