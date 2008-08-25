@@ -18,9 +18,9 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Locale;
 
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
@@ -33,11 +33,11 @@ import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.util.convert.ConversionException;
-import org.apache.wicket.util.convert.IConverter;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
@@ -55,7 +55,8 @@ import uk.ac.osswatch.simal.wicket.UserReportableException;
  */
 public class DoapFormPage extends BasePage {
   private static final long serialVersionUID = -7082891387390604176L;
-  public static DoapFormInputModel inputModel = new DoapFormInputModel();
+  private static final Logger logger = LoggerFactory.getLogger(DoapFormPage.class);
+  private static DoapFormInputModel inputModel = new DoapFormInputModel();
   private Folder uploadFolder;
 
   public DoapFormPage() {
@@ -74,13 +75,13 @@ public class DoapFormPage extends BasePage {
     add(new DoapForm("doapForm"));
   }
   
-  private class AddByRawRDFForm extends Form {
+  private static class AddByRawRDFForm extends Form<DoapFormInputModel> {
     private static final long serialVersionUID = 5436861979864365527L;
-    private TextArea rdfField;
+    private TextArea<String> rdfField;
     
     public AddByRawRDFForm(String id) {
-      super(id, new CompoundPropertyModel(inputModel));
-      add(rdfField = new TextArea("rawRDF"));
+      super(id, new CompoundPropertyModel<DoapFormInputModel>(inputModel));
+      add(rdfField = new TextArea<String>("rawRDF"));
     }
 
     @Override
@@ -100,8 +101,8 @@ public class DoapFormPage extends BasePage {
     
   }
 
-  @SuppressWarnings("serial")
-  private class FileUploadForm extends Form {
+  private class FileUploadForm extends Form<FileUploadField> {
+    private static final long serialVersionUID = -6275625011225339551L;
     private FileUploadField fileUploadField;
 
     /**
@@ -136,10 +137,13 @@ public class DoapFormPage extends BasePage {
           }
 
           try {
-            newFile.createNewFile();
+            boolean success = newFile.createNewFile();
+            if (!success) {
+              logger.warn("Trying ot create a file that already exists: " + newFile);
+            }
             upload.writeTo(newFile);
             DoapFormPage.this.info("saved file: " + upload.getClientFileName());
-          } catch (Exception e) {
+          } catch (IOException e) {
             throw new IllegalStateException("Unable to write file");
           }
 
@@ -160,23 +164,22 @@ public class DoapFormPage extends BasePage {
     }
   }
 
-  private class DoapForm extends Form {
+  private static class DoapForm extends Form<DoapFormInputModel> {
     private static final long serialVersionUID = 4350446873545711199L;
 
     @SuppressWarnings("serial")
     public DoapForm(String name) {
-      super(name, new CompoundPropertyModel(inputModel));
+      super(name, new CompoundPropertyModel<DoapFormInputModel>(inputModel));
 
-      RequiredTextField stringTextField = new RequiredTextField("name");
-      stringTextField.setLabel(new Model());
+      RequiredTextField<String> stringTextField = new RequiredTextField<String>("name");
+      stringTextField.setLabel(new Model<String>());
       add(stringTextField);
 
-      stringTextField = new RequiredTextField("shortDesc");
-      stringTextField.setLabel(new Model());
+      stringTextField = new RequiredTextField<String>("shortDesc");
+      stringTextField.setLabel(new Model<String>());
       add(stringTextField);
 
-      add(new TextArea("description"));
-
+      add(new TextArea<String>("description"));
     }
 
     @Override
@@ -204,32 +207,12 @@ public class DoapFormPage extends BasePage {
     }
   }
 
-  private class AddByURLForm extends Form {
+  private static class AddByURLForm extends Form<DoapFormInputModel> {
     private static final long serialVersionUID = 4350446873545711199L;
 
-    @SuppressWarnings("serial")
     public AddByURLForm(String name) {
-      super(name, new CompoundPropertyModel(inputModel));
-
-      add(new TextField("sourceURL", URL.class) {
-        @SuppressWarnings("unchecked")
-        public IConverter getConverter(final Class type) {
-          return new IConverter() {
-            public Object convertToObject(String value, Locale locale) {
-              try {
-                return new URL(value.toString());
-              } catch (MalformedURLException e) {
-                throw new ConversionException("'" + value
-                    + "' is not a valid URL");
-              }
-            }
-
-            public String convertToString(Object value, Locale locale) {
-              return value != null ? value.toString() : null;
-            }
-          };
-        }
-      });
+      super(name, new CompoundPropertyModel<DoapFormInputModel>(inputModel));
+      add(new TextField<URL>("sourceURL", URL.class));
     }
 
     @Override
