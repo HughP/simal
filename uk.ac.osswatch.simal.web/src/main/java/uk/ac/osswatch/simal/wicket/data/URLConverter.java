@@ -46,7 +46,7 @@ public class URLConverter implements IConverter<URL> {
     }
 
     try {
-      return new URL(value.toString());
+      return new URL(value);
     } catch (MalformedURLException e) {
       throw new ConversionException("'" + value + "' is not a valid URL");
     }

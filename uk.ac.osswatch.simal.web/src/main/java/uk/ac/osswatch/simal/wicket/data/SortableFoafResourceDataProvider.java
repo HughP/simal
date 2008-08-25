@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
@@ -38,7 +39,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A FOAF resource data provider that allows the FOAF Resources to be sorted.
  * 
  */
-public class SortableFoafResourceDataProvider extends SortableDataProvider {
+public class SortableFoafResourceDataProvider extends SortableDataProvider<IFoafResource> implements Serializable {
   private static final long serialVersionUID = -6674850425804180338L;
   private static final Logger logger = LoggerFactory
       .getLogger(SortableFoafResourceDataProvider.class);
@@ -117,7 +118,8 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider {
     return iterator(0, resources.size());
   }
 
-  public IModel model(Object object) {
+  @SuppressWarnings("unchecked")
+  public IModel<IFoafResource> model(IFoafResource object) {
     if (!(object instanceof IPerson)) {
       throw new IllegalArgumentException(
           "sortableFoafResourceDataProvider only works for Person models - should it work for more? Your help appreciated.");

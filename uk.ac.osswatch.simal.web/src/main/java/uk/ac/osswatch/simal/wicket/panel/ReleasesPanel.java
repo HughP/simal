@@ -55,7 +55,7 @@ public class ReleasesPanel extends Panel {
 			item.add(label);
 			item.add(getRepeatingLabels("revisions", "revision", release
 					.getRevisions()));
-			label = new Label("created", release.getCreated().toString());
+			label = new Label("created", release.getCreated());
 			item.add(label);
 		}
 		add(repeating);

@@ -19,7 +19,6 @@ package uk.ac.osswatch.simal.wicket.data;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.Iterator;
 
@@ -44,14 +43,7 @@ public class TestSortableProjectDataProvider extends TestBase{
 	@Test
 	public void testModel() throws SimalRepositoryException {
 		SortableProjectDataProvider provider = new SortableProjectDataProvider();
-		try {
-			provider.model("should throw an IllegalArgumentxception");
-			fail("Failed to throw IllegalArgumentExcpetion when supplying a string");
-		} catch (IllegalArgumentException e) {
-			// test passed
-		}
-		
-		// assertNotNull(provider.model());
+		assertTrue("The default sortable project data provider has no projects", provider.size() > 0);
 	}
 
 	@Test
