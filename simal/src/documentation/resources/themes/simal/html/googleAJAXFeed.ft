@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<forrest:contract name="googleAJAXFeed"
+  xmlns:forrest="http://apache.org/forrest/templates/1.0">
+  <description>
+    <p>
+        Allows ATOM and RSS feeds to be inserted to your page using Javascript.
+        This allows powerful mashup features that will work even in statically
+        generated sites. 
+    </p>
+    
+    <p>You need to provide a div in your source document that will be a placeholder
+    for the content that is retrieved. To do this you need a 
+    <code>&lt;div id="PLACEHOLDER_NAME"/&gt;</code> somewhere in your page.
+    The value of PLACEHOLDER_NAME is passed in as the "divName" parameter.</p>
+    
+    <p>The <code>feeds</code> parameter provides definitions of the feeds we want to retrive.</p>
+    
+    <p>The drawMode parameter sets the draw mode according to the 
+    <a href="http://code.google.com/apis/ajaxfeeds/documentation/reference.html#FeedControl">Google FeedControl API</a>.</p>
+    
+    <p>See the <a href="http://code.google.com/apis/ajaxfeeds/documentation/reference.html#FeedControl">Google FeedControl API</a>
+    documentation on a description of the CSS options available.</p> 
+  </description>
+  <usage>
+<![CDATA[<forrest:contract name="googleAJAXFeed">
+  <forrest:property name="divName" value="announceFeed"/>
+  <forrest:property name="feeds">
+    <feed>
+      <name>Announcements</name>
+      <src>http://...</src>
+    </feed>
+  </forrest:property>
+  <forrest:property name="drawMode" value="DRAW_MODE_TABBED | DRAW_MODE_LINEAR"/>
+</forrest:contract>]]>
+  </usage>
+  <forrest:template
+  xmlns:forrest="http://apache.org/forrest/templates/1.0"
+  name="googleAJAXFeed" inputFormat="xsl">
+    <xsl:stylesheet version="1.1" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+      <xsl:param name="divName" />
+      <xsl:param name="feeds" />
+      <xsl:param name="drawMode"/>
+      <xsl:template match="/">
+        <forrest:content>
+          <forrest:part xpath="/html/head">
+                     <!-- we need the empty statement in the following script element
+otherwise it doesn't load for some reason -->
+            <script type="text/javascript"
+                src="http://www.google.com/jsapi?key=ABQIAAAA6Z-D4RJHDFYPA_4r805bNBS35Y06UsNZ7zMjADH_v2yM8_26AhRQPRif3s-hl0DX2y8IOnAwSo3WgA">;</script>
+                
+            <xsl:element name="script">
+              <xsl:attribute name="type">text/javascript</xsl:attribute>
+                    google.load("feeds", "1");
+                 
+                    function initialize() {
+                      var feedControl = new google.feeds.FeedControl();
+                      <xsl:for-each select="$feeds/feed">
+                        feedControl.addFeed('<xsl:value-of select="./src"/>', '<xsl:value-of select="./name"/>');
+                      </xsl:for-each>
+                      feedControl.draw(document.getElementById('<xsl:value-of select="$divName/@value"/>'),
+                          {
+                            drawMode : google.feeds.FeedControl.<xsl:value-of select="$drawMode/@value"/>
+                          });
+                    }
+                    google.setOnLoadCallback(initialize);
+             </xsl:element>
+          </forrest:part>
+        </forrest:content>
+      </xsl:template>
+    </xsl:stylesheet>
+  </forrest:template>
+</forrest:contract>
