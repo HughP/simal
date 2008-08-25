@@ -124,7 +124,7 @@
       <foaf:title>Dr.</foaf:title>
       <foaf:name>Firstname lastname</foaf:name>
       <foaf:mbox rdf:resource="mailto:someone@foo.org"/>
-      <simal:personId>1</simal:personId>
+      <simal:personId rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</simal:personId>
     </foaf:Person>
   </maintainer>
 

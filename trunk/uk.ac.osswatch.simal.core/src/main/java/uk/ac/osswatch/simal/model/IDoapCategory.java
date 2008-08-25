@@ -17,8 +17,6 @@ package uk.ac.osswatch.simal.model;
 
 import java.util.Set;
 
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-
 /**
  * A category is part of the project classification system.
  * It is a resource used to define the doap:category entries
@@ -35,8 +33,7 @@ public interface IDoapCategory extends IDoapResource {
   /**
    * Get all the people that are working on projects in this category.
    * @return
-   * @throws SimalRepositoryException 
    */
-  public Set<IPerson> getPeople() throws SimalRepositoryException;
+  public Set<IPerson> getPeople();
 
 }

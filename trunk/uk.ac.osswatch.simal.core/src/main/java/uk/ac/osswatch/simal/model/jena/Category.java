@@ -26,7 +26,6 @@ import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.SimalOntology;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.query.Query;
@@ -81,7 +80,7 @@ public class Category extends DoapResource implements IDoapCategory {
     getJenaResource().addLiteral(SimalOntology.CATEGORY_ID, newID);
   }
 
-  public Set<IPerson> getPeople() throws SimalRepositoryException {
+  public Set<IPerson> getPeople()  {
     Iterator<IProject> projects = getProjects().iterator();
     HashSet<IPerson> people = new HashSet<IPerson>();
     while(projects.hasNext()) {
