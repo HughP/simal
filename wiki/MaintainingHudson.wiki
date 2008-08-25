@@ -1,0 +1,35 @@
+#summary How to maintain the Hudson Server Instance.
+#labels Hudson,Maintainability
+
+= Introduction =
+
+This page is intended for Admins, for those that have shell access to the Hudson Server.
+
+
+= Details =
+
+==Starting, Stopping & Restarting Hudson.==
+
+===Starting Hudson===
+
+The Server has an init script written for Hudson and can be called with the command `etc/init.d/hudson start`.
+
+This should only be needed on rare occasions, such as if Hudson was stopped manually, or if Hudson died. If the latter, one should should look into the log files first to determine the cause.
+
+===Stopping Hudson===
+
+The same init script is used to start Hudson - `/etc/init.d/hudson stop`.
+
+You may need to stop Hudson to preform some maintenance tasks; or to Upgrade Hudson itself.
+
+===Restarting Hudson===
+
+Hudson is restarted by `/etc/init.d/hudson restart`.
+
+Occasionally you may want to simply restart Hudson. For example you may be installing extra features or plugins.
+
+===Hudson Status===
+
+There is one more init script feature available - `/etc/init.d/hudson status`.
+
+Just a handy way to determine if Hudson instance is running or not, a friendlier way of doing something like `ps auxwww | grep hudson` and gives you a _hudson is started | stopped_ comfort message.
