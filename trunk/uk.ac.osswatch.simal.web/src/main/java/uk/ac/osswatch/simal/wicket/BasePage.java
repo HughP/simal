@@ -116,7 +116,7 @@ public class BasePage extends WebPage {
       resource = itr.next();
       comment = resource.getComment();
       try {
-        url = resource.getURI().toString();
+        url = resource.getURI();
       } catch (SimalRepositoryException e) {
         logger.warn("Unable to get a URL for " + resource, e);
         url = "#";

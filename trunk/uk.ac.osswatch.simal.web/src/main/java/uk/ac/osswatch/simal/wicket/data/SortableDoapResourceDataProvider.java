@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.wicket.data;
  */
 
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Set;
@@ -32,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 
@@ -39,7 +41,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A DOAP resource data provider that allows the DOAP Resources to be sorted.
  * 
  */
-public class SortableDoapResourceDataProvider extends SortableDataProvider {
+public class SortableDoapResourceDataProvider extends SortableDataProvider<IResource> implements Serializable {
 	private static final long serialVersionUID = -6674850425804180338L;
 	private static final Logger logger = LoggerFactory.getLogger(SortableDoapResourceDataProvider.class);
 	
@@ -117,7 +119,8 @@ public class SortableDoapResourceDataProvider extends SortableDataProvider {
 		return iterator(0, resources.size());
 	}
 
-	public IModel model(Object object) {
+	@SuppressWarnings("unchecked")
+  public IModel<IResource> model(IResource object) {
 	  try {
 		if (object instanceof IProject) {
 		  return new DetachableProjectModel((IProject)object);	  
