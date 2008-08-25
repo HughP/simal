@@ -16,13 +16,18 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
+import java.net.URL;
+
+import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.target.coding.QueryStringUrlCodingStrategy;
+import org.apache.wicket.util.convert.ConverterLocator;
 
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.wicket.data.URLConverter;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
@@ -110,5 +115,11 @@ public class UserApplication extends WebApplication {
   public static void setIsTest(boolean value) {
     isTest = value;
   }
+  
+  protected IConverterLocator newConverterLocator() {
+    ConverterLocator converterLocator = new ConverterLocator();
+    converterLocator.set(URL.class, new URLConverter());
+    return converterLocator;
+}
 
 }
