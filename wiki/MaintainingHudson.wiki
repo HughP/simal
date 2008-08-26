@@ -6,8 +6,6 @@
 This page is intended for Admins, for those that have shell access to the Hudson Server.
 
 
-= Details =
-
 ==Starting, Stopping & Restarting Hudson.==
 
 ===Starting Hudson===
@@ -46,4 +44,27 @@ You can look at what is currently being output the Hudson log on the server by r
 
 ===Preparing Hudson For Shutdown===
 
-*_Ideally_* one should prepare Hudson for being stopped or restarted. This is done on the Admin area of the Hudson web interface. Log in as an administrator, go to 'Manage Hudson' then click on the 'Prepare For Shutdown' link near the bottom of the page. This does _not_ stop any currently running builds, but it does prevent any more scheduled ones from running. Your choice now is to either wait for currently running builds to finish, or stop them manually before then logging into the server and perfoming a Stop or Restart.
+*_Ideally_* one should prepare Hudson for being stopped or restarted. This is done on the Admin area of the Hudson web interface. Log in as an administrator, go to 'Manage Hudson' then click on the 'Prepare For Shutdown' link near the bottom of the page. This does _not_ stop any currently running builds, but it does prevent any more scheduled ones from running. Your choice now is to either wait for currently running builds to finish, or stop them manually before then logging into the server and performing a Stop or Restart.
+
+===Upgrading Hudson===
+
+Upgrading Hudson should be a fairly straightforward process. Some things to consider though before deciding to upgrade.
+
+Check the Hudson [https://hudson.dev.java.net/changelog.html Changelog] for good reasons to upgrade such as:-
+
+  # Important Security Fixes
+  # Bug fixes relevant to your Hudson instance
+  # New Features and/or other improvements
+  # New Plugins not compatible with your current running version
+
+Also be _*very sure*_ to check for new bugs introduced in later versions than you are currently running - Hudson is a very fast moving project and more bugs do creep in. So, need to keep an eye on the issue tracker and users mailing list.
+
+Still here? Ok, so really must want to perform the upgrade. 
+
+  * Follow previous instructions on this page to Prepare Hudson For Shutdown 
+  * and then to Stop Hudson.
+  * On the server, navigate to /usr/local/hudson
+  * Rename hudson.war to hudson.old
+  * Upload or wget new release hudson.war in its place
+  * Upload any updates to existing plugins
+  * Follow previous instructions on this page to Start Hudson
