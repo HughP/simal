@@ -290,7 +290,6 @@ public class Simal {
 
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
         header, opts, footer.toString(), false);
-    System.exit(0);
   }
 
   public static ISimalRepository getRepository() {
