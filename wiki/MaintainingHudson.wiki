@@ -18,7 +18,7 @@ This should only be needed on rare occasions, such as if Hudson was stopped manu
 
 ===Stopping Hudson===
 
-Before stopping Hudson you should Prepare Hudson For Shutdown first.
+Before stopping Hudson you should [PreparingHudsonForShutdown|Preparing Hudson For Shutdown] first.
 The same init script is used to stop Hudson - `/etc/init.d/hudson stop`.
 
 You may need to stop Hudson to perform some maintenance tasks; or to Upgrade Hudson itself.
