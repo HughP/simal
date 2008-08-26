@@ -1,6 +1,8 @@
 #summary Basic getting started instructions
 #labels Featured,Phase-Support
 
+This document describes how to download and run the various components of Simal. It does not describe the set-up of a development environment, this is a task left for the reader (although we do have a document describing how to [http://simal.oss-watch.ac.uk/contributor/developSimal.html set up Eclipse]).
+
 If you have any problems you could try looking at our [FAQ] or asking questions on our [http://groups.google.com/group/simal-contributors mailing list].
 
 = Latest Sources =
