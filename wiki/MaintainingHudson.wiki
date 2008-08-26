@@ -42,8 +42,8 @@ Just a handy way to determine if Hudson instance is running or not, a friendlier
 
 Hudson has its own log file located at `/var/log/hudson.log`. Currently this file is appended to by Hudson continuously, so we should probably be creating a cron job to rotate this weekly/monthly.
 
-You can look at what is currently being output the Hudson log on the server by running the command `tail -f /var/log/hudson.log &'. Any log entries from then on when also be output to your shell screen. (You can continue to do other shell duties here, but beware that log entries will interupt your flow.) You can `ctrl c` out of this at any time.
+You can look at what is currently being output the Hudson log on the server by running the command `tail -f /var/log/hudson.log &`. Any log entries from then on when also be output to your shell screen. (You can continue to do other shell duties here, but beware that log entries will interupt your flow.) You can `fg ctrl c` out of this at any time.
 
-==Preparing Hudson For Shutdown==
+===Preparing Hudson For Shutdown===
 
 *_Ideally_* one should prepare Hudson for being stopped or restarted. This is done on the Admin area of the Hudson web interface. Log in as an administrator, go to 'Manage Hudson' then click on the 'Prepare For Shutdown' link near the bottom of the page. This does _not_ stop any currently running builds, but it does prevent any more scheduled ones from running. Your choice now is to either wait for currently running builds to finish, or stop them manually before then logging into the server and perfoming a Stop or Restart.
