@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal;
+
 /*
  * Copyright 2007 University of Oxford
  *
@@ -80,7 +81,7 @@ public class Simal {
     Option directory = new Option("d", "dir", true,
         "The directory in which the persistent data store resides");
     opts.addOption(directory);
-    
+
     Option test = new Option(
         "t",
         "test",
@@ -104,7 +105,8 @@ public class Simal {
       System.exit(1);
     }
 
-    PropertyConfigurator.configure(Simal.class.getResource("/log4j.properties"));
+    PropertyConfigurator
+        .configure(Simal.class.getResource("/log4j.properties"));
 
     if (cl.hasOption('h')) {
       printHelp(opts);
@@ -125,10 +127,10 @@ public class Simal {
           }
         }
       }
-      
+
       String dir = cl.getOptionValue("dir");
       logger.info("Setting database directory to " + dir);
-      
+
       logger.info("Initialising repository...");
       initRepository(dir);
       logger.info("Executing commands...");
@@ -148,14 +150,15 @@ public class Simal {
             System.exit(1);
           }
           i++;
-        }  else if (cmd.equals("writexml")) {
+        } else if (cmd.equals("writexml")) {
           writeXML((String) cmds[i + 1]);
           i++;
         } else if (cmd.equals("importPTSW")) {
           try {
             importPTSW();
           } catch (SimalException e) {
-            logger.error("Unable to Import from PTSW: " + e.getMessage() + "\n", e);
+            logger.error(
+                "Unable to Import from PTSW: " + e.getMessage() + "\n", e);
             System.exit(1);
           }
           i++;
@@ -167,17 +170,16 @@ public class Simal {
   }
 
   /**
-   * Import all the documents updated since the last time 
-   * we updated from PTSW.
-   * @throws SimalException 
+   * Import all the documents updated since the last time we updated from PTSW.
+   * 
+   * @throws SimalException
    */
   private static void importPTSW() throws SimalException {
     PTSWImport importer = new PTSWImport();
     Document pings = importer.getLatestPingsAsRDF();
-    OutputFormat format = new OutputFormat (pings); 
+    OutputFormat format = new OutputFormat(pings);
     StringWriter writer = new StringWriter();
-    XMLSerializer serial   = new XMLSerializer (writer, 
-        format);
+    XMLSerializer serial = new XMLSerializer(writer, format);
     try {
       serial.serialize(pings);
     } catch (IOException e) {
@@ -185,19 +187,22 @@ public class Simal {
     }
     logger.info("Updated DOAP documents:\n");
     logger.info(writer.toString());
-    
-    File tmpFile = new File(System.getProperty("java.io.tmpdir") + File.separator + "PTSWExport.xml");
+
+    File tmpFile = new File(System.getProperty("java.io.tmpdir")
+        + File.separator + "PTSWExport.xml");
     FileWriter fw;
     try {
-     fw = new FileWriter(tmpFile);
-     fw.write(writer.toString());
-     fw.close();
+      fw = new FileWriter(tmpFile);
+      fw.write(writer.toString());
+      fw.close();
     } catch (IOException e) {
-     throw new SimalException("Unable to write PTSW export file to temporary space");
+      throw new SimalException(
+          "Unable to write PTSW export file to temporary space");
     }
-    
+
     try {
-      repository.addProject(tmpFile.toURI().toURL(), tmpFile.toURI().toURL().toExternalForm());
+      repository.addProject(tmpFile.toURI().toURL(), tmpFile.toURI().toURL()
+          .toExternalForm());
     } catch (MalformedURLException e) {
       throw new SimalException("Unable to add projects from PTSW Export", e);
     }
@@ -228,8 +233,12 @@ public class Simal {
     try {
       URL fileURL;
       if (!filenameOrURL.contains("://")) {
-        fileURL = new File(System.getProperty("user.dir") + File.separator
-            + filenameOrURL).toURI().toURL();
+        if (filenameOrURL.startsWith("/") || filenameOrURL.indexOf(':') == 1) {
+          fileURL = new File(filenameOrURL).toURI().toURL();
+        } else {
+          fileURL = new File(System.getProperty("user.dir") + File.separator
+              + filenameOrURL).toURI().toURL();
+        }
       } else {
         fileURL = new URL(filenameOrURL);
       }
@@ -246,8 +255,6 @@ public class Simal {
     }
     logger.info("Data added.");
   }
-  
-
 
   private static void initRepository(String dir) {
     try {
@@ -284,8 +291,10 @@ public class Simal {
         .append("addxml       FILE_OR_URL   add an RDF/XML file to the repository\n");
     footer
         .append("addxmldir    DIRECTORY     add all RDF/XML files found in the supplied directory to the repository\n");
-    footer.append("writexml     QNAME       retrive the RDF/XML with the supplied QName and write it to standard out");
-    footer.append("importPTSW               get the list of recently updated DOAp files from Ping The Semantic Web and import them into the repository. Note, this requires and account on Ping The Semantic Web.");
+    footer
+        .append("writexml     QNAME       retrive the RDF/XML with the supplied QName and write it to standard out");
+    footer
+        .append("importPTSW               get the list of recently updated DOAp files from Ping The Semantic Web and import them into the repository. Note, this requires and account on Ping The Semantic Web.");
 
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
         header, opts, footer.toString(), false);
