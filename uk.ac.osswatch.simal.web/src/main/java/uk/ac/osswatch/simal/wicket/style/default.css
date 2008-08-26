@@ -81,6 +81,12 @@ pre {
   clear: both;
 }
 
+.warning {
+    margin: 1em;
+    padding: 0em 1em 0em 1em;
+    border: 2px solid #008F00;
+    background: #f44800;
+}
 
 h2 {
   background: #008F00;
