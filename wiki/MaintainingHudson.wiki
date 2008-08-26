@@ -23,7 +23,7 @@ You may need to stop Hudson to perform some maintenance tasks; or to Upgrade Hud
 
 ===Restarting Hudson===
 
-Before restarting Hudson you should Prepare Hudson For Shutdown first.
+Before restarting Hudson you should [MaintainingHudson#Preparing_Hudson_For_Shutdown Prepare Hudson For Shutdown] first.
 Hudson is restarted by `/etc/init.d/hudson restart`.
 
 Occasionally you may want to simply restart Hudson. For example you may be installing extra features or plugins.
@@ -40,7 +40,7 @@ Just a handy way to determine if Hudson instance is running or not, a friendlier
 
 Hudson has its own log file located at `/var/log/hudson.log`. Currently this file is appended to by Hudson continuously, so we should probably be creating a cron job to rotate this weekly/monthly.
 
-You can look at what is currently being output the Hudson log on the server by running the command `tail -f /var/log/hudson.log &`. Any log entries from then on when also be output to your shell screen. (You can continue to do other shell duties here, but beware that log entries will interupt your flow.) You can `fg ctrl c` out of this at any time.
+You can look at what is currently being output the Hudson log on the server by running the command `tail -f /var/log/hudson.log &`. Any log entries from then on when also be output to your shell screen. (You can continue to do other shell duties here, but beware that log entries will interrupt your flow.) You can `fg ctrl c` out of this at any time.
 
 ===Preparing Hudson For Shutdown===
 
@@ -61,10 +61,10 @@ Also be _*very sure*_ to check for new bugs introduced in later versions than yo
 
 Still here? Ok, so really must want to perform the upgrade. 
 
-  * Follow previous instructions on this page to Prepare Hudson For Shutdown 
-  * and then to Stop Hudson.
+  * Follow previous instructions on this page to [MaintainingHudson#Preparing_Hudson_For_Shutdown Prepare Hudson For Shutdown] 
+  * and then to [MaintainingHudson#Stopping_Hudson Stop Hudson].
   * On the server, navigate to /usr/local/hudson
   * Rename hudson.war to hudson.old
   * Upload or wget new release hudson.war in its place
   * Upload any updates to existing plugins
-  * Follow previous instructions on this page to Start Hudson
+  * Follow previous instructions on this page to [MaintainingHudson#Restarting_Hudson Start Hudson]
