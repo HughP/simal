@@ -16,6 +16,8 @@
 package uk.ac.osswatch.simal.tools;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -80,9 +82,9 @@ public class PTSWImport {
    * Get a list of pings contained within the supplied XML
    * Export from Ping The Semantic Web.
    */ 
-  public Set<URL> getListOfPings(Document export) {
+  public Set<URI> getListOfPings(Document export) {
     String strURL = null;
-    HashSet<URL> urls = new HashSet<URL>();
+    HashSet<URI> uris = new HashSet<URI>();
     Element root = export.getDocumentElement();
     NodeList pings = root.getElementsByTagName("rdfdocument");
     for (int i = 0; i < pings.getLength(); i ++) {
@@ -92,12 +94,12 @@ public class PTSWImport {
         if (strURL.startsWith("http://doapspace.org")) {
           strURL = strURL + ".rdf";
         }
-        urls.add(new URL(strURL));
-      } catch (MalformedURLException e) {
+        uris.add(new URI(strURL));
+      } catch (URISyntaxException e) {
         logger.warn("Unable to process URL" + strURL, e);
       }
     }
-    return urls;
+    return uris;
   }
   
   /**
@@ -116,14 +118,14 @@ public class PTSWImport {
     }
     Document resultDoc = db.newDocument();
     Element root = resultDoc.createElementNS(RDFUtils.RDF_NS, "RDF");
-    Iterator<URL> pings = getListOfPings(export).iterator();
+    Iterator<URI> pings = getListOfPings(export).iterator();
     Document projectDoc;
     Element projectRoot;
-    URL ping = null;
+    URI ping = null;
     while(pings.hasNext()) {
       try {
         ping = pings.next();
-        projectDoc = db.parse(ping.openStream());
+        projectDoc = db.parse(ping.toURL().openStream());
         projectRoot = projectDoc.getDocumentElement();
         if (!projectRoot.getLocalName().equals("Project")) {
           NamedNodeMap atts = projectRoot.getAttributes();
@@ -140,7 +142,7 @@ public class PTSWImport {
         }
         Node importedProjectNode = resultDoc.importNode(projectRoot, true);
         Element seeAlso = resultDoc.createElementNS(RDFUtils.RDF_NS, "rdf:seeAlso");
-        seeAlso.setAttributeNS(RDFUtils.RDF_NS, "rdf:resource", ping.toExternalForm());
+        seeAlso.setAttributeNS(RDFUtils.RDF_NS, "rdf:resource", ping.toURL().toExternalForm());
         importedProjectNode.appendChild(seeAlso);
         root.appendChild(importedProjectNode);
       } catch (Exception e) {

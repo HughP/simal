@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URI;
 import java.net.URL;
 import java.util.Set;
 
@@ -63,7 +64,7 @@ public class TestPTSWImport {
 
   @Test
   public void testListOfPings() {
-    Set<URL> pings = importer.getListOfPings(ptswExport);
+    Set<URI> pings = importer.getListOfPings(ptswExport);
     assertEquals("Incorrect number of pings", NUM_OF_PINGS, pings.size());
   }
 
