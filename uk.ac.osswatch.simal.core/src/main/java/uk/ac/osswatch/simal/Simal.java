@@ -237,8 +237,7 @@ public class Simal {
         repository.addProject(fileURL, "");
       } catch (SimalRepositoryException e) {
         logger.error("Unable to add an RDF/XML documet {}", fileURL
-            .toExternalForm());
-        logger.error("Root cause: {}", e.getMessage());
+            .toExternalForm(), e);
         System.exit(1);
       }
     } catch (MalformedURLException e) {
