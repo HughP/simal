@@ -28,7 +28,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
  */
 public class HandlerFactory {
 
-  private static ISimalRepository simalRepo;
+  private ISimalRepository simalRepo;
   private HandlerFactory factory;
 
   /**
@@ -66,19 +66,6 @@ public class HandlerFactory {
     } else {
       throw new SimalAPIException("Unable to get handler for source type "
           + cmd.getSource());
-    }
-  }
-
-  /**
-   * Initialise the handler factory if not already done so. 
-   * This initialise routine uses the supplied repository.
-   * @param repo 
-   * 
-   * @throws SimalAPIException
-   */
-  private void initFactory(ISimalRepository repo) throws SimalAPIException {
-    if (factory == null) {
-      factory = new HandlerFactory(repo);
     }
   }
 
