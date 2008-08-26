@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -70,7 +71,7 @@ public class PersonAPI extends AbstractHandler {
 
     if (command.isXML()) {
       try {
-        IPerson person = HandlerFactory.getSimalRepository().findPersonById(
+        IPerson person = getRepository().findPersonById(
             id);
         if (person == null) {
           throw new SimalAPIException("Person with Simal ID " + id
@@ -84,7 +85,7 @@ public class PersonAPI extends AbstractHandler {
       }
     } else if (command.isJSON()) {
       try {
-        return HandlerFactory.getSimalRepository().findPersonById(id).toJSON(false);
+        return getRepository().findPersonById(id).toJSON(false);
       } catch (SimalRepositoryException e) {
         throw new SimalAPIException(
             "Unable to get JSON representation of project from the repository",
@@ -112,7 +113,7 @@ public class PersonAPI extends AbstractHandler {
     Set<IPerson> colleaguesAndFriends;
     Iterator<IPerson> friends = null;
     try {
-      person = HandlerFactory.getSimalRepository().findPersonById(id);
+      person = getRepository().findPersonById(id);
       
       colleaguesAndFriends = person.getColleagues();
       colleaguesAndFriends.addAll(person.getKnows());

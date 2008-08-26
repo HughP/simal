@@ -36,6 +36,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
  */
 public class RESTServlet extends HttpServlet {
   private static final long serialVersionUID = -7003783530005464708L;
+  HandlerFactory handlerFactory;
 
   public RESTServlet() {
   }
@@ -53,7 +54,8 @@ public class RESTServlet extends HttpServlet {
       if (!repo.isInitialised()) {
         repo.initialise();
       }
-      IAPIHandler handler = HandlerFactory.get(cmd, repo);
+      handlerFactory = new HandlerFactory(repo);
+      IAPIHandler handler = handlerFactory.get(cmd);
       response = handler.execute();
     } catch (SimalAPIException e) {
       response = errorResponse(e);

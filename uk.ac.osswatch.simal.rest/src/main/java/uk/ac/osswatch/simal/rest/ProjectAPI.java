@@ -67,7 +67,7 @@ public class ProjectAPI extends AbstractHandler {
   public String getAllProjects(RESTCommand cmd) throws SimalAPIException {
     if (cmd.isJSON()) {
       try {
-        return HandlerFactory.getSimalRepository().getAllProjectsAsJSON();
+        return getRepository().getAllProjectsAsJSON();
       } catch (SimalRepositoryException e) {
         throw new SimalAPIException(
             "Unable to get JSON representation of all projects from the repository",
@@ -90,7 +90,7 @@ public class ProjectAPI extends AbstractHandler {
 
     if (command.isXML()) {
       try {
-        IProject project = HandlerFactory.getSimalRepository().findProjectById(
+        IProject project = getRepository().findProjectById(
             id);
         if (project == null) {
           throw new SimalAPIException("Project with Simal ID " + id
@@ -104,7 +104,7 @@ public class ProjectAPI extends AbstractHandler {
       }
     } else if (command.isJSON()) {
       try {
-        return HandlerFactory.getSimalRepository().findProjectById(id).toJSON();
+        return getRepository().findProjectById(id).toJSON();
       } catch (SimalRepositoryException e) {
         throw new SimalAPIException(
             "Unable to get JSON representation of project from the repository",
@@ -123,7 +123,7 @@ public class ProjectAPI extends AbstractHandler {
    */
   private void addProject(RESTCommand command) throws SimalAPIException {
     try {
-      HandlerFactory.getSimalRepository().add(command.getParameter(RESTCommand.PARAM_RDF));
+      getRepository().add(command.getParameter(RESTCommand.PARAM_RDF));
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to add RDF data", e);
     }
