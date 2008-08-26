@@ -207,7 +207,7 @@ public final class SimalRepository extends AbstractSimalRepository {
           "Attempt to create a second person with the URI " + uri);
     }
 
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
     Statement s = model.createStatement(r, RDF.type, Foaf.PERSON);
     model.add(s);
 
@@ -224,7 +224,7 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
 
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
     Statement s = model.createStatement(r, RDF.type, o);
     model.add(s);
 
@@ -241,7 +241,7 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IDoapCategory getCategory(String uri) throws SimalRepositoryException {
     if (containsCategory(uri)) {
-      return new Category(model.getResource(uri.toString()));
+      return new Category(model.getResource(uri));
     } else {
       return null;
     }
@@ -462,7 +462,7 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IPerson getPerson(String uri) throws SimalRepositoryException {
     if (containsPerson(uri)) {
-      return new Person(model.getResource(uri.toString()));
+      return new Person(model.getResource(uri));
     } else {
       return null;
     }
@@ -470,7 +470,7 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IProject getProject(String uri) throws SimalRepositoryException {
     if (containsProject(uri)) {
-      return new Project(model.getResource(uri.toString()));
+      return new Project(model.getResource(uri));
     } else {
       return null;
     }
@@ -478,19 +478,19 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public boolean containsProject(String uri) {
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
     Statement s = model.createStatement(r, RDF.type, o);
     return model.contains(s);
   }
 
   public boolean containsPerson(String uri) {
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
     Statement s = model.createStatement(r, RDF.type, Foaf.PERSON);
     return model.contains(s);
   }
 
   public boolean containsCategory(String uri) {
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri.toString());
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
     return model.containsResource(r);
   }
 
