@@ -75,6 +75,9 @@ public class RDFUtils {
   public static final String SIMAL_NS = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
   private static File lastFile;
 
+  private RDFUtils() {    
+  }
+  
   /**
    * Add rdf:about to all blank nodes other than project and people. Projects
    * and people are dealt with separately once we have worked out the simalID
@@ -671,7 +674,7 @@ public class RDFUtils {
         IPerson simalPerson;
         try {
           Attr about = person.getAttributeNodeNS(RDF_NS, "about");
-          if (about != null && !about.equals("")) {
+          if (about != null && !about.getTextContent().equals("")) {
             String uri = about.getNodeValue();
             simalPerson = repo.getPerson(uri);
             if (simalPerson != null) {
@@ -681,7 +684,7 @@ public class RDFUtils {
             }
           } else {
             id = repo.getNewPersonID();
-            if (about == null || about.equals("")) {
+            if (about == null || about.getTextContent().equals("")) {
               logger.warn("Person without an rdf:about attribute. ID = " + id);
             }
           }
@@ -722,7 +725,7 @@ public class RDFUtils {
       if (simalIDNL.getLength() == 0) {
         try {
           Attr about = project.getAttributeNodeNS(RDF_NS, "about");
-          if (about != null && !about.equals("")) {
+          if (about != null && !about.getTextContent().equals("")) {
             String uri = about.getNodeValue();
             if (repo.containsProject(uri)) {
               id = repo.getProject(uri).getSimalID();
@@ -783,7 +786,7 @@ public class RDFUtils {
       for (int idx = 0; idx < sha1sums.getLength(); idx = idx + 1) {
         String thisSum = sha1sums.item(idx).getFirstChild().getNodeValue()
             .trim();
-        if (i != idx && sha1sumNode.equals(thisSum)) {
+        if (i != idx && sha1sumNode.getTextContent().equals(thisSum)) {
           logger
               .info("Merging duplicate person in original file (based on email SHA1): "
                   + thisSum);
