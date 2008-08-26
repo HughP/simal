@@ -12,11 +12,11 @@ This page is intended for Admins, for those that have shell access to the Hudson
 
 The Server has an init script written for Hudson and can be called with the command `etc/init.d/hudson start`.
 
-This should only be needed on rare occasions, such as if Hudson was stopped manually, or if Hudson died. If the latter, one should should look into the LogFiles first to determine the cause.
+This should only be needed on rare occasions, such as if Hudson was stopped manually, or if Hudson died. If the latter, one should should look into the [MaintainingHudson#Log_Files Log Files] first to determine the cause.
 
 ===Stopping Hudson===
 
-Before stopping Hudson you should Prepare Hudson For Shutdown first.
+Before stopping Hudson you should [MaintainingHudson#Preparing_Hudson_For_Shutdown Prepare Hudson For Shutdown] first.
 The same init script is used to stop Hudson - `/etc/init.d/hudson stop`.
 
 You may need to stop Hudson to perform some maintenance tasks; or to Upgrade Hudson itself.
