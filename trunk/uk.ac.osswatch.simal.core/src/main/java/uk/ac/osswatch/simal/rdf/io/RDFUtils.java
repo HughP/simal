@@ -238,14 +238,15 @@ public class RDFUtils {
       for (int i = 0; i < nl.getLength(); i++) {
         Element el = (Element) nl.item(i);
         if (!el.hasAttributeNS(RDF_NS, "about")) {
-          String uri = PROJECT_NAMESPACE_URI;
+          StringBuilder uri = new StringBuilder(PROJECT_NAMESPACE_URI);
           Node nameNode = el.getElementsByTagNameNS(DOAP_NS, "name").item(0);
-          uri = uri + nameNode.getFirstChild().getNodeValue();
+          uri.append(nameNode.getFirstChild().getNodeValue());
           Node revisionNode = el.getElementsByTagNameNS(DOAP_NS, "revision")
               .item(0);
-          uri = uri + "/" + revisionNode.getFirstChild().getNodeValue();
-          uri = uri + "#Version";
-          el.setAttributeNS(RDF_NS, "rdf:about", encode(uri));
+          uri.append("/");
+          uri.append(revisionNode.getFirstChild().getNodeValue());
+          uri.append("#Version");
+          el.setAttributeNS(RDF_NS, "rdf:about", encode(uri.toString()));
         }
       }
     }
@@ -779,7 +780,7 @@ public class RDFUtils {
         logger.info("Merging duplicate person (based on email SHA1): "
             + person.toString() + " into " + person.getURI());
         Element personNode = (Element) sha1sumNode.getParentNode();
-        personNode.setAttributeNS(RDF_NS, "about", person.getURI().toString());
+        personNode.setAttributeNS(RDF_NS, "about", person.getURI());
       }
       
       // Check there are no duplicates in the same file

@@ -119,12 +119,22 @@ public class SimalProperties {
   private static Properties getProperties(File propsFile)
       throws SimalRepositoryException {
     Properties props = new Properties();
+    InputStream in = null;
     try {
-      InputStream in = new FileInputStream(propsFile);
+      in = new FileInputStream(propsFile);
       props.load(in);
-    } catch (Exception e) {
+    } catch (IOException e) {
       throw new SimalRepositoryException("Unable to load properties file: "
           + propsFile, e);
+    } finally {
+      try {
+        if (in != null) {
+          in.close();
+        }
+      } catch (IOException e) {
+        throw new SimalRepositoryException("Unable to close properties file: "
+            + propsFile, e);
+      }
     }
     return props;
   }
@@ -197,14 +207,25 @@ public class SimalProperties {
   public static void save() throws SimalRepositoryException {
     String comments = "Simal Properties";
     File propsFile = getLocalPropertiesFile();
+    FileOutputStream out = null;
     try {
       if (!propsFile.exists()) {
         propsFile.createNewFile();
       }
-      localProps.store(new FileOutputStream(propsFile), comments);
+      out = new FileOutputStream(propsFile);
+      localProps.store(out, comments);
     } catch (IOException e) {
       throw new SimalRepositoryException("Failed to save properties file to "
           + propsFile, e);
+    } finally {
+      try {
+        if (out != null) {
+          out.close();
+        }
+      } catch (IOException e) {
+        throw new SimalRepositoryException("Unable to close properties file: "
+            + propsFile, e);
+      }
     }
   }
 
