@@ -83,35 +83,39 @@ public class TestSortableCategoryDataProvider extends TestBase {
 
     int count = 0;
     provider
-        .setSort(SortableCategoryDataProvider.SORT_PROPERTY_PROJECTS, false);
+        .setSort(SortableCategoryDataProvider.SORT_PROPERTY_PROJECTS, true);
     Iterator<IDoapResource> iterator = provider.iterator(0, pageSize);
     int prev = -1;
     count = 0;
     while (iterator.hasNext()) {
       IDoapCategory category = (IDoapCategory) iterator.next();
       int current = category.getProjects().size();
-      assertTrue("Incorrect sort order: " + prev + " preceeds " + current,
-          current <= prev);
+      if (prev >= 0) {
+        assertTrue("Incorrect sort order: " + prev + " preceeds " + current,
+            current >= prev);
+      }
       prev = current;
       count = count + 1;
     }
   }
-  
+
+  @Test
   public void testSortByPeople() throws SimalRepositoryException {
     SortableCategoryDataProvider provider = new SortableCategoryDataProvider();
     int pageSize = NUMBER_OF_TEST_CATEGORIES - 1;
 
     int count = 0;
-    provider
-        .setSort(SortableCategoryDataProvider.SORT_PROPERTY_PEOPLE, false);
+    provider.setSort(SortableCategoryDataProvider.SORT_PROPERTY_PEOPLE, true);
     Iterator<IDoapResource> iterator = provider.iterator(0, pageSize);
-    int prev = -1;
+    int prev = 0;
     count = 0;
     while (iterator.hasNext()) {
       IDoapCategory category = (IDoapCategory) iterator.next();
       int current = category.getPeople().size();
-      assertTrue("Incorrect sort order: " + prev + " preceeds " + current,
-          current <= prev);
+      if (prev >= 0) {
+        assertTrue("Incorrect sort order: " + prev + " preceeds " + current,
+            current >= prev);
+      }
       prev = current;
       count = count + 1;
     }
