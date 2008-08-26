@@ -29,7 +29,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  *
  */
 public class InternetAddress extends Resource implements IInternetAddress {
-  
+  private static final long serialVersionUID = -5050032847747325204L;
   private static final Logger logger = LoggerFactory.getLogger(InternetAddress.class);
   
   public InternetAddress(com.hp.hpl.jena.rdf.model.Resource resource) {
@@ -37,8 +37,7 @@ public class InternetAddress extends Resource implements IInternetAddress {
   }
 
   public String getAddress() throws SimalRepositoryException {
-     String url = getURI().toString();
-     return url;
+     return getURI();
   }
   
   public String toString() {
