@@ -29,14 +29,14 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 public class HandlerFactory {
 
   private static ISimalRepository simalRepo;
-  private static HandlerFactory factory;
+  private HandlerFactory factory;
 
   /**
    * No need to instantiate this calls, use get(RESTCommand cmd) instead.
    * 
    * @throws SimalRepositoryException
    */
-  private HandlerFactory() throws SimalAPIException {
+  public HandlerFactory() throws SimalAPIException {
     try {
       simalRepo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
     } catch (SimalRepositoryException e) {
@@ -58,9 +58,7 @@ public class HandlerFactory {
    * @return
    * @throws SimalAPIException
    */
-  public static IAPIHandler get(RESTCommand cmd, ISimalRepository repo) throws SimalAPIException {
-    initFactory(repo);
-    
+  public IAPIHandler get(RESTCommand cmd) throws SimalAPIException {
     if (cmd.getSource().equals(RESTCommand.TYPE_SIMAL)) {
       return SimalHandlerFactory.createHandler(cmd, simalRepo);
     } else if (cmd.getSource().equals(RESTCommand.TYPE_MYEXPERIMENT)) {
@@ -78,7 +76,7 @@ public class HandlerFactory {
    * 
    * @throws SimalAPIException
    */
-  private static void initFactory(ISimalRepository repo) throws SimalAPIException {
+  private void initFactory(ISimalRepository repo) throws SimalAPIException {
     if (factory == null) {
       factory = new HandlerFactory(repo);
     }
@@ -90,7 +88,7 @@ public class HandlerFactory {
    * 
    * @throws SimalAPIException
    */
-  private static void initFactory() throws SimalAPIException {
+  private void initFactory() throws SimalAPIException {
     if (factory == null) {
       factory = new HandlerFactory();
     }
@@ -100,7 +98,7 @@ public class HandlerFactory {
    * Get the Simal repository this HandlerFactory is working with.
    * @throws SimalAPIException if unable to connect to the repo
    */
-  public static ISimalRepository getSimalRepository() throws SimalAPIException {
+  public ISimalRepository getSimalRepository() throws SimalAPIException {
     initFactory();
     return simalRepo;
   }

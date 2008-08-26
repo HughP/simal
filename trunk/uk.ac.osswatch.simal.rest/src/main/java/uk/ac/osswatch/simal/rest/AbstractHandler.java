@@ -21,6 +21,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 
 /**
  * An abstract handler for the REST API. All handlers should 
@@ -29,6 +30,7 @@ import uk.ac.osswatch.simal.SimalProperties;
  */
 public abstract class AbstractHandler implements IAPIHandler {
   protected RESTCommand command;
+  protected HandlerFactory handlerFactory;
   private String baseurl;
 
   /**
@@ -63,5 +65,18 @@ public abstract class AbstractHandler implements IAPIHandler {
       return "http://www.myexperiment.org";
     }
     return null;
+  }
+
+  /**
+   * Get the repository this factory is working for.
+   * 
+   * @return
+   * @throws SimalAPIException
+   */
+  protected ISimalRepository getRepository() throws SimalAPIException {
+    if (handlerFactory == null) {
+      handlerFactory = new HandlerFactory();
+    }
+    return handlerFactory.getSimalRepository();
   }
 }
