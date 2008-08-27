@@ -140,7 +140,7 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testGetProjects() throws SimalRepositoryException {
     Set<IProject> projects = developer.getProjects();
-    assertEquals("Developer is not in the correct number of projects", projects.size(), 1);
+    assertEquals("Developer is not in the correct number of projects", 1, projects.size());
   }
   
   @Test
