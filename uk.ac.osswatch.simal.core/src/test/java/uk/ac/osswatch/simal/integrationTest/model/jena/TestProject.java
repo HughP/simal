@@ -142,7 +142,7 @@ public class TestProject extends BaseRepositoryTest {
     boolean hasDeveloper = false;
     Iterator<IPerson> people = project1.getDevelopers().iterator();
     IPerson person;
-    while (people.hasNext()) {
+    while (!hasDeveloper && people.hasNext()) {
       person = people.next();
       if (person.getLabel().equals(TEST_SIMAL_PROJECT_DEVELOPERS)) {
         hasDeveloper = true;
@@ -159,7 +159,7 @@ public class TestProject extends BaseRepositoryTest {
     boolean hasDocumenter = false;
     Iterator<IPerson> people = project1.getDocumenters().iterator();
     IPerson person;
-    while (people.hasNext()) {
+    while (!hasDocumenter && people.hasNext()) {
       person = people.next();
       if (person.getLabel().equals(TEST_SIMAL_PROJECT_DOCUMENTERS)) {
         hasDocumenter = true;
@@ -186,7 +186,7 @@ public class TestProject extends BaseRepositoryTest {
     boolean hasHelper = false;
     Iterator<IPerson> people = project1.getHelpers().iterator();
     IPerson person;
-    while (people.hasNext()) {
+    while (!hasHelper && people.hasNext()) {
       person = people.next();
       if (person.getLabel().equals(TEST_SIMAL_PROJECT_HELPERS)) {
         hasHelper = true;
@@ -234,7 +234,7 @@ public class TestProject extends BaseRepositoryTest {
     boolean hasMaintainerTwo = false;
     Iterator<IPerson> people = project1.getMaintainers().iterator();
     IPerson person;
-    while (people.hasNext()) {
+    while ((!hasMaintainerOne || ! !hasMaintainerTwo) && people.hasNext()) {
       person = people.next();
       logger.debug("Got a maintainer with the label " + person.getLabel());
       String label = person.getLabel();
