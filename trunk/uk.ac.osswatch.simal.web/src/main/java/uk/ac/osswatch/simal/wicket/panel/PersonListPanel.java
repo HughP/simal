@@ -45,6 +45,9 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
  */
 public class PersonListPanel extends Panel {
 
+  private Set<IPerson> people;
+  private String title;
+
   /**
    * Create a panel that lists all people in the repository.
    * 
@@ -54,9 +57,9 @@ public class PersonListPanel extends Panel {
    */
   public PersonListPanel(String id, String title) throws SimalRepositoryException {
     super(id);
-
-    add(new Label("title", title));
-    addPersonList(UserApplication.getRepository().getAllPeople());
+    this.title = title;
+    this.people = UserApplication.getRepository().getAllPeople();
+    populatePanel();
   }
 
   /**
@@ -67,15 +70,19 @@ public class PersonListPanel extends Panel {
    * @param people the people to include in the list
    * @throws SimalRepositoryException
    */
-  public PersonListPanel(String id, String title, Set<IPerson> people) throws SimalRepositoryException {
+  public PersonListPanel(String id, String title, Set<IPerson> people) {
     super(id);
-    
+    this.title = title;
+    this.people = people;    
+    populatePanel();
+  }
+
+  private void populatePanel() {
     add(new Label("title", title));
     addPersonList(people);
   }
 
-  private void addPersonList(Set<IPerson> people)
-      throws SimalRepositoryException {
+  private void addPersonList(Set<IPerson> people) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     /*
      * columns.add(new AbstractColumn(new Model("Actions")) { public void
@@ -99,5 +106,16 @@ public class PersonListPanel extends Panel {
     SortableDataProvider dataProvider = new SortablePersonDataProvider(people);
     dataProvider.setSort(SortablePersonDataProvider.SORT_PROPERTY_LABEL, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
+  }
+
+  /**
+   * Add a person to the list being displayed. This method does not
+   * add the person to the underlying data storage mechanism, it only adds 
+   * it to the GUI.
+   * 
+   * @param person
+   */
+  public void addPerson(IPerson person) {
+    this.people.add(person);
   }
 }

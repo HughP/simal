@@ -17,10 +17,6 @@ package uk.ac.osswatch.simal.wicket.doap;
  * under the License.                                                *
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.wicket.Page;
@@ -112,7 +108,7 @@ public class TestProjectDetailPage extends TestBase {
       IPerson person = itr.next();
       hasNewPerson = person.getNames().toString().contains("New Person");
     }
-    assertTrue("We haven't succesfully added the person to the repository", hasNewPerson);
+    assertTrue("We haven't successfully added the person to the repository", hasNewPerson);
     */
     
     // FIXME: ensure that the new person has been displayed in the list
@@ -125,7 +121,5 @@ public class TestProjectDetailPage extends TestBase {
   @Test
   public void testMaintainers() {
     tester.assertVisible("maintainers");
-    tester.assertVisible("maintainers:1:maintainer");
-    tester.assertVisible("maintainers:2:maintainer");
   }
 }
