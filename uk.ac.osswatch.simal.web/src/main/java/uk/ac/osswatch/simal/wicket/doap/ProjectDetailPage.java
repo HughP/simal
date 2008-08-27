@@ -39,6 +39,7 @@ import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
 import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
+import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
@@ -143,28 +144,43 @@ public class ProjectDetailPage extends BasePage {
         project.getProgrammingLanguages()));
 
     // contributors
-    add(getRepeatingPersonPanel("maintainers", "maintainer", project
-        .getMaintainers()));
-    add(new AddPersonPanel("addMaintainerPanel", getProject(), AddPersonPanel.MAINTAINER));
+    PersonListPanel maintainerList = new PersonListPanel("maintainers", "Maintainers", project
+        .getMaintainers());
+    maintainerList.setOutputMarkupId(true);
+    add(maintainerList);
+    add(new AddPersonPanel("addMaintainerPanel", getProject(), AddPersonPanel.MAINTAINER, maintainerList));
     
-    add(getRepeatingPersonPanel("developers", "developer", project
-        .getDevelopers()));
-    add(new AddPersonPanel("addDeveloperPanel", getProject(), AddPersonPanel.DEVELOPER));
+    PersonListPanel developerList = new PersonListPanel("developers", "Developers", project
+        .getDevelopers());
+    developerList.setOutputMarkupId(true);
+    add(developerList);
+    add(new AddPersonPanel("addDeveloperPanel", getProject(), AddPersonPanel.DEVELOPER, developerList));
     
-    add(getRepeatingPersonPanel("testers", "tester", project.getTesters()));
-    add(new AddPersonPanel("addTesterPanel", getProject(), AddPersonPanel.TESTER));
+
+    PersonListPanel testerList = new PersonListPanel("testers", "Testers", project
+        .getTesters());
+    testerList.setOutputMarkupId(true);
+    add(testerList);
+    add(new AddPersonPanel("addTesterPanel", getProject(), AddPersonPanel.TESTER, testerList));
+        
+    PersonListPanel helperList = new PersonListPanel("helpers", "Helpers", project
+        .getHelpers());
+    helperList.setOutputMarkupId(true);
+    add(helperList);
+    add(new AddPersonPanel("addHelperPanel", getProject(), AddPersonPanel.HELPER, helperList));
     
+
+    PersonListPanel documentorList = new PersonListPanel("documenters", "Documentors", project
+        .getDocumenters());
+    documentorList.setOutputMarkupId(true);
+    add(documentorList);
+    add(new AddPersonPanel("addDocumentorPanel", getProject(), AddPersonPanel.DOCUMENTOR, documentorList));
     
-    add(getRepeatingPersonPanel("helpers", "helper", project.getHelpers()));
-    add(new AddPersonPanel("addHelperPanel", getProject(), AddPersonPanel.HELPER));
-    
-    add(getRepeatingPersonPanel("documenters", "documenter", project
-        .getDocumenters()));
-    add(new AddPersonPanel("addDocumentorPanel", getProject(), AddPersonPanel.DOCUMENTOR));
-    
-    add(getRepeatingPersonPanel("translators", "translator", project
-        .getTranslators()));
-    add(new AddPersonPanel("addTranslatorPanel", getProject(), AddPersonPanel.TRANSLATOR));
+    PersonListPanel translatorList = new PersonListPanel("translators", "Translators", project
+        .getTranslators());
+    translatorList.setOutputMarkupId(true);
+    add(translatorList);
+    add(new AddPersonPanel("addTranslatorPanel", getProject(), AddPersonPanel.TRANSLATOR, translatorList));
 
     // downlaod
     add(getRepeatingLinks("downloadPages", "downloadPage", "Downloads",

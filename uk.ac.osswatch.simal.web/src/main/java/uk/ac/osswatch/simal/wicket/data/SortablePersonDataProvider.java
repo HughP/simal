@@ -46,7 +46,7 @@ public class SortablePersonDataProvider extends SortableFoafResourceDataProvider
    * @param size
    * @throws SimalRepositoryException 
    */
-  public SortablePersonDataProvider(Set<IPerson> people) throws SimalRepositoryException {
+  public SortablePersonDataProvider(Set<IPerson> people) {
     super(people);
   }
 }

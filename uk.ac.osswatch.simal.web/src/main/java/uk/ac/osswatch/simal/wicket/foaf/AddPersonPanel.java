@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormValidatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
@@ -37,6 +38,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
+import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 
 /**
  * Container for adding a new person. This is an AJAX enabled container that
@@ -62,6 +64,8 @@ public class AddPersonPanel extends Panel {
   private int personRole;
   private IProject project;
 
+  private PersonListPanel updatePanel;
+
   /**
    * Create a new container that will initially display the command link to show
    * the form.
@@ -71,12 +75,16 @@ public class AddPersonPanel extends Panel {
    * @param role
    *          the role of any people added using this container
    * @param project
-   *          the project any new people are to be assinged to
+   *          the project any new people are to be assigned to
+   * @param updateContainer
+   *          the container that should be updated when the person 
+   *          has been added (must have setOutputMarkupId(true)
    */
-  public AddPersonPanel(String wicketid, IProject project, int role) {
+  public AddPersonPanel(String wicketid, IProject project, int role, PersonListPanel updatePanel) {
     super(wicketid);
     this.personRole = role;
     this.project = project;
+    this.updatePanel = updatePanel;
     setOutputMarkupId(true);
     add(new NewPersonLink("newLink"));
     add(new AddPersonForm("personForm"));
@@ -139,6 +147,7 @@ public class AddPersonPanel extends Panel {
             case TRANSLATOR: project.addTranslator(person); break;
           }
         }
+        updatePanel.addPerson(person);
       } catch (SimalRepositoryException e) {
         UserReportableException error = new UserReportableException(
             "Unable to generate a person from the given form data",
@@ -146,6 +155,7 @@ public class AddPersonPanel extends Panel {
         setResponsePage(new ErrorReportPage(error));
       }
       onHidePersonForm(target);
+      target.addComponent(updatePanel);
     }
 
     protected void onError(AjaxRequestTarget target, Form form) {
