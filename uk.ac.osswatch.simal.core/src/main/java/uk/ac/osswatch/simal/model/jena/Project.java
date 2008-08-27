@@ -44,6 +44,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
 public class Project extends DoapResource implements IProject {
   private static final long serialVersionUID = 1960364043645152134L;
@@ -318,6 +319,19 @@ public class Project extends DoapResource implements IProject {
         Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource) person
             .getRepositoryResource());
     model.add(statement);
+    addCurrentProject(person);
+  }
+
+  /**
+   * Add this project as a current project for a person.
+   * @param person
+   */
+  private void addCurrentProject(IPerson person) {
+    Model model = getJenaResource().getModel();
+    Statement statement;
+    statement = model.createStatement((com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource(), 
+        FOAF.currentProject, getJenaResource());
+    model.add(statement);
   }
 
   public void addDocumenter(IPerson person) {
@@ -326,6 +340,7 @@ public class Project extends DoapResource implements IProject {
         Doap.DOCUMENTER, (com.hp.hpl.jena.rdf.model.Resource) person
             .getRepositoryResource());
     model.add(statement);
+    addCurrentProject(person);
   }
 
   public void addHelper(IPerson person) {
@@ -333,6 +348,7 @@ public class Project extends DoapResource implements IProject {
     Statement statement = model.createStatement(getJenaResource(), Doap.HELPER,
         (com.hp.hpl.jena.rdf.model.Resource) person.getRepositoryResource());
     model.add(statement);
+    addCurrentProject(person);
   }
 
   public void addMaintainer(IPerson person) {
@@ -341,6 +357,7 @@ public class Project extends DoapResource implements IProject {
         Doap.MAINTAINER, (com.hp.hpl.jena.rdf.model.Resource) person
             .getRepositoryResource());
     model.add(statement);
+    addCurrentProject(person);
   }
 
   public void addTester(IPerson person) {
@@ -348,6 +365,7 @@ public class Project extends DoapResource implements IProject {
     Statement statement = model.createStatement(getJenaResource(), Doap.TESTER,
         (com.hp.hpl.jena.rdf.model.Resource) person.getRepositoryResource());
     model.add(statement);
+    addCurrentProject(person);
   }
 
   public void addTranslator(IPerson person) {
@@ -356,6 +374,7 @@ public class Project extends DoapResource implements IProject {
         Doap.TRANSLATOR, (com.hp.hpl.jena.rdf.model.Resource) person
             .getRepositoryResource());
     model.add(statement);
+    addCurrentProject(person);
   }
 
   public void removeDocumenter(IPerson person) throws SimalRepositoryException {
