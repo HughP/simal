@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.unitTest;
+package uk.ac.osswatch.simal.spike.test;
 /*
  * Copyright 2007 University of Oxford
  *
