@@ -35,8 +35,9 @@ public class ModelSupport {
   private static final Logger logger = LoggerFactory
      .getLogger(ModelSupport.class);
   public static final String TEST_FILE_BASE_URL = "http://example.org/baseURI";
-  public static final String TEST_FILE_URI_NO_QNAME = "testNoRDFAboutDOAP.xml";
-  public static final String TEST_FILE_URI_WITH_QNAME = "testDOAP.xml";
+  public static final String TEST_FILE_URI_NO_QNAME = "testData/testNoRDFAboutDOAP.xml";
+  public static final String TEST_FILE_URI_WITH_QNAME = "testData/testDOAP.xml";
+  private static final String TEST_FILE_OSSWATCH = "testData/ossWatchDOAP.xml";
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
 
   public final static String CATEGORIES_RDF = "testData/categories.xml";
@@ -64,14 +65,11 @@ public class ModelSupport {
       repo.addProject(ISimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
       
-      repo.addProject(ISimalRepository.class.getResource("/testData/"
-          + TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
+      repo.addProject(ISimalRepository.class.getResource(TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
 
-      repo.addProject(ISimalRepository.class.getResource("/testData/"
-          + TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
+      repo.addProject(ISimalRepository.class.getResource(TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
 
-      repo.addProject(ISimalRepository.class.getResource("/testData/"
-          + "ossWatchDOAP.xml"), TEST_FILE_BASE_URL);
+      repo.addProject(ISimalRepository.class.getResource(TEST_FILE_OSSWATCH), TEST_FILE_BASE_URL);
 
       addSimalData(repo);
 
