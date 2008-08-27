@@ -232,7 +232,7 @@ public class Simal {
 
     try {
       URL fileURL;
-      if (!filenameOrURL.contains("://")) {
+      if (!filenameOrURL.contains(":/")) {
         if (filenameOrURL.startsWith("/") || filenameOrURL.indexOf(':') == 1) {
           fileURL = new File(filenameOrURL).toURI().toURL();
         } else {
