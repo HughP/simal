@@ -65,11 +65,11 @@ public class ModelSupport {
       repo.addProject(ISimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
       
-      repo.addProject(ISimalRepository.class.getResource(TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
 
-      repo.addProject(ISimalRepository.class.getResource(TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
 
-      repo.addProject(ISimalRepository.class.getResource(TEST_FILE_OSSWATCH), TEST_FILE_BASE_URL);
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(TEST_FILE_OSSWATCH), TEST_FILE_BASE_URL);
 
       addSimalData(repo);
 
