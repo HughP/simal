@@ -234,6 +234,7 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   public void destroy() throws SimalRepositoryException {
+    logger.info("Destorying the SimalRepository");
     model.close();
     model = null;
     initialised = false;
