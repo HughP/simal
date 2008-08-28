@@ -488,9 +488,9 @@ public class RDFUtils {
     NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
     for (int iper = 0; iper < people.getLength(); iper = iper + 1) {
       Node person = people.item(iper);
-      NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
-      for (int iproj = 0; iproj < projects.getLength(); iproj = iproj + 1) {
-        String uri = projects.item(iproj).getAttributes().getNamedItemNS(
+      Node grandparent = person.getParentNode().getParentNode();
+      if (grandparent.getNamespaceURI().equals(DOAP_NS) && grandparent.getLocalName().equals("Project")) {
+        String uri = grandparent.getAttributes().getNamedItemNS(
             RDF_NS, "about").getNodeValue();
         Element projNode = doc.createElementNS(FOAF_NS, "currentProject");
         projNode.setAttributeNS(RDF_NS, "resource", uri);

@@ -139,6 +139,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetDevelopers() throws SimalRepositoryException {
+    logger.info("Starting testGetDevelopers");
     boolean hasDeveloper = false;
     Iterator<IPerson> people = project1.getDevelopers().iterator();
     IPerson person;
@@ -147,11 +148,13 @@ public class TestProject extends BaseRepositoryTest {
       if (person.getLabel().equals(TEST_SIMAL_PROJECT_DEVELOPERS)) {
         hasDeveloper = true;
       }
+      logger.debug("Got developer called {}", person);
       assertNotNull("No person should have a null ID (see "
           + person.getURI().toString() + ")", person.getSimalID());
     }
-    assertTrue("Project does not appear to have developer "
+    assertTrue("Project does not appear to have developer called "
         + TEST_SIMAL_PROJECT_DEVELOPERS, hasDeveloper);
+    logger.info("Finished testGetDevelopers");
   }
 
   @Test

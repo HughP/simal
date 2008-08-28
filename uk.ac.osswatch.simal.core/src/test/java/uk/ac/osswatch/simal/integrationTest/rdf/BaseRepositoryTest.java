@@ -101,6 +101,8 @@ public abstract class BaseRepositoryTest {
 
   protected final static String project1SeeAlso = "http://foo.org/seeAlso";
   
+  protected final static String KNOWN_PERSON_SEALSO_URI = "http://foo.org/people/knownPerson/foaf.rdf";
+  
   private static ISimalRepository repository;
 
   protected static IProject project1;

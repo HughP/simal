@@ -44,6 +44,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -174,12 +175,21 @@ public class TestRDFUtils extends BaseRepositoryTest {
     dbf.setNamespaceAware(true);
 
     DocumentBuilder db = dbf.newDocumentBuilder();
-    dom = db.parse(new FileInputStream(processedFile));
+    FileInputStream fis = new FileInputStream(processedFile);
+    dom = db.parse(fis);
+    fis.close();
     
     NodeList personNL = dom.getElementsByTagNameNS(RDFUtils.FOAF_NS, "Person");
     Element person = (Element)personNL.item(0);
     String about = person.getAttributeNS(RDFUtils.RDF_NS, "about");
     assertFalse("rdf:about is empty", about.equals(""));
     assertTrue("rdf:about contains spaces - " + about, about.indexOf(" ") < 0);
+  }
+  
+  @Test
+  public void testKnownPeople() throws SimalRepositoryException {
+    IPerson person = getRepository().findPersonBySeeAlso(KNOWN_PERSON_SEALSO_URI);
+    assertNotNull("We can't find the known person record", person);
+    assertTrue("Known person should not have any current projects", person.getProjects().size() == 0);
   }
 }

@@ -100,7 +100,7 @@ public class TestPerson extends BaseRepositoryTest {
     assertNotNull("Should know some people", knows);
     IPerson person = knows.iterator().next();
     String name = (String) person.getNames().toArray()[0];
-    assertTrue("Should know Dan Brickley", name.contains("Dan"));
+    assertTrue("Should know a person", name.contains("Known Person"));
   }
 
   @Test
