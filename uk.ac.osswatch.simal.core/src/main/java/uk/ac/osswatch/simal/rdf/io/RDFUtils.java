@@ -542,7 +542,8 @@ public class RDFUtils {
   }
 
   /**
-   * For every mailbox associated with a person create an sha1 checksum.
+   * For every mailbox associated with a person create an 
+   * sha1 checksum.
    * 
    * @param doc
    * @param repo
@@ -676,7 +677,7 @@ public class RDFUtils {
         try {
           Attr about = person.getAttributeNodeNS(RDF_NS, "about");
           if (about != null && !about.getTextContent().equals("")) {
-            String uri = about.getNodeValue();
+            String uri = about.getTextContent();
             simalPerson = repo.getPerson(uri);
             if (simalPerson != null) {
               id = simalPerson.getSimalID();
@@ -684,9 +685,13 @@ public class RDFUtils {
               id = repo.getNewPersonID();
             }
           } else {
+            // we've already checked for duplicates and, where found, we
+            // have given the node an rdf:about, so if there still isn't 
+            // one this is a new person and therefore needs a Simal ID             
             id = repo.getNewPersonID();
-            if (about == null || about.getTextContent().equals("")) {
-              logger.warn("Person without an rdf:about attribute. ID = " + id);
+            if (about != null && !about.getTextContent().equals("")) {
+              String[] params = {id, about.getTextContent()};
+              logger.info("Assigning Simal ID of {} to {}", params);
             }
           }
         } catch (Exception e) {
@@ -777,8 +782,8 @@ public class RDFUtils {
       String sha1Sum = sha1sumNode.getFirstChild().getNodeValue().trim();
       IPerson person = repo.findPersonBySha1Sum(sha1Sum);
       if (person != null) {
-        logger.info("Merging duplicate person (based on email SHA1): "
-            + person.toString() + " into " + person.getURI());
+        String[] params = {person.toString(),  person.getURI()};
+        logger.info("Merging duplicate person based on email SHA1 of {} into {}", params);
         Element personNode = (Element) sha1sumNode.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getURI());
       }
@@ -788,9 +793,7 @@ public class RDFUtils {
         String thisSum = sha1sums.item(idx).getFirstChild().getNodeValue()
             .trim();
         if (i != idx && sha1sumNode.getTextContent().equals(thisSum)) {
-          logger
-              .info("Merging duplicate person in original file (based on email SHA1): "
-                  + thisSum);
+          logger.info("Merging duplicate person found in source file based on email SHA1 of {}", thisSum);
           Element personNode = (Element) sha1sums.item(idx).getParentNode();
           personNode.setAttributeNS(RDF_NS, "about", sha1sumNode.getAttributeNS(
               RDF_NS, "about"));
@@ -807,10 +810,10 @@ public class RDFUtils {
       if (!aboutURI.equals("")) {
         IPerson person = repo.findPersonBySeeAlso(aboutURI);
         if (person != null) {
-          logger.info("Merging duplicate person (based on rdf:about): "
-              + person.toString() + " into " + person.getURI());
+          String[] params = {aboutURI,  person.getURI()};
+          logger.info("Merging duplicate person based on rdf:about of {} into {}", params);
           personNode
-              .setAttributeNS(RDF_NS, "about", person.getURI().toString());
+              .setAttributeNS(RDF_NS, "about", person.getURI());
         }
       }
 
@@ -822,10 +825,10 @@ public class RDFUtils {
         String uri = seeAlso.getAttributeNS(RDF_NS, "resource");
         IPerson person = repo.findPersonBySeeAlso(uri);
         if (person != null) {
-          logger.info("Merging duplicate person (based on seeAlso): "
-              + person.toString() + " into " + person.getURI());
+          String[] params = {uri,  person.getURI()};
+          logger.info("Merging duplicate person based on rdfs:seeAlso of {} into {}", params);
           personNode
-              .setAttributeNS(RDF_NS, "about", person.getURI().toString());
+              .setAttributeNS(RDF_NS, "about", person.getURI());
         }
                 
         // Handle duplicates of the same person in the same RDF file
@@ -835,9 +838,7 @@ public class RDFUtils {
           String thisURI = thisSeeAlso.getAttributeNS(RDF_NS,
               "resource");
           if (!thisSeeAlso.equals(seeAlso) && uri.equals(thisURI)) {
-            logger
-                .info("Merging duplicate person in original file (based on seeAlso): "
-                    + thisURI);
+            logger.info("Merging duplicate person in source file based on rdfs:seeAlso of {}", thisURI);
             personNode.setAttributeNS(RDF_NS, "resource", uri);
           }
         }
