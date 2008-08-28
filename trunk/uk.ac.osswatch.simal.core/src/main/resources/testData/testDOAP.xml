@@ -166,12 +166,12 @@
       <foaf:givenname>developer</foaf:givenname>
       <foaf:knows>
         <foaf:Person>
-          <foaf:name>Dan Brickley</foaf:name>
+          <foaf:name>Known Person</foaf:name>
           <foaf:mbox_sha1sum>
-            241021fb0e6289f92815fc210f9e9137262c252e
+            241021fb0e8289f92815fc210f9e9137262c252e
           </foaf:mbox_sha1sum>
           <rdfs:seeAlso
-            rdf:resource="http://rdfweb.org/people/danbri/foaf.rdf" />
+            rdf:resource="http://foo.org/people/knownPerson/foaf.rdf" />
         </foaf:Person>
       </foaf:knows>
       <foaf:homepage rdf:resource="http://example.org/person/developer" />
