@@ -270,8 +270,14 @@ public class Simal {
   }
 
   private static void printVersion() {
-    logger.info("Simal version   : "
-        + SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_VERSION));
+    String version;
+    try {
+      version = SimalProperties
+          .getProperty(SimalProperties.PROPERTY_SIMAL_VERSION);
+    } catch (SimalRepositoryException e) {
+      version = "ERROR: unable to read properties file";
+    }
+    logger.info("Simal version   : " + version);
     logger.info("Java version    : " + System.getProperty("java.version"));
     logger.info("Java vendor     : " + System.getProperty("java.vendor"));
     logger.info("OS              : " + System.getProperty("os.name"));
