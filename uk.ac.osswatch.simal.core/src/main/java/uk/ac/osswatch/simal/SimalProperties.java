@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Properties;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +42,7 @@ public class SimalProperties {
   public static final String PROPERTY_RDF_DATA_DIR = "simal.repository.dir";
   public static final String PROPERTY_RDF_DATA_FILENAME = "simal.repository.filename";
   public static final String PROPERTY_TEST = "simal.test";
+  public static final String PROPERTY_SIMAL_INSTANCE_ID = "simal.instance.id";
   public static final String PROPERTY_SIMAL_VERSION = "simal.version";
   public static final String PROPERTY_SIMAL_NEXT_CATEGORY_ID = "simal.nextCategoryID";
   public static final String PROPERTY_SIMAL_NEXT_PROJECT_ID = "simal.nextProjectID";
@@ -144,8 +146,9 @@ public class SimalProperties {
    * 
    * @param key
    *          the name of the property value to retrieve
+   * @throws SimalRepositoryException if the properties cannot be initialised
    */
-  public static String getProperty(String key) {
+  public static String getProperty(String key) throws SimalRepositoryException {
     return getProperty(key, null);
   }
 
@@ -156,8 +159,9 @@ public class SimalProperties {
    * @param key
    * @param default
    * @return
+   * @throws SimalRepositoryException if the properties cannot be initialised
    */
-  public static String getProperty(String key, String defaultValue) {
+  public static String getProperty(String key, String defaultValue) throws SimalRepositoryException {
     if (defaultProps == null) {
       try {
         initProperties();
@@ -165,10 +169,11 @@ public class SimalProperties {
         if (defaultValue != null) {
           return defaultValue;
         } else {
-          return "ERROR: property not defined, key: " + key;
+          throw new SimalRepositoryException("Unable to load configuration file", e);
         }
       }
     }
+    
     String value = null;
     if (localProps != null) {
       value = localProps.getProperty(key);
@@ -177,10 +182,17 @@ public class SimalProperties {
         value = defaultProps.getProperty(key, defaultValue);
     }
     if (value == null) {
-      value = "The property '"
-          + key
-          + "' has not been set in either local.simal.properties, default.simal.properties files or the SimalProperties class";
-      logger.warn(value);
+      if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
+        value = UUID.randomUUID().toString();
+        setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
+      } else if (key.equals(PROPERTY_LOCAL_PROPERTIES_LOCATION)){
+      } else {
+        StringBuilder sb = new StringBuilder("The property '");
+        sb.append(key);
+        sb.append("' has not been set in either local.simal.properties, default.simal.properties files or the SimalProperties class");
+        value = sb.toString();
+        logger.warn(value);
+      }
     }
     return value;
   }
@@ -196,6 +208,7 @@ public class SimalProperties {
       localProps = new Properties();
     }
     localProps.setProperty(key, value);
+    logger.info("{} set to {}", new String[] {key, value});
   }
 
   /**
@@ -234,8 +247,9 @@ public class SimalProperties {
    * 
    * @param name
    * @return
+   * @throws SimalRepositoryException The properties cannot be initialised or the property value is not an Integer.
    */
-  public static Integer getIntegerProperty(String name) {
+  public static Integer getIntegerProperty(String name) throws NumberFormatException, SimalRepositoryException {
     return Integer.valueOf(getProperty(name));
   }
 }
