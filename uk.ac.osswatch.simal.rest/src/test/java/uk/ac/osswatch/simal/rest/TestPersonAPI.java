@@ -28,7 +28,7 @@ public class TestPersonAPI extends AbstractAPITest {
   @Test
   public void testAllColleaguesJSON() throws SimalAPIException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.ALL_COLLEAGUES
-        + RESTCommand.PARAM_PERSON_ID + "15" + RESTCommand.FORMAT_JSON);
+        + RESTCommand.PARAM_PERSON_ID + testDeveloperID + RESTCommand.FORMAT_JSON);
     IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
     String result = handler.execute();
     assertNotNull(result);
@@ -37,7 +37,7 @@ public class TestPersonAPI extends AbstractAPITest {
   @Test
   public void testAllColleaguesXML() throws SimalAPIException {
     final RESTCommand command = RESTCommand.createCommand(RESTCommand.ALL_COLLEAGUES
-        + RESTCommand.PARAM_PERSON_ID + "15" + RESTCommand.FORMAT_XML);
+        + RESTCommand.PARAM_PERSON_ID + testDeveloperID + RESTCommand.FORMAT_XML);
     final IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
     String result = handler.execute();
     assertNotNull("No XML Returned by getAllColleagues", result);
@@ -52,7 +52,7 @@ public class TestPersonAPI extends AbstractAPITest {
   @Test
   public void testGetPerson() throws SimalAPIException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.PERSON
-        + RESTCommand.PARAM_PERSON_ID + "15" + RESTCommand.FORMAT_XML);
+        + RESTCommand.PARAM_PERSON_ID + testDeveloperID + RESTCommand.FORMAT_XML);
     IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
     String result = handler.execute();
     assertNotNull("No XML Returned by getPerson", result);

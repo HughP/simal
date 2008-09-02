@@ -40,6 +40,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rest.AbstractHandler;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
@@ -57,9 +58,10 @@ public class PersonAPI extends AbstractHandler {
    * 
    * @param uri
    *          the URi of the MyExperiment instance to query
+   * @throws SimalRepositoryException 
    * @throws SimalAPIException
    */
-  protected PersonAPI(RESTCommand cmd) {
+  protected PersonAPI(RESTCommand cmd) throws SimalRepositoryException {
     super(cmd);
   }
 

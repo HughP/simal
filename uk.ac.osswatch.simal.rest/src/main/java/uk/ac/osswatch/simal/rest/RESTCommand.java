@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 
 /**
@@ -432,7 +433,11 @@ public final class RESTCommand {
    * @throws SimalAPIException If the method of the command is unrecognised
    */
   public String getURL() throws SimalAPIException {
-    return SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + getPath();
+    try {
+      return SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + getPath();
+    } catch (SimalRepositoryException e) {
+      throw new SimalAPIException("unable to get base url from the properties file", e);
+    }
   }
 
   @Override

@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.myExperiment;
  */
 
 
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rest.IAPIHandler;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
@@ -39,7 +40,11 @@ public class MyExperimentHandlerFactory {
   public static IAPIHandler createHandler(RESTCommand command) throws SimalAPIException {
     IAPIHandler handler = null;
     if (command.isPersonCommand()) {
-      handler = new PersonAPI(command);
+      try {
+        handler = new PersonAPI(command);
+      } catch (SimalRepositoryException e) {
+        throw new SimalAPIException("Unable to create API handler", e);
+      }
     }
     
     if (handler == null) {
