@@ -274,7 +274,7 @@ public final class SimalRepository extends AbstractSimalRepository {
   
   public IPerson findPersonById(String id) throws SimalRepositoryException {
     if (!isValidSimalID(id)) {
-      throw new SimalRepositoryException("Attempt to find a person using an invalid Simal ID of " + id + " are you sure that's a world unique identifier?");
+      throw new SimalRepositoryException("Attempt to find a person using an invalid Simal ID of " + id + " are you sure that's a world unique identifier? You may need to call RDFUtils.getUniqueSimalID(id)");
     }
     String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
         + "> " + "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
@@ -353,7 +353,7 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IProject findProjectById(String id) throws SimalRepositoryException {
     if (!isValidSimalID(id)) {
-      throw new SimalRepositoryException("Attempt to find a project using an invalid Simal ID of " + id);
+      throw new SimalRepositoryException("Attempt to find a project using an invalid Simal ID of " + id + " are you sure that is a unique ID? You may need to call RDFUtils.getUniqueSimalID(id)");
     }
     String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
         + "> " + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
