@@ -92,7 +92,7 @@ public class ProjectAPI extends AbstractHandler {
     if (command.isXML()) {
       try {
         IProject project = getRepository().findProjectById(
-            id);
+            getRepository().getUniqueSimalID(id));
         if (project == null) {
           throw new SimalAPIException("Project with Simal ID " + id
               + " does not exist");

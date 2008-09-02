@@ -25,10 +25,13 @@ public class TestRESTCommand extends AbstractAPITest {
 
   @Test
   public void testProjectCommand() throws SimalAPIException {
-    RESTCommand cmd =RESTCommand.createGetProject(PROJECT_ID, RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
+    RESTCommand cmd =RESTCommand.createGetProject(testProjectID, RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
     assertNotNull(cmd);
     
     String path = cmd.getPath();
-    assertEquals("Command path aappears to be incorrect", path, "/project/source-simal/project-200/xml");
+    StringBuilder expectedPath = new StringBuilder("/project/source-simal/project-"); 
+    expectedPath.append(testProjectID);
+    expectedPath.append("/xml");
+    assertEquals("Command path aappears to be incorrect", expectedPath.toString(), path);
   }
 }

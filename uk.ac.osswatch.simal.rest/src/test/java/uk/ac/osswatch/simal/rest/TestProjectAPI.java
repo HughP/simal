@@ -15,6 +15,8 @@ package uk.ac.osswatch.simal.rest;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
@@ -56,5 +58,15 @@ public class TestProjectAPI extends AbstractAPITest{
     
     // we don't bother testing to see if the project has been added here
     // that's the job of the repository tests.
+  }
+  
+  @Test
+  public void testGetProject() throws SimalAPIException {
+    RESTCommand cmd = RESTCommand.createGetProject(testProjectID, RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
+    IAPIHandler handler = SimalHandlerFactory.createHandler(cmd, getRepo());
+    String result = handler.execute();
+    assertNotNull("No XML Returned by getPerson", result);
+    
+    assertTrue("XML file does not appear to describe a person", result.contains("Person>"));
   }
 }
