@@ -1,0 +1,37 @@
+#labels Phase-Deploy
+The demo server at http://data.oss-watch.ac.uk:8080 can be updated by anyone with the necessary priveledges to the demo machine with the following steps:
+
+{{{
+cd /home/simal
+./update.sh
+}}}
+
+This will update all Simal modules from SVN, run all tests and deploy artifacts to the local Maven repository.
+
+_NOTE: The following two steps are requried becuase of ISSUE 142_
+
+{{{
+ps aux | grep maven
+}}}
+
+Note the process ID for the currently running instance of Simal.
+
+{{{
+kill [SIMAL_PROCESS_ID]
+}}}
+
+Now deploy the approved data using:
+
+{{{
+./deployData.sh
+}}}
+
+This will update all the data files we have that we know to work cleanly in the Simal repository. We need to do this because the update command we ran earlier deleted the current demo data. This is done to ensure hte demo server isn't filled up with spam entries, we periodically reset it in this way.
+
+Now we run the server again with:
+
+{{{
+./runs.sh
+}}
+
+That's it, you can log out now.
