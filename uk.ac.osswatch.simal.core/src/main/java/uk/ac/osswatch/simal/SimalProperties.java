@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 /**
  * For accessing the properties of a Simal Repository.
@@ -183,7 +184,11 @@ public class SimalProperties {
     }
     if (value == null) {
       if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
-        value = UUID.randomUUID().toString();
+        if (SimalRepository.getInstance().isTest()) {
+          value = "simal:test";
+        } else {
+          value = UUID.randomUUID().toString();
+        }
         setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
       } else if (key.equals(PROPERTY_LOCAL_PROPERTIES_LOCATION)){
       } else {

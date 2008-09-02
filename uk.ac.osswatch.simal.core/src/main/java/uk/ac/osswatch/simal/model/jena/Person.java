@@ -27,6 +27,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -161,6 +162,12 @@ public class Person extends Resource implements IPerson {
   }
 
   public String getSimalID() throws SimalRepositoryException {
+    String uniqueID = getUniqueSimalID();
+    String id = uniqueID.substring(uniqueID.lastIndexOf(":") + 1);
+    return id;
+  }
+  
+  public String getUniqueSimalID() throws SimalRepositoryException {
     String id;
     Statement idStatement = getJenaResource().getProperty(SimalOntology.PERSON_ID);
     if (idStatement == null) {
@@ -172,9 +179,15 @@ public class Person extends Resource implements IPerson {
     return id;
   }
 
-  public void setSimalID(String newId) {
-    logger.info("Setting simalId for " + this + " to " + newId);
-    getJenaResource().addLiteral(SimalOntology.PERSON_ID, newId);
+  public void setSimalID(String newId) throws SimalRepositoryException {
+    if (newId.contains(":") && !newId.startsWith(SimalProperties.getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
+      throw new SimalRepositoryException("Simal ID cannot contain a ':'");
+    }
+    StringBuilder id = new StringBuilder(SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
+    id.append(":");
+    id.append(newId); 
+    logger.info("Setting simalId for " + this + " to " + id);
+    getJenaResource().addLiteral(SimalOntology.PERSON_ID, id);
   }
 
   /**
@@ -275,10 +288,15 @@ public class Person extends Resource implements IPerson {
     return values.toString();
   }
 
+  /**
+   * @deprecated use addName(name) (scheduled for removal in 0.3)
+   */
   public void setName(String name) {
-    Model model = getJenaResource().getModel(); 
-    Statement statement = model.createStatement(getJenaResource(), FOAF.name, name);
-    model.add(statement);
+    addName(name);
+  }
+
+  public void addName(String name) {
+    getJenaResource().addProperty(FOAF.name, name);
   }
 
   public Set<String> getSHA1Sums() {

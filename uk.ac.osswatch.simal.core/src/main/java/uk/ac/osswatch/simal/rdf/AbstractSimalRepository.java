@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.rdf;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,7 +17,6 @@ Copyright 2007 University of Oxford *
  * under the License.
  * 
  */
-
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -35,7 +35,8 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 public abstract class AbstractSimalRepository implements ISimalRepository {
-  private static final Logger logger = LoggerFactory.getLogger(AbstractSimalRepository.class);
+  private static final Logger logger = LoggerFactory
+      .getLogger(AbstractSimalRepository.class);
 
   protected static ISimalRepository instance;
   protected boolean isTest = false;
@@ -82,8 +83,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
    */
   public QName getDefaultQName(IProject project) {
     String strQName;
-    if (project.getHomepages() == null
-        || project.getHomepages().size() == 0) {
+    if (project.getHomepages() == null || project.getHomepages().size() == 0) {
       strQName = "http://simal.oss-watch.ac.uk/project/unkownSource/"
           + (String) project.getNames().toArray()[0];
     } else {
@@ -97,8 +97,10 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
   }
 
   public String getNewProjectID() throws SimalRepositoryException {
-    String strID = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
-    long id = Long.parseLong(strID);
+    String fullID = null;
+    String strEntityID = SimalProperties.getProperty(
+        SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
+    long entityID = Long.parseLong(strEntityID);
 
     /**
      * If the properties file is lost for any reason the next ID value will be
@@ -106,15 +108,17 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
      */
     boolean validID = false;
     while (!validID) {
-      if (findProjectById(Long.toString(id)) == null) {
+      fullID = getUniqueSimalID(Long.toString(entityID));
+      if (findProjectById(fullID) == null) {
         validID = true;
       } else {
-        id = id + 1;
+        entityID = entityID + 1;
       }
     }
 
-    long newId = id + 1;
-    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, Long.toString(newId));
+    long newId = entityID + 1;
+    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID,
+        Long.toString(newId));
     try {
       SimalProperties.save();
     } catch (Exception e) {
@@ -122,12 +126,33 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       throw new SimalRepositoryException(
           "Unable to save properties file when creating the next project ID", e);
     }
-    return Long.toString(id);
+    return fullID;
+  }
+
+  public String getUniqueSimalID(String entityID)
+      throws SimalRepositoryException {
+    String instanceID = SimalProperties
+        .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID);
+    StringBuilder fullID;
+    fullID = new StringBuilder(instanceID);
+    fullID.append(":");
+    fullID.append(entityID);
+    return fullID.toString();
+  }
+
+  public String getEntityID(String uniqueID) throws SimalRepositoryException {
+    if (!isValidSimalID(uniqueID)) {
+      throw new SimalRepositoryException(
+          "Attempt get an entity ID from an invalid Simal ID of " + uniqueID);
+    }
+    return uniqueID.substring(uniqueID.lastIndexOf(':') + 1);
   }
 
   public String getNewCategoryID() throws SimalRepositoryException {
-    String strID = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, "1");
-    long id = Long.parseLong(strID);
+    String fullID = null;
+    String strEntityID = SimalProperties.getProperty(
+        SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, "1");
+    long entityID = Long.parseLong(strEntityID);
 
     /**
      * If the properties file is lost for any reason the next ID value will be
@@ -135,28 +160,33 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
      */
     boolean validID = false;
     while (!validID) {
-      if (findCategoryById(Long.toString(id)) == null) {
+      fullID = getUniqueSimalID(Long.toString(entityID));
+      if (findCategoryById(fullID) == null) {
         validID = true;
       } else {
-        id = id + 1;
+        entityID = entityID + 1;
       }
     }
 
-    long newId = id + 1;
-    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, Long.toString(newId));
+    long newId = entityID + 1;
+    SimalProperties.setProperty(
+        SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, Long.toString(newId));
     try {
       SimalProperties.save();
     } catch (Exception e) {
       logger.warn("Unable to save properties file", e);
       throw new SimalRepositoryException(
-          "Unable to save properties file when creating the next category ID", e);
+          "Unable to save properties file when creating the next category ID",
+          e);
     }
-    return Long.toString(id);
+    return fullID;
   }
 
   public String getNewPersonID() throws SimalRepositoryException {
-    String strID = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
-    long id = Long.parseLong(strID);
+    String fullID = null;
+    String strEntityID = SimalProperties.getProperty(
+        SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
+    long entityID = Long.parseLong(strEntityID);
 
     /**
      * If the properties file is lost for any reason the next ID value will be
@@ -164,15 +194,17 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
      */
     boolean validID = false;
     while (!validID) {
-      if (findPersonById(Long.toString(id)) == null) {
+      fullID = getUniqueSimalID(Long.toString(entityID));
+      if (findPersonById(fullID) == null) {
         validID = true;
       } else {
-        id = id + 1;
+        entityID = entityID + 1;
       }
     }
 
-    long newId = id + 1;
-    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID, Long.toString(newId));
+    long newId = entityID + 1;
+    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID,
+        Long.toString(newId));
     try {
       SimalProperties.save();
     } catch (Exception e) {
@@ -180,16 +212,19 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       throw new SimalRepositoryException(
           "Unable to save properties file when creating the next person ID", e);
     }
-    return Long.toString(id);
+
+    return fullID;
   }
-  
-  public void addXMLDirectory(final String dirName) throws SimalRepositoryException {
+
+  public void addXMLDirectory(final String dirName)
+      throws SimalRepositoryException {
     logger.info("Adding XML from " + dirName);
     File dir = new File(dirName);
     if (!dir.isDirectory()) {
-      logger.error("addxmldirectory requires a directory name as the first parameter");
+      logger
+          .error("addxmldirectory requires a directory name as the first parameter");
     }
-    FilenameFilter filter = new FilenameFilter(){
+    FilenameFilter filter = new FilenameFilter() {
       public boolean accept(File dir, String name) {
         if (name.endsWith(".xml") || name.endsWith(".rdf")) {
           return true;
@@ -197,17 +232,20 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
           return false;
         }
       }
-    
+
     };
     File[] files = dir.listFiles(filter);
     for (int i = 0; i < files.length; i++) {
-        try {
-          addProject(files[i].toURI().toURL(), "");
-          logger.info("Added XML from " + files[i].getAbsoluteFile());
-        } catch (MalformedURLException e) {
-          logger.error("Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(), e);
-          throw new SimalRepositoryException("Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(), e);
-        }
+      try {
+        addProject(files[i].toURI().toURL(), "");
+        logger.info("Added XML from " + files[i].getAbsoluteFile());
+      } catch (MalformedURLException e) {
+        logger.error("Unable to add an RDF/XML documet {}"
+            + files[i].getAbsoluteFile(), e);
+        throw new SimalRepositoryException(
+            "Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(),
+            e);
+      }
     }
   }
 
@@ -219,8 +257,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
    * @return the duplicate person or null
    * @throws SimalRepositoryException
    */
-  public IPerson getDuplicate(String email)
-      throws SimalRepositoryException {
+  public IPerson getDuplicate(String email) throws SimalRepositoryException {
     String sha1sum;
     try {
       sha1sum = RDFUtils.getSHA1(email);
@@ -235,5 +272,49 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     } else {
       return null;
     }
+  }
+
+  /**
+   * Ensure an ID is a valid Simal ID. Being valid does not mean that it is
+   * necessarily an ID for this instance of Simal, but that it is a valid ID for
+   * some instance of Simal. Validation does not include checking that the
+   * instance that the ID belongs to is also valid.
+   * 
+   * @param id -
+   *          the ID to validate
+   * @return true if the id is a valid Simal ID
+   */
+  protected boolean isValidSimalID(String id) {
+    if (id == null) {
+      return false;
+    }
+    boolean isValid = false;
+    String instanceID;
+    String entityID;
+    int delimiter = id.lastIndexOf(':');
+    if (delimiter > 0) {
+      instanceID = id.substring(0, delimiter - 1);
+      entityID = id.substring(delimiter + 1);
+      if (instanceID != null && instanceID.length() > 4 && entityID != null
+          && entityID.length() > 0) {
+        isValid = true;
+      }
+    }
+    return isValid;
+  }
+  
+  public boolean isUniqueSimalID(String id) {
+    if (id == null) {
+      return false;
+    }
+    if (id.lastIndexOf(':') > 4 && isValidSimalID(id)) {
+      return true;
+    } else { 
+      return false;
+    }
+  }
+
+  public boolean isTest() {
+    return isTest;
   }
 }

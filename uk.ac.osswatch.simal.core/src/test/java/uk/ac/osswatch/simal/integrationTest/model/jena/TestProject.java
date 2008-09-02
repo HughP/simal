@@ -45,7 +45,7 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public class TestProject extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory
-  .getLogger(TestProject.class);
+      .getLogger(TestProject.class);
 
   private static Set<IPerson> maintainers;
   private static Set<IPerson> developers;
@@ -71,43 +71,45 @@ public class TestProject extends BaseRepositoryTest {
     assertEquals("Have got incorrect number of maintainers",
         BaseRepositoryTest.TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS,
         maintainers.size());
-    assertEquals("Should have one developers", TEST_SIMAL_PROJECT_NUMBER_OF_DEVELOPERS, developers.size());
-    assertEquals("Should have one helpers", TEST_SIMAL_PROJECT_NUMBER_OF_HELPERS, helpers.size());
-    assertEquals("Should have one documenters", TEST_SIMAL_PROJECT_NUMBER_OF_DOCUMENTERS, documenters.size());
-    assertEquals("Should have one translators", TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS, translators.size());
-    assertEquals("Should have one testers", TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS, testers.size());
+    assertEquals("Should have one developers",
+        TEST_SIMAL_PROJECT_NUMBER_OF_DEVELOPERS, developers.size());
+    assertEquals("Should have one helpers",
+        TEST_SIMAL_PROJECT_NUMBER_OF_HELPERS, helpers.size());
+    assertEquals("Should have one documenters",
+        TEST_SIMAL_PROJECT_NUMBER_OF_DOCUMENTERS, documenters.size());
+    assertEquals("Should have one translators",
+        TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS, translators.size());
+    assertEquals("Should have one testers",
+        TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS, testers.size());
   }
 
   @Test
   public void testURI() throws SimalRepositoryException {
-    assertEquals(TEST_SIMAL_PROJECT_URI, project1.getURI().toString());
+    assertEquals("Project URI is incorrect", testProjectURI, project1.getURI());
   }
 
   @Test
   public void testToJSON() throws SimalRepositoryException {
     String json = project1.toJSONRecord();
     logger.debug("Project JSON record is :\n" + json);
-    
-    assertTrue(
-        "JSON file has incorrect project name: " + json,
-        json.contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
-    
-    assertTrue("JSON file does not contain simalID", json.contains("\"simalID\":\"" + TEST_SIMAL_PROJECT_SIMAL_ID));
-    
-    assertTrue(
-        "JSON file has incorrect short description: " + json,
-        json.contains("\",\"shortdesc\":\"" + TEST_SIMAL_PROJECT_SHORT_DESC));
-    
-    assertTrue(
-        "JSON record (incorrectly) has items structure: : " + json,
+
+    assertTrue("JSON file has incorrect project name: " + json, json
+        .contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
+
+    assertTrue("JSON file does not contain simalID", json
+        .contains("\"simalID\":\"" + testProjectID));
+
+    assertTrue("JSON file has incorrect short description: " + json, json
+        .contains("\",\"shortdesc\":\"" + TEST_SIMAL_PROJECT_SHORT_DESC));
+
+    assertTrue("JSON record (incorrectly) has items structure: : " + json,
         !json.startsWith("{ \"items\": ["));
 
     json = project1.toJSON();
     logger.debug("Project JSON file is :\n" + json);
-    
-    assertTrue(
-        "JSON file does not have items structure: " + json,
-        json.startsWith("{ \"items\": ["));
+
+    assertTrue("JSON file does not have items structure: " + json, json
+        .startsWith("{ \"items\": ["));
   }
 
   @Test
@@ -150,7 +152,7 @@ public class TestProject extends BaseRepositoryTest {
       }
       logger.debug("Got developer called {}", person);
       assertNotNull("No person should have a null ID (see "
-          + person.getURI().toString() + ")", person.getSimalID());
+          + person.getURI() + ")", person.getSimalID());
     }
     assertTrue("Project does not appear to have developer called "
         + TEST_SIMAL_PROJECT_DEVELOPERS, hasDeveloper);
@@ -202,8 +204,8 @@ public class TestProject extends BaseRepositoryTest {
   @Test
   public void testGetHomepages() {
     Set<IDoapHomepage> homepages = project1.getHomepages();
-    
-    assertEquals("Incorrect number of home pages", 
+
+    assertEquals("Incorrect number of home pages",
         TEST_SIMAL_PROJECT_NUMBER_OF_HOMEPAGES, homepages.size());
   }
 
@@ -237,7 +239,7 @@ public class TestProject extends BaseRepositoryTest {
     boolean hasMaintainerTwo = false;
     Iterator<IPerson> people = project1.getMaintainers().iterator();
     IPerson person;
-    while ((!hasMaintainerOne || ! !hasMaintainerTwo) && people.hasNext()) {
+    while ((!hasMaintainerOne || !!hasMaintainerTwo) && people.hasNext()) {
       person = people.next();
       logger.debug("Got a maintainer with the label " + person.getLabel());
       String label = person.getLabel();
@@ -261,7 +263,8 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetOSes() {
-    assertEquals(TEST_SIMAL_PROJECT_OS, project1.getOSes().toArray()[0].toString());
+    assertEquals(TEST_SIMAL_PROJECT_OS, project1.getOSes().toArray()[0]
+        .toString());
   }
 
   @Test
@@ -340,9 +343,9 @@ public class TestProject extends BaseRepositoryTest {
   }
 
   @Test
-  public void testAddProjectFromScratch() throws SimalRepositoryException, URISyntaxException {
-    String uri = RDFUtils.PROJECT_NAMESPACE_URI
-        + "TestingProjectFromScratch";
+  public void testAddProjectFromScratch() throws SimalRepositoryException,
+      URISyntaxException {
+    String uri = RDFUtils.PROJECT_NAMESPACE_URI + "TestingProjectFromScratch";
     IProject project;
     try {
       project = getRepository().createProject(uri);
@@ -365,16 +368,16 @@ public class TestProject extends BaseRepositoryTest {
    * 
    * @throws SimalRepositoryException
    * @throws DuplicateURIException
-   * @throws URISyntaxException 
+   * @throws URISyntaxException
    */
   @Test
-  public void testId() throws SimalRepositoryException, DuplicateURIException, URISyntaxException {
-    assertEquals("Test project ID incorrect", TEST_SIMAL_PROJECT_SIMAL_ID, project1.getSimalID());
+  public void testId() throws SimalRepositoryException, DuplicateURIException,
+      URISyntaxException {
+    assertEquals("Test project ID incorrect", testProjectID,
+        project1.getSimalID());
 
-    String uri1 = RDFUtils.PROJECT_NAMESPACE_URI
-        + "TestingId1";
-    String uri2 = RDFUtils.PROJECT_NAMESPACE_URI
-        + "TestingId2";
+    String uri1 = RDFUtils.PROJECT_NAMESPACE_URI + "TestingId1";
+    String uri2 = RDFUtils.PROJECT_NAMESPACE_URI + "TestingId2";
 
     IProject project;
     project = getRepository().createProject(uri1);
@@ -398,31 +401,42 @@ public class TestProject extends BaseRepositoryTest {
     project = getRepository().getProject(uri2);
     project.delete();
   }
-  
+
   @Test
   public void testToXML() throws SimalRepositoryException {
     String xml = project1.toXML();
     assertTrue("XML does not contain rdf:RDF", xml.contains("rdf:RDF"));
-    //assertTrue("XML does not contain doap:Project", xml.contains("doap:Project"));
+    // assertTrue("XML does not contain doap:Project",
+    // xml.contains("doap:Project"));
   }
-  
+
   @Test
   public void testGetAllPeople() throws SimalRepositoryException {
     HashSet<IPerson> people = project1.getAllPeople();
     assertNotNull(people);
-    assertEquals("Got the wrong number of people", BaseRepositoryTest.getNumberOfParticipants(), people.size());
+    assertEquals("Got the wrong number of people", BaseRepositoryTest
+        .getNumberOfParticipants(), people.size());
   }
-  
-  @Test 
-  public void testAddAndRemoveDeveloper() throws SimalRepositoryException {
+
+  @Test
+  public void testAddAndRemoveDeveloper() throws SimalRepositoryException,
+      DuplicateURIException {
     Set<IPerson> prePeople = project1.getDevelopers();
-    IPerson person = (IPerson) prePeople.toArray()[0];
-    project1.removeDeveloper(person);
-    Set<IPerson> postPeople = project1.getDevelopers();
-    assertEquals("Failed to remove a developer from the project", prePeople.size() - 1, postPeople.size());
-    
+
+    String uri = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
+    IPerson person;
+    person = getRepository().createPerson(uri);
+
     project1.addDeveloper(person);
+    Set<IPerson> postPeople = project1.getDevelopers();
+    assertTrue("Failed to add a developer to the project",
+        prePeople.size() < postPeople.size());
+
+    project1.removeDeveloper(person);
     postPeople = project1.getDevelopers();
-    assertEquals("Failed to add a developer to the project", prePeople.size(), postPeople.size());
+    assertTrue("Failed to remove a developer from the project", prePeople
+        .size() == postPeople.size());
+
+    person.delete();
   }
 }

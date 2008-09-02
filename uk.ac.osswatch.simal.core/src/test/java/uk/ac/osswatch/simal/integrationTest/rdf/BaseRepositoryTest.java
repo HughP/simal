@@ -34,9 +34,7 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
  */
 public abstract class BaseRepositoryTest {
 
-  public static final String TEST_SIMAL_PROJECT_URI = RDFUtils.getDefaultProjectURI("200");
-  public static final String TEST_SIMAL_DEVELOPER_URI = RDFUtils.getDefaultPersonURI("15");
-  public static final String TEST_SIMAL_DOCUMENTOR_URI = RDFUtils.getDefaultPersonURI("16");
+  public static final String TEST_PROJECT_SEEALSO = "http://simal.oss-watch.ac.uk/simalTest#";
   public static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
   public static final String TEST_SIMAL_PROJECT_SHORT_DESC = "A simple DOAP file used during automated testing.";
   public static final String TEST_SIMAL_PROJECT_CREATED = "2007-08-08";
@@ -97,8 +95,6 @@ public abstract class BaseRepositoryTest {
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
   
-  public static final String TEST_SIMAL_PROJECT_SIMAL_ID = "200";
-
   protected final static String project1SeeAlso = "http://foo.org/seeAlso";
   
   protected final static String KNOWN_PERSON_SEALSO_URI = "http://foo.org/people/knownPerson/foaf.rdf";
@@ -106,6 +102,12 @@ public abstract class BaseRepositoryTest {
   private static ISimalRepository repository;
 
   protected static IProject project1;
+  public static String testProjectURI;
+  protected static String testProjectID;
+  
+  public static String testDeveloperURI;
+  public static String testDocumentorURI;
+  protected static String testDeveloperID;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -123,23 +125,17 @@ public abstract class BaseRepositoryTest {
       repository.setIsTest(true);
       repository.initialise(null);
     }
-    project1 = getSimalTestProject();
-    IPerson developer = repository.getPerson(TEST_SIMAL_DEVELOPER_URI);
-    developer.setSimalID("15");
-  }
-
-  /**
-   * Get the default test project. This is generated from the testDOAP.xml file.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   * @throws URISyntaxException 
-   */
-  protected static IProject getSimalTestProject()
-      throws SimalRepositoryException, URISyntaxException {
-    IProject project;
-    project = repository.getProject(TEST_SIMAL_PROJECT_URI);
-    return project;
+    project1 = getRepository().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+    IPerson developer = repository.findPersonBySeeAlso("http://foo.org/~developer/#me");
+    testDeveloperID = developer.getSimalID();
+    
+    IPerson documentor = repository.findPersonBySeeAlso("http://foo.org/~documentor/#me");
+    String documentorID = documentor.getSimalID(); 
+    
+    testProjectID = project1.getSimalID();
+    testProjectURI = RDFUtils.getDefaultProjectURI(testProjectID);
+    testDeveloperURI = RDFUtils.getDefaultPersonURI(testDeveloperID);
+    testDocumentorURI = RDFUtils.getDefaultPersonURI(documentorID);
   }
 
   /**
