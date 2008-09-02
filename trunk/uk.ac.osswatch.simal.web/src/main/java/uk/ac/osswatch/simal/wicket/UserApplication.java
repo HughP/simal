@@ -39,11 +39,6 @@ import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
  * to view Simal registries.
  */
 public class UserApplication extends WebApplication {
-	/**
-	 * The qname for the project to use if no other project is specified.
-	 */
-	public static final String DEFAULT_PROJECT_URI = 
-			RDFUtils.getDefaultProjectURI("200");
 
 	private static ISimalRepository repository;
 

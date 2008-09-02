@@ -25,21 +25,34 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public abstract class TestBase {
+  public static final String TEST_PROJECT_SEEALSO = "http://simal.oss-watch.ac.uk/simalTest#";
   protected static final int NUMBER_OF_TEST_CATEGORIES = 53;
   protected static final int NUMBER_OF_TEST_PROJECTS = 6;
-  protected static final int NUMBER_OF_TEST_PEOPLE = 17;
-  public static final String TEST_SIMAL_DEVELOPER_URI = RDFUtils.getDefaultPersonURI("15");  protected static WicketTester tester;
+  protected static final int NUMBER_OF_TEST_PEOPLE = 18;  
+  protected static WicketTester tester;
+  protected static String projectURI;
+  protected static String developerURI;
   
   private static final Logger logger = LoggerFactory.getLogger(TestBase.class);
 
   @BeforeClass
   public static void setUpBeforeClass() throws SimalRepositoryException {
     UserApplication.setIsTest(true);
+    ISimalRepository repository = UserApplication.getRepository();
+    
+    IProject project = repository.findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+    projectURI = project.getURI();
+    
+    IPerson developer = repository.findPersonBySeeAlso("http://foo.org/~developer/#me");
+    developerURI = developer.getURI();
+    
     tester = new WicketTester();
     logProjectData("before");
   }

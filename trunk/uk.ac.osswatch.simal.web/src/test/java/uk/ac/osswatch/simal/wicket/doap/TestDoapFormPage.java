@@ -46,7 +46,7 @@ public class TestDoapFormPage extends TestBase {
   private static final String TEST_NAME = "Form Project";
   private static final String TEST_SHORT_DESC = "A project added by filling in the DOAP form";
   private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
-  private static final String TEST_RAW_RDF_URI = RDFUtils.getDefaultProjectURI("99999");
+  private static final String TEST_RAW_RDF_URI = "simal:99999";
   private static final String TEST_RAW_RDF = "<Project xmlns:simal=\"http://simal.oss-watch.ac.uk/ns/0.2/simal#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:foaf=\"http://xmlns.com/foaf/0.1/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns=\"http://usefulinc.com/ns/doap#\" rdf:about=\""
       + TEST_RAW_RDF_URI
       + "\"> <simal:projectId>99999</simal:projectId> <created>2008-02-22</created> <name>Load From RAW RDF Test</name> </Project>";
@@ -163,12 +163,12 @@ public class TestDoapFormPage extends TestBase {
     tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
 
-    IProject project = UserApplication.getRepository().getProject(
+    IProject project = UserApplication.getRepository().findProjectBySeeAlso(
         TEST_RAW_RDF_URI);
     assertNotNull(project);
 
     project.delete();
-    project = UserApplication.getRepository().getProject(TEST_RAW_RDF_URI);
+    project = UserApplication.getRepository().findProjectBySeeAlso(TEST_RAW_RDF_URI);
     assertNull(project);
   }
 
