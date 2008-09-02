@@ -44,11 +44,13 @@ public interface IPerson extends IFoafResource {
   
   /**
    * Set the Simal ID for this person. This is a unique identifier
-   * within the repository from which it was retrieved.
-   * 
+   * within the repository from which it was retrieved. The value of
+   * the ID is any alphanumeric string that does not contain a ':'.
+   *
+   * @param newId any alphanumeric string that does not contain a ':'.
    * @return 
    */
-  public void setSimalID(String newId);
+  public void setSimalID(String newId) throws SimalRepositoryException;
   
   /**
    * Get all the people that this person knows
@@ -80,15 +82,30 @@ public interface IPerson extends IFoafResource {
 
 
   /**
-   * Get all names for this person.
+   * Get all names for this person. If there is no name defined
+   * then return the givennames. If there are no given names either
+   * then return an empty set.
+   * 
+   * Note that this can sometimes give some confusing behaviour as
+   * getNames() when there is no name will return a result, then
+   * after an addName(name) call this method will return a different
+   * result without the original givennames.
+   * 
+   * @TODO: consider changing this behaviour and having the client
+   * decide what to do when there is no name.
    * @return
    */
   public Set<String> getNames();
   
   /**
-   * Add a name to the list of names for this person.
+   * @deprecated use addName(name) instead (scheduled for removal in 0.3)
    */
   public void setName(String name);
+
+  /**
+   * Add a name to the set of names for this person.
+   */
+  public void addName(String name);
   
   /**
    * Get all the homepages for this person.

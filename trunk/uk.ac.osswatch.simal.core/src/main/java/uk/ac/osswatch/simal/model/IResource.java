@@ -84,6 +84,20 @@ public interface IResource extends IResourceService, Serializable {
   public Object getRepositoryResource();
 
   /**
+   * Set a unique Simal ID for this person. This is a 
+   * world unique identifier for a Simal resource. It is
+   * constructed from the value of simal.instance.id property, 
+   * followed by ':', followed by  
+   * the repository unique identifier for the resource.
+   * That is:
+   * 
+   * $simal.instance.id:$simal.resource.id
+   * 
+   * @see getSimalID()
+   */
+  public String getUniqueSimalID() throws SimalRepositoryException;
+
+  /**
    * Get the Simal ID for this resource. This is a unique identifier
    * within the repository from which it was retrieved.
    * 
@@ -91,13 +105,15 @@ public interface IResource extends IResourceService, Serializable {
    * 
    * @return the Simal ID or null if none has been defined
    * @throws SimalRepositoryException 
+   * @see getUniqueSimalID()
    */
   public String getSimalID() throws SimalRepositoryException;
   
   /**
    * Set the Simal ID for this resource. This is a unique identifier
    * within the repository from which it was retrieved.
+   * @throws SimalRepositoryException 
    * 
    */
-  public void setSimalID(String newID);
+  public void setSimalID(String newID) throws SimalRepositoryException;
 }

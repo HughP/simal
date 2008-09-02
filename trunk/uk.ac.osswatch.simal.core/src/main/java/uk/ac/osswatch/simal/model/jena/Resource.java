@@ -194,10 +194,18 @@ public class Resource implements IResource {
   }
 
   public String getSimalID() throws SimalRepositoryException {
-    return null;
+    return getUniqueSimalID();
   }
 
-  public void setSimalID(String newID) {
+  /**
+   * Base resources do not have a Simal ID. This method will 
+   * always return null unless a class overrides it.
+   */
+  public String getUniqueSimalID() throws SimalRepositoryException {
+    return null;
+  }
+  
+  public void setSimalID(String newID) throws SimalRepositoryException {
     logger.warn("Attempt to set the Simal ID on a base resource, must override the setSimalID method in the model.");
   }
 

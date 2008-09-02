@@ -52,6 +52,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 /**
  * A set of RDF utils for working with RDF data.
@@ -75,9 +76,9 @@ public class RDFUtils {
   public static final String SIMAL_NS = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
   private static File lastFile;
 
-  private RDFUtils() {    
+  private RDFUtils() {
   }
-  
+
   /**
    * Add rdf:about to all blank nodes other than project and people. Projects
    * and people are dealt with separately once we have worked out the simalID
@@ -186,7 +187,7 @@ public class RDFUtils {
   }
 
   /**
-   * Get the project name from the supplied doiap:Project node.
+   * Get the project name from the supplied doap:Project node.
    * 
    * @param project
    * @return
@@ -308,13 +309,13 @@ public class RDFUtils {
 
           // perform various checks on the document
           deDupeProjects(doc, repo);
-          checkProjectID(doc, repo);
+          checkProjectIDs(doc, repo);
 
           checkPersonSHA1(doc);
           deDupePeople(doc, repo);
           checkPersonIDs(doc, repo);
 
-          createSimalURIs(doc);
+          createSimalURIs(doc, repo);
 
           removeBNodes(doc);
 
@@ -405,23 +406,32 @@ public class RDFUtils {
    * 
    * @param doc
    * @param repo
+   * @throws DOMException 
+   * @throws SimalRepositoryException 
    */
-  private static void createSimalURIs(Document doc) {
+  private static void createSimalURIs(Document doc, ISimalRepository repo) throws SimalRepositoryException, DOMException {
+    String uri = null;
+    
     // project URIs
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     for (int i = 0; i < projects.getLength(); i++) {
       Element project = (Element) projects.item(i);
       String originalURI = project.getAttributeNS(RDF_NS, "about");
       if (!originalURI.startsWith(PROJECT_NAMESPACE_URI)) {
-        NodeList simalIDs = project.getElementsByTagNameNS(SIMAL_NS,
-            SIMAL_PROJECT_ID);
-        String id = simalIDs.item(0).getTextContent();
-        String uri = getDefaultProjectURI(id);
-        project.setAttributeNS(RDF_NS, "about", uri);
         addSeeAlso(project, originalURI);
-        logger.info("resource with URI " + originalURI
-            + " given a local URI of " + uri);
       }
+      NodeList simalIDs = project.getElementsByTagNameNS(SIMAL_NS,
+        SIMAL_PROJECT_ID);
+      for (int idIdx = 0; idIdx < simalIDs.getLength(); idIdx ++) {
+        Node idNode = simalIDs.item(idIdx);
+        if (idNode.getParentNode().equals(project)) {
+          String id = repo.getEntityID(idNode.getTextContent());
+          uri = getDefaultProjectURI(id);
+          project.setAttributeNS(RDF_NS, "about", uri);
+        }
+      }
+      logger.info("Project with URI '{}' given a local URI of {}",
+          new String[] { originalURI, uri });
     }
 
     // people URIs
@@ -430,12 +440,19 @@ public class RDFUtils {
       Element person = (Element) people.item(i);
       String originalURI = person.getAttributeNS(RDF_NS, "about");
       if (!originalURI.startsWith(PERSON_NAMESPACE_URI)) {
-        String id = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID)
-            .item(0).getTextContent();
-        String uri = getDefaultPersonURI(id);
-        person.setAttributeNS(RDF_NS, "about", uri);
         addSeeAlso(person, originalURI);
       }
+      NodeList idNL = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID);
+      for (int idIdx = 0; idIdx < idNL.getLength(); idIdx ++) {
+        Node idNode = idNL.item(idIdx);
+        if (idNode.getParentNode().equals(person)) {
+          String id = repo.getEntityID(idNode.getTextContent());
+          uri = getDefaultPersonURI(id);
+          person.setAttributeNS(RDF_NS, "about", uri);
+        }
+      }
+      logger.info("Person with URI '{}' given a local URI of {}",
+          new String[] { originalURI, uri });
     }
   }
 
@@ -447,13 +464,13 @@ public class RDFUtils {
    */
   private static void addSeeAlso(Node node, String uri) {
     if (uri == null || uri.equals("")) {
-      logger.warn("Attempt to set seeAlso to a null or empty value");
       return;
     }
     Element seeAlso = node.getOwnerDocument().createElementNS(RDFS_NS,
         "seeAlso");
     seeAlso.setAttributeNS(RDF_NS, "resource", uri);
     node.appendChild(seeAlso);
+    logger.debug("Added rdfs:seeAlso=\"{}\"", uri);
   }
 
   /**
@@ -467,7 +484,12 @@ public class RDFUtils {
    */
   private static File writeAnnotatedFile(URL sourceURL, Document doc)
       throws FileNotFoundException, IOException {
-    File annotatedFile = RDFUtils.getAnnotatedFile(sourceURL);
+    File annotatedFile;
+    try {
+      annotatedFile = RDFUtils.getAnnotatedFile(sourceURL);
+    } catch (SimalRepositoryException e) {
+      throw new IOException("Unable to annotate source file: " + e.getMessage());
+    }
 
     OutputFormat format = new OutputFormat(doc);
     format.setIndenting(false);
@@ -479,7 +501,7 @@ public class RDFUtils {
   }
 
   /**
-   * Adds a
+   * Adds the appropriatecurrentProject tuple to each person
    * 
    * @param doc
    * @param repo
@@ -489,9 +511,10 @@ public class RDFUtils {
     for (int iper = 0; iper < people.getLength(); iper = iper + 1) {
       Node person = people.item(iper);
       Node grandparent = person.getParentNode().getParentNode();
-      if (grandparent.getNamespaceURI().equals(DOAP_NS) && grandparent.getLocalName().equals("Project")) {
-        String uri = grandparent.getAttributes().getNamedItemNS(
-            RDF_NS, "about").getNodeValue();
+      if (grandparent.getNamespaceURI().equals(DOAP_NS)
+          && grandparent.getLocalName().equals("Project")) {
+        String uri = grandparent.getAttributes()
+            .getNamedItemNS(RDF_NS, "about").getNodeValue();
         Element projNode = doc.createElementNS(FOAF_NS, "currentProject");
         projNode.setAttributeNS(RDF_NS, "resource", uri);
         person.appendChild(projNode);
@@ -542,11 +565,9 @@ public class RDFUtils {
   }
 
   /**
-   * For every mailbox associated with a person create an 
-   * sha1 checksum.
+   * For every mailbox associated with a person create an sha1 checksum.
    * 
    * @param doc
-   * @param repo
    * @throws ISimalRepositoryException
    */
   private static void checkPersonSHA1(Document doc)
@@ -608,7 +629,6 @@ public class RDFUtils {
    * @param repo
    */
   private static void addProjectSeeAlso(Document doc, URL sourceURL) {
-    logger.debug("Check project see also in RDF file");
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     for (int i = 0; i < projects.getLength(); i++) {
       Node project = projects.item(i);
@@ -655,7 +675,9 @@ public class RDFUtils {
   }
 
   /**
-   * Check that all people elements have an ID associated with them.
+   * Check that all people elements have an ID for this 
+   * instance of Simal associated with them. If there are IDs
+   * for other instances of Simal then ad rdf:seeAlso nodes.
    * 
    * @param doc
    * @param repo
@@ -663,14 +685,54 @@ public class RDFUtils {
    */
   private static void checkPersonIDs(Document doc, ISimalRepository repo)
       throws SimalRepositoryException {
-    logger.debug("Check person IDs in RDF file");
     NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
     Element person;
     NodeList simalIDNL;
-    String id = null;
+    String simalPersonID = null;
     Node simalIDNode;
     for (int i = 0; i < people.getLength(); i = i + 1) {
       person = (Element) people.item(i);
+
+      // if this is a resource reference and the resource doesn't
+      // yet exist in the repository then create the resource and
+      // give it an iD
+      String resourceURI = person.getAttributeNS(RDF_NS, "resource");
+      if (resourceURI.length() > 0) {
+        IPerson existingPerson = SimalRepository.getInstance()
+            .findPersonBySeeAlso(resourceURI);
+        if (existingPerson == null) {
+          simalPersonID = SimalRepository.getInstance().getNewPersonID();
+          simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PERSON_ID);
+          Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
+              "datatype");
+          attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
+          ((Element) simalIDNode).setAttributeNodeNS(attr);
+
+          Node text = doc.createTextNode(simalPersonID);
+          simalIDNode.appendChild(text);
+          person.appendChild(simalIDNode);
+
+          person.removeAttributeNS(RDF_NS, "resource");
+          addSeeAlso(person, resourceURI);
+        }
+      }
+
+      // make all simal ID's for other servers a seeAlso tuple
+      simalIDNL = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID);
+      for (int iDidx = 0; iDidx < simalIDNL.getLength(); iDidx++) {
+        Node idNode = simalIDNL.item(iDidx);
+        if (idNode.getParentNode().equals(person)) {
+          simalPersonID = idNode.getTextContent().trim();
+          if (!simalPersonID.startsWith(SimalProperties
+              .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID))) {
+            addSeeAlso(person, "simal:" + simalPersonID);
+            person.removeChild(idNode);
+          }
+        }
+      }
+
+      // check there is a valid simal ID for this person on this instance of
+      // Simal
       simalIDNL = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID);
       if (simalIDNL.getLength() == 0) {
         IPerson simalPerson;
@@ -680,17 +742,17 @@ public class RDFUtils {
             String uri = about.getTextContent();
             simalPerson = repo.getPerson(uri);
             if (simalPerson != null) {
-              id = simalPerson.getSimalID();
+              simalPersonID = simalPerson.getSimalID();
             } else {
-              id = repo.getNewPersonID();
+              simalPersonID = repo.getNewPersonID();
             }
           } else {
             // we've already checked for duplicates and, where found, we
-            // have given the node an rdf:about, so if there still isn't 
-            // one this is a new person and therefore needs a Simal ID             
-            id = repo.getNewPersonID();
+            // have given the node an rdf:about, so if there still isn't
+            // one this is a new person and therefore needs a Simal ID
+            simalPersonID = repo.getNewPersonID();
             if (about != null && !about.getTextContent().equals("")) {
-              String[] params = {id, about.getTextContent()};
+              String[] params = { simalPersonID, about.getTextContent() };
               logger.info("Assigning Simal ID of {} to {}", params);
             }
           }
@@ -703,7 +765,12 @@ public class RDFUtils {
         attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
         ((Element) simalIDNode).setAttributeNodeNS(attr);
 
-        Node text = doc.createTextNode(id);
+        Node text;
+        if (repo.isUniqueSimalID(simalPersonID)) {
+          text = doc.createTextNode(simalPersonID);
+        } else {
+          text = doc.createTextNode(repo.getUniqueSimalID(simalPersonID));
+        }
         simalIDNode.appendChild(text);
         person.appendChild(simalIDNode);
       }
@@ -711,48 +778,103 @@ public class RDFUtils {
   }
 
   /**
-   * Check that the project element has an ID associated with them.
+   * Check that the project element has an ID associated with this 
+   * instance of Simal associated with it. If there are IDs
+   * for other instances of Simal then ad rdf:seeAlso nodes.
    * 
    * @param doc
    * @param repo
    * @throws ISimalRepositoryException
    */
-  private static void checkProjectID(Document doc, ISimalRepository repo)
+  private static void checkProjectIDs(Document doc, ISimalRepository repo)
       throws SimalRepositoryException {
-    logger.debug("Check project IDs in RDF file");
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     Element project;
     NodeList simalIDNL;
-    String id = null;
+    String projectID = null;
     Node simalIDNode;
+    
     for (int i = 0; i < projects.getLength(); i = i + 1) {
       project = (Element) projects.item(i);
+      
+      // if this is a resource reference and the resource doesn't
+      // yet exist in the repository then create the resource and
+      // give it an iD
+      String resourceURI = project.getAttributeNS(RDF_NS, "resource");
+      if (resourceURI.length() > 0) {
+        IProject existingProject = SimalRepository.getInstance()
+            .findProjectBySeeAlso(resourceURI);
+        if (existingProject == null) {
+          projectID = SimalRepository.getInstance().getNewProjectID();
+          simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PROJECT_ID);
+          Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
+              "datatype");
+          attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
+          ((Element) simalIDNode).setAttributeNodeNS(attr);
+
+          Node text = doc.createTextNode(projectID);
+          simalIDNode.appendChild(text);
+          project.appendChild(simalIDNode);
+
+          project.removeAttributeNS(RDF_NS, "resource");
+          addSeeAlso(project, resourceURI);
+        }
+      }
+
+      // make all simal ID's for other servers a seeAlso tuple
+      simalIDNL = project.getElementsByTagNameNS(SIMAL_NS, SIMAL_PROJECT_ID);
+      for (int iDidx = 0; iDidx < simalIDNL.getLength(); iDidx++) {
+        Node idNode = simalIDNL.item(iDidx);
+        if (idNode.getParentNode().equals(project)) {
+          projectID = idNode.getTextContent().trim();
+          if (!projectID.startsWith(SimalProperties
+              .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID))) {
+            addSeeAlso(project, "simal:" + projectID);
+            project.removeChild(idNode);
+          }
+        }
+      }
+
+      // check there is a valid simal ID for this project on this instance of
+      // Simal
       simalIDNL = project.getElementsByTagNameNS(SIMAL_NS, SIMAL_PROJECT_ID);
       if (simalIDNL.getLength() == 0) {
+        IProject simalProject;
         try {
           Attr about = project.getAttributeNodeNS(RDF_NS, "about");
           if (about != null && !about.getTextContent().equals("")) {
-            String uri = about.getNodeValue();
-            if (repo.containsProject(uri)) {
-              id = repo.getProject(uri).getSimalID();
+            String uri = about.getTextContent();
+            simalProject = repo.getProject(uri);
+            if (simalProject != null) {
+              projectID = simalProject.getSimalID();
             } else {
-              id = repo.getNewProjectID();
+              projectID = repo.getNewProjectID();
             }
           } else {
-            id = repo.getNewProjectID();
+            // we've already checked for duplicates and, where found, we
+            // have given the node an rdf:about, so if there still isn't
+            // one this is a new person and therefore needs a Simal ID
+            projectID = repo.getNewProjectID();
+            if (about != null && !about.getTextContent().equals("")) {
+              String[] params = { projectID, about.getTextContent() };
+              logger.info("Assigning Simal ID of {} to {}", params);
+            }
           }
         } catch (Exception e) {
-          throw new SimalRepositoryException(
-              "Unable to create URI for project", e);
+          throw new SimalRepositoryException("Unable to get project", e);
         }
         simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PROJECT_ID);
-
         Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
             "datatype");
         attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
         ((Element) simalIDNode).setAttributeNodeNS(attr);
 
-        Node text = doc.createTextNode(id);
+        Node text;
+        if (repo.isUniqueSimalID(projectID)) {
+          text = doc.createTextNode(projectID);
+        } else {
+          text = doc.createTextNode(repo.getUniqueSimalID(projectID));
+        }
         simalIDNode.appendChild(text);
         project.appendChild(simalIDNode);
       }
@@ -773,8 +895,6 @@ public class RDFUtils {
    */
   private static void deDupePeople(Document doc, ISimalRepository repo)
       throws DOMException, SimalRepositoryException {
-    logger.debug("deDupePeople found in RDF file");
-    
     // handle duplicate people identified by their mbox_sha1sum
     NodeList sha1sums = doc.getElementsByTagNameNS(FOAF_NS, "mbox_sha1sum");
     for (int i = 0; i < sha1sums.getLength(); i = i + 1) {
@@ -782,21 +902,25 @@ public class RDFUtils {
       String sha1Sum = sha1sumNode.getFirstChild().getNodeValue().trim();
       IPerson person = repo.findPersonBySha1Sum(sha1Sum);
       if (person != null) {
-        String[] params = {person.toString(),  person.getURI()};
-        logger.info("Merging duplicate person based on email SHA1 of {} into {}", params);
+        logger.info(
+            "Merging duplicate person based on email SHA1 of {} into {}",
+            new String[] { person.toString(), person.getURI() });
         Element personNode = (Element) sha1sumNode.getParentNode();
         personNode.setAttributeNS(RDF_NS, "about", person.getURI());
       }
-      
+
       // Check there are no duplicates in the same file
       for (int idx = 0; idx < sha1sums.getLength(); idx = idx + 1) {
         String thisSum = sha1sums.item(idx).getFirstChild().getNodeValue()
             .trim();
         if (i != idx && sha1sumNode.getTextContent().equals(thisSum)) {
-          logger.info("Merging duplicate person found in source file based on email SHA1 of {}", thisSum);
+          logger
+              .info(
+                  "Merging duplicate person found in source file based on email SHA1 of {}",
+                  thisSum);
           Element personNode = (Element) sha1sums.item(idx).getParentNode();
-          personNode.setAttributeNS(RDF_NS, "about", sha1sumNode.getAttributeNS(
-              RDF_NS, "about"));
+          personNode.setAttributeNS(RDF_NS, "about", sha1sumNode
+              .getAttributeNS(RDF_NS, "about"));
         }
       }
     }
@@ -810,10 +934,10 @@ public class RDFUtils {
       if (!aboutURI.equals("")) {
         IPerson person = repo.findPersonBySeeAlso(aboutURI);
         if (person != null) {
-          String[] params = {aboutURI,  person.getURI()};
-          logger.info("Merging duplicate person based on rdf:about of {} into {}", params);
-          personNode
-              .setAttributeNS(RDF_NS, "about", person.getURI());
+          logger.info(
+              "Merging duplicate person based on rdf:about of {} into {}",
+              new String[] { aboutURI, person.getURI() });
+          personNode.setAttributeNS(RDF_NS, "about", person.getURI());
         }
       }
 
@@ -825,21 +949,32 @@ public class RDFUtils {
         String uri = seeAlso.getAttributeNS(RDF_NS, "resource");
         IPerson person = repo.findPersonBySeeAlso(uri);
         if (person != null) {
-          String[] params = {uri,  person.getURI()};
-          logger.info("Merging duplicate person based on rdfs:seeAlso of {} into {}", params);
-          personNode
-              .setAttributeNS(RDF_NS, "about", person.getURI());
+          String[] params = { uri, person.getURI() };
+          logger.info(
+              "Merging duplicate person based on rdfs:seeAlso of {} into {}",
+              params);
+          personNode.setAttributeNS(RDF_NS, "about", person.getURI());
         }
-                
+
         // Handle duplicates of the same person in the same RDF file
         NodeList allSeeAlsos = doc.getElementsByTagNameNS(RDFS_NS, "seeAlso");
         for (int idx = 0; idx < allSeeAlsos.getLength(); idx = idx + 1) {
           Element thisSeeAlso = (Element) allSeeAlsos.item(idx);
-          String thisURI = thisSeeAlso.getAttributeNS(RDF_NS,
-              "resource");
+          String thisURI = thisSeeAlso.getAttributeNS(RDF_NS, "resource");
           if (!thisSeeAlso.equals(seeAlso) && uri.equals(thisURI)) {
-            logger.info("Merging duplicate person in source file based on rdfs:seeAlso of {}", thisURI);
-            personNode.setAttributeNS(RDF_NS, "resource", uri);
+            logger
+                .info(
+                    "Merging duplicate person in source file based on rdfs:seeAlso of {}",
+                    thisURI);
+            Node otherPerson = thisSeeAlso.getParentNode();
+            NodeList children = otherPerson.getChildNodes();
+            for (int childIdx = 0; childIdx < children.getLength(); childIdx++) {
+              Node child = children.item(childIdx);
+              otherPerson.removeChild(child);
+              personNode.appendChild(child);
+            }
+            otherPerson.getParentNode().getParentNode().removeChild(
+                otherPerson.getParentNode());
           }
         }
       }
@@ -873,7 +1008,7 @@ public class RDFUtils {
             + project.toString() + " into " + project.getURI());
         Element projectNode = (Element) homepage.getParentNode();
         projectNode
-            .setAttributeNS(RDF_NS, "about", project.getURI().toString());
+            .setAttributeNS(RDF_NS, "about", project.getURI());
       }
     }
 
@@ -889,7 +1024,7 @@ public class RDFUtils {
             + project.toString() + " into " + project.getURI());
         Element projectNode = (Element) seeAlso.getParentNode();
         projectNode
-            .setAttributeNS(RDF_NS, "about", project.getURI().toString());
+            .setAttributeNS(RDF_NS, "about", project.getURI());
       }
     }
 
@@ -902,8 +1037,7 @@ public class RDFUtils {
       if (project != null) {
         logger.info("Merging duplicate project (based on rdf:about): "
             + project.toString() + " into " + project.getURI());
-        projectElement.setAttributeNS(RDF_NS, "about", project.getURI()
-            .toString());
+        projectElement.setAttributeNS(RDF_NS, "about", project.getURI());
       }
     }
   }
@@ -913,12 +1047,20 @@ public class RDFUtils {
    * name.
    * 
    * @return
+   * @throws SimalRepositoryException
    */
-  public static File getAnnotatedDoapFile(String filename) {
+  public static File getAnnotatedDoapFile(String filename)
+      throws SimalRepositoryException {
     String writefile;
-    File fileStoreDir = new File(SimalProperties
-        .getProperty(SimalProperties.PROPERTY_SIMAL_DOAP_FILE_STORE)
-        + File.separator + "simal-uploads");
+    File fileStoreDir;
+    try {
+      fileStoreDir = new File(SimalProperties
+          .getProperty(SimalProperties.PROPERTY_SIMAL_DOAP_FILE_STORE)
+          + File.separator + "simal-uploads");
+    } catch (SimalRepositoryException e) {
+      throw new SimalRepositoryException(
+          "Unable to create the filesrote for annotated files");
+    }
     fileStoreDir.mkdirs();
     String path = fileStoreDir.getAbsolutePath();
     if (!(filename.endsWith(".rdf") || filename.endsWith(".xml"))) {
@@ -936,8 +1078,9 @@ public class RDFUtils {
    * the given URL.
    * 
    * @return
+   * @throws SimalRepositoryException
    */
-  public static File getAnnotatedFile(URL url) {
+  public static File getAnnotatedFile(URL url) throws SimalRepositoryException {
     String filename;
     String path = url.getPath();
     int startName = path.lastIndexOf("/");

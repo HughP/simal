@@ -44,7 +44,7 @@ public class TestResource extends BaseRepositoryTest {
   public void testDeleteEntity() throws SimalRepositoryException, URISyntaxException {
     assertNotNull(project1);
     project1.delete();
-    IProject project = getSimalTestProject();
+    IProject project = getRepository().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
     assertNull("The simal project should have been deleted", project);
     // force the repo to be rebuilt
     getRepository().destroy();
@@ -78,8 +78,8 @@ public class TestResource extends BaseRepositoryTest {
   
   @Test
   public void testSources() throws SimalRepositoryException {
-    Set sources = project1.getSources();
-    assertEquals("Not enough data sources identified", 3, sources.size());
+    Set<String> sources = project1.getSources();
+    assertEquals("INcorrect number of data sources identified", 4, sources.size());
   }
 
 }

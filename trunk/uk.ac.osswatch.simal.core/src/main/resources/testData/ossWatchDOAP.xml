@@ -61,7 +61,6 @@
 
     <maintainer>
       <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
-        <simal:personId>15</simal:personId>
         <foaf:name>Ross Gardler</foaf:name>
         <foaf:mbox rdf:resource="mailto:rgardler@apache.org"/>
         <foaf:mbox rdf:resource="mailto:ross.gardler@oucs.ox.ac.uk"/>

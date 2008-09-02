@@ -119,11 +119,11 @@ public interface ISimalRepository {
   public IPerson getPerson(String uri) throws SimalRepositoryException;
 
   /**
-   * Get a person with a given simal id.
+   * Get a person with a given Simal id.
    * 
-   * @param id
+   * @param id - world unique Simal ID
    * @return
-   * @throws SimalRepositoryException
+   * @throws SimalRepositoryException if the ID is not a world unique one.
    */
   public IPerson findPersonById(String id) throws SimalRepositoryException;
 
@@ -280,7 +280,8 @@ public interface ISimalRepository {
   public String getNewCategoryID() throws SimalRepositoryException;
   
   /**
-   * Create a new person ID and save the next value in the properties file.
+   * Create a new person ID and save the 
+   * next local value in the properties file.
    * 
    * @throws IOException
    * @throws FileNotFoundException
@@ -298,15 +299,24 @@ public interface ISimalRepository {
 
 
   /**
-   * Set whether or not this repository is to be set up in test mode. this
+   * Set whether or not this repository is to be set up in test mode. This
    * method should be called before initialise if the default behaviour is to be
-   * altered/
+   * altered. In test mode the repository is pre-populated with data and all
+   * changes are lost once the rpository is destroyed.
    * 
    * @param newValue
    *          true if this is to be a test repository
    * @throws SimalRepositoryException
    */
   public void setIsTest(boolean newValue) throws SimalRepositoryException;
+  
+
+  /**
+   * Return true if this repository is running in test mode.
+   * @return
+   * @see setIsTest
+   */
+  public boolean isTest();
   
 
   /**
@@ -395,4 +405,35 @@ public interface ISimalRepository {
    */
   public IPerson getDuplicate(String email)
       throws SimalRepositoryException;
+  
+  /**
+   * Given an entity ID create a unique Simal ID for referencing
+   * this entity within this instance of Simal.
+   * 
+   * @param instanceID
+   * @return
+   * @throws SimalRepositoryException 
+   */
+  public String getUniqueSimalID(String entityID) throws SimalRepositoryException;
+
+  
+  /**
+   * Given a world unique Simal ID return the entity ID for the
+   * entity being identified
+   * 
+   * @param uniqueID
+   * @return
+   * @throws SimalRepositoryException If the supplied ID is not a valid Simal ID 
+   * or if there is a problem communicating with the repository.
+   */
+  public String getEntityID(String uniqueID) throws SimalRepositoryException;
+
+  /**
+   * Tests to see if the ID we have is a world unique simal ID or not.
+   * 
+   * @param id
+   * @return
+   */
+  public boolean isUniqueSimalID(String is);
+
 }

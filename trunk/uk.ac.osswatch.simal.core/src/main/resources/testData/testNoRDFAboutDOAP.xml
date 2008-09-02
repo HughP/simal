@@ -101,6 +101,7 @@
       <foaf:name>Joe Blogs Maintainer</foaf:name>
       <foaf:givenname>Joe</foaf:givenname>
       <foaf:mbox rdf:resource="mailto:joe@blogs.org"/>
+      <foaf:mbox rdf:resource="mailto:joeFromDuplicate@blogs.org"/>
       <rdfs:seeAlso
         rdf:resource="http://foo.org/~joeBlogs/foaf.rdf.xml" />
     </foaf:Person>

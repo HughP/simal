@@ -49,9 +49,11 @@ public class TestPerson extends BaseRepositoryTest {
     initRepository();
 
     developer = getRepository()
-        .getPerson(TEST_SIMAL_DEVELOPER_URI);
+        .getPerson(testDeveloperURI);
+    assertNotNull(developer);
     documentor = getRepository()
-        .getPerson(TEST_SIMAL_DOCUMENTOR_URI);
+        .getPerson(testDocumentorURI);
+    assertNotNull(documentor);
   }
 
   @Test
@@ -64,8 +66,8 @@ public class TestPerson extends BaseRepositoryTest {
 
     person = getRepository().getPerson(uri);
     assertNotNull("Person has not been added to repository", person);
-
-    assertNotNull("Person simalID is incorrectly set", person.getSimalID());
+    assertNotNull("Person simalID should not be null", person.getSimalID());
+    assertNotNull("Person simalID is invalid", getRepository().isUniqueSimalID(person.getSimalID()));
     
     person.delete();
   }
@@ -117,11 +119,16 @@ public class TestPerson extends BaseRepositoryTest {
     assertEquals("Got an incorrect number of colleagues", BaseRepositoryTest
         .getNumberOfParticipants() - 1, colleagues.size());
   }
+  
+  @Test
+  public void testGetURI() throws SimalRepositoryException {
+    assertEquals("Person URI is incorrect", testDeveloperURI, developer.getURI());
+  }
 
   @Test
   public void testSuppliedSimalId() throws SimalRepositoryException {
     String id = developer.getSimalID();
-    assertEquals("Test developer ID incorrect", "15", id);
+    assertNotNull("Test developer ID incorrect", id);
 
   }
 
@@ -134,7 +141,7 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testSeeAlso() {
     Set<URI> seeAlso = developer.getSeeAlso();
-    assertEquals("There should be a single see also value", 2, seeAlso.size());
+    assertEquals("Incorrect number of see also values", 3, seeAlso.size());
   }
   
   @Test
@@ -150,10 +157,21 @@ public class TestPerson extends BaseRepositoryTest {
   }
   
   @Test
-  public void testSetName() {
+  public void testAddName() {
     String name = "Test Name";
-    developer.setName(name);
+    developer.addName(name);
     assertEquals("We haven't set the name succesfully", name, developer.getNames().toArray()[0]);
-    developer.setName("developer");
+  }
+  
+  @Test 
+  public void testGetSimalID() throws SimalRepositoryException {
+    String id = developer.getSimalID();
+    assertEquals("Simal ID of person is incorrect", testDeveloperID, id);
+  }
+  
+  @Test 
+  public void testGetUniqueSimalID() throws SimalRepositoryException {
+    String id = developer.getUniqueSimalID();
+    assertTrue("Unique Simal ID of person is not valid: " + 15, id.length() > developer.getSimalID().length());
   }
 }

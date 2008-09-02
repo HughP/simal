@@ -165,7 +165,7 @@
       <simal:personId>15</simal:personId>
       <foaf:givenname>developer</foaf:givenname>
       <foaf:knows>
-        <foaf:Person>
+        <foaf:Person rdf:about="http://goo.org/known">
           <foaf:name>Known Person</foaf:name>
           <foaf:mbox_sha1sum>
             241021fb0e8289f92815fc210f9e9137262c252e

@@ -33,7 +33,7 @@ public interface IProject extends IDoapResource, IProjectService {
    * 
    * @return 
    */
-  public void setSimalID(String newID);
+  public void setSimalID(String newID) throws SimalRepositoryException;
 
 
   /**

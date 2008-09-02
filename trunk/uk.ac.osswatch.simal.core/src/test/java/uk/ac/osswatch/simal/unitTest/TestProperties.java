@@ -16,6 +16,7 @@
 package uk.ac.osswatch.simal.unitTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,7 +37,7 @@ public class TestProperties {
   }
 
   @Test
-  public void testDefaults() {
+  public void testDefaults() throws SimalRepositoryException {
     assertEquals("false", props.getProperty(SimalProperties.PROPERTY_TEST));
     assertEquals("/tmp", props
         .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
@@ -51,6 +52,12 @@ public class TestProperties {
     // Now re-initialise the properties and test
     props = new SimalProperties();
     assertEquals("This test will fail locally unless you have set up a local.simal.properties file", "local", props.getProperty(SimalProperties.PROPERTY_UNIT_TEST));
+  }
+  
+  @Test
+  public void testGetInstanceId() throws SimalRepositoryException {
+    String id = props.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID);
+    assertNotNull("didn't get an instance id", id);
   }
 
 }

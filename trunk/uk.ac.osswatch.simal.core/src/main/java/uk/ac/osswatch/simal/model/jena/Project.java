@@ -23,6 +23,10 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -40,6 +44,7 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -48,6 +53,7 @@ import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
 public class Project extends DoapResource implements IProject {
   private static final long serialVersionUID = 1960364043645152134L;
+  private static final Logger logger = LoggerFactory.getLogger(Project.class);
 
   public Project(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
@@ -221,14 +227,34 @@ public class Project extends DoapResource implements IProject {
     return langs;
   }
 
-  public String getSimalID() {
-    Statement idStatement = getJenaResource().getProperty(
-        SimalOntology.PROJECT_ID);
-    return idStatement.getString();
+  
+  public String getSimalID() throws SimalRepositoryException {
+    String uniqueID = getUniqueSimalID();
+    String id = uniqueID.substring(uniqueID.lastIndexOf(":") + 1);
+    return id;
+  }
+  
+  public String getUniqueSimalID() throws SimalRepositoryException {
+    String id;
+    Statement idStatement = getJenaResource().getProperty(SimalOntology.PROJECT_ID);
+    if (idStatement == null) {
+      id = SimalRepository.getInstance().getNewProjectID();
+      setSimalID(id);
+    } else {
+      id = idStatement.getString();
+    }
+    return id;
   }
 
-  public void setSimalID(String newID) {
-    getJenaResource().addLiteral(SimalOntology.PROJECT_ID, newID);
+  public void setSimalID(String newId) throws SimalRepositoryException {
+    if (newId.contains(":") && !newId.startsWith(SimalProperties.getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
+      throw new SimalRepositoryException("Simal ID cannot contain a ':'");
+    }
+    StringBuilder id = new StringBuilder(SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
+    id.append(":");
+    id.append(newId); 
+    logger.info("Setting simalId for " + this + " to " + id);
+    getJenaResource().addLiteral(SimalOntology.PROJECT_ID, id);
   }
 
   public Set<IPerson> getTesters() {
