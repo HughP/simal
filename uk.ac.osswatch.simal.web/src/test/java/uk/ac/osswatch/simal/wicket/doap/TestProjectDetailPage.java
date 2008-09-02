@@ -42,7 +42,7 @@ public class TestProjectDetailPage extends TestBase {
       public Page getTestPage() {
         try {
           return new ProjectDetailPage(UserApplication.getRepository()
-              .getProject(UserApplication.DEFAULT_PROJECT_URI));
+              .getProject(projectURI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
           System.exit(1);
@@ -75,7 +75,7 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testAddMaintainer() throws SimalRepositoryException {
-    Set<IPerson> peopleBefore = UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_URI).getMaintainers();
+    Set<IPerson> peopleBefore = UserApplication.getRepository().getProject(projectURI).getMaintainers();
     
     tester.assertVisible("addMaintainerPanel");
     tester.assertVisible("addMaintainerPanel:newLink");
@@ -100,8 +100,8 @@ public class TestProjectDetailPage extends TestBase {
     formTester.submit();
     tester.assertInvisible("addMaintainerPanel:personForm");
     
-    Set<IPerson> peopleAfter = UserApplication.getRepository().getProject(UserApplication.DEFAULT_PROJECT_URI).getMaintainers();
-    assertEquals("We should have one more person after sumbitting the form", peopleBefore.size() + 1, peopleAfter.size());
+    Set<IPerson> peopleAfter = UserApplication.getRepository().getProject(projectURI).getMaintainers();
+    assertEquals("We should have one more person after submitting the form", peopleBefore.size() + 1, peopleAfter.size());
     Iterator<IPerson> itr = peopleAfter.iterator();
     boolean hasNewPerson = false;
     while(itr.hasNext() && !hasNewPerson ) {
