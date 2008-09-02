@@ -54,7 +54,8 @@ public class ProjectDetailPage extends BasePage {
         id = parameters.getString("simalID");
         
         try {
-          project = UserApplication.getRepository().findProjectById(id);
+          String uniqueSimalID = UserApplication.getRepository().getUniqueSimalID(id);
+          project = UserApplication.getRepository().findProjectById(uniqueSimalID);
           populatePage(project);
         } catch (SimalRepositoryException e) {
           UserReportableException error = new UserReportableException(
