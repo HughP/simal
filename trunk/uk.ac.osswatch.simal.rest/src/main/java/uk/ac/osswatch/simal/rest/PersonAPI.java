@@ -21,7 +21,6 @@ import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -39,7 +38,7 @@ public class PersonAPI extends AbstractHandler {
    * @throws SimalRepositoryException 
    * @throws SimalAPIException
    */
-  protected PersonAPI(RESTCommand cmd) throws SimalRepositoryException {
+  protected PersonAPI(final RESTCommand cmd) throws SimalRepositoryException {
     super(cmd);
   }
 
@@ -104,9 +103,9 @@ public class PersonAPI extends AbstractHandler {
    * @return
    * @throws SimalAPIException
    */
-  public String getAllColleagues(RESTCommand cmd)
+  public String getAllColleagues(final RESTCommand cmd)
       throws SimalAPIException {
-    String id = cmd.getPersonID();
+    final String id = cmd.getPersonID();
     
     String response;
     StringBuffer result = new StringBuffer();
