@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.rest;
  */
 
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * A factory class for generating a specific handler for a
@@ -35,10 +36,15 @@ public class SimalHandlerFactory {
    */
   public static IAPIHandler createHandler(RESTCommand command, ISimalRepository repo) throws SimalAPIException {
     IAPIHandler handler = null;
-    if (command.isProjectCommand()) {
-      handler = new ProjectAPI(command);
-    } else if (command.isPersonCommand()) {
-      handler = new PersonAPI(command);
+
+    try {
+      if (command.isProjectCommand()) {
+          handler = new ProjectAPI(command);
+      } else if (command.isPersonCommand()) {
+        handler = new PersonAPI(command);
+      }
+    } catch (SimalRepositoryException e) {
+      throw new SimalAPIException("Unable to create handler", e);
     }
     
     if (handler == null) {

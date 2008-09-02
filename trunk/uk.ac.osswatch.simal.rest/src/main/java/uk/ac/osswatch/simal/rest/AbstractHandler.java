@@ -22,6 +22,7 @@ import java.net.URISyntaxException;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * An abstract handler for the REST API. All handlers should 
@@ -38,8 +39,9 @@ public abstract class AbstractHandler implements IAPIHandler {
    * Handlers should not be instantiated directly,
    * use HandlerFactory.createHandler(...) instead.
    * @param cmd 
+   * @throws SimalRepositoryException 
    */
-  protected AbstractHandler(RESTCommand cmd) {
+  protected AbstractHandler(RESTCommand cmd) throws SimalRepositoryException {
     this.command = cmd;
     this.baseurl = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL);
   }

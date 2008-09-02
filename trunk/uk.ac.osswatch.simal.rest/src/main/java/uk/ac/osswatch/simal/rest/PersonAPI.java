@@ -36,9 +36,10 @@ public class PersonAPI extends AbstractHandler {
    * instead.
    * 
    * @param repo
+   * @throws SimalRepositoryException 
    * @throws SimalAPIException
    */
-  protected PersonAPI(RESTCommand cmd) {
+  protected PersonAPI(RESTCommand cmd) throws SimalRepositoryException {
     super(cmd);
   }
 
@@ -72,7 +73,7 @@ public class PersonAPI extends AbstractHandler {
     if (command.isXML()) {
       try {
         IPerson person = getRepository().findPersonById(
-            id);
+            getRepository().getUniqueSimalID(id));
         if (person == null) {
           throw new SimalAPIException("Person with Simal ID " + id
               + " does not exist");
@@ -113,7 +114,7 @@ public class PersonAPI extends AbstractHandler {
     Set<IPerson> colleaguesAndFriends;
     Iterator<IPerson> friends = null;
     try {
-      person = getRepository().findPersonById(id);
+      person = getRepository().findPersonById(getRepository().getUniqueSimalID(id));
       
       colleaguesAndFriends = person.getColleagues();
       colleaguesAndFriends.addAll(person.getKnows());

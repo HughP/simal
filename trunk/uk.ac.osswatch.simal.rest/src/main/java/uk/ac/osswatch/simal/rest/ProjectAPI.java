@@ -32,8 +32,9 @@ public class ProjectAPI extends AbstractHandler {
    * HandlerFactory.createHandler(...) instead.
    * 
    * @param repo
+   * @throws SimalRepositoryException 
    */
-  protected ProjectAPI(RESTCommand cmd) {
+  protected ProjectAPI(RESTCommand cmd) throws SimalRepositoryException {
     super(cmd);
   }
 
