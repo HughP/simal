@@ -22,6 +22,8 @@ import java.io.StringWriter;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * An error report page is used to provide more information about an error in
@@ -30,6 +32,7 @@ import org.apache.wicket.model.Model;
  */
 public class ErrorReportPage extends BasePage {
 	private static final long serialVersionUID = -8879369835743158631L;
+	private static final Logger logger = LoggerFactory.getLogger(ErrorReportPage.class);
 
 	/**
 	 * Creates a test ErrorReportPage, this constructor should not be used in
@@ -42,6 +45,7 @@ public class ErrorReportPage extends BasePage {
 	}
 
 	public ErrorReportPage(UserReportableException e) {
+	  logger.error("Reporting an error to the user", e);
 		StringBuffer sb = new StringBuffer();
 		sb.append(e.getMessage());
 		if (e.getReportingClass() != null) {
