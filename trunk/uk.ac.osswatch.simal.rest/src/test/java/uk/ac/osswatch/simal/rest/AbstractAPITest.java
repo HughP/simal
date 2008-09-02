@@ -20,16 +20,16 @@ package uk.ac.osswatch.simal.rest;
 import org.junit.BeforeClass;
 
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public abstract class AbstractAPITest {
 
   private static ISimalRepository repo;
   protected static String testDeveloperID;
-  static final String PROJECT_ID = "200";
+  protected static String testProjectID;
 
   @BeforeClass
   public static void setUpRepo() throws SimalRepositoryException {
@@ -41,6 +41,7 @@ public abstract class AbstractAPITest {
 
     IPerson developer = repo.findPersonBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getSimalID();
+    testProjectID = ((IProject)developer.getProjects().toArray()[0]).getSimalID();
   }
   
   public ISimalRepository getRepo() {
