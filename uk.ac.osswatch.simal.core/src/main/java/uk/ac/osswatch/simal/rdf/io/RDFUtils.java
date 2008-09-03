@@ -141,7 +141,7 @@ public class RDFUtils {
               .item(0);
           if (locationNode != null) {
             uri = locationNode.getAttributes().getNamedItemNS(RDF_NS,
-                "resource").getNodeValue();
+                "resource").getNodeValue().trim();
           } else {
             locationNode = el.getElementsByTagNameNS(DOAP_NS, "anon-root")
                 .item(0);
@@ -557,7 +557,7 @@ public class RDFUtils {
       el = (Element) nodes.item(i);
       Node parent = el.getParentNode();
       Attr resource = el.getAttributeNodeNS(RDF_NS, "resource");
-      if (resource == null || resource.getValue().equals("")) {
+      if (resource == null || resource.getValue().trim().equals("")) {
         parent.removeChild(el);
         i = i - 1;
       }
@@ -580,7 +580,7 @@ public class RDFUtils {
       NodeList emailNL = person.getElementsByTagNameNS(FOAF_NS, "mbox");
       for (int i1 = 0; i1 < emailNL.getLength(); i1 = i1 + 1) {
         Element emailEl = (Element) emailNL.item(i1);
-        String mbox = emailEl.getAttributeNS(RDF_NS, "resource");
+        String mbox = emailEl.getAttributeNS(RDF_NS, "resource").trim();
         String sha1;
         try {
           sha1 = getSHA1(mbox);
@@ -658,7 +658,7 @@ public class RDFUtils {
         IDoapCategory simalCategory;
         try {
           Attr att = category.getAttributeNodeNS(RDF_NS, "resource");
-          simalCategory = repo.getCategory(att.getNodeValue());
+          simalCategory = repo.getCategory(att.getNodeValue().trim());
           if (simalCategory != null) {
             id = simalCategory.getSimalID();
           } else {
@@ -696,7 +696,7 @@ public class RDFUtils {
       // if this is a resource reference and the resource doesn't
       // yet exist in the repository then create the resource and
       // give it an iD
-      String resourceURI = person.getAttributeNS(RDF_NS, "resource");
+      String resourceURI = person.getAttributeNS(RDF_NS, "resource").trim();
       if (resourceURI.length() > 0) {
         IPerson existingPerson = SimalRepository.getInstance()
             .findPersonBySeeAlso(resourceURI);
@@ -800,7 +800,7 @@ public class RDFUtils {
       // if this is a resource reference and the resource doesn't
       // yet exist in the repository then create the resource and
       // give it an iD
-      String resourceURI = project.getAttributeNS(RDF_NS, "resource");
+      String resourceURI = project.getAttributeNS(RDF_NS, "resource").trim();
       if (resourceURI.length() > 0) {
         IProject existingProject = SimalRepository.getInstance()
             .findProjectBySeeAlso(resourceURI);
@@ -946,7 +946,7 @@ public class RDFUtils {
       Element seeAlso;
       for (int seeAlsoIdx = 0; seeAlsoIdx < seeAlsos.getLength(); seeAlsoIdx = seeAlsoIdx + 1) {
         seeAlso = (Element) seeAlsos.item(seeAlsoIdx);
-        String uri = seeAlso.getAttributeNS(RDF_NS, "resource");
+        String uri = seeAlso.getAttributeNS(RDF_NS, "resource").trim();
         IPerson person = repo.findPersonBySeeAlso(uri);
         if (person != null) {
           String[] params = { uri, person.getURI() };
@@ -960,7 +960,7 @@ public class RDFUtils {
         NodeList allSeeAlsos = doc.getElementsByTagNameNS(RDFS_NS, "seeAlso");
         for (int idx = 0; idx < allSeeAlsos.getLength(); idx = idx + 1) {
           Element thisSeeAlso = (Element) allSeeAlsos.item(idx);
-          String thisURI = thisSeeAlso.getAttributeNS(RDF_NS, "resource");
+          String thisURI = thisSeeAlso.getAttributeNS(RDF_NS, "resource").trim();
           if (!thisSeeAlso.equals(seeAlso) && uri.equals(thisURI)) {
             logger
                 .info(
@@ -1002,7 +1002,7 @@ public class RDFUtils {
     for (int i = 0; i < homepages.getLength(); i = i + 1) {
       homepage = (Element) homepages.item(i);
       IProject project = repo.findProjectByHomepage(homepage.getAttributeNS(
-          RDF_NS, "resource"));
+          RDF_NS, "resource").trim());
       if (project != null) {
         logger.info("Merging duplicate project (based on homepage): "
             + project.toString() + " into " + project.getURI());
@@ -1017,7 +1017,7 @@ public class RDFUtils {
     Element seeAlso;
     for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
       seeAlso = (Element) seeAlsos.item(i);
-      String uri = seeAlso.getAttributeNS(RDF_NS, "resource");
+      String uri = seeAlso.getAttributeNS(RDF_NS, "resource").trim();
       IProject project = repo.findProjectBySeeAlso(uri);
       if (project != null) {
         logger.info("Merging duplicate project (based on seeAlso): "
