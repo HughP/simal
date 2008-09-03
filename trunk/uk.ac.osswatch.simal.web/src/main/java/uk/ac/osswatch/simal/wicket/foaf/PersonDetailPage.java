@@ -25,6 +25,7 @@ import org.apache.wicket.markup.html.link.IPageLink;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 import uk.ac.osswatch.simal.wicket.BasePage;
@@ -45,9 +46,8 @@ public class PersonDetailPage extends BasePage {
   public PersonDetailPage(PageParameters parameters) {
     String id = null;
     if (parameters.containsKey("simalID")) {
-      id = parameters.getString("simalID");
-
       try {
+        id = SimalRepository.getInstance().getUniqueSimalID(parameters.getString("simalID"));
         person = UserApplication.getRepository().findPersonById(id);
         populatePage(person);
       } catch (SimalRepositoryException e) {
