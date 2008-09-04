@@ -105,6 +105,8 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     /**
      * If the properties file is lost for any reason the next ID value will be
      * lost. We therefore need to perform a sanity check that this is unique.
+     * @FIXME: the ID should really be held in the database then there would 
+     * be no need for this time consuming verification See ISSUE 190
      */
     boolean validID = false;
     while (!validID) {
