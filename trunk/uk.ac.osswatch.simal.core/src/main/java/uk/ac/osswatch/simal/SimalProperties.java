@@ -39,7 +39,7 @@ public class SimalProperties {
       .getLogger(SimalProperties.class);
 
   private static final String DEFAULT_PROPERTIES_FILE = "default.simal.properties";
-  
+
   public static final String PROPERTY_RDF_DATA_DIR = "simal.repository.dir";
   public static final String PROPERTY_RDF_DATA_FILENAME = "simal.repository.filename";
   public static final String PROPERTY_TEST = "simal.test";
@@ -53,13 +53,15 @@ public class SimalProperties {
   public static final String PROPERTY_LOCAL_PROPERTIES_LOCATION = "simal.local.properties.path";
 
   public static final String PROPERTY_UNIT_TEST = "simal.unitTest";
-  
+
   public static final String PROPERTY_REST_BASEURL = "simal.rest.baseurl";
 
   public static final String PROPERTY_USER_WEBAPP_BASEURL = "simal.user.webapp.baseurl";
 
   private static Properties defaultProps;
   private static Properties localProps;
+
+  private static File propsFile;
 
   public SimalProperties() throws SimalRepositoryException {
     initProperties();
@@ -99,10 +101,11 @@ public class SimalProperties {
    * @throws SimalRepositoryException
    */
   private static File getLocalPropertiesFile() throws SimalRepositoryException {
-    File propsFile;
-    String workingDir = System.getProperty("user.dir");
-    propsFile = new File(workingDir + File.separator
-        + getProperty(PROPERTY_LOCAL_PROPERTIES_LOCATION));
+    if (propsFile == null) {
+      String workingDir = System.getProperty("user.dir");
+      propsFile = new File(workingDir + File.separator
+          + getProperty(PROPERTY_LOCAL_PROPERTIES_LOCATION));
+    }
     return propsFile;
   }
 
@@ -147,7 +150,8 @@ public class SimalProperties {
    * 
    * @param key
    *          the name of the property value to retrieve
-   * @throws SimalRepositoryException if the properties cannot be initialised
+   * @throws SimalRepositoryException
+   *           if the properties cannot be initialised
    */
   public static String getProperty(String key) throws SimalRepositoryException {
     return getProperty(key, null);
@@ -160,9 +164,11 @@ public class SimalProperties {
    * @param key
    * @param default
    * @return
-   * @throws SimalRepositoryException if the properties cannot be initialised
+   * @throws SimalRepositoryException
+   *           if the properties cannot be initialised
    */
-  public static String getProperty(String key, String defaultValue) throws SimalRepositoryException {
+  public static String getProperty(String key, String defaultValue)
+      throws SimalRepositoryException {
     if (defaultProps == null) {
       try {
         initProperties();
@@ -170,17 +176,18 @@ public class SimalProperties {
         if (defaultValue != null) {
           return defaultValue;
         } else {
-          throw new SimalRepositoryException("Unable to load configuration file", e);
+          throw new SimalRepositoryException(
+              "Unable to load configuration file", e);
         }
       }
     }
-    
+
     String value = null;
     if (localProps != null) {
       value = localProps.getProperty(key);
     }
     if (value == null) {
-        value = defaultProps.getProperty(key, defaultValue);
+      value = defaultProps.getProperty(key, defaultValue);
     }
     if (value == null) {
       if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
@@ -190,11 +197,12 @@ public class SimalProperties {
           value = UUID.randomUUID().toString();
         }
         setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
-      } else if (key.equals(PROPERTY_LOCAL_PROPERTIES_LOCATION)){
+      } else if (key.equals(PROPERTY_LOCAL_PROPERTIES_LOCATION)) {
       } else {
         StringBuilder sb = new StringBuilder("The property '");
         sb.append(key);
-        sb.append("' has not been set in either local.simal.properties, default.simal.properties files or the SimalProperties class");
+        sb
+            .append("' has not been set in either local.simal.properties, default.simal.properties files or the SimalProperties class");
         value = sb.toString();
         logger.warn(value);
       }
@@ -213,7 +221,7 @@ public class SimalProperties {
       localProps = new Properties();
     }
     localProps.setProperty(key, value);
-    logger.info("{} set to {}", new String[] {key, value});
+    logger.info("{} set to {}", new String[] { key, value });
   }
 
   /**
@@ -228,7 +236,10 @@ public class SimalProperties {
     FileOutputStream out = null;
     try {
       if (!propsFile.exists()) {
-        propsFile.createNewFile();
+        boolean created = propsFile.createNewFile();
+        if (!created) {
+          throw new SimalRepositoryException("Unable to create properties file: " + propsFile.toString());
+        }
       }
       out = new FileOutputStream(propsFile);
       localProps.store(out, comments);
@@ -252,9 +263,21 @@ public class SimalProperties {
    * 
    * @param name
    * @return
-   * @throws SimalRepositoryException The properties cannot be initialised or the property value is not an Integer.
+   * @throws SimalRepositoryException
+   *           The properties cannot be initialised or the property value is not
+   *           an Integer.
    */
-  public static Integer getIntegerProperty(String name) throws NumberFormatException, SimalRepositoryException {
+  public static Integer getIntegerProperty(String name)
+      throws NumberFormatException, SimalRepositoryException {
     return Integer.valueOf(getProperty(name));
+  }
+
+  /**
+   * Set the location of the local properties file.
+   * 
+   * @param file
+   */
+  public static void setLocalPropertiesFile(File file) {
+    propsFile = file;
   }
 }
