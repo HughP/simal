@@ -155,9 +155,8 @@ public final class SimalRepository extends AbstractSimalRepository {
 
     Iterator<File> annotatedFiles = null;
     try {
-      logger.info("Preprocessing file");
       annotatedFiles = RDFUtils.preProcess(url, baseURI, this).iterator();
-      logger.info("Adding processed RDF/XML");
+      logger.debug("Adding processed RDF/XML");
       while (annotatedFiles.hasNext()) {
         addRDFXML(annotatedFiles.next().toURI().toURL(), baseURI);
       }
@@ -195,6 +194,7 @@ public final class SimalRepository extends AbstractSimalRepository {
       throws SimalRepositoryException {
     try {
       model.read(url.openStream(), baseURI);
+      logger.debug("Added RDF/XML from " + url.toString());
     } catch (IOException e) {
       throw new SimalRepositoryException("Unable to open stream for " + url, e);
     }
