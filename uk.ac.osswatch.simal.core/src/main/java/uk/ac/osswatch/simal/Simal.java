@@ -82,6 +82,10 @@ public class Simal {
         "The directory in which the persistent data store resides");
     opts.addOption(directory);
 
+    Option properties = new Option("p", "properties", true,
+        "The properties file to use");
+    opts.addOption(properties);
+
     Option test = new Option(
         "t",
         "test",
@@ -110,8 +114,6 @@ public class Simal {
 
     if (cl.hasOption('h')) {
       printHelp(opts);
-    } else if (cl.hasOption('v')) {
-      printVersion();
     } else {
       Iterator<Option> options = cl.iterator();
       Option opt;
@@ -128,9 +130,26 @@ public class Simal {
         }
       }
 
+      String propsPath = cl.getOptionValue("properties");
+      if (propsPath != null && propsPath.length() > 0 ) {
+        File file;
+        if (propsPath.indexOf(":") > 0 || propsPath.startsWith(File.separator)) {
+          file = new File(propsPath);
+        } else {
+          String workingDir = System.getProperty("user.dir");
+          file = new File(workingDir + File.separator + propsPath);
+        }
+        logger.info("using properties file " + file.toString());
+        SimalProperties.setLocalPropertiesFile(file);
+      }
+      
+      if (cl.hasOption('v')) {
+        printVersion();
+      }
+    
       String dir = cl.getOptionValue("dir");
       logger.info("Setting database directory to " + dir);
-
+      
       logger.info("Initialising repository...");
       initRepository(dir);
       logger.info("Executing commands...");
