@@ -80,7 +80,7 @@ public class TestCLI {
   
 
   //@Test
-  public void testUsageBlurb() {
+  public void testUsageBlurb() throws SimalRepositoryException {
     String[] args = {"--help"};
     Simal.main(args);
     assertEquals("Error reported", "", err.toString());
