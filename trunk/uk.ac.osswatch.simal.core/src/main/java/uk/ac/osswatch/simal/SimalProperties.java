@@ -276,8 +276,10 @@ public class SimalProperties {
    * Set the location of the local properties file.
    * 
    * @param file
+   * @throws SimalRepositoryException 
    */
-  public static void setLocalPropertiesFile(File file) {
+  public static void setLocalPropertiesFile(File file) throws SimalRepositoryException {
     propsFile = file;
+    initProperties();
   }
 }

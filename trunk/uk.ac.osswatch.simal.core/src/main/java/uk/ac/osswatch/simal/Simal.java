@@ -58,10 +58,11 @@ public class Simal {
 
   /**
    * @param args
+   * @throws SimalRepositoryException 
    * @throws ParseException
    */
   @SuppressWarnings( { "unchecked", "static-access" })
-  public static void main(String[] args) {
+  public static void main(String[] args) throws SimalRepositoryException {
     try {
       repository = SimalRepositoryFactory.getInstance();
     } catch (SimalRepositoryException e) {
