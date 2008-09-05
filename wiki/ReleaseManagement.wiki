@@ -1,8 +1,6 @@
 #summary Steps to go through for a release
 #labels Phase-Support,Phase-Implementation
 
-*NOTE* This document refers to the process for 0.1, the core was redesigned for 0.2 and this document is no longer fully accurate. Pease update.
-
 = Pre-Requisites =
 
 Before a release can be made a number of requirements must be met.
@@ -19,25 +17,21 @@ We must first build a release candidate for testing. To do this we need to corre
  * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
-= Build the release candidate installer =
+At this early stage we will release all Simal module simultaneously and therefore we need to change the {{{pom.xml}}} as described in each module (there is currently no {{{default.simal.properties}}} file in modules other than core)
 
- * run {{{ant build}}} in the {{{simalInstaller}}} directory
+= Build the Binaries =
 
-This will build the installer, which can be found in {{{simal-Installer/dist/simal-x.y-POSTFIX.jar}}}
+For each of the modules build the binaries.
 
 = Tag SVN =
 
 SVN should be tagged with the release number in the format simal_x_y_z_POSTFIX
 
-Note you should tag both the simal and the simal-installer trees.
-
 = Upload to Google Code =
 
-Upload the installer to the downloads section of Google Code, making the release candidate a featured download.
+Upload the binaries to the downloads section of Google Code, making them a featured download.
 
 If this is a RC release then previous RC releases should be deleted (they use up the storage quota and can be rebuilt from SVN if people need to do so).
-
-If this is a full release then deprecate the previous release.
 
 = Test =
 
@@ -60,10 +54,7 @@ We must now build a release package. To do this we need to correctly set the ver
  * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
-
-= Package for release =
-
- * run {{{ant build}}} in the {{{simal-sintall/simal-install.xml}}}
+At this early stage we will release all Simal module simultaneously and therefore we need to change the {{{pom.xml}}} as described in each module (there is currently no {{{default.simal.properties}}} file in modules other than core)
 
 = Tag SVN =
 
@@ -71,21 +62,27 @@ SVN needs to be tagged with the release information, typically, this will look s
 
 "simal_x_y_z"
 
-Note you should tag both the simal and the simal-installer trees.
+= Set up a maintenance branch =
+
+We need a maintenance branch in SVN in case any bugs are found in the release. Create a branch called:
+
+"simal_x_y_z"
+
+Where z is one increment higher than the previous release.
+
+= Build the release binaries =
+
+For each of the modules build the binaries.
 
 = Upload to Google Code =
 
-Upload to the downloads section of Google Code, making the release candidate a featured download.
+Upload to the downloads section of Google Code, making it a featured download.
 
-Remove the release candidate upload from the downloads section.
-
-= Update RoadMap =
-
-The RoadMap indicates the status of each release. Once an release candidate has been built this should be noted in the status column of the RoadMap table. typically the entry will read something like "released DD/MM/YYYY".
+Deprecate the previous release and remove the featured downloads lable from it (but do not delete the release).
 
 = Change src version numbers =
 
-We must now build a release package. To do this we need to correctly set the version number. Usually this will mean incrementing the minor version number and changing the postfix from "-ga" to "-dev"
+We must now set up SVN for development of the next release. To do this we need to correctly set the version number. Usually this will mean incrementing the minor version number and changing the postfix from "-ga" to "-dev"
 
  * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
