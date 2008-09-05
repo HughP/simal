@@ -19,7 +19,8 @@
 </head>
 <body>
 <wicket:extend>
-  <h1>Repository Stats</h1>
+  <h1>Repository Information</h1>
+  <h2>Repository Stats</h2>
   <table>
     <tr>
       <td>Number of Projects</td>
@@ -32,6 +33,18 @@
     <tr>
       <td>Number of Categories</td>
       <td wicket:id="numOfCategories">####</td>
+    </tr>
+  </table>
+  
+  <h2>Respository Config</h2>
+  <table>
+    <tr>
+      <td>Repository Instance ID</td>
+      <td wicket:id="instanceID">####-####-####-####</td>
+    </tr>
+    <tr>
+      <td>Local Properties File</td>
+      <td wicket:id="propertiesFile">filepath</td>
     </tr>
   </table>
   
