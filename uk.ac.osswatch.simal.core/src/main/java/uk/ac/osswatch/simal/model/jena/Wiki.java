@@ -21,7 +21,8 @@ Copyright 2007 University of Oxford *
 import uk.ac.osswatch.simal.model.IDoapWiki;
 
 public class Wiki extends DoapResource implements IDoapWiki {
-
+  private static final long serialVersionUID = 1L;
+  
   public Wiki(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }

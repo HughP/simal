@@ -58,7 +58,7 @@ public class Simal {
 
   /**
    * @param args
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    * @throws ParseException
    */
   @SuppressWarnings( { "unchecked", "static-access" })
@@ -132,9 +132,10 @@ public class Simal {
       }
 
       String propsPath = cl.getOptionValue("properties");
-      if (propsPath != null && propsPath.length() > 0 ) {
+      if (propsPath != null && propsPath.length() > 0) {
         File file;
-        if (propsPath.indexOf(":") > 0 || propsPath.startsWith(File.separator)) {
+        if (!(propsPath.indexOf(":") < 0)
+            || propsPath.startsWith(File.separator)) {
           file = new File(propsPath);
         } else {
           String workingDir = System.getProperty("user.dir");
@@ -143,14 +144,14 @@ public class Simal {
         logger.info("using properties file " + file.toString());
         SimalProperties.setLocalPropertiesFile(file);
       }
-      
+
       if (cl.hasOption('v')) {
         printVersion();
       }
-    
+
       String dir = cl.getOptionValue("dir");
       logger.info("Setting database directory to " + dir);
-      
+
       logger.info("Initialising repository...");
       initRepository(dir);
       logger.info("Executing commands...");
@@ -210,14 +211,21 @@ public class Simal {
 
     File tmpFile = new File(System.getProperty("java.io.tmpdir")
         + File.separator + "PTSWExport.xml");
-    FileWriter fw;
+    FileWriter fw = null;
     try {
       fw = new FileWriter(tmpFile);
       fw.write(writer.toString());
-      fw.close();
     } catch (IOException e) {
       throw new SimalException(
           "Unable to write PTSW export file to temporary space");
+    } finally {
+      if (fw != null) {
+        try {
+          fw.close();
+        } catch (IOException e) {
+          throw new RuntimeException("Attempt to close a file writer failed", e);
+        }
+      }
     }
 
     try {

@@ -21,6 +21,7 @@ Copyright 2007 University of Oxford *
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 
 public class BugDatabase extends DoapResource implements IDoapBugDatabase {
+  private static final long serialVersionUID = 1L;
 
   public BugDatabase(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);

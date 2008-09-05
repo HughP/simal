@@ -21,7 +21,7 @@ Copyright 2007 University of Oxford *
 import uk.ac.osswatch.simal.model.IDoapScreenshot;
 
 public class Screenshot extends DoapResource implements IDoapScreenshot {
-
+  private static final long serialVersionUID = 3989341226636792546L;
 
   public Screenshot(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);

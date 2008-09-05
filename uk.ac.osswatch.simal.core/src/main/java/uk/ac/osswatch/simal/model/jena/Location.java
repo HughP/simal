@@ -21,7 +21,8 @@ Copyright 2007 University of Oxford *
 import uk.ac.osswatch.simal.model.IDoapLocation;
 
 public class Location extends DoapResource implements IDoapLocation {
-
+  private static final long serialVersionUID = 1L;
+  
   public Location(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }
