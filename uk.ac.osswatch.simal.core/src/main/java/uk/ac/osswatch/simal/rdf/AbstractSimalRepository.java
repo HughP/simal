@@ -111,6 +111,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     boolean validID = false;
     while (!validID) {
       fullID = getUniqueSimalID(Long.toString(entityID));
+      logger.debug("Checking to see if project ID of {} is available", fullID);
       if (findProjectById(fullID) == null) {
         validID = true;
       } else {
@@ -128,6 +129,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       throw new SimalRepositoryException(
           "Unable to save properties file when creating the next project ID", e);
     }
+    logger.debug("Generated new project ID {}" , fullID);
     return fullID;
   }
 
