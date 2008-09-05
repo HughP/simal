@@ -30,7 +30,8 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 public class Repository extends DoapResource implements IDoapRepository {
-
+  private static final long serialVersionUID = 1L;
+  
   private boolean isARCH = false;
   private boolean isBK = false;
   private boolean isCVS = false;

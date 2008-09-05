@@ -21,7 +21,8 @@ Copyright 2007 University of Oxford *
 import uk.ac.osswatch.simal.model.IDoapDownloadPage;
 
 public class DownloadPage extends DoapResource implements IDoapDownloadPage {
-
+  private static final long serialVersionUID = 1L;
+  
   public DownloadPage(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }

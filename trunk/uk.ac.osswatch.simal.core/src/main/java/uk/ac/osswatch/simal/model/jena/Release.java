@@ -27,7 +27,8 @@ import uk.ac.osswatch.simal.model.IDoapRelease;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class Release extends DoapResource implements IDoapRelease {
-
+  private static final long serialVersionUID = 1L;
+  
   public Release(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }

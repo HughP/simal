@@ -21,7 +21,8 @@ Copyright 2007 University of Oxford *
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 
 public class Homepage extends DoapResource implements IDoapHomepage {
-
+  private static final long serialVersionUID = 1L;
+  
   public Homepage(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }

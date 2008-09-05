@@ -33,7 +33,8 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class DoapResource extends Resource implements IDoapResource {
-
+  private static final long serialVersionUID = 1L;
+  
   public DoapResource(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }

@@ -21,7 +21,8 @@ Copyright 2007 University of Oxford *
 import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
 
 public class DownloadMirror extends DoapResource implements IDoapDownloadMirror {
-
+  private static final long serialVersionUID = 1L;
+  
   public DownloadMirror(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }
