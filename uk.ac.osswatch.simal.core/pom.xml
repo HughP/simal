@@ -237,7 +237,9 @@
         <artifactId>rat-maven-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>.pmd</exclude>
             <exclude>derby.log</exclude>
+            <exclude>reports/**/*</exclude>
             <exclude>simal/**/*</exclude>
             <exclude>build/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
