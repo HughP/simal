@@ -197,7 +197,6 @@ public class SimalProperties {
           value = UUID.randomUUID().toString();
         }
         setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
-      } else if (key.equals(PROPERTY_LOCAL_PROPERTIES_LOCATION)) {
       } else {
         StringBuilder sb = new StringBuilder("The property '");
         sb.append(key);
