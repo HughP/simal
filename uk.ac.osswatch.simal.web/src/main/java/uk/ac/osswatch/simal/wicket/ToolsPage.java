@@ -30,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
@@ -45,12 +46,22 @@ public class ToolsPage extends BasePage {
 
   public ToolsPage() {
     
+    // Repository Stats
     try {
       add(new Label("numOfProjects", Integer.toString(UserApplication.getRepository().getAllProjects().size())));
       add(new Label("numOfPeople", Integer.toString(UserApplication.getRepository().getAllPeople().size())));
       add(new Label("numOfCategories", Integer.toString(UserApplication.getRepository().getAllCategories().size())));
     } catch (SimalRepositoryException e) {
-      UserReportableException error = new UserReportableException("Unable to get project(s) from the repository", ToolsPage.class, e);
+      UserReportableException error = new UserReportableException("Unable to get repository statistics", ToolsPage.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    }
+    
+    //Repository Config
+    try {
+      add(new Label("instanceID", SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)));
+      add(new Label("propertiesFile", SimalProperties.getLocalPropertiesFile().toString()));
+    } catch (SimalRepositoryException e) {
+      UserReportableException error = new UserReportableException("Unable to get repository configuration data", ToolsPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
     
