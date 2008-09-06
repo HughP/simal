@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.rdf.jena;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,7 +17,6 @@ Copyright 2007 University of Oxford *
  * under the License.
  * 
  */
-
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -78,6 +78,7 @@ public final class SimalRepository extends AbstractSimalRepository {
    */
   private SimalRepository() {
     super();
+    model = null;
   }
 
   /**
@@ -97,8 +98,9 @@ public final class SimalRepository extends AbstractSimalRepository {
   /**
    * Initialise the repository.
    * 
-   * @param directory the directory for the database if 
-   * it is a persistent repository (i.e. not a test repo)
+   * @param directory
+   *          the directory for the database if it is a persistent repository
+   *          (i.e. not a test repo)
    * @throws SimalRepositoryException
    */
   public void initialise(String directory) throws SimalRepositoryException {
@@ -111,8 +113,8 @@ public final class SimalRepository extends AbstractSimalRepository {
       model = ModelFactory.createDefaultModel();
     } else {
       String className = "org.apache.derby.jdbc.EmbeddedDriver"; // path of
-                                                                  // driver
-                                                                  // class
+      // driver
+      // class
       try {
         Class.forName(className);
       } catch (ClassNotFoundException e) {
@@ -120,9 +122,20 @@ public final class SimalRepository extends AbstractSimalRepository {
       }
       String DB_URL;
       if (directory != null) {
-        DB_URL = "jdbc:derby:" + directory + "/" + SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME) + ";create=true";
+        DB_URL = "jdbc:derby:"
+            + directory
+            + "/"
+            + SimalProperties
+                .getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME)
+            + ";create=true";
       } else {
-        DB_URL = "jdbc:derby:" + SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR) + "/"  + SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME) + ";create=true";
+        DB_URL = "jdbc:derby:"
+            + SimalProperties
+                .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR)
+            + "/"
+            + SimalProperties
+                .getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME)
+            + ";create=true";
       }
       String DB_USER = "";
       String DB_PASSWD = "";
@@ -139,7 +152,7 @@ public final class SimalRepository extends AbstractSimalRepository {
       // Close the database connection
       // conn.close();
     }
-    
+
     initialised = true;
 
     if (isTest) {
@@ -170,12 +183,12 @@ public final class SimalRepository extends AbstractSimalRepository {
     logger.debug("Adding RDF data string:\n\t" + data);
 
     File file = new File("testingAddData.rdf");
+    FileWriter fw = null;
+    BufferedWriter bw = null;
     try {
-      FileWriter fw = new FileWriter(file);
-      BufferedWriter bw = new BufferedWriter(fw);
+      fw = new FileWriter(file);
+      bw = new BufferedWriter(fw);
       bw.write(data);
-      bw.close();
-
       addProject(file.toURI().toURL(), "");
     } catch (MalformedURLException mue) {
       // should never happen as we created the file here
@@ -186,6 +199,20 @@ public final class SimalRepository extends AbstractSimalRepository {
           "Unable to write file from data string", e);
     } finally {
       file.delete();
+      if (bw != null) {
+        try {
+          bw.close();
+        } catch (IOException e) {
+          throw new SimalRepositoryException("Unable to close the writer", e);
+        }
+      }
+      if (fw != null) {
+        try {
+          fw.close();
+        } catch (IOException e) {
+          throw new SimalRepositoryException("Unable to close the filewriter", e);
+        }
+      }
     }
 
   }
@@ -248,13 +275,13 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
   }
 
-  public IDoapCategory findCategoryById(String id) throws SimalRepositoryException {
+  public IDoapCategory findCategoryById(String id)
+      throws SimalRepositoryException {
     String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
-    + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
-    + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
-    + "SELECT DISTINCT ?category WHERE { "
-    + "?category simal:categoryId \"" + id
-    + "\"}";
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?category WHERE { "
+        + "?category simal:categoryId \"" + id + "\"}";
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
     ResultSet results = qe.execSelect();
@@ -271,17 +298,20 @@ public final class SimalRepository extends AbstractSimalRepository {
 
     return category;
   }
-  
+
   public IPerson findPersonById(String id) throws SimalRepositoryException {
     if (!isValidSimalID(id)) {
-      throw new SimalRepositoryException("Attempt to find a person using an invalid Simal ID of " + id + " are you sure that's a world unique identifier? You may need to call RDFUtils.getUniqueSimalID(id)");
+      throw new SimalRepositoryException(
+          "Attempt to find a person using an invalid Simal ID of "
+              + id
+              + " are you sure that's a world unique identifier? You may need to call RDFUtils.getUniqueSimalID(id)");
     }
     String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "> " + "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?person WHERE { "
-        + "?person simal:personId \"" + id + "\"^^xsd:string }";
+        + "SELECT DISTINCT ?person WHERE { " + "?person simal:personId \"" + id
+        + "\"^^xsd:string }";
     IPerson person = findPersonBySPARQL(queryStr);
 
     return person;
@@ -302,8 +332,7 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   /**
-   * Find a single person by executing a SPARQL
-   * query.
+   * Find a single person by executing a SPARQL query.
    * 
    * @param queryStr
    * @return
@@ -329,8 +358,7 @@ public final class SimalRepository extends AbstractSimalRepository {
       throws SimalRepositoryException {
     String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?person WHERE { "
-        + "?person foaf:mbox_sha1sum \""
+        + "SELECT DISTINCT ?person WHERE { " + "?person foaf:mbox_sha1sum \""
         + sha1sum + "\"}";
 
     IPerson person = findPersonBySPARQL(queryStr);
@@ -353,14 +381,16 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IProject findProjectById(String id) throws SimalRepositoryException {
     if (!isValidSimalID(id)) {
-      throw new SimalRepositoryException("Attempt to find a project using an invalid Simal ID of " + id + " are you sure that is a unique ID? You may need to call RDFUtils.getUniqueSimalID(id)");
+      throw new SimalRepositoryException(
+          "Attempt to find a project using an invalid Simal ID of "
+              + id
+              + " are you sure that is a unique ID? You may need to call RDFUtils.getUniqueSimalID(id)");
     }
     String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "> " + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?project WHERE { " 
-        + "?project simal:projectId \""
+        + "SELECT DISTINCT ?project WHERE { " + "?project simal:projectId \""
         + id + "\"^^xsd:string }";
 
     IProject project = findProjectBySPARQL(queryStr);
@@ -382,8 +412,7 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   /**
-   * Find a single project by executing a PARQL
-   * query.
+   * Find a single project by executing a PARQL query.
    * 
    * @param queryStr
    * @return
@@ -502,7 +531,8 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   public void initialise() throws SimalRepositoryException {
-    initialise(SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
+    initialise(SimalProperties
+        .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
 
   public void removeAllData() {
@@ -510,7 +540,8 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   /**
-   * Get a Jena Resource. 
+   * Get a Jena Resource.
+   * 
    * @param uri
    * @return
    */
@@ -521,5 +552,5 @@ public final class SimalRepository extends AbstractSimalRepository {
   public IResource getResource(String uri) {
     return new Resource(model.getResource(uri));
   }
-  
+
 }

@@ -1,0 +1,7 @@
+<FindBugsFilter>
+   <!--  allow the CLI to exit  -->
+   <Match>
+     <Class name="uk.ac.osswatch.simal.Simal" />
+     <Bug pattern="DM_EXIT" />
+   </Match>
+</FindBugsFilter>

@@ -228,16 +228,8 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       logger
           .error("addxmldirectory requires a directory name as the first parameter");
     }
-    FilenameFilter filter = new FilenameFilter() {
-      public boolean accept(File dir, String name) {
-        if (name.endsWith(".xml") || name.endsWith(".rdf")) {
-          return true;
-        } else {
-          return false;
-        }
-      }
-
-    };
+    FilenameFilter filter = new RDFFilenameFilter();
+    
     File[] files = dir.listFiles(filter);
     for (int i = 0; i < files.length; i++) {
       try {
@@ -320,5 +312,16 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
 
   public boolean isTest() {
     return isTest;
+  }
+  
+  static class RDFFilenameFilter implements FilenameFilter {
+    
+    public boolean accept(File dir, String name) {
+      if (name.endsWith(".xml") || name.endsWith(".rdf")) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 }

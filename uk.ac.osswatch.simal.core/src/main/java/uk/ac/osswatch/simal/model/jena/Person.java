@@ -202,12 +202,8 @@ public class Person extends Resource implements IPerson {
     Set<String> names = getNames();
     if (names.size() == 0) {
       names = getGivennames();
-    }
-    if (names == null) {
-      return toString();
-    } else {
       if (names.size() == 0) {
-        return getURI();
+        return toString();
       }
     }
     int maxLength = 0;
