@@ -183,12 +183,12 @@ public final class SimalRepository extends AbstractSimalRepository {
     logger.debug("Adding RDF data string:\n\t" + data);
 
     File file = new File("testingAddData.rdf");
-    FileWriter fw = null;
-    BufferedWriter bw = null;
     try {
-      fw = new FileWriter(file);
-      bw = new BufferedWriter(fw);
+      FileWriter fw = new FileWriter(file);
+      BufferedWriter bw = new BufferedWriter(fw);
       bw.write(data);
+      bw.close();
+
       addProject(file.toURI().toURL(), "");
     } catch (MalformedURLException mue) {
       // should never happen as we created the file here
@@ -199,20 +199,6 @@ public final class SimalRepository extends AbstractSimalRepository {
           "Unable to write file from data string", e);
     } finally {
       file.delete();
-      if (bw != null) {
-        try {
-          bw.close();
-        } catch (IOException e) {
-          throw new SimalRepositoryException("Unable to close the writer", e);
-        }
-      }
-      if (fw != null) {
-        try {
-          fw.close();
-        } catch (IOException e) {
-          throw new SimalRepositoryException("Unable to close the filewriter", e);
-        }
-      }
     }
 
   }
