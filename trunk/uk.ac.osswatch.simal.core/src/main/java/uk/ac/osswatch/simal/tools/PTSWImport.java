@@ -15,6 +15,7 @@
  */
 package uk.ac.osswatch.simal.tools;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,6 +36,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -145,7 +147,9 @@ public class PTSWImport {
         seeAlso.setAttributeNS(RDFUtils.RDF_NS, "rdf:resource", ping.toURL().toExternalForm());
         importedProjectNode.appendChild(seeAlso);
         root.appendChild(importedProjectNode);
-      } catch (Exception e) {
+      } catch (IOException e) {
+        logger.warn("Ignoring illegal XML document loaded from " + ping, e);
+      } catch (SAXException e) {
         logger.warn("Ignoring illegal XML document loaded from " + ping, e);
       }
     }

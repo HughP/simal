@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.model;
  */
 
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import org.slf4j.Logger;
@@ -76,11 +77,13 @@ public class ModelSupport {
       repo.addProject(new URL(
           "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
           "http://simal.oss-watch.ac.uk");
-    } catch (Exception e) {
+    } catch (SimalRepositoryException e) {
       logger.error("Can't add the test data, there's no point in carrying on");
       e.printStackTrace();
-      System.exit(1);
-          
+      throw new RuntimeException("Unable to add test data, aborting", e);
+    } catch (MalformedURLException e) {
+      logger.error("Malformed URL in test data, should never happen as it is hard coded", e);
+      throw new RuntimeException("Unable to add test data, aborting", e);
     }
   }
 }
