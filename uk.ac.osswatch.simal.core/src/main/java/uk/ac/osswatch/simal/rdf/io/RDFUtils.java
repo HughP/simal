@@ -328,7 +328,7 @@ public class RDFUtils {
           checkCDataSections(doc);
 
           File annotatedFile = writeAnnotatedFile(url, doc);
-          logger.debug("Written annotated file to " + annotatedFile.toURL().toString());
+          logger.debug("Written annotated file to " + annotatedFile.toURI().toURL().toString());
           annotatedFiles.add(annotatedFile);
           lastFile = annotatedFile;
         }
