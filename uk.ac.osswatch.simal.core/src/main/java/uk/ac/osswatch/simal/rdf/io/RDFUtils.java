@@ -56,6 +56,9 @@ import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 /**
  * A set of RDF utils for working with RDF data.
+ * Typically we will call preProcess(url, baseURL, repository) in
+ * order to clean up RDF data from other sources and to ensure
+ * that the maximum data is available to us.
  * 
  */
 public class RDFUtils {
@@ -70,6 +73,7 @@ public class RDFUtils {
   private static final Logger logger = LoggerFactory.getLogger(RDFUtils.class);
 
   public static final String DOAP_NS = "http://usefulinc.com/ns/doap#";
+  public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
   public static final String FOAF_NS = "http://xmlns.com/foaf/0.1/";
   public static final String RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   public static final String RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
@@ -326,6 +330,8 @@ public class RDFUtils {
           addProjectToPeople(doc);
 
           checkCDataSections(doc);
+          
+          checkHomePageNodes(doc);
 
           File annotatedFile = writeAnnotatedFile(url, doc);
           logger.debug("Written annotated file to " + annotatedFile.toURI().toURL().toString());
@@ -347,6 +353,34 @@ public class RDFUtils {
           + url.toExternalForm() + " for adding to the repository", e);
     }
     return annotatedFiles;
+  }
+
+  /**
+   * This method looks at all the homepage nodes in the document and
+   * attempts to provide a useful label for each one.
+   * 
+   * @param doc
+   */
+  private static void checkHomePageNodes(Document doc) {
+    NodeList nodes = doc.getElementsByTagNameNS(DOAP_NS, "homepage");
+    for (int i = 0; i < nodes.getLength(); i++) {
+      Element homepage = (Element)nodes.item(i);
+      String uri = homepage.getAttributeNS(RDF_NS, "resource");
+      String label = homepage.getAttributeNS(RDFS_NS, "label");
+      if (label.length() == 0) {
+        if (uri.startsWith("http://www.jisc.ac.uk/whatwedo")) {
+          label = "JISC Project Page";
+        } else if (uri.startsWith("http://code.google.com")) {
+          label = "Google code site";
+        } else if (uri.startsWith("http://www.sf.net") || uri.startsWith("http://www.sourceforge.net")) {
+          label = "Sourceforge site";
+        } else{
+          label = "Webpage";
+        }
+        homepage.setAttributeNS(RDFS_NS, "label", label);
+        logger.debug("Set title of webpage at {} to {}", new String[] {uri, label});
+      }
+    }
   }
 
   /**
