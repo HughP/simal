@@ -207,7 +207,7 @@ public class Person extends Resource implements IPerson {
       return toString();
     } else {
       if (names.size() == 0) {
-        return toString();
+        return getURI();
       }
     }
     int maxLength = 0;
