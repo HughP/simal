@@ -146,5 +146,6 @@
     <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" rdfs:label="E-Resources Theme"/>
     <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" rdfs:label="Information Environment Theme"/>
     <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_users_and_innovation.aspx"  rdfs:label="Users &amp; Innovation programme: Personalising technologies"/>
+    <category rdf:resource="http://www.jisc.ac.uk/aboutus/committees/sub_committees/jlt.aspx" rdfs:label="JISC Learning and Teaching committee"/>
   </Project>
 </rdf:RDF>
