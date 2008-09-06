@@ -111,10 +111,15 @@ public class ProjectDetailPage extends BasePage {
     }   
     
     add(new Label("projectName", project.getName()));
-    add(new Label("shortDesc", project.getShortDesc()));
+    
+    Label shortDesc = new Label("shortDesc", project.getShortDesc());
+    shortDesc.setEscapeModelStrings(false);
+    add(shortDesc);
 
     // details
-    add(new Label("description", project.getDescription()));
+    Label desc = new Label("description", project.getDescription());
+    desc.setEscapeModelStrings(false);
+    add(desc);
     try {
       add(new ReleasesPanel("releases", project.getReleases()));
     } catch (SimalRepositoryException e) {
