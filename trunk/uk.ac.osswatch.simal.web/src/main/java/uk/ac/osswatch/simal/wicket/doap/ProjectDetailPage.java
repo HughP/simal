@@ -77,21 +77,8 @@ public class ProjectDetailPage extends BasePage {
 
   private void populatePage(final IProject project) {
     this.project = project;
-    
-    final Link deleteProjectActionLink = new Link("deleteProjectActionLink") {
-      private static final long serialVersionUID = 2387446194207003694L;
-
-        public void onClick() {
-            try {
-              project.delete();
-              getRequestCycle().setResponsePage(new UserHomePage());
-            } catch (SimalRepositoryException e) {
-              // TODO Auto-generated catch block
-              e.printStackTrace();
-            }
-        }
-    };
-    add(deleteProjectActionLink);
+     
+    add(new DeleteLink("deleteProjectActionLink", project));
     
     try {
       RESTCommand cmd = RESTCommand.createGetProject(project.getSimalID(), RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
@@ -224,6 +211,27 @@ public class ProjectDetailPage extends BasePage {
 
   public IProject getProject() {
     return project;
+  }
+  
+  private static class DeleteLink extends Link<IProject> {
+    IProject project;
+    
+    public DeleteLink(String id, IProject project) {
+      super(id);
+      this.project = project;
+    }
+
+    private static final long serialVersionUID = 1L;
+
+    public void onClick() {
+        try {
+          project.delete();
+          getRequestCycle().setResponsePage(new UserHomePage());
+        } catch (SimalRepositoryException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+    }
   }
 
 }
