@@ -241,11 +241,11 @@ public class TestProject extends BaseRepositoryTest {
     IPerson person;
     while ((!hasMaintainerOne || !!hasMaintainerTwo) && people.hasNext()) {
       person = people.next();
-      logger.debug("Got a maintainer with the label " + person.getLabel());
-      String label = person.getLabel();
-      if (label.equals(TEST_SIMAL_PROJECT_MAINTAINER_ONE)) {
+      Set<String> names = person.getNames();
+      logger.debug("Got a maintainer with the names {}", names);
+      if (names.contains(TEST_SIMAL_PROJECT_MAINTAINER_ONE)) {
         hasMaintainerOne = true;
-      } else if (label.equals(TEST_SIMAL_PROJECT_MAINTAINER_TWO)) {
+      } else if (names.contains(TEST_SIMAL_PROJECT_MAINTAINER_TWO)) {
         hasMaintainerTwo = true;
       }
     }
