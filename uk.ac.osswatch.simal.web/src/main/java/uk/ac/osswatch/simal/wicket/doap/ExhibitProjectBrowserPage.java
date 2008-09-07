@@ -48,7 +48,12 @@ public class ExhibitProjectBrowserPage extends BasePage {
 		String dir = System.getProperty("java.io.tmpdir");
 		logger.debug("Temporary JSON file will be saved in {}", dir);
 		try {
-			File outFile = new File(dir + "projects.js");
+		  StringBuilder filePath = new StringBuilder(dir);
+		  if (!dir.endsWith(File.separator)) {
+		    filePath.append(File.separator);
+		  }
+		  filePath.append("projects.js");
+			File outFile = new File(filePath.toString());
 			FileWriter out = new FileWriter(outFile);
 			out.write(UserApplication.getRepository().getAllProjectsAsJSON());
 			out.close();
