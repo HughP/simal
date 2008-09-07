@@ -16,22 +16,13 @@ package uk.ac.osswatch.simal.wicket.doap;
  * under the License.                                                *
  */
 
-
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
-import uk.ac.osswatch.simal.wicket.ErrorReportPage;
-import uk.ac.osswatch.simal.wicket.UserApplication;
-import uk.ac.osswatch.simal.wicket.UserReportableException;
 
 /**
  * Creates a page which contains an <a
@@ -45,29 +36,10 @@ public class ExhibitProjectBrowserPage extends BasePage {
 	    BasePage.class, "style/exhibit.css");
 
 	public ExhibitProjectBrowserPage() {
-		String dir = System.getProperty("java.io.tmpdir");
-		logger.debug("Temporary JSON file will be saved in {}", dir);
-		try {
-		  StringBuilder filePath = new StringBuilder(dir);
-		  if (!dir.endsWith(File.separator)) {
-		    filePath.append(File.separator);
-		  }
-		  filePath.append("projects.js");
-			File outFile = new File(filePath.toString());
-			FileWriter out = new FileWriter(outFile);
-			out.write(UserApplication.getRepository().getAllProjectsAsJSON());
-			out.close();
-		} catch (IOException e) {
-			UserReportableException error = new UserReportableException("Unable to write JSON file", ExhibitProjectBrowserPage.class, e);
-			setResponsePage(new ErrorReportPage(error));
-		} catch (SimalRepositoryException e) {
-      UserReportableException error = new UserReportableException("Unable to retrieve necessary data from the repository", ExhibitProjectBrowserPage.class, e);
-      setResponsePage(new ErrorReportPage(error));
-    }
-		add(HeaderContributor.forCss(EXHIBIT_CSS));
+	  add(HeaderContributor.forCss(EXHIBIT_CSS));
 		add(HeaderContributor
 				.forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
 		add(new StringHeaderContributor(
-				"<link href=\"/resources/uk.ac.osswatch.simal.wicket.UserApplication/style/projects.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
+				"<link href=\"/simal-rest/allProjects/json\" rel=\"exhibit/data\" />"));
 	}
 }
