@@ -86,7 +86,7 @@ public class FoafFormInputModel implements IClusterable {
    * @param duplicate
    */
   private void populatePerson(IPerson person) {
-    person.setName(getName());
+    person.addName(getName());
     person.addEmail(getEmail());
   }
 
