@@ -239,7 +239,7 @@ public class TestProject extends BaseRepositoryTest {
     boolean hasMaintainerTwo = false;
     Iterator<IPerson> people = project1.getMaintainers().iterator();
     IPerson person;
-    while ((!hasMaintainerOne || !!hasMaintainerTwo) && people.hasNext()) {
+    while ((!hasMaintainerOne || !hasMaintainerTwo) && people.hasNext()) {
       person = people.next();
       Set<String> names = person.getNames();
       logger.debug("Got a maintainer with the names {}", names);
