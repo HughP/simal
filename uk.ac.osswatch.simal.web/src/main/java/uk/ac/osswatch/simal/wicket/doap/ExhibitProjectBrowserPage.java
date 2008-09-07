@@ -19,12 +19,13 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.net.URL;
+import java.io.IOException;
 
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -41,16 +42,19 @@ public class ExhibitProjectBrowserPage extends BasePage {
 	    BasePage.class, "style/exhibit.css");
 
 	public ExhibitProjectBrowserPage() {
-		URL dir = UserApplication.class.getResource(DEFAULT_CSS_LOC);
+		String dir = System.getProperty("java.io.tmpdir");
 		try {
-			File outFile = new File(new File(dir.toURI()).getParent() + File.separator + "projects.js");
+			File outFile = new File(dir + "projects.js");
 			FileWriter out = new FileWriter(outFile);
 			out.write(UserApplication.getRepository().getAllProjectsAsJSON());
 			out.close();
-		} catch (Exception e) {
+		} catch (IOException e) {
 			UserReportableException error = new UserReportableException("Unable to write JSON file", ExhibitProjectBrowserPage.class, e);
 			setResponsePage(new ErrorReportPage(error));
-		}
+		} catch (SimalRepositoryException e) {
+      UserReportableException error = new UserReportableException("Unable to retrieve necessary data from the repository", ExhibitProjectBrowserPage.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    }
 		add(HeaderContributor.forCss(EXHIBIT_CSS));
 		add(HeaderContributor
 				.forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
