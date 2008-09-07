@@ -44,7 +44,7 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
  * records.
  */
 public class PersonListPanel extends Panel {
-
+  private static final long serialVersionUID = 1L;
   private Set<IPerson> people;
   private String title;
 
