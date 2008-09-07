@@ -24,6 +24,8 @@ import java.io.IOException;
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
@@ -38,11 +40,13 @@ import uk.ac.osswatch.simal.wicket.UserReportableException;
  */
 public class ExhibitProjectBrowserPage extends BasePage {
 	private static final long serialVersionUID = 2675836864409849552L;
+	private static final Logger logger = LoggerFactory.getLogger(ExhibitProjectBrowserPage.class);
 	private static final CompressedResourceReference EXHIBIT_CSS = new CompressedResourceReference(
 	    BasePage.class, "style/exhibit.css");
 
 	public ExhibitProjectBrowserPage() {
 		String dir = System.getProperty("java.io.tmpdir");
+		logger.debug("Temporary JSON file will be saved in {}", dir);
 		try {
 			File outFile = new File(dir + "projects.js");
 			FileWriter out = new FileWriter(outFile);

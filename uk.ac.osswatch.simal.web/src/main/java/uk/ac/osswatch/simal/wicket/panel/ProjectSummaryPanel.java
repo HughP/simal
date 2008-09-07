@@ -42,6 +42,7 @@ import org.apache.wicket.markup.html.link.PageLink;
 import org.apache.wicket.markup.html.panel.Panel;
 
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
@@ -66,7 +67,8 @@ public class ProjectSummaryPanel extends Panel {
       Random rand = new Random();
       int idx = rand.nextInt(allProjects.size());
       project = (IProject)allProjects.toArray()[idx];
-    } catch (Exception e) {
+    } catch (SimalRepositoryException e) {
+      // If we can't get a random project it is safe to use a null project as this will simply report an error to the user in this panel
       project = null;
     }
     populatePage(project);
@@ -99,18 +101,25 @@ public class ProjectSummaryPanel extends Panel {
 			add(new Label("shortDesc", msg));
 
 			final UserReportableException exception = new UserReportableException(msg, ProjectSummaryPanel.class);
-			IPageLink link = new IPageLink() {
-				public Page getPage() {
-					return new ErrorReportPage(exception);
-				}
-
-				public Class<ErrorReportPage> getPageIdentity() {
-					return ErrorReportPage.class;
-				}
-			};
-			add(new PageLink("projectDetailLink", link));
-
+			add(new PageLink("projectDetailLink", new ExceptionDetailLink(exception)));
 		}
+	}
+	
+	private static class ExceptionDetailLink implements IPageLink {
+    private static final long serialVersionUID = 1L;
+      private UserReportableException exception;
+
+      public ExceptionDetailLink(UserReportableException exception) {
+	      this.exception = exception;
+	    }
+	  
+      public Page getPage() {
+        return new ErrorReportPage(exception);
+      }
+
+      public Class<ErrorReportPage> getPageIdentity() {
+        return ErrorReportPage.class;
+      }
 	}
 
 }
