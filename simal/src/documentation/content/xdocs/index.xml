@@ -25,7 +25,8 @@
       <title>Introduction</title>
 	    <p>Simal is an open source tool for building project registries. 
 	     Simal uses the Description of a Project (DOAP) schema to collect, store and present 
-	     data about projects. Simal is available under the Apache software License V2.</p>
+	     data about projects. Simal is available under the 
+       <a href="http://www.oss-watch.ac.uk/resources/apache2.xml">Apache software License V2</a>.</p>
 	      
 	    <p id="missionStatement">The mission of the Simal project is to create 
 	    a software framework for the collection and management of essential details
