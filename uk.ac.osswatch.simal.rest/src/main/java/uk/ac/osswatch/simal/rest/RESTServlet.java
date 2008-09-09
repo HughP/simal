@@ -25,6 +25,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
@@ -36,12 +39,16 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
  */
 public class RESTServlet extends HttpServlet {
   private static final long serialVersionUID = -7003783530005464708L;
-
+  private static final Logger logger = LoggerFactory.getLogger(RESTServlet.class);
+  
   public RESTServlet() {
   }
 
   public void doGet(HttpServletRequest req, HttpServletResponse res)
       throws ServletException, IOException {
+    if (logger.isTraceEnabled()) {
+      logRequest(req);
+    }
     PrintWriter out = res.getWriter();
 
     RESTCommand cmd = RESTCommand.createCommand(req.getPathInfo());
@@ -70,6 +77,17 @@ public class RESTServlet extends HttpServlet {
       out.println(response);
       out.close();
     }
+  }
+
+  private void logRequest(HttpServletRequest req) {
+    StringBuilder msg = new StringBuilder("Recieved Request: ");
+    msg.append(req.getRequestURL());
+    msg.append(" from ");
+    msg.append(req.getRemoteHost());
+    msg.append(" (");
+    msg.append(req.getRemoteUser());
+    msg.append(')');
+    logger.trace(msg.toString());
   }
 
   /**
