@@ -15,12 +15,15 @@
   limitations under the License.
 -->
 <project name="simal-docs" default="main">
-        <!--<property name="notify.email.host" value="localhost"/><!-- or ISP SMTP settings -->
-        <property name="notify.email.to" value="somename@somedomain.tld"/><!--such as simal group-->
-        <property name="notify.email.from" value=""/><!-- sometimes vaild email required, default Forrestbot -->
-<property name="notify.administrator" value="somename&lt;somename\@somedomain.tld>"/>-->
+  <!--
+  <property name="notify.email.host" value="localhost"/> // or ISP SMTP settings.
+  <property name="notify.email.to" value="somename@somedomain.tld"/> // such as simal group
+  <property name="notify.email.from" value=""/> // sometimes valid email required, default Forrestbot
+  <property name="notify.administrator" value="somename&lt;somename\@somedomain.tld>"/>
+  -->
+
 <property name="getsrc.local.root-dir" location="."/>
- <target name="getsrc" depends="getsrc.clean-workdir, getsrc.local"/>
+<target name="getsrc" depends="getsrc.clean-workdir, getsrc.local"/>
 
 <!-- create this secret file to be an ant project (not stored in CVS or SVN)
 that sets deploy.scp.{dest/keyfile/passphrase/password} properties.-->
