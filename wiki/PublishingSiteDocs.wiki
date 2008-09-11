@@ -26,15 +26,16 @@ This contains the basic instructions to tell Forrestbot what to publish and what
 
 === deploy.scp.settings ===
 
-The above {{{publish.xml}}} file has a setting which point to {{{../../deploy.scp.settings}}}.
-This is a file which should live 'above' your simal trunk and therefore not be mistaken for a file that would otherwise be committed to our svn tree. It is {{{critical}}} that this file is not added to the svn structure as it contains sensitive information that should remain private - in the same way as any other username/password pair would be.
+The above {{{publish.xml}}} file has a setting which point to {{{deploy.scp.settings}}}.
+
+It is {{{critical}}} that this file is not added to the svn structure as it contains sensitive information that should remain private - in the same way as any other username/password pair would be. For this reason it is included in the {{{svn:ignore}}} list.
 
 The contents of this file should be something like :-
 
 {{{
 <?xml version="1.0"?>
 <project>
-  <property name="deploy.scp.dest" value="user@http://simal.oss-watch.ac.uk/:path/to/simal/public_html"/>
+  <property name="deploy.scp.dest" value="user@linux.ox.ac.uk/:/afs/.ox.ac.uk/vhost/simal.oss-watch.ac.uk/docroot"/>
   <!--
   <property name="deploy.scp.keyfile" value="\path\to\simal\id_dsa"/>
   <property name="deploy.scp.passphrase" value="yourpassphrase"/>
