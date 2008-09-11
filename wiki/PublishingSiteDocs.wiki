@@ -1,0 +1,60 @@
+#summary Details various ways of publishing the site documentation.
+
+= Introduction =
+
+The site docs are produced using Apache Forrest, there are a few different ways in which these docs can be published. Currently the only method here is by using the ForrestBot tool, more will follow.
+
+
+= Publishing with ForrestBot =
+
+== Configuration Files ==
+
+=== publish.xml ===
+
+There is a configuration file called *publish.xml* located in the simal/ directory.
+This contains the basic instructions to tell ForrestBot what to publish and what delivery method to use. Delivery methods include 'svn' 'scp' 'ftp' and others, we are using the SCP method currently.
+
+=== deploy.scp.settings ===
+
+The above `publish.xml` file has a setting which point to `../../deploy.scp.settings`.
+This is a file which should live 'above' your simal trunk and therefore not be mistaken for a file that would otherwise be committed to our svn tree. It is *critical* that this file is not added to the svn structure as it contains sensitive information that should remain private - in the same way as any other username/password pair would be.
+
+The contents of this file should be something like :-
+
+{{{
+<?xml version="1.0"?>
+<project>
+  <property name="deploy.scp.dest" value="user@http://simal.oss-watch.ac.uk/:path/to/simal/public_html"/>
+  <!--
+  <property name="deploy.scp.keyfile" value="\path\to\simal\id_dsa"/>
+  <property name="deploy.scp.passphrase" value="yourpassphrase"/>
+  -->
+  <property name="deploy.scp.password" value="yourpassword"/>
+</project>
+}}}
+
+Note the above settings show keyfile and passphrase settings commented out, if this is the preferred method of connection then uncomment and fill in the correct details.
+If you have not connected to the server before using SSH/SCP then do so manually first via the command line so that you can accept the server certificate first.
+The password method will only work if your server accepts password authentication.
+
+== Publishing ==
+
+{{{
+forrest -f publish.xml build
+
+forrest -f publish.xml deploy
+}}}
+
+Note that the `build` will take around ~5 minutes, carefully look for warnings that may need to be fixed (though these will not prevent a successful build), and also check for errors that will need to be fixed before deploying.
+
+= Useful Information =
+
+Apache Cocoon (on which Apache Forrest is based) has some useful features.
+
+== Enable Checksums ==
+
+Edit the file `%FORREST_HOME%\main\webapp\WEB-INF\cli.xconf` and look for the line which reads `<!-- <checksums-uri>build/work/checksums</checksums-uri> -->`.
+
+Remove the surrounding `<!-- -->` comment markers to enable the checksums-uri.
+
+Any files not modified since the last publish will not be included in future publishing until they change again. Note that this is not always needed, it depends on the method of publishing, your OS platform etc.
