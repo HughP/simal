@@ -3,22 +3,31 @@
 
 = Introduction =
 
-The site docs are produced using Apache Forrest, there are a few different ways in which these docs can be published. Currently the only method here is by using the Forrestbot tool, more will follow.
+The site docs are produced using [http://forrest.apache.org Apache Forrest], there are a few different ways in which these docs can be published. Currently the only method here is by using the Forrestbot tool, more will follow.
 
+= Prerequisites =
+
+To publish (or even build) the docs you'll need to install [http://forrest.apache.org Apache Forrest]
 
 = Publishing with Forrestbot =
+
+== Source Files ==
+
+The source files for the documentation are distributed across multiple locations. This is so that documentation for individual modules can be build and distributed independantly of the documentation for other modules. However, the file structure for documentation is the same in each case and is the default file structure found in [http://forrest.apache.org Apache Forrest].
+
+The {{{Simal}}} module contains the "master" content object, that is, the {{{Simal}}} module can be used to build all documentation for all Simal modules in a single site. It is this module that we use to create the ]http://simal.oss-watch.ac.uk|documentation site]. Therefore this module will be the focus of these instructions.
 
 == Configuration Files ==
 
 === publish.xml ===
 
-There is a configuration file called *publish.xml* located in the simal/ directory.
+There is a configuration file called {{{publish.xml}}} located in the {{{simal}}} module.
 This contains the basic instructions to tell Forrestbot what to publish and what delivery method to use. Delivery methods include 'svn' 'scp' 'ftp' and others, we are using the SCP method currently.
 
 === deploy.scp.settings ===
 
-The above `publish.xml` file has a setting which point to `../../deploy.scp.settings`.
-This is a file which should live 'above' your simal trunk and therefore not be mistaken for a file that would otherwise be committed to our svn tree. It is *critical* that this file is not added to the svn structure as it contains sensitive information that should remain private - in the same way as any other username/password pair would be.
+The above {{{publish.xml}}} file has a setting which point to {{{../../deploy.scp.settings}}}.
+This is a file which should live 'above' your simal trunk and therefore not be mistaken for a file that would otherwise be committed to our svn tree. It is {{{critical}}} that this file is not added to the svn structure as it contains sensitive information that should remain private - in the same way as any other username/password pair would be.
 
 The contents of this file should be something like :-
 
@@ -42,11 +51,15 @@ The password method will only work if your server accepts password authenticatio
 
 {{{
 forrest -f publish.xml build
-
-forrest -f publish.xml deploy
 }}}
 
-Note that the `build` will take around ~5 minutes, carefully look for warnings that may need to be fixed (though these will not prevent a successful build), and also check for errors that will need to be fixed before deploying.
+Should there be a broken internal link in the site the {{{build}}} above command will report a failure. If this is the case you will find details of the broken links in {{{simal/build/site/broken-links.xml}}}.
+
+Once you have a succesful build you can deploy with:
+
+{{{
+forrest -f publish.xml deploy
+}}}
 
 = Useful Information =
 
