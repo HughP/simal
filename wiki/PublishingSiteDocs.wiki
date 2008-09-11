@@ -1,18 +1,19 @@
 #summary Details various ways of publishing the site documentation.
+#labels Phase-Deploy
 
 = Introduction =
 
-The site docs are produced using Apache Forrest, there are a few different ways in which these docs can be published. Currently the only method here is by using the ForrestBot tool, more will follow.
+The site docs are produced using Apache Forrest, there are a few different ways in which these docs can be published. Currently the only method here is by using the Forrestbot tool, more will follow.
 
 
-= Publishing with ForrestBot =
+= Publishing with Forrestbot =
 
 == Configuration Files ==
 
 === publish.xml ===
 
 There is a configuration file called *publish.xml* located in the simal/ directory.
-This contains the basic instructions to tell ForrestBot what to publish and what delivery method to use. Delivery methods include 'svn' 'scp' 'ftp' and others, we are using the SCP method currently.
+This contains the basic instructions to tell Forrestbot what to publish and what delivery method to use. Delivery methods include 'svn' 'scp' 'ftp' and others, we are using the SCP method currently.
 
 === deploy.scp.settings ===
 
