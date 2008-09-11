@@ -33,10 +33,10 @@
 
     <!--  Locate module documentation -->
     <match pattern="project.*/**">
-      <location src="../../../uk.ac.osswatch.simal.{1}/src/documentation/content/xdocs/{2}" />
+            <location src="{properties:home}../../uk.ac.osswatch.simal.{1}/src/documentation/content/xdocs/{2}" />
     </match>
     <match pattern="project.useCases.*.**">
-      <location src="../../../../uk.ac.osswatch.simal.{1}/src/documentation/content/useCases/{2}.xml" />
+            <location src="{properties:home}../../uk.ac.osswatch.simal.{1}/src/documentation/content/useCases/{2}.xml" />
     </match>
     
 		<match pattern="dispatcher.themer">
