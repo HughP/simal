@@ -171,21 +171,17 @@ public class PersonAPI extends AbstractHandler {
     throws SimalAPIException {
     final String id = cmd.getPersonID();
     
-    StringBuffer response = new StringBuffer();
+    String response;
     try {
       Iterator<IPerson> itr = getRepository().getAllPeople().iterator();
       if (cmd.isJSON()) {
-        while(itr.hasNext()) {
-          response.append("{ \"items\": [");
-          response.append(itr.next().toJSON(true));
-          response.append("]}");
-        }
+        response = getRepository().getAllPeopleAsJSON();
       } else {
         throw new SimalAPIException("Unknown data format: " + cmd.getFormat());
       }
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to get a person with id " + id, e);
     }
-    return response.toString();
+    return response;
   }
 }
