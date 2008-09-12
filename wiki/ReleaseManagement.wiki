@@ -1,12 +1,12 @@
 #summary Steps to go through for a release
-#labels Phase-Support,Phase-Implementation
+#labels Phase-QA
 
 = Pre-Requisites =
 
 Before a release can be made a number of requirements must be met.
 
  * Check all CodeAuditing reports are satisfactory (satisfactory means there are no warnings from the code audit tools)
- * All unverified issues have been verified by someone other than the owner of that issue
+ * All [http://code.google.com/p/simal/issues/list?can=7&q=&colspec=ID+Type+Status+Priority+Milestone+Summary&x=priority&y=milestone&cells=tiles unverified issues] have been verified by someone other than the owner of that issue
  * All source code has been formatted according to the projects coding standards
  * All documentation has been updated to reflect the new features in this release
 
