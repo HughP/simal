@@ -15,22 +15,24 @@
   limitations under the License.
 -->
 <project name="simal-docs" default="main">
-  <!--
-  <property name="notify.email.host" value="localhost"/> // or ISP SMTP settings.
-  <property name="notify.email.to" value="somename@somedomain.tld"/> // such as simal group
-  <property name="notify.email.from" value=""/> // sometimes valid email required, default Forrestbot
-  <property name="notify.administrator" value="somename&lt;somename\@somedomain.tld>"/>
-  -->
+	<property name="notify.email.host" value="localhost"/>
+  <property name="notify.email.to" value="simal-contributors@googlegroups.com"/>
+  <property name="notify.email.from" value="rgardler@apache.org"/>
+  <property name="notify.administrator" value="rgardler@apache.org>"/>
+  
+  <property name="getsrc.local.root-dir" location="."/>
 
-<property name="getsrc.local.root-dir" location="."/>
-<target name="getsrc" depends="getsrc.clean-workdir, getsrc.local"/>
+  <target name="getsrc" depends="getsrc.clean-workdir, getsrc.local"/>
 
 <!-- create this secret file to be an ant project (not stored in CVS or SVN)
 that sets deploy.scp.{dest/keyfile/passphrase/password} properties.-->
 
-<import file="../../deploy.scp.settings" optional="false"/>
-   <target name="deploy" depends="deploy.scp"/>
-   <!--<target name="notify" depends="notify.local, notify.email"/>-->
-   <property environment="env"/>
-   <import file="${env.FORREST_HOME}/tools/forrestbot/core/forrestbot.xml"/>
+  <import file="deploy.scp.settings" optional="false"/>
+  
+  <target name="deploy" depends="deploy.scp"/>
+  
+  <!--<target name="notify" depends="notify.local, notify.email"/>-->
+  
+	<property environment="env"/>
+  <import file="${env.FORREST_HOME}/tools/forrestbot/core/forrestbot.xml"/>
 </project>
