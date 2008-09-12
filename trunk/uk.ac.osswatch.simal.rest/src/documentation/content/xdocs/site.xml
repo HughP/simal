@@ -47,6 +47,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   <devDocs label="Developer Documentation" tab="restModule">
     <faq label="FAQ" href="developer/faq.html" description="Frequently asked questions from developers"/>
     <addProject label="Add Project" href="docs/developer/useCases/addProject.html" description="Adding a project to the repository"/>
+    <implementNewCmd label="New Command" href="developer/implementNewCommand.html" description="How to implement a new command"/>
   </devDocs>
   
   <external-refs>
