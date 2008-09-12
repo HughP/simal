@@ -46,14 +46,11 @@ public final class RESTCommand {
   public static final String TYPE_SIMAL = "simal";
   public static final String TYPE_MYEXPERIMENT = "myExperiment";
 
+  private static String PARAM_METHOD = "method";
+  private static String PARAM_FORMAT = "format";
+  
   private transient Map<String, String> params = new HashMap<String, String>();  
   
-  // TODO: move all these into the params HashMap
-  private String source;
-  private String personID;
-  private String projectID;
-  private String commandMethod;
-  private String format;
 
   /**
    * This class should not be instantiated directly, use the create*(...)
@@ -61,13 +58,13 @@ public final class RESTCommand {
    */
   private RESTCommand(String resourceID, String source, String command,
       String format) {
-    this.source = source;
-    this.commandMethod = command;
-    this.format = format;
+    params.put(PARAM_SOURCE, source);
+    params.put(PARAM_METHOD, command);
+    params.put(PARAM_FORMAT, format);
     if (isPersonCommand()) {
-      this.personID = resourceID;
+      params.put(PARAM_PERSON_ID, resourceID);
     } else {
-      this.projectID = resourceID;
+      params.put(PARAM_PROJECT_ID, resourceID);
     }
   }
 
@@ -137,7 +134,7 @@ public final class RESTCommand {
    * @return
    */
   public String getSource() {
-    return source;
+    return params.get(PARAM_SOURCE);
   }
 
   /**
@@ -147,7 +144,7 @@ public final class RESTCommand {
    * @return The id of the person or null if not applicable.
    */
   public String getPersonID() {
-    return personID;
+    return params.get(PARAM_PERSON_ID);
   }
   
   /**
@@ -183,7 +180,7 @@ public final class RESTCommand {
    * @return
    */
   public boolean isGetPerson() {
-    if (commandMethod.equals(PERSON)) {
+    if (params.get(PARAM_METHOD).equals(PERSON)) {
       return true;
     }
     return false;
@@ -195,7 +192,7 @@ public final class RESTCommand {
    * @return
    */
   public boolean isGetColleagues() {
-    if (commandMethod.equals(ALL_COLLEAGUES)) {
+    if (params.get(PARAM_METHOD).equals(ALL_COLLEAGUES)) {
       return true;
     }
     return false;
@@ -207,7 +204,7 @@ public final class RESTCommand {
    * @return
    */
   public boolean isJSON() {
-    if ((format.equals(FORMAT_JSON))) {
+    if (params.get(PARAM_FORMAT).equals(FORMAT_JSON)) {
       return true;
     }
     return false;
@@ -219,7 +216,7 @@ public final class RESTCommand {
    * @return
    */
   public boolean isXML() {
-    if ((format.equals(FORMAT_XML))) {
+    if (params.get(PARAM_FORMAT).equals(FORMAT_XML)) {
       return true;
     }
     return false;
@@ -332,7 +329,7 @@ public final class RESTCommand {
    * @return
    */
   public String getCommandMethod() {
-    return commandMethod;
+    return params.get(PARAM_METHOD);
   }
 
   /**
@@ -341,31 +338,31 @@ public final class RESTCommand {
    * @return
    */
   public void setCommandMethod(String commandMethod) {
-    this.commandMethod = commandMethod;
+    params.put(PARAM_METHOD, commandMethod);
   }
 
   public String getFormat() {
-    return format;
+    return params.get(PARAM_FORMAT);
   }
 
   public void setFormat(String format) {
-    this.format = format;
+    params.put(PARAM_FORMAT, format);
   }
 
   public void setSource(String source) {
-    this.source = source;
+    params.put(PARAM_SOURCE, source);
   }
 
   public void setPersonID(String personID) {
-    this.personID = personID;
+    params.put(PARAM_PERSON_ID, personID);
   }
 
   public String getProjectID() {
-    return this.projectID;
+    return params.get(PARAM_PROJECT_ID);
   }
 
   private void setProjectID(String id) {
-    this.projectID = id;
+    params.put(PARAM_PROJECT_ID, id);
   }
 
   /**
@@ -374,7 +371,7 @@ public final class RESTCommand {
    * @return
    */
   public boolean isGetAllProjects() {
-    if (commandMethod.equals(ALL_PROJECTS)) {
+    if (params.get(PARAM_METHOD).equals(ALL_PROJECTS)) {
       return true;
     }
     return false;
@@ -386,7 +383,7 @@ public final class RESTCommand {
    * @return
    */
   public boolean isGetProject() {
-    if (commandMethod.equals(PROJECT)) {
+    if (params.get(PARAM_METHOD).equals(PROJECT)) {
       return true;
     }
     return false;
@@ -398,7 +395,7 @@ public final class RESTCommand {
    * @return
    */
   public boolean isAddProject() {
-    if (commandMethod.equals(PROJECT_ADD)) {
+    if (params.get(PARAM_METHOD).equals(PROJECT_ADD)) {
       return true;
     }
     return false;
