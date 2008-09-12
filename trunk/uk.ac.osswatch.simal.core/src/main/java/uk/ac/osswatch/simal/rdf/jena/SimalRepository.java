@@ -71,6 +71,7 @@ public final class SimalRepository extends AbstractSimalRepository {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepository.class);
 
+  private static ISimalRepository instance;
   private transient Model model;
 
   /**
@@ -182,12 +183,14 @@ public final class SimalRepository extends AbstractSimalRepository {
   public void add(String data) throws SimalRepositoryException {
     logger.debug("Adding RDF data string:\n\t" + data);
 
-    File file = new File("testingAddData.rdf");
+    File file = new File("tempData.rdf");
+    FileWriter fw = null;
+    BufferedWriter bw = null;
     try {
-      FileWriter fw = new FileWriter(file);
-      BufferedWriter bw = new BufferedWriter(fw);
+      fw = new FileWriter(file);
+      bw = new BufferedWriter(fw);
       bw.write(data);
-      bw.close();
+      bw.flush();
 
       addProject(file.toURI().toURL(), "");
     } catch (MalformedURLException mue) {
@@ -198,7 +201,24 @@ public final class SimalRepository extends AbstractSimalRepository {
       throw new SimalRepositoryException(
           "Unable to write file from data string", e);
     } finally {
-      file.delete();
+      if (bw != null) {
+        try {
+          bw.close();
+        } catch (IOException e) {
+          logger.warn("Unable to close writer", e);
+        }
+      }
+      if (fw != null) {
+        try {
+          fw.close();
+        } catch (IOException e) {
+          logger.warn("Unable to close writer", e);
+        }
+      }
+      boolean deleted = file.delete();
+      if (!deleted) {
+        logger.warn("Failt to delete temporary file {}", file.toString());
+      }
     }
 
   }

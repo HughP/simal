@@ -38,7 +38,6 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
   private static final Logger logger = LoggerFactory
       .getLogger(AbstractSimalRepository.class);
 
-  protected static ISimalRepository instance;
   protected boolean isTest = false;
   protected boolean initialised;
 
