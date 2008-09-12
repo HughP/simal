@@ -54,6 +54,10 @@
         </section>
       </notes>
       
+      <action context="admin" dev="RDG" type="add" importance="high">
+        <p>Created Simal user mailing list.</p>
+      </action>
+      
       <action context="docs" dev="RDG" type="add" importance="high">
         <p>Add links to user documentation sections.</p>
       </action>
