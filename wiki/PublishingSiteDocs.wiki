@@ -61,15 +61,3 @@ Once you have a succesful build you can deploy with:
 {{{
 forrest -f publish.xml deploy
 }}}
-
-= Useful Information =
-
-Apache Cocoon (on which Apache Forrest is based) has some useful features.
-
-== Enable Checksums ==
-
-Edit the file `%FORREST_HOME%\main\webapp\WEB-INF\cli.xconf` and look for the line which reads `<!-- <checksums-uri>build/work/checksums</checksums-uri> -->`.
-
-Remove the surrounding `<!-- -->` comment markers to enable the checksums-uri.
-
-Any files not modified since the last publish will not be included in future publishing until they change again. Note that this is not always needed, it depends on the method of publishing, your OS platform etc.
