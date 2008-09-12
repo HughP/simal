@@ -224,7 +224,7 @@
         </section>
 
         <section>
-          <title>All Colleagues</title>
+          <title>All Colleagues of a Person</title>
 
           <p>
             A colleague is defined as someone who works on any of the
@@ -242,6 +242,14 @@
             Where PERSON_ID is replaced with the Simal ID of the person
             we are interested in.
           </p>
+        </section>
+        
+        <section>
+          <title>Retrieve all People</title>
+
+          <p>To retrieve the details of all people use:</p>
+
+          <source>http://foo.com/simal-rest/allPeople/FORMAT</source>
         </section>
       </section>
 

@@ -53,7 +53,9 @@ public class PersonAPI extends AbstractHandler {
       return getPerson(command);
     } else if (command.isGetColleagues()) {
       return getAllColleagues(command);
-    } else {
+    } else if (command.isGetAllPeople()) {
+      return getAllPeople(command);
+    }  else {
       throw new SimalAPIException("Unkown command: " + command);
     }
   }
@@ -97,7 +99,7 @@ public class PersonAPI extends AbstractHandler {
   }
 
   /**
-   * Get all the colleagues for this
+   * Get all the colleagues for an identified person.
    * 
    * @param cmd
    * @return
@@ -157,5 +159,33 @@ public class PersonAPI extends AbstractHandler {
     }
     response = result.toString();
     return response;
+  }
+  
+  /**
+   * Get all the people in the repository.
+   * @param cmd
+   * @return
+   * @throws SimalAPIException
+   */
+  public String getAllPeople(final RESTCommand cmd)
+    throws SimalAPIException {
+    final String id = cmd.getPersonID();
+    
+    StringBuffer response = new StringBuffer();
+    try {
+      Iterator<IPerson> itr = getRepository().getAllPeople().iterator();
+      if (cmd.isJSON()) {
+        while(itr.hasNext()) {
+          response.append("{ \"items\": [");
+          response.append(itr.next().toJSON(true));
+          response.append("]}");
+        }
+      } else {
+        throw new SimalAPIException("Unknown data format: " + cmd.getFormat());
+      }
+    } catch (SimalRepositoryException e) {
+      throw new SimalAPIException("Unable to get a person with id " + id, e);
+    }
+    return response.toString();
   }
 }

@@ -32,6 +32,7 @@ public final class RESTCommand {
   public static final String ALL_PROJECTS = "/allProjects";
   public static final String PROJECT = "/project";
   public static final String PROJECT_ADD = "/addProject";
+  public static final String ALL_PEOPLE = "/allPeople";
   public static final String PERSON = "/person";
   public static final String ALL_COLLEAGUES = "/allColleagues";
   
@@ -168,7 +169,19 @@ public final class RESTCommand {
    * @return
    */
   public boolean isPersonCommand() {
-    if (isGetPerson() || isGetColleagues()) {
+    if (isGetPerson() || isGetColleagues() || isGetAllPeople()) {
+      return true;
+    }
+    return false;
+  }
+  
+  /**
+   * Test to see if this command is a getAllPEople command.
+   * 
+   * @return
+   */
+  public boolean isGetAllPeople() {
+    if (params.get(PARAM_METHOD).equals(ALL_PEOPLE)) {
       return true;
     }
     return false;
