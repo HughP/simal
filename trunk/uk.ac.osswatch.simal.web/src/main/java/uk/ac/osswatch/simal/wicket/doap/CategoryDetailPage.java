@@ -31,6 +31,7 @@ import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
  * Displays a single category in detail.
  */
 public class CategoryDetailPage extends BasePage {
+  private static final long serialVersionUID = 1L;
   IDoapCategory category;
   
   public CategoryDetailPage(IDoapCategory category) {
