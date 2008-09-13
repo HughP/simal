@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.wicket;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.io.File;
 import java.io.FileWriter;
@@ -45,26 +45,33 @@ public class ToolsPage extends BasePage {
   private static final Logger logger = LoggerFactory.getLogger(ToolsPage.class);
 
   public ToolsPage() {
-    
+
     // Repository Stats
     try {
-      add(new Label("numOfProjects", Integer.toString(UserApplication.getRepository().getAllProjects().size())));
-      add(new Label("numOfPeople", Integer.toString(UserApplication.getRepository().getAllPeople().size())));
-      add(new Label("numOfCategories", Integer.toString(UserApplication.getRepository().getAllCategories().size())));
+      add(new Label("numOfProjects", Integer.toString(UserApplication
+          .getRepository().getAllProjects().size())));
+      add(new Label("numOfPeople", Integer.toString(UserApplication
+          .getRepository().getAllPeople().size())));
+      add(new Label("numOfCategories", Integer.toString(UserApplication
+          .getRepository().getAllCategories().size())));
     } catch (SimalRepositoryException e) {
-      UserReportableException error = new UserReportableException("Unable to get repository statistics", ToolsPage.class, e);
+      UserReportableException error = new UserReportableException(
+          "Unable to get repository statistics", ToolsPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
-    
-    //Repository Config
+
+    // Repository Config
     try {
-      add(new Label("instanceID", SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)));
-      add(new Label("propertiesFile", SimalProperties.getLocalPropertiesFile().toString()));
+      add(new Label("instanceID", SimalProperties
+          .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)));
+      add(new Label("propertiesFile", SimalProperties.getLocalPropertiesFile()
+          .toString()));
     } catch (SimalRepositoryException e) {
-      UserReportableException error = new UserReportableException("Unable to get repository configuration data", ToolsPage.class, e);
+      UserReportableException error = new UserReportableException(
+          "Unable to get repository configuration data", ToolsPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
-    
+
     add(new Link("removeAllData") {
 
       public void onClick() {
@@ -88,7 +95,7 @@ public class ToolsPage extends BasePage {
         }
       }
     });
-    
+
     add(new Link("importPTSWLink") {
       private static final long serialVersionUID = -6938957715376331902L;
 
@@ -102,20 +109,19 @@ public class ToolsPage extends BasePage {
       }
     });
   }
-  
-
 
   /**
-   * Remove all data from the repository. 
-   * @throws UserReportableException 
+   * Remove all data from the repository.
+   * 
+   * @throws UserReportableException
    */
   private void removeAllData() throws UserReportableException {
     ISimalRepository repo;
     try {
       repo = UserApplication.getRepository();
     } catch (SimalRepositoryException e) {
-      throw new UserReportableException(
-          "Unable to get the count of projects", ToolsPage.class, e);
+      throw new UserReportableException("Unable to get the count of projects",
+          ToolsPage.class, e);
     }
     repo.removeAllData();
   }
@@ -125,8 +131,8 @@ public class ToolsPage extends BasePage {
     try {
       repo = UserApplication.getRepository();
     } catch (SimalRepositoryException e) {
-      throw new UserReportableException(
-          "Unable to import test data", ToolsPage.class, e);
+      throw new UserReportableException("Unable to import test data",
+          ToolsPage.class, e);
     }
     ModelSupport.addTestData(repo);
   }
@@ -138,15 +144,16 @@ public class ToolsPage extends BasePage {
       repo = UserApplication.getRepository();
       preProjectCount = repo.getAllProjects().size();
     } catch (SimalRepositoryException e) {
-      throw new UserReportableException(
-          "Unable to get the count of projects", ToolsPage.class, e);
+      throw new UserReportableException("Unable to get the count of projects",
+          ToolsPage.class, e);
     }
     PTSWImport importer = new PTSWImport();
     Document pings;
     try {
       pings = importer.getLatestPingsAsRDF();
     } catch (SimalException e) {
-      throw new UserReportableException("Unable to retrieve the latest pings from PTSW", ToolsPage.class, e);
+      throw new UserReportableException(
+          "Unable to retrieve the latest pings from PTSW", ToolsPage.class, e);
     }
     OutputFormat format = new OutputFormat(pings);
     StringWriter writer = new StringWriter();
@@ -154,28 +161,38 @@ public class ToolsPage extends BasePage {
     try {
       serial.serialize(pings);
     } catch (IOException e) {
-      throw new UserReportableException("Unable to serialize PTSW response", ToolsPage.class);
+      throw new UserReportableException("Unable to serialize PTSW response",
+          ToolsPage.class);
     }
     logger.info("Updated DOAP documents:\n");
     logger.info(writer.toString());
 
     File tmpFile = new File(System.getProperty("java.io.tmpdir")
         + File.separator + "PTSWExport.xml");
-    FileWriter fw;
+    FileWriter fw = null;
     try {
       fw = new FileWriter(tmpFile);
       fw.write(writer.toString());
-      fw.close();
     } catch (IOException e) {
       throw new UserReportableException(
-          "Unable to write PTSW export file to temporary space", ToolsPage.class);
+          "Unable to write PTSW export file to temporary space",
+          ToolsPage.class);
+    } finally {
+      if (fw != null) {
+        try {
+          fw.close();
+        } catch (IOException e) {
+          logger.warn("Unable to close file", e);
+        }
+      }
     }
 
     try {
-      repo.addProject(tmpFile.toURI().toURL(),
-          tmpFile.toURI().toURL().toExternalForm());
+      repo.addProject(tmpFile.toURI().toURL(), tmpFile.toURI().toURL()
+          .toExternalForm());
       int postProjectCount = repo.getAllProjects().size();
-      logger.info("Imported " + (postProjectCount - preProjectCount) + " project records from PTSW");
+      logger.info("Imported " + (postProjectCount - preProjectCount)
+          + " project records from PTSW");
     } catch (Exception e) {
       throw new UserReportableException(
           "Unable to add projects from PTSW Export", ToolsPage.class, e);

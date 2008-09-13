@@ -16,18 +16,11 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
-import java.io.File;
-import java.io.FileWriter;
-import java.net.URL;
-
 import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
 import uk.ac.osswatch.simal.wicket.BasePage;
-import uk.ac.osswatch.simal.wicket.ErrorReportPage;
-import uk.ac.osswatch.simal.wicket.UserApplication;
-import uk.ac.osswatch.simal.wicket.UserReportableException;
 
 /**
  * Creates a page which contains an <a
@@ -35,26 +28,17 @@ import uk.ac.osswatch.simal.wicket.UserReportableException;
  * faceted browser for People.
  */
 public class PersonBrowserPage extends BasePage {
+  private static final long serialVersionUID = 1L;
 
   private static final CompressedResourceReference EXHIBIT_CSS = new CompressedResourceReference(
       BasePage.class, "style/exhibit.css");
 
   public PersonBrowserPage() {
-    URL dir = UserApplication.class.getResource(DEFAULT_CSS_LOC);
-    try {
-      File outFile = new File(new File(dir.toURI()).getParent() + File.separator + "people.js");
-      FileWriter out = new FileWriter(outFile);
-      out.write(UserApplication.getRepository().getAllPeopleAsJSON());
-      out.close();
-    } catch (Exception e) {
-      UserReportableException error = new UserReportableException("Unable to write JSON file", PersonBrowserPage.class, e);
-      setResponsePage(new ErrorReportPage(error));
-    }
     add(HeaderContributor.forCss(EXHIBIT_CSS));
     add(HeaderContributor
         .forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
     add(new StringHeaderContributor(
-        "<link href=\"/resources/uk.ac.osswatch.simal.wicket.UserApplication/style/people.js\" type=\"application/json\" rel=\"exhibit/data\" />"));
+        "<link href=\"/simal-rest/allPeople/json\" rel=\"exhibit/data\" />"));
   }
 }
 

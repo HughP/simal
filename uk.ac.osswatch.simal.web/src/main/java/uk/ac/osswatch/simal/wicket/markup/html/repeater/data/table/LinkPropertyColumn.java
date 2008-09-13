@@ -36,6 +36,7 @@ import org.apache.wicket.model.IModel;
  * ]]>
  */
 public abstract class LinkPropertyColumn extends PropertyColumn {
+  private static final long serialVersionUID = 1L;
 	PopupSettings popupSettings;
 	IModel labelModel;
 
