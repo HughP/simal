@@ -173,7 +173,6 @@ public class PersonAPI extends AbstractHandler {
     
     String response;
     try {
-      Iterator<IPerson> itr = getRepository().getAllPeople().iterator();
       if (cmd.isJSON()) {
         response = getRepository().getAllPeopleAsJSON();
       } else {
