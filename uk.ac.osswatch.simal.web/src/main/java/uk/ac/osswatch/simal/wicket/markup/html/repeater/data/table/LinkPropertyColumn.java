@@ -69,6 +69,8 @@ public abstract class LinkPropertyColumn extends PropertyColumn {
 
 	@SuppressWarnings("serial")
 	public class LinkPanel extends Panel {
+	  private static final long serialVersionUID = 1L;
+	  
 		public LinkPanel(final Item item, final String componentId,
 				final IModel model) {
 			super(componentId);
