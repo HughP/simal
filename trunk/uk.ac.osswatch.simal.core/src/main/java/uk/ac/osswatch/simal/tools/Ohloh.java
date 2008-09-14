@@ -110,10 +110,12 @@ public class Ohloh {
     for (int i = 0; i < contributors.getLength(); i ++) {
       Element contributor = (Element) contributors.item(i);
       Node accountIDNode = contributor.getElementsByTagName("account_id").item(0);
-      String accountID = accountIDNode.getTextContent();
-      if (accountIDNode != null && accountID.length()> 0) {
-        Element ohlohAccount = getAccountData(accountID).getDocumentElement();
-        contributor.appendChild(ohlohContributors.importNode(ohlohAccount, true));
+      if (accountIDNode != null) {
+        String accountID = accountIDNode.getTextContent();
+        if (accountID.length()> 0) {
+          Element ohlohAccount = getAccountData(accountID).getDocumentElement();
+          contributor.appendChild(ohlohContributors.importNode(ohlohAccount, true));
+        }
       }
     }    
     
