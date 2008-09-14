@@ -21,12 +21,14 @@ package uk.ac.osswatch.simal.rdf;
 import java.io.File;
 import java.io.FilenameFilter;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 
 import javax.xml.namespace.QName;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -241,6 +243,16 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
             "Unable to add an RDF/XML documet {}" + files[i].getAbsoluteFile(),
             e);
       }
+    }
+  }
+
+  public void addProject(Node project, URL sourceURL, String baseURI)
+      throws SimalRepositoryException {
+    try {
+      addRDFXML(RDFUtils.preProcess(project, sourceURL, baseURI, this).toURI().toURL(), baseURI);
+    } catch (MalformedURLException e) {
+      throw new SimalRepositoryException(
+          "Unable to add data " + e.getMessage(), e);
     }
   }
 

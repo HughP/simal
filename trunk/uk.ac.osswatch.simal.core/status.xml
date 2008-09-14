@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE status PUBLIC "-//APACHE//DTD Status V1.3//EN" "status-v13.dtd">
+<status>
+
+  <developers>
+    <!-- FIFO order -->
+    <person name="Ross Gardler" email="ross.gardler@oucs.ox.ac.uk" id="RDG"/>
+    <person name="We Need You" email="info@oss-watch.ac.uk" id="open"/>
+  </developers>
+
+  <!-- Define here the Title of the Context you want to display in the Changes pages.
+       id = the context value of actions
+       title = Title of the Context
+  -->
+  <contexts>
+    <context id="docs" title="Changes to Documentation"/>
+    <context id="admin" title="Changes to Project Administration"/>
+    <context id="design" title="Changes to Design"/>
+    <context id="feature" title="Changes to feature set of Simal"/>
+  </contexts>
+
+  <changes>
+
+    <release version="0.2-dev" date="unreleased">
+      <notes>
+        <section>
+          <title>What is Simal Core?</title>
+
+          <p>Simal is the core repository and command line interface of the Simal
+            framework which is used to build project registries. That is a place to
+            register filter and search details about projects. The project is very young at this
+            time, as such we welcome input into the requirements and design of the initial prototype
+            system.</p>
+        </section>
+      </notes>
+      
+      <action context="feature" dev="RDG" type="add" importance="high">
+        <p>Added CLI command <code>importOhloh</code> to import data
+        from Ohloh.net. In order to use this feature you must set the value
+        of <code>ohloh.api.key</code> in local.simal.properties. See the
+        Ohloh site for instructions on obtaining an 
+        <a href="https://www.ohloh.net/api_keys/new">Ohloh API key</a>.
+        Usage:</p>
+        
+        <source>
+        simal importOhloh projectID
+        </source>
+      </action>
+      
+      <action context="admin" dev="RDG" type="add" importance="high">
+        <p>Created separate status file for core.</p>
+      </action>
+    </release>
+  </changes>
+
+  <todo>
+    <!-- 
+         We do not use the TODO facilities of Forrest.
+         Please see our issue tracker at
+         http://code.google.com/p/simal/issues/list
+    -->
+  </todo>
+
+</status>

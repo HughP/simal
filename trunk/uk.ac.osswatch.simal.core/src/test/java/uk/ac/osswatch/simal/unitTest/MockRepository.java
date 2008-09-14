@@ -22,6 +22,8 @@ package uk.ac.osswatch.simal.unitTest;
 import java.net.URL;
 import java.util.Set;
 
+import org.w3c.dom.Node;
+
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -190,6 +192,12 @@ public class MockRepository extends AbstractSimalRepository {
   }
 
   public void removeAllData() {
+    // TODO Auto-generated method stub
+    
+  }
+
+  public void addProject(Node node, URL sourceURL, String baseUri)
+      throws SimalRepositoryException {
     // TODO Auto-generated method stub
     
   }
