@@ -43,6 +43,7 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.tools.Ohloh;
 import uk.ac.osswatch.simal.tools.PTSWImport;
 
 /**
@@ -183,11 +184,30 @@ public class Simal {
             System.exit(1);
           }
           i++;
-        } else {
+        } else if (cmd.equals("importOhloh")) {
+          try {
+            importOhloh((String) cmds[i + 1]);
+          } catch (SimalException e) {
+            logger.error(
+                "Unable to Import from Ohloh: " + e.getMessage() + "\n", e);
+            System.exit(1);
+          }
+          i++;
+        }  else {
           logger.info("Ignoring unrecognised command: " + cmd);
         }
       }
     }
+  }
+
+  /**
+   * Import a project from Ohloh
+   * 
+   * @param id
+   */
+  private static void importOhloh(String id) throws SimalException {
+    Ohloh ohloh = new Ohloh();
+    ohloh.addProjectToSimal(id);
   }
 
   /**
@@ -272,7 +292,7 @@ public class Simal {
       }
       try {
         repository.addProject(fileURL, "");
-      } catch (SimalRepositoryException e) {
+      } catch (SimalException e) {
         logger.error("Unable to add an RDF/XML documet {}", fileURL
             .toExternalForm(), e);
         System.exit(1);
@@ -329,7 +349,9 @@ public class Simal {
         .append("writexml     QNAME       retrive the RDF/XML with the supplied QName and write it to standard out");
     footer
         .append("importPTSW               get the list of recently updated DOAp files from Ping The Semantic Web and import them into the repository. Note, this requires and account on Ping The Semantic Web.");
-
+    footer
+        .append("importOhloh  ID          import a project from Ohloh with a given ID.");
+    
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
         header, opts, footer.toString(), false);
   }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ 
+ Copyright 2007 University of Oxford
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+   http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ 
+-->
+
+<response>
+  <status>success</status>
+  <items_returned>10</items_returned>
+  <items_available>69</items_available>
+  <first_item_position>1</first_item_position>
+  <result>
+    <contributor_fact>
+
+      <contributor_id>183444343805327177</contributor_id>
+      <account_id>5961343</account_id>
+      <account_name>foo</account_name>
+      <analysis_id>2580983223</analysis_id>
+      <contributor_name>afoo</contributor_name>
+      <primary_language_id>3</primary_language_id>
+
+      <primary_language_nice_name>XML</primary_language_nice_name>
+      <comment_ratio>0.265822784810127</comment_ratio>
+      <first_commit_time>2003-03-27T23:41:00Z</first_commit_time>
+      <last_commit_time>2008-06-02T13:51:32Z</last_commit_time>
+      <man_months>14</man_months>
+      <commits>31</commits>
+
+      <median_commits>2</median_commits>
+    </contributor_fact>
+    <contributor_fact>
+      <contributor_id>18343805323529</contributor_id>
+      <account_id>ohlohtest</account_id>
+
+      <account_name>Ross Gardler</account_name>
+      <analysis_id>258098</analysis_id>
+      <contributor_name>rgardler</contributor_name>
+      <primary_language_id>3</primary_language_id>
+      <primary_language_nice_name>XML</primary_language_nice_name>
+      <comment_ratio>0.400593471810089</comment_ratio>
+
+      <first_commit_time>2005-10-21T10:43:02Z</first_commit_time>
+      <last_commit_time>2006-04-09T00:57:36Z</last_commit_time>
+      <man_months>3</man_months>
+      <commits>25</commits>
+      <median_commits>2</median_commits>
+    </contributor_fact>
+  </result>
+</response>
+

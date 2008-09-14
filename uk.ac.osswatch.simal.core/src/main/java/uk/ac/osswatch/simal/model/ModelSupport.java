@@ -49,7 +49,6 @@ public class ModelSupport {
    * of all the appropriate categories used by Simal.
    * @throws SimalRepositoryException 
    * 
-   * @throws SimalRepositoryException
    */
   public static void addSimalData(ISimalRepository repo) throws SimalRepositoryException {
     repo.addProject(ISimalRepository.class.getResource("/simal.rdf"), TEST_FILE_BASE_URL);

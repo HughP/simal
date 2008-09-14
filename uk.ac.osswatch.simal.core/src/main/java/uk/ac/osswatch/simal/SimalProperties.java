@@ -58,6 +58,8 @@ public class SimalProperties {
 
   public static final String PROPERTY_USER_WEBAPP_BASEURL = "simal.user.webapp.baseurl";
 
+  public static final String PROPERTY_OHLOH_API_KEY = "ohloh.api.key";
+
   private static Properties defaultProps;
   private static Properties localProps;
 

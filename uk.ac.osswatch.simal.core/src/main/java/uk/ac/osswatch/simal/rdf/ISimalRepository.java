@@ -18,6 +18,8 @@ package uk.ac.osswatch.simal.rdf;
 import java.net.URL;
 import java.util.Set;
 
+import org.w3c.dom.Node;
+
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -72,9 +74,18 @@ public interface ISimalRepository {
    * 
    * @param url
    * @throws SimalRepositoryException 
-   * @throws SimalRepositoryException
    */
   public void addProject(URL url, String baseURI) throws SimalRepositoryException;
+
+  /**
+   * Add an RDF DOAP node.
+   * 
+   * @param node the doap:Project node, or the document element of a doap:Project
+   * @param sourceURL the URL from which this docuemnt was generated
+   * @param baseURI
+   * @throws SimalRepositoryException
+   */
+  public void addProject(Node project, URL url, String baseURI) throws SimalRepositoryException;
 
   /**
    * Get a project from the repository. If the project does not
