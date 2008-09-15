@@ -37,7 +37,7 @@
 
     <xsl:template match="contributor_fact">
       <foaf:Person>
-        <xsl:attribute name="rdf:about">http://www.ohloh.net/accounts/<xsl:value-of select="contributor_name"/></xsl:attribute>
+        <xsl:attribute name="rdf:about">http://www.ohloh.net/accounts/<xsl:value-of select="account_id"/></xsl:attribute>
         <xsl:choose>
           <xsl:when test="response/result/accout/name">
             <foaf:name><xsl:value-of select="response/result/account/name"/></foaf:name>
@@ -60,7 +60,19 @@
         <foaf:holdsAccount>
           <foaf:OnlineAccount>
             <foaf:accountServiceHomepage rdf:resource="http://www.ohloh.net"/>
-            <foaf:accountName><xsl:value-of select="contributor_name"/></foaf:accountName>
+            <foaf:accountName>
+              <xsl:choose>
+                <xsl:when test="response/result/accout/name">
+                  <foaf:name><xsl:value-of select="response/result/account/name"/></foaf:name>
+                </xsl:when>
+                <xsl:when test="account_name">
+                  <foaf:name><xsl:value-of select="account_name"/></foaf:name>
+                </xsl:when>
+                <xsl:otherwise>
+                  <foaf:name><xsl:value-of select="account_id"/></foaf:name>
+                </xsl:otherwise>
+              </xsl:choose>
+            </foaf:accountName>
           </foaf:OnlineAccount>
         </foaf:holdsAccount>
       </foaf:Person>
