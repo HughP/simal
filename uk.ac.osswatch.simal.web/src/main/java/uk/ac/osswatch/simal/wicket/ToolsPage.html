@@ -63,9 +63,20 @@
   
   <h1>Pre-Alpha Tools</h1>
   <p>The tools in this section are pre-alpha and should be used at your own risk.</p>
-  <ul>
-    <li><a href="#" wicket:id="importPTSWLink">Import from Ping The Semantic Web</a></li>
-  </ul>
+  
+  <form wicket:id="importFromOhlohForm">
+    <fieldset>
+    <legend>Import from Ohloh</legend>
+      <p>
+        <label>Ohloh Project ID:</label>
+        <input type="text" wicket:id="projectID" value="" size="50" />
+      </p>
+      <input type="submit" value="Add to repository" />
+    </fieldset>
+  </form>
+  
+  <hr/>    
+  <a href="#" wicket:id="importPTSWLink">Import from Ping The Semantic Web</a>
 </wicket:extend>
 </body>
 </html>

@@ -23,7 +23,10 @@ import java.io.IOException;
 import java.io.StringWriter;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.slf4j.Logger;
@@ -35,7 +38,9 @@ import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.tools.Ohloh;
 import uk.ac.osswatch.simal.tools.PTSWImport;
+import uk.ac.osswatch.simal.wicket.tools.OhlohFormInputModel;
 
 /**
  * The tools page provides access to a number of useful Admin tools.
@@ -43,6 +48,7 @@ import uk.ac.osswatch.simal.tools.PTSWImport;
 public class ToolsPage extends BasePage {
   private static final long serialVersionUID = -3723085497057001876L;
   private static final Logger logger = LoggerFactory.getLogger(ToolsPage.class);
+  private static OhlohFormInputModel inputModel = new OhlohFormInputModel();
 
   public ToolsPage() {
 
@@ -95,6 +101,8 @@ public class ToolsPage extends BasePage {
         }
       }
     });
+    
+    add(new ImportFromOhlohForm("importFromOhlohForm"));
 
     add(new Link("importPTSWLink") {
       private static final long serialVersionUID = -6938957715376331902L;
@@ -196,6 +204,30 @@ public class ToolsPage extends BasePage {
     } catch (Exception e) {
       throw new UserReportableException(
           "Unable to add projects from PTSW Export", ToolsPage.class, e);
+    }
+  }
+  
+  private static class ImportFromOhlohForm extends Form<OhlohFormInputModel> {
+    private static final long serialVersionUID = 4350446873545711199L;
+
+    public ImportFromOhlohForm(String name) {
+      super(name, new CompoundPropertyModel<OhlohFormInputModel>(inputModel));
+      add(new TextField<String>("projectID"));
+    }
+
+    @Override
+    protected void onSubmit() {
+      super.onSubmit();
+
+      if (!this.hasError()) {
+        try {
+          Ohloh importer = new Ohloh();
+          importer.addProjectToSimal(inputModel.getProjectID());
+        } catch (SimalException e) {
+          setResponsePage(new ErrorReportPage(new UserReportableException(
+              "Unable to import from Ohloh", ToolsPage.class, e)));
+        }
+      }
     }
   }
 }
