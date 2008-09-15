@@ -15,6 +15,10 @@ There are various ways of creating a single DOAP file. Some are simple, some are
 
 This is the most complex, but the most flexible way of creating DOAP. If you are familiar with RDF you can simply create the DOAP data by hand and host it like any other data (in your version control system for example). That's all we are going to say about that for now as most people can't or won't do this.
 
+== Netbeans Plugin ==
+
+[http://blogs.sun.com/bblfish/entry/doap_bean_available DOAP Bean] is a Netbeans plugin for editing and managing DOAP.
+
 == Maven ==
 
 If you project use the Apache Maven build tool there is a [http://maven.apache.org/plugins/maven-doap-plugin/ Maven DOAP plugin] that will generate you DOAP from your pom.xml file.
