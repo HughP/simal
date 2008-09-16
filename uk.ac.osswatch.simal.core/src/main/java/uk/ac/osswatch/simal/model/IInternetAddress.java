@@ -24,7 +24,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * An email object. Provides methods for accessing 
  * email details.
  */
-public interface IInternetAddress {
+public interface IInternetAddress extends IResource {
   
   /**
    * Get the complete email address.
