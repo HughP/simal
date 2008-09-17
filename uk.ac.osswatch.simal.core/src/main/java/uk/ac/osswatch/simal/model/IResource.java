@@ -42,7 +42,7 @@ public interface IResource extends IResourceService, Serializable {
    * Get the URI for this resource. 
    * @throws SimalRepositoryException 
    */
-  public String getURI() throws SimalRepositoryException;
+  public String getURI();
   
   /**
    * Get the label for this resource. If the resource does not have a defined
