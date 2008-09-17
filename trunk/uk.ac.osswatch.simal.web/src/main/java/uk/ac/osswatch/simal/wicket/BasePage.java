@@ -115,12 +115,7 @@ public class BasePage extends WebPage {
       repeating.add(item);
       resource = itr.next();
       comment = resource.getComment();
-      try {
-        url = resource.getURI();
-      } catch (SimalRepositoryException e) {
-        logger.warn("Unable to get a URL for " + resource, e);
-        url = "#";
-      }
+      url = resource.getURI();
       label = resource.getLabel(defaultLabel);
       link = new ExternalLink(linkWicketID, url);
       link.add(new Label("label", label));
