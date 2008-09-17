@@ -17,12 +17,7 @@ Copyright 2007 University of Oxford *
  * 
  */
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import uk.ac.osswatch.simal.model.IInternetAddress;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * A class for handling emails.
@@ -30,22 +25,16 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public class InternetAddress extends Resource implements IInternetAddress {
   private static final long serialVersionUID = -5050032847747325204L;
-  private static final Logger logger = LoggerFactory.getLogger(InternetAddress.class);
   
   public InternetAddress(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }
 
-  public String getAddress() throws SimalRepositoryException {
+  public String getAddress() {
      return getURI();
   }
   
   public String toString() {
-    try {
-      return getAddress();
-    } catch (SimalRepositoryException e) {
-      logger.error("Unable to get email address from the repository", e);
-      return ("Invalid Email Address");
-    }
+    return getAddress();
   }
 }

@@ -31,6 +31,6 @@ public interface IInternetAddress extends IResource {
    * @return
    * @throws SimalRepositoryException 
    */
-  public String getAddress() throws SimalRepositoryException;
+  public String getAddress();
   
 }
