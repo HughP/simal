@@ -17,16 +17,22 @@ package uk.ac.osswatch.simal.wicket.panel;
  */
 
 
+import java.util.List;
+import java.util.Vector;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.link.PageLink;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.LoadableDetachableModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -35,6 +41,8 @@ import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
+import uk.ac.osswatch.simal.wicket.markup.html.list.InternetAddressListView;
+import uk.ac.osswatch.simal.wicket.markup.html.list.WebPageListView;
 
 
 /**
@@ -63,8 +71,25 @@ public class PersonSummaryPanel extends Panel {
 	  PageLink detailLink = new PageLink("detailLink", PersonDetailPage.getLink(person));
     detailLink.add(new Label("personName", person.getLabel()));
     add(detailLink);
-		add(new Label("emails", person.getEmail().toString()));
-		add(new Label("homepages", person.getHomepages().toString()));
+    
+    InternetAddressListView emailListView = new InternetAddressListView("emailList", new LoadableDetachableModel<List<IInternetAddress>>() {
+      private static final long serialVersionUID = 1L;
+
+        protected List<IInternetAddress> load() {
+          return new Vector<IInternetAddress>(person.getEmail());
+        }
+    });
+    add(emailListView);
+    
+    WebPageListView homepageListView = new WebPageListView("webpageList", new LoadableDetachableModel<List<IDoapHomepage>>() {
+      private static final long serialVersionUID = 1L;
+
+        protected List<IDoapHomepage> load() {
+          return new Vector<IDoapHomepage>(person.getHomepages());
+        }
+    });
+    add(homepageListView);
+		
 		String friendsURL = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + "/allColleagues/person-" + person.getSimalID() + "/xml";
 		add(new ExternalLink("friendsLink", friendsURL));
 

@@ -17,8 +17,8 @@
 <wicket:panel>
   <div class="content">
     <p class="title"><a wicket:id="detailLink" href="#"><span wicket:id="personName">Person Name</span></a></p>
-    <p>Email: <span wicket:id="emails">Email Addresses</span></p>
-    <p>Web: <span wicket:id="homepages">Homepages</span></p>
+    <p><span wicket:id="emailList"><a href="#" wicket:id="linkURL"><span wicket:id="linkText">Link Text</span></a><br/></span></p>
+    <p><span wicket:id="webpageList"><a href="#" wicket:id="linkURL"><span wicket:id="linkText">Link Text</span></a><br/></span></p>
     <a wicket:id="friendsLink" href="#">Friends (open Social API)</a>
     <input type="button" wicket:id = "removePersonActionLink" value="Remove"/>
   </div>
