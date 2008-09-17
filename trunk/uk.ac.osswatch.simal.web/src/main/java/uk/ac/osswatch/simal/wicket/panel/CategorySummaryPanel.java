@@ -42,11 +42,7 @@ public class CategorySummaryPanel extends Panel {
 
   private void populatePage(final IDoapCategory cat) {
     add(new Label("label", cat.getLabel()));
-    try {
-      add(new Label("uri", cat.getURI()));
-    } catch (SimalRepositoryException e) {
-      add(new Label("uri", "ERROR: unknown URI"));
-    }
+    add(new Label("uri", cat.getURI()));
   }
 
 }

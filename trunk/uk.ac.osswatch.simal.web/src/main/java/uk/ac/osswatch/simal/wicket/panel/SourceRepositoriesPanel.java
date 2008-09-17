@@ -116,14 +116,8 @@ public class SourceRepositoriesPanel extends Panel {
       item = new WebMarkupContainer(repeating.newChildId());
       repeating.add(item);
       location = itr.next();
-      try {
-        link = new ExternalLink(linkWicketID, location.getURI());
-        link.add(new Label("label", location.getURI()));
-      } catch (SimalRepositoryException e) {
-        logger.error("Unable to getURI for location", e);
-        link = new ExternalLink(linkWicketID, "#");
-        link.add(new Label("label", "Error"));
-      }
+      link = new ExternalLink(linkWicketID, location.getURI());
+      link.add(new Label("label", location.getURI()));
       item.add(link);
     }
     return repeating;
