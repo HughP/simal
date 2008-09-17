@@ -48,6 +48,6 @@ public class TestPersonSummaryPanel extends TestBase {
 		        }
 		 });
 		tester.assertVisible("panel:detailLink");		
-		tester.assertVisible("panel:homepages");
+		tester.assertVisible("panel:webpageList");
 	}
 }
