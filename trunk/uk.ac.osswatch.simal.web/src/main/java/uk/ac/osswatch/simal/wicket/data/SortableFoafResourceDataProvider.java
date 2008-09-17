@@ -161,16 +161,10 @@ public class SortableFoafResourceDataProvider extends SortableDataProvider<IFoaf
           && resource1 instanceof IPerson && resource2 instanceof IPerson) {
         String email1;
         String email2;
-        try {
-          Set<IInternetAddress> internetAdd = ((IPerson) resource1).getEmail();
-          email1 = ((IInternetAddress) internetAdd.toArray()[0]).getAddress();
-          internetAdd = ((IPerson) resource2).getEmail();
-          email2 = ((IInternetAddress) internetAdd.toArray()[0]).getAddress();
-        } catch (SimalRepositoryException e) {
-          logger.warn("Unable to retrieive email address from repo");
-          email1 = "Error";
-          email2 = "Error";
-        }
+        Set<IInternetAddress> internetAdd = ((IPerson) resource1).getEmail();
+        email1 = ((IInternetAddress) internetAdd.toArray()[0]).getAddress();
+        internetAdd = ((IPerson) resource2).getEmail();
+        email2 = ((IInternetAddress) internetAdd.toArray()[0]).getAddress();
         if (email1 == null) {
           result = 1;
         } else if (email2 == null) {
