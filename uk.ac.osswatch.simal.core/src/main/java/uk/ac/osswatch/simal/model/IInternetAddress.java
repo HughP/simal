@@ -17,9 +17,6 @@ Copyright 2007 University of Oxford *
  * 
  */
 
-
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-
 /**
  * An email object. Provides methods for accessing 
  * email details.
