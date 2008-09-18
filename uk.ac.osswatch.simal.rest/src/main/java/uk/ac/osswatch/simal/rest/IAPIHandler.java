@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,31 +17,28 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
-
 /**
- * An API Handler is a class that will process a given 
- * API request.
- *
+ * An API Handler is a class that will process a given API request.
+ * 
  */
 public interface IAPIHandler {
 
   /**
    * Execute the command.
    * 
-   * @throws SimalAPIException 
+   * @throws SimalAPIException
    */
   public String execute() throws SimalAPIException;
 
   /**
-   * Get the URI that represents the current state as
-   * it relates to the command being handled.
+   * Get the URI that represents the current state as it relates to the command
+   * being handled.
    * 
    * @return
-   * @throws URISyntaxException 
+   * @throws URISyntaxException
    */
   public URI getStateURI() throws URISyntaxException;
 

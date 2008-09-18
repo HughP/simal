@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.myExperiment;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.myExperiment;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -58,7 +58,7 @@ public class PersonAPI extends AbstractHandler {
    * 
    * @param uri
    *          the URi of the MyExperiment instance to query
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    * @throws SimalAPIException
    */
   protected PersonAPI(RESTCommand cmd) throws SimalRepositoryException {
@@ -107,36 +107,33 @@ public class PersonAPI extends AbstractHandler {
 
     StringWriter out;
     try {
-      InputSource in = new InputSource(new StringReader(new String(method.getResponseBody())));
+      InputSource in = new InputSource(new StringReader(new String(method
+          .getResponseBody())));
       DocumentBuilderFactory docBuildFactory = DocumentBuilderFactory
           .newInstance();
       DocumentBuilder parser = docBuildFactory.newDocumentBuilder();
       Document document = parser.parse(in);
 
-      TransformerFactory xformFactory =
-                TransformerFactory.newInstance();
-      StreamSource xslt = new StreamSource(PersonAPI.class.getResourceAsStream("myExperiment-to-shindig.xsl")); 
-      Transformer transformer =
-                   xformFactory.newTransformer(xslt);
+      TransformerFactory xformFactory = TransformerFactory.newInstance();
+      StreamSource xslt = new StreamSource(PersonAPI.class
+          .getResourceAsStream("myExperiment-to-shindig.xsl"));
+      Transformer transformer = xformFactory.newTransformer(xslt);
       DOMSource source = new DOMSource(document);
       out = new StringWriter();
-      StreamResult scrResult =
-        new StreamResult(out);
-      transformer.transform(source, scrResult); 
+      StreamResult scrResult = new StreamResult(out);
+      transformer.transform(source, scrResult);
     } catch (IOException e) {
       throw new SimalAPIException(
           "Unable to read the response from the MyExperiment instance "
               + reqURI, e);
     } catch (ParserConfigurationException e) {
-      throw new SimalAPIException(
-          "Unable to create an XML parser", e);
+      throw new SimalAPIException("Unable to create an XML parser", e);
     } catch (SAXException e) {
       throw new SimalAPIException(
           "Unable to parse the response from the MyExperiment instance "
               + reqURI, e);
     } catch (TransformerConfigurationException e) {
-      throw new SimalAPIException(
-          "Unable to create an XSLT transformer", e);
+      throw new SimalAPIException("Unable to create an XSLT transformer", e);
     } catch (TransformerException e) {
       throw new SimalAPIException(
           "Unable to transform the response from the MyExperiment instance "

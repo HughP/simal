@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
-
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -25,9 +25,9 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
- * An abstract handler for the REST API. All handlers should 
- * extend this abstract class.
- *
+ * An abstract handler for the REST API. All handlers should extend this
+ * abstract class.
+ * 
  */
 public abstract class AbstractHandler implements IAPIHandler {
   protected RESTCommand command;
@@ -35,17 +35,18 @@ public abstract class AbstractHandler implements IAPIHandler {
   private String baseurl;
 
   /**
-   * Create a handler to operate on a given repository.
-   * Handlers should not be instantiated directly,
-   * use HandlerFactory.createHandler(...) instead.
-   * @param cmd 
-   * @throws SimalRepositoryException 
+   * Create a handler to operate on a given repository. Handlers should not be
+   * instantiated directly, use HandlerFactory.createHandler(...) instead.
+   * 
+   * @param cmd
+   * @throws SimalRepositoryException
    */
   protected AbstractHandler(RESTCommand cmd) throws SimalRepositoryException {
     this.command = cmd;
-    this.baseurl = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL);
+    this.baseurl = SimalProperties
+        .getProperty(SimalProperties.PROPERTY_REST_BASEURL);
   }
-  
+
   public URI getStateURI() throws URISyntaxException {
     URI uri;
     try {
@@ -58,6 +59,7 @@ public abstract class AbstractHandler implements IAPIHandler {
 
   /**
    * Get the Base URI for this command.
+   * 
    * @return
    */
   public String getBaseURI() {

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.rest;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -39,8 +39,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
  */
 public class RESTServlet extends HttpServlet {
   private static final long serialVersionUID = -7003783530005464708L;
-  private static final Logger logger = LoggerFactory.getLogger(RESTServlet.class);
-  
+  private static final Logger logger = LoggerFactory
+      .getLogger(RESTServlet.class);
+
   public RESTServlet() {
   }
 
@@ -56,7 +57,8 @@ public class RESTServlet extends HttpServlet {
     String response = "Could not handle request for " + req.getPathInfo();
 
     try {
-      ISimalRepository repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+      ISimalRepository repo = SimalRepositoryFactory
+          .getInstance(SimalRepositoryFactory.TYPE_JENA);
       if (!repo.isInitialised()) {
         repo.initialise();
       }

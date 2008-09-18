@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -22,7 +23,6 @@ import java.util.Map;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-
 /**
  * Command objects for the REST API. This object is used to represent a command
  * in the API and provides convenience methods for extracting parameters.
@@ -35,7 +35,7 @@ public final class RESTCommand {
   public static final String ALL_PEOPLE = "/allPeople";
   public static final String PERSON = "/person";
   public static final String ALL_COLLEAGUES = "/allColleagues";
-  
+
   public static final String PARAM_PERSON_ID = "/person-";
   public static final String PARAM_PROJECT_ID = "/project-";
   public static final String PARAM_SOURCE = "/source-";
@@ -49,9 +49,8 @@ public final class RESTCommand {
 
   private static String PARAM_METHOD = "method";
   private static String PARAM_FORMAT = "format";
-  
-  private transient Map<String, String> params = new HashMap<String, String>();  
-  
+
+  private transient Map<String, String> params = new HashMap<String, String>();
 
   /**
    * This class should not be instantiated directly, use the create*(...)
@@ -94,11 +93,10 @@ public final class RESTCommand {
   }
 
   /**
-   * Create a command to retrieve the RDF for a project, from a given
-   * source.
+   * Create a command to retrieve the RDF for a project, from a given source.
    * 
    * @param projectID
-   *          the ID of the project 
+   *          the ID of the project
    * @param source
    *          the source of the data required. See the TYPE_* constants
    * @param format
@@ -106,17 +104,16 @@ public final class RESTCommand {
    *          constants
    * @return
    */
-  public static RESTCommand createGetProject(String projectID, String source, 
+  public static RESTCommand createGetProject(String projectID, String source,
       String format) {
     return new RESTCommand(projectID, source, PROJECT, format);
   }
 
   /**
-   * Create a command to retrieve the RDF for a person, from a given
-   * source.
+   * Create a command to retrieve the RDF for a person, from a given source.
    * 
    * @param personID
-   *          the ID of the person 
+   *          the ID of the person
    * @param source
    *          the source of the data required. See the TYPE_* constants
    * @param format
@@ -124,11 +121,11 @@ public final class RESTCommand {
    *          constants
    * @return
    */
-  public static RESTCommand createGetPerson(String personID, String source, 
+  public static RESTCommand createGetPerson(String personID, String source,
       String format) {
     return new RESTCommand(personID, source, PERSON, format);
   }
-  
+
   /**
    * A code that indicates the data source against this command should be run.
    * 
@@ -147,7 +144,7 @@ public final class RESTCommand {
   public String getPersonID() {
     return params.get(PARAM_PERSON_ID);
   }
-  
+
   /**
    * Test to see if this command is a person command. That is, a command that
    * operates on a person.
@@ -157,10 +154,10 @@ public final class RESTCommand {
   public boolean isProjectCommand() {
     if (isGetAllProjects() || isGetProject() || isAddProject()) {
       return true;
-    } else  {
+    } else {
       return false;
     }
-  } 
+  }
 
   /**
    * Test to see if this command is a person command. That is, a command that
@@ -174,7 +171,7 @@ public final class RESTCommand {
     }
     return false;
   }
-  
+
   /**
    * Test to see if this command is a getAllPEople command.
    * 
@@ -336,8 +333,7 @@ public final class RESTCommand {
   }
 
   /**
-   * Get a string that represents the command method. See the *
-   * constants
+   * Get a string that represents the command method. See the * constants
    * 
    * @return
    */
@@ -418,7 +414,8 @@ public final class RESTCommand {
    * Return the path info part of the URI that represents this command.
    * 
    * @return
-   * @throws SimalAPIException if the method of the command is unrecognised
+   * @throws SimalAPIException
+   *           if the method of the command is unrecognised
    */
   public String getPath() throws SimalAPIException {
     StringBuffer sb = new StringBuffer();
@@ -437,16 +434,20 @@ public final class RESTCommand {
     sb.append(getFormat());
     return sb.toString();
   }
-  
+
   /**
    * Get the URL for this REST command.
-   * @throws SimalAPIException If the method of the command is unrecognised
+   * 
+   * @throws SimalAPIException
+   *           If the method of the command is unrecognised
    */
   public String getURL() throws SimalAPIException {
     try {
-      return SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + getPath();
+      return SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL)
+          + getPath();
     } catch (SimalRepositoryException e) {
-      throw new SimalAPIException("unable to get base url from the properties file", e);
+      throw new SimalAPIException(
+          "unable to get base url from the properties file", e);
     }
   }
 
@@ -471,17 +472,21 @@ public final class RESTCommand {
 
   /**
    * Add a parameter to the command.
-   * @param name the parameter name
-   * @param value the parameter value
+   * 
+   * @param name
+   *          the parameter name
+   * @param value
+   *          the parameter value
    */
   public void addParameter(String name, String value) {
     params.put(name, value);
   }
 
   /**
-   * Get the value of the named parameter. 
+   * Get the value of the named parameter.
    * 
-   * @param name paramaeter name
+   * @param name
+   *          paramaeter name
    * @return
    */
   public String getParameter(String name) {

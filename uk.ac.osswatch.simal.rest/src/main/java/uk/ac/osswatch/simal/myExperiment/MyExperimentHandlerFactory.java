@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.myExperiment;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,15 +17,14 @@ package uk.ac.osswatch.simal.myExperiment;
  * under the License.                                                *
  */
 
-
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rest.IAPIHandler;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 
 /**
- * A factory class for generating a specific handler for a
- * given MyExperiment API request.
+ * A factory class for generating a specific handler for a given MyExperiment
+ * API request.
  * 
  */
 public class MyExperimentHandlerFactory {
@@ -32,12 +32,15 @@ public class MyExperimentHandlerFactory {
   /**
    * Create the required API handler for a given command.
    * 
-   * @param command the command to execute
-   * @param url the URL of the MyExperiment server
+   * @param command
+   *          the command to execute
+   * @param url
+   *          the URL of the MyExperiment server
    * @return
-   * @throws SimalAPIException 
+   * @throws SimalAPIException
    */
-  public static IAPIHandler createHandler(RESTCommand command) throws SimalAPIException {
+  public static IAPIHandler createHandler(RESTCommand command)
+      throws SimalAPIException {
     IAPIHandler handler = null;
     if (command.isPersonCommand()) {
       try {
@@ -46,12 +49,13 @@ public class MyExperimentHandlerFactory {
         throw new SimalAPIException("Unable to create API handler", e);
       }
     }
-    
+
     if (handler == null) {
-      throw new SimalAPIException("Unable to create API Handler for command (" + command + "}");
+      throw new SimalAPIException("Unable to create API Handler for command ("
+          + command + "}");
     }
-    
+
     return handler;
-    
+
   }
 }

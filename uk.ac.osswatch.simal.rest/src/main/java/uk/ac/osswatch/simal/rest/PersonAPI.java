@@ -35,7 +35,7 @@ public class PersonAPI extends AbstractHandler {
    * instead.
    * 
    * @param repo
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    * @throws SimalAPIException
    */
   protected PersonAPI(final RESTCommand cmd) throws SimalRepositoryException {
@@ -55,7 +55,7 @@ public class PersonAPI extends AbstractHandler {
       return getAllColleagues(command);
     } else if (command.isGetAllPeople()) {
       return getAllPeople(command);
-    }  else {
+    } else {
       throw new SimalAPIException("Unkown command: " + command);
     }
   }
@@ -67,8 +67,7 @@ public class PersonAPI extends AbstractHandler {
    * @return
    * @throws SimalAPIException
    */
-  public String getPerson(RESTCommand cmd)
-      throws SimalAPIException {
+  public String getPerson(RESTCommand cmd) throws SimalAPIException {
     String id = command.getPersonID();
 
     if (command.isXML()) {
@@ -108,19 +107,20 @@ public class PersonAPI extends AbstractHandler {
   public String getAllColleagues(final RESTCommand cmd)
       throws SimalAPIException {
     final String id = cmd.getPersonID();
-    
+
     String response;
     StringBuffer result = new StringBuffer();
     IPerson person;
     Set<IPerson> colleaguesAndFriends;
     Iterator<IPerson> friends = null;
     try {
-      person = getRepository().findPersonById(getRepository().getUniqueSimalID(id));
-      
+      person = getRepository().findPersonById(
+          getRepository().getUniqueSimalID(id));
+
       colleaguesAndFriends = person.getColleagues();
       colleaguesAndFriends.addAll(person.getKnows());
       friends = colleaguesAndFriends.iterator();
-    
+
       if (cmd.isJSON()) {
         while (friends.hasNext()) {
           result.append("{ \"items\": [");
@@ -129,9 +129,10 @@ public class PersonAPI extends AbstractHandler {
         }
       } else if (cmd.isXML()) {
         result.append("<container>");
-  
+
         result.append("<people>");
-        result.append("<person id=\"" + person.getSimalID() + "\" name=\"" + person.getGivennames() + "\">");
+        result.append("<person id=\"" + person.getSimalID() + "\" name=\""
+            + person.getGivennames() + "\">");
         IPerson friend;
         while (friends.hasNext()) {
           friend = friends.next();
@@ -140,37 +141,38 @@ public class PersonAPI extends AbstractHandler {
           result.append("</friend>");
         }
         result.append("</person>");
-        
+
         friends = colleaguesAndFriends.iterator();
         while (friends.hasNext()) {
           friend = friends.next();
-          result.append("<person id=\"" + friend.getSimalID() + "\" name=\"" + friend.getGivennames() + "\">");
+          result.append("<person id=\"" + friend.getSimalID() + "\" name=\""
+              + friend.getGivennames() + "\">");
           result.append("</person>");
         }
         result.append("</people>");
-      
-        result.append("</container>"); 
+
+        result.append("</container>");
       } else {
-        throw new SimalAPIException("Unkown format requested - "
-            + cmd);
+        throw new SimalAPIException("Unkown format requested - " + cmd);
       }
     } catch (SimalRepositoryException e) {
-      throw new SimalAPIException("Unable to get colleagues for person with id " + id, e);
+      throw new SimalAPIException(
+          "Unable to get colleagues for person with id " + id, e);
     }
     response = result.toString();
     return response;
   }
-  
+
   /**
    * Get all the people in the repository.
+   * 
    * @param cmd
    * @return
    * @throws SimalAPIException
    */
-  public String getAllPeople(final RESTCommand cmd)
-    throws SimalAPIException {
+  public String getAllPeople(final RESTCommand cmd) throws SimalAPIException {
     final String id = cmd.getPersonID();
-    
+
     String response;
     try {
       if (cmd.isJSON()) {
