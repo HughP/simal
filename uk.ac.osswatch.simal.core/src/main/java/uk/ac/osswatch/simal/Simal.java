@@ -188,12 +188,12 @@ public class Simal {
           try {
             importOhloh((String) cmds[i + 1]);
           } catch (SimalException e) {
-            logger.error(
-                "Unable to Import from Ohloh: " + e.getMessage() + "\n", e);
+            logger.error("Unable to Import from Ohloh: " + e.getMessage()
+                + "\n", e);
             System.exit(1);
           }
           i++;
-        }  else {
+        } else {
           logger.info("Ignoring unrecognised command: " + cmd);
         }
       }
@@ -351,7 +351,7 @@ public class Simal {
         .append("importPTSW               get the list of recently updated DOAp files from Ping The Semantic Web and import them into the repository. Note, this requires and account on Ping The Semantic Web.");
     footer
         .append("importOhloh  ID          import a project from Ohloh with a given ID.");
-    
+
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
         header, opts, footer.toString(), false);
   }

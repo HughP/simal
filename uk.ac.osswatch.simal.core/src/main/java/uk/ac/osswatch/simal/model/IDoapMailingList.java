@@ -16,10 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * A mailing list that is known to be relevant to a project
- * It is a resource used to define the doap:mailing-list entries
- * of doap:Project.  
- *
+ * A mailing list that is known to be relevant to a project It is a resource
+ * used to define the doap:mailing-list entries of doap:Project.
+ * 
  */
 public interface IDoapMailingList extends IDoapResource {
 

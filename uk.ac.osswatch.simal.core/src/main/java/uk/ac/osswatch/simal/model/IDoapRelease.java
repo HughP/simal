@@ -18,17 +18,15 @@ package uk.ac.osswatch.simal.model;
 import java.util.Set;
 
 /**
- * A release of a project.
- * It is a resource used to define the doap:release entries
- * of doap:Project.  
- *
+ * A release of a project. It is a resource used to define the doap:release
+ * entries of doap:Project.
+ * 
  */
 public interface IDoapRelease extends IDoapResource {
 
   /**
-   * Get all version identifiers for this release. A version
-   * identifier is a version number. In DOAP it corresponds to
-   * doap:revision.
+   * Get all version identifiers for this release. A version identifier is a
+   * version number. In DOAP it corresponds to doap:revision.
    */
   public Set<String> getRevisions();
 }

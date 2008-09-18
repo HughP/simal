@@ -227,16 +227,16 @@ public class Project extends DoapResource implements IProject {
     return langs;
   }
 
-  
   public String getSimalID() throws SimalRepositoryException {
     String uniqueID = getUniqueSimalID();
     String id = uniqueID.substring(uniqueID.lastIndexOf(":") + 1);
     return id;
   }
-  
+
   public String getUniqueSimalID() throws SimalRepositoryException {
     String id;
-    Statement idStatement = getJenaResource().getProperty(SimalOntology.PROJECT_ID);
+    Statement idStatement = getJenaResource().getProperty(
+        SimalOntology.PROJECT_ID);
     if (idStatement == null) {
       id = SimalRepository.getInstance().getNewProjectID();
       setSimalID(id);
@@ -247,12 +247,15 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void setSimalID(String newId) throws SimalRepositoryException {
-    if (newId.contains(":") && !newId.startsWith(SimalProperties.getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
+    if (newId.contains(":")
+        && !newId.startsWith(SimalProperties
+            .getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
       throw new SimalRepositoryException("Simal ID cannot contain a ':'");
     }
-    StringBuilder id = new StringBuilder(SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
+    StringBuilder id = new StringBuilder(SimalProperties
+        .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
     id.append(":");
-    id.append(newId); 
+    id.append(newId);
     logger.info("Setting simalId for " + this + " to " + id);
     getJenaResource().addLiteral(SimalOntology.PROJECT_ID, id);
   }
@@ -350,12 +353,14 @@ public class Project extends DoapResource implements IProject {
 
   /**
    * Add this project as a current project for a person.
+   * 
    * @param person
    */
   private void addCurrentProject(IPerson person) {
     Model model = getJenaResource().getModel();
     Statement statement;
-    statement = model.createStatement((com.hp.hpl.jena.rdf.model.Resource)person.getRepositoryResource(), 
+    statement = model.createStatement(
+        (com.hp.hpl.jena.rdf.model.Resource) person.getRepositoryResource(),
         FOAF.currentProject, getJenaResource());
     model.add(statement);
   }

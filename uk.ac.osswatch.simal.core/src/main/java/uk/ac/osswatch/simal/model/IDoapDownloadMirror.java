@@ -16,10 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * A download mirror associated with a project.
- * It is a resource used to define the doap:download-mirror entries
- * of a doap:Project.  
- *
+ * A download mirror associated with a project. It is a resource used to define
+ * the doap:download-mirror entries of a doap:Project.
+ * 
  */
 public interface IDoapDownloadMirror extends IDoapResource {
 

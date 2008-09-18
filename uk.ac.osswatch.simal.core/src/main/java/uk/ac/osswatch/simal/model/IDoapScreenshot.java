@@ -16,10 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * A Screenshot associated with a project.
- * It is a resource used to define the doap:screenshot entries
- * of a doap:Project.  
- *
+ * A Screenshot associated with a project. It is a resource used to define the
+ * doap:screenshot entries of a doap:Project.
+ * 
  */
 public interface IDoapScreenshot extends IDoapResource {
 

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.unitTest.tools;
+
 /*
  * 
  * Copyright 2007 University of Oxford
@@ -17,7 +18,6 @@ package uk.ac.osswatch.simal.unitTest.tools;
  * under the License.
  * 
  */
-
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -52,18 +52,20 @@ public class TestOhloh extends BaseRepositoryTest {
     String homepage = importer.getProjectPage(id);
     int before = repo.getAllProjects().size();
     importer.addProjectToSimal(id);
-    
+
     int after = repo.getAllProjects().size();
     assertTrue("We haven't added a project when we should", before + 1 == after);
-    
+
     IProject project = repo.findProjectByHomepage(homepage);
     assertNotNull("Can't find a project with the correct homepage", project);
-    
-    assertEquals("Project name is not correct", "Simal/Ohloh Test", project.getName());
-    
+
+    assertEquals("Project name is not correct", "Simal/Ohloh Test", project
+        .getName());
+
     Set<IPerson> developers = project.getDevelopers();
-    assertTrue("Project does not appear to have correct developers - has " + developers.toString(), developers.toString().contains("Ross Gardler"));
-    
+    assertTrue("Project does not appear to have correct developers - has "
+        + developers.toString(), developers.toString().contains("Ross Gardler"));
+
     boolean hasEmail = false;
     Iterator<IPerson> itr = developers.iterator();
     while (itr.hasNext()) {
@@ -73,11 +75,12 @@ public class TestOhloh extends BaseRepositoryTest {
         hasEmail = true;
       }
     }
-    assertTrue("We don't seem to have details for our expected developer", hasEmail);
-    
+    assertTrue("We don't seem to have details for our expected developer",
+        hasEmail);
+
     project.delete();
   }
-  
+
   @Test
   public void testErrorImport() throws SimalException {
     ISimalRepository repo = SimalRepository.getInstance();
@@ -89,7 +92,7 @@ public class TestOhloh extends BaseRepositoryTest {
     } catch (SimalException e) {
       // Good we should have an exception
     }
-    
+
     int after = repo.getAllProjects().size();
     assertTrue("We've added a project when we shouldn't", before == after);
   }

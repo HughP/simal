@@ -239,7 +239,8 @@ public class SimalProperties {
       if (!propsFile.exists()) {
         boolean created = propsFile.createNewFile();
         if (!created) {
-          throw new SimalRepositoryException("Unable to create properties file: " + propsFile.toString());
+          throw new SimalRepositoryException(
+              "Unable to create properties file: " + propsFile.toString());
         }
       }
       out = new FileOutputStream(propsFile);
@@ -277,9 +278,10 @@ public class SimalProperties {
    * Set the location of the local properties file.
    * 
    * @param file
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
-  public static void setLocalPropertiesFile(File file) throws SimalRepositoryException {
+  public static void setLocalPropertiesFile(File file)
+      throws SimalRepositoryException {
     propsFile = file;
     initProperties();
   }

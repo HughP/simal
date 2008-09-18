@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.spike.test;
+
 /*
  * Copyright 2007 University of Oxford
  *
@@ -40,7 +41,7 @@ public class TestCLI {
    * Capture the streams so we can listen
    * 
    */
-  //@BeforeClass
+  // @BeforeClass
   public static void setUp() {
     origError = System.err;
     origOut = System.out;
@@ -56,38 +57,38 @@ public class TestCLI {
 
   /**
    * Reset System.out and System.err
-   * @throws SimalRepositoryException 
+   * 
+   * @throws SimalRepositoryException
    * 
    */
-  //@AfterClass
+  // @AfterClass
   public static void tearDown() throws SimalRepositoryException {
     System.setOut(origOut);
     System.setErr(origError);
-    
+
     Simal.getRepository().destroy();
   }
-  
+
   /**
    * Dump log details.
    */
-  //@After
+  // @After
   public void dumpLog() {
     origOut.append("Log output:\n");
     origOut.append(out.toString());
     origError.append("\n\nError output:\n");
     origError.append(err.toString());
   }
-  
 
-  //@Test
+  // @Test
   public void testUsageBlurb() throws SimalRepositoryException {
-    String[] args = {"--help"};
+    String[] args = { "--help" };
     Simal.main(args);
     assertEquals("Error reported", "", err.toString());
     assertTrue("Usgage blurb not output", out.toString().contains("usage:"));
   }
 
-  //@Test
+  // @Test
   public void testAddXMLFile() throws SimalRepositoryException {
     String cmd = "addxml";
     String url = ISimalRepository.class.getClassLoader().getResource(

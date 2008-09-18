@@ -33,26 +33,28 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestCategory extends BaseRepositoryTest {
   @Test
-  public void testGetCategoryLabel() throws SimalRepositoryException, URISyntaxException {
-    IDoapCategory category = getRepository().getCategory("http://simal.oss-watch.ac.uk/category/socialNews");
+  public void testGetCategoryLabel() throws SimalRepositoryException,
+      URISyntaxException {
+    IDoapCategory category = getRepository().getCategory(
+        "http://simal.oss-watch.ac.uk/category/socialNews");
     String label = category.getLabel();
     assertEquals("Category Label is incorrect", "Social News", label);
 
     String uri = "http://example.org/does/not/exist";
     category = getRepository().getCategory(uri);
-    assertNull("Somehow we have a category that should not exist",
-        category);
+    assertNull("Somehow we have a category that should not exist", category);
   }
-  
+
   @Test
   public void testGetProjects() {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     Set<IProject> projects = category.getProjects();
-    
-    assertTrue("We haven't got the project we expected from category.getPRojects()",
+
+    assertTrue(
+        "We haven't got the project we expected from category.getPRojects()",
         projects.toString().contains(project1.toString()));
   }
-  
+
   @Test
   public void testSetId() throws SimalRepositoryException {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
@@ -60,19 +62,20 @@ public class TestCategory extends BaseRepositoryTest {
     String id = category.getSimalID();
     assertEquals("Simal ID has not been changed correctly", id, "testing");
   }
-  
+
   @Test
   public void testGetId() throws SimalRepositoryException {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     String id = category.getSimalID();
     assertNotNull(id);
   }
-  
+
   @Test
   public void testGetPeople() throws SimalRepositoryException {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     Set<IPerson> people = category.getPeople();
-    assertTrue("Not got enough people for the test category", people.size() >= 10);
-    
+    assertTrue("Not got enough people for the test category",
+        people.size() >= 10);
+
   }
 }

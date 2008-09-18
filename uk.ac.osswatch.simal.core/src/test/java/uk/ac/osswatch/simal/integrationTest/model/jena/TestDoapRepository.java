@@ -69,7 +69,7 @@ public class TestDoapRepository extends BaseRepositoryTest {
       if (repo.isSVN()) {
         Set<IDoapLocation> location = repo.getLocations();
         assertNotNull(repo.toString() + " does not have a location", location);
-        
+
         Set<IDoapLocation> browse = repo.getBrowse();
         assertNotNull(repo.toString() + " does not have a browse", browse);
       }
@@ -85,10 +85,10 @@ public class TestDoapRepository extends BaseRepositoryTest {
       if (repo.isCVS()) {
         Set<String> anonRoot = repo.getAnonRoots();
         assertNotNull(repo.toString() + " does not have an anon root", anonRoot);
-        
+
         Set<IDoapLocation> browse = repo.getBrowse();
         assertNotNull(repo.toString() + " does not have a browse", browse);
-        
+
         Set<String> module = repo.getModule();
         assertNotNull(repo.toString() + " does not have a browse", module);
       }

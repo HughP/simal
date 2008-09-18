@@ -35,9 +35,11 @@ public class TestHomepage extends BaseRepositoryTest {
 
     while (homepages.hasNext()) {
       IDoapHomepage homepage = homepages.next();
-      if (homepage.getURI().toString().equals(TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE)) {
+      if (homepage.getURI().toString().equals(
+          TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE)) {
         hasHomepageOne = true;
-      } else if (homepage.getURI().toString().equals(TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO)) {
+      } else if (homepage.getURI().toString().equals(
+          TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO)) {
         hasHomepageTwo = true;
       }
     }
@@ -45,7 +47,6 @@ public class TestHomepage extends BaseRepositoryTest {
     assertTrue("Homepage ONE is missing", hasHomepageOne);
     assertTrue("Homepage TWO is missing", hasHomepageTwo);
   }
-  
 
   @Test
   public void testNames() {
@@ -54,8 +55,7 @@ public class TestHomepage extends BaseRepositoryTest {
     Iterator<IDoapHomepage> homepages = project1.getHomepages().iterator();
     String label;
     while (homepages.hasNext()) {
-      IDoapHomepage homepage = (IDoapHomepage) homepages
-          .next();
+      IDoapHomepage homepage = (IDoapHomepage) homepages.next();
       label = homepage.getLabel();
       if (label.equals(TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE)) {
         hasHomepageOne = true;
@@ -63,10 +63,10 @@ public class TestHomepage extends BaseRepositoryTest {
         hasHomepageTwo = true;
       }
     }
-    assertTrue("Homepages do not include " + TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE,
-        hasHomepageOne);
-    assertTrue("Homepages do not include " + TEST_SIMAL_PROJECT_HOMEPAGE_NAME_TWO,
-        hasHomepageTwo);
+    assertTrue("Homepages do not include "
+        + TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE, hasHomepageOne);
+    assertTrue("Homepages do not include "
+        + TEST_SIMAL_PROJECT_HOMEPAGE_NAME_TWO, hasHomepageTwo);
   }
 
 }

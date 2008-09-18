@@ -342,7 +342,7 @@ public class RDFUtils {
    * @param repo
    *          the repository that we are preparing the data for
    * @return
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
   public static File preProcess(Node project, URL sourceURL, String baseURI,
       ISimalRepository repo) throws SimalRepositoryException {
@@ -352,15 +352,17 @@ public class RDFUtils {
     try {
       db = dbf.newDocumentBuilder();
       Document doc = db.newDocument();
-      
+
       if (project == null || project.getNodeType() == Node.DOCUMENT_NODE) {
-        throw new SimalRepositoryException("The supplied node cannot be null and it cannot be the document element (is must be rdf:RDF or doap:Project)");
+        throw new SimalRepositoryException(
+            "The supplied node cannot be null and it cannot be the document element (is must be rdf:RDF or doap:Project)");
       }
       if (project.getLocalName().equals("RDF")) {
         project = project.getFirstChild();
         if (project == null) {
-          throw new SimalRepositoryException("The supplied node is an rdf:RDF node, but it does not contain a doap:Project node.");
-        }  
+          throw new SimalRepositoryException(
+              "The supplied node is an rdf:RDF node, but it does not contain a doap:Project node.");
+        }
       }
       Node root = doc.createElementNS(RDF_NS, "RDF");
       root.appendChild(doc.importNode(project, true));
@@ -426,7 +428,7 @@ public class RDFUtils {
           label = "Sourceforge site";
         } else if (uri.startsWith("http://www.ohloh.net")) {
           label = "Ohloh stats";
-        }  else {
+        } else {
           label = "Webpage";
         }
         homepage.setAttributeNS(RDFS_NS, "label", label);

@@ -15,11 +15,10 @@
  */
 package uk.ac.osswatch.simal.model;
 
-
 /**
  * Behaviours to attach to a release resource.
- *
+ * 
  */
 public interface IDoapReleaseService extends IDoapResourceService {
-  
+
 }

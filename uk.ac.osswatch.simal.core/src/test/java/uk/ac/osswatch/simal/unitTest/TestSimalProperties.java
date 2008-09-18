@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.unitTest;
+
 /*
  * 
  * Copyright 2007 University of Oxford

@@ -147,24 +147,29 @@ public class TestRDFUtils {
       Element personElement = (Element) personNL.item(idx);
       NodeList personIDNL = personElement.getElementsByTagNameNS(
           RDFUtils.SIMAL_NS, "personId");
-      for (int idIdx = 0; idIdx < personIDNL.getLength(); idIdx ++) {
+      for (int idIdx = 0; idIdx < personIDNL.getLength(); idIdx++) {
         Node id = personIDNL.item(idIdx);
         if (id.getParentNode().equals(personElement)) {
           idCount++;
           String text = id.getTextContent();
           assertNotNull("ID should not be null", text);
           assertTrue("ID should not be an empty string", text.length() > 0);
-          assertTrue("ID should be world unique", text.startsWith(SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)));
+          assertTrue("ID should be world unique", text
+              .startsWith(SimalProperties
+                  .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)));
         }
       }
-      assertEquals("Incorrect number of simal:personId elements in person: " + getPersonName(personElement), 1, idCount);
+      assertEquals("Incorrect number of simal:personId elements in person: "
+          + getPersonName(personElement), 1, idCount);
     }
   }
 
   private String getPersonName(Element personElement) {
-    NodeList names = personElement.getElementsByTagNameNS(RDFUtils.FOAF_NS, "name");
+    NodeList names = personElement.getElementsByTagNameNS(RDFUtils.FOAF_NS,
+        "name");
     if (names.getLength() == 0) {
-      names = personElement.getElementsByTagNameNS(RDFUtils.FOAF_NS, "givennames");
+      names = personElement.getElementsByTagNameNS(RDFUtils.FOAF_NS,
+          "givennames");
     }
     return names.item(0).getTextContent();
   }

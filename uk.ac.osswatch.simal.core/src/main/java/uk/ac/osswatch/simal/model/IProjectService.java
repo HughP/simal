@@ -15,11 +15,10 @@
  */
 package uk.ac.osswatch.simal.model;
 
-
 /**
  * Behaviour for a simal.Project object
- *
+ * 
  * @see uk.ac.osswatch.simal.model.elmo.DoapProjectBehaviour
  */
 public interface IProjectService extends IDoapResourceService {
-} 
+}

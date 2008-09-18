@@ -73,23 +73,25 @@ public class TestPTSWImport {
    * files.
    * 
    * @throws SimalException
-   * @throws IOException 
+   * @throws IOException
    */
   @Test
   public void testRDFXML() throws SimalException, IOException {
     Document doc = importer.getPingsAsRDF(ptswExport);
     Element root = doc.getDocumentElement();
-    NodeList projects = root.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
-    assertEquals("Incorrect number of proejct elements", NUM_OF_PINGS, projects.getLength());
-    
-    assertTrue("RDF namespaces does not seem to be defined", serialise(doc).contains(RDFUtils.RDF_NS));
+    NodeList projects = root
+        .getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
+    assertEquals("Incorrect number of proejct elements", NUM_OF_PINGS, projects
+        .getLength());
+
+    assertTrue("RDF namespaces does not seem to be defined", serialise(doc)
+        .contains(RDFUtils.RDF_NS));
   }
-  
+
   private String serialise(Document doc) throws IOException {
-    OutputFormat format = new OutputFormat (doc); 
+    OutputFormat format = new OutputFormat(doc);
     StringWriter writer = new StringWriter();
-    XMLSerializer serial   = new XMLSerializer (writer, 
-        format);
+    XMLSerializer serial = new XMLSerializer(writer, format);
     serial.serialize(doc);
     return writer.toString();
   }

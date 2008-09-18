@@ -16,10 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * An issue tracker that is known to apply be used by a project
- * It is a resource used to define the doap:bug-database entries
- * of doap:Project.  
- *
+ * An issue tracker that is known to apply be used by a project It is a resource
+ * used to define the doap:bug-database entries of doap:Project.
+ * 
  */
 public interface IDoapBugDatabase extends IDoapResource {
 

@@ -202,14 +202,17 @@ public class TestRepository extends BaseRepositoryTest {
     String uniqueID = getRepository().getUniqueSimalID(testDeveloperID);
     IPerson person = getRepository().findPersonById(uniqueID);
     assertNotNull("Can't find a person with the ID " + uniqueID, person);
-    assertEquals("Developer URI is not as expected ", RDFUtils.getDefaultPersonURI(testDeveloperID), person.getURI());
+    assertEquals("Developer URI is not as expected ", RDFUtils
+        .getDefaultPersonURI(testDeveloperID), person.getURI());
   }
 
   @Test
   public void testGetPerson() throws SimalRepositoryException {
     IPerson person = getRepository().getPerson(testDeveloperURI);
-    assertNotNull("Can't find a person with the URI " + testDeveloperURI, person);
-    assertEquals("Developer URI is not as expected ", RDFUtils.getDefaultPersonURI(testDeveloperID), person.getURI());
+    assertNotNull("Can't find a person with the URI " + testDeveloperURI,
+        person);
+    assertEquals("Developer URI is not as expected ", RDFUtils
+        .getDefaultPersonURI(testDeveloperID), person.getURI());
   }
 
   @Test
@@ -293,7 +296,7 @@ public class TestRepository extends BaseRepositoryTest {
     } catch (SimalRepositoryException e) {
       // This is expected
     }
-    
+
     id = "inValidID";
     try {
       getRepository().findPersonById(id);
@@ -301,7 +304,7 @@ public class TestRepository extends BaseRepositoryTest {
     } catch (SimalRepositoryException e) {
       // This is expected
     }
-    
+
     id = "a:inValidID";
     try {
       getRepository().findPersonById(id);
@@ -317,15 +320,19 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testIsUniqueSimalID() throws SimalRepositoryException {
     String id = null;
-      assertFalse("Null Simal IDs should not be unqiue", getRepository().isUniqueSimalID(id));
-    
+    assertFalse("Null Simal IDs should not be unqiue", getRepository()
+        .isUniqueSimalID(id));
+
     id = "nonUniqueID";
-    assertFalse("Non-Unique Simal IDs identified as unqiue", getRepository().isUniqueSimalID(id));
-    
+    assertFalse("Non-Unique Simal IDs identified as unqiue", getRepository()
+        .isUniqueSimalID(id));
+
     id = "a:inValidID";
-    assertFalse("Invalid Simal IDs should not be unqiue", getRepository().isUniqueSimalID(id));
+    assertFalse("Invalid Simal IDs should not be unqiue", getRepository()
+        .isUniqueSimalID(id));
 
     id = "ThisIsA:uniqueID";
-    assertTrue("Null Simal IDs should not be unqiue", getRepository().isUniqueSimalID(id));
+    assertTrue("Null Simal IDs should not be unqiue", getRepository()
+        .isUniqueSimalID(id));
   }
 }

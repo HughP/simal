@@ -106,8 +106,9 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     /**
      * If the properties file is lost for any reason the next ID value will be
      * lost. We therefore need to perform a sanity check that this is unique.
-     * @FIXME: the ID should really be held in the database then there would 
-     * be no need for this time consuming verification See ISSUE 190
+     * 
+     * @FIXME: the ID should really be held in the database then there would be
+     *         no need for this time consuming verification See ISSUE 190
      */
     boolean validID = false;
     while (!validID) {
@@ -130,7 +131,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       throw new SimalRepositoryException(
           "Unable to save properties file when creating the next project ID", e);
     }
-    logger.debug("Generated new project ID {}" , fullID);
+    logger.debug("Generated new project ID {}", fullID);
     return fullID;
   }
 
@@ -230,7 +231,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
           .error("addxmldirectory requires a directory name as the first parameter");
     }
     FilenameFilter filter = new RDFFilenameFilter();
-    
+
     File[] files = dir.listFiles(filter);
     for (int i = 0; i < files.length; i++) {
       try {
@@ -249,7 +250,8 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
   public void addProject(Node project, URL sourceURL, String baseURI)
       throws SimalRepositoryException {
     try {
-      addRDFXML(RDFUtils.preProcess(project, sourceURL, baseURI, this).toURI().toURL(), baseURI);
+      addRDFXML(RDFUtils.preProcess(project, sourceURL, baseURI, this).toURI()
+          .toURL(), baseURI);
     } catch (MalformedURLException e) {
       throw new SimalRepositoryException(
           "Unable to add data " + e.getMessage(), e);
@@ -309,14 +311,14 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     }
     return isValid;
   }
-  
+
   public boolean isUniqueSimalID(String id) {
     if (id == null) {
       return false;
     }
     if (id.lastIndexOf(':') > 4 && isValidSimalID(id)) {
       return true;
-    } else { 
+    } else {
       return false;
     }
   }
@@ -324,9 +326,9 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
   public boolean isTest() {
     return isTest;
   }
-  
+
   static class RDFFilenameFilter implements FilenameFilter {
-    
+
     public boolean accept(File dir, String name) {
       if (name.endsWith(".xml") || name.endsWith(".rdf")) {
         return true;

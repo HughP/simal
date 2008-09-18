@@ -73,7 +73,7 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO = "http://code.google.com/p/simal";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE = "Project Home Page";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_NAME_TWO = "Developer Home Page";
-  
+
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_HELPERS = 1;
   public static final String TEST_SIMAL_PROJECT_HELPERS = "helper";
 
@@ -94,17 +94,17 @@ public abstract class BaseRepositoryTest {
   public static final String TEST_SIMAL_PROJECT_CATEGORY_TWO = "http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#";
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
-  
+
   protected final static String project1SeeAlso = "http://foo.org/seeAlso";
-  
+
   protected final static String KNOWN_PERSON_SEALSO_URI = "http://foo.org/people/knownPerson/foaf.rdf";
-  
+
   private static ISimalRepository repository;
 
   protected static IProject project1;
   public static String testProjectURI;
   protected static String testProjectID;
-  
+
   public static String testDeveloperURI;
   public static String testDocumentorURI;
   protected static String testDeveloperID;
@@ -118,20 +118,24 @@ public abstract class BaseRepositoryTest {
 
     initRepository();
   }
-  
-  protected static void initRepository() throws SimalRepositoryException, URISyntaxException {
-    repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+
+  protected static void initRepository() throws SimalRepositoryException,
+      URISyntaxException {
+    repository = SimalRepositoryFactory
+        .getInstance(SimalRepositoryFactory.TYPE_JENA);
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
       repository.initialise(null);
     }
     project1 = getRepository().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
-    IPerson developer = repository.findPersonBySeeAlso("http://foo.org/~developer/#me");
+    IPerson developer = repository
+        .findPersonBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getSimalID();
-    
-    IPerson documentor = repository.findPersonBySeeAlso("http://foo.org/~documentor/#me");
-    String documentorID = documentor.getSimalID(); 
-    
+
+    IPerson documentor = repository
+        .findPersonBySeeAlso("http://foo.org/~documentor/#me");
+    String documentorID = documentor.getSimalID();
+
     testProjectID = project1.getSimalID();
     testProjectURI = RDFUtils.getDefaultProjectURI(testProjectID);
     testDeveloperURI = RDFUtils.getDefaultPersonURI(testDeveloperID);
@@ -152,7 +156,7 @@ public abstract class BaseRepositoryTest {
     colleagues += TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS;
     return colleagues;
   }
-  
+
   public static ISimalRepository getRepository() {
     return repository;
   }
