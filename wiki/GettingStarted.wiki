@@ -9,7 +9,7 @@ If you have any problems you could try looking at our [FAQ] or asking questions 
 
 == Pre-Requisites ==
 
- * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.4 - 1.5 (1.6 currently unsupported)
+ * [http://java.sun.com/javase/downloads/previous.jsp Java JDK] 1.5+ 
  * [http://subversion.tigris.org/project_packages.html Subversion]
   * You may prefer to use a GUI to work with Subversion, such as [http://rapidsvn.tigris.org/ RapidSVN]
  * [http://maven.apache.org/download.html Apache Maven]
