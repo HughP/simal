@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.rest;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import org.junit.BeforeClass;
 
@@ -39,11 +39,13 @@ public abstract class AbstractAPITest {
       repo.initialise();
     }
 
-    IPerson developer = repo.findPersonBySeeAlso("http://foo.org/~developer/#me");
+    IPerson developer = repo
+        .findPersonBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getSimalID();
-    testProjectID = ((IProject)developer.getProjects().toArray()[0]).getSimalID();
+    testProjectID = ((IProject) developer.getProjects().toArray()[0])
+        .getSimalID();
   }
-  
+
   public ISimalRepository getRepo() {
     return repo;
   }

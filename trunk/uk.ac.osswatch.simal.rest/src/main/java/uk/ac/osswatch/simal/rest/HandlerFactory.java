@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.rest;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import uk.ac.osswatch.simal.myExperiment.MyExperimentHandlerFactory;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -38,7 +38,8 @@ public class HandlerFactory {
    */
   public HandlerFactory() throws SimalAPIException {
     try {
-      simalRepo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+      simalRepo = SimalRepositoryFactory
+          .getInstance(SimalRepositoryFactory.TYPE_JENA);
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to create HandlerFactory", e);
     }
@@ -46,7 +47,8 @@ public class HandlerFactory {
 
   public HandlerFactory(ISimalRepository repo) throws SimalAPIException {
     if (!repo.isInitialised()) {
-      throw new SimalAPIException("Supplied repository has not been initialised, please initialise before handing to the HandlerFactory");
+      throw new SimalAPIException(
+          "Supplied repository has not been initialised, please initialise before handing to the HandlerFactory");
     }
     simalRepo = repo;
   }
@@ -70,8 +72,8 @@ public class HandlerFactory {
   }
 
   /**
-   * Initialise the handler factory if not already done so. This
-   * init method uses the default settings for the factory.
+   * Initialise the handler factory if not already done so. This init method
+   * uses the default settings for the factory.
    * 
    * @throws SimalAPIException
    */
@@ -80,10 +82,12 @@ public class HandlerFactory {
       factory = new HandlerFactory();
     }
   }
-  
+
   /**
    * Get the Simal repository this HandlerFactory is working with.
-   * @throws SimalAPIException if unable to connect to the repo
+   * 
+   * @throws SimalAPIException
+   *           if unable to connect to the repo
    */
   public ISimalRepository getSimalRepository() throws SimalAPIException {
     initFactory();

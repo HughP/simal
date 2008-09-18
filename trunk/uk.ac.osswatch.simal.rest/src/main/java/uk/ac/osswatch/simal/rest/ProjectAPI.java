@@ -32,7 +32,7 @@ public class ProjectAPI extends AbstractHandler {
    * HandlerFactory.createHandler(...) instead.
    * 
    * @param repo
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
   protected ProjectAPI(RESTCommand cmd) throws SimalRepositoryException {
     super(cmd);
@@ -120,7 +120,8 @@ public class ProjectAPI extends AbstractHandler {
    * Attempt to add a project using supplied data.
    * 
    * @param command
-   * @throws SimalAPIException if the project was not added for any reason
+   * @throws SimalAPIException
+   *           if the project was not added for any reason
    */
   private void addProject(RESTCommand command) throws SimalAPIException {
     try {

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -29,10 +30,11 @@ import org.junit.Test;
  * Tests API functions for working with complete DOAP files.
  * 
  */
-public class TestProjectAPI extends AbstractAPITest{
+public class TestProjectAPI extends AbstractAPITest {
 
   @Test
-  public void addDOAP() throws SimalAPIException, URISyntaxException, IOException {
+  public void addDOAP() throws SimalAPIException, URISyntaxException,
+      IOException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.PROJECT_ADD);
     command.addParameter("rdf", "illegal RDF data");
     IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
@@ -41,13 +43,13 @@ public class TestProjectAPI extends AbstractAPITest{
     } catch (SimalAPIException e) {
       // that's good, we don't expect to add invalid data
     }
-    
+
     InputStream fis = this.getClass().getResourceAsStream("/doapTestFile.xml");
-    int x= fis.available();
-    byte b[]= new byte[x];
+    int x = fis.available();
+    byte b[] = new byte[x];
     fis.read(b);
     String data = new String(b);
-    
+
     command.addParameter(RESTCommand.PARAM_RDF, data);
     handler = SimalHandlerFactory.createHandler(command, getRepo());
     try {
@@ -55,18 +57,20 @@ public class TestProjectAPI extends AbstractAPITest{
     } catch (SimalAPIException e) {
       fail("Exception thrown when adding project" + e.getMessage());
     }
-    
+
     // we don't bother testing to see if the project has been added here
     // that's the job of the repository tests.
   }
-  
+
   @Test
   public void testGetProject() throws SimalAPIException {
-    RESTCommand cmd = RESTCommand.createGetProject(testProjectID, RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
+    RESTCommand cmd = RESTCommand.createGetProject(testProjectID,
+        RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
     IAPIHandler handler = SimalHandlerFactory.createHandler(cmd, getRepo());
     String result = handler.execute();
     assertNotNull("No XML Returned by getPerson", result);
-    
-    assertTrue("XML file does not appear to describe a person", result.contains("Person>"));
+
+    assertTrue("XML file does not appear to describe a person", result
+        .contains("Person>"));
   }
 }

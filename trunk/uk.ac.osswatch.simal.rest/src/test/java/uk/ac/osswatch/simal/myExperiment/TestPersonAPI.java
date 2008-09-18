@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.myExperiment;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.myExperiment;
  * under the License.                                                *
  */
 
-
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.rest.SimalAPIException;
@@ -26,24 +26,24 @@ public class TestPersonAPI {
   @Test
   public void testAllColleaguesJSON() throws SimalAPIException {
     /**
-     * Commenting out as the MyExperiment server is unstable at present.
-     * Thus tests fail
-    RESTCommand command = RESTCommand.createGetColleagues(personID, RESTCommand.SOURCE_TYPE_MYEXPERIMENT, RESTCommand.FORMAT_JSON);
-    IAPIHandler handler = MyExperimentHandlerFactory.createHandler(command);
-    String result = handler.execute();
-    assertNotNull(result);
-    */
+     * Commenting out as the MyExperiment server is unstable at present. Thus
+     * tests fail RESTCommand command =
+     * RESTCommand.createGetColleagues(personID,
+     * RESTCommand.SOURCE_TYPE_MYEXPERIMENT, RESTCommand.FORMAT_JSON);
+     * IAPIHandler handler = MyExperimentHandlerFactory.createHandler(command);
+     * String result = handler.execute(); assertNotNull(result);
+     */
   }
 
   @Test
   public void testAllColleaguesXML() throws SimalAPIException {
     /**
-     * Commenting out as the MyExperiment server is unstable at present.
-     * Thus tests fail
-    RESTCommand command = RESTCommand.createGetColleagues(personID, RESTCommand.SOURCE_TYPE_MYEXPERIMENT, RESTCommand.FORMAT_XML);
-    IAPIHandler handler = MyExperimentHandlerFactory.createHandler(command);
-    String result = handler.execute();
-    assertNotNull(result);    
+     * Commenting out as the MyExperiment server is unstable at present. Thus
+     * tests fail RESTCommand command =
+     * RESTCommand.createGetColleagues(personID,
+     * RESTCommand.SOURCE_TYPE_MYEXPERIMENT, RESTCommand.FORMAT_XML);
+     * IAPIHandler handler = MyExperimentHandlerFactory.createHandler(command);
+     * String result = handler.execute(); assertNotNull(result);
      */
   }
 }

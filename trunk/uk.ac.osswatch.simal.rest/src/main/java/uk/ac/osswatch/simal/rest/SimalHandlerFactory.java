@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.rest;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -20,8 +21,7 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
- * A factory class for generating a specific handler for a
- * given API request.
+ * A factory class for generating a specific handler for a given API request.
  * 
  */
 public class SimalHandlerFactory {
@@ -29,29 +29,33 @@ public class SimalHandlerFactory {
   /**
    * Create the required API handler for a given command.
    * 
-   * @param command the command to execute
-   * @param repo the repo that the command is to operate on
+   * @param command
+   *          the command to execute
+   * @param repo
+   *          the repo that the command is to operate on
    * @return
-   * @throws SimalAPIException 
+   * @throws SimalAPIException
    */
-  public static IAPIHandler createHandler(RESTCommand command, ISimalRepository repo) throws SimalAPIException {
+  public static IAPIHandler createHandler(RESTCommand command,
+      ISimalRepository repo) throws SimalAPIException {
     IAPIHandler handler = null;
 
     try {
       if (command.isProjectCommand()) {
-          handler = new ProjectAPI(command);
+        handler = new ProjectAPI(command);
       } else if (command.isPersonCommand()) {
         handler = new PersonAPI(command);
       }
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to create handler", e);
     }
-    
+
     if (handler == null) {
-      throw new SimalAPIException("Unable to create API Handler for command (" + command + "}");
+      throw new SimalAPIException("Unable to create API Handler for command ("
+          + command + "}");
     }
-    
+
     return handler;
-    
+
   }
 }
