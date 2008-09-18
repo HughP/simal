@@ -63,8 +63,7 @@ public class SortableCategoryDataProvider extends
     return comparator;
   }
 
-  private class DoapCategoryComparator extends DoapResourceBehaviourComparator
-      implements Serializable {
+  private class DoapCategoryComparator extends DoapResourceBehaviourComparator {
     private static final long serialVersionUID = -6313012539097903783L;
 
     public int compare(IDoapResource resource1, IDoapResource resource2) {
