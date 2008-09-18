@@ -17,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Set;
 
