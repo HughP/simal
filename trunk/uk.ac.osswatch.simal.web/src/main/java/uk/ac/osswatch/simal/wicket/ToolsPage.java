@@ -101,7 +101,7 @@ public class ToolsPage extends BasePage {
         }
       }
     });
-    
+
     add(new ImportFromOhlohForm("importFromOhlohForm"));
 
     add(new Link("importPTSWLink") {
@@ -206,7 +206,7 @@ public class ToolsPage extends BasePage {
           "Unable to add projects from PTSW Export", ToolsPage.class, e);
     }
   }
-  
+
   private static class ImportFromOhlohForm extends Form<OhlohFormInputModel> {
     private static final long serialVersionUID = 4350446873545711199L;
 

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -20,15 +21,13 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
- * A summary panel showing information about a known 
- * data source.
+ * A summary panel showing information about a known data source.
  */
 public class DataSourceSummaryPanel extends Panel {
   private static final long serialVersionUID = -8115164444333001075L;
 
   /**
-   * Create a summary panel for the Data source at a
-   * given URI.
+   * Create a summary panel for the Data source at a given URI.
    * 
    * @param panelID
    * @param uri
@@ -38,4 +37,3 @@ public class DataSourceSummaryPanel extends Panel {
     add(new Label("uri", uri));
   }
 }
-

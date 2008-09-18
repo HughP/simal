@@ -52,7 +52,7 @@ public class TestProjectDetailPage extends TestBase {
     });
     tester.assertRenderedPage(ProjectDetailPage.class);
   }
-  
+
   @Test
   public void testRenderPage() {
     tester.assertVisible("projectName");
@@ -71,48 +71,48 @@ public class TestProjectDetailPage extends TestBase {
 
   /**
    * Check the add Maintainer form is working OK.
-   * @throws SimalRepositoryException 
+   * 
+   * @throws SimalRepositoryException
    */
   @Test
   public void testAddMaintainer() throws SimalRepositoryException {
-    Set<IPerson> peopleBefore = UserApplication.getRepository().getProject(projectURI).getMaintainers();
-    
+    Set<IPerson> peopleBefore = UserApplication.getRepository().getProject(
+        projectURI).getMaintainers();
+
     tester.assertVisible("addMaintainerPanel");
     tester.assertVisible("addMaintainerPanel:newLink");
-    
+
     tester.assertInvisible("addMaintainerPanel:personForm");
     tester.assertVisible("addMaintainerPanel:newLink");
     tester.clickLink("addMaintainerPanel:newLink");
-    
+
     tester.assertVisible("addMaintainerPanel:personForm");
     tester.assertInvisible("addMaintainerPanel:newLink");
-    
-    FormTester formTester = tester.newFormTester("addMaintainerPanel:personForm");
+
+    FormTester formTester = tester
+        .newFormTester("addMaintainerPanel:personForm");
     tester.clickLink("addMaintainerPanel:personForm:cancelLink");
     tester.assertInvisible("addMaintainerPanel:personForm");
-    
+
     /**
      * Commented out as the submit does not seem to work with an Ajax form
      * 
-    tester.clickLink("addMaintainerPanel:newLink");
-    formTester = tester.newFormTester("addMaintainerPanel:personForm");
-    formTester.setValue("name", "New Person");
-    formTester.submit();
-    tester.assertInvisible("addMaintainerPanel:personForm");
-    
-    Set<IPerson> peopleAfter = UserApplication.getRepository().getProject(projectURI).getMaintainers();
-    assertEquals("We should have one more person after submitting the form", peopleBefore.size() + 1, peopleAfter.size());
-    Iterator<IPerson> itr = peopleAfter.iterator();
-    boolean hasNewPerson = false;
-    while(itr.hasNext() && !hasNewPerson ) {
-      IPerson person = itr.next();
-      hasNewPerson = person.getNames().toString().contains("New Person");
-    }
-    assertTrue("We haven't successfully added the person to the repository", hasNewPerson);
-    */
-    
+     * tester.clickLink("addMaintainerPanel:newLink"); formTester =
+     * tester.newFormTester("addMaintainerPanel:personForm");
+     * formTester.setValue("name", "New Person"); formTester.submit();
+     * tester.assertInvisible("addMaintainerPanel:personForm");
+     * 
+     * Set<IPerson> peopleAfter =
+     * UserApplication.getRepository().getProject(projectURI).getMaintainers();
+     * assertEquals("We should have one more person after submitting the form",
+     * peopleBefore.size() + 1, peopleAfter.size()); Iterator<IPerson> itr =
+     * peopleAfter.iterator(); boolean hasNewPerson = false; while(itr.hasNext() &&
+     * !hasNewPerson ) { IPerson person = itr.next(); hasNewPerson =
+     * person.getNames().toString().contains("New Person"); } assertTrue("We
+     * haven't successfully added the person to the repository", hasNewPerson);
+     */
+
     // FIXME: ensure that the new person has been displayed in the list
-    
   }
 
   /**

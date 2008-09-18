@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.doap;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.wicket.doap;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import org.apache.wicket.Page;
 import org.apache.wicket.PageParameters;
@@ -45,45 +45,49 @@ import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
 public class ProjectDetailPage extends BasePage {
   private static final long serialVersionUID = 8719708525508677833L;
-  private static final Logger logger = LoggerFactory.getLogger(ProjectDetailPage.class);
+  private static final Logger logger = LoggerFactory
+      .getLogger(ProjectDetailPage.class);
   private IProject project;
-  
+
   public ProjectDetailPage(PageParameters parameters) {
     String id = null;
     if (parameters.containsKey("simalID")) {
-        id = parameters.getString("simalID");
-        
-        try {
-          String uniqueSimalID = UserApplication.getRepository().getUniqueSimalID(id);
-          project = UserApplication.getRepository().findProjectById(uniqueSimalID);
-          populatePage(project);
-        } catch (SimalRepositoryException e) {
-          UserReportableException error = new UserReportableException(
-              "Unable to get project from the repository",
-              ProjectDetailPage.class, e);
-          setResponsePage(new ErrorReportPage(error));
-        }
+      id = parameters.getString("simalID");
+
+      try {
+        String uniqueSimalID = UserApplication.getRepository()
+            .getUniqueSimalID(id);
+        project = UserApplication.getRepository()
+            .findProjectById(uniqueSimalID);
+        populatePage(project);
+      } catch (SimalRepositoryException e) {
+        UserReportableException error = new UserReportableException(
+            "Unable to get project from the repository",
+            ProjectDetailPage.class, e);
+        setResponsePage(new ErrorReportPage(error));
+      }
     } else {
       UserReportableException error = new UserReportableException(
-          "Unable to get simalID parameter from URL",
-          ProjectDetailPage.class);
+          "Unable to get simalID parameter from URL", ProjectDetailPage.class);
       setResponsePage(new ErrorReportPage(error));
     }
   }
-  
+
   public ProjectDetailPage(IProject project) {
     populatePage(project);
   }
 
   private void populatePage(final IProject project) {
     this.project = project;
-     
+
     add(new DeleteLink("deleteProjectActionLink", project));
-    
+
     try {
-      RESTCommand cmd = RESTCommand.createGetProject(project.getSimalID(), RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
+      RESTCommand cmd = RESTCommand.createGetProject(project.getSimalID(),
+          RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
       add(new ExternalLink("doapLink", cmd.getURL()));
-      String rdfLink = "<link href=\"" + cmd.getURL() + "\" rel=\"meta\" title=\"DOAP\" type=\"application/rdf+xml\" />";
+      String rdfLink = "<link href=\"" + cmd.getURL()
+          + "\" rel=\"meta\" title=\"DOAP\" type=\"application/rdf+xml\" />";
       add(new StringHeaderContributor(rdfLink));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
@@ -95,10 +99,10 @@ public class ProjectDetailPage extends BasePage {
           "Unable to get a RESTful URI for the project RDF/XML document",
           ProjectDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
-    }   
-    
+    }
+
     add(new Label("projectName", project.getName()));
-    
+
     Label shortDesc = new Label("shortDesc", project.getShortDesc());
     shortDesc.setEscapeModelStrings(false);
     add(shortDesc);
@@ -137,43 +141,47 @@ public class ProjectDetailPage extends BasePage {
         project.getProgrammingLanguages()));
 
     // contributors
-    PersonListPanel maintainerList = new PersonListPanel("maintainers", "Maintainers", project
-        .getMaintainers());
+    PersonListPanel maintainerList = new PersonListPanel("maintainers",
+        "Maintainers", project.getMaintainers());
     maintainerList.setOutputMarkupId(true);
     add(maintainerList);
-    add(new AddPersonPanel("addMaintainerPanel", getProject(), AddPersonPanel.MAINTAINER, maintainerList));
-    
-    PersonListPanel developerList = new PersonListPanel("developers", "Developers", project
-        .getDevelopers());
+    add(new AddPersonPanel("addMaintainerPanel", getProject(),
+        AddPersonPanel.MAINTAINER, maintainerList));
+
+    PersonListPanel developerList = new PersonListPanel("developers",
+        "Developers", project.getDevelopers());
     developerList.setOutputMarkupId(true);
     add(developerList);
-    add(new AddPersonPanel("addDeveloperPanel", getProject(), AddPersonPanel.DEVELOPER, developerList));
-    
+    add(new AddPersonPanel("addDeveloperPanel", getProject(),
+        AddPersonPanel.DEVELOPER, developerList));
 
-    PersonListPanel testerList = new PersonListPanel("testers", "Testers", project
-        .getTesters());
+    PersonListPanel testerList = new PersonListPanel("testers", "Testers",
+        project.getTesters());
     testerList.setOutputMarkupId(true);
     add(testerList);
-    add(new AddPersonPanel("addTesterPanel", getProject(), AddPersonPanel.TESTER, testerList));
-        
-    PersonListPanel helperList = new PersonListPanel("helpers", "Helpers", project
-        .getHelpers());
+    add(new AddPersonPanel("addTesterPanel", getProject(),
+        AddPersonPanel.TESTER, testerList));
+
+    PersonListPanel helperList = new PersonListPanel("helpers", "Helpers",
+        project.getHelpers());
     helperList.setOutputMarkupId(true);
     add(helperList);
-    add(new AddPersonPanel("addHelperPanel", getProject(), AddPersonPanel.HELPER, helperList));
-    
+    add(new AddPersonPanel("addHelperPanel", getProject(),
+        AddPersonPanel.HELPER, helperList));
 
-    PersonListPanel documentorList = new PersonListPanel("documenters", "Documentors", project
-        .getDocumenters());
+    PersonListPanel documentorList = new PersonListPanel("documenters",
+        "Documentors", project.getDocumenters());
     documentorList.setOutputMarkupId(true);
     add(documentorList);
-    add(new AddPersonPanel("addDocumentorPanel", getProject(), AddPersonPanel.DOCUMENTOR, documentorList));
-    
-    PersonListPanel translatorList = new PersonListPanel("translators", "Translators", project
-        .getTranslators());
+    add(new AddPersonPanel("addDocumentorPanel", getProject(),
+        AddPersonPanel.DOCUMENTOR, documentorList));
+
+    PersonListPanel translatorList = new PersonListPanel("translators",
+        "Translators", project.getTranslators());
     translatorList.setOutputMarkupId(true);
     add(translatorList);
-    add(new AddPersonPanel("addTranslatorPanel", getProject(), AddPersonPanel.TRANSLATOR, translatorList));
+    add(new AddPersonPanel("addTranslatorPanel", getProject(),
+        AddPersonPanel.TRANSLATOR, translatorList));
 
     // downlaod
     add(getRepeatingLinks("downloadPages", "downloadPage", "Downloads",
@@ -181,7 +189,7 @@ public class ProjectDetailPage extends BasePage {
     add(getRepeatingLinks("downloadMirrors", "downloadMirror",
         "Download Mirror", new SortableDoapResourceDataProvider(project
             .getDownloadMirrors()), false));
-    
+
     // sources
     add(getRepeatingDataSourcePanel("sources", "seeAlso", project.getSources()));
 
@@ -212,10 +220,10 @@ public class ProjectDetailPage extends BasePage {
   public IProject getProject() {
     return project;
   }
-  
+
   private static class DeleteLink extends Link<IProject> {
     IProject project;
-    
+
     public DeleteLink(String id, IProject project) {
       super(id);
       this.project = project;
@@ -224,13 +232,13 @@ public class ProjectDetailPage extends BasePage {
     private static final long serialVersionUID = 1L;
 
     public void onClick() {
-        try {
-          project.delete();
-          getRequestCycle().setResponsePage(new UserHomePage());
-        } catch (SimalRepositoryException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
-        }
+      try {
+        project.delete();
+        getRequestCycle().setResponsePage(new UserHomePage());
+      } catch (SimalRepositoryException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
     }
   }
 

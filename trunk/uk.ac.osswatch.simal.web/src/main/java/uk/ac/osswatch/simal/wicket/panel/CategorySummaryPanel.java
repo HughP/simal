@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -22,7 +23,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 
 /**
- * Diaplsy summary information for a category.
+ * Display summary information for a category.
  */
 public class CategorySummaryPanel extends Panel {
   private static final long serialVersionUID = 4436736277889089047L;
@@ -32,7 +33,7 @@ public class CategorySummaryPanel extends Panel {
    * 
    * @param panelID
    * @param category
-   *            the category to display in this panel
+   *          the category to display in this panel
    */
   public CategorySummaryPanel(String panelId, IDoapCategory category) {
     super(panelId);
@@ -45,4 +46,3 @@ public class CategorySummaryPanel extends Panel {
   }
 
 }
-

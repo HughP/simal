@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +51,14 @@ public class PersonListPanel extends Panel {
   /**
    * Create a panel that lists all people in the repository.
    * 
-   * @param id the wicket ID for the component
-   * @param title the title if this list
+   * @param id
+   *          the wicket ID for the component
+   * @param title
+   *          the title if this list
    * @throws SimalRepositoryException
    */
-  public PersonListPanel(String id, String title) throws SimalRepositoryException {
+  public PersonListPanel(String id, String title)
+      throws SimalRepositoryException {
     super(id);
     this.title = title;
     this.people = UserApplication.getRepository().getAllPeople();
@@ -65,15 +68,18 @@ public class PersonListPanel extends Panel {
   /**
    * Create a panel that lists a set of people.
    * 
-   * @param id the wicket ID for the component
-   * @param title the title if this list
-   * @param people the people to include in the list
+   * @param id
+   *          the wicket ID for the component
+   * @param title
+   *          the title if this list
+   * @param people
+   *          the people to include in the list
    * @throws SimalRepositoryException
    */
   public PersonListPanel(String id, String title, Set<IPerson> people) {
     super(id);
     this.title = title;
-    this.people = people;    
+    this.people = people;
     populatePanel();
   }
 
@@ -98,10 +104,9 @@ public class PersonListPanel extends Panel {
       }
 
     });
-    columns
-        .add(new PropertyColumn(new Model("EMail"), "email", "email"));
-    columns
-    .add(new PropertyColumn(new Model("Projects"), "projects", "projects"));
+    columns.add(new PropertyColumn(new Model("EMail"), "email", "email"));
+    columns.add(new PropertyColumn(new Model("Projects"), "projects",
+        "projects"));
 
     SortableDataProvider dataProvider = new SortablePersonDataProvider(people);
     dataProvider.setSort(SortablePersonDataProvider.SORT_PROPERTY_LABEL, true);
@@ -109,9 +114,9 @@ public class PersonListPanel extends Panel {
   }
 
   /**
-   * Add a person to the list being displayed. This method does not
-   * add the person to the underlying data storage mechanism, it only adds 
-   * it to the GUI.
+   * Add a person to the list being displayed. This method does not add the
+   * person to the underlying data storage mechanism, it only adds it to the
+   * GUI.
    * 
    * @param person
    */

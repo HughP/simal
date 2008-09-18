@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.data;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
-
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IProject;
@@ -27,23 +27,25 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  * A project data provider that allows the projects to be sorted.
  * 
  */
-public class SortableProjectDataProvider extends SortableDoapResourceDataProvider {
-	private static final long serialVersionUID = -7078982000589847543L;
+public class SortableProjectDataProvider extends
+    SortableDoapResourceDataProvider {
+  private static final long serialVersionUID = -7078982000589847543L;
 
-	/**
-	 * Create a SortableDataProvider containing all projects in the repository
-	 * 
-	 * @param size
-	 * @throws SimalRepositoryException 
-	 */
-	public SortableProjectDataProvider() throws SimalRepositoryException {
-		this(UserApplication.getRepository().getAllProjects());
-	}
+  /**
+   * Create a SortableDataProvider containing all projects in the repository
+   * 
+   * @param size
+   * @throws SimalRepositoryException
+   */
+  public SortableProjectDataProvider() throws SimalRepositoryException {
+    this(UserApplication.getRepository().getAllProjects());
+  }
 
-	/**
-	 * Create a SortableDataProvider containing a given set of projects.
-	 * @param projects
-	 */
+  /**
+   * Create a SortableDataProvider containing a given set of projects.
+   * 
+   * @param projects
+   */
   public SortableProjectDataProvider(Set<IProject> projects) {
     super(projects);
   }

@@ -30,7 +30,8 @@ public class ColleaguesPanel extends Panel {
     super(id);
 
     try {
-      add(new PersonListPanel("colleaguesList", "Colleagues", person.getColleagues()));
+      add(new PersonListPanel("colleaguesList", "Colleagues", person
+          .getColleagues()));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get people from the repository", ColleaguesPanel.class, e);

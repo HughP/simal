@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
-
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
@@ -26,11 +26,11 @@ import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
  */
 public class TestExhibitProjectBrowserPage extends TestBase {
 
-	@Test
-	public void testRenderPage() {
-		tester.startPage(ExhibitProjectBrowserPage.class);
-		tester.assertRenderedPage(ExhibitProjectBrowserPage.class);
-		tester.assertVisible("footer");
-		
-	}
+  @Test
+  public void testRenderPage() {
+    tester.startPage(ExhibitProjectBrowserPage.class);
+    tester.assertRenderedPage(ExhibitProjectBrowserPage.class);
+    tester.assertVisible("footer");
+
+  }
 }

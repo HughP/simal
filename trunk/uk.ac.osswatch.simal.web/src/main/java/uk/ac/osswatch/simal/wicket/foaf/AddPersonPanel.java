@@ -53,8 +53,8 @@ public class AddPersonPanel extends Panel {
   public static final int DEVELOPER = 4;
   public static final int DOCUMENTOR = 8;
   public static final int TESTER = 16;
-  public static final int TRANSLATOR = 32;  
-  
+  public static final int TRANSLATOR = 32;
+
   /** Visibility toggle so that either the link or the form is visible. */
   private boolean formVisible = false;
   private FoafFormInputModel inputModel = new FoafFormInputModel();
@@ -77,10 +77,11 @@ public class AddPersonPanel extends Panel {
    * @param project
    *          the project any new people are to be assigned to
    * @param updateContainer
-   *          the container that should be updated when the person 
-   *          has been added (must have setOutputMarkupId(true)
+   *          the container that should be updated when the person has been
+   *          added (must have setOutputMarkupId(true)
    */
-  public AddPersonPanel(String wicketid, IProject project, int role, PersonListPanel updatePanel) {
+  public AddPersonPanel(String wicketid, IProject project, int role,
+      PersonListPanel updatePanel) {
     super(wicketid);
     this.personRole = role;
     this.project = project;
@@ -125,8 +126,8 @@ public class AddPersonPanel extends Panel {
     }
 
     /**
-     * Handle the submit request by creating the person and,
-     * where appropriate, assigning them to a project.
+     * Handle the submit request by creating the person and, where appropriate,
+     * assigning them to a project.
      * 
      * @param target
      *          the request target.
@@ -139,12 +140,24 @@ public class AddPersonPanel extends Panel {
         IPerson person = inputModel.getPerson();
         if (project != null) {
           switch (personRole) {
-            case MAINTAINER: project.addMaintainer(person); break;
-            case DEVELOPER: project.addDeveloper(person); break;
-            case TESTER: project.addTester(person); break;
-            case HELPER: project.addHelper(person); break;
-            case DOCUMENTOR: project.addDocumenter(person); break;
-            case TRANSLATOR: project.addTranslator(person); break;
+          case MAINTAINER:
+            project.addMaintainer(person);
+            break;
+          case DEVELOPER:
+            project.addDeveloper(person);
+            break;
+          case TESTER:
+            project.addTester(person);
+            break;
+          case HELPER:
+            project.addHelper(person);
+            break;
+          case DOCUMENTOR:
+            project.addDocumenter(person);
+            break;
+          case TRANSLATOR:
+            project.addTranslator(person);
+            break;
           }
         }
         updatePanel.addPerson(person);

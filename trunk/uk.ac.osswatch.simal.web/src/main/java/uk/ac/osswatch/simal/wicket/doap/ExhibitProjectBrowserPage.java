@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.doap;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -28,15 +29,15 @@ import uk.ac.osswatch.simal.wicket.BasePage;
  * faceted browser for Projects.
  */
 public class ExhibitProjectBrowserPage extends BasePage {
-	private static final long serialVersionUID = 2675836864409849552L;
-	private static final CompressedResourceReference EXHIBIT_CSS = new CompressedResourceReference(
-	    BasePage.class, "style/exhibit.css");
+  private static final long serialVersionUID = 2675836864409849552L;
+  private static final CompressedResourceReference EXHIBIT_CSS = new CompressedResourceReference(
+      BasePage.class, "style/exhibit.css");
 
-	public ExhibitProjectBrowserPage() {
-	  add(HeaderContributor.forCss(EXHIBIT_CSS));
-		add(HeaderContributor
-				.forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
-		add(new StringHeaderContributor(
-				"<link href=\"/simal-rest/allProjects/json\" rel=\"exhibit/data\" />"));
-	}
+  public ExhibitProjectBrowserPage() {
+    add(HeaderContributor.forCss(EXHIBIT_CSS));
+    add(HeaderContributor
+        .forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
+    add(new StringHeaderContributor(
+        "<link href=\"/simal-rest/allProjects/json\" rel=\"exhibit/data\" />"));
+  }
 }

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.util.List;
 import java.util.Vector;
@@ -44,43 +44,49 @@ import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 import uk.ac.osswatch.simal.wicket.markup.html.list.InternetAddressListView;
 import uk.ac.osswatch.simal.wicket.markup.html.list.WebPageListView;
 
-
 /**
  * A panel for displaying project information.
  */
 public class PersonSummaryPanel extends Panel {
-	private static final long serialVersionUID = -6078043900380156791L;
-  private static final Logger logger = LoggerFactory.getLogger(PersonSummaryPanel.class);
+  private static final long serialVersionUID = -6078043900380156791L;
+  private static final Logger logger = LoggerFactory
+      .getLogger(PersonSummaryPanel.class);
   private IPerson person;
 
-	/**
-	 * Create a summary page for a specific person.
-	 * 
-	 * @param panelID
-	 * @param person
-	 *            the person to display in this panel
-	 * @throws SimalRepositoryException 
-	 */
-	public PersonSummaryPanel(String panelId, IPerson person) throws SimalRepositoryException {
-		super(panelId);
-		populatePage(person);
+  /**
+   * Create a summary page for a specific person.
+   * 
+   * @param panelID
+   * @param person
+   *          the person to display in this panel
+   * @throws SimalRepositoryException
+   */
+  public PersonSummaryPanel(String panelId, IPerson person)
+      throws SimalRepositoryException {
+    super(panelId);
+    populatePage(person);
   }
 
-	private void populatePage(final IPerson person) throws SimalRepositoryException {
-	  this.person = person;
-	  PageLink detailLink = new PageLink("detailLink", PersonDetailPage.getLink(person));
+  private void populatePage(final IPerson person)
+      throws SimalRepositoryException {
+    this.person = person;
+    PageLink detailLink = new PageLink("detailLink", PersonDetailPage
+        .getLink(person));
     detailLink.add(new Label("personName", person.getLabel()));
     add(detailLink);
-    
-    InternetAddressListView emailListView = new InternetAddressListView("emailList", new LoadableDetachableInternetAddressModel(person)); 
-    add(emailListView);
-    
-    WebPageListView homepageListView = new WebPageListView("webpageList", new LoadableDetachableHomePageModel(person));
-    add(homepageListView);
-		
-		String friendsURL = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + "/allColleagues/person-" + person.getSimalID() + "/xml";
-		add(new ExternalLink("friendsLink", friendsURL));
 
+    InternetAddressListView emailListView = new InternetAddressListView(
+        "emailList", new LoadableDetachableInternetAddressModel(person));
+    add(emailListView);
+
+    WebPageListView homepageListView = new WebPageListView("webpageList",
+        new LoadableDetachableHomePageModel(person));
+    add(homepageListView);
+
+    String friendsURL = SimalProperties
+        .getProperty(SimalProperties.PROPERTY_REST_BASEURL)
+        + "/allColleagues/person-" + person.getSimalID() + "/xml";
+    add(new ExternalLink("friendsLink", friendsURL));
 
     add(new Link("removePersonActionLink") {
       private static final long serialVersionUID = -5596547501782436339L;
@@ -89,9 +95,11 @@ public class PersonSummaryPanel extends Panel {
         try {
           removePerson();
           if (this.getPage() instanceof ProjectDetailPage) {
-            setResponsePage(new ProjectDetailPage(((ProjectDetailPage)this.getPage()).getProject()));
+            setResponsePage(new ProjectDetailPage(((ProjectDetailPage) this
+                .getPage()).getProject()));
           } else {
-            logger.warn("Removing person from an unknown page, returning to user home page");
+            logger
+                .warn("Removing person from an unknown page, returning to user home page");
             setResponsePage(new UserHomePage());
           }
         } catch (UserReportableException e) {
@@ -99,12 +107,12 @@ public class PersonSummaryPanel extends Panel {
         }
       }
     });
-	}
+  }
 
-  private void removePerson() throws UserReportableException{
+  private void removePerson() throws UserReportableException {
     Page page = this.getPage();
     if (page instanceof ProjectDetailPage) {
-      IProject project = ((ProjectDetailPage)page).getProject();
+      IProject project = ((ProjectDetailPage) page).getProject();
       try {
         project.removeDocumenter(person);
         project.removeDeveloper(person);
@@ -113,17 +121,21 @@ public class PersonSummaryPanel extends Panel {
         project.removeTester(person);
         project.removeTranslator(person);
       } catch (SimalRepositoryException e) {
-        throw new UserReportableException("Unable to removePerson", PersonSummaryPanel.class, e);
+        throw new UserReportableException("Unable to removePerson",
+            PersonSummaryPanel.class, e);
       }
     } else {
-      throw new UserReportableException("Unable to removePerson when parent page is type " + page.getClass().getName(), PersonSummaryPanel.class);
+      throw new UserReportableException(
+          "Unable to removePerson when parent page is type "
+              + page.getClass().getName(), PersonSummaryPanel.class);
     }
   }
-  
-  private static class LoadableDetachableInternetAddressModel extends LoadableDetachableModel<List<IInternetAddress>> {
+
+  private static class LoadableDetachableInternetAddressModel extends
+      LoadableDetachableModel<List<IInternetAddress>> {
     private static final long serialVersionUID = 1L;
     private IPerson person;
-    
+
     public LoadableDetachableInternetAddressModel(IPerson person) {
       this.person = person;
     }
@@ -132,11 +144,12 @@ public class PersonSummaryPanel extends Panel {
       return new Vector<IInternetAddress>(person.getEmail());
     }
   }
-  
-  private static class LoadableDetachableHomePageModel extends LoadableDetachableModel<List<IDoapHomepage>> {
+
+  private static class LoadableDetachableHomePageModel extends
+      LoadableDetachableModel<List<IDoapHomepage>> {
     private static final long serialVersionUID = 1L;
     private IPerson person;
-    
+
     public LoadableDetachableHomePageModel(IPerson person) {
       this.person = person;
     }

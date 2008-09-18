@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table;
  * under the License.                                                *
  */
 
-
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -26,8 +26,8 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
 /**
- * A utility class for creating a ProperyColumn for DataTables that
- * is also a hyperlink.
+ * A utility class for creating a ProperyColumn for DataTables that is also a
+ * hyperlink.
  * 
  * Your HTML needs:
  * 
@@ -37,62 +37,62 @@ import org.apache.wicket.model.IModel;
  */
 public abstract class LinkPropertyColumn extends PropertyColumn {
   private static final long serialVersionUID = 1L;
-	PopupSettings popupSettings;
-	IModel labelModel;
+  PopupSettings popupSettings;
+  IModel labelModel;
 
-	public LinkPropertyColumn(IModel displayModel, String sortProperty,
-			String propertyExpression, PopupSettings popupSettings) {
-		this(displayModel, sortProperty, propertyExpression);
-		this.popupSettings = popupSettings;
-	}
+  public LinkPropertyColumn(IModel displayModel, String sortProperty,
+      String propertyExpression, PopupSettings popupSettings) {
+    this(displayModel, sortProperty, propertyExpression);
+    this.popupSettings = popupSettings;
+  }
 
-	public LinkPropertyColumn(IModel displayModel, IModel labelModel) {
-		super(displayModel, null);
-		this.labelModel = labelModel;
-	}
+  public LinkPropertyColumn(IModel displayModel, IModel labelModel) {
+    super(displayModel, null);
+    this.labelModel = labelModel;
+  }
 
-	public LinkPropertyColumn(IModel displayModel, String sortProperty,
-			String propertyExpression) {
-		super(displayModel, sortProperty, propertyExpression);
-	}
+  public LinkPropertyColumn(IModel displayModel, String sortProperty,
+      String propertyExpression) {
+    super(displayModel, sortProperty, propertyExpression);
+  }
 
-	public LinkPropertyColumn(IModel displayModel, String propertyExpressions) {
-		super(displayModel, propertyExpressions);
-	}
+  public LinkPropertyColumn(IModel displayModel, String propertyExpressions) {
+    super(displayModel, propertyExpressions);
+  }
 
-	@Override
-	public void populateItem(Item item, String componentId, IModel model) {
-		item.add(new LinkPanel(item, componentId, model));
-	}
+  @Override
+  public void populateItem(Item item, String componentId, IModel model) {
+    item.add(new LinkPanel(item, componentId, model));
+  }
 
-	public abstract void onClick(Item item, String componentId, IModel model);
+  public abstract void onClick(Item item, String componentId, IModel model);
 
-	@SuppressWarnings("serial")
-	public class LinkPanel extends Panel {
-	  private static final long serialVersionUID = 1L;
-	  
-		public LinkPanel(final Item item, final String componentId,
-				final IModel model) {
-			super(componentId);
+  @SuppressWarnings("serial")
+  public class LinkPanel extends Panel {
+    private static final long serialVersionUID = 1L;
 
-			Link link = new Link("link") {
+    public LinkPanel(final Item item, final String componentId,
+        final IModel model) {
+      super(componentId);
 
-				@Override
-				public void onClick() {
-					LinkPropertyColumn.this.onClick(item, componentId, model);
-				}
-			};
-			link.setPopupSettings(popupSettings);
+      Link link = new Link("link") {
 
-			add(link);
+        @Override
+        public void onClick() {
+          LinkPropertyColumn.this.onClick(item, componentId, model);
+        }
+      };
+      link.setPopupSettings(popupSettings);
 
-			IModel tmpLabelModel = labelModel;
+      add(link);
 
-			if (labelModel == null) {
-				tmpLabelModel = createLabelModel(model);
-			}
+      IModel tmpLabelModel = labelModel;
 
-			link.add(new Label("label", tmpLabelModel));
-		}
-	}
+      if (labelModel == null) {
+        tmpLabelModel = createLabelModel(model);
+      }
+
+      link.add(new Label("label", tmpLabelModel));
+    }
+  }
 }

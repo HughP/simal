@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.foaf;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,12 +17,11 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
-
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.wicket.TestBase;
 
-public class TestPersonBrowsePage extends TestBase{
+public class TestPersonBrowsePage extends TestBase {
 
   @Test
   public void testPageRender() {

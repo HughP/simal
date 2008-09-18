@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
-
 import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.markup.html.basic.Label;
@@ -27,18 +27,24 @@ import org.junit.Test;
  */
 public class TestErrorReportPage extends TestBase {
 
-	@Test
-	public void testRenderPage() {
-		tester.startPage(ErrorReportPage.class);
-		tester.assertRenderedPage(ErrorReportPage.class);
-		tester.assertVisible("errorDetails");
-		tester.assertVisible("footer");
-		
-		Label details = (Label) tester.getComponentFromLastRenderedPage("errorDetails");
-		String strDetails = (String)details.getDefaultModel().getObject();
-		assertTrue("Error report does not appear to contain the error message", strDetails.contains("Just testing"));
-		assertTrue("Error report does not appear to contain the reporting class details", strDetails.contains("ErrorReportPage"));
-		assertTrue("Error report does not appear to contain the cause report", strDetails.contains("IllegalArgumentException"));
-		assertTrue("Error report does not appear to contain the stacktrace", strDetails.contains("at uk.ac.osswatch.simal.wicket.ErrorReportPage"));
-	}
+  @Test
+  public void testRenderPage() {
+    tester.startPage(ErrorReportPage.class);
+    tester.assertRenderedPage(ErrorReportPage.class);
+    tester.assertVisible("errorDetails");
+    tester.assertVisible("footer");
+
+    Label details = (Label) tester
+        .getComponentFromLastRenderedPage("errorDetails");
+    String strDetails = (String) details.getDefaultModel().getObject();
+    assertTrue("Error report does not appear to contain the error message",
+        strDetails.contains("Just testing"));
+    assertTrue(
+        "Error report does not appear to contain the reporting class details",
+        strDetails.contains("ErrorReportPage"));
+    assertTrue("Error report does not appear to contain the cause report",
+        strDetails.contains("IllegalArgumentException"));
+    assertTrue("Error report does not appear to contain the stacktrace",
+        strDetails.contains("at uk.ac.osswatch.simal.wicket.ErrorReportPage"));
+  }
 }

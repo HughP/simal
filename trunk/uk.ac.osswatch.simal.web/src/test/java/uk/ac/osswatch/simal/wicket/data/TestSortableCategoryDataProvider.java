@@ -82,8 +82,7 @@ public class TestSortableCategoryDataProvider extends TestBase {
     int pageSize = NUMBER_OF_TEST_CATEGORIES - 1;
 
     int count = 0;
-    provider
-        .setSort(SortableCategoryDataProvider.SORT_PROPERTY_PROJECTS, true);
+    provider.setSort(SortableCategoryDataProvider.SORT_PROPERTY_PROJECTS, true);
     Iterator<IDoapResource> iterator = provider.iterator(0, pageSize);
     int prev = -1;
     count = 0;

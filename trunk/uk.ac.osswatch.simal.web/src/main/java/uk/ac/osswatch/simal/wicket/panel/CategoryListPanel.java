@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +38,9 @@ import uk.ac.osswatch.simal.wicket.doap.CategoryDetailPage;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
- * A panel for listing categories. This panel allows the user to navigate the people
- * the Simal repository and, optionally, allows some manipulation of those
- * records.
+ * A panel for listing categories. This panel allows the user to navigate the
+ * people the Simal repository and, optionally, allows some manipulation of
+ * those records.
  */
 public class CategoryListPanel extends Panel {
   private static final long serialVersionUID = -7641153470731218965L;
@@ -53,14 +53,16 @@ public class CategoryListPanel extends Panel {
 
   public CategoryListPanel(String id, Set<IDoapCategory> categories) {
     super(id);
-    SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(categories);
+    SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(
+        categories);
     addCategoryList(dataProvider);
   }
 
   @SuppressWarnings("unchecked")
   private void addCategoryList(SortableDataProvider<IResource> dataProvider) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
-    columns.add(new LinkPropertyColumn(new Model<String>("Name"), "name", "name") {
+    columns.add(new LinkPropertyColumn(new Model<String>("Name"), "name",
+        "name") {
       private static final long serialVersionUID = 2731613682674835708L;
 
       @SuppressWarnings("unchecked")
@@ -71,9 +73,11 @@ public class CategoryListPanel extends Panel {
       }
 
     });
-    columns.add(new PropertyColumn(new Model("Projects"), "projects", "projects.size"));
-    columns.add(new PropertyColumn(new Model("People"), "people", "people.size"));
-    
+    columns.add(new PropertyColumn(new Model("Projects"), "projects",
+        "projects.size"));
+    columns
+        .add(new PropertyColumn(new Model("People"), "people", "people.size"));
+
     dataProvider.setSort(SortableCategoryDataProvider.SORT_PROPERTY_NAME, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
   }

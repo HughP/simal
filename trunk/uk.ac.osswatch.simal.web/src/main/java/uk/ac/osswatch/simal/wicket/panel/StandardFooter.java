@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * 
-Copyright 2008 University of Oxford * 
+ Copyright 2008 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +18,6 @@ Copyright 2008 University of Oxford *
  * 
  */
 
-
 import org.apache.wicket.markup.html.panel.Panel;
 
 /**
@@ -25,10 +25,9 @@ import org.apache.wicket.markup.html.panel.Panel;
  */
 public class StandardFooter extends Panel {
   private static final long serialVersionUID = 1917673823642608845L;
-  
+
   public StandardFooter(String id) {
     super(id);
   }
 
 }
-

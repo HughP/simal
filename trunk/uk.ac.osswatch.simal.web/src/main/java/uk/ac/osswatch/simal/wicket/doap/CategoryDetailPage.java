@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.doap;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -33,43 +34,41 @@ import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 public class CategoryDetailPage extends BasePage {
   private static final long serialVersionUID = 1L;
   IDoapCategory category;
-  
+
   public CategoryDetailPage(IDoapCategory category) {
     try {
       populatePage(category);
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
-          "Unable to create category detail page",
-          CategoryDetailPage.class, e);
-      setResponsePage(new ErrorReportPage(error));
-    }
-  }
-  
-  public CategoryDetailPage(PageParameters parameters) {
-    String id = null;
-    if (parameters.containsKey("simalID")) {
-        id = parameters.getString("simalID");
-        
-        try {
-          category = UserApplication.getRepository().findCategoryById(id);
-          populatePage(category);
-        } catch (SimalRepositoryException e) {
-          UserReportableException error = new UserReportableException(
-              "Unable to get category from the repository",
-              CategoryDetailPage.class, e);
-          setResponsePage(new ErrorReportPage(error));
-        }
-    } else {
-      UserReportableException error = new UserReportableException(
-          "Unable to get simalID parameter from URL",
-          CategoryDetailPage.class);
+          "Unable to create category detail page", CategoryDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
   }
 
-  private void populatePage(IDoapCategory category) throws SimalRepositoryException {
+  public CategoryDetailPage(PageParameters parameters) {
+    String id = null;
+    if (parameters.containsKey("simalID")) {
+      id = parameters.getString("simalID");
+
+      try {
+        category = UserApplication.getRepository().findCategoryById(id);
+        populatePage(category);
+      } catch (SimalRepositoryException e) {
+        UserReportableException error = new UserReportableException(
+            "Unable to get category from the repository",
+            CategoryDetailPage.class, e);
+        setResponsePage(new ErrorReportPage(error));
+      }
+    } else {
+      UserReportableException error = new UserReportableException(
+          "Unable to get simalID parameter from URL", CategoryDetailPage.class);
+      setResponsePage(new ErrorReportPage(error));
+    }
+  }
+
+  private void populatePage(IDoapCategory category)
+      throws SimalRepositoryException {
     add(new CategorySummaryPanel("summary", category));
     add(new ProjectListPanel("projects", category.getProjects()));
   }
 }
-

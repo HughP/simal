@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.markup.html.list;
+
 /*
  * 
  * Copyright 2007 University of Oxford
@@ -18,7 +19,6 @@ package uk.ac.osswatch.simal.wicket.markup.html.list;
  * 
  */
 
-
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
@@ -30,15 +30,11 @@ import org.apache.wicket.model.IModel;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 
 /**
- * ListView for web pages. Each address will be rendered as a clickable
- * link. The parent component must provide HTML of the form:
+ * ListView for web pages. Each address will be rendered as a clickable link.
+ * The parent component must provide HTML of the form:
  * 
- * <[![CDATA
- * <span wicket:id="webPageList">
- *   <a href="#" wicket:id="linkURL"><span wicket:id="linkText">Link Text</span>
- *   </a>
- * </span>
- * ]]>
+ * <[![CDATA <span wicket:id="webPageList"> <a href="#" wicket:id="linkURL"><span
+ * wicket:id="linkText">Link Text</span> </a> </span> ]]>
  * 
  */
 public class WebPageListView extends ListView<IDoapHomepage> {

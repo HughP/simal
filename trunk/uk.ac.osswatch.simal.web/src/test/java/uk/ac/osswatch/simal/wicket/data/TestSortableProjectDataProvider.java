@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.data;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -31,77 +31,78 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.TransactionException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 
-public class TestSortableProjectDataProvider extends TestBase{
-  private static final Logger logger = LoggerFactory.getLogger(TestSortableProjectDataProvider.class);
-  
-	@Test
-	public void testSize() throws SimalRepositoryException, TransactionException {
-		SortableProjectDataProvider provider = new SortableProjectDataProvider();
-		assertEquals(NUMBER_OF_TEST_PROJECTS, provider.size());
-	}
+public class TestSortableProjectDataProvider extends TestBase {
+  private static final Logger logger = LoggerFactory
+      .getLogger(TestSortableProjectDataProvider.class);
 
-	@Test
-	public void testModel() throws SimalRepositoryException {
-		SortableProjectDataProvider provider = new SortableProjectDataProvider();
-		assertTrue("The default sortable project data provider has no projects", provider.size() > 0);
-	}
+  @Test
+  public void testSize() throws SimalRepositoryException, TransactionException {
+    SortableProjectDataProvider provider = new SortableProjectDataProvider();
+    assertEquals(NUMBER_OF_TEST_PROJECTS, provider.size());
+  }
 
-	@Test
-	public void testIterator() throws SimalRepositoryException {
-		SortableProjectDataProvider provider = new SortableProjectDataProvider();
-		int pageSize = NUMBER_OF_TEST_PROJECTS - 1;
+  @Test
+  public void testModel() throws SimalRepositoryException {
+    SortableProjectDataProvider provider = new SortableProjectDataProvider();
+    assertTrue("The default sortable project data provider has no projects",
+        provider.size() > 0);
+  }
 
-		// test the default sort is by name
-		Iterator<IDoapResource> iterator = provider.iterator(0, pageSize);
-		IDoapResource project;
-		String prev = null;
-		String current;
-		int count = 0;
-		while (iterator.hasNext()) {
-			project = iterator.next();
-			current = (String) project.getName();
-			if (prev != null) {
-				assertTrue("Incorrect sort order: " + prev + " preceeds "
-						+ current, current.compareTo(prev) >= 0);
-			}
-			prev = current;
-			count = count + 1;
-		}
+  @Test
+  public void testIterator() throws SimalRepositoryException {
+    SortableProjectDataProvider provider = new SortableProjectDataProvider();
+    int pageSize = NUMBER_OF_TEST_PROJECTS - 1;
 
-		assertEquals("not returning the right number of elements for the given start point and pageSize", pageSize,
-				count);
+    // test the default sort is by name
+    Iterator<IDoapResource> iterator = provider.iterator(0, pageSize);
+    IDoapResource project;
+    String prev = null;
+    String current;
+    int count = 0;
+    while (iterator.hasNext()) {
+      project = iterator.next();
+      current = (String) project.getName();
+      if (prev != null) {
+        assertTrue("Incorrect sort order: " + prev + " preceeds " + current,
+            current.compareTo(prev) >= 0);
+      }
+      prev = current;
+      count = count + 1;
+    }
 
-		// test the sort is by shortDesc
-		provider.setSort(SortableProjectDataProvider.SORT_PROPERTY_SHORTDESC,
-				true);
-		iterator = provider.iterator(0, 10);
-		prev = null;
-		count = 0;
-		logger.debug("Projects in the project data provider are:");
-		while (iterator.hasNext()) {
-			project = iterator.next();
-			current = project.getShortDesc();
-			logger.debug(current);
-			if (prev != null && current != null) {
-				assertTrue("Incorrect sort order: " + prev + " preceeds "
-						+ current, current.compareTo(prev) >= 0);
-			}
-			prev = current;
-			count = count + 1;
-		}
+    assertEquals(
+        "not returning the right number of elements for the given start point and pageSize",
+        pageSize, count);
 
-		assertEquals("not returning the right number of elements",
-				NUMBER_OF_TEST_PROJECTS, count);
+    // test the sort is by shortDesc
+    provider.setSort(SortableProjectDataProvider.SORT_PROPERTY_SHORTDESC, true);
+    iterator = provider.iterator(0, 10);
+    prev = null;
+    count = 0;
+    logger.debug("Projects in the project data provider are:");
+    while (iterator.hasNext()) {
+      project = iterator.next();
+      current = project.getShortDesc();
+      logger.debug(current);
+      if (prev != null && current != null) {
+        assertTrue("Incorrect sort order: " + prev + " preceeds " + current,
+            current.compareTo(prev) >= 0);
+      }
+      prev = current;
+      count = count + 1;
+    }
 
-		boolean threwRuntime = false;
-		try {
-			provider.setSort("Unknown property", true);
-		} catch (RuntimeException e) {
-			threwRuntime = true;
-		}
-		assertTrue(
-				"Didn't throw a RuntimeException with an illegal sort property",
-				threwRuntime);
+    assertEquals("not returning the right number of elements",
+        NUMBER_OF_TEST_PROJECTS, count);
 
-	}
+    boolean threwRuntime = false;
+    try {
+      provider.setSort("Unknown property", true);
+    } catch (RuntimeException e) {
+      threwRuntime = true;
+    }
+    assertTrue("Didn't throw a RuntimeException with an illegal sort property",
+        threwRuntime);
+
+  }
 }

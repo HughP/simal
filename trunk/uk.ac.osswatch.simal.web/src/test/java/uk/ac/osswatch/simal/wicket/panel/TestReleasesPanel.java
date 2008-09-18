@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  * under the License.                                                *
  */
 
-
 import static org.junit.Assert.fail;
 
 import org.apache.wicket.markup.html.panel.Panel;
@@ -32,31 +32,31 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  */
 public class TestReleasesPanel extends TestBase {
 
-	@Test
-	@SuppressWarnings("serial")
-	public void testRenderPanel() {
-		 tester.startPanel(new TestPanelSource() {
-		        public Panel getTestPanel(String panelId)
-		        {
-		                try {
-							return new ReleasesPanel(panelId, UserApplication.getRepository().getProject(projectURI).getReleases());
-						} catch (SimalRepositoryException e) {
-							fail(e.getMessage());
-							return null;
-						}
-		        }
-		 });
-		tester.assertVisible("panel:releases");
-		tester.assertVisible("panel:releases:1:name");
-		// FIXME: we can't predict which release will be first
-		//tester.assertLabel("panel:releases:1:name", "Simal Project Registry");
-		
-		tester.assertVisible("panel:releases:1:revisions");
+  @Test
+  @SuppressWarnings("serial")
+  public void testRenderPanel() {
+    tester.startPanel(new TestPanelSource() {
+      public Panel getTestPanel(String panelId) {
+        try {
+          return new ReleasesPanel(panelId, UserApplication.getRepository()
+              .getProject(projectURI).getReleases());
+        } catch (SimalRepositoryException e) {
+          fail(e.getMessage());
+          return null;
+        }
+      }
+    });
+    tester.assertVisible("panel:releases");
+    tester.assertVisible("panel:releases:1:name");
+    // FIXME: we can't predict which release will be first
+    // tester.assertLabel("panel:releases:1:name", "Simal Project Registry");
+
+    tester.assertVisible("panel:releases:1:revisions");
     // FIXME: we can't predict which release will be first
     // tester.assertLabel("panel:releases:1:revisions:1:revision", "0.1");
-		
-		tester.assertVisible("panel:releases:1:created");
+
+    tester.assertVisible("panel:releases:1:created");
     // FIXME: we can't predict which release will be first
-    //tester.assertLabel("panel:releases:1:created", "2007-08-30");
-	}
+    // tester.assertLabel("panel:releases:1:created", "2007-08-30");
+  }
 }

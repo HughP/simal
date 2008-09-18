@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,22 +17,23 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
-
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 
 public class UserHomePage extends BasePage {
-	private static final long serialVersionUID = -8125606657250912738L;
-  
+  private static final long serialVersionUID = -8125606657250912738L;
+
   public UserHomePage() {
-		try {
-			add(new ProjectListPanel("projectList"));
-			add(new ProjectSummaryPanel("featuredProject"));
-		} catch (SimalRepositoryException e) {
-			UserReportableException error = new UserReportableException("Unable to get project from the repository", ExhibitProjectBrowserPage.class, e);
-			setResponsePage(new ErrorReportPage(error));
-		}
-	}
+    try {
+      add(new ProjectListPanel("projectList"));
+      add(new ProjectSummaryPanel("featuredProject"));
+    } catch (SimalRepositoryException e) {
+      UserReportableException error = new UserReportableException(
+          "Unable to get project from the repository",
+          ExhibitProjectBrowserPage.class, e);
+      setResponsePage(new ErrorReportPage(error));
+    }
+  }
 }

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.doap;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.wicket.doap;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.io.File;
 import java.io.IOException;
@@ -55,7 +55,8 @@ import uk.ac.osswatch.simal.wicket.UserReportableException;
  */
 public class DoapFormPage extends BasePage {
   private static final long serialVersionUID = -7082891387390604176L;
-  private static final Logger logger = LoggerFactory.getLogger(DoapFormPage.class);
+  private static final Logger logger = LoggerFactory
+      .getLogger(DoapFormPage.class);
   private static DoapFormInputModel inputModel = new DoapFormInputModel();
   private Folder uploadFolder;
 
@@ -69,16 +70,16 @@ public class DoapFormPage extends BasePage {
     ajaxSimpleUploadForm.add(new UploadProgressBar("uploadProgress",
         ajaxSimpleUploadForm));
     add(ajaxSimpleUploadForm);
-    
+
     add(new AddByRawRDFForm("rawRDFForm"));
 
     add(new DoapForm("doapForm"));
   }
-  
+
   private static class AddByRawRDFForm extends Form<DoapFormInputModel> {
     private static final long serialVersionUID = 5436861979864365527L;
     private TextArea<String> rdfField;
-    
+
     public AddByRawRDFForm(String id) {
       super(id, new CompoundPropertyModel<DoapFormInputModel>(inputModel));
       add(rdfField = new TextArea<String>("rawRDF"));
@@ -96,9 +97,9 @@ public class DoapFormPage extends BasePage {
         setResponsePage(new ErrorReportPage(new UserReportableException(
             "Unable to add doap using RDF supplied", DoapFormPage.class, e)));
       }
-      
+
     }
-    
+
   }
 
   private class FileUploadForm extends Form<FileUploadField> {
@@ -139,7 +140,8 @@ public class DoapFormPage extends BasePage {
           try {
             boolean success = newFile.createNewFile();
             if (!success) {
-              logger.warn("Trying ot create a file that already exists: " + newFile);
+              logger.warn("Trying ot create a file that already exists: "
+                  + newFile);
             }
             upload.writeTo(newFile);
             DoapFormPage.this.info("saved file: " + upload.getClientFileName());
@@ -148,8 +150,8 @@ public class DoapFormPage extends BasePage {
           }
 
           try {
-            UserApplication.getRepository().addProject(
-                newFile.toURI().toURL(), null);
+            UserApplication.getRepository().addProject(newFile.toURI().toURL(),
+                null);
             setResponsePage(new UserHomePage());
           } catch (SimalRepositoryException e) {
             setResponsePage(new ErrorReportPage(new UserReportableException(
@@ -171,7 +173,8 @@ public class DoapFormPage extends BasePage {
     public DoapForm(String name) {
       super(name, new CompoundPropertyModel<DoapFormInputModel>(inputModel));
 
-      RequiredTextField<String> stringTextField = new RequiredTextField<String>("name");
+      RequiredTextField<String> stringTextField = new RequiredTextField<String>(
+          "name");
       stringTextField.setLabel(new Model<String>());
       add(stringTextField);
 
@@ -187,8 +190,7 @@ public class DoapFormPage extends BasePage {
       super.onSubmit();
 
       if (!this.hasError()) {
-        String uri = RDFUtils.PROJECT_NAMESPACE_URI
-            + inputModel.getName();
+        String uri = RDFUtils.PROJECT_NAMESPACE_URI + inputModel.getName();
         try {
           ISimalRepository repo = UserApplication.getRepository();
 

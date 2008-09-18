@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -31,39 +31,40 @@ import org.slf4j.LoggerFactory;
  * information as possible about the problem that they encountered.
  */
 public class ErrorReportPage extends BasePage {
-	private static final long serialVersionUID = -8879369835743158631L;
-	private static final Logger logger = LoggerFactory.getLogger(ErrorReportPage.class);
+  private static final long serialVersionUID = -8879369835743158631L;
+  private static final Logger logger = LoggerFactory
+      .getLogger(ErrorReportPage.class);
 
-	/**
-	 * Creates a test ErrorReportPage, this constructor should not be used in
-	 * production as there is no way to customise the error details.
-	 */
-	public ErrorReportPage() {
-		this(new UserReportableException(
-				"Just testing the error reporting page", ErrorReportPage.class,
-				new IllegalArgumentException("An IllegalArgumentException for testing")));
-	}
+  /**
+   * Creates a test ErrorReportPage, this constructor should not be used in
+   * production as there is no way to customise the error details.
+   */
+  public ErrorReportPage() {
+    this(new UserReportableException("Just testing the error reporting page",
+        ErrorReportPage.class, new IllegalArgumentException(
+            "An IllegalArgumentException for testing")));
+  }
 
-	public ErrorReportPage(UserReportableException e) {
-	  logger.error("Reporting an error to the user", e);
-		StringBuffer sb = new StringBuffer();
-		sb.append(e.getMessage());
-		if (e.getReportingClass() != null) {
-			sb.append("\n\n");
-			sb.append("Error reported by: ");
-			sb.append(e.getReportingClass().toString());
-		}
-		if (e.getCause() != null) {
-			sb.append("\n\n");
-			sb.append("Caused by: ");
-			sb.append(e.getCause());
-		}
-		if (e.getStackTrace() != null) {
-			sb.append("\n\n");
-			StringWriter sw = new StringWriter();
-			e.printStackTrace(new PrintWriter(sw));
-			sb.append(sw.getBuffer());
-		}
-		add(new Label("errorDetails", new Model(sb.toString())));
-	}
+  public ErrorReportPage(UserReportableException e) {
+    logger.error("Reporting an error to the user", e);
+    StringBuffer sb = new StringBuffer();
+    sb.append(e.getMessage());
+    if (e.getReportingClass() != null) {
+      sb.append("\n\n");
+      sb.append("Error reported by: ");
+      sb.append(e.getReportingClass().toString());
+    }
+    if (e.getCause() != null) {
+      sb.append("\n\n");
+      sb.append("Caused by: ");
+      sb.append(e.getCause());
+    }
+    if (e.getStackTrace() != null) {
+      sb.append("\n\n");
+      StringWriter sw = new StringWriter();
+      e.printStackTrace(new PrintWriter(sw));
+      sb.append(sw.getBuffer());
+    }
+    add(new Label("errorDetails", new Model(sb.toString())));
+  }
 }
