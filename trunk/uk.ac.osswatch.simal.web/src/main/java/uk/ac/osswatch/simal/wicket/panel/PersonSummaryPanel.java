@@ -72,22 +72,10 @@ public class PersonSummaryPanel extends Panel {
     detailLink.add(new Label("personName", person.getLabel()));
     add(detailLink);
     
-    InternetAddressListView emailListView = new InternetAddressListView("emailList", new LoadableDetachableModel<List<IInternetAddress>>() {
-      private static final long serialVersionUID = 1L;
-
-        protected List<IInternetAddress> load() {
-          return new Vector<IInternetAddress>(person.getEmail());
-        }
-    });
+    InternetAddressListView emailListView = new InternetAddressListView("emailList", new LoadableDetachableInternetAddressModel(person)); 
     add(emailListView);
     
-    WebPageListView homepageListView = new WebPageListView("webpageList", new LoadableDetachableModel<List<IDoapHomepage>>() {
-      private static final long serialVersionUID = 1L;
-
-        protected List<IDoapHomepage> load() {
-          return new Vector<IDoapHomepage>(person.getHomepages());
-        }
-    });
+    WebPageListView homepageListView = new WebPageListView("webpageList", new LoadableDetachableHomePageModel(person));
     add(homepageListView);
 		
 		String friendsURL = SimalProperties.getProperty(SimalProperties.PROPERTY_REST_BASEURL) + "/allColleagues/person-" + person.getSimalID() + "/xml";
@@ -129,6 +117,32 @@ public class PersonSummaryPanel extends Panel {
       }
     } else {
       throw new UserReportableException("Unable to removePerson when parent page is type " + page.getClass().getName(), PersonSummaryPanel.class);
+    }
+  }
+  
+  private static class LoadableDetachableInternetAddressModel extends LoadableDetachableModel<List<IInternetAddress>> {
+    private static final long serialVersionUID = 1L;
+    private IPerson person;
+    
+    public LoadableDetachableInternetAddressModel(IPerson person) {
+      this.person = person;
+    }
+
+    protected List<IInternetAddress> load() {
+      return new Vector<IInternetAddress>(person.getEmail());
+    }
+  }
+  
+  private static class LoadableDetachableHomePageModel extends LoadableDetachableModel<List<IDoapHomepage>> {
+    private static final long serialVersionUID = 1L;
+    private IPerson person;
+    
+    public LoadableDetachableHomePageModel(IPerson person) {
+      this.person = person;
+    }
+
+    protected List<IDoapHomepage> load() {
+      return new Vector<IDoapHomepage>(person.getHomepages());
     }
   }
 
