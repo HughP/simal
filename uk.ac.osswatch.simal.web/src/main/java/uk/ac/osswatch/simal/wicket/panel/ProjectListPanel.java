@@ -59,9 +59,10 @@ public class ProjectListPanel extends Panel {
    * 
    * @param string
    * @param projects
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
-  public ProjectListPanel(String id, Set<IProject> projects) throws SimalRepositoryException {
+  public ProjectListPanel(String id, Set<IProject> projects)
+      throws SimalRepositoryException {
     super(id);
     populatePanel(projects);
   }
@@ -69,12 +70,14 @@ public class ProjectListPanel extends Panel {
   /**
    * Populate the panel with data.
    * 
-   * @param projects - the list of projects to display or null if all projects in the repo
-   * are to be displayed.
+   * @param projects -
+   *          the list of projects to display or null if all projects in the
+   *          repo are to be displayed.
    * @throws SimalRepositoryException
    */
   @SuppressWarnings("unchecked")
-  private void populatePanel(Set<IProject> projects) throws SimalRepositoryException {
+  private void populatePanel(Set<IProject> projects)
+      throws SimalRepositoryException {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
       private static final long serialVersionUID = -2174061702366979017L;

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  * under the License.                                                *
  */
 
-
 import java.util.Iterator;
 import java.util.Set;
 
@@ -32,60 +32,60 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A simple panel providing details of a set of releases.
  */
 public class ReleasesPanel extends Panel {
-	private static final long serialVersionUID = 3993329475348185480L;
+  private static final long serialVersionUID = 3993329475348185480L;
 
-	public ReleasesPanel(String panelId, Set<IDoapRelease> releases)
-			throws SimalRepositoryException {
-		super(panelId);
-		populatePage(releases);
-	}
+  public ReleasesPanel(String panelId, Set<IDoapRelease> releases)
+      throws SimalRepositoryException {
+    super(panelId);
+    populatePage(releases);
+  }
 
-	private void populatePage(Set<IDoapRelease> releases)
-			throws SimalRepositoryException {
-		Iterator<IDoapRelease> itr = releases.iterator();
-		RepeatingView repeating = new RepeatingView("releases");
-		WebMarkupContainer item;
-		IDoapRelease release;
-		Label label;
-		while (itr.hasNext()) {
-			item = new WebMarkupContainer(repeating.newChildId());
-			repeating.add(item);
-			release = itr.next();
-			label = new Label("name", release.getName());
-			item.add(label);
-			item.add(getRepeatingLabels("revisions", "revision", release
-					.getRevisions()));
-			label = new Label("created", release.getCreated());
-			item.add(label);
-		}
-		add(repeating);
-	}
+  private void populatePage(Set<IDoapRelease> releases)
+      throws SimalRepositoryException {
+    Iterator<IDoapRelease> itr = releases.iterator();
+    RepeatingView repeating = new RepeatingView("releases");
+    WebMarkupContainer item;
+    IDoapRelease release;
+    Label label;
+    while (itr.hasNext()) {
+      item = new WebMarkupContainer(repeating.newChildId());
+      repeating.add(item);
+      release = itr.next();
+      label = new Label("name", release.getName());
+      item.add(label);
+      item.add(getRepeatingLabels("revisions", "revision", release
+          .getRevisions()));
+      label = new Label("created", release.getCreated());
+      item.add(label);
+    }
+    add(repeating);
+  }
 
-	/**
-	 * Get a simple repeating view. Each resource in the supplied set will be
-	 * represented in the list using the supplied string as a label.
-	 * 
-	 * @param repeaterWicketID
-	 *            the wicket:id of the HTML component
-	 * @param labelWicketID
-	 *            the wicket:id of the label within each list item
-	 * @param resources
-	 *            the resources to be added to the list
-	 * @return
-	 */
-	protected RepeatingView getRepeatingLabels(String repeaterWicketID,
-			String labelWicketID, Set<String> labels) {
-		Iterator<String> itr = labels.iterator();
-		RepeatingView repeating = new RepeatingView(repeaterWicketID);
-		WebMarkupContainer item;
-		String label;
-		while (itr.hasNext()) {
-			item = new WebMarkupContainer(repeating.newChildId());
-			repeating.add(item);
-			label = itr.next();
-			item.add(new Label(labelWicketID, label));
-		}
-		return repeating;
-	}
+  /**
+   * Get a simple repeating view. Each resource in the supplied set will be
+   * represented in the list using the supplied string as a label.
+   * 
+   * @param repeaterWicketID
+   *          the wicket:id of the HTML component
+   * @param labelWicketID
+   *          the wicket:id of the label within each list item
+   * @param resources
+   *          the resources to be added to the list
+   * @return
+   */
+  protected RepeatingView getRepeatingLabels(String repeaterWicketID,
+      String labelWicketID, Set<String> labels) {
+    Iterator<String> itr = labels.iterator();
+    RepeatingView repeating = new RepeatingView(repeaterWicketID);
+    WebMarkupContainer item;
+    String label;
+    while (itr.hasNext()) {
+      item = new WebMarkupContainer(repeating.newChildId());
+      repeating.add(item);
+      label = itr.next();
+      item.add(new Label(labelWicketID, label));
+    }
+    return repeating;
+  }
 
 }

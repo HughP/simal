@@ -39,7 +39,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public class SourceRepositoriesPanel extends Panel {
   private static final long serialVersionUID = -2031486948152653715L;
-  private static final Logger logger = LoggerFactory.getLogger(SourceRepositoriesPanel.class);
+  private static final Logger logger = LoggerFactory
+      .getLogger(SourceRepositoriesPanel.class);
 
   public SourceRepositoriesPanel(String panelId,
       Set<IDoapRepository> repositories) {
@@ -91,8 +92,8 @@ public class SourceRepositoriesPanel extends Panel {
 
   /**
    * Get a simple repeating view. Each resource is represented by a link to the
-   * URLs for the locations provided. The label for the link is either defined by
-   * rdfs:label, or the defaultLabel property, or the value of rdf:resource.
+   * URLs for the locations provided. The label for the link is either defined
+   * by rdfs:label, or the defaultLabel property, or the value of rdf:resource.
    * 
    * @param repeaterWicketID
    *          the wicket:id of the HTML component
@@ -102,8 +103,8 @@ public class SourceRepositoriesPanel extends Panel {
    *          the locations to be added to the list
    * @return
    */
-  private Component getRepeatingLinks(String repeaterWicketID, String linkWicketID,
-      Set<IDoapLocation> locations) {
+  private Component getRepeatingLinks(String repeaterWicketID,
+      String linkWicketID, Set<IDoapLocation> locations) {
     if (locations == null) {
       locations = new HashSet<IDoapLocation>();
     }
@@ -125,8 +126,8 @@ public class SourceRepositoriesPanel extends Panel {
 
   /**
    * Get a simple repeating view. Each resource is represented by a link to the
-   * URLs provided. The label for the link is either defined by
-   * rdfs:label, or the defaultLabel property, or the value of rdf:resource.
+   * URLs provided. The label for the link is either defined by rdfs:label, or
+   * the defaultLabel property, or the value of rdf:resource.
    * 
    * @param repeaterWicketID
    *          the wicket:id of the HTML component

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  * under the License.                                                *
  */
 
-
 import static org.junit.Assert.fail;
 
 import org.apache.wicket.markup.html.panel.Panel;
@@ -32,20 +32,20 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  */
 public class TestSourceRepositoriesPanel extends TestBase {
 
-	@Test
-	@SuppressWarnings("serial")
-	public void testRenderPanel() {
-		 tester.startPanel(new TestPanelSource() {
-		        public Panel getTestPanel(String panelId)
-		        {
-		                try {
-							return new SourceRepositoriesPanel(panelId, UserApplication.getRepository().getProject(projectURI).getRepositories());
-						} catch (SimalRepositoryException e) {
-							fail(e.getMessage());
-							return null;
-						}
-		        }
-		 });
-		tester.assertVisible("panel:sourceRepositories");
-	}
+  @Test
+  @SuppressWarnings("serial")
+  public void testRenderPanel() {
+    tester.startPanel(new TestPanelSource() {
+      public Panel getTestPanel(String panelId) {
+        try {
+          return new SourceRepositoriesPanel(panelId, UserApplication
+              .getRepository().getProject(projectURI).getRepositories());
+        } catch (SimalRepositoryException e) {
+          fail(e.getMessage());
+          return null;
+        }
+      }
+    });
+    tester.assertVisible("panel:sourceRepositories");
+  }
 }

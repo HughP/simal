@@ -47,7 +47,8 @@ public class PersonDetailPage extends BasePage {
     String id = null;
     if (parameters.containsKey("simalID")) {
       try {
-        id = SimalRepository.getInstance().getUniqueSimalID(parameters.getString("simalID"));
+        id = SimalRepository.getInstance().getUniqueSimalID(
+            parameters.getString("simalID"));
         person = UserApplication.getRepository().findPersonById(id);
         populatePage(person);
       } catch (SimalRepositoryException e) {

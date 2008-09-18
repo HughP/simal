@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,24 +17,22 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
-
 public class UserReportableException extends Exception {
-	private static final long serialVersionUID = -9166363556893990689L;
-	private Class<?> reportingClass;
+  private static final long serialVersionUID = -9166363556893990689L;
+  private Class<?> reportingClass;
 
-	public UserReportableException(String message, Class<?> reportingClass) {
-		super(message);
-		this.reportingClass = reportingClass;
-	}
-	
-	public UserReportableException(String message,
-			Class<?> reportingClass, 
-			Throwable e) {
-		super(message, e);
-		this.reportingClass = reportingClass;
-	}
+  public UserReportableException(String message, Class<?> reportingClass) {
+    super(message);
+    this.reportingClass = reportingClass;
+  }
+
+  public UserReportableException(String message, Class<?> reportingClass,
+      Throwable e) {
+    super(message, e);
+    this.reportingClass = reportingClass;
+  }
 
   public Class<?> getReportingClass() {
-		return reportingClass;
-	}
+    return reportingClass;
+  }
 }

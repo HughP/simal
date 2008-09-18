@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.foaf;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -31,7 +32,8 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  */
 public class FoafFormInputModel implements IClusterable {
   private static final long serialVersionUID = -9089647575258232806L;
-  //private static final Logger logger = LoggerFactory.getLogger(FoafFormInputModel.class);
+  // private static final Logger logger =
+  // LoggerFactory.getLogger(FoafFormInputModel.class);
   private String name;
   private String email;
 
@@ -40,15 +42,16 @@ public class FoafFormInputModel implements IClusterable {
 
   /**
    * Get the name for this person.
+   * 
    * @return
    */
   public String getName() {
     return name;
   }
 
-
   /**
    * Set the name for this person.
+   * 
    * @return
    */
   public void setName(String name) {
@@ -57,16 +60,18 @@ public class FoafFormInputModel implements IClusterable {
 
   /**
    * Get the person defined by this form.
+   * 
    * @return
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
   public IPerson getPerson() throws SimalRepositoryException {
-    IPerson duplicate = UserApplication.getRepository().getDuplicate(getEmail());
+    IPerson duplicate = UserApplication.getRepository()
+        .getDuplicate(getEmail());
     if (duplicate != null) {
       populatePerson(duplicate);
       return duplicate;
     }
-    
+
     ISimalRepository repo = UserApplication.getRepository();
     String id = repo.getNewPersonID();
     String uri = RDFUtils.getDefaultPersonURI(id);
@@ -83,6 +88,7 @@ public class FoafFormInputModel implements IClusterable {
 
   /**
    * Populate the person by adding all the data in this form to it.
+   * 
    * @param duplicate
    */
   private void populatePerson(IPerson person) {
@@ -92,15 +98,16 @@ public class FoafFormInputModel implements IClusterable {
 
   /**
    * Get the primary email for this person.
+   * 
    * @return
    */
   public String getEmail() {
     return email;
   }
 
-
   /**
    * Set the primary email for this person.
+   * 
    * @return
    */
   public void setEmail(String email) {

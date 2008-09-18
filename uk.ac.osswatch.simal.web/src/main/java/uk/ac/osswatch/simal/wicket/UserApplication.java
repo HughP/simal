@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -40,81 +41,82 @@ import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
  */
 public class UserApplication extends WebApplication {
 
-	private static ISimalRepository repository;
+  private static ISimalRepository repository;
 
   private static boolean isTest;
 
-	public UserApplication() {
-	}
+  public UserApplication() {
+  }
 
-	@Override
-	public void init() {
-	  // Project pages
+  @Override
+  public void init() {
+    // Project pages
     mountBookmarkablePage("/project/detail", ProjectDetailPage.class);
-	  mount(new QueryStringUrlCodingStrategy("/project/detailencoded", ProjectDetailPage.class));
-	  
-	  mountBookmarkablePage("/projectBrowser", ExhibitProjectBrowserPage.class);
-	  
-	  //Person Pages	  
-	  mountBookmarkablePage("/person/detail", PersonDetailPage.class);
-    mount(new QueryStringUrlCodingStrategy("/person/detailencoded", PersonDetailPage.class));
-        
+    mount(new QueryStringUrlCodingStrategy("/project/detailencoded",
+        ProjectDetailPage.class));
+
+    mountBookmarkablePage("/projectBrowser", ExhibitProjectBrowserPage.class);
+
+    // Person Pages
+    mountBookmarkablePage("/person/detail", PersonDetailPage.class);
+    mount(new QueryStringUrlCodingStrategy("/person/detailencoded",
+        PersonDetailPage.class));
+
     mountBookmarkablePage("/personBrowser", PersonBrowserPage.class);
-    
+
     // Category Pages
     mountBookmarkablePage("/categoryBrowser", CategoryBrowserPage.class);
-	}
+  }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public Class getHomePage() {
-		return UserHomePage.class;
-	}
-	
-	/**
-	 * Get the repository for this application. If the repository
-	 * has not been initialised yet then create and initialise it
-	 * first.
-	 * 
-	 * @return
-	 * @throws SimalRepositoryException
-	 */
-	public static ISimalRepository getRepository() throws SimalRepositoryException {
-		if (repository == null) {
-			repository = SimalRepositoryFactory.getInstance();
-			repository.setIsTest(isTest);
-			if (!repository.isInitialised()) {
-				repository.initialise();
-			}
-		}
-		return repository;
-	}
-	
-	/**
-	 * Destroy the repository object used by this application.
-	 * 
-	 * @throws SimalRepositoryException
-	 */
-	public static void destroyRepository() throws SimalRepositoryException {
-	  repository.destroy();
-	  repository = null;
-	}
+  @Override
+  @SuppressWarnings("unchecked")
+  public Class getHomePage() {
+    return UserHomePage.class;
+  }
 
-	/**
-	 * If IsTest is set to true then a test (in memory)
-	 * repository will be used, otherwise a real repository
-	 * is used.
-	 * 
-	 * @param value
-	 */
+  /**
+   * Get the repository for this application. If the repository has not been
+   * initialised yet then create and initialise it first.
+   * 
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public static ISimalRepository getRepository()
+      throws SimalRepositoryException {
+    if (repository == null) {
+      repository = SimalRepositoryFactory.getInstance();
+      repository.setIsTest(isTest);
+      if (!repository.isInitialised()) {
+        repository.initialise();
+      }
+    }
+    return repository;
+  }
+
+  /**
+   * Destroy the repository object used by this application.
+   * 
+   * @throws SimalRepositoryException
+   */
+  public static void destroyRepository() throws SimalRepositoryException {
+    repository.destroy();
+    repository = null;
+  }
+
+  /**
+   * If IsTest is set to true then a test (in memory) repository will be used,
+   * otherwise a real repository is used.
+   * 
+   * @param value
+   */
   public static void setIsTest(boolean value) {
     isTest = value;
   }
-  
+
   protected IConverterLocator newConverterLocator() {
     ConverterLocator converterLocator = new ConverterLocator();
     converterLocator.set(URL.class, new URLConverter());
     return converterLocator;
-}
+  }
 
 }

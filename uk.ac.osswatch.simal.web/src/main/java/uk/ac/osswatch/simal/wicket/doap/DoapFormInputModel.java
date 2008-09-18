@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.doap;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.doap;
  * under the License.                                                *
  */
 
-
 import java.net.URL;
 
 import org.apache.wicket.IClusterable;
@@ -26,77 +26,80 @@ import org.apache.wicket.IClusterable;
  * 
  */
 public class DoapFormInputModel implements IClusterable {
-	private static final long serialVersionUID = -9089647575258232806L;
-	private URL sourceURL;
-	private String name;
-	private String shortDesc;
-	private String description;
-	private String rawRDF;
+  private static final long serialVersionUID = -9089647575258232806L;
+  private URL sourceURL;
+  private String name;
+  private String shortDesc;
+  private String description;
+  private String rawRDF;
 
-	/**
-	 * If the form contains raw RDF get that RDF content.
-	 * @return
-	 */
-	public String getRawRDF() {
+  /**
+   * If the form contains raw RDF get that RDF content.
+   * 
+   * @return
+   */
+  public String getRawRDF() {
     return rawRDF;
   }
 
-	/**
-	 * Set the raw RDF content in the form.
-	 * @param rawRDF
-	 */
+  /**
+   * Set the raw RDF content in the form.
+   * 
+   * @param rawRDF
+   */
   public void setRawRDF(String rawRDF) {
     this.rawRDF = rawRDF;
   }
 
   /**
-	 * Get the full description for this project.
-	 * @return
-	 */
-	public String getDescription() {
+   * Get the full description for this project.
+   * 
+   * @return
+   */
+  public String getDescription() {
     return description;
   }
 
-	/**
-	 * Set the full description for this project.
-	 * @param description
-	 */
+  /**
+   * Set the full description for this project.
+   * 
+   * @param description
+   */
   public void setDescription(String description) {
     this.description = description;
   }
 
   public DoapFormInputModel() {
-	}
+  }
 
-	public String getName() {
-		return name;
-	}
+  public String getName() {
+    return name;
+  }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+  public void setName(String name) {
+    this.name = name;
+  }
 
-	public String getShortDesc() {
-		return shortDesc;
-	}
+  public String getShortDesc() {
+    return shortDesc;
+  }
 
-	public void setShortDesc(String shortDesc) {
-		this.shortDesc = shortDesc;
-	}
+  public void setShortDesc(String shortDesc) {
+    this.shortDesc = shortDesc;
+  }
 
-	/**
-	 * Get the source URL for the data in this DOAP form.
-	 */
-	public URL getSourceURL() {
-		return sourceURL;
-	}
+  /**
+   * Get the source URL for the data in this DOAP form.
+   */
+  public URL getSourceURL() {
+    return sourceURL;
+  }
 
-	/**
-	 * Set the source URL for the data in this DOAP form.
-	 */
-	public void setSourceURL(URL sourceURL) {
-		this.sourceURL = sourceURL;
-	}
+  /**
+   * Set the source URL for the data in this DOAP form.
+   */
+  public void setSourceURL(URL sourceURL) {
+    this.sourceURL = sourceURL;
+  }
 
-	
 }

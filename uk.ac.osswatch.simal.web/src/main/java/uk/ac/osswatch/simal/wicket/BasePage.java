@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.wicket;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.util.Iterator;
 import java.util.Set;
@@ -59,10 +59,8 @@ public class BasePage extends WebPage {
 
   public BasePage() {
     add(HeaderContributor.forCss(DEFAULT_CSS));
-    add(new BookmarkablePageLink("homePageLink",
-        UserHomePage.class));
-    add(new BookmarkablePageLink("personAdminPageLink",
-        PersonBrowserPage.class));
+    add(new BookmarkablePageLink("homePageLink", UserHomePage.class));
+    add(new BookmarkablePageLink("personAdminPageLink", PersonBrowserPage.class));
     add(new BookmarkablePageLink("categoryBrowserPageLink",
         CategoryBrowserPage.class));
     add(new BookmarkablePageLink("exhibitBrowserLink",
@@ -77,8 +75,8 @@ public class BasePage extends WebPage {
    * URL contained in rdf:resource. the label for the link is either defined by
    * rdfs:label, or the defaultLabel property, or the value of rdf:resource.
    * 
-   * If any of the resource does not yield a valid URL then the error is
-   * logged and a blank URL is provided.
+   * If any of the resource does not yield a valid URL then the error is logged
+   * and a blank URL is provided.
    * 
    * @param repeaterWicketID
    *          the wicket:id of the HTML component
@@ -100,8 +98,8 @@ public class BasePage extends WebPage {
    */
   @SuppressWarnings("unchecked")
   protected RepeatingView getRepeatingLinks(String repeaterWicketID,
-      String linkWicketID, String defaultLabel,
-      SortableDataProvider resources, boolean fetchLabels) {
+      String linkWicketID, String defaultLabel, SortableDataProvider resources,
+      boolean fetchLabels) {
     Iterator<IDoapResource> itr = resources.iterator(0, resources.size());
     RepeatingView repeating = new RepeatingView(repeaterWicketID);
     WebMarkupContainer item;
@@ -141,8 +139,7 @@ public class BasePage extends WebPage {
    * @return
    */
   protected RepeatingView getRepeatingLinks(String repeaterWicketID,
-      String linkWicketID, SortableDataProvider resources,
-      boolean fetchLabels) {
+      String linkWicketID, SortableDataProvider resources, boolean fetchLabels) {
     return getRepeatingLinks(repeaterWicketID, linkWicketID, null, resources,
         fetchLabels);
   }
@@ -205,8 +202,8 @@ public class BasePage extends WebPage {
   }
 
   /**
-   * Get a simple repeating view displaying a number of data source
-   * (as in rdfs:seeAlso) summary panels.
+   * Get a simple repeating view displaying a number of data source (as in
+   * rdfs:seeAlso) summary panels.
    * 
    * @param repeaterWicketID
    *          the wicket ID of the repeating view

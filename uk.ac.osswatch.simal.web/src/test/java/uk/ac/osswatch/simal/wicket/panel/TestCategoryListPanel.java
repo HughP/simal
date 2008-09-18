@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.panel;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -16,7 +17,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  * under the License.                                                *
  */
 
-
 import static org.junit.Assert.fail;
 
 import org.apache.wicket.markup.html.panel.Panel;
@@ -31,25 +31,23 @@ import uk.ac.osswatch.simal.wicket.TestBase;
  */
 public class TestCategoryListPanel extends TestBase {
 
-	@Test
-	@SuppressWarnings("serial")
-	public void testCategoryListPanelRendering() {
-		 tester.startPanel(new TestPanelSource()
-		 {
-		        public Panel getTestPanel(String panelId)
-		        {
-		                try {
-							return new CategoryListPanel(panelId);
-						} catch (SimalRepositoryException e) {
-							fail(e.getMessage());
-							return null;
-						}
-		        }
-		 });
-		 
-		tester.assertVisible("panel:dataTable:rows");
-		
-		//tester.clickLink("panel:dataTable:rows:1:cells:1:cell:link");
-		//tester.assertRenderedPage(ProjectDetailPage.class);
-	}
+  @Test
+  @SuppressWarnings("serial")
+  public void testCategoryListPanelRendering() {
+    tester.startPanel(new TestPanelSource() {
+      public Panel getTestPanel(String panelId) {
+        try {
+          return new CategoryListPanel(panelId);
+        } catch (SimalRepositoryException e) {
+          fail(e.getMessage());
+          return null;
+        }
+      }
+    });
+
+    tester.assertVisible("panel:dataTable:rows");
+
+    // tester.clickLink("panel:dataTable:rows:1:cells:1:cell:link");
+    // tester.assertRenderedPage(ProjectDetailPage.class);
+  }
 }

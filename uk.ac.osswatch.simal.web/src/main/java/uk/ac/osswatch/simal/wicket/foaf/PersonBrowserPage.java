@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.foaf;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -41,4 +42,3 @@ public class PersonBrowserPage extends BasePage {
         "<link href=\"/simal-rest/allPeople/json\" rel=\"exhibit/data\" />"));
   }
 }
-

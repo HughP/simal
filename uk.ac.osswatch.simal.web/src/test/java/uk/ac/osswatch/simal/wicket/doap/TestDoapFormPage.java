@@ -56,6 +56,7 @@ public class TestDoapFormPage extends TestBase {
 
   /**
    * Delete the repository to ensure that subsequent tests have clean data.
+   * 
    * @throws SimalRepositoryException
    */
   @AfterClass
@@ -107,12 +108,16 @@ public class TestDoapFormPage extends TestBase {
     formTester = tester.newFormTester("addByURLForm");
     formTester.setValue("sourceURL", doapURL.toString());
 
-    // FIXME: since adding the URLConverter the onSubmit method does not work. I (RG) think that this is because the URLConverter is not being loaded. 
-    int numProjectsBefore = UserApplication.getRepository().getAllProjects().size();
+    // FIXME: since adding the URLConverter the onSubmit method does not work. I
+    // (RG) think that this is because the URLConverter is not being loaded.
+    int numProjectsBefore = UserApplication.getRepository().getAllProjects()
+        .size();
     formTester.submit();
-    int numProjectsAfter = UserApplication.getRepository().getAllProjects().size();
-    
-    //assertTrue("Loading data by URL does not appear to have added any projects", numProjectsAfter > numProjectsBefore);
+    int numProjectsAfter = UserApplication.getRepository().getAllProjects()
+        .size();
+
+    // assertTrue("Loading data by URL does not appear to have added any
+    // projects", numProjectsAfter > numProjectsBefore);
   }
 
   /**
@@ -168,7 +173,8 @@ public class TestDoapFormPage extends TestBase {
     assertNotNull(project);
 
     project.delete();
-    project = UserApplication.getRepository().findProjectBySeeAlso(TEST_RAW_RDF_URI);
+    project = UserApplication.getRepository().findProjectBySeeAlso(
+        TEST_RAW_RDF_URI);
     assertNull(project);
   }
 
@@ -207,7 +213,7 @@ public class TestDoapFormPage extends TestBase {
   public void testUploadedFile() throws SimalRepositoryException,
       URISyntaxException {
     uploadFile(); // we need to run this first just in case this is the first
-                  // test run and the repo is not initialised
+    // test run and the repo is not initialised
     initTester(); // and come back to the init state again
 
     File fileStoreDir = new File(SimalProperties

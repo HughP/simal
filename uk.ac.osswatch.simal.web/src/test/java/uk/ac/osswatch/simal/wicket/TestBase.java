@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -15,7 +16,6 @@ package uk.ac.osswatch.simal.wicket;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
-
 
 import java.util.Iterator;
 import java.util.Set;
@@ -35,32 +35,35 @@ public abstract class TestBase {
   public static final String TEST_PROJECT_SEEALSO = "http://simal.oss-watch.ac.uk/simalTest#";
   protected static final int NUMBER_OF_TEST_CATEGORIES = 54;
   protected static final int NUMBER_OF_TEST_PROJECTS = 6;
-  protected static final int NUMBER_OF_TEST_PEOPLE = 18;  
+  protected static final int NUMBER_OF_TEST_PEOPLE = 18;
   protected static WicketTester tester;
   protected static String projectURI;
   protected static String developerURI;
-  
+
   private static final Logger logger = LoggerFactory.getLogger(TestBase.class);
 
   @BeforeClass
   public static void setUpBeforeClass() throws SimalRepositoryException {
     UserApplication.setIsTest(true);
     ISimalRepository repository = UserApplication.getRepository();
-    
+
     IProject project = repository.findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
     projectURI = project.getURI();
-    
-    IPerson developer = repository.findPersonBySeeAlso("http://foo.org/~developer/#me");
+
+    IPerson developer = repository
+        .findPersonBySeeAlso("http://foo.org/~developer/#me");
     developerURI = developer.getURI();
-    
+
     tester = new WicketTester();
     logProjectData("before");
   }
 
-  public static void logProjectData(String beforeOrAfter) throws SimalRepositoryException {
+  public static void logProjectData(String beforeOrAfter)
+      throws SimalRepositoryException {
     Set<IProject> projects = UserApplication.getRepository().getAllProjects();
-    logger.debug("Number of projects " + beforeOrAfter +" test: " + projects.size());
-    
+    logger.debug("Number of projects " + beforeOrAfter + " test: "
+        + projects.size());
+
     logger.debug("Project: ");
     Iterator<IProject> itr = projects.iterator();
     while (itr.hasNext()) {

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.data;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -23,27 +24,27 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class DetachablePersonModel extends LoadableDetachableModel {
-	private static final long serialVersionUID = -9017519516676203598L;
-	String uri;
+  private static final long serialVersionUID = -9017519516676203598L;
+  String uri;
 
-	public DetachablePersonModel(IPerson person) throws SimalRepositoryException {
-		this.uri = person.getURI();
-	}
+  public DetachablePersonModel(IPerson person) throws SimalRepositoryException {
+    this.uri = person.getURI();
+  }
 
-	public DetachablePersonModel(String uri) {
-		this.uri = uri;
-	}
+  public DetachablePersonModel(String uri) {
+    this.uri = uri;
+  }
 
-	@Override
-	protected Object load() {
-		IPerson person;
-		try {
-			person = UserApplication.getRepository().getPerson(uri);
-		} catch (SimalRepositoryException e) {
-			e.printStackTrace();
-			person = null;
-		}
-		return person;
-	}
+  @Override
+  protected Object load() {
+    IPerson person;
+    try {
+      person = UserApplication.getRepository().getPerson(uri);
+    } catch (SimalRepositoryException e) {
+      e.printStackTrace();
+      person = null;
+    }
+    return person;
+  }
 
 }

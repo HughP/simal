@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.foaf;
+
 /*
  * Copyright 2008 University of Oxford
  *
@@ -25,7 +26,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
-public class TestPersonDetailsPage extends TestBase{
+public class TestPersonDetailsPage extends TestBase {
 
   @Before
   public void createTester() {
@@ -44,14 +45,14 @@ public class TestPersonDetailsPage extends TestBase{
       }
     });
   }
-  
+
   @Test
   public void testPersonPageRender() {
     createTester();
     tester.assertRenderedPage(PersonDetailPage.class);
     tester.assertVisible("summary");
   }
-  
+
   @Test
   public void testPersonRDF() {
     tester.assertVisible("rdfLink");

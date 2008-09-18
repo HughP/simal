@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.wicket.tools;
+
 /*
  * 
  * Copyright 2007 University of Oxford
@@ -17,7 +18,6 @@ package uk.ac.osswatch.simal.wicket.tools;
  * under the License.
  * 
  */
-
 
 import org.apache.wicket.IClusterable;
 
