@@ -9,7 +9,6 @@ Before a release can be made a number of requirements must be met.
  * All [http://code.google.com/p/simal/issues/list?can=7&q=&colspec=ID+Type+Status+Priority+Milestone+Summary&x=priority&y=milestone&cells=tiles unverified issues] have been verified by someone other than the owner of that issue
  * All source code has been formatted according to the projects coding standards
  * All documentation has been updated to reflect the new features in this release
- * All requried licence and NOTICE entries have been checked
 
 = Change src version numbers to reflect release candidate build =
 
