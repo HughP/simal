@@ -21,7 +21,12 @@ At this early stage we will release all Simal module simultaneously and therefor
 
 = Build the Binaries =
 
-For each of the modules build the binaries.
+For each of the modules build the binaries as follows:
+
+{{{
+cd $MODULE_HOME
+mvn assembly:assembly
+}}}
 
 = Tag SVN =
 
