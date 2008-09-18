@@ -16,10 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * A category is part of the project classification system.
- * It is a resource used to define the doap:category entries
- * of a doap:Project.  
- *
+ * A category is part of the project classification system. It is a resource
+ * used to define the doap:category entries of a doap:Project.
+ * 
  */
 public interface IDoapLocation extends IDoapResource {
 

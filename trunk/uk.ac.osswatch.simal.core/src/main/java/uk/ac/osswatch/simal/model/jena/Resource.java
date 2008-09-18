@@ -49,10 +49,10 @@ public class Resource implements IResource {
   private static final Logger logger = LoggerFactory.getLogger(Resource.class);
 
   /**
-   * A copy of the jena resource in use. This should never be referenced directly
-   * as it is transient and may not have been reinstated after serialisation.
-   * Instead use the getJenaResource() method which will reinstate the object
-   * when necessary.
+   * A copy of the jena resource in use. This should never be referenced
+   * directly as it is transient and may not have been reinstated after
+   * serialisation. Instead use the getJenaResource() method which will
+   * reinstate the object when necessary.
    */
   transient private com.hp.hpl.jena.rdf.model.Resource jenaResource;
   String uri;
@@ -72,12 +72,11 @@ public class Resource implements IResource {
     jenaResource = resource;
     uri = resource.getURI();
   }
-  
+
   /**
-   * If we have a copy of the JENA resource then return it.
-   * If not then we must have deserialised this object from
-   * somewhere other than the repository, therefore we need
-   * to grab the JENA resource from the repository and return
+   * If we have a copy of the JENA resource then return it. If not then we must
+   * have deserialised this object from somewhere other than the repository,
+   * therefore we need to grab the JENA resource from the repository and return
    * that instead.
    * 
    * @return
@@ -86,13 +85,16 @@ public class Resource implements IResource {
     if (jenaResource == null) {
       try {
         ISimalRepository repo = SimalRepository.getInstance();
-        return ((SimalRepository)repo).getJenaResource(getURI());
+        return ((SimalRepository) repo).getJenaResource(getURI());
       } catch (SimalRepositoryException e) {
-        logger.warn("Unable to get hold of the repository, but we are already running, this should be impossible", e);
+        logger
+            .warn(
+                "Unable to get hold of the repository, but we are already running, this should be impossible",
+                e);
         return null;
       }
     } else {
-      return jenaResource; 
+      return jenaResource;
     }
   }
 
@@ -169,7 +171,8 @@ public class Resource implements IResource {
     }
     json.append("{");
     json.append("\"id\":\"" + getJenaResource().getURI() + "\",");
-    json.append("\"label\":\"" + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\",");
+    json.append("\"label\":\""
+        + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\",");
     json.append("}");
     if (!asRecord) {
       json.append("]}");
@@ -198,15 +201,16 @@ public class Resource implements IResource {
   }
 
   /**
-   * Base resources do not have a Simal ID. This method will 
-   * always return null unless a class overrides it.
+   * Base resources do not have a Simal ID. This method will always return null
+   * unless a class overrides it.
    */
   public String getUniqueSimalID() throws SimalRepositoryException {
     return null;
   }
-  
+
   public void setSimalID(String newID) throws SimalRepositoryException {
-    logger.warn("Attempt to set the Simal ID on a base resource, must override the setSimalID method in the model.");
+    logger
+        .warn("Attempt to set the Simal ID on a base resource, must override the setSimalID method in the model.");
   }
 
   public Set<String> getSources() {

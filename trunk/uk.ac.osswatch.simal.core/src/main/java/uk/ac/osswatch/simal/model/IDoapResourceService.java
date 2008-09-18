@@ -17,12 +17,10 @@ package uk.ac.osswatch.simal.model;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-
 /**
  * The definition of a behaviour for Elmo Doap Resources.
  */
 public interface IDoapResourceService extends IResourceService {
-
 
   /**
    * Get a JSON representation of this resource.

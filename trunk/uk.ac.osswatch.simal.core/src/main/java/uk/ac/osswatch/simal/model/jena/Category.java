@@ -48,10 +48,11 @@ public class Category extends DoapResource implements IDoapCategory {
     String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?project WHERE { "
-        + "?project doap:category <" + getURI() + ">}";
+        + "SELECT DISTINCT ?project WHERE { " + "?project doap:category <"
+        + getURI() + ">}";
     Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, getJenaResource().getModel());
+    QueryExecution qe = QueryExecutionFactory.create(query, getJenaResource()
+        .getModel());
     ResultSet results = qe.execSelect();
 
     Set<IProject> projects = new HashSet<IProject>();
@@ -68,7 +69,8 @@ public class Category extends DoapResource implements IDoapCategory {
   }
 
   public String getSimalID() {
-    Statement idStatement = getJenaResource().getProperty(SimalOntology.CATEGORY_ID);
+    Statement idStatement = getJenaResource().getProperty(
+        SimalOntology.CATEGORY_ID);
     if (idStatement != null) {
       return idStatement.getString();
     } else {
@@ -80,10 +82,10 @@ public class Category extends DoapResource implements IDoapCategory {
     getJenaResource().addLiteral(SimalOntology.CATEGORY_ID, newID);
   }
 
-  public Set<IPerson> getPeople()  {
+  public Set<IPerson> getPeople() {
     Iterator<IProject> projects = getProjects().iterator();
     HashSet<IPerson> people = new HashSet<IPerson>();
-    while(projects.hasNext()) {
+    while (projects.hasNext()) {
       people.addAll(projects.next().getAllPeople());
     }
     return people;

@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.model;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,7 +17,6 @@ Copyright 2007 University of Oxford *
  * under the License.
  * 
  */
-
 
 import java.util.Set;
 
@@ -34,14 +34,13 @@ public interface IDoapResource extends IResource {
    * Add a name.
    */
   public void addName(String name);
-  
+
   /**
-   * Get a human readable label for this resource.
-   * Wherever posssible return a value degined by rds:label,
-   * otherwise return a sensible value derived from other data.
+   * Get a human readable label for this resource. Wherever posssible return a
+   * value degined by rds:label, otherwise return a sensible value derived from
+   * other data.
    */
   public String getLabel();
-  
 
   /**
    * Return all names associated with this resource. If no names are available

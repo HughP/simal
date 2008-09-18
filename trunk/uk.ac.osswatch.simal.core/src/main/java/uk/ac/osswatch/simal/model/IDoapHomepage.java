@@ -16,9 +16,8 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * A homepage defines a resource available on the web, 
- * usually a web site.  
- *
+ * A homepage defines a resource available on the web, usually a web site.
+ * 
  */
 public interface IDoapHomepage extends IDoapLocation {
 

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.unitTest;
+
 /*
  * 
  * Copyright 2007 University of Oxford
@@ -18,7 +19,6 @@ package uk.ac.osswatch.simal.unitTest;
  * 
  */
 
-
 import java.net.URL;
 import java.util.Set;
 
@@ -33,15 +33,15 @@ import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-
 /**
  * @FIXME: make this a true MockObject
- *
+ * 
  */
 public class MockRepository extends AbstractSimalRepository {
 
   public String getNewPersonID() throws SimalRepositoryException {
-    StringBuilder id = new StringBuilder(SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
+    StringBuilder id = new StringBuilder(SimalProperties
+        .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
     id.append(":");
     id.append(Double.toString(Math.random()));
     return id.toString();
@@ -49,19 +49,19 @@ public class MockRepository extends AbstractSimalRepository {
 
   public void add(String data) throws SimalRepositoryException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void addProject(URL url, String baseURI)
       throws SimalRepositoryException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void addRDFXML(URL url, String baseURL)
       throws SimalRepositoryException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public boolean containsCategory(String uri) {
@@ -93,7 +93,7 @@ public class MockRepository extends AbstractSimalRepository {
 
   public void destroy() throws SimalRepositoryException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public IDoapCategory findCategoryById(String id)
@@ -183,23 +183,23 @@ public class MockRepository extends AbstractSimalRepository {
 
   public void initialise() throws SimalRepositoryException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void initialise(String directory) throws SimalRepositoryException {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void removeAllData() {
     // TODO Auto-generated method stub
-    
+
   }
 
   public void addProject(Node node, URL sourceURL, String baseUri)
       throws SimalRepositoryException {
     // TODO Auto-generated method stub
-    
+
   }
 
 }

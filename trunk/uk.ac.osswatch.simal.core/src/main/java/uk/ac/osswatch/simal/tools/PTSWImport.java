@@ -42,20 +42,20 @@ import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public class PTSWImport {
-  private static final Logger logger = LoggerFactory.getLogger(PTSWImport.class);
-  
+  private static final Logger logger = LoggerFactory
+      .getLogger(PTSWImport.class);
+
   /**
    * Get latest pings as RDF/XML by retrieving the document
-   * http://pingthesemanticweb.com/export/, extracting the
-   * list of pings and then retrieving the relevant DOAP
-   * files.<br/>
+   * http://pingthesemanticweb.com/export/, extracting the list of pings and
+   * then retrieving the relevant DOAP files.<br/>
    * 
-   * Note that you must have created an account on the
-   * Ping The Semantic Web site for the IP number that is
-   * making the request.
-   * @throws SimalException 
+   * Note that you must have created an account on the Ping The Semantic Web
+   * site for the IP number that is making the request.
    * 
-   * @SeeAlso #getListOfPings, #getPingsAsRDF 
+   * @throws SimalException
+   * 
+   * @SeeAlso #getListOfPings, #getPingsAsRDF
    * 
    */
   public Document getLatestPingsAsRDF() throws SimalException {
@@ -63,12 +63,14 @@ public class PTSWImport {
     try {
       url = new URL("http://pingthesemanticweb.com/export/");
     } catch (MalformedURLException e) {
-      throw new SimalException("The PTSW URL is malformed, how can that happen since it is hard coded?", e);
+      throw new SimalException(
+          "The PTSW URL is malformed, how can that happen since it is hard coded?",
+          e);
     }
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
     Document doc = null;
-    
+
     DocumentBuilder db;
     try {
       db = dbf.newDocumentBuilder();
@@ -76,21 +78,21 @@ public class PTSWImport {
     } catch (Exception e) {
       throw new SimalException("Unable to retrive the PTSW export file", e);
     }
-    
+
     return getPingsAsRDF(doc);
   }
 
   /**
-   * Get a list of pings contained within the supplied XML
-   * Export from Ping The Semantic Web.
-   */ 
+   * Get a list of pings contained within the supplied XML Export from Ping The
+   * Semantic Web.
+   */
   public Set<URI> getListOfPings(Document export) {
     String strURL = null;
     HashSet<URI> uris = new HashSet<URI>();
     Element root = export.getDocumentElement();
     NodeList pings = root.getElementsByTagName("rdfdocument");
-    for (int i = 0; i < pings.getLength(); i ++) {
-      Element ping = (Element)pings.item(i);
+    for (int i = 0; i < pings.getLength(); i++) {
+      Element ping = (Element) pings.item(i);
       try {
         strURL = ping.getAttributeNode("url").getValue();
         if (strURL.startsWith("http://doapspace.org")) {
@@ -103,11 +105,12 @@ public class PTSWImport {
     }
     return uris;
   }
-  
+
   /**
-   * Get an RDF/XML document containing all the DOAP files referenced
-   * in a PTSW export file.
-   * @throws ParserConfigurationException 
+   * Get an RDF/XML document containing all the DOAP files referenced in a PTSW
+   * export file.
+   * 
+   * @throws ParserConfigurationException
    */
   public Document getPingsAsRDF(Document export) throws SimalException {
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -124,7 +127,7 @@ public class PTSWImport {
     Document projectDoc;
     Element projectRoot;
     URI ping = null;
-    while(pings.hasNext()) {
+    while (pings.hasNext()) {
       try {
         ping = pings.next();
         projectDoc = db.parse(ping.toURL().openStream());
@@ -132,9 +135,10 @@ public class PTSWImport {
         if (!projectRoot.getLocalName().equals("Project")) {
           NamedNodeMap atts = projectRoot.getAttributes();
           Element docRoot = projectRoot;
-          projectRoot = (Element)projectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project").item(0);
+          projectRoot = (Element) projectRoot.getElementsByTagNameNS(
+              RDFUtils.DOAP_NS, "Project").item(0);
           for (int i = 0; i < atts.getLength(); i++) {
-            Attr att = (Attr)atts.item(i);
+            Attr att = (Attr) atts.item(i);
             i = i - 1;
             if (att.getName().startsWith("xmlns")) {
               docRoot.removeAttributeNode(att);
@@ -143,8 +147,10 @@ public class PTSWImport {
           }
         }
         Node importedProjectNode = resultDoc.importNode(projectRoot, true);
-        Element seeAlso = resultDoc.createElementNS(RDFUtils.RDF_NS, "rdf:seeAlso");
-        seeAlso.setAttributeNS(RDFUtils.RDF_NS, "rdf:resource", ping.toURL().toExternalForm());
+        Element seeAlso = resultDoc.createElementNS(RDFUtils.RDF_NS,
+            "rdf:seeAlso");
+        seeAlso.setAttributeNS(RDFUtils.RDF_NS, "rdf:resource", ping.toURL()
+            .toExternalForm());
         importedProjectNode.appendChild(seeAlso);
         root.appendChild(importedProjectNode);
       } catch (IOException e) {

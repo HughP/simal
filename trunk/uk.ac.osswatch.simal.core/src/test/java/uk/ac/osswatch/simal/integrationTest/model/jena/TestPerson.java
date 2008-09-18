@@ -39,7 +39,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public class TestPerson extends BaseRepositoryTest {
-  private static final Logger logger = LoggerFactory.getLogger(TestPerson.class);
+  private static final Logger logger = LoggerFactory
+      .getLogger(TestPerson.class);
 
   private static IPerson developer;
   private static IPerson documentor;
@@ -48,27 +49,25 @@ public class TestPerson extends BaseRepositoryTest {
   public static void setUpBeforeClass() throws Exception {
     initRepository();
 
-    developer = getRepository()
-        .getPerson(testDeveloperURI);
+    developer = getRepository().getPerson(testDeveloperURI);
     assertNotNull(developer);
-    documentor = getRepository()
-        .getPerson(testDocumentorURI);
+    documentor = getRepository().getPerson(testDocumentorURI);
     assertNotNull(documentor);
   }
 
   @Test
   public void testAddPersonFromScratch() throws SimalRepositoryException,
       DuplicateURIException, URISyntaxException {
-    String  uri = RDFUtils.PERSON_NAMESPACE_URI
-        + "TestingPersonFromScratch";
+    String uri = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
     IPerson person;
     person = getRepository().createPerson(uri);
 
     person = getRepository().getPerson(uri);
     assertNotNull("Person has not been added to repository", person);
     assertNotNull("Person simalID should not be null", person.getSimalID());
-    assertNotNull("Person simalID is invalid", getRepository().isUniqueSimalID(person.getSimalID()));
-    
+    assertNotNull("Person simalID is invalid", getRepository().isUniqueSimalID(
+        person.getSimalID()));
+
     person.delete();
   }
 
@@ -79,14 +78,15 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testHomePage() {
-    assertTrue("developer home page is missing", developer
-        .getHomepages().toString().contains("http://example.org/person/developer"));
+    assertTrue("developer home page is missing", developer.getHomepages()
+        .toString().contains("http://example.org/person/developer"));
   }
 
   @Test
   public void testEmail() {
     Set<IInternetAddress> emails = developer.getEmail();
-    assertTrue("Emails are incorrect", emails.toString().contains("mailto:developer@foo.org"));
+    assertTrue("Emails are incorrect", emails.toString().contains(
+        "mailto:developer@foo.org"));
   }
 
   @Test
@@ -113,16 +113,17 @@ public class TestPerson extends BaseRepositoryTest {
     while (people.hasNext()) {
       IPerson person = people.next();
       logger.debug("Got colleaue: " + person);
-      assertNotNull("No person should have a null ID (see "
-          + person.getURI() + ")", person.getSimalID());
+      assertNotNull("No person should have a null ID (see " + person.getURI()
+          + ")", person.getSimalID());
     }
     assertEquals("Got an incorrect number of colleagues", BaseRepositoryTest
         .getNumberOfParticipants() - 1, colleagues.size());
   }
-  
+
   @Test
   public void testGetURI() throws SimalRepositoryException {
-    assertEquals("Person URI is incorrect", testDeveloperURI, developer.getURI());
+    assertEquals("Person URI is incorrect", testDeveloperURI, developer
+        .getURI());
   }
 
   @Test
@@ -143,35 +144,40 @@ public class TestPerson extends BaseRepositoryTest {
     Set<URI> seeAlso = developer.getSeeAlso();
     assertEquals("Incorrect number of see also values", 3, seeAlso.size());
   }
-  
+
   @Test
   public void testGetProjects() throws SimalRepositoryException {
     Set<IProject> projects = developer.getProjects();
-    assertEquals("Developer is not in the correct number of projects", 1, projects.size());
+    assertEquals("Developer is not in the correct number of projects", 1,
+        projects.size());
   }
-  
+
   @Test
   public void testEmptyResources() throws SimalRepositoryException {
     Set<IDoapHomepage> homepages = documentor.getHomepages();
-    assertEquals("Documentor homepage should not contain any resources as it has an empty resource attribute", 0, homepages.size());
+    assertEquals(
+        "Documentor homepage should not contain any resources as it has an empty resource attribute",
+        0, homepages.size());
   }
-  
+
   @Test
   public void testAddName() {
     String name = "Test Name";
     developer.addName(name);
-    assertEquals("We haven't set the name succesfully", name, developer.getNames().toArray()[0]);
+    assertEquals("We haven't set the name succesfully", name, developer
+        .getNames().toArray()[0]);
   }
-  
-  @Test 
+
+  @Test
   public void testGetSimalID() throws SimalRepositoryException {
     String id = developer.getSimalID();
     assertEquals("Simal ID of person is incorrect", testDeveloperID, id);
   }
-  
-  @Test 
+
+  @Test
   public void testGetUniqueSimalID() throws SimalRepositoryException {
     String id = developer.getUniqueSimalID();
-    assertTrue("Unique Simal ID of person is not valid: " + 15, id.length() > developer.getSimalID().length());
+    assertTrue("Unique Simal ID of person is not valid: " + 15,
+        id.length() > developer.getSimalID().length());
   }
 }

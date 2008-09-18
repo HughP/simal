@@ -19,7 +19,7 @@ import java.util.Set;
 
 /**
  * Behaviours to attach to a repository resource.
- *
+ * 
  */
 public interface IDoapRepositoryService extends IDoapResourceService {
 
@@ -27,7 +27,7 @@ public interface IDoapRepositoryService extends IDoapResourceService {
    * Get the anonymous access repositories.
    */
   public Set<String> getAnonRoots();
-  
+
   /**
    * Get the locations for this repository.
    */

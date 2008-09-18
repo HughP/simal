@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.model.jena;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,7 +17,6 @@ Copyright 2007 University of Oxford *
  * under the License.
  * 
  */
-
 
 import java.util.HashSet;
 import java.util.Set;
@@ -34,7 +34,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class DoapResource extends Resource implements IDoapResource {
   private static final long serialVersionUID = 1L;
-  
+
   public DoapResource(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }
@@ -58,7 +58,7 @@ public class DoapResource extends Resource implements IDoapResource {
     if (resource == null) {
       desc = getShortDesc();
     } else {
-      desc = resource.getString().trim(); 
+      desc = resource.getString().trim();
     }
     return desc;
   }
@@ -85,12 +85,12 @@ public class DoapResource extends Resource implements IDoapResource {
       }
     }
   }
-  
+
   @Override
   public String getLabel() {
     Statement name = getJenaResource().getProperty(Doap.NAME);
     if (name == null) {
-    return super.getLabel();
+      return super.getLabel();
     } else {
       return name.getString();
     }
@@ -152,8 +152,10 @@ public class DoapResource extends Resource implements IDoapResource {
   protected String toJSONRecordContent() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer();
     json.append("\"id\":\"" + getURI() + "\",");
-    json.append("\"label\":\"" + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\",");
-    json.append("\"name\":\"" + StringEscapeUtils.escapeJavaScript(getName().trim()) + "\",");
+    json.append("\"label\":\""
+        + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\",");
+    json.append("\"name\":\""
+        + StringEscapeUtils.escapeJavaScript(getName().trim()) + "\",");
     String desc = getShortDesc();
     if (desc == null || desc.equals("")) {
       desc = getDescription();
@@ -164,7 +166,8 @@ public class DoapResource extends Resource implements IDoapResource {
     if (desc == null) {
       desc = "No description available";
     }
-    json.append("\"shortdesc\":\"" + StringEscapeUtils.escapeJavaScript(desc.trim()) + "\"");
+    json.append("\"shortdesc\":\""
+        + StringEscapeUtils.escapeJavaScript(desc.trim()) + "\"");
     return json.toString();
   }
 

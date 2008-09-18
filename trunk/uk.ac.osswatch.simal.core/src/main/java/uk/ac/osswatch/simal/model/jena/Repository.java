@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.model.jena;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +18,6 @@ Copyright 2007 University of Oxford *
  * 
  */
 
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,7 +31,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 
 public class Repository extends DoapResource implements IDoapRepository {
   private static final long serialVersionUID = 1L;
-  
+
   private boolean isARCH = false;
   private boolean isBK = false;
   private boolean isCVS = false;

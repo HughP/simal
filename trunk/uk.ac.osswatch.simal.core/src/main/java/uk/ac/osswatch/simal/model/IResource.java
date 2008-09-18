@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.model;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -17,7 +18,6 @@ Copyright 2007 University of Oxford *
  * 
  */
 
-
 import java.io.Serializable;
 import java.net.URI;
 import java.net.URL;
@@ -27,23 +27,22 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * An RDF resource.
- *
+ * 
  */
 public interface IResource extends IResourceService, Serializable {
 
-
   /**
-   * @deprecated use getURI instead 
+   * @deprecated use getURI instead
    */
   public URL getURL() throws SimalRepositoryException;
-  
 
   /**
-   * Get the URI for this resource. 
-   * @throws SimalRepositoryException 
+   * Get the URI for this resource.
+   * 
+   * @throws SimalRepositoryException
    */
   public String getURI();
-  
+
   /**
    * Get the label for this resource. If the resource does not have a defined
    * label return value of the toString() method.
@@ -54,8 +53,8 @@ public interface IResource extends IResourceService, Serializable {
 
   /**
    * Get the label for this resource. If the resource does not have a defined
-   * label use the supplied default label (if not null) or the
-   * resource return value of the toString() method.
+   * label use the supplied default label (if not null) or the resource return
+   * value of the toString() method.
    * 
    * @param defaultLabel
    * @return
@@ -68,28 +67,24 @@ public interface IResource extends IResourceService, Serializable {
    * @return
    */
   public String getComment();
-  
 
   /**
-   * Get all URIs for other descriptions for this
-   * resource.
+   * Get all URIs for other descriptions for this resource.
    * 
    * @return
    */
   public Set<URI> getSeeAlso();
-  
+
   /**
    * Get the raw resource as it is stored in the repository.
    */
   public Object getRepositoryResource();
 
   /**
-   * Set a unique Simal ID for this person. This is a 
-   * world unique identifier for a Simal resource. It is
-   * constructed from the value of simal.instance.id property, 
-   * followed by ':', followed by  
-   * the repository unique identifier for the resource.
-   * That is:
+   * Set a unique Simal ID for this person. This is a world unique identifier
+   * for a Simal resource. It is constructed from the value of simal.instance.id
+   * property, followed by ':', followed by the repository unique identifier for
+   * the resource. That is:
    * 
    * $simal.instance.id:$simal.resource.id
    * 
@@ -98,21 +93,22 @@ public interface IResource extends IResourceService, Serializable {
   public String getUniqueSimalID() throws SimalRepositoryException;
 
   /**
-   * Get the Simal ID for this resource. This is a unique identifier
-   * within the repository from which it was retrieved.
+   * Get the Simal ID for this resource. This is a unique identifier within the
+   * repository from which it was retrieved.
    * 
    * Not all resources are given a SimalID.
    * 
    * @return the Simal ID or null if none has been defined
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    * @see getUniqueSimalID()
    */
   public String getSimalID() throws SimalRepositoryException;
-  
+
   /**
-   * Set the Simal ID for this resource. This is a unique identifier
-   * within the repository from which it was retrieved.
-   * @throws SimalRepositoryException 
+   * Set the Simal ID for this resource. This is a unique identifier within the
+   * repository from which it was retrieved.
+   * 
+   * @throws SimalRepositoryException
    * 
    */
   public void setSimalID(String newID) throws SimalRepositoryException;

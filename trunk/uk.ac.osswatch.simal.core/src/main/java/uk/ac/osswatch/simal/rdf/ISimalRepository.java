@@ -29,9 +29,9 @@ import uk.ac.osswatch.simal.model.IResource;
  * A class for handling common repository actions. Applications should not
  * instantiate this class but should interact with it via its methods.
  * 
- * @refactor methods that deal with a specific part of the model 
- * (e.g. Person, Project) should not be in here they should be in a
- * service class for the model object
+ * @refactor methods that deal with a specific part of the model (e.g. Person,
+ *           Project) should not be in here they should be in a service class
+ *           for the model object
  */
 public interface ISimalRepository {
   public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
@@ -66,30 +66,34 @@ public interface ISimalRepository {
 
   public static final String RDFS_NAMESPACE_URI = "http://www.w3.org/2000/01/rdf-schema#";
   public static final String RDFS_URI_SEE_ALSO = RDFS_NAMESPACE_URI + "seeAlso";
-  
+
   public static final String XSD_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema#";
 
   /**
    * Add an RDF DOAP file from a given URL.
    * 
    * @param url
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
-  public void addProject(URL url, String baseURI) throws SimalRepositoryException;
+  public void addProject(URL url, String baseURI)
+      throws SimalRepositoryException;
 
   /**
    * Add an RDF DOAP node.
    * 
-   * @param node the doap:Project node, or the document element of a doap:Project
-   * @param sourceURL the URL from which this docuemnt was generated
+   * @param node
+   *          the doap:Project node, or the document element of a doap:Project
+   * @param sourceURL
+   *          the URL from which this docuemnt was generated
    * @param baseURI
    * @throws SimalRepositoryException
    */
-  public void addProject(Node project, URL url, String baseURI) throws SimalRepositoryException;
+  public void addProject(Node project, URL url, String baseURI)
+      throws SimalRepositoryException;
 
   /**
-   * Get a project from the repository. If the project does not
-   * exist then return null.
+   * Get a project from the repository. If the project does not exist then
+   * return null.
    * 
    * @param uri
    *          the String of the project to retrieve
@@ -106,8 +110,7 @@ public interface ISimalRepository {
    * @return the project, or if no project with the given String exists Null
    * @throws SimalRepositoryException
    */
-  public IDoapCategory getCategory(String uri)
-      throws SimalRepositoryException;
+  public IDoapCategory getCategory(String uri) throws SimalRepositoryException;
 
   /**
    * Get a category with a given simal id.
@@ -116,15 +119,16 @@ public interface ISimalRepository {
    * @return
    * @throws SimalRepositoryException
    */
-  public IDoapCategory findCategoryById(String id) throws SimalRepositoryException;
-  
+  public IDoapCategory findCategoryById(String id)
+      throws SimalRepositoryException;
+
   /**
    * Get a person from the repository.
    * 
    * @param uri
    *          the String of the repository to retrieve
-   * @return the repository or if no repository item with the given String exists
-   *         Null
+   * @return the repository or if no repository item with the given String
+   *         exists Null
    * @throws SimalRepositoryException
    */
   public IPerson getPerson(String uri) throws SimalRepositoryException;
@@ -132,9 +136,11 @@ public interface ISimalRepository {
   /**
    * Get a person with a given Simal id.
    * 
-   * @param id - world unique Simal ID
+   * @param id -
+   *          world unique Simal ID
    * @return
-   * @throws SimalRepositoryException if the ID is not a world unique one.
+   * @throws SimalRepositoryException
+   *           if the ID is not a world unique one.
    */
   public IPerson findPersonById(String id) throws SimalRepositoryException;
 
@@ -230,13 +236,12 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    */
   public String getAllProjectsAsJSON() throws SimalRepositoryException;
-  
+
   /**
-   * Get all the people in the repository and return them in a single JSON
-   * file.
+   * Get all the people in the repository and return them in a single JSON file.
    * 
    * @return
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    * @throws SimalRepositoryException
    */
   public String getAllPeopleAsJSON() throws SimalRepositoryException;
@@ -273,7 +278,7 @@ public interface ISimalRepository {
    */
   public IPerson createPerson(String uri) throws SimalRepositoryException,
       DuplicateURIException;
-  
+
   /**
    * Create a new project ID and save the next value in the properties file.
    * 
@@ -289,10 +294,10 @@ public interface ISimalRepository {
    * @throws FileNotFoundException
    */
   public String getNewCategoryID() throws SimalRepositoryException;
-  
+
   /**
-   * Create a new person ID and save the 
-   * next local value in the properties file.
+   * Create a new person ID and save the next local value in the properties
+   * file.
    * 
    * @throws IOException
    * @throws FileNotFoundException
@@ -308,7 +313,6 @@ public interface ISimalRepository {
    */
   public void add(String data) throws SimalRepositoryException;
 
-
   /**
    * Set whether or not this repository is to be set up in test mode. This
    * method should be called before initialise if the default behaviour is to be
@@ -320,34 +324,32 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    */
   public void setIsTest(boolean newValue) throws SimalRepositoryException;
-  
 
   /**
    * Return true if this repository is running in test mode.
+   * 
    * @return
    * @see setIsTest
    */
   public boolean isTest();
-  
 
   /**
-   * Initialise a default repository. If the repository is not
-   * in test mode then a database will be created in the
-   * locations set in the default.simal.properties or
-   * local.simal.properties files.
+   * Initialise a default repository. If the repository is not in test mode then
+   * a database will be created in the locations set in the
+   * default.simal.properties or local.simal.properties files.
    * 
    * @throws SimalRepositoryException
    */
   public void initialise() throws SimalRepositoryException;
-  
+
   /**
-   * Initialise a repository. 
+   * Initialise a repository.
    * 
-   * @param directory the directory for the database if 
-   * it is a persistent repository (i.e. not a test repo).
-   * A null results in the database being stored in the
-   * locations set in the default.simal.properties or
-   * local.simal.properties files.
+   * @param directory
+   *          the directory for the database if it is a persistent repository
+   *          (i.e. not a test repo). A null results in the database being
+   *          stored in the locations set in the default.simal.properties or
+   *          local.simal.properties files.
    * 
    * @throws SimalRepositoryException
    */
@@ -363,6 +365,7 @@ public interface ISimalRepository {
 
   /**
    * Test to see if a project with the given String exists.
+   * 
    * @param uri
    * @return
    */
@@ -370,6 +373,7 @@ public interface ISimalRepository {
 
   /**
    * Test to see if a person with the given String exists.
+   * 
    * @param uri
    * @return
    */
@@ -377,31 +381,33 @@ public interface ISimalRepository {
 
   /**
    * Test to see if a category with the given String exists.
+   * 
    * @param uri
    * @return
    */
   public boolean containsCategory(String uri);
-  
 
   /**
-   * Add all RDF/XML files found in a directory to the repository.
-   * Only files with a ".xml" or ".rdf" extension will be processed.
-   * Subdirectories will be ignored.
-   * @throws SimalRepositoryException 
+   * Add all RDF/XML files found in a directory to the repository. Only files
+   * with a ".xml" or ".rdf" extension will be processed. Subdirectories will be
+   * ignored.
+   * 
+   * @throws SimalRepositoryException
    */
-  public void addXMLDirectory(final String dirName) throws SimalRepositoryException;
+  public void addXMLDirectory(final String dirName)
+      throws SimalRepositoryException;
 
   /**
-   * Remove all data from this repository.
-   * Be very careful with this method. It does not provide a
-   * way to retrieve the data.
+   * Remove all data from this repository. Be very careful with this method. It
+   * does not provide a way to retrieve the data.
    */
   public void removeAllData();
 
   /**
    * Get a resource of unknown type.
    * 
-   * @param uri the URI of the resource
+   * @param uri
+   *          the URI of the resource
    * @return
    */
   public IResource getResource(String uri);
@@ -414,28 +420,28 @@ public interface ISimalRepository {
    * @return the duplicate person or null
    * @throws SimalRepositoryException
    */
-  public IPerson getDuplicate(String email)
-      throws SimalRepositoryException;
-  
+  public IPerson getDuplicate(String email) throws SimalRepositoryException;
+
   /**
-   * Given an entity ID create a unique Simal ID for referencing
-   * this entity within this instance of Simal.
+   * Given an entity ID create a unique Simal ID for referencing this entity
+   * within this instance of Simal.
    * 
    * @param instanceID
    * @return
-   * @throws SimalRepositoryException 
+   * @throws SimalRepositoryException
    */
-  public String getUniqueSimalID(String entityID) throws SimalRepositoryException;
+  public String getUniqueSimalID(String entityID)
+      throws SimalRepositoryException;
 
-  
   /**
-   * Given a world unique Simal ID return the entity ID for the
-   * entity being identified
+   * Given a world unique Simal ID return the entity ID for the entity being
+   * identified
    * 
    * @param uniqueID
    * @return
-   * @throws SimalRepositoryException If the supplied ID is not a valid Simal ID 
-   * or if there is a problem communicating with the repository.
+   * @throws SimalRepositoryException
+   *           If the supplied ID is not a valid Simal ID or if there is a
+   *           problem communicating with the repository.
    */
   public String getEntityID(String uniqueID) throws SimalRepositoryException;
 

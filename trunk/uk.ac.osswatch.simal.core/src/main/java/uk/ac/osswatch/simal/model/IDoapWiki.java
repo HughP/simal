@@ -16,11 +16,10 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * A wiki associated with a project.
- * It is a resource used to define the doap:wiki entries
- * of a doap:Project.  
- *
+ * A wiki associated with a project. It is a resource used to define the
+ * doap:wiki entries of a doap:Project.
+ * 
  */
-public interface IDoapWiki  extends IDoapResource {
+public interface IDoapWiki extends IDoapResource {
 
 }

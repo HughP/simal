@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.model.jena;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -16,7 +17,6 @@ Copyright 2007 University of Oxford *
  * under the License.
  * 
  */
-
 
 import java.security.NoSuchAlgorithmException;
 import java.util.HashSet;
@@ -166,10 +166,11 @@ public class Person extends Resource implements IPerson {
     String id = uniqueID.substring(uniqueID.lastIndexOf(":") + 1);
     return id;
   }
-  
+
   public String getUniqueSimalID() throws SimalRepositoryException {
     String id;
-    Statement idStatement = getJenaResource().getProperty(SimalOntology.PERSON_ID);
+    Statement idStatement = getJenaResource().getProperty(
+        SimalOntology.PERSON_ID);
     if (idStatement == null) {
       id = SimalRepository.getInstance().getNewPersonID();
       setSimalID(id);
@@ -180,21 +181,23 @@ public class Person extends Resource implements IPerson {
   }
 
   public void setSimalID(String newId) throws SimalRepositoryException {
-    if (newId.contains(":") && !newId.startsWith(SimalProperties.getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
+    if (newId.contains(":")
+        && !newId.startsWith(SimalProperties
+            .getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
       throw new SimalRepositoryException("Simal ID cannot contain a ':'");
     }
-    StringBuilder id = new StringBuilder(SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
+    StringBuilder id = new StringBuilder(SimalProperties
+        .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
     id.append(":");
-    id.append(newId); 
+    id.append(newId);
     logger.info("Setting simalId for " + this + " to " + id);
     getJenaResource().addLiteral(SimalOntology.PERSON_ID, id);
   }
 
   /**
    * Get the label for this person. The label for a person is derived from their
-   * known names (if more than one is known then the longest is used). 
-   * If the person does not have any defined names then the
-   * toString() method is used..
+   * known names (if more than one is known then the longest is used). If the
+   * person does not have any defined names then the toString() method is used..
    * 
    * @return
    */
@@ -210,7 +213,7 @@ public class Person extends Resource implements IPerson {
     String name = null;
     Object[] arr = names.toArray();
     for (int i = 0; i < names.size(); i++) {
-      String curName = (String)arr[i];
+      String curName = (String) arr[i];
       if (curName.length() > maxLength) {
         name = curName;
         maxLength = curName.length();
@@ -250,13 +253,14 @@ public class Person extends Resource implements IPerson {
       categories.addAll(itr.next().getCategories());
     }
     json.append(", \"category\":" + toJSONValues(categories));
-    
+
     return json.toString();
   }
-  
+
   /**
-   * Given a set of DOAP resources return a JSON representation
-   * of those resources. 
+   * Given a set of DOAP resources return a JSON representation of those
+   * resources.
+   * 
    * @param resources
    * @return
    */
@@ -272,9 +276,12 @@ public class Person extends Resource implements IPerson {
       resource = itr.next();
       if (resource instanceof IResource) {
         String label = ((IResource) resource).getLabel();
-        values.append("\"" + StringEscapeUtils.escapeJavaScript(label.trim()) + "\"");
+        values.append("\"" + StringEscapeUtils.escapeJavaScript(label.trim())
+            + "\"");
       } else {
-        values.append("\"" + StringEscapeUtils.escapeJavaScript(resource.toString().trim()) + "\"");
+        values.append("\""
+            + StringEscapeUtils.escapeJavaScript(resource.toString().trim())
+            + "\"");
       }
       if (itr.hasNext()) {
         values.append(", ");
@@ -308,8 +315,9 @@ public class Person extends Resource implements IPerson {
     if (!email.startsWith("mailto:")) {
       email = "mailto:" + email;
     }
-    Model model = getJenaResource().getModel(); 
-    Statement statement = model.createStatement(getJenaResource(), FOAF.mbox, model.createResource(email));
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(), FOAF.mbox,
+        model.createResource(email));
     model.add(statement);
     try {
       addSHA1Sum(RDFUtils.getSHA1(email));
@@ -319,8 +327,9 @@ public class Person extends Resource implements IPerson {
   }
 
   public void addSHA1Sum(String sha1) {
-    Model model = getJenaResource().getModel(); 
-    Statement statement = model.createStatement(getJenaResource(), FOAF.mbox_sha1sum, sha1);
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(),
+        FOAF.mbox_sha1sum, sha1);
     model.add(statement);
   }
 

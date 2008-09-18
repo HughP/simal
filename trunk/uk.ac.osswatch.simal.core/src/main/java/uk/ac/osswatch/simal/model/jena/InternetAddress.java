@@ -1,7 +1,8 @@
 package uk.ac.osswatch.simal.model.jena;
+
 /*
  * 
-Copyright 2007 University of Oxford * 
+ Copyright 2007 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -21,19 +22,19 @@ import uk.ac.osswatch.simal.model.IInternetAddress;
 
 /**
  * A class for handling emails.
- *
+ * 
  */
 public class InternetAddress extends Resource implements IInternetAddress {
   private static final long serialVersionUID = -5050032847747325204L;
-  
+
   public InternetAddress(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }
 
   public String getAddress() {
-     return getURI();
+    return getURI();
   }
-  
+
   public String toString() {
     return getAddress();
   }

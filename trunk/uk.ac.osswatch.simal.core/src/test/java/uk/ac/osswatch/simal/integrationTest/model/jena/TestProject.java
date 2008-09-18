@@ -151,8 +151,8 @@ public class TestProject extends BaseRepositoryTest {
         hasDeveloper = true;
       }
       logger.debug("Got developer called {}", person);
-      assertNotNull("No person should have a null ID (see "
-          + person.getURI() + ")", person.getSimalID());
+      assertNotNull("No person should have a null ID (see " + person.getURI()
+          + ")", person.getSimalID());
     }
     assertTrue("Project does not appear to have developer called "
         + TEST_SIMAL_PROJECT_DEVELOPERS, hasDeveloper);
@@ -373,8 +373,8 @@ public class TestProject extends BaseRepositoryTest {
   @Test
   public void testId() throws SimalRepositoryException, DuplicateURIException,
       URISyntaxException {
-    assertEquals("Test project ID incorrect", testProjectID,
-        project1.getSimalID());
+    assertEquals("Test project ID incorrect", testProjectID, project1
+        .getSimalID());
 
     String uri1 = RDFUtils.PROJECT_NAMESPACE_URI + "TestingId1";
     String uri2 = RDFUtils.PROJECT_NAMESPACE_URI + "TestingId2";

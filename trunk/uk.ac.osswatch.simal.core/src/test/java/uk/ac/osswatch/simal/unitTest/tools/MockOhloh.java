@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.unitTest.tools;
+
 /*
  * 
  * Copyright 2007 University of Oxford
@@ -17,7 +18,6 @@ package uk.ac.osswatch.simal.unitTest.tools;
  * under the License.
  * 
  */
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,7 +39,8 @@ public class MockOhloh extends Ohloh {
     URL url;
     if (urlString.contains("ohlohtest")) {
       if (urlString.contains("contributors.xml")) {
-        url = MockOhloh.class.getResource("/testData/ohlohContributorExport.xml");
+        url = MockOhloh.class
+            .getResource("/testData/ohlohContributorExport.xml");
       } else if (urlString.contains("/accounts/")) {
         url = MockOhloh.class.getResource("/testData/ohlohAccountExport.xml");
       } else {
@@ -47,7 +48,7 @@ public class MockOhloh extends Ohloh {
       }
     } else {
       url = MockOhloh.class.getResource("/testData/ohlohError.xml");
-    }  
+    }
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
     DocumentBuilder db;

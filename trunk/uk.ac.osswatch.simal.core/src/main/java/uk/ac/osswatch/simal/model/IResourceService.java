@@ -38,20 +38,20 @@ public interface IResourceService {
 
   /**
    * Create an XML representation of this resource.
-   * @throws SimalRepositoryException 
+   * 
+   * @throws SimalRepositoryException
    * 
    */
   public String toXML() throws SimalRepositoryException;
-  
+
   /**
    * Delete this resource from the repository.
    */
   public void delete() throws SimalRepositoryException;
-  
+
   /**
-   * Get all the sources for the data we hold about
-   * this resource. This translates to the rdfs:seeAlso
-   * triples.
+   * Get all the sources for the data we hold about this resource. This
+   * translates to the rdfs:seeAlso triples.
    */
   public Set<String> getSources();
 }

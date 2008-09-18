@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.model;
+
 /*
  * 
  * Copyright 2007 University of Oxford
@@ -18,7 +19,6 @@ package uk.ac.osswatch.simal.model;
  * 
  */
 
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -30,11 +30,11 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * Utility methods for working with a Simal model.
- *
+ * 
  */
 public class ModelSupport {
   private static final Logger logger = LoggerFactory
-     .getLogger(ModelSupport.class);
+      .getLogger(ModelSupport.class);
   public static final String TEST_FILE_BASE_URL = "http://example.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testData/testNoRDFAboutDOAP.xml";
   public static final String TEST_FILE_URI_WITH_QNAME = "testData/testDOAP.xml";
@@ -44,16 +44,19 @@ public class ModelSupport {
   public final static String CATEGORIES_RDF = "testData/categories.xml";
 
   /**
-   * Adds Simal defined data to the repo. The simal data includes
-   * the DOAP for Simal itself, which in turn includes descriptions
-   * of all the appropriate categories used by Simal.
-   * @throws SimalRepositoryException 
+   * Adds Simal defined data to the repo. The simal data includes the DOAP for
+   * Simal itself, which in turn includes descriptions of all the appropriate
+   * categories used by Simal.
+   * 
+   * @throws SimalRepositoryException
    * 
    */
-  public static void addSimalData(ISimalRepository repo) throws SimalRepositoryException {
-    repo.addProject(ISimalRepository.class.getResource("/simal.rdf"), TEST_FILE_BASE_URL);
+  public static void addSimalData(ISimalRepository repo)
+      throws SimalRepositoryException {
+    repo.addProject(ISimalRepository.class.getResource("/simal.rdf"),
+        TEST_FILE_BASE_URL);
   }
-  
+
   /**
    * Adds test data to the repo. be careful to only use this when the repo in
    * use is a test repository.
@@ -61,15 +64,18 @@ public class ModelSupport {
    * @throws SimalRepositoryException
    */
   public static void addTestData(ISimalRepository repo) {
-    try {     
+    try {
       repo.addProject(ISimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
-      
-      repo.addProject(ISimalRepository.class.getClassLoader().getResource(TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
 
-      repo.addProject(ISimalRepository.class.getClassLoader().getResource(TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(
+          TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
 
-      repo.addProject(ISimalRepository.class.getClassLoader().getResource(TEST_FILE_OSSWATCH), TEST_FILE_BASE_URL);
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(
+          TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
+
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(
+          TEST_FILE_OSSWATCH), TEST_FILE_BASE_URL);
 
       addSimalData(repo);
 
@@ -81,7 +87,10 @@ public class ModelSupport {
       e.printStackTrace();
       throw new RuntimeException("Unable to add test data, aborting", e);
     } catch (MalformedURLException e) {
-      logger.error("Malformed URL in test data, should never happen as it is hard coded", e);
+      logger
+          .error(
+              "Malformed URL in test data, should never happen as it is hard coded",
+              e);
       throw new RuntimeException("Unable to add test data, aborting", e);
     }
   }

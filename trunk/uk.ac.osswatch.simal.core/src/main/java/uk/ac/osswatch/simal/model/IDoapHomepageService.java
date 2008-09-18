@@ -17,8 +17,8 @@ package uk.ac.osswatch.simal.model;
 
 /**
  * Behaviours to attach to a homepage resource.
- *
+ * 
  */
-public interface IDoapHomepageService extends IDoapResourceService{
-  
+public interface IDoapHomepageService extends IDoapResourceService {
+
 }

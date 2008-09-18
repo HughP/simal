@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.tools;
+
 /*
  * 
  * Copyright 2007 University of Oxford
@@ -17,7 +18,6 @@ package uk.ac.osswatch.simal.tools;
  * under the License.
  * 
  */
-
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -70,7 +70,7 @@ public class Ohloh {
       DOMResult domContributorResult = getContributorDataAsFOAF(projectID);
       Element resultRoot = mergeProjectAndContributorData(domProjectResult,
           domContributorResult).getDocumentElement();
-      
+
       // Now add the data to the repository
       StringBuilder source = new StringBuilder(OHLOH_BASE_URI);
       source.append("/");
@@ -78,64 +78,73 @@ public class Ohloh {
       URL sourceURL = new URL(source.toString());
       repo.addProject(resultRoot, sourceURL, OHLOH_BASE_URI);
     } catch (TransformerConfigurationException e) {
-      throw new SimalRepositoryException(
-          "Unable to create XSL Transformer", e);
+      throw new SimalRepositoryException("Unable to create XSL Transformer", e);
     } catch (TransformerException e) {
-      throw new SimalRepositoryException(
-        "Unable to transform Ohloh data", e);
+      throw new SimalRepositoryException("Unable to transform Ohloh data", e);
     } catch (MalformedURLException e) {
-      throw new SimalRepositoryException(
-          "Malformed URL for an Ohloh resource", e);
+      throw new SimalRepositoryException("Malformed URL for an Ohloh resource",
+          e);
     } catch (IOException e) {
-      throw new SimalRepositoryException(
-          "Unable to read osloh to doap XSL", e);
+      throw new SimalRepositoryException("Unable to read osloh to doap XSL", e);
     }
   }
 
-  private DOMResult getProjectDataAsDOAP(String projectID) throws TransformerConfigurationException,
-      IOException, TransformerException, SimalException {
+  private DOMResult getProjectDataAsDOAP(String projectID)
+      throws TransformerConfigurationException, IOException,
+      TransformerException, SimalException {
     Document ohlohProject = getProjectData(projectID);
     TransformerFactory tFactory = TransformerFactory.newInstance();
     URL xsl = Ohloh.class.getResource("/stylesheet/ohlohProject-to-doap.xsl");
-    Transformer transformer = tFactory.newTransformer(new StreamSource(xsl.openStream()));
+    Transformer transformer = tFactory.newTransformer(new StreamSource(xsl
+        .openStream()));
     DOMResult domProjectResult = new DOMResult();
     transformer.transform(new DOMSource(ohlohProject), domProjectResult);
     return domProjectResult;
   }
 
-  private DOMResult getContributorDataAsFOAF(String projectID) throws TransformerConfigurationException,
-      IOException, TransformerException, SimalException {
+  private DOMResult getContributorDataAsFOAF(String projectID)
+      throws TransformerConfigurationException, IOException,
+      TransformerException, SimalException {
     Document ohlohContributors = getContributorData(projectID);
-    NodeList contributors = ohlohContributors.getElementsByTagName("contributor_fact");
-    for (int i = 0; i < contributors.getLength(); i ++) {
+    NodeList contributors = ohlohContributors
+        .getElementsByTagName("contributor_fact");
+    for (int i = 0; i < contributors.getLength(); i++) {
       Element contributor = (Element) contributors.item(i);
-      Node accountIDNode = contributor.getElementsByTagName("account_id").item(0);
+      Node accountIDNode = contributor.getElementsByTagName("account_id").item(
+          0);
       if (accountIDNode != null) {
         String accountID = accountIDNode.getTextContent();
-        if (accountID.length()> 0) {
+        if (accountID.length() > 0) {
           Element ohlohAccount = getAccountData(accountID).getDocumentElement();
-          contributor.appendChild(ohlohContributors.importNode(ohlohAccount, true));
+          contributor.appendChild(ohlohContributors.importNode(ohlohAccount,
+              true));
         }
       }
-    }    
-    
+    }
+
     TransformerFactory tFactory = TransformerFactory.newInstance();
-    URL xsl = Ohloh.class.getResource("/stylesheet/ohlohContributor-to-foaf.xsl");
-    Transformer transformer = tFactory.newTransformer(new StreamSource(xsl.openStream()));
+    URL xsl = Ohloh.class
+        .getResource("/stylesheet/ohlohContributor-to-foaf.xsl");
+    Transformer transformer = tFactory.newTransformer(new StreamSource(xsl
+        .openStream()));
     DOMResult domContributorResult = new DOMResult();
-    transformer.transform(new DOMSource(ohlohContributors), domContributorResult);
-    
+    transformer.transform(new DOMSource(ohlohContributors),
+        domContributorResult);
+
     return domContributorResult;
   }
 
   private Document mergeProjectAndContributorData(DOMResult domProjectResult,
       DOMResult domContributorResult) {
-    Document result = (Document)domProjectResult.getNode();
+    Document result = (Document) domProjectResult.getNode();
     Element resultRoot = result.getDocumentElement();
-    NodeList contributors = ((Document)domContributorResult.getNode()).getDocumentElement().getElementsByTagNameNS(RDFUtils.FOAF_NS, "Person");
+    NodeList contributors = ((Document) domContributorResult.getNode())
+        .getDocumentElement()
+        .getElementsByTagNameNS(RDFUtils.FOAF_NS, "Person");
     for (int i = 0; i < contributors.getLength(); i++) {
       Node contributor = contributors.item(i);
-      Node developer = result.createElementNS("http://usefulinc.com/ns/doap#", "developer");
+      Node developer = result.createElementNS("http://usefulinc.com/ns/doap#",
+          "developer");
       developer.appendChild(result.importNode(contributor, true));
       resultRoot.getFirstChild().appendChild(developer);
     }
@@ -151,8 +160,7 @@ public class Ohloh {
    * @return
    * @throws SimalException
    */
-  protected Document getProjectData(String projectID)
-      throws SimalException {
+  protected Document getProjectData(String projectID) throws SimalException {
     String apiKey = getApiKey();
     StringBuilder sb = new StringBuilder(OHLOH_BASE_URI);
     sb.append("/projects/");
@@ -169,19 +177,22 @@ public class Ohloh {
     URLConnection con;
     try {
       URL url = new URL(urlString);
-      con  = url.openConnection();
+      con = url.openConnection();
       if (!con.getHeaderField("Status").startsWith("200")) {
-          throw new SimalException("Unable to open connection to " + url + " status: " + con.getHeaderField("Status"));
+        throw new SimalException("Unable to open connection to " + url
+            + " status: " + con.getHeaderField("Status"));
       }
     } catch (MalformedURLException e) {
-      throw new SimalException("The Ohloh URL is malformed, how can that happen since it is hard coded?", e);
+      throw new SimalException(
+          "The Ohloh URL is malformed, how can that happen since it is hard coded?",
+          e);
     } catch (IOException e) {
       throw new SimalException("Unable to open connection to Ohloh", e);
     }
     DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
     dbf.setNamespaceAware(true);
     Document doc = null;
-    
+
     DocumentBuilder db;
     try {
       db = dbf.newDocumentBuilder();
@@ -199,25 +210,28 @@ public class Ohloh {
   /**
    * Get the API key for this application. This should be set in
    * local.simal.properties with the parameter name ohloh.api.key
-   *   
+   * 
    * @return
    * @throws SimalException
    */
   protected String getApiKey() throws SimalException {
-    String apiKey = SimalProperties.getProperty(SimalProperties.PROPERTY_OHLOH_API_KEY);
-    if (apiKey == null || apiKey.length() == 0 || apiKey.contains("has not been set")) {
-      throw new SimalException("To import from Ohloh it is necessary to provide an Ohloh API key. Please set ohloh.api.key in local.simal.properties");
+    String apiKey = SimalProperties
+        .getProperty(SimalProperties.PROPERTY_OHLOH_API_KEY);
+    if (apiKey == null || apiKey.length() == 0
+        || apiKey.contains("has not been set")) {
+      throw new SimalException(
+          "To import from Ohloh it is necessary to provide an Ohloh API key. Please set ohloh.api.key in local.simal.properties");
     }
     return apiKey;
   }
-  
+
   /**
-   * Get a list of contributors to a given project as an
-   * Ohloh XML response document.
+   * Get a list of contributors to a given project as an Ohloh XML response
+   * document.
    * 
    * @param projectID
    * @return
-   * @throws SimalException 
+   * @throws SimalException
    */
   public Document getContributorData(String projectID) throws SimalException {
     String apiKey = getApiKey();
@@ -231,10 +245,10 @@ public class Ohloh {
     Document doc = getOhlohResponse(urlString);
     return doc;
   }
-  
+
   /**
-   * Get the Ohloh data for a specific account as an Ohloh
-   * XML response document.
+   * Get the Ohloh data for a specific account as an Ohloh XML response
+   * document.
    * 
    * @param accountID
    * @return

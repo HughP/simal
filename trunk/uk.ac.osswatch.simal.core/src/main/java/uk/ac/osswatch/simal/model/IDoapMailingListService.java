@@ -16,10 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * Behaviours to attach to a Mailing List
- * resource.
- *
+ * Behaviours to attach to a Mailing List resource.
+ * 
  */
 public interface IDoapMailingListService extends IDoapResourceService {
-  
+
 }

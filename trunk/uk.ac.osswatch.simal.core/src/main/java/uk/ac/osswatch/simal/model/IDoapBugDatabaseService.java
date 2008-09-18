@@ -16,10 +16,9 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * Behaviours to attach to an Issue tracker
- * (bug database) resource.
- *
+ * Behaviours to attach to an Issue tracker (bug database) resource.
+ * 
  */
 public interface IDoapBugDatabaseService extends IDoapResourceService {
-  
+
 }

@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.spike.inferencing;
+
 /*
  * Copyright 2007 University of Oxford
  *
@@ -23,7 +24,7 @@ import com.hp.hpl.jena.reasoner.ReasonerRegistry;
 
 /**
  * A spike class to experiment with OWL reasoning in Jena.
- *  
+ * 
  */
 public class OWLReasoning extends AbstractReasoning {
   /**
@@ -38,10 +39,10 @@ public class OWLReasoning extends AbstractReasoning {
    * Play with sameAs reasoning. Answer questions like "does the reasoner merge
    * tuples from resources marked sameAs?"
    * 
-   * NOTE: this was written whilst trying to learn about reasoning
-   * At the time of writing this note there is no actual reasoning 
-   * illustrated by this spike - it was a failed experiment. I had
-   * hoped I could query and it would follow owl:sameAs links
+   * NOTE: this was written whilst trying to learn about reasoning At the time
+   * of writing this note there is no actual reasoning illustrated by this spike -
+   * it was a failed experiment. I had hoped I could query and it would follow
+   * owl:sameAs links
    */
   private void sameAs() {
     Resource resource;
@@ -49,10 +50,10 @@ public class OWLReasoning extends AbstractReasoning {
 
     Reasoner owlReasoner = ReasonerRegistry.getOWLReasoner();
     InfModel infModel = ModelFactory.createInfModel(owlReasoner, model);
-    
+
     resource = infModel.getResource(johnPrimeURI);
     printStatements("OWLReasoned", infModel, resource, null, null);
-    
+
     runTestQuery(infModel);
   }
 
