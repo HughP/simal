@@ -72,9 +72,9 @@ java -cp simal-core-0.2-jar-with-dependencies.jar uk.ac.osswatch.simal.Simal wri
 
 This section lists CLI commands that do not currently have a test strategy defined above. You are encouraged to test these commands and, in the process, write a test strategy for them.
 
-* writexml
-* importPTSW
-* importOhloh
+ * writexml
+ * importPTSW
+ * importOhloh
 
 == Automated Testing ==
 
