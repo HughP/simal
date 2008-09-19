@@ -344,13 +344,13 @@ public class Simal {
     footer
         .append("addxml       FILE_OR_URL   add an RDF/XML file to the repository\n");
     footer
-        .append("addxmldir    DIRECTORY     add all RDF/XML files found in the supplied directory to the repository\n");
+        .append("addxmldir    DIRECTORY     add all RDF/XML files found in a directory\n");
     footer
-        .append("writexml     QNAME       retrive the RDF/XML with the supplied QName and write it to standard out");
+        .append("writexml     URI           retrive the RDF/XML of an entity and write it to standard IO\n");
     footer
-        .append("importPTSW               get the list of recently updated DOAp files from Ping The Semantic Web and import them into the repository. Note, this requires and account on Ping The Semantic Web.");
+        .append("importPTSW                 Import all recently updated DOAP files from PTSW\n");
     footer
-        .append("importOhloh  ID          import a project from Ohloh with a given ID.");
+        .append("importOhloh  ID            import a project from Ohloh with a given ID.");
 
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
         header, opts, footer.toString(), false);
