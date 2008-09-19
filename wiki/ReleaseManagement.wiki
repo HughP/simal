@@ -49,6 +49,10 @@ Upload the binaries to the downloads section of Google Code, making them a featu
 
 If this is a RC release then previous RC releases should be deleted (they use up the storage quota and can be rebuilt from SVN if people need to do so).
 
+= Ensure Docs are Updated =
+
+Rebuild and [PublishingSiteDocs publish the docs].
+
 = Test =
 
 Each of the binaries should be tested by as many people, on as many platforms as possible. Any reported tests failures must be resolved and new binaries produced for testing.
