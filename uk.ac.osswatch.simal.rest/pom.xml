@@ -3,6 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>uk.ac.osswatch</groupId>
   <artifactId>simal-rest</artifactId>
+  <packaging>jar</packaging>
   <version>0.2-SNAPSHOT</version>
   <name>Simal Rest API</name>
   <url>http://simal.oss-watch.ac.uk</url>
@@ -100,7 +101,6 @@
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
       <version>6.1.4</version>
-      <scope>provided</scope>
     </dependency>
     
     <dependency>
