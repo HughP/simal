@@ -10,6 +10,10 @@ Before a release can be made a number of requirements must be met.
  * All source code has been formatted according to the projects coding standards
  * All documentation has been updated to reflect the new features in this release
 
+= Code Freeze =
+
+Send a mail to the developer and user lists stating that the project has entered a state of code freeze, that is no changes will be made other than preparation changes for the next release until the release is complete.
+
 = Change src version numbers to reflect release candidate build =
 
 We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-SNAPSHOT" to "-rc1", "-rc2", "rc3" etc.
@@ -19,18 +23,26 @@ We must first build a release candidate for testing. To do this we need to corre
 
 At this early stage we will release all Simal module simultaneously and therefore we need to change the {{{pom.xml}}} as described in each module (there is currently no {{{default.simal.properties}}} file in modules other than core)
 
-= Build the Binaries =
+= Build the Release Candidate Binaries =
 
 For each of the modules build the binaries as follows:
 
 {{{
-cd $MODULE_HOME
+cd uk.ac.osswatch.ac.uk.simal.core
+mvn install
+mvn assembly:assembly
+
+
+cd uk.ac.osswatch.ac.uk.simal.rest
+mvn install
+mvn assembly:assembly
+
+cd uk.ac.osswatch.ac.uk.simal.web
+mvn install
 mvn assembly:assembly
 }}}
 
-= Tag SVN =
-
-SVN should be tagged with the release number in the format simal_x_y_z_POSTFIX
+Note that the process of building the binaries will run all automated tests against the code.
 
 = Upload to Google Code =
 
@@ -40,9 +52,7 @@ If this is a RC release then previous RC releases should be deleted (they use up
 
 = Test =
 
- * notify users/developers of new release candidate
- * as many people as possible should test the release candidate
- * all [http://code.google.com/p/simal/issues/list?can=6 closed issues awaiting] QA approval should be verified
+Each of the binaries should be tested by as many people, on as many platforms as possible. Any reported tests failures must be resolved and new binaries produced for testing.
 
 = Vote =
 
@@ -77,7 +87,7 @@ Where z is one increment higher than the previous release.
 
 = Build the release binaries =
 
-For each of the modules build the binaries.
+For each of the modules build the release binaries binaries using the same process as above.
 
 = Upload to Google Code =
 
@@ -91,3 +101,5 @@ We must now set up SVN for development of the next release. To do this we need t
 
  * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
+
+= Start the new development cycle =
