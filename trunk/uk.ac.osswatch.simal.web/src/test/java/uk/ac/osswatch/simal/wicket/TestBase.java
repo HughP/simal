@@ -29,7 +29,6 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public abstract class TestBase {
   public static final String TEST_PROJECT_SEEALSO = "http://simal.oss-watch.ac.uk/simalTest#";
