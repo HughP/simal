@@ -59,6 +59,12 @@ Rebuild and [PublishingSiteDocs publish the docs].
 
 Each of the binaries should be tested by as many people, on as many platforms as possible. Any reported tests failures must be resolved and new binaries produced for testing.
 
+More details on how to test are included in:
+
+ *TestingCoreReleases
+ *TestingRESTReleases
+ *TestingWebReleases
+
 = Vote =
 
 Assuming that no critical errors are discovered during the testing phase we can now proceed with getting approval for the release.
