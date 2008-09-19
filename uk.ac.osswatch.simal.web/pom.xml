@@ -7,7 +7,7 @@
   <artifactId>simal-webapp</artifactId>
   <packaging>war</packaging>
   <version>0.1-SNAPSHOT</version>
-  <name>Web Application</name>
+  <name>Simal Web Application</name>
   <url>http://simal.oss-watch.ac.uk</url>
   <description>
     A web application for viewing and manipulating a Simal registry.
@@ -173,21 +173,21 @@
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty</artifactId>
       <version>${jetty.version}</version>
-      <scope>provided</scope>
+      
     </dependency>
 
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty-util</artifactId>
       <version>${jetty.version}</version>
-      <scope>provided</scope>
+      
     </dependency>
 
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty-management</artifactId>
       <version>${jetty.version}</version>
-      <scope>provided</scope>
+      
     </dependency>
   </dependencies>
 
