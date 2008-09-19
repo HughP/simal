@@ -21,6 +21,8 @@ We must first build a release candidate for testing. To do this we need to corre
  * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
 
+In addition we need to change the dependency entries for other Simal modules in both the rest and webapp modules.
+
 At this early stage we will release all Simal module simultaneously and therefore we need to change the {{{pom.xml}}} as described in each module (there is currently no {{{default.simal.properties}}} file in modules other than core)
 
 = Build the Release Candidate Binaries =
