@@ -184,6 +184,7 @@
         <artifactId>rat-maven-plugin</artifactId>
         <configuration>
           <excludes>
+            <exclude>.pmd</exclude>
             <exclude>build/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
             <exclude>simalRepository/**/*</exclude>
