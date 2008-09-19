@@ -27,6 +27,23 @@ java -cp simal-core-0.2-jar-with-dependencies.jar uk.ac.osswatch.simal.Simal -h
 
 The Simal CLI help message is output to the console.
 
+== Print Simal version number ==
+
+=== Purpose of test ===
+
+Ensure that Simal is reporting the correct version number.
+
+=== Commands ===
+
+{{{
+java -cp simal-core-0.2-jar-with-dependencies.jar uk.ac.osswatch.simal.Simal -v
+}}}
+
+=== Expected behaviour ===
+
+Simal will output it's versionnumber and some environment information. Check the version number is as expected.
+
+
 == Import a local document ==
 
 To ensure a document can be imported from the local filesystem via the command line.
