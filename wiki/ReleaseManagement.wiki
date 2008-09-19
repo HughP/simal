@@ -29,17 +29,16 @@ For each of the modules build the binaries as follows:
 
 {{{
 cd uk.ac.osswatch.ac.uk.simal.core
-mvn install
+mvn clean install
 mvn assembly:assembly
 
 
 cd uk.ac.osswatch.ac.uk.simal.rest
-mvn install
+mvn clean install
 mvn assembly:assembly
 
 cd uk.ac.osswatch.ac.uk.simal.web
-mvn install
-mvn assembly:assembly
+mvn clean assembly:assembly
 }}}
 
 Note that the process of building the binaries will run all automated tests against the code.
