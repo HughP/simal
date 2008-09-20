@@ -62,7 +62,7 @@ Each of the binaries should be tested by as many people, on as many platforms as
 More details on how to test are included in:
 
  * TestingCoreReleases
- * TestingRestTReleases
+ * TestingRestReleases
  * TestingWebReleases
 
 = Vote =
