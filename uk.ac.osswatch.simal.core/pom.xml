@@ -26,7 +26,7 @@
   <packaging>jar</packaging>
 
   <name>Simal core</name>
-  <url>http://simal.oss-watch.ac.uk</url>
+  <url>http://simal.oss-watch.ac.uk/core</url>
   <description>
     Simal is a framework and web application for the creation,
     management and querying of project registries.
