@@ -75,16 +75,6 @@ java -cp simal-core-0.2-jar-with-dependencies.jar uk.ac.osswatch.simal.Simal add
 Confirmation is output that the entity was added.
 
 
-== Write RDF/XML to Standard Out ==
-
-Retrieve an entity from the repository and display it on standard out.
-
-=== Commands ===
-
-{{{
-java -cp simal-core-0.2-jar-with-dependencies.jar uk.ac.osswatch.simal.Simal writexml 
-}}}
-
 == Additional Tests ==
 
 This section lists CLI commands that do not currently have a test strategy defined above. You are encouraged to test these commands and, in the process, write a test strategy for them.
