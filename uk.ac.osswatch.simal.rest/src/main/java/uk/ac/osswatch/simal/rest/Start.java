@@ -56,6 +56,9 @@ public class Start {
       }
       server.stop();
       server.join();
+    } catch (RuntimeException e) {
+      e.printStackTrace();
+      System.exit(100);
     } catch (Exception e) {
       e.printStackTrace();
       System.exit(100);
