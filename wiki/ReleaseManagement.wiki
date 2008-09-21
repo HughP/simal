@@ -37,10 +37,10 @@ mvn assembly:assembly
 
 cd uk.ac.osswatch.ac.uk.simal.rest
 mvn clean install
-mvn assembly:assembly
+mvn package
 
 cd uk.ac.osswatch.ac.uk.simal.web
-mvn clean assembly:assembly
+mvn clean package
 }}}
 
 Note that the process of building the binaries will run all automated tests against the code.
