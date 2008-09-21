@@ -238,15 +238,21 @@ public final class RESTCommand {
    * @param cmdString
    *          the pathInfo part of the request URI
    * @return
+   * @throws SimalAPIException
    */
-  public static RESTCommand createCommand(String cmdString) {
-    RESTCommand cmd = new RESTCommand();
-    cmd.setCommandMethod(extractCommandMethod(cmdString));
-    cmd.setPersonID(extractPersonId(cmdString));
-    cmd.setProjectID(extractProjectId(cmdString));
-    cmd.setSource(extractSource(cmdString));
-    cmd.setFormat(extractFormat(cmdString));
-    return cmd;
+  public static RESTCommand createCommand(String cmdString)
+      throws SimalAPIException {
+    if (cmdString != null) {
+      RESTCommand cmd = new RESTCommand();
+      cmd.setCommandMethod(extractCommandMethod(cmdString));
+      cmd.setPersonID(extractPersonId(cmdString));
+      cmd.setProjectID(extractProjectId(cmdString));
+      cmd.setSource(extractSource(cmdString));
+      cmd.setFormat(extractFormat(cmdString));
+      return cmd;
+    } else {
+      throw new SimalAPIException("No command string was submitted.");
+    }
   }
 
   /**
