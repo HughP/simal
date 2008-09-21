@@ -52,7 +52,12 @@ public class RESTServlet extends HttpServlet {
     }
     PrintWriter out = res.getWriter();
 
-    RESTCommand cmd = RESTCommand.createCommand(req.getPathInfo());
+    RESTCommand cmd;
+    try {
+      cmd = RESTCommand.createCommand(req.getPathInfo());
+    } catch (SimalAPIException e) {
+      throw new ServletException("Unable to create Simal REST command", e);
+    }
 
     String response = "Could not handle request for " + req.getPathInfo();
 

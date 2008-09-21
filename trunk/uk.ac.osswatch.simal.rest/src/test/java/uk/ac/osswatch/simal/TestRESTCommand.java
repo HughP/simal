@@ -27,7 +27,7 @@ import uk.ac.osswatch.simal.rest.SimalAPIException;
 public class TestRESTCommand {
 
   @Test
-  public void testCreateDefaultSourceFromURI() {
+  public void testCreateDefaultSourceFromURI() throws SimalAPIException {
     String cmdString = RESTCommand.ALL_COLLEAGUES + RESTCommand.PARAM_PERSON_ID
         + "1" + RESTCommand.FORMAT_JSON;
     RESTCommand cmd = RESTCommand.createCommand(cmdString);
@@ -40,7 +40,7 @@ public class TestRESTCommand {
   }
 
   @Test
-  public void testCreateMyExperiementSOurceFromURI() {
+  public void testCreateMyExperiementSOurceFromURI() throws SimalAPIException {
     String cmdString = RESTCommand.ALL_COLLEAGUES + RESTCommand.PARAM_PERSON_ID
         + "1" + RESTCommand.PARAM_SOURCE + RESTCommand.TYPE_MYEXPERIMENT
         + RESTCommand.FORMAT_JSON;
