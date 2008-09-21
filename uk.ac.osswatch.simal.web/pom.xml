@@ -8,7 +8,7 @@
   <packaging>war</packaging>
   <version>0.2-SNAPSHOT</version>
   <name>Simal Web Application</name>
-  <url>http://simal.oss-watch.ac.uk</url>
+  <url>http://simal.oss-watch.ac.uk/web</url>
   <description>
     A web application for viewing and manipulating a Simal registry.
   </description>
