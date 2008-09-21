@@ -11,6 +11,8 @@ You are strongly encouraged to try variations around the themes outlined in this
 
 You must have installed a Servlet engine on your machine, we suggest [http://www.mortbay.org/jetty Jetty] or [http://tomcat.apache.org Apache Tomcat]. Download the REST api war and drop it into your servlet container, then start up the container.
 
+You will also need [http://curl.haxx.se/ CURL] to run these tests.
+
 = Details =
 
 == Start the REST server ==
@@ -27,4 +29,47 @@ http://localhost:8080/simal-rest-0.2
 
 === Expected behaviour ===
 
-A page is displayed telling you that the simal rest server has been installed.
+A page is displayed telling you that the simal rest is available on this server.
+
+== Import RDF Data ==
+
+To ensure a document can be imported from the local filesystem via the REST interface.
+
+=== Commands ===
+
+{{{
+curl --data "rdf=<RDF/>" http://localhost:8080/simal-rest-0.2/simal-rest/addProject
+}}}
+
+=== Expected Behaviour ===
+
+HTTP response 200.
+
+== Get all projects as JSON ==
+
+To ensure we can retrieve projects in JSON format
+
+=== Commands ===
+
+{{{
+curl -G http://localhost:8080/simal-rest-0.2/simal-rest/allProjects/json
+}}}
+
+=== Expected Behaviour ===
+
+A list of all projects in the repository in JSON format.
+
+
+== Get all people as JSON ==
+
+To ensure we can retrieve people in JSON format
+
+=== Commands ===
+
+{{{
+curl -G http://localhost:8080/simal-rest-0.2/simal-rest/allPeople/json
+}}}
+
+=== Expected Behaviour ===
+
+A list of all people in the repository in JSON format.
