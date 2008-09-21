@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Simal REST API</title>
+  </header>
+  <body>
+    <p>
+      The Simal REST module provides a web application that exposes the
+      Simal repository via a REST API.
+    </p>
+
+    <warning>
+      This module is in an alpha state. The API is liable to change iun
+      response to discussion on the
+      <a href="ext:simal/devList">Simal developer mailing list</a>
+      .
+    </warning>
+
+    <note>
+      Our documentation is quite sparse at present. Please ask for help
+      on our
+      <a href="ext:simal/userList">mailing list</a>
+      and we'll be sure to expand the documentation in response to your
+      questions. Unless you ask, we don;t know what people need to see.
+    </note>
+
+
+    <p>
+      The following sections describe the features currently exposed via
+      the API.
+    </p>
+
+    <section>
+      <title>URL Structure</title>
+
+      <p>All REST URLs are of the same form:</p>
+
+      <source>
+          http://foo.com/simal-rest/COMMAND/NAME_VALUE_PAIRS/FORMAT
+        </source>
+
+      <p>
+        Where
+        <code>COMMAND</code>
+        is the command you wish to execute,
+        <code>NAME_VALUE_PAIRS</code>
+        is zero or more parameter names and value pairs and
+        <code>FORMAT</code>
+        is a format code that specifies the format of the response
+        document.
+      </p>
+    </section>
+
+    <section>
+      <title>Project Data</title>
+
+      <section>
+        <title>Add a project</title>
+
+        <p>To add a project using a DOAP POST to:</p>
+
+        <source>http://foo.com/simal-rest/addProject</source>
+
+        <p>
+          The RDF project data should be contained in a parameter called
+          <code>rdf</code>
+          .
+        </p>
+      </section>
+
+      <section>
+        <title>Retrieve a Single Project</title>
+
+        <p>To retrieve the details of a single project use:</p>
+
+        <source>http://foo.com/simal-rest/project/project-ID/FORMAT</source>
+      </section>
+
+      <section>
+        <title>All Projects</title>
+
+        <p>
+          To retrieve all projects from the standard SIMAL repository
+          use:
+        </p>
+
+        <source>http://foo.com/simal-rest/allProjects/FORMAT</source>
+      </section>
+    </section>
+
+    <section>
+      <title>Person Data</title>
+
+      <section>
+        <title>Retrieve a Single Person</title>
+
+        <p>To retrieve the details of a single person use:</p>
+
+        <source>http://foo.com/simal-rest/person/person-ID/FORMAT</source>
+      </section>
+
+      <section>
+        <title>All Colleagues of a Person</title>
+
+        <p>
+          A colleague is defined as someone who works on any of the
+          projects our target person works on.
+        </p>
+
+        <p>
+          To retrieve all colleagues from the standard SIMAL repository
+          use:
+        </p>
+
+        <source>http://foo.com/simal-rest/allColleagues/person-ID/FORMAT</source>
+
+        <p>
+          Where PERSON_ID is replaced with the Simal ID of the person we
+          are interested in.
+        </p>
+      </section>
+
+      <section>
+        <title>Retrieve all People</title>
+
+        <p>To retrieve the details of all people use:</p>
+
+        <source>http://foo.com/simal-rest/allPeople/FORMAT</source>
+      </section>
+    </section>
+
+    <section>
+      <title>Alternative Data Sources</title>
+
+      <p>
+        Simal can retrieve data from sources other than the standard
+        Simal repository. Such as the
+        <a href="http://www.myexperiment.org">MyExperiment</a>
+        social networking tool for scientific research. In order to use
+        alternative data sources use the "source" parameter as follows:
+      </p>
+
+      <source>http://foo.com/simal-rest/allColleagues/source-myExperiment/PERSON-ID/FORMAT</source>
+    </section>
+  </body>
+</document>
