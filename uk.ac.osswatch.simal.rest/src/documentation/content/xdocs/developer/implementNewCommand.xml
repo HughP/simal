@@ -92,7 +92,7 @@ public final class RESTCommand {
       </source>
       
       <p>Now our tests will compile and we can check that 
-      it fails as expected when run. I love test driven 
+      it fails as expected when run. We love test driven 
       development, even a failure is a success!</p>
     </section>
     
@@ -154,6 +154,19 @@ throws SimalAPIException {
       the repository, but should be enough to pass our test, which
       is the objective right now. Run the test to satisfy yourself
       everything is going well.</p>
+    
+      <section>
+        <title>Is this a POST or a GET command?</title>
+        
+        <p>Simal REST assumes that a new command is intended to be handled
+        by an HTTP Get request. If this is not the case then you need to
+        tell the API that it is actually a POST command. To do this
+        simply add to the tests in the <code>isPost()</code> method of
+        RESTCommnd.</p>
+        
+        <note>At the time of writing DELETE and PUT are not supported</note> 
+        
+      </section>
       
     </section>
     

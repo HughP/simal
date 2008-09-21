@@ -58,6 +58,55 @@ public class RESTServlet extends HttpServlet {
     } catch (SimalAPIException e) {
       throw new ServletException("Unable to create Simal REST command", e);
     }
+    
+    if (!cmd.isGet()) {
+      throw new ServletException(cmd.getCommandMethod() + " cannot be handled using the GET HTTP method");
+    }
+
+    String response = "Could not handle request for " + req.getPathInfo();
+
+    try {
+      ISimalRepository repo = SimalRepositoryFactory
+          .getInstance(SimalRepositoryFactory.TYPE_JENA);
+      if (!repo.isInitialised()) {
+        repo.initialise();
+      }
+      HandlerFactory handlerFactory = new HandlerFactory(repo);
+      IAPIHandler handler = handlerFactory.get(cmd);
+      response = handler.execute();
+    } catch (SimalAPIException e) {
+      response = errorResponse(e);
+    } catch (SimalRepositoryException e) {
+      response = errorResponse(new SimalAPIException(
+          "Unable to connect to repository", e));
+    } finally {
+      if (cmd.isXML()) {
+        res.setContentType("text/xml; charset=UTF-8");
+      } else if (cmd.isJSON()) {
+        res.setContentType("application/json; charset=UTF-8");
+      }
+      out.println(response);
+      out.close();
+    }
+  }
+
+  public void doPost(HttpServletRequest req, HttpServletResponse res)
+      throws ServletException, IOException {
+    if (logger.isTraceEnabled()) {
+      logRequest(req);
+    }
+    PrintWriter out = res.getWriter();
+
+    RESTCommand cmd;
+    try {
+      cmd = RESTCommand.createCommand(req.getPathInfo(), req.getParameterMap());
+    } catch (SimalAPIException e) {
+      throw new ServletException("Unable to create Simal REST command", e);
+    }
+    
+    if (!cmd.isPost()) {
+      throw new ServletException(cmd.getCommandMethod() + " cannot be handled using the POST HTTP method");
+    }
 
     String response = "Could not handle request for " + req.getPathInfo();
 

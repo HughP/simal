@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.rest;
  */
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import uk.ac.osswatch.simal.SimalProperties;
@@ -232,6 +233,30 @@ public final class RESTCommand {
     return false;
   }
 
+
+  /**
+   * Create a command object that represents a complete REST command string
+   * 
+   * @param cmdString
+   *          the pathInfo part of the request URI
+   * @param paramMap
+   *          the parameters supplied in the request
+   * @return
+   * @throws SimalAPIException 
+   */
+  public static RESTCommand createCommand(String cmdString, Map<String, String[]> paramMap) throws SimalAPIException {
+    RESTCommand cmd = createCommand(cmdString);
+    Iterator<String> keys = paramMap.keySet().iterator();
+    while (keys.hasNext()) {
+      String key = keys.next();
+      String[] values = paramMap.get(key);
+      for (int i = 0; i < values.length; i++) {
+        cmd.addParameter(key, values[i]);
+      }
+    }
+    return cmd;
+  }
+  
   /**
    * Create a command object that represents a complete REST command string
    * 
@@ -499,4 +524,25 @@ public final class RESTCommand {
     return params.get(name);
   }
 
+  /**
+   * Return true is this command can be handled by an HTTP
+   * post.
+   * 
+   * @return
+   */
+  public boolean isPost() {
+    if (isAddProject()) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  /**
+   * Return true is this command can be handled by an HTTP
+   * get.
+   */
+  public boolean isGet() {
+    return !isPost();
+  }
 }
