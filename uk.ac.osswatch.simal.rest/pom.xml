@@ -4,7 +4,7 @@
   
   <groupId>uk.ac.osswatch</groupId>
   <artifactId>simal-rest</artifactId>
-  <packaging>jar</packaging>
+  <packaging>war</packaging>
   <version>0.2-SNAPSHOT</version>
   <name>Simal Rest API</name>
   <url>http://simal.oss-watch.ac.uk/rest</url>
