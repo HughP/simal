@@ -1,7 +1,11 @@
 #summary An outline of the schema Simal uses
 #labels Phase-Design
 
-||Data||Description||Example||
+This document describes the Schema currently in use within Simal as well as outlining some proposals for future data requirements.
+
+=Currently Supported=
+
+|| *Data* || *Description* || *Example* ||
 ||Project||A project.||<doap:Project rdf:about="http://foo.org/projectX#">...<doap:Project>||
 ||name||A name of something.||<doap:name>Project X</doap:name>||
 ||homepage||URL of a project's homepage, associated with exactly one project.||<doap:homepage rdf:resource="http://www.foo.org"/>||
@@ -28,3 +32,9 @@
 ||helper||Project contributor.||||
 ||programming language||Programming language a project is implemented in or intended for use with.||||
 ||operating system||Operating system that a project is limited to. Omit this property if the project is not OS-specific.||||
+
+=Proposed Additions=
+
+|| *Data* || *Description* || *Suggested Implementation* ||
+||Funding Start||Funding start date where a central source of funding is known||||
+||Funding End||Funding end date where a central source of funding is known||||
