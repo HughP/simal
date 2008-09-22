@@ -301,7 +301,8 @@ public class Simal {
       logger.error("The URL specified in --addxml  is not a valid URL.");
       System.exit(1);
     }
-    logger.info("Data added.");
+    logger.info("DOAP data succesffuly added via the CLI.");
+    System.out.println("DOAP data succesffuly added.");
   }
 
   private static void initRepository(String dir) {
