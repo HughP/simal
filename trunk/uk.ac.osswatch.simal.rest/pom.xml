@@ -186,6 +186,7 @@
         <configuration>
           <excludes>
             <exclude>.pmd</exclude>
+            <exclude>derby.log</exclude>
             <exclude>build/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
             <exclude>simalRepository/**/*</exclude>
