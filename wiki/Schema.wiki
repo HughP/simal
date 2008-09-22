@@ -9,11 +9,11 @@ This document describes the Schema currently in use within Simal as well as outl
 ||Project||A project.||<doap:Project rdf:about="http://foo.org/projectX#">...<doap:Project>||
 ||name||A name of something.||<doap:name>Project X</doap:name>||
 ||homepage||URL of a project's homepage, associated with exactly one project.||<doap:homepage rdf:resource="http://www.foo.org"/>||
-||old homepage||URL of a project's past homepage, associated with exactly one project.||||
-||created||Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05||||
-||short description||Short plain text description of a project.||||
-||description||Plain text description of a project.||||
-||release||A project release.||||
+||old homepage||URL of a project's past homepage, associated with exactly one project.||<doap:old-homepage rdf:resource="http://www.bar.org/foo"/>||
+||created||Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05||<doap:created>2004-04-05</doap:created>||
+||short description||Short plain text description of a project.||<doap:shortdesc>A short description</doap:shortdesc>||
+||description||Plain text description of a project.||<doap:description>A complete description with all the words you could hope to see.</doap:description>||
+||release||A project release.||<doap:release rdf:about="http://foo.org/project/release/0.1>...</doap:release>||
 ||mailing list||Mailing list home page or email address.||||
 ||category||A category of project.||||
 ||license||The URI of an RDF description of the license outputs are distributed under.||
