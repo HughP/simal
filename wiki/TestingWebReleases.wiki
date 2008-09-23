@@ -1,0 +1,32 @@
+#summary A strategy for testing the web module before release
+#labels Phase-QA
+
+= Introduction =
+
+The document describes the *minimum* that you should do in order to test a build of the web module ready for release.
+
+You are strongly encouraged to try variations around the themes outlined in this document. The more thorough you test the build, the less likely there will be a significant bug in the release.
+
+== Preparation ==
+
+You must have installed a Servlet engine on your machine, we suggest [http://www.mortbay.org/jetty Jetty] or [http://tomcat.apache.org Apache Tomcat]. Download the web module war and drop it into your servlet container, then start up the container.
+
+= Details =
+
+== Start the webapp ==
+
+=== Purpose of test ===
+
+To ensure the webapp is running.
+
+=== Commands ===
+
+Start your webapp and then:
+
+{{{
+http://localhost:8080/simal-webapp-0.2
+}}}
+
+=== Expected behaviour ===
+
+The homepage of the Simal webapp is displayed with no projects in the repostiory (note for there to be no projects present you need to be running in a new install, if you are upgrading you will have the same content as you previous install).
