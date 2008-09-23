@@ -3,7 +3,7 @@
 
 = Introduction =
 
-The document describes the *minimum* that you should do in order to test a build of the core module ready for release.
+The document describes the *minimum* that you should do in order to test a build of the rest module ready for release.
 
 You are strongly encouraged to try variations around the themes outlined in this document. The more thorough you test the build, the less likely there will be a significant bug in the release.
 
