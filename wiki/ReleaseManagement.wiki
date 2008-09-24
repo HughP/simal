@@ -12,7 +12,7 @@ Before a release can be made a number of requirements must be met.
 
 = Code Freeze =
 
-Send a mail to the developer and user lists stating that the project has entered a state of code freeze, that is no changes will be made other than preparation changes for the next release until the release is complete.
+Send a mail to the developer and user lists stating that the project has entered a state of code freeze, that is no changes will be made other than preparation changes for the next release until the release branch has been created.
 
 = Change src version numbers to reflect release candidate build =
 
@@ -25,6 +25,8 @@ In addition we need to change the dependency entries for other Simal modules in 
 
 At this early stage we will release all Simal module simultaneously and therefore we need to change the {{{pom.xml}}} as described in each module (there is currently no {{{default.simal.properties}}} file in modules other than core)
 
+Commit these changes to SVN.
+
 = Build the Release Candidate Binaries =
 
 For each of the modules build the binaries as follows:
@@ -34,12 +36,11 @@ cd uk.ac.osswatch.ac.uk.simal.core
 mvn clean install
 mvn assembly:assembly
 
-
-cd uk.ac.osswatch.ac.uk.simal.rest
+cd ../uk.ac.osswatch.ac.uk.simal.rest
 mvn clean install
 mvn package
 
-cd uk.ac.osswatch.ac.uk.simal.web
+cd ../uk.ac.osswatch.ac.uk.simal.web
 mvn clean package
 }}}
 
@@ -49,11 +50,15 @@ Note that the process of building the binaries will run all automated tests agai
 
 Upload the binaries to the downloads section of Google Code, making them a featured download.
 
-If this is a RC release then previous RC releases should be deleted (they use up the storage quota and can be rebuilt from SVN if people need to do so).
+If this is a RC release then previous RC releases should be deleted if possible (they use up the storage quota and can be rebuilt from SVN if people need to do so).
 
 = Ensure documentation is published =
 
 Rebuild and [PublishingSiteDocs publish the docs].
+
+= Ensure the demo server is running the latest release =
+
+[UpdatingDemoServer Update the version of Simal] on the demo server
 
 = Create a Release Branch = 
 
@@ -72,7 +77,7 @@ We must now set up SVN trunk for development of the next release. To do this we 
  * in {{{pom.xml}}} change {{{<version>x.y-dev</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y-dev}}}
 
-= Lift Code Freeze =
+= Lift Code Freeze and Announce the Release Candidate =
 
 The code freeze on trunk can now be lifted as there is a maintenance branch for any last minute bug fixes or documentation tweaks.
 
