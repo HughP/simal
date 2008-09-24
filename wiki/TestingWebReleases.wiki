@@ -9,6 +9,8 @@ You are strongly encouraged to try variations around the themes outlined in this
 
 == Preparation ==
 
+Some of these tests are destructive, it is therefore vital that you do not run these tests from the same directory as a previous install of Simal - if you do your data will be modified.
+
 You must have installed a Servlet engine on your machine, we suggest [http://www.mortbay.org/jetty Jetty] or [http://tomcat.apache.org Apache Tomcat]. Download the web module war and drop it into your servlet container, then start up the container.
 
 = Details =
