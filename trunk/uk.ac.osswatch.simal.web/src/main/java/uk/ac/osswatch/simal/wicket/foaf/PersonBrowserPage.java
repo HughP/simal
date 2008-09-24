@@ -38,7 +38,10 @@ public class PersonBrowserPage extends BasePage {
     add(HeaderContributor.forCss(EXHIBIT_CSS));
     add(HeaderContributor
         .forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
-    add(new StringHeaderContributor(
-        "<link href=\"/simal-rest/allPeople/json\" rel=\"exhibit/data\" />"));
+    StringBuilder jsonLink = new StringBuilder("<link href=\"");
+    jsonLink.append(this.getRequest().getRelativePathPrefixToContextRoot());
+    jsonLink = jsonLink.append("/simal-rest/allPeople/json\" rel=\"exhibit/data");
+    jsonLink.append(" rel=\"exhibit/data\" />");
+    add(new StringHeaderContributor(jsonLink.toString()));
   }
 }
