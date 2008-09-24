@@ -72,6 +72,8 @@ public class ToolsPage extends BasePage {
           .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)));
       add(new Label("propertiesFile", SimalProperties.getLocalPropertiesFile()
           .toString()));
+      add(new Label("repositoryDir", SimalProperties
+          .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR)));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get repository configuration data", ToolsPage.class, e);
