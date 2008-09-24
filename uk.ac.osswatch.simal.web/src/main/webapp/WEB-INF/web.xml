@@ -40,7 +40,7 @@ Copyright 2008 University of Oxford
 
 
 
-  <!-- Simal API -->
+  <!-- Simal REST API -->
   <servlet>
       <servlet-name>Simal REST API</servlet-name>
       <servlet-class>uk.ac.osswatch.simal.rest.RESTServlet</servlet-class>
