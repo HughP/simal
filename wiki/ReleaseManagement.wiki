@@ -51,13 +51,34 @@ Upload the binaries to the downloads section of Google Code, making them a featu
 
 If this is a RC release then previous RC releases should be deleted (they use up the storage quota and can be rebuilt from SVN if people need to do so).
 
-= Ensure Docs are Updated =
+= Ensure documentation is published =
 
 Rebuild and [PublishingSiteDocs publish the docs].
 
+= Create a Release Branch = 
+
+From this point forwards only bug fixes will be allowed in the release code. It therefore makes sense to create a branch at this point for the maintenance of the release, This allows development of the new version to continue in the trunk whilst the release candidate is being tested.
+
+To create the release branch run the following commands:
+
+{{{
+svn copy https://simal.googlecode.com/svn/trunk https://simal.googlecode.com/svn/branches/0.2.x
+}}}
+
+= Change src version numbers in the trunk =
+
+We must now set up SVN trunk for development of the next release. To do this we need to correctly set the version number. Usually this will mean incrementing the minor version number and changing the postfix from "-ga" to "-dev"
+
+ * in {{{pom.xml}}} change {{{<version>x.y-dev</version>}}}
+ * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y-dev}}}
+
+= Lift Code Freeze =
+
+The code freeze on trunk can now be lifted as there is a maintenance branch for any last minute bug fixes or documentation tweaks.
+
 = Test =
 
-Each of the binaries should be tested by as many people, on as many platforms as possible. Any reported tests failures must be resolved and new binaries produced for testing.
+Each of the binaries should be tested by as many people, on as many platforms as possible. Any reported tests failures must be resolved in the both the release branch and trunk and new binaries are produced produced for testing with a new release candidate version number.
 
 More details on how to test are included in:
 
@@ -73,7 +94,7 @@ A vote on the release is called on the contributor mailing list.
 
 Assuming that the vote passes we can proceed. If it does not pass the reason(s) for the negative votes must be addressed.
 
-= Change src version numbers =
+= Change release branch version numbers =
 
 We must now build a release package. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-rc*" to "-ga"
 
@@ -84,33 +105,19 @@ At this early stage we will release all Simal module simultaneously and therefor
 
 = Tag SVN =
 
-SVN needs to be tagged with the release information, typically, this will look something like:
+SVN needs to be tagged with the release information as follows:
 
-"simal_x_y_z"
-
-= Set up a maintenance branch =
-
-We need a maintenance branch in SVN in case any bugs are found in the release. Create a branch called:
-
-"simal_x_y_z"
-
-Where z is one increment higher than the previous release.
+{{{
+svn copy http://.../repos/branches/1.0.x http://.../repos/tags/1.0.0
+svn copy https://simal.googlecode.com/svn/branches/0.2.x https://simal.googlecode.com/svn/tags/0.2.0
+}}}
 
 = Build the release binaries =
 
-For each of the modules build the release binaries binaries using the same process as above.
+For each of the modules build the release binaries using the same process as above.
 
 = Upload to Google Code =
 
 Upload to the downloads section of Google Code, making it a featured download.
 
 Deprecate the previous release and remove the featured downloads lable from it (but do not delete the release).
-
-= Change src version numbers =
-
-We must now set up SVN for development of the next release. To do this we need to correctly set the version number. Usually this will mean incrementing the minor version number and changing the postfix from "-ga" to "-dev"
-
- * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
- * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
-
-= Start the new development cycle =
