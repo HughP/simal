@@ -3,7 +3,7 @@
 
 = Introduction =
 
-The document describes the *minimum* that you should do in order to test a build of the rest module ready for release.
+When a release is built automated tests ensure that the system is behaving as normal. However, before releasing a build it is important to ensure that a human has installed and tested the release. The document describes the *minimum* that you should do in order to test a build of the rest module ready for release.
 
 You are strongly encouraged to try variations around the themes outlined in this document. The more thorough you test the build, the less likely there will be a significant bug in the release.
 
