@@ -38,7 +38,8 @@ public class TestSimalProperties {
   public void testDefaults() throws SimalRepositoryException {
     assertEquals("false", SimalProperties
         .getProperty(SimalProperties.PROPERTY_TEST));
-    assertEquals("/tmp", SimalProperties
+    String dataDir = System.getProperty("user.dir");;
+    assertEquals(dataDir, SimalProperties
         .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
 

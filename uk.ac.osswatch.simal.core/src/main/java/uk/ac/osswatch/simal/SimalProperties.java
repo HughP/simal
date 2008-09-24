@@ -188,9 +188,11 @@ public class SimalProperties {
     if (localProps != null) {
       value = localProps.getProperty(key);
     }
+    
     if (value == null) {
       value = defaultProps.getProperty(key, defaultValue);
     }
+    
     if (value == null) {
       if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
         if (SimalRepository.getInstance().isTest()) {
@@ -199,6 +201,8 @@ public class SimalProperties {
           value = UUID.randomUUID().toString();
         }
         setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
+      } if (key.equals(PROPERTY_RDF_DATA_DIR)) {
+        value = System.getProperty("user.dir");
       } else {
         StringBuilder sb = new StringBuilder("The property '");
         sb.append(key);
