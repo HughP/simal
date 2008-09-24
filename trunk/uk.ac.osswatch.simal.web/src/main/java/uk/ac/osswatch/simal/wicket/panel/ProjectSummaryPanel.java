@@ -61,8 +61,13 @@ public class ProjectSummaryPanel extends Panel {
       Set<IProject> allProjects = UserApplication.getRepository()
           .getAllProjects();
       Random rand = new Random();
-      int idx = rand.nextInt(allProjects.size());
-      project = (IProject) allProjects.toArray()[idx];
+      int size = allProjects.size();
+      if (size > 0) {
+        int idx = rand.nextInt(size);
+        project = (IProject) allProjects.toArray()[idx];
+      } else {
+        project = null;
+      }
     } catch (SimalRepositoryException e) {
       // If we can't get a random project it is safe to use a null project as
       // this will simply report an error to the user in this panel
