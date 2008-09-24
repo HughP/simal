@@ -22,6 +22,7 @@ import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
 import uk.ac.osswatch.simal.wicket.BasePage;
+import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
  * Creates a page which contains an <a
@@ -39,7 +40,7 @@ public class PersonBrowserPage extends BasePage {
     add(HeaderContributor
         .forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
     StringBuilder jsonLink = new StringBuilder("<link href=\"");
-    jsonLink.append(this.getRequest().getRelativePathPrefixToContextRoot());
+    jsonLink.append(UserApplication.get().getServletContext().getContextPath());
     jsonLink = jsonLink.append("/simal-rest/allPeople/json\" rel=\"exhibit/data");
     jsonLink.append(" rel=\"exhibit/data\" />");
     add(new StringHeaderContributor(jsonLink.toString()));
