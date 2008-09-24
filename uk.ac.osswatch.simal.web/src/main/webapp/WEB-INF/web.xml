@@ -22,7 +22,7 @@ Copyright 2008 University of Oxford
 	 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	 version="2.4">
 
-	<display-name>uk.ac.osswatch.simal.wicket</display-name>
+	<display-name>Simal Web</display-name>
 
 	<filter>
 		<filter-name>wicket.uk.ac.osswatch.simal.wicket</filter-name>
