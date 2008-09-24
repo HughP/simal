@@ -20,6 +20,7 @@ package uk.ac.osswatch.simal.rest;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -246,10 +247,11 @@ public final class RESTCommand {
    */
   public static RESTCommand createCommand(String cmdString, Map<String, String[]> paramMap) throws SimalAPIException {
     RESTCommand cmd = createCommand(cmdString);
-    Iterator<String> keys = paramMap.keySet().iterator();
-    while (keys.hasNext()) {
-      String key = keys.next();
-      String[] values = paramMap.get(key);
+    Iterator<Entry<String, String[]>> entries = paramMap.entrySet().iterator();
+    while (entries.hasNext()) {
+      Entry<String, String[]> entry = entries.next();
+      String key= entry.getKey();
+      String[] values = entry.getValue();
       for (int i = 0; i < values.length; i++) {
         cmd.addParameter(key, values[i]);
       }
