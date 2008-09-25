@@ -68,7 +68,7 @@ From this point forwards only bug fixes will be allowed in the release code. It 
 To create the release branch run the following commands:
 
 {{{
-svn copy https://simal.googlecode.com/svn/trunk https://simal.googlecode.com/svn/branches/0.2.x
+svn copy https://simal.googlecode.com/svn/trunk https://simal.googlecode.com/svn/branches/0.2.x -m "Create maintenance branch for the 0.2.x releases"
 }}}
 
 = Change src version numbers in the trunk =
@@ -116,7 +116,7 @@ SVN needs to be tagged with the release information as follows:
 
 {{{
 svn copy http://.../repos/branches/1.0.x http://.../repos/tags/1.0.0
-svn copy https://simal.googlecode.com/svn/branches/0.2.x https://simal.googlecode.com/svn/tags/0.2.0
+svn copy https://simal.googlecode.com/svn/branches/0.2.x https://simal.googlecode.com/svn/tags/0.2.0 -m "Tag the 0.2.0 release"
 }}}
 
 = Build the release binaries =
