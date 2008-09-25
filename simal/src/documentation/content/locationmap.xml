@@ -26,7 +26,7 @@
 
 	<locator>
 
-		<match pattern="project.quickstart.wiki">
+		<match pattern="project.devQuickstart.wiki">
 			<location
 				src="http://simal.googlecode.com/svn/wiki/GettingStarted.wiki" />
 		</match>

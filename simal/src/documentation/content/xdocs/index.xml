@@ -43,12 +43,18 @@
 	
     <section>
       <title>Quick Links</title>
+      
+      <p>The menu on the left and tabs above will take you into the rest of
+      this site. Below are some useful links for the curious.</p>
+      
 	    <ul>
-	      <li><a href="quickstart.html">Quick Start</a> - for the impatient who want to go straight to the code</li>
+        <li><a href="ext:simal/demoSite">Demo server</a> - for those who want to take a look</li>
+        
+        <li><a href="userQuickstart.html">User Quick Start</a> - for the impatient wanting to run Simal locally</li>
+	      
+        <li><a href="devQuickstart.html">Developers Quick Start</a> - for the impatient who want to go straight to the code</li>
 	      
 	      <li><a href="overview.html">Overview</a> - for those who want the 20,000 foot view</li>
-	    
-	      <li><a href="ext:simal/demoSite">Demo server</a> - for those who want to take a look</li>
 	    </ul>
 	</section>
 	
