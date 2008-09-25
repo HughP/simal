@@ -42,7 +42,7 @@
 
   <changes>
 
-    <release version="0.2-dev" date="unreleased">
+    <release version="0.2-rc1" date="unreleased">
       <notes>
         <section>
           <title>What is Simal?</title>
@@ -54,7 +54,11 @@
         </section>
       </notes>
       
-      <action context="admin" dev="RDG" type="add" importance="high">
+      <action context="docs" dev="RDG" type="add" importance="high">
+        <p>Created a <a href="userQuickstart.html">user quickstart</a> page.</p>
+      </action>
+      
+      <action context="admin" dev="RDG" type="add" importance="low">
         <p>Created Simal user mailing list.</p>
       </action>
       
@@ -245,7 +249,7 @@
       <action dev="SY" type="add" context="admin" importance="low"> Fixed RDF (unescaped &amp;,
         mangled non-ascii characters); added all RDF to sitemap; </action>
       <action dev="RDG" type="add" context="docs" importance="medium"> Added a <link
-          href="/quickstart.html">Quick Start</link> page to describe how to get Simal up and
+          href="/devQuickstart.html">Quick Start</link> page to describe how to get Simal up and
         running. </action>
       <action dev="RDG" type="update" context="docs" importance="low"> Improved the index page to
         describe the project in more detail and provide links into the community sections of the

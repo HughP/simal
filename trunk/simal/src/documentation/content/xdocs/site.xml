@@ -43,7 +43,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   <about label="About" tab="home">
     <index label="Home" href="index.html" description="Welcome to Simal"/>
     <overview label="Overview" href="overview.html" description="Overview of the Simal project"/>
-    <quickstart label="Quick Start" href="quickstart.html" description="The minimum you need to get started"/>
+    <quickstart label="Quick Start" href="userQuickstart.html" description="The minimum you need to get started"/>
     <gettingSimal label="Getting Simal" href="gettingSimal.html" description="How to get the Simal application(s)"/>
     <changes label="Changes" href="changes.html" description="Recent changes"/>
     <changes-rss href="/changes.rss"/>
@@ -108,6 +108,7 @@ See http://forrest.apache.org/docs/linking.html for more info
     </forrest>
     <simal href="http://simal.oss-watch.ac.uk">
       <projectSite href="http://simal.oss-watch.ac.uk/"/>
+      <downloadPage href="http://code.google.com/p/simal/downloads/list"/>
       <coreModule href="core/">
         <download href="download.html"/>
       </coreModule>
@@ -116,7 +117,7 @@ See http://forrest.apache.org/docs/linking.html for more info
       <demoSite href="http://data.oss-watch.ac.uk:8080/"/>
       <devSite href="http://code.google.com/p/simal"/>
       <devList href="http://groups.google.com/group/simal-contributors"/>
-      <userList href="http://groups.google.com/group/simal-contributors"/>
+      <userList href="http://groups.google.com/group/simal-users"/>
       <issueTracker href="http://code.google.com/p/simal/issues/list"/>
       <svn href="http://code.google.com/p/simal/source"/>
       <wiki href="http://code.google.com/p/simal/w/list"/>
