@@ -1,5 +1,5 @@
 #summary Instructions for updating code on the demo server.
-#labels Phase-Deploy
+#labels Phase-Deploy,Phase-QA
 
 The demo server at http://data.oss-watch.ac.uk:8080 can be updated by anyone with the necessary priveledges to the demo machine with the following steps:
 
@@ -28,12 +28,12 @@ Now deploy the approved data using:
 ./deployData.sh
 }}}
 
-This will update all the data files we have that we know to work cleanly in the Simal repository. We need to do this because the update command we ran earlier deleted the current demo data. This is done to ensure hte demo server isn't filled up with spam entries, we periodically reset it in this way.
+This will deploy all the data files we have that are known to work cleanly in the Simal repository. We need to do this because the update command we ran earlier deleted the current demo data. This is done to ensure hte demo server isn't filled up with spam entries, we periodically reset it in this way.
 
 Now we run the server again with:
 
 {{{
 ./runs.sh
-}}
+}}}
 
 That's it, you can log out now.
