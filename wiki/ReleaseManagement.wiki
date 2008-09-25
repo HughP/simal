@@ -20,7 +20,7 @@ We must first build a release candidate for testing. To do this we need to corre
 
  * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
- * in {{{status.xml}}} change the version number for the current release
+ * in {{{status.xml}}} change the version number and release date for the current release
 
 In addition we need to change the dependency entries for other Simal modules in both the rest and webapp modules.
 
