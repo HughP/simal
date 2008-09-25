@@ -3,6 +3,8 @@
 
 We are pleased to announce the release of Simal v0.2-rc1
 
+Simal is a framework for building project registries. Using Simal you can quickly collate details about projects and participants. This data can then be accessed via a command line tool for scripting, a RESTful API for mashups or a web application for humans.
+
 This release is a complete rewrite of the 0.1 release which was always intended to be a proof of concept. 0.2 now utilises an RDF repository rather than a flat file system. Consequnetly performance is vastly improved in this release.
 
 Key features include:
