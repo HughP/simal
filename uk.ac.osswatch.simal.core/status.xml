@@ -35,8 +35,22 @@
   </contexts>
 
   <changes>
+    <release version="0.3-dev" date="unreleased">
+      <notes>
+        <section>
+          <title>What is Simal?</title>
 
-    <release version="0.2-dev" date="unreleased">
+          <p>Simal is a framework for building systems for use by organisations that need to inform
+            the communities around a group of related projects. The project is very young at this
+            time, as such we welcome input into the requirements and design of the initial prototype
+            system.</p>
+          <p>This release focuses integrating data from third parties with Simal and on
+          providing data in machine readable formats for third parties.</p>
+        </section>
+      </notes>
+   </release>
+   
+    <release version="0.2-rc1" date="2008-09-25">
       <notes>
         <section>
           <title>What is Simal Core?</title>
