@@ -1,0 +1,32 @@
+#summary Notes about the 0.2-rc1 release
+#labels Phase-Support,Featured
+
+We are pleased to announce the release of Simal v0.2-rc1
+
+This release is a complete rewrite of the 0.1 release which was always intended to be a proof of concept. 0.2 now utilises an RDF repository ratehr than a flat file system. Consequnetly performance is vastly improved in this release.
+
+Key features include:
+
+- ability to import DOAP from the local filesystem or a remote URL
+- AJAX browsers for finding people or projects
+- Fully categorised listings
+- export of RDF data models
+- RESTful API
+
+= Installing =
+
+Binary releases: http://simal.oss-watch.ac.uk/userQuickstart.html
+
+Source: http://simal.oss-watch.ac.uk/devQuickstart.html
+
+= Demo =
+
+
+A live demo of the latest developments can be found at http://data.oss-watch.ac.uk:8080
+
+= Questions and Feedback =
+
+Assistance is available on our mailing lists, which can be found at 
+http://groups.google.com/group/simal-users (for users) and http://groups.google.com/group/simal-contributors (for those wanting to get involved)
+
+Bug reports and feature requests are also welcome, please submit them to our issue tracker at http://code.google.com/p/simal/issues/list
