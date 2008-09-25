@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/wmshare.aspx">
+<shortdesc>The project is looking to produce a framework for promoting the use of shared digital resources in FE and HE institutions across the West Midlands, by making them available online using Digital Repository software.  The project will work with providers and users of a wide range of different types of repositories but will also conduct pilot studies of Shibboleth.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>wm share - Promoting shared use of digital content across the region</name>
+<homepage rdf:resource="http://www2.worc.ac.uk/wm-share"/>
+</Project>

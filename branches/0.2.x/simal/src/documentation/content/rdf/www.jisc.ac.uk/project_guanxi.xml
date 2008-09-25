@@ -1,0 +1,13 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_guanxi.aspx">
+<shortdesc>The Guanxi project will explore areas within the categories: 
+
+Long-term stable inter-institutional collaborations, e.g. for consortia collaborating on e-learning delivery and sharing e-learning materials 
+Exploring the use of Shibboleth in inter-institutional e-learning contexts, with the Internet2 CourseID attribute being deployed to define course-related entitlements 
+and runs for 18 months from April 2004 until September 2005 with the aim of investigating: 
+
+Extension of existing VLE and zero-administration account management to operate between institutions co-operating to teach modules to groups of students drawn from both or several institutions. Exploitation of such stable long-life Virtual Organisations to explore administration tools for use by teaching staff</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>GUANXI</name>
+<homepage rdf:resource="http://www.guanxi.uhi.ac.uk/"/>
+</Project>

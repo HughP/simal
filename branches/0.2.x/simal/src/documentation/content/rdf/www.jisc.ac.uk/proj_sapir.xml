@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_sapir.aspx">
+<shortdesc>The University of Newcastle has already established a Shibboleth origin as part of the Core-middleware IAMSECT project, and this work will be built upon in order to widen the use of Shibboleth within the institution. The University Library has developed a large portfolio of electronic resources with all the complexities of authentication and authorisation that this involves.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<name>SAPIR: Shibboleth-enabled Access to Portals and Institutional Resources</name>
+<homepage rdf:resource="http://sapir.ncl.ac.uk/"/>
+</Project>

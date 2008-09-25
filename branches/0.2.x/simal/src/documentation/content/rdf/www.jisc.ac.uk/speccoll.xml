@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/speccoll.aspx">
+<shortdesc>This project seeks to marshal some of the services (e.g. TechDis and Netskills) and resources provided by JISC into a package tailored to the particular needs of staff in Specialist Colleges.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"/>
+<name>Additional Support for Specialist Colleges</name>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/project_big_blue.aspx">
+<shortdesc>A project that produced two toolkits to support colleges and universities that wish to commence, or improve, existing IS training.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"/>
+<name>Big Blue</name>
+<homepage rdf:resource="http://www.leeds.ac.uk/bigblue/"/>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_sdss.aspx">
+<shortdesc>The main aim of the present project is to put in place the essential technical components necessary to sustain an initial Shibboleth infrastructure, and thereby provide an environment which will assist other projects supported by the Core Middleware Development Programmes to progress effectively. A secondary outcome is that the experience gained will feed into the requirements and specification of a service infrastructure implementation.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>SDSS: Shibboleth Development and Support Services</name>
+<homepage rdf:resource="http://sdss.ac.uk/"/>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani/project_skillnet.aspx">
+<shortdesc>The aim of the project is to promote the use of e-learning amongst staff and students by developing interoperability between, B-Net (the College Intranet system), SITS (MIS) and Skillnet (VLE). We also want to provide a cost effective solution that can be applied to all colleges, using open standards where possible for development.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Engaging with Skillnet (SWaNI)</name>
+<homepage rdf:resource="http://www.banffbuchan.com/jisc/"/>
+</Project>

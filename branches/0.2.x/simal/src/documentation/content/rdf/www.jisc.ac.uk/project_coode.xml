@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/programme_semantic_grid/project_coode.aspx">
+<shortdesc>The CO-ODE project aims to integrate the most widely used tools for developing and using ontologies worldwide - OilEd from the UK and ProtÃ©gÃ© from Stanford in the US - in order to create an integrated open-source toolset.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>CO-ODE: Collaborative Open Ontology Development Environment</name>
+<homepage rdf:resource="http://www.co-ode.org/"/>
+</Project>

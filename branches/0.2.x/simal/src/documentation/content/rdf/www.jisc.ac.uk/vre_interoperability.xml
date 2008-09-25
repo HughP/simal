@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_interoperability.aspx">
+<shortdesc>The central objective of eReSS is to provide support to the VRE Programme by helping to identify suitable solutions for the interoperability of Virtual Research Environment tools, applications, and resources.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>eReSS: e-Research Tools and Resources Interoperability project</name>
+<homepage rdf:resource="http://www.hull.ac.uk/esig/eress"/>
+</Project>

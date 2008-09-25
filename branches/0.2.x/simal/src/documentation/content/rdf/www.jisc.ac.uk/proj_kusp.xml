@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_kusp.aspx">
+<shortdesc>This project is part of Core Middleware Early Adopters Programme. It aims to implement a complete Shibboleth system that will provide authentication for a new student portal. The new portal will also provide a Single Sign-on (SSO) environment for our Virtual Learning Environment (VLE), WebCT, and other internal systems. The KUSP project will develop the core infrastructure for Shibboleth authentication which will act as a springboard for the other partners to join.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>KUSP - Kent University Shibbolized Portal</name>
+<homepage rdf:resource="http://www.kent.ac.uk/is/kusp/"/>
+</Project>

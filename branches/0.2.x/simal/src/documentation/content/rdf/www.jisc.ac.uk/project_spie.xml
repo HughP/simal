@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_spie.aspx">
+<shortdesc>The aim of the Shibboleth-aware Portals and Information Environments (SPIE) project is to demonstrate the use of Shibboleth in providing integration between institutional and national information environments, especially via enhanced portals and portlets.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>SPIE: Shibboleth-aware portals and information environments</name>
+<homepage rdf:resource="http://www.oucs.ox.ac.uk/rts/spie/"/>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/newspapers2.aspx">
+<shortdesc>1.1 million pages are being digitised from 18th and 19th century news, building on previous projects to enable access to a virtual library containing some 4 million digitised pages of important national, regional and local newspapers. It will open up to diverse communities  the first three centuries of  newspapers throughout the British Isles.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
+<name>British newspapers 1620-1900</name>
+<homepage rdf:resource="http://www.bl.uk/collections/newspapers.html"/>
+</Project>

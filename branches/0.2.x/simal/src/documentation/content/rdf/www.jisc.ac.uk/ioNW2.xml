@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital/el_xinstit/ioNW2.aspx">
+<shortdesc>The three fully funded Lifelong Learning Networks in the NorthWest region, involving nine universities and a larger number of FECs, are working in partnership through this project to provide support to the vocational learners who are part of their client groups. This project will enable all these institutions to share information about their learning opportunities so that learners can easily search for suitable courses from a single portal.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>ioNW2: Interoperability Network NorthWest</name>
+<homepage rdf:resource="http://www.gmsa.ac.uk/index.php?cat=20"/>
+</Project>

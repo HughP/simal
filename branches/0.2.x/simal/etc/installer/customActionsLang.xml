@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<langpack>
+   <str id="CustomActions.tip" txt="Stage Progress"/>
+   <str id="CustomActions.progress" txt="Installation progress:"/>
+   <str id="AntAction.pack" txt="Configuration actions"/>
+   <str id="AntAction.unpackingForrest" txt="Unpacking Apache Forrest"/>
+</langpack>

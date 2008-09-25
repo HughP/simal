@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_aria.aspx">
+<shortdesc>The project will review existing training and awareness provision and JISC funded collections, in parallel with a survey of perceived training needs, to identify potential sources of useful content, to define required new subject specific content and to exploit the cross disciplinary potential of content.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>ARIA: Arts and Humanities Research ICT Awareness and Training</name>
+<homepage rdf:resource="http://aria.dmu.ac.uk/"/>
+</Project>

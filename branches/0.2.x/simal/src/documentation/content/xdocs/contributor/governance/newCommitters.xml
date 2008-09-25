@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>New Committer Guidlines</title>
+  </header>
+  <body>
+    <section>
+      <title>Introduction</title>
+
+      <p>
+        If you are a new committer on Simal then this document should
+        help you get started.
+      </p>
+
+      <p>
+        First of all congratulations on being voted in as a committer.
+        Having commit rights does not give you any more authority in the
+        project, however it does indicate that you understand the
+        direction the project is heading in and that you have
+        demonstrated an ability to support the community. You are now
+        able to provide contributions on a commit-then-review basis and,
+        perhaps more importantly, you are able to review-then-commit
+        other community members contributions.
+      </p>
+
+      <p>
+        You also have a binding vote in the project. This should not be
+        used to give you power in the community, it is intended to be
+        used to ensure all votes properly reflect the wishes of the
+        community as a whole. As such you are expected to listen to
+        community members and vote in their best wishes.
+      </p>
+
+      <p>
+        The rest of this document describes a few small tasks you need
+        to undertake as a new committer.
+      </p>
+    </section>
+
+    <section>
+      <title>Familiarisation</title>
+
+      <p>
+        You are probably already familiar with our project's
+        <a href="index.html">governance model</a>
+        , however, we recommend that you review it again. It is this
+        governance model that ensures each member of our community is
+        adequately represented and that the project is managed in an
+        open and transparent way.
+      </p>
+    </section>
+
+    <section>
+      <title>Documentation</title>
+
+      <p>
+        There are a few files you should edit as soon as your commit
+        privileges have been granted.
+      </p>
+
+      <p>
+        You should add yourself to the Simal DOAP file located at
+        <code>simal/src/documentation/content/rdf/simal.xml</code>
+        .
+      </p>
+
+      <p>
+        You should also note your addition to the team in the status
+        file (located at
+        <code>simal/status.xml</code>)
+        , ensuring you add yourself as a new developer if you are not
+        already there.
+      </p>
+    </section>
+  </body>
+</document>

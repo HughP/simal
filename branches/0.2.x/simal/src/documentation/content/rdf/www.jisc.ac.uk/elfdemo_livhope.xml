@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/elfdemo_livhope.aspx">
+<shortdesc>The project will involve installing a IMS Learning Design system (CopperCore/SLeD) and integrating this with the Liverpool Hope's existing systems. Learning designs will be drawn up as IMS Learning Designs to be used in the delivery of at least one Computing module.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>SLeD integration demonstrator</name>
+<homepage rdf:resource="http://www.hope.ac.uk/slide/"/>
+</Project>
