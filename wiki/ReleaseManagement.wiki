@@ -79,9 +79,13 @@ We must now set up SVN trunk for development of the next release. To do this we 
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y-dev}}}
  * in {{{status.xml}}} add a new {{{<release>}}} element
 
+= Update the ReleaseNotes =
+
 = Lift Code Freeze and Announce the Release Candidate =
 
 The code freeze on trunk can now be lifted as there is a maintenance branch for any last minute bug fixes or documentation tweaks.
+
+The release candidate should be announced on the user and contributor lists using the ReleaseNotes.
 
 = Test =
 
