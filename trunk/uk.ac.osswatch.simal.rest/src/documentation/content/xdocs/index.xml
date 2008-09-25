@@ -41,7 +41,7 @@
     <section>
       <title>Prerequisites</title>
       
-      <note>The <a href="ext:simal/webMOdule">Simal Web</a> module 
+      <note>The <a href="ext:simal/webModule">Simal Web</a> module 
       includes the Simal REST module by default.
       You may want to start your experiments with that since it provides
       a human as well as amchine interface to the repository.</note> 
