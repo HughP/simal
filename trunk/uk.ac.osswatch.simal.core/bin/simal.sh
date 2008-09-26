@@ -79,7 +79,6 @@ export CLASSPATH
 
 echo "Simal.  Run 'simal --help' for command line documentation"
 echo
-echo "Using CLASSPATH " $CLASSPATH
 export SIMAL_HOME
 java uk.ac.osswatch.simal.Simal "$@"
 RESULT=$?
