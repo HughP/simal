@@ -49,9 +49,16 @@
         </section>
       </notes>
       
+      <action context="feature" dev="RDG" type="add" importance="high">
+        <p>Added a simal command for easy execution. To use it add
+        the <code>bin</code> directory in the simal project to the
+        environment PATH and simply run <code>simal.bat</code>
+        <code>simal.sh</code>.</p>
+      </action>
+      
       <action context="feature" dev="RDG" type="add" importance="low">
         <p>Added <code>getBackup()</code> method to ISimalRepository.
-        This method retrieves an N3 representation of the complete repository.
+        This method retrieves an N3 representation of the complete repository.</p>
       </action>
    </release>
    
