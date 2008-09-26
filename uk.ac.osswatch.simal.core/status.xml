@@ -48,6 +48,11 @@
           providing data in machine readable formats for third parties.</p>
         </section>
       </notes>
+      
+      <action context="feature" dev="RDG" type="add" importance="low">
+        <p>Added <code>getBackup()</code> method to ISimalRepository.
+        This method retrieves an N3 representation of the complete repository.
+      </action>
    </release>
    
     <release version="0.2-rc1" date="2008-09-25">

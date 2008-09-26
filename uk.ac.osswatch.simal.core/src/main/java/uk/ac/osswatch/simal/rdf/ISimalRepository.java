@@ -453,4 +453,12 @@ public interface ISimalRepository {
    */
   public boolean isUniqueSimalID(String is);
 
+  /**
+   * Get an N3 representation of the complete model in this repository
+   * for backup purposes.
+   *  
+   * @return
+   */
+  public String getBackup();
+
 }

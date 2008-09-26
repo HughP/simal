@@ -202,4 +202,9 @@ public class MockRepository extends AbstractSimalRepository {
 
   }
 
+  public String getBackup() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }
