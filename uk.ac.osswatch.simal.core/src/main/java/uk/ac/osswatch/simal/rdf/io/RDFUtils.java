@@ -76,7 +76,6 @@ public class RDFUtils {
   public static final String FOAF_NS = "http://xmlns.com/foaf/0.1/";
   public static final String RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
   public static final String RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
-  public static final String SIMAL_NS = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
   private static File lastFile;
 
   private RDFUtils() {
@@ -511,7 +510,7 @@ public class RDFUtils {
       if (!originalURI.startsWith(PROJECT_NAMESPACE_URI)) {
         addSeeAlso(project, originalURI);
       }
-      NodeList simalIDs = project.getElementsByTagNameNS(SIMAL_NS,
+      NodeList simalIDs = project.getElementsByTagNameNS(SimalOntology.NS,
           SIMAL_PROJECT_ID);
       for (int idIdx = 0; idIdx < simalIDs.getLength(); idIdx++) {
         Node idNode = simalIDs.item(idIdx);
@@ -533,7 +532,7 @@ public class RDFUtils {
       if (!originalURI.startsWith(PERSON_NAMESPACE_URI)) {
         addSeeAlso(person, originalURI);
       }
-      NodeList idNL = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID);
+      NodeList idNL = person.getElementsByTagNameNS(SimalOntology.NS, SIMAL_PERSON_ID);
       for (int idIdx = 0; idIdx < idNL.getLength(); idIdx++) {
         Node idNode = idNL.item(idIdx);
         if (idNode.getParentNode().equals(person)) {
@@ -755,7 +754,7 @@ public class RDFUtils {
           } else {
             id = repo.getNewPersonID();
           }
-          simalIDAtt = doc.createAttributeNS(SIMAL_NS, SIMAL_CATEGORY_ID);
+          simalIDAtt = doc.createAttributeNS(SimalOntology.NS, SIMAL_CATEGORY_ID);
           simalIDAtt.setValue(id);
           category.setAttributeNode(simalIDAtt);
         } catch (Exception e) {
@@ -793,7 +792,7 @@ public class RDFUtils {
             .findPersonBySeeAlso(resourceURI);
         if (existingPerson == null) {
           simalPersonID = SimalRepository.getInstance().getNewPersonID();
-          simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PERSON_ID);
+          simalIDNode = doc.createElementNS(SimalOntology.NS, SIMAL_PERSON_ID);
           Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
               "datatype");
           attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
@@ -809,7 +808,7 @@ public class RDFUtils {
       }
 
       // make all simal ID's for other servers a seeAlso tuple
-      simalIDNL = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID);
+      simalIDNL = person.getElementsByTagNameNS(SimalOntology.NS, SIMAL_PERSON_ID);
       for (int iDidx = 0; iDidx < simalIDNL.getLength(); iDidx++) {
         Node idNode = simalIDNL.item(iDidx);
         if (idNode.getParentNode().equals(person)) {
@@ -824,7 +823,7 @@ public class RDFUtils {
 
       // check there is a valid simal ID for this person on this instance of
       // Simal
-      simalIDNL = person.getElementsByTagNameNS(SIMAL_NS, SIMAL_PERSON_ID);
+      simalIDNL = person.getElementsByTagNameNS(SimalOntology.NS, SIMAL_PERSON_ID);
       if (simalIDNL.getLength() == 0) {
         IPerson simalPerson;
         try {
@@ -850,7 +849,7 @@ public class RDFUtils {
         } catch (Exception e) {
           throw new SimalRepositoryException("Unable to get person", e);
         }
-        simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PERSON_ID);
+        simalIDNode = doc.createElementNS(SimalOntology.NS, SIMAL_PERSON_ID);
         Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
             "datatype");
         attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
@@ -897,7 +896,7 @@ public class RDFUtils {
             .findProjectBySeeAlso(resourceURI);
         if (existingProject == null) {
           projectID = SimalRepository.getInstance().getNewProjectID();
-          simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PROJECT_ID);
+          simalIDNode = doc.createElementNS(SimalOntology.NS, SIMAL_PROJECT_ID);
           Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
               "datatype");
           attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");
@@ -913,7 +912,7 @@ public class RDFUtils {
       }
 
       // make all simal ID's for other servers a seeAlso tuple
-      simalIDNL = project.getElementsByTagNameNS(SIMAL_NS, SIMAL_PROJECT_ID);
+      simalIDNL = project.getElementsByTagNameNS(SimalOntology.NS, SIMAL_PROJECT_ID);
       for (int iDidx = 0; iDidx < simalIDNL.getLength(); iDidx++) {
         Node idNode = simalIDNL.item(iDidx);
         if (idNode.getParentNode().equals(project)) {
@@ -928,7 +927,7 @@ public class RDFUtils {
 
       // check there is a valid simal ID for this project on this instance of
       // Simal
-      simalIDNL = project.getElementsByTagNameNS(SIMAL_NS, SIMAL_PROJECT_ID);
+      simalIDNL = project.getElementsByTagNameNS(SimalOntology.NS, SIMAL_PROJECT_ID);
       if (simalIDNL.getLength() == 0) {
         IProject simalProject;
         try {
@@ -954,7 +953,7 @@ public class RDFUtils {
         } catch (Exception e) {
           throw new SimalRepositoryException("Unable to get project", e);
         }
-        simalIDNode = doc.createElementNS(SIMAL_NS, SIMAL_PROJECT_ID);
+        simalIDNode = doc.createElementNS(SimalOntology.NS, SIMAL_PROJECT_ID);
         Attr attr = doc.createAttributeNS(ISimalRepository.RDF_NAMESPACE_URI,
             "datatype");
         attr.setNodeValue(ISimalRepository.XSD_NAMESPACE_URI + "string");

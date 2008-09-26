@@ -45,6 +45,7 @@ import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -146,7 +147,7 @@ public class TestRDFUtils {
       idCount = 0;
       Element personElement = (Element) personNL.item(idx);
       NodeList personIDNL = personElement.getElementsByTagNameNS(
-          RDFUtils.SIMAL_NS, "personId");
+          SimalOntology.NS, "personId");
       for (int idIdx = 0; idIdx < personIDNL.getLength(); idIdx++) {
         Node id = personIDNL.item(idIdx);
         if (id.getParentNode().equals(personElement)) {
@@ -180,7 +181,7 @@ public class TestRDFUtils {
         .getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
     Element projectElement = (Element) projectNL.item(0);
     NodeList projectIDNL = projectElement.getElementsByTagNameNS(
-        RDFUtils.SIMAL_NS, "projectId");
+        SimalOntology.NS, "projectId");
     assertEquals("Incorrect number of simal:projectId elements", 1, projectIDNL
         .getLength());
   }

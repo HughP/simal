@@ -61,12 +61,12 @@ public class SimalOntology {
   public static final Resource NAMESPACE = m_model.createResource(NS);
 
   public static final Property CATEGORY_ID = m_model
-      .createProperty("http://simal.oss-watch.ac.uk/ns/0.2/simal#categoryId");
+      .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#categoryId");
 
   public static final Property PERSON_ID = m_model
-      .createProperty("http://simal.oss-watch.ac.uk/ns/0.2/simal#personId");
+      .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#personId");
 
   public static final Property PROJECT_ID = m_model
-      .createProperty("http://simal.oss-watch.ac.uk/ns/0.2/simal#projectId");
+      .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#projectId");
 
 }

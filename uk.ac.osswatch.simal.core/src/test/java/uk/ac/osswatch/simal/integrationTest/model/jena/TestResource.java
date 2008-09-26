@@ -84,7 +84,7 @@ public class TestResource extends BaseRepositoryTest {
   @Test
   public void testSources() throws SimalRepositoryException {
     Set<String> sources = project1.getSources();
-    assertEquals("INcorrect number of data sources identified", 4, sources
+    assertEquals("Incorrect number of data sources identified", 4, sources
         .size());
   }
 

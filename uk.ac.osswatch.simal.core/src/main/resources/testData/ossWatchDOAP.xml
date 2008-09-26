@@ -23,7 +23,7 @@
   xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
   xmlns:dc="http://purl.org/dc/elements/1.1/"
   xmlns:projects="http://projects.apache.org/ns/asfext#"
-  xmlns:simal="http://simal.oss-watch.ac.uk/ns/0.2/simal#">
+  xmlns:simal="http://oss-watch.ac.uk/ns/0.2/simal#">
 
   <Project rdf:about="http://www.oss-watch.ac.uk/ossWatch#">
     <name>OSS Watch open source advisory service</name>
