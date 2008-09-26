@@ -22,6 +22,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
@@ -63,6 +64,7 @@ import com.hp.hpl.jena.rdf.model.ModelMaker;
 import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.rdf.model.RDFWriter;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -557,6 +559,12 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IResource getResource(String uri) {
     return new Resource(model.getResource(uri));
+  }
+
+  public String getBackup() {
+    StringWriter sw = new StringWriter();
+    model.write(sw, "N3");
+    return sw.toString();
   }
 
 }

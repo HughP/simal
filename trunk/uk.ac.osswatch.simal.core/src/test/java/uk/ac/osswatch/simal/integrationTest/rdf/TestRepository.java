@@ -335,4 +335,32 @@ public class TestRepository extends BaseRepositoryTest {
     assertTrue("Null Simal IDs should not be unqiue", getRepository()
         .isUniqueSimalID(id));
   }
+  
+  @Test
+  public void testGetBackup() throws SimalRepositoryException {
+    ISimalRepository repo = getRepository();
+    String backup = repo.getBackup();
+    assertNotNull(backup);
+    
+    int numProjects = count(backup, "doap:Project");
+    assertEquals("Number of projects in the backup is incorrect", repo.getAllProjects().size(), numProjects);
+    
+    int numPeople = count(backup, "foaf:Person");
+    assertEquals("Number of people in the backup is incorrect", repo.getAllPeople().size(), numPeople);
+  }
+  
+  private int count(String base, String searchFor) {
+    int len   = searchFor.length();
+    int result = 0;
+  
+    if (len > 0) {
+        int start = base.indexOf(searchFor);
+        while (start != -1) {
+            result++;
+            start = base.indexOf(searchFor, start+len);
+        }
+    }
+    return result;
+  }
+
 }
