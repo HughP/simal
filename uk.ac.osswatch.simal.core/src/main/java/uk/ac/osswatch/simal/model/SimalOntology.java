@@ -40,7 +40,7 @@ public class SimalOntology {
    * The namespace of the vocabulary as a string
    * </p>
    */
-  public static final String NS = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
+  public static final String NS = "http://oss-watch.ac.uk/ns/0.2/simal#";
 
   /**
    * <p>
