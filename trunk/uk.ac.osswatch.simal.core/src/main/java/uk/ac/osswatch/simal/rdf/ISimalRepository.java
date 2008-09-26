@@ -56,7 +56,7 @@ public interface ISimalRepository {
       + "translator";
   public static final String DOAP_VERSION_URI = DOAP_NAMESPACE_URI + "Version";
 
-  public static final String SIMAL_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/ns/0.2/simal#";
+  public static final String SIMAL_NAMESPACE_URI = "http://oss-watch.ac.uk/ns/0.2/simal#";
   public static final String SIMAL_URI_PROJECT_ID = SIMAL_NAMESPACE_URI
       + "projectId";
   public static final String SIMAL_URI_PERSON_ID = SIMAL_NAMESPACE_URI
