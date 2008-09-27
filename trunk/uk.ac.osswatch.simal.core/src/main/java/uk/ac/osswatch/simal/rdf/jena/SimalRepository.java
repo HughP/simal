@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
@@ -560,10 +561,8 @@ public final class SimalRepository extends AbstractSimalRepository {
     return new Resource(model.getResource(uri));
   }
 
-  public String getBackup() {
-    StringWriter sw = new StringWriter();
-    model.write(sw, "N3");
-    return sw.toString();
+  public void writeBackup(Writer writer) {
+    model.write(writer, "N3");
   }
 
 }

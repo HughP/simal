@@ -49,6 +49,12 @@
         </section>
       </notes>
       
+      <action context="feature" dev="RDG" type="add" importance="low" fixes-bug="157">
+        <p>Added a CLI command <code>backup FILE</code> to write an
+        N3 representation of the complete repository to the supplied
+        filename.</p>
+      </action>
+      
       <action context="feature" dev="RDG" type="add" importance="high">
         <p>Added a simal command for easy execution. To use it add
         the <code>bin</code> directory in the simal project to the
@@ -57,8 +63,8 @@
       </action>
       
       <action context="feature" dev="RDG" type="add" importance="low">
-        <p>Added <code>getBackup()</code> method to ISimalRepository.
-        This method retrieves an N3 representation of the complete repository.</p>
+        <p>Added <code>writerBackup(Writer writer)</code> method to ISimalRepository.
+        This method writes an N3 representation of the complete repository.</p>
       </action>
    </release>
    

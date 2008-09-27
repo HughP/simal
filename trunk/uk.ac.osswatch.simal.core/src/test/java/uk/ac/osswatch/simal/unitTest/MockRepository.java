@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.unitTest;
  * 
  */
 
+import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
@@ -202,9 +203,8 @@ public class MockRepository extends AbstractSimalRepository {
 
   }
 
-  public String getBackup() {
+  public void writeBackup(Writer writer) {
     // TODO Auto-generated method stub
-    return null;
   }
 
 }

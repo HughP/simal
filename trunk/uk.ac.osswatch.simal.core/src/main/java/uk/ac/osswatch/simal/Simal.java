@@ -52,6 +52,7 @@ import uk.ac.osswatch.simal.tools.PTSWImport;
  */
 public class Simal {
   private static final Logger logger = LoggerFactory.getLogger(Simal.class);
+  private static final String CMD_BACKUP = "backup";
   private static ISimalRepository repository;
 
   public Simal() throws SimalRepositoryException {
@@ -157,46 +158,88 @@ public class Simal {
       initRepository(dir);
       logger.info("Executing commands...");
 
-      String[] cmds = cl.getArgs();
-      String cmd;
-      for (int i = 0; i < cmds.length; i++) {
-        cmd = cmds[i];
-        if (cmd.equals("addxml")) {
-          addXMLFile((String) cmds[i + 1]);
-          i++;
-        } else if (cmd.equals("addxmldir")) {
-          try {
-            repository.addXMLDirectory((String) cmds[i + 1]);
-          } catch (SimalRepositoryException e) {
-            logger.error("Error adding data - adborting", e);
-            System.exit(1);
-          }
-          i++;
-        } else if (cmd.equals("writexml")) {
-          writeXML((String) cmds[i + 1]);
-          i++;
-        } else if (cmd.equals("importPTSW")) {
-          try {
-            importPTSW();
-          } catch (SimalException e) {
-            logger.error(
-                "Unable to Import from PTSW: " + e.getMessage() + "\n", e);
-            System.exit(1);
-          }
-          i++;
-        } else if (cmd.equals("importOhloh")) {
-          try {
-            importOhloh((String) cmds[i + 1]);
-          } catch (SimalException e) {
-            logger.error("Unable to Import from Ohloh: " + e.getMessage()
-                + "\n", e);
-            System.exit(1);
-          }
-          i++;
-        } else {
-          logger.info("Ignoring unrecognised command: " + cmd);
+      executeCommands(cl);
+    }
+  }
+
+  private static void executeCommands(CommandLine cl) {
+    String[] cmds = cl.getArgs();
+    String cmd;
+    for (int i = 0; i < cmds.length; i++) {
+      cmd = cmds[i];
+      if (cmd.equals("addxml")) {
+        addXMLFile((String) cmds[i + 1]);
+        i++;
+      } else if (cmd.equals("addxmldir")) {
+        try {
+          repository.addXMLDirectory((String) cmds[i + 1]);
+        } catch (SimalRepositoryException e) {
+          logger.error("Error adding data - adborting", e);
+          System.exit(1);
         }
+        i++;
+      } else if (cmd.equals("writexml")) {
+        writeXML((String) cmds[i + 1]);
+        i++;
+      } else if (cmd.equals("importPTSW")) {
+        try {
+          importPTSW();
+        } catch (SimalException e) {
+          logger.error(
+              "Unable to Import from PTSW: " + e.getMessage() + "\n", e);
+          System.exit(1);
+        }
+        i++;
+      } else if (cmd.equals("importOhloh")) {
+        try {
+          importOhloh((String) cmds[i + 1]);
+        } catch (SimalException e) {
+          logger.error("Unable to Import from Ohloh: " + e.getMessage()
+              + "\n", e);
+          System.exit(1);
+        }
+        i++;
+      } else if (cmd.equals(CMD_BACKUP)) {
+        i++;
+        backup(cmds, i);
+      } else {
+        logger.info("Ignoring unrecognised command: " + cmd);
       }
+    }
+  }
+
+  /**
+   * Write a backup of the repository to a file defined in the 
+   * next position of the command string.
+   * 
+   * @param cmds - the array of commands
+   * @param fileIndex - the index of the filename
+   */
+  private static void backup(String[] cmds, int fileIndex) {
+    if (fileIndex == cmds.length) {
+      logger.error("You must provide a filename for the backup file");
+      System.exit(1);
+    }
+    String file = (String) cmds[fileIndex];
+    if (file == null || file.equals("")) {
+      logger.error("You must provide a filename for the backup file");
+      System.exit(1);
+    }
+    File backupFile= new File(file);
+    if (backupFile.exists()) {
+      logger.error("The file already exists, you must provide a new filename");
+      System.exit(1);
+    }
+    try {
+      if (backupFile.createNewFile()) {
+        FileWriter writer = new FileWriter(backupFile); 
+        getRepository().writeBackup(writer);
+        writer.close();
+        logger.info("Backup file written to " + backupFile.getAbsolutePath());
+      }
+    } catch (IOException e) {
+      logger.error("Unable to create the backup file: " + e.getMessage(), e);
+      System.exit(1);
     }
   }
 
@@ -339,22 +382,24 @@ public class Simal {
 
     String header = "Options";
 
-    StringBuffer footer = new StringBuffer("\n");
-    footer.append("Command      Argument(s)   Description\n\n");
-    footer.append("=======      ===========   ===========\n\n");
-    footer
+    StringBuffer commandSummary = new StringBuffer("\n");
+    commandSummary.append("Command      Argument(s)   Description\n\n");
+    commandSummary.append("=======      ===========   ===========\n\n");
+    commandSummary
         .append("addxml       FILE_OR_URL   add an RDF/XML file to the repository\n");
-    footer
+    commandSummary
         .append("addxmldir    DIRECTORY     add all RDF/XML files found in a directory\n");
-    footer
+    commandSummary
         .append("writexml     URI           retrive the RDF/XML of an entity and write it to standard IO\n");
-    footer
+    commandSummary
         .append("importPTSW                 Import all recently updated DOAP files from PTSW\n");
-    footer
-        .append("importOhloh  ID            import a project from Ohloh with a given ID.");
+    commandSummary
+        .append("importOhloh  ID            import a project from Ohloh with a given ID.\n");
+    commandSummary
+        .append(CMD_BACKUP + "       FILE          write a backup of the whole repository to FILE.\n");
 
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
-        header, opts, footer.toString(), false);
+        header, opts, commandSummary.toString(), false);
   }
 
   public static ISimalRepository getRepository() {

@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.util.Iterator;
 import java.util.Set;
@@ -339,7 +340,9 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetBackup() throws SimalRepositoryException {
     ISimalRepository repo = getRepository();
-    String backup = repo.getBackup();
+    StringWriter sw = new StringWriter();
+    repo.writeBackup(sw);
+    String backup = sw.toString();
     assertNotNull(backup);
     
     int numProjects = count(backup, "doap:Project");
