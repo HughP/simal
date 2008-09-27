@@ -1,0 +1,20 @@
+#summary A description of the process we go through when reviewing patches
+#labels Phase-QA
+
+When a patch is submitted to the project it enters our patch review process. This process is designed to ensure that we maintain quality within the Simal code project and, where necessary, give useful feedback to the contributor about their contribution.
+
+For [ContributionProcess small patches] the following process is followed.
+
+  # Visually examine the patch
+   # check the contribution is a "small contribution"
+   # check style
+   # check readability
+   # check diff is correctly created
+  # if there is a problem with the diff report it to the contributor and ask for resubmission
+  # apply the patch locally
+  # check expected functionality change
+  # check all tests pass
+  # if there is problem with any testing:
+   # report to the contributor and ask for resubmission
+   # revert local changes
+  # if all tests pass commit the change with full credit to the author in the commit message and a mention of the issue the patch is attached to
