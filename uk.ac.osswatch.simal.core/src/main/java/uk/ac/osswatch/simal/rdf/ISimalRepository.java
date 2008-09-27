@@ -15,6 +15,7 @@
  */
 package uk.ac.osswatch.simal.rdf;
 
+import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
@@ -454,11 +455,10 @@ public interface ISimalRepository {
   public boolean isUniqueSimalID(String is);
 
   /**
-   * Get an N3 representation of the complete model in this repository
+   * Write an N3 representation of the complete model in this repository
    * for backup purposes.
-   *  
-   * @return
+   * @param writer The writer to write the N3 to
    */
-  public String getBackup();
+  public void writeBackup(Writer writer);
 
 }
