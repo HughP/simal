@@ -26,6 +26,10 @@
     It contains the RDF repository and a command line for interacting
     with that repository.</p>
     
+    <p>Simal core comes complete with a command line interface.
+    to run it use <code>simal.bat --help</code> or 
+    <code>simal.sh --help</code>.</p>
+    
     <warning>Simal Core is currently in alpha. It is subject to change
     in response to discussions on the <a href="ext:simal/devList">Simal developer list</a>.
     Please join us and help us make Simal what it should be.</warning>
