@@ -50,6 +50,9 @@ See http://forrest.apache.org/docs/linking.html for more info
   
   <devDocs label="Developer Documentation" tab="coreModule">
     <addProject label="Add Project" href="docs/developer/useCases/addProject.html" description="Adding a project to the repository"/>
+    <howTo label="How To" tab="coreModule">
+      <addCLICommand label="Add CLI" href="developer/addCommandToCLI.html" description="How to add a command to the CLI interface"/>
+    </howTo>
   </devDocs>
   
   <external-refs>
@@ -64,6 +67,8 @@ See http://forrest.apache.org/docs/linking.html for more info
       <userList href="http://groups.google.com/group/simal-contributors"/>
       <issueTracker href="http://code.google.com/p/simal/issues/list"/>
       <svn href="http://code.google.com/p/simal/source"/>
+      <rest href="http://simal.oss-watch.ac.uk/rest"/>
+      <web href="http://simal.oss-watch.ac.uk/web"/>
     </simal>
   </external-refs>
 </site>

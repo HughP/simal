@@ -49,6 +49,10 @@
         </section>
       </notes>
       
+      <action context="docs" dev="RDG" type="add" importance="low" fixes-bug="157">
+        <p>Added a how to on adding <a href="developer/addCommandToCLI.html">commands to the CLI</a>.</p>
+      </action>
+      
       <action context="feature" dev="RDG" type="add" importance="low" fixes-bug="157">
         <p>Added a CLI command <code>backup FILE</code> to write an
         N3 representation of the complete repository to the supplied
