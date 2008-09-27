@@ -5,16 +5,30 @@ When a patch is submitted to the project it enters our patch review process. Thi
 
 For [ContributionProcess small patches] the following process is followed.
 
-  # Visually examine the patch
-   # check the contribution is a "small contribution"
+= Review =
+
+  # visually examine the patch
+   # check the legal status of the contributions, do we need a CLA for this contribution?
+     # If a CLA is required and one is not on file then contact the author
    # check style
    # check readability
-   # check diff is correctly created
-  # if there is a problem with the diff report it to the contributor and ask for resubmission
+   # check new features are documented
+   # check status.xml has been appropriately updated
+     # contributor entry (do not reject for this reason, instead note it in the issue)
+     # change record
+  # check diff has been created correctly and can be applied
+   # if there is a problem with the diff report it to the contributor and ask for resubmission
+  # Report status to the contributor via the issue tracker, status is one of:
+     # rejected - give good reasons and ask for an updated patch
+     # passed review - this indicates that someone needs to apply and test the patch
+
+= Testing =
+
   # apply the patch locally
   # check expected functionality change
   # check all tests pass
-  # if there is problem with any testing:
-   # report to the contributor and ask for resubmission
+  # if there is problem with any functionality or testing:
+   # report to the contributor via the issue tracker and ask for resubmission
    # revert local changes
   # if all tests pass commit the change with full credit to the author in the commit message and a mention of the issue the patch is attached to
+  # update the issue and thank the contributor
