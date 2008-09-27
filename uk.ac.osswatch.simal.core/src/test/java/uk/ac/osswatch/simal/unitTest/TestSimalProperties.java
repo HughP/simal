@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import org.junit.Test;
 
@@ -67,8 +68,9 @@ public class TestSimalProperties {
   public void testLocalFile() throws URISyntaxException,
       SimalRepositoryException {
     String version = "Simal-UnitTests";
-    File propsFile = new File(TestSimalProperties.class.getClassLoader()
-        .getResource("testData/local.unitTest.properties").toURI());
+    URL propertiesURL = TestSimalProperties.class.getClassLoader().getResource("testData/local.unitTest.properties");
+    assertNotNull("Can't find the properties file for tests", propertiesURL);
+    File propsFile = new File(propertiesURL.toURI());
     SimalProperties.setLocalPropertiesFile(propsFile);
     assertEquals("We don't seem to be using the custom properties file",
         version, SimalProperties
