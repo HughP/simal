@@ -45,6 +45,13 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.xml.sax.SAXException;
 
+import com.hp.hpl.jena.sparql.vocabulary.DOAP;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
+import com.hp.hpl.jena.vocabulary.DC;
+import com.hp.hpl.jena.vocabulary.DC_11;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
+
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -71,11 +78,11 @@ public class RDFUtils {
 
   private static final Logger logger = LoggerFactory.getLogger(RDFUtils.class);
 
-  public static final String DOAP_NS = "http://usefulinc.com/ns/doap#";
-  public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
-  public static final String FOAF_NS = "http://xmlns.com/foaf/0.1/";
-  public static final String RDF_NS = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
-  public static final String RDFS_NS = "http://www.w3.org/2000/01/rdf-schema#";
+  public static final String DOAP_NS = DOAP.NS;
+  public static final String DC_NS = DC.NS;
+  public static final String FOAF_NS = FOAF.NS;
+  public static final String RDF_NS = RDF.getURI();
+  public static final String RDFS_NS = RDFS.getURI();
   private static File lastFile;
 
   private RDFUtils() {
