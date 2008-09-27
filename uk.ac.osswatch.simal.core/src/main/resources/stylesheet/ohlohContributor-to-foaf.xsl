@@ -39,7 +39,7 @@
       <foaf:Person>
         <xsl:attribute name="rdf:about">http://www.ohloh.net/accounts/<xsl:value-of select="account_id"/></xsl:attribute>
         <xsl:choose>
-          <xsl:when test="response/result/accout/name">
+          <xsl:when test="response/result/account/name">
             <foaf:name><xsl:value-of select="response/result/account/name"/></foaf:name>
           </xsl:when>
           <xsl:when test="account_name">
