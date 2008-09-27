@@ -1,38 +1,24 @@
 #summary A checklist to use when making a contribution to Simal
 #labels Featured
 
-Simal is an open development project. This means that we accpt contrbitutions from anyone. However, this does not mean that we will automatically include any contribution in our releases.
+Simal is an open development project. This means that we accept contrbitutions from anyone. However, this does not mean that we will automatically include any contribution in our releases. This document provides a checklist to allow people to maximise the chances of their contribution being accepted by the project. 
 
-This checklist is provided to allow people to maximise ther chances of their contribution being accepted by the project. It is split into two sections, "Small Contributions" and "Major Contributions". For small contributions (e.g. spelling corrections or minor bug fixes) we have a lightweight process. However, for major contributions (e.g. new documents or features) we have a much more rigorous process.
+The document is split into two sections, "Small Contributions" and "Major Contributions". For small contributions (e.g. spelling corrections or minor bug fixes) we have a lightweight process. However, for major contributions (e.g. new documents or features) we have a much more rigorous process.
 
 = Small Contributions =
 
-Small contributions are those unlikely to contain any intellectual properties, for example, a spelling correction, documentation clarification or small bug fix. Generally the process for submitting a small contribtuion is easy:
+Small contributions are those unlikely to contain any intellectual properties, for example, a spelling correction, documentation clarification or small bug fix. That is, there are no significant legal concerns with accepting the contribution without validating the legal right of the author to make the contribution. Generally the process for submitting a small contribtuion is easy:
 
 == Contributor Checklist ==
 
  # ensure all tests in all modules pass
- # create a diff
- # find the appropriate issue in the tracker (or create a new on if necessary)
- # attach the diff to the issue with a comment explaining its purpose
+ # create a patch for submission
+ # find the appropriate issue in the tracker (or create a new one if necessary)
+ # attach the patch to the issue with a comment explaining its purpose
 
-*NOTE* by submitting the diff to the issue tracker you indicate that you transfer all copyright in the contribution to the University of Oxford. If you do not wish to transfer copyright then you must use the Majopr Contributions process below.
+*NOTE* by submitting the patch to the issue tracker you indicate that you transfer all copyright in the contribution to the University of Oxford. If you do not wish to transfer copyright then you must use the Major Contributions process below.
 
-== Maintainer Checklist ==
-
-  # Visually examine the patch
-   # check the contribution is a "small contribution"
-   # check style
-   # check readability
-   # check diff is correctly created
-  # if there is a problem with the diff report it to the contributor and ask for resubmission
-  # apply the patch locally
-  # check expected functionality change
-  # check all tests pass
-  # if there is problem with any testing:
-   # report to the contributor and ask for resubmission
-   # revert local changes
-  # if all tests pass commit the change with full credit to the author in the commit message and a mention of the issue the patch is attached to
+Once you have submitted the patch it will enter into our PatchReviewProcess
 
 = Major Contributions =
 
