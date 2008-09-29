@@ -430,7 +430,8 @@ public class RDFUtils {
         } else if (uri.startsWith("http://code.google.com")) {
           label = "Google code site";
         } else if (uri.startsWith("http://www.sf.net")
-            || uri.startsWith("http://www.sourceforge.net")) {
+            || uri.startsWith("http://www.sourceforge.net")
+            || uri.startsWith("http://sourceforge.net")) {
           label = "Sourceforge site";
         } else if (uri.startsWith("http://www.ohloh.net")) {
           label = "Ohloh stats";
