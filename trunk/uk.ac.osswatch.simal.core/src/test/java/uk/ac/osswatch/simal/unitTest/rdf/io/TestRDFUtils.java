@@ -241,4 +241,23 @@ public class TestRDFUtils {
     assertFalse("rdf:about is empty", about.equals(""));
     assertTrue("rdf:about contains spaces - " + about, about.indexOf(" ") < 0);
   }
+  
+  @Test
+  public void testWebServicesResponse() throws SimalRepositoryException, ParserConfigurationException, SAXException, IOException {
+    URL url = TestRDFUtils.class.getResource("/testData/webServicesResponse.xml");
+    RDFUtils.preProcess(url, ModelSupport.TEST_FILE_BASE_URL, mockRepository);
+    File processedFile = RDFUtils.getLastProcessedFile();
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setNamespaceAware(true);
+    DocumentBuilder db = dbf.newDocumentBuilder();
+    FileInputStream fis = new FileInputStream(processedFile);
+    dom = db.parse(fis);
+    fis.close();
+
+    NodeList projectNL = dom.getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
+    assertEquals("The web services response should yield one project", 1, projectNL.getLength());
+    
+    NodeList personNL = dom.getElementsByTagNameNS(RDFUtils.FOAF_NS, "Person");
+    assertEquals("The web services response should yield two people", 2, personNL.getLength());
+  }
 }

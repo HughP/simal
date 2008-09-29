@@ -291,7 +291,7 @@ public class RDFUtils {
       DocumentBuilder db = dbf.newDocumentBuilder();
       originalDoc = db.parse(url.openStream());
 
-      // Strip any extra XML, such as Atom feed data
+      // Strip any extra XML, such as Atom feed data or web services response data
       NodeList projects = originalDoc
           .getElementsByTagNameNS(DOAP_NS, "Project");
       if (projects.getLength() == 0) {
