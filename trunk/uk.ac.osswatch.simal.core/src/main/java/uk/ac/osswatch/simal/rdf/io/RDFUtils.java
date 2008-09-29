@@ -48,7 +48,6 @@ import org.xml.sax.SAXException;
 import com.hp.hpl.jena.sparql.vocabulary.DOAP;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.DC;
-import com.hp.hpl.jena.vocabulary.DC_11;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
