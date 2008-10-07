@@ -49,6 +49,7 @@ See http://forrest.apache.org/docs/linking.html for more info
   </userDocs>
   
   <devDocs label="Developer Documentation" tab="coreModule">
+    <dataManagement label="Data Management" href="developer/dataManagement.html" description="Overview on how data is managed within Simal."/>
     <addProject label="Add Project" href="docs/developer/useCases/addProject.html" description="Adding a project to the repository"/>
     <howTo label="How To" tab="coreModule">
       <addCLICommand label="Add CLI" href="developer/addCommandToCLI.html" description="How to add a command to the CLI interface"/>
