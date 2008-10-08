@@ -27,7 +27,7 @@ import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class TestDoapReleaseBehaviour extends BaseRepositoryTest {
+public class TestDoapRelease extends BaseRepositoryTest {
   @Test
   public void testGetReleases() throws SimalRepositoryException {
     Set<IDoapRelease> releases = project1.getReleases();
