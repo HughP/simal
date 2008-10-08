@@ -17,6 +17,7 @@ This document describes the Schema currently in use within Simal as well as outl
 =Currently Supported=
 
 || *Name* || *Since* || *Description* || *Example* ||
+||simal:Project||A simal representation of a project. This extends a doap:Project and allows some additional information to be provided.||0.3||<simal:Project rdf:about="http://foo.org/projectX">||
 ||doap:Project||A project.||0.2||<doap:Project rdf:about="http://foo.org/projectX#">...<doap:Project>||
 ||doap:name||A name of something.||0.2||<doap:name>Project X</doap:name>||
 ||doap:homepage||URL of a project's homepage, associated with exactly one project.||0.2||<doap:homepage rdf:resource="http://www.foo.org"/>||
