@@ -59,6 +59,7 @@ Simal is used to capture details specific to Simal held in the Simal repository.
 
 || *Name* || *Since* || *Description* || *Example* ||
 ||simal:Project||A simal representation of a project. This extends a doap:Project and allows some additional information to be provided.||0.3||<simal:Project rdf:about="http://foo.org/projectX">||
+||simal:Person||A simal representation of a project. This extends a foaf:Person and allows some additional information to be provided.||0.3||<simal:Person rdf:about="http://foo.org/personX">||
 ||simal:personId||A unique identifier for a person stored within Simal.||0.2||<simal:personId>this-is-a-world-unique-id</simal:personId>||
 ||simal:projectId||A unique identifier for a project stored within Simal.||0.2||<simal:projectId>this-is-a-world-unique-id</simal:projectId>||
 
