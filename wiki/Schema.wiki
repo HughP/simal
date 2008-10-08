@@ -16,8 +16,11 @@ This document describes the Schema currently in use within Simal as well as outl
 
 =Currently Supported=
 
+== Doap Namespace ==
+
+DOAP is used to capture key details about a project.
+
 || *Name* || *Since* || *Description* || *Example* ||
-||simal:Project||A simal representation of a project. This extends a doap:Project and allows some additional information to be provided.||0.3||<simal:Project rdf:about="http://foo.org/projectX">||
 ||doap:Project||A project.||0.2||<doap:Project rdf:about="http://foo.org/projectX#">...<doap:Project>||
 ||doap:name||A name of something.||0.2||<doap:name>Project X</doap:name>||
 ||doap:homepage||URL of a project's homepage, associated with exactly one project.||0.2||<doap:homepage rdf:resource="http://www.foo.org"/>||
@@ -37,13 +40,27 @@ This document describes the Schema currently in use within Simal as well as outl
 ||doap:bug-database||issue tracker for a project.||0.2||||
 ||doap:screenshots||Web page with screenshots of project.||0.2||||
 ||doap:maintainer||Maintainer of a project, a project leader.||0.2||||
-||developer||Developer of software for the project.||0.2||||
-||documenter||Contributor of documentation to the project.||0.2||||
+||doap:developer||Developer of software for the project.||0.2||||
+||doap:documenter||Contributor of documentation to the project.||0.2||||
 ||doap:translator||Contributor of translations to the project.||0.2||||
 ||doap:tester||A tester or other quality control contributor.||0.2||||
 ||doap:helper||Project contributor.||0.2||||
 ||doap:programming-language||Programming language a project is implemented in or intended for use with.||0.2||||
 ||doap:os||Operating system that a project is limited to. Omit this property if the project is not OS-specific.||0.2||||
+
+
+== Foaf Namespace ==
+
+FOAF is used to capture key details about a person. 
+
+== Simal Namespace ==
+
+Simal is used to capture details specific to Simal held in the Simal repository.
+
+|| *Name* || *Since* || *Description* || *Example* ||
+||simal:Project||A simal representation of a project. This extends a doap:Project and allows some additional information to be provided.||0.3||<simal:Project rdf:about="http://foo.org/projectX">||
+||simal:personId||A unique identifier for a person stored within Simal.||0.2||<simal:personId>this-is-a-world-unique-id</simal:personId>||
+||simal:projectId||A unique identifier for a project stored within Simal.||0.2||<simal:projectId>this-is-a-world-unique-id</simal:projectId>||
 
 =Proposed Additions=
 
