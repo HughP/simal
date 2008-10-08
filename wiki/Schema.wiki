@@ -16,33 +16,33 @@ This document describes the Schema currently in use within Simal as well as outl
 
 =Currently Supported=
 
-|| *Name* || *Description* || *Example* ||
-||doap:Project||A project.||<doap:Project rdf:about="http://foo.org/projectX#">...<doap:Project>||
-||doap:name||A name of something.||<doap:name>Project X</doap:name>||
-||doap:homepage||URL of a project's homepage, associated with exactly one project.||<doap:homepage rdf:resource="http://www.foo.org"/>||
-||doap:old-homepage||URL of a project's past homepage, associated with exactly one project.||<doap:old-homepage rdf:resource="http://www.bar.org/foo"/>||
-||doap:created||Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05||<doap:created>2004-04-05</doap:created>||
-||doap:shortdesc||Short plain text description of a project.||<doap:shortdesc>A short description</doap:shortdesc>||
-||doap:description||Plain text description of a project.||<doap:description>A complete description with all the words you could hope to see.</doap:description>||
-||doap:release||A project release.||<doap:release rdf:about="http://foo.org/project/release/0.1>...</doap:release>||
-||doap:mailing-list||Mailing list home page or email address.||||
-||doap:category||A category of project.||||
-||doap:license||The URI of an RDF description of the license outputs are distributed under.||
-||doap:repository||Data repository.||||
-||doap:download-page||Web page from which the project outputs can be downloaded.||||
-||doap:download-mirror||Mirror of download web page.||||
-||doap:revision||Revision identifier of an output||||
-||doap:wiki||URL of Wiki for collaborative discussion of project.||||
-||doap:bug-database||issue tracker for a project.||||
-||doap:screenshots||Web page with screenshots of project.||||
-||doap:maintainer||Maintainer of a project, a project leader.||||
-||developer||Developer of software for the project.||||
-||documenter||Contributor of documentation to the project.||||
-||doap:translator||Contributor of translations to the project.||||
-||doap:tester||A tester or other quality control contributor.||||
-||doap:helper||Project contributor.||||
-||doap:programming-language||Programming language a project is implemented in or intended for use with.||||
-||doap:os||Operating system that a project is limited to. Omit this property if the project is not OS-specific.||||
+|| *Name* || *Since* || *Description* || *Example* ||
+||doap:Project||A project.||0.2||<doap:Project rdf:about="http://foo.org/projectX#">...<doap:Project>||
+||doap:name||A name of something.||0.2||<doap:name>Project X</doap:name>||
+||doap:homepage||URL of a project's homepage, associated with exactly one project.||0.2||<doap:homepage rdf:resource="http://www.foo.org"/>||
+||doap:old-homepage||URL of a project's past homepage, associated with exactly one project.||0.2||<doap:old-homepage rdf:resource="http://www.bar.org/foo"/>||
+||doap:created||Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05||0.2||<doap:created>2004-04-05</doap:created>||
+||doap:shortdesc||Short plain text description of a project.||0.2||<doap:shortdesc>A short description</doap:shortdesc>||
+||doap:description||Plain text description of a project.||0.2||<doap:description>A complete description with all the words you could hope to see.</doap:description>||
+||doap:release||A project release.||0.2||<doap:release rdf:about="http://foo.org/project/release/0.1>...</doap:release>||
+||doap:mailing-list||Mailing list home page or email address.||0.2||||
+||doap:category||A category of project.||0.2||||
+||doap:license||The URI of an RDF description of the license outputs are distributed under.||0.2||||
+||doap:repository||Data repository.||0.2||||
+||doap:download-page||Web page from which the project outputs can be downloaded.||0.2||||
+||doap:download-mirror||Mirror of download web page.||0.2||||
+||doap:revision||Revision identifier of an output||0.2||||
+||doap:wiki||URL of Wiki for collaborative discussion of project.||0.2||||
+||doap:bug-database||issue tracker for a project.||0.2||||
+||doap:screenshots||Web page with screenshots of project.||0.2||||
+||doap:maintainer||Maintainer of a project, a project leader.||0.2||||
+||developer||Developer of software for the project.||0.2||||
+||documenter||Contributor of documentation to the project.||0.2||||
+||doap:translator||Contributor of translations to the project.||0.2||||
+||doap:tester||A tester or other quality control contributor.||0.2||||
+||doap:helper||Project contributor.||0.2||||
+||doap:programming-language||Programming language a project is implemented in or intended for use with.||0.2||||
+||doap:os||Operating system that a project is limited to. Omit this property if the project is not OS-specific.||0.2||||
 
 =Proposed Additions=
 
