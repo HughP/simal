@@ -1,0 +1,18 @@
+<projectDescription>
+  <name>simal-core</name>
+  <comment>Simal is a framework and web application for the creation,
+    management and querying of project registries.</comment>
+  <projects/>
+  <buildSpec>
+    <buildCommand>
+      <name>org.eclipse.jdt.core.javabuilder</name>
+    </buildCommand>
+    <buildCommand>
+      <name>org.devzuz.q.maven.jdt.core.mavenIncrementalBuilder</name>
+    </buildCommand>
+  </buildSpec>
+  <natures>
+    <nature>org.eclipse.jdt.core.javanature</nature>
+    <nature>org.devzuz.q.maven.jdt.core.mavenNature</nature>
+  </natures>
+</projectDescription>
