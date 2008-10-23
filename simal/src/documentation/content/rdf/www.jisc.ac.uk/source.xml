@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres/source.aspx">
-<shortdesc>The core aim of this project is to create tools to enable bulk-migration and deposit of learning objects in significant UK HE platforms across the JISC provider IE architecture.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>SOURCE (Sharing Objects Under Repository Control with Everyone)</name>
-<homepage rdf:resource="http://www.source.bbk.ac.uk/"/>
-</Project>

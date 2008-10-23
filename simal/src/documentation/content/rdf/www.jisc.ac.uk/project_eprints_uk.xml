@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair/project_eprints_uk.aspx">
-<shortdesc>The ePrints UK project will be developing subject-based, national services through which the higher and further education community can access the collective output of e-print papers available from compliant Open Archive repositories, particularly those provided by UK universities and colleges.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>ePrints UK</name>
-<homepage rdf:resource="http://www.rdn.ac.uk/projects/eprints-uk/"/>
-</Project>

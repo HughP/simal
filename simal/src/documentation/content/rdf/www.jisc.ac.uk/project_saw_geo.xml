@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/eresearch_grid_ogc_collision/project_saw_geo.aspx">
-<shortdesc>The SAW-GEO project has been developed and funded to address the potential of workflow engines in the orchestration of OGC services and to demonstrate the capability of such developed systems in real-world applications.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/eresearch_grid_ogc_collision.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>SAW-GEO</name>
-</Project>

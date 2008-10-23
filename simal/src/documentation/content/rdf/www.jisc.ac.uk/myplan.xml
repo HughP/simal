@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital/el_xinstit/myplan.aspx">
-<shortdesc>The MyPlan project aims to contribute to the JISC e-Learning programme by developing, deploying and evaluating new techniques and tools that allow personalised planning of lifelong learning. The project brings together stakeholders from a broad range of institutions all of whom are committed to providing lifelong learning opportunities which enhance career development and widen participation, including the recently formed, HEFCE-funded Linking London Lifelong Learning Network (L4N) comprising over 25 institutions across London. These stakeholders will have input into the formulation of user and technical requirements and the evaluation of the tools developed by the project.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>My Plan  Personal Planning for Learning throughout Life</name>
-<homepage rdf:resource="http://www.lkl.ac.uk/research/myplan/"/>
-</Project>

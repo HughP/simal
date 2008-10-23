@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe/project_mlell_evaluation.aspx">
-<shortdesc>The aim of the project is to provide a formative evaluation of the Managed Learning Environments for Lifelong Learning Projects which maximises the synergy between projects and the long term benefits for the JISC community.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Formative evaluation study for the MLEs for Lifelong Learning programme</name>
-<homepage rdf:resource="http://www.glenaffric.com/"/>
-</Project>

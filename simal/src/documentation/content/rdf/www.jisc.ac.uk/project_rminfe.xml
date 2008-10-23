@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm/project_rminfe.aspx">
-<shortdesc>Within the specific context of Freedom of Information this project investigated how records management programmes can be developed to ensure the good management of records in all formats within all the FEIs in the North East of England via collaboration with the Northern Colleges Network.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>Developing records management programmes in FEIs</name>
-<homepage rdf:resource="http://online.unn.ac.uk/faculties/art/information_studies/Imri/rarea/rm/rm_developing_records.htm"/>
-</Project>

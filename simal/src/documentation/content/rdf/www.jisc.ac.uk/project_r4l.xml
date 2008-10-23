@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_r4l.aspx">
-<shortdesc>This project will address the area of interactions between repositories of primary research data, the laboratory environment in which they operate and repositories of research publications into which they ultimately feed (through documented interpretation and analysis of the results and in explicit linking and citation of the data sets).</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>R4L: Repository for the laboratory</name>
-<homepage rdf:resource="http://r4l.eprints.org/"/>
-</Project>

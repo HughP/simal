@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani/project_sirgar.aspx">
-<shortdesc>The overall aim of the project is to evaluate the interoperability between locally developed IMS/SCORM compliant e-learning content and a range of different VLE products used by the development consortium.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>South West Wales Interoperability Project (SWaNI)</name>
-<homepage rdf:resource="http://jisc.virtualcollege.ac.uk/"/>
-</Project>
