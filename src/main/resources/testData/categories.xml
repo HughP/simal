@@ -67,8 +67,9 @@
       </foaf:Person>
     </doap:maintainer>
     
-  <!-- Simal Categories -->
+  <!-- Simal Test Categories -->
   <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/simalIDTest#" rdfs:label="Simal ID Test" simal:categoryId="1"/>
   <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" rdfs:label="DOAP Test"/>
+  <doap:category rdf:resource="" rdfs:label="unknown category"/>
 </doap:Project>
 </rdf:RDF>

@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
-import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -37,19 +36,11 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.SimalOntology;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.QueryFactory;
-import com.hp.hpl.jena.query.QuerySolution;
-import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
@@ -63,69 +54,49 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<IPerson> getColleagues() throws SimalRepositoryException {
-    String uri = getURI();
-    String queryStr = "PREFIX foaf: <" + Foaf.NS + "> " + "PREFIX doap: <"
-        + Doap.NS + "> " + "PREFIX rdf: <" + ISimalRepository.RDF_NAMESPACE_URI
-        + "> " + "SELECT DISTINCT ?colleague WHERE { "
-        + "?project rdf:type doap:Project . " + "{?project doap:maintainer <"
-        + uri + "> } UNION " + "{?project doap:developer <" + uri
-        + "> } UNION " + "{?project doap:documentor <" + uri + "> } UNION "
-        + "{?project doap:helper <" + uri + "> } UNION "
-        + "{?project doap:tester <" + uri + "> } UNION "
-        + "{?project doap:translator <" + uri + "> } . "
-        + "{?project doap:developer ?colleague} UNION "
-        + "{?project doap:documenter ?colleague} UNION "
-        + "{?project doap:helper ?colleague} UNION"
-        + "{?project doap:maintainer ?colleague} UNION"
-        + "{?project doap:tester ?colleague} UNION"
-        + "{?project doap:translator ?colleague} " + "}";
-    logger.debug(("Executing SPARQL query:\n" + queryStr));
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, getJenaResource()
-        .getModel());
-    ResultSet results = qe.execSelect();
-
     Set<IPerson> colleagues = new HashSet<IPerson>();
-    IPerson colleague;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("colleague");
-      if (node.isResource()) {
-        colleague = new Person((com.hp.hpl.jena.rdf.model.Resource) node);
+    Set<String> colleagueIDs = new HashSet<String>();
+    
+    Iterator<IProject> projects = getProjects().iterator();
+    while (projects.hasNext()) {
+      IProject project = projects.next();
+      Iterator<IPerson> people = project.getAllPeople().iterator();
+      while (people.hasNext()) {
+        IPerson colleague = people.next();
         String id = colleague.getSimalID();
-        if (!id.equals(getSimalID())) {
+        if (!id.equals(this.getSimalID()) && !colleagueIDs.contains(id)) {
           colleagues.add(colleague);
+          colleagueIDs.add(id);
         }
       }
     }
-    qe.close();
 
     return colleagues;
   }
 
   public Set<IInternetAddress> getEmail() {
-    StmtIterator itr = getJenaResource().listProperties(Foaf.MBOX);
+    Iterator<Statement> itr = listProperties(Foaf.MBOX).iterator();
     Set<IInternetAddress> emails = new HashSet<IInternetAddress>();
     while (itr.hasNext()) {
-      emails.add(new InternetAddress(itr.nextStatement().getResource()));
+      emails.add(new InternetAddress(itr.next().getResource()));
     }
     return emails;
   }
 
   public Set<String> getGivennames() {
-    StmtIterator itr = getJenaResource().listProperties(Foaf.GIVENNAME);
+    Iterator<Statement> itr = listProperties(Foaf.GIVENNAME).iterator();
     Set<String> names = new HashSet<String>();
     while (itr.hasNext()) {
-      names.add(itr.nextStatement().getString());
+      names.add(itr.next().getString());
     }
     return names;
   }
 
   public Set<String> getNames() {
-    StmtIterator itr = getJenaResource().listProperties(Foaf.NAME);
+    Iterator<Statement> itr = listProperties(Foaf.NAME).iterator();
     Set<String> names = new HashSet<String>();
     while (itr.hasNext()) {
-      names.add(itr.nextStatement().getString());
+      names.add(itr.next().getString());
     }
 
     if (names.size() == 0) {
@@ -144,19 +115,19 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<IDoapHomepage> getHomepages() {
-    StmtIterator itr = getJenaResource().listProperties(Foaf.HOMEPAGE);
+    Iterator<Statement> itr = listProperties(Foaf.HOMEPAGE).iterator();
     Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
-      homepages.add(new Homepage(itr.nextStatement().getResource()));
+      homepages.add(new Homepage(itr.next().getResource()));
     }
     return homepages;
   }
 
   public Set<IPerson> getKnows() {
-    StmtIterator itr = getJenaResource().listProperties(Foaf.KNOWS);
+    Iterator<Statement> itr = listProperties(Foaf.KNOWS).iterator();
     Set<IPerson> people = new HashSet<IPerson>();
     while (itr.hasNext()) {
-      people.add(new Person(itr.nextStatement().getResource()));
+      people.add(new Person(itr.next().getResource()));
     }
     return people;
   }
@@ -223,10 +194,10 @@ public class Person extends Resource implements IPerson {
   }
 
   public Set<IProject> getProjects() throws SimalRepositoryException {
-    StmtIterator itr = getJenaResource().listProperties(Foaf.CURRENT_PROJECT);
+    Iterator<Statement> itr = listProperties(Foaf.CURRENT_PROJECT).iterator();
     Set<IProject> projects = new HashSet<IProject>();
     while (itr.hasNext()) {
-      projects.add(new Project(itr.nextStatement().getResource()));
+      projects.add(new Project(itr.next().getResource()));
     }
     return projects;
   }
