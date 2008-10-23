@@ -109,7 +109,6 @@
     <category rdf:resource="http://projects.apache.org/category/web-framework" rdfs:label="Web Framework"/>
     
     <!-- JISC Categories -->
-    <category rdf:resource="" rdfs:label="unknown category"/>
     <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" rdfs:label="E-Learning Frameworks and Tools"/>
     <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx" rdfs:label="E-Learning Innovation Programme"/>
     <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx" rdfs:label="E-Learning Pedagogy Programme"/>

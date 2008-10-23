@@ -21,6 +21,7 @@ package uk.ac.osswatch.simal.model.jena;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -33,7 +34,6 @@ import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
 import uk.ac.osswatch.simal.model.IDoapDownloadPage;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
@@ -48,7 +48,6 @@ import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
 public class Project extends DoapResource implements IProject {
@@ -68,168 +67,166 @@ public class Project extends DoapResource implements IProject {
     people.addAll((Collection<IPerson>) getTesters());
     people.addAll((Collection<IPerson>) getTranslators());
     return people;
-
   }
 
   public Set<IDoapCategory> getCategories() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.CATEGORY);
+    Iterator<Statement> itr = listProperties(Doap.CATEGORY).iterator();
     Set<IDoapCategory> cats = new HashSet<IDoapCategory>();
     while (itr.hasNext()) {
-      cats.add(new Category(itr.nextStatement().getResource()));
+      cats.add(new Category(itr.next().getResource()));
     }
     return cats;
   }
 
   public Set<IPerson> getDevelopers() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.DEVELOPER);
-    Set<IPerson> people = new HashSet<IPerson>();
-    while (itr.hasNext()) {
-      people.add(new Person(itr.nextStatement().getResource()));
-    }
-    return people;
+    return getUniquePeople(listProperties(Doap.DEVELOPER));
   }
 
   public Set<IPerson> getDocumenters() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.DOCUMENTER);
-    Set<IPerson> people = new HashSet<IPerson>();
-    while (itr.hasNext()) {
-      people.add(new Person(itr.nextStatement().getResource()));
-    }
-    return people;
+    return getUniquePeople(listProperties(Doap.DOCUMENTER));
   }
 
   public Set<IDoapDownloadMirror> getDownloadMirrors() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.DOWNLOAD_MIRROR);
+    Iterator<Statement> itr = listProperties(Doap.DOWNLOAD_MIRROR).iterator();
     Set<IDoapDownloadMirror> mirrors = new HashSet<IDoapDownloadMirror>();
     while (itr.hasNext()) {
-      mirrors.add(new DownloadMirror(itr.nextStatement().getResource()));
+      mirrors.add(new DownloadMirror(itr.next().getResource()));
     }
     return mirrors;
   }
 
   public Set<IDoapDownloadPage> getDownloadPages() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.DOWNLOAD_PAGE);
+    Iterator<Statement> itr = listProperties(Doap.DOWNLOAD_PAGE).iterator();
     Set<IDoapDownloadPage> pages = new HashSet<IDoapDownloadPage>();
     while (itr.hasNext()) {
-      pages.add(new DownloadPage(itr.nextStatement().getResource()));
+      pages.add(new DownloadPage(itr.next().getResource()));
     }
     return pages;
   }
 
   public Set<IPerson> getHelpers() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.HELPER);
-    Set<IPerson> people = new HashSet<IPerson>();
-    while (itr.hasNext()) {
-      people.add(new Person(itr.nextStatement().getResource()));
-    }
-    return people;
+    return getUniquePeople(listProperties(Doap.HELPER));
   }
 
   public Set<IDoapHomepage> getHomepages() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.HOMEPAGE);
+    Iterator<Statement> itr = listProperties(Doap.HOMEPAGE).iterator();
     Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
-      pages.add(new Homepage(itr.nextStatement().getResource()));
+      pages.add(new Homepage(itr.next().getResource()));
     }
     return pages;
   }
 
   public Set<IDoapBugDatabase> getIssueTrackers() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.BUG_DATABASE);
+    Iterator<Statement> itr = listProperties(Doap.BUG_DATABASE).iterator();
     Set<IDoapBugDatabase> trackers = new HashSet<IDoapBugDatabase>();
     while (itr.hasNext()) {
-      trackers.add(new BugDatabase(itr.nextStatement().getResource()));
+      trackers.add(new BugDatabase(itr.next().getResource()));
     }
     return trackers;
   }
 
-  public Set<IDoapLicence> getLicences() {
-    HashSet<IDoapLicence> licences = new HashSet<IDoapLicence>();
-    StmtIterator statements = getJenaResource().listProperties(Doap.LICENSE);
-    while (statements.hasNext()) {
-      licences.add(new Licence(statements.nextStatement().getResource()));
-    }
-    return licences;
-  }
-
   public Set<IDoapMailingList> getMailingLists() {
     HashSet<IDoapMailingList> lists = new HashSet<IDoapMailingList>();
-    StmtIterator statements = getJenaResource().listProperties(
-        Doap.MAILING_LIST);
+    Iterator<Statement> statements = listProperties(Doap.MAILING_LIST)
+        .iterator();
     while (statements.hasNext()) {
-      lists.add(new MailingList(statements.nextStatement().getResource()));
+      lists.add(new MailingList(statements.next().getResource()));
     }
     return lists;
   }
 
   public Set<IPerson> getMaintainers() {
+    return getUniquePeople(listProperties(Doap.MAINTAINER));
+  }
+
+  /**
+   * Given a list of statements representing people extract all the unique people within that set.
+   * 
+   * @param personList
+   * @return A set containing only unique people as identified by their Simal ID
+   */
+  private HashSet<IPerson> getUniquePeople(List<Statement> personList) {
     HashSet<IPerson> people = new HashSet<IPerson>();
-    StmtIterator maintainers = getJenaResource()
-        .listProperties(Doap.MAINTAINER);
-    while (maintainers.hasNext()) {
-      people.add(new Person(maintainers.nextStatement().getResource()));
+    HashSet<String> peopleIDs = new HashSet<String>();
+    Iterator<Statement> itr = personList.iterator();
+    while (itr.hasNext()) {
+      String uri = itr.next().getResource().getURI();
+      try {
+        IPerson person = SimalRepository.getInstance().findPersonBySeeAlso(uri);
+        if (person == null) {
+          throw new SimalRepositoryException("No person with the URI " + uri);
+        }
+        String id = person.getSimalID();
+        if (!peopleIDs.contains(id)) {
+          people.add(person);
+          peopleIDs.add(id);
+        }
+      } catch (SimalRepositoryException e) {
+        logger.warn("Unable to read person with URI " + uri);
+      }
     }
     return people;
   }
 
   public Set<String> getOSes() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.OS);
+    Iterator<Statement> itr = listProperties(Doap.OS).iterator();
     Set<String> langs = new HashSet<String>();
     while (itr.hasNext()) {
-      langs.add(itr.nextStatement().getString());
+      langs.add(itr.next().getString());
     }
     return langs;
   }
 
   public Set<IDoapHomepage> getOldHomepages() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.OLD_HOMEPAGE);
+    Iterator<Statement> itr = listProperties(Doap.OLD_HOMEPAGE).iterator();
     Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
-      pages.add(new Homepage(itr.nextStatement().getResource()));
+      pages.add(new Homepage(itr.next().getResource()));
     }
     return pages;
   }
 
   public Set<String> getProgrammingLanguages() {
-    StmtIterator itr = getJenaResource().listProperties(
-        Doap.PROGRAMMING_LANGUAGE);
+    Iterator<Statement> itr = listProperties(Doap.PROGRAMMING_LANGUAGE)
+        .iterator();
     Set<String> langs = new HashSet<String>();
     while (itr.hasNext()) {
-      langs.add(itr.nextStatement().getString());
+      langs.add(itr.next().getString());
     }
     return langs;
   }
 
   public Set<IDoapRelease> getReleases() {
     HashSet<IDoapRelease> releases = new HashSet<IDoapRelease>();
-    StmtIterator statements = getJenaResource().listProperties(Doap.RELEASE);
+    Iterator<Statement> statements = listProperties(Doap.RELEASE).iterator();
     while (statements.hasNext()) {
-      releases.add(new Release(statements.nextStatement().getResource()));
+      releases.add(new Release(statements.next().getResource()));
     }
     return releases;
   }
 
   public Set<IDoapRepository> getRepositories() {
     HashSet<IDoapRepository> repos = new HashSet<IDoapRepository>();
-    StmtIterator statements = getJenaResource().listProperties(Doap.REPOSITORY);
+    Iterator<Statement> statements = listProperties(Doap.REPOSITORY).iterator();
     while (statements.hasNext()) {
-      repos.add(new Repository(statements.nextStatement().getResource()));
+      repos.add(new Repository(statements.next().getResource()));
     }
     return repos;
   }
 
   public Set<IDoapScreenshot> getScreenshots() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.SCREENSHOTS);
+    Iterator<Statement> itr = listProperties(Doap.SCREENSHOTS).iterator();
     Set<IDoapScreenshot> langs = new HashSet<IDoapScreenshot>();
     while (itr.hasNext()) {
-      langs.add(new Screenshot(itr.nextStatement().getResource()));
+      langs.add(new Screenshot(itr.next().getResource()));
     }
     return langs;
   }
 
   public String getSimalID() throws SimalRepositoryException {
     String uniqueID = getUniqueSimalID();
-    String id = uniqueID.substring(uniqueID.lastIndexOf(":") + 1);
+    String id = uniqueID.substring(uniqueID.lastIndexOf("-") + 1);
     return id;
   }
 
@@ -238,8 +235,8 @@ public class Project extends DoapResource implements IProject {
     Statement idStatement = getJenaResource().getProperty(
         SimalOntology.PROJECT_ID);
     if (idStatement == null) {
-      id = SimalRepository.getInstance().getNewProjectID();
-      setSimalID(id);
+      logger.warn("Project instance with no Simal ID - " + getURI());
+      id = null;
     } else {
       id = idStatement.getString();
     }
@@ -250,39 +247,29 @@ public class Project extends DoapResource implements IProject {
     if (newId.contains(":")
         && !newId.startsWith(SimalProperties
             .getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
-      throw new SimalRepositoryException("Simal ID cannot contain a ':'");
+      throw new SimalRepositoryException("Simal ID cannot contain a '-'");
     }
     StringBuilder id = new StringBuilder(SimalProperties
         .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
-    id.append(":");
+    id.append("-");
     id.append(newId);
     logger.info("Setting simalId for " + this + " to " + id);
     getJenaResource().addLiteral(SimalOntology.PROJECT_ID, id);
   }
 
   public Set<IPerson> getTesters() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.TESTER);
-    Set<IPerson> people = new HashSet<IPerson>();
-    while (itr.hasNext()) {
-      people.add(new Person(itr.nextStatement().getResource()));
-    }
-    return people;
+    return getUniquePeople(listProperties(Doap.TESTER));
   }
 
   public Set<IPerson> getTranslators() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.TRANSLATOR);
-    Set<IPerson> people = new HashSet<IPerson>();
-    while (itr.hasNext()) {
-      people.add(new Person(itr.nextStatement().getResource()));
-    }
-    return people;
+    return getUniquePeople(listProperties(Doap.TRANSLATOR));
   }
 
   public Set<IDoapWiki> getWikis() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.WIKI);
+    Iterator<Statement> itr = listProperties(Doap.WIKI).iterator();
     Set<IDoapWiki> pages = new HashSet<IDoapWiki>();
     while (itr.hasNext()) {
-      pages.add(new Wiki(itr.nextStatement().getResource()));
+      pages.add(new Wiki(itr.next().getResource()));
     }
     return pages;
   }

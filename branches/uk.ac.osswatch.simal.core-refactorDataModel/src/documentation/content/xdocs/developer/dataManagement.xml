@@ -49,14 +49,17 @@
       <source><![CDATA[
 <?xml version="1.0" encoding="UTF-8"?>
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <Project rdf:about="http://simal.oss-watch.ac.uk/doap/26#Project"
-           xmlns="http://usefulinc.com/ns/doap#"
-           xmlns:dc="http://purl.org/dc/elements/1.1/"
-           xmlns:foaf="http://xmlns.com/foaf/0.1/"
-           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
-           xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-     <rdf:sameAs rdf:resource="http://foo.org/originalSource"/>
-   </Project>
+  <simal:Project>
+    <doap:Project rdf:about="http://simal.oss-watch.ac.uk/doap/26#Project"
+             xmlns:doap="http://usefulinc.com/ns/doap#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:foaf="http://xmlns.com/foaf/0.1/"
+             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+             xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+       <rdf:sameAs rdf:resource="http://foo.org/originalSource"/>
+     </doap:Project>
+     <simal:projectId>a-world-unique-id</simal:projectId>
+   </simal:Project>
 </RDF>
       ]]></source>
       
@@ -67,8 +70,13 @@
       this entity will result in the data held in the original
       resource description being returned.</p>
       
+      <p>A similar process is undergone for people in the repository.
+      That is, when a new person is discovered a Simal Entity is created
+      or an <code>rdfs:seeAlso</code> data element is added to the existing
+      person entity.</p> 
+      
       <p>The above annotation of the resource is handled by
-      <code>uk.ac.osswatch.simal.model.Ingester</code>.</p>
+      the <code>addProject</code> method of <code>ISimalRepository</code>.</p>
     </section>
     
     <section>
@@ -93,7 +101,7 @@
       <title>Selecting the Preferred Data Source</title>
       
       <p>When a second data source is imported Simal records the
-      second source, using an <code>rdf:sameAs</code> element, in
+      second source, using an <code>rdf:seeAlso</code> element, in
       the internal Simal entity description.</p>
       
       <fixme author="RDG">Design a method for indicating priorities

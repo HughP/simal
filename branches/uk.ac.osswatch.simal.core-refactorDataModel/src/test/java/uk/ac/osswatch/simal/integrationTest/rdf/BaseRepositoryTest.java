@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.integrationTest.rdf;
 import java.net.URISyntaxException;
 
 import org.junit.BeforeClass;
+import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -34,7 +35,7 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
  */
 public abstract class BaseRepositoryTest {
 
-  public static final String TEST_PROJECT_SEEALSO = "http://simal.oss-watch.ac.uk/simalTest#";
+  public static final String TEST_PROJECT_URI = "http://simal.oss-watch.ac.uk/simalTest#";
   public static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
   public static final String TEST_SIMAL_PROJECT_SHORT_DESC = "A simple DOAP file used during automated testing.";
   public static final String TEST_SIMAL_PROJECT_CREATED = "2007-08-08";
@@ -70,7 +71,7 @@ public abstract class BaseRepositoryTest {
 
   public static final int TEST_SIMAL_PROJECT_NUMBER_OF_HOMEPAGES = 2;
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE = "http://doapTest.oss-watch.ac.uk";
-  public static final String TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO = "http://code.google.com/p/simal";
+  public static final String TEST_SIMAL_PROJECT_HOMEPAGE_URL_TWO = "http://code.foo.com/p/simal";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE = "Project Home Page";
   public static final String TEST_SIMAL_PROJECT_HOMEPAGE_NAME_TWO = "Developer Home Page";
 
@@ -115,7 +116,7 @@ public abstract class BaseRepositoryTest {
         SimalProperties.PROPERTY_LOCAL_PROPERTIES_LOCATION,
         "local.simal.test.properties");
     SimalProperties.deleteLocalProperties();
-
+    
     initRepository();
   }
 
@@ -127,7 +128,7 @@ public abstract class BaseRepositoryTest {
       repository.setIsTest(true);
       repository.initialise(null);
     }
-    project1 = getRepository().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+    project1 = getRepository().findProjectBySeeAlso(TEST_PROJECT_URI);
     IPerson developer = repository
         .findPersonBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getSimalID();
@@ -136,7 +137,7 @@ public abstract class BaseRepositoryTest {
         .findPersonBySeeAlso("http://foo.org/~documentor/#me");
     String documentorID = documentor.getSimalID();
 
-    testProjectID = project1.getSimalID();
+    testProjectID = project1.getUniqueSimalID();
     testProjectURI = RDFUtils.getDefaultProjectURI(testProjectID);
     testDeveloperURI = RDFUtils.getDefaultPersonURI(testDeveloperID);
     testDocumentorURI = RDFUtils.getDefaultPersonURI(documentorID);

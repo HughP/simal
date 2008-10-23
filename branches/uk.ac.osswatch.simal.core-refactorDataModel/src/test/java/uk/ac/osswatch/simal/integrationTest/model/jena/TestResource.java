@@ -46,7 +46,7 @@ public class TestResource extends BaseRepositoryTest {
     assertNotNull(project1);
     project1.delete();
     IProject project = getRepository().findProjectBySeeAlso(
-        TEST_PROJECT_SEEALSO);
+        TEST_PROJECT_URI);
     assertNull("The simal project should have been deleted", project);
     // force the repo to be rebuilt
     getRepository().destroy();
@@ -84,7 +84,7 @@ public class TestResource extends BaseRepositoryTest {
   @Test
   public void testSources() throws SimalRepositoryException {
     Set<String> sources = project1.getSources();
-    assertEquals("Incorrect number of data sources identified", 4, sources
+    assertEquals("Incorrect number of data sources identified", 2, sources
         .size());
   }
 

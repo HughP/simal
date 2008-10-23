@@ -76,7 +76,7 @@ public class Ohloh {
       source.append("/");
       source.append(projectID);
       URL sourceURL = new URL(source.toString());
-      repo.addProject(resultRoot, sourceURL, OHLOH_BASE_URI);
+      repo.addProject(resultRoot.getOwnerDocument(), sourceURL, OHLOH_BASE_URI);
     } catch (TransformerConfigurationException e) {
       throw new SimalRepositoryException("Unable to create XSL Transformer", e);
     } catch (TransformerException e) {
