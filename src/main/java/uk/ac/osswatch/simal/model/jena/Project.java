@@ -155,7 +155,10 @@ public class Project extends DoapResource implements IProject {
       try {
         IPerson person = SimalRepository.getInstance().findPersonBySeeAlso(uri);
         if (person == null) {
-          throw new SimalRepositoryException("No person with the URI " + uri);
+          person = SimalRepository.getInstance().getPerson(uri);
+          if (person == null) {
+            throw new SimalRepositoryException("No person with the URI " + uri);
+          }
         }
         String id = person.getSimalID();
         if (!peopleIDs.contains(id)) {
