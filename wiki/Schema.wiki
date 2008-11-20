@@ -49,9 +49,16 @@ DOAP is used to capture key details about a project.
 ||doap:os||Operating system that a project is limited to. Omit this property if the project is not OS-specific.||0.2||||
 
 
-== Foaf Namespace ==
+== FOAF Namespace ==
 
 FOAF is used to capture key details about a person. 
+
+== RDFS Namespace ==
+
+RDFS is used to capture information about a resource.
+
+|| *Name* || *Since* || *Description* || *Example* ||
+|| rdfs:label || 0.2 || A human readable label for a resource || <rdfs:label>Human Readable Label</rdfs:label> ||
 
 == Simal Namespace ==
 
