@@ -65,7 +65,7 @@ Simal is used to capture details specific to Simal held in the Simal repository.
 
 =Proposed Additions=
 
+[http://groups.google.com/group/simal-users/browse_thread/thread/81c6443d4ebb4252 Discussion] of some proposed additions.
+
 || *Data* || *Description* || *Suggested Implementation* ||
-||simal:fundingStart||Funding start date where a central source of funding is known||||
-||simal:fundingEnd||Funding end date where a central source of funding is known||||
-||simal:collected||The date a fact was collected||||
+||simal:collected||The date a fact was collected||<simal:collected>YYYY-MM-DD</simal:collected>||
