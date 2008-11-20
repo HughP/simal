@@ -64,11 +64,11 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testAddPersonFromScratch() throws SimalRepositoryException,
       DuplicateURIException, URISyntaxException {
-    String uri = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
+    String sourceURI = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
     IPerson person;
-    person = getRepository().createPerson(uri);
+    person = getRepository().createPerson(sourceURI);
 
-    person = getRepository().getPerson(uri);
+    person = getRepository().getPerson(person.getURI());
     assertNotNull("Person has not been added to repository", person);
     assertNotNull("Person simalID should not be null", person.getSimalID());
     assertNotNull("Person simalID is invalid", getRepository().isUniqueSimalID(
