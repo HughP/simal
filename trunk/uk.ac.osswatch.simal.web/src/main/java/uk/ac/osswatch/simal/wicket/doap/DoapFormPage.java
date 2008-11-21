@@ -83,6 +83,8 @@ public class DoapFormPage extends BasePage {
     public AddByRawRDFForm(String id) {
       super(id, new CompoundPropertyModel<DoapFormInputModel>(inputModel));
       add(rdfField = new TextArea<String>("rawRDF"));
+      String[] defaultValue = { "" };
+      rdfField.setModelValue(defaultValue);
     }
 
     @Override
