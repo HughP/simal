@@ -86,6 +86,24 @@ public class TestDoapFormPage extends TestBase {
       project.delete();
     }
   }
+  
+  @Test
+  /**
+   * Ensure the Raw RDF form is being cleared between executions.
+   * ISSUE 104
+   */
+  public void testRawRDFFormCleared() {
+    FormTester formTester = tester.newFormTester("rawRDFForm");
+    formTester.setValue("rawRDF", "This is not a valid entry");
+    formTester.submit();
+
+    tester = new WicketTester();
+    tester.startPage(DoapFormPage.class);
+    tester.assertRenderedPage(DoapFormPage.class);
+    formTester = tester.newFormTester("rawRDFForm");
+    String value = formTester.getTextComponentValue("rawRDF");
+    assertEquals("Raw RDF field should have been cleared", "", value);
+  }
 
   /**
    * Test adding a project by a both a valid and invalid URL.
@@ -161,8 +179,7 @@ public class TestDoapFormPage extends TestBase {
 
   @Test
   public void testAddProjectByRawRDF() throws SimalRepositoryException {
-    FormTester formTester = tester.newFormTester("doapForm");
-    formTester = tester.newFormTester("rawRDFForm");
+    FormTester formTester = tester.newFormTester("rawRDFForm");
     formTester.setValue("rawRDF", TEST_RAW_RDF);
     formTester.submit();
 
