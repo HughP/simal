@@ -280,4 +280,11 @@ public interface IProject extends IDoapResource, IProjectService {
    * @param person
    */
   public void addTranslator(IPerson person);
+
+  /**
+   * Get the data feeds associated with this project.
+   * 
+   * @return
+   */
+  public Set<IFeed> getFeeds();
 }
