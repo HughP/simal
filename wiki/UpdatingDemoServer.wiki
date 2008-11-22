@@ -1,7 +1,9 @@
 #summary Instructions for updating code on the demo server.
 #labels Phase-Deploy,Phase-QA
 
-The demo server at http://data.oss-watch.ac.uk:8080 can be updated by anyone with the necessary priveledges to the demo machine with the following steps:
+The demo server at http://data.oss-watch.ac.uk:8080 can be updated by anyone with the necessary priveledges (e.g. a sudo user) on the demo machine with the following steps.
+
+= Update and Compile the Modules =
 
 {{{
 cd /home/simal
@@ -10,7 +12,13 @@ cd /home/simal
 
 This will update all Simal modules from SVN, run all tests and deploy artifacts to the local Maven repository.
 
-_NOTE: The following two steps are requried becuase of ISSUE 142_
+= Clean The Demo Data [OPTIONAL] =
+
+If you want to reset the demo data follow these steps:
+
+On the Tools page of the demo server select "Remove all data from the repository" - be very *careful* with this, it will delete all data in the server. Only use it if you know what you are doing.
+
+_NOTE: The need to stop and restart the server are as a result of ISSUE 142_
 
 {{{
 ps aux | grep maven
@@ -33,7 +41,7 @@ This will deploy all the data files we have that are known to work cleanly in th
 Now we run the server again with:
 
 {{{
-./runs.sh
+./run.sh
 }}}
 
 That's it, you can log out now.
