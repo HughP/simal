@@ -25,16 +25,19 @@ Copyright 2008 University of Oxford
 <div class="content">
 
   <div class="widget">
-    <div class="content">
+    <div class="content">  
       <input type="button" wicket:id = "deleteProjectActionLink" value="Delete"/>
       <a wicket:id="doapLink" href="#">RDF</a>
     </div>
   </div>
   
   <div class="content">
-    <div class="leftcolumn">
+    <div class="leftcolumn">  
       <h2 wicket:id="projectName">Project Name</h2>
       <p wicket:id="shortDesc">Short Description</p>
+      <div id="feed-control">
+        <!--  this is a place holder for the Google AJAX Feed API -->
+      </div>
       <div wicket:id="homepages">
         <a wicket:id="homepage" href="#"><span wicket:id="label">A home page</span></a>
       </div>
