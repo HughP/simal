@@ -40,6 +40,7 @@ import com.hp.hpl.jena.rdf.model.RDFWriter;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.ResourceUtils;
+import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
@@ -114,13 +115,21 @@ public class Resource implements IResource {
   }
 
   public String getLabel(String defaultLabel) {
-    String label;
+    String label = null;
     Statement labelStatement = getJenaResource().getProperty(RDFS.label);
-    if (labelStatement == null) {
-      label = defaultLabel;
-    } else {
+    if (labelStatement != null) {
       label = labelStatement.getString();
+    } else {
+      labelStatement = getJenaResource().getProperty(DC.title);
+      if (labelStatement != null) {
+        label = labelStatement.getString();
+      }
     }
+    
+    if (label == null){
+      label = defaultLabel; 
+    }
+    
     if (label == null) {
       label = getJenaResource().getURI();
     }
