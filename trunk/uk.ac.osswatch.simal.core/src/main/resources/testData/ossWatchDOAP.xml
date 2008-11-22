@@ -41,6 +41,18 @@
       this by providing unbiased advice and guidance to UK higher and
       further education.
     </description>
+    
+    <foaf:weblog>
+      <foaf:Document rdf:about="http://osswatch.jiscinvolve.org/feed">
+        <dc:title>Team Blog</dc:title>
+      </foaf:Document>
+    </foaf:weblog>
+      
+    <foaf:weblog>
+      <foaf:Document rdf:about="http://rss.oucs.ox.ac.uk/oxitems/generatersstwo2.php?channel_name=projects/oss-watch/announce,projects/oss-watch/reports,projects/oss-watch/briefings,projects/oss-watch/communitynews">
+        <dc:title>News</dc:title>
+      </foaf:Document>
+    </foaf:weblog>
 
     <homepage rdf:resource="http://www.oss-watch.ac.uk/" />
 
