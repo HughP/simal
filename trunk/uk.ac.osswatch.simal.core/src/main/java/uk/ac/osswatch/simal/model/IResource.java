@@ -44,8 +44,14 @@ public interface IResource extends IResourceService, Serializable {
   public String getURI();
 
   /**
-   * Get the label for this resource. If the resource does not have a defined
-   * label return value of the toString() method.
+   * Get the label for this resource. The label of a resource is
+   * defined by (in order of priority):
+   * 
+   * <ul>
+   *   <li>rdfs:label</li>
+   *   <li>dc:title</li>
+   *   <li>URI</li>
+   * </ul>
    * 
    * @return
    */

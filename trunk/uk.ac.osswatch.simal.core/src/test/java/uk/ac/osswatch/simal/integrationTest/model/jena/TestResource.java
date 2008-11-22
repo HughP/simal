@@ -87,5 +87,11 @@ public class TestResource extends BaseRepositoryTest {
     assertEquals("Incorrect number of data sources identified", 4, sources
         .size());
   }
+  
+  @Test
+  public void testGetLabel() {
+    String label = project1.getLabel();
+    assertEquals("Label is incorrect", TEST_SIMAL_PROJECT_NAME, label);
+  }
 
 }
