@@ -37,6 +37,7 @@ import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
@@ -438,5 +439,11 @@ public class TestProject extends BaseRepositoryTest {
         .size() == postPeople.size());
 
     person.delete();
+  }
+  
+  @Test
+  public void testGetFeeds() {
+    Set<IFeed> feeds = project1.getFeeds();
+    assertNotNull(feeds);
   }
 }

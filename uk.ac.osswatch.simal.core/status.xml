@@ -49,6 +49,21 @@
         </section>
       </notes>
       
+      <action context="docs" dev="RDG" type="add" importance="high" fixes-bug="32">
+        <p>Added Handling of weblogs for projects. Use Project.getFeeds() to 
+        get a set of feeds defined for a Project. To define a weblog use:</p>
+        
+        <source>
+        <![CDATA[
+  <foaf:weblog>
+    <foaf:Document rdf:about="http://foo.org/feed.rss">
+      <dc:title>Test Feed</dc:title>
+    </foaf:Document>
+  </foaf:weblog>
+        ]]>
+        </source>
+      </action>
+      
       <action context="docs" dev="RDG" type="add" importance="low" fixes-bug="157">
         <p>Added a how to on adding <a href="developer/addCommandToCLI.html">commands to the CLI</a>.</p>
       </action>

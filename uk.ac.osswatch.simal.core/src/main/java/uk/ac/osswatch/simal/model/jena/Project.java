@@ -40,6 +40,7 @@ import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IDoapScreenshot;
 import uk.ac.osswatch.simal.model.IDoapWiki;
+import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.SimalOntology;
@@ -448,6 +449,15 @@ public class Project extends DoapResource implements IProject {
 
   public String toString() {
     return getNames().toString();
+  }
+
+  public Set<IFeed> getFeeds() {
+    StmtIterator itr = getJenaResource().listProperties(FOAF.weblog);
+    Set<IFeed> feeds = new HashSet<IFeed>();
+    while (itr.hasNext()) {
+      feeds.add(new Feed(itr.nextStatement().getResource()));
+    }
+    return feeds;
   }
 
 }
