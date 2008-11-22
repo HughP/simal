@@ -17,16 +17,22 @@ package uk.ac.osswatch.simal.wicket.doap;
  * under the License.                                                *
  */
 
+import java.util.Iterator;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.IPageLink;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rest.RESTCommand;
@@ -47,6 +53,8 @@ public class ProjectDetailPage extends BasePage {
   private static final long serialVersionUID = 8719708525508677833L;
   private static final Logger logger = LoggerFactory
       .getLogger(ProjectDetailPage.class);
+  private static final CompressedResourceReference FEED_API_CSS = new CompressedResourceReference(
+      UserApplication.class, "style/googleFeedAPI.css");
   private IProject project;
 
   public ProjectDetailPage(PageParameters parameters) {
@@ -76,10 +84,61 @@ public class ProjectDetailPage extends BasePage {
   public ProjectDetailPage(IProject project) {
     populatePage(project);
   }
+  
+  /**
+   * Prepare for render by adding the Google Ajax Feed API
+   * initialisation code.
+   */
+  @Override
+  public void onBeforeRender() {
+    super.onBeforeRender();
+    
+    try {
+      add(HeaderContributor.forJavaScript("http://www.google.com/jsapi?key=" + SimalProperties.getProperty(SimalProperties.PROPERTY_GOOGLE_AJAX_FEED_API_KEY)));
+
+      add(HeaderContributor.forJavaScript("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js"));
+      add(HeaderContributor.forCss("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.css"));
+      add(HeaderContributor.forCss(FEED_API_CSS));
+      
+      StringBuffer config = new StringBuffer();
+      
+      config.append("<script type=\"text/javascript\">\n");
+      config.append("function LoadDynamicFeedControl() {");
+      config.append("var feeds = [");
+      
+      Iterator<IFeed> feedItr = project.getFeeds().iterator();
+      IFeed feed = null;
+      while (feedItr.hasNext()) {
+        if (feed != null) {
+          config.append(",");
+        }
+        feed = feedItr.next();
+        config.append("{title: '" + feed.getTitle() + "',");
+        config.append("url: '" + feed.getFeedURL() + "'");
+        config.append("}");
+      }
+      config.append("];");
+      
+      config.append("var options = {");
+      config.append("stacked : false,");
+      config.append("horizontal : false,");
+      config.append("title : \"\"");
+      config.append("}\n\n");
+      config.append("new GFdynamicFeedControl(feeds, 'feed-control', options);");
+      config.append("}\n\n");
+      config.append("google.load('feeds', '1');");
+      config.append("google.setOnLoadCallback(LoadDynamicFeedControl);");
+      config.append("</script>");
+
+      add(new StringHeaderContributor(config.toString()));
+    } catch (SimalRepositoryException e) {
+      logger.warn("Unable to get Google API Key. Aborting addition of AJAX Feed widget.", e);
+    }
+  }
+
 
   private void populatePage(final IProject project) {
     this.project = project;
-
     add(new DeleteLink("deleteProjectActionLink", project));
 
     try {
