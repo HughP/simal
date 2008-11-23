@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.wicket;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
+import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
 
@@ -28,6 +29,7 @@ public class UserHomePage extends BasePage {
   public UserHomePage() {
     try {
       add(new ProjectListPanel("projectList", 7));
+      add(new PersonListPanel("peopleList", "People List"));
       add(new ProjectSummaryPanel("featuredProject"));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(

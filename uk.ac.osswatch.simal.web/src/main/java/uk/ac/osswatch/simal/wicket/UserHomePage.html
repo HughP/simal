@@ -22,12 +22,28 @@
   <p class="warning">This is an early alpha release of the Simal
   Project Registry. It is a long way from complete, but is useful as a
   proof of concept.</p>
-  <div wicket:id="projectList"
-    wicket:preview="panel/ProjectListPanel.html">Project List
-  Panel</div>
-  <div wicket:id="featuredProject"
-    wicket:preview="panel/ProjectSummaryPanel.html">Featured
-  Project Panel</div>
+  
+  <div class="content">
+    <div class="leftcolumn">  
+      <div wicket:id="projectList"
+        wicket:preview="panel/ProjectListPanel.html">Project List
+      Panel</div>
+    </div>
+    
+    <div class="rightcolumn">  
+      <div wicket:id="peopleList">People List Panel</div>
+    </div>
+    
+    <div class="singlecolumn">
+      <div wicket:id="featuredProject"
+        wicket:preview="panel/ProjectSummaryPanel.html">Featured
+      Project Panel</div>
+    </div>
+  </div>
+  
+  
+  <div class="content">
+  </div>
 
 </wicket:extend>
 </body>
