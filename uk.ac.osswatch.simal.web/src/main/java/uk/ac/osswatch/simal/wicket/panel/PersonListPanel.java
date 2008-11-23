@@ -55,14 +55,15 @@ public class PersonListPanel extends Panel {
    *          the wicket ID for the component
    * @param title
    *          the title if this list
+   * @param numberOfPeople the number of people to display per page
    * @throws SimalRepositoryException
    */
-  public PersonListPanel(String id, String title)
+  public PersonListPanel(String id, String title, int numberOfPeople)
       throws SimalRepositoryException {
     super(id);
     this.title = title;
     this.people = UserApplication.getRepository().getAllPeople();
-    populatePanel();
+    populatePanel(numberOfPeople);
   }
 
   /**
@@ -74,21 +75,22 @@ public class PersonListPanel extends Panel {
    *          the title if this list
    * @param people
    *          the people to include in the list
+   * @param numberOfPeople the number of people to display per page
    * @throws SimalRepositoryException
    */
-  public PersonListPanel(String id, String title, Set<IPerson> people) {
+  public PersonListPanel(String id, String title, Set<IPerson> people, int numberOfPeople) {
     super(id);
     this.title = title;
     this.people = people;
-    populatePanel();
+    populatePanel(numberOfPeople);
   }
 
-  private void populatePanel() {
+  private void populatePanel(int numberOfPeople) {
     add(new Label("title", title));
-    addPersonList(people);
+    addPersonList(people, numberOfPeople);
   }
 
-  private void addPersonList(Set<IPerson> people) {
+  private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     /*
      * columns.add(new AbstractColumn(new Model("Actions")) { public void
@@ -110,7 +112,7 @@ public class PersonListPanel extends Panel {
 
     SortableDataProvider dataProvider = new SortablePersonDataProvider(people);
     dataProvider.setSort(SortablePersonDataProvider.SORT_PROPERTY_LABEL, true);
-    add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
+    add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, numberOfPeople));
   }
 
   /**

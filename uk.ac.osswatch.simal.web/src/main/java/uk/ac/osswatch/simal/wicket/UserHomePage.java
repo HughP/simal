@@ -29,7 +29,7 @@ public class UserHomePage extends BasePage {
   public UserHomePage() {
     try {
       add(new ProjectListPanel("projectList", 7));
-      add(new PersonListPanel("peopleList", "People List"));
+      add(new PersonListPanel("peopleList", "People List", 7));
       add(new ProjectSummaryPanel("featuredProject"));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(

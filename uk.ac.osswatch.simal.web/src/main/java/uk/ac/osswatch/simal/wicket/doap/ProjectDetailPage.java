@@ -201,42 +201,42 @@ public class ProjectDetailPage extends BasePage {
 
     // contributors
     PersonListPanel maintainerList = new PersonListPanel("maintainers",
-        "Maintainers", project.getMaintainers());
+        "Maintainers", project.getMaintainers(), 4);
     maintainerList.setOutputMarkupId(true);
     add(maintainerList);
     add(new AddPersonPanel("addMaintainerPanel", getProject(),
         AddPersonPanel.MAINTAINER, maintainerList));
 
     PersonListPanel developerList = new PersonListPanel("developers",
-        "Developers", project.getDevelopers());
+        "Developers", project.getDevelopers(), 7);
     developerList.setOutputMarkupId(true);
     add(developerList);
     add(new AddPersonPanel("addDeveloperPanel", getProject(),
         AddPersonPanel.DEVELOPER, developerList));
 
     PersonListPanel testerList = new PersonListPanel("testers", "Testers",
-        project.getTesters());
+        project.getTesters(), 4);
     testerList.setOutputMarkupId(true);
     add(testerList);
     add(new AddPersonPanel("addTesterPanel", getProject(),
         AddPersonPanel.TESTER, testerList));
 
     PersonListPanel helperList = new PersonListPanel("helpers", "Helpers",
-        project.getHelpers());
+        project.getHelpers(), 4);
     helperList.setOutputMarkupId(true);
     add(helperList);
     add(new AddPersonPanel("addHelperPanel", getProject(),
         AddPersonPanel.HELPER, helperList));
 
     PersonListPanel documentorList = new PersonListPanel("documenters",
-        "Documentors", project.getDocumenters());
+        "Documentors", project.getDocumenters(), 4);
     documentorList.setOutputMarkupId(true);
     add(documentorList);
     add(new AddPersonPanel("addDocumentorPanel", getProject(),
         AddPersonPanel.DOCUMENTOR, documentorList));
 
     PersonListPanel translatorList = new PersonListPanel("translators",
-        "Translators", project.getTranslators());
+        "Translators", project.getTranslators(), 4);
     translatorList.setOutputMarkupId(true);
     add(translatorList);
     add(new AddPersonPanel("addTranslatorPanel", getProject(),
