@@ -16,13 +16,24 @@ package uk.ac.osswatch.simal.wicket.doap;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
+import org.apache.wicket.IClusterable;
 
 /**
- * An input model for filtering projects based on various
+ * An input model for filtering resources based on various
  * criteria.
  * 
  */
-public class ProjectFilterInputModel extends ResourceFilterInputModel {
+public class ResourceFilterInputModel implements IClusterable {
   private static final long serialVersionUID = 1L;
+  private String nameFilter;
+  public ResourceFilterInputModel() {
+  }
 
+  public String getNameFilter() {
+    return nameFilter;
+  }
+
+  public void setNameFilter(String filter) {
+    this.nameFilter = filter;
+  }
 }

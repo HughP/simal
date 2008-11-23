@@ -18,11 +18,11 @@ package uk.ac.osswatch.simal.wicket.doap;
  */
 
 /**
- * An input model for filtering projects based on various
+ * An input model for filtering people based on various
  * criteria.
  * 
  */
-public class ProjectFilterInputModel extends ResourceFilterInputModel {
+public class PersonFilterInputModel extends ResourceFilterInputModel {
   private static final long serialVersionUID = 1L;
 
 }

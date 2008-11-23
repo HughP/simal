@@ -20,6 +20,7 @@ package uk.ac.osswatch.simal.wicket.data;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
@@ -49,5 +50,17 @@ public class SortablePersonDataProvider extends
    */
   public SortablePersonDataProvider(Set<IPerson> people) {
     super(people);
+  }
+
+  /**
+   * Update the data displayed by filtering on the name field using a
+   * regular expression.
+   * 
+   * @param nameFilter
+   * @throws SimalRepositoryException
+   */
+  public void filterPeopleByName(String nameFilter) throws SimalRepositoryException {
+    Set<IPerson> people = UserApplication.getRepository().filterPeopleByName(nameFilter);
+    super.resetData(people);
   }
 }

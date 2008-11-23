@@ -137,6 +137,16 @@ public class SortableFoafResourceDataProvider extends
     return resources.size();
   }
 
+  /**
+   * Update the data in this provider to only include those supplied.
+   * 
+   * @param resources
+   */
+  @SuppressWarnings("unchecked")
+  public void resetData(Set<? extends IFoafResource> resources) {
+    this.resources = (Set<IFoafResource>) resources;
+  }
+
   private class IFoafResourceBehaviourComparator implements
       Comparator<IFoafResource>, Serializable {
     private static final long serialVersionUID = -8067880844650642351L;
