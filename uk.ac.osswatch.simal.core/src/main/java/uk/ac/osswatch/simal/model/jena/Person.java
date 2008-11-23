@@ -131,6 +131,10 @@ public class Person extends Resource implements IPerson {
     if (names.size() == 0) {
       names = getGivennames();
     }
+
+    if (names.size() == 0) {
+      names.add("No Name Supplied");
+    }
     return names;
   }
 
