@@ -20,7 +20,9 @@ package uk.ac.osswatch.simal.wicket.panel;
 import static org.junit.Assert.fail;
 
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.TestPanelSource;
+import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -31,10 +33,10 @@ import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
  * Simple test using the WicketTester
  */
 public class TestProjectListPanel extends TestBase {
-
-  @Test
+  
+  @Before
   @SuppressWarnings("serial")
-  public void testProjectListPanel() {
+  public void setUpPanel() {
     tester.startPanel(new TestPanelSource() {
       public Panel getTestPanel(String panelId) {
         try {
@@ -45,14 +47,31 @@ public class TestProjectListPanel extends TestBase {
         }
       }
     });
+  }
 
+  @Test
+  public void testProjectListPanel() {
     tester.assertVisible("panel:dataTable:rows:1");
     tester.assertVisible("panel:dataTable:rows:2");
-    tester.assertVisible("panel:dataTable:rows:3");
+    tester.assertVisible("panel:dataTable:rows:6");
     tester.assertLabel("panel:dataTable:rows:1:cells:1:cell:link:label",
         "CodeGoo");
 
     tester.clickLink("panel:dataTable:rows:1:cells:1:cell:link");
     tester.assertRenderedPage(ProjectDetailPage.class);
+  }
+  
+  @Test
+  public void testFiltering() {
+    tester.assertVisible("panel:projectFilterForm");
+    tester.assertVisible("panel:dataTable:rows:1");
+    
+    FormTester formTester = tester.newFormTester("panel:projectFilterForm");
+    formTester.setValue("nameFilter", "Simal");
+    formTester.submit();
+
+    tester.assertVisible("panel:dataTable");
+    tester.assertVisible("panel:dataTable:rows");
+    // TODO: need to test if the rows are filtered
   }
 }
