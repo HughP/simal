@@ -69,6 +69,6 @@ public class CategoryDetailPage extends BasePage {
   private void populatePage(IDoapCategory category)
       throws SimalRepositoryException {
     add(new CategorySummaryPanel("summary", category));
-    add(new ProjectListPanel("projects", category.getProjects()));
+    add(new ProjectListPanel("projects", category.getProjects(), 15));
   }
 }

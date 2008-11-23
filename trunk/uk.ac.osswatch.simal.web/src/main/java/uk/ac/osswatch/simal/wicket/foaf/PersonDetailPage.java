@@ -77,7 +77,7 @@ public class PersonDetailPage extends BasePage {
   private void populatePage(IPerson person) throws SimalRepositoryException {
     add(new PersonSummaryPanel("summary", person));
     add(new ColleaguesPanel("colleagues", person));
-    add(new ProjectListPanel("projects", person.getProjects()));
+    add(new ProjectListPanel("projects", person.getProjects(), 15));
 
     // source
     add(getRepeatingDataSourcePanel("sources", "seeAlso", person.getSources()));

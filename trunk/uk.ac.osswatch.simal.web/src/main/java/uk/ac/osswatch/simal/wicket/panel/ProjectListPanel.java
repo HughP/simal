@@ -24,7 +24,6 @@ import java.util.Set;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
-import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -37,7 +36,6 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.data.SortableProjectDataProvider;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectFilterInputModel;
@@ -55,26 +53,28 @@ public class ProjectListPanel extends Panel {
   /**
    * List all projects in the repository.
    * 
-   * @param id
+   * @param id the wiketID of this component
+   * @param numberOfProjects number of projects to display per page
    * @throws SimalRepositoryException
    */
   @SuppressWarnings("serial")
-  public ProjectListPanel(String id) throws SimalRepositoryException {
+  public ProjectListPanel(String id, int numberOfProjects) throws SimalRepositoryException {
     super(id);
-    populatePanel(null);
+    populatePanel(null, numberOfProjects);
   }
 
   /**
    * List a set of given projects.
    * 
    * @param string
-   * @param projects
+   * @param projects the projects to display, if null all projects in the repo will be displayed
+   * @param numberOfProjects number of projects to display per page
    * @throws SimalRepositoryException
    */
-  public ProjectListPanel(String id, Set<IProject> projects)
+  public ProjectListPanel(String id, Set<IProject> projects, int numberOfProjects)
       throws SimalRepositoryException {
     super(id);
-    populatePanel(projects);
+    populatePanel(projects, numberOfProjects);
   }
 
   /**
@@ -94,10 +94,11 @@ public class ProjectListPanel extends Panel {
    * @param projects -
    *          the list of projects to display or null if all projects in the
    *          repo are to be displayed.
+   * @param numberOfProjects 
    * @throws SimalRepositoryException
    */
   @SuppressWarnings("unchecked")
-  private void populatePanel(Set<IProject> projects)
+  private void populatePanel(Set<IProject> projects, int numberOfProjects)
       throws SimalRepositoryException {
     add(new ProjectFilterForm("projectFilterForm"));    
     
@@ -121,7 +122,7 @@ public class ProjectListPanel extends Panel {
       dataProvider = new SortableProjectDataProvider(projects);
     }
     dataProvider.setSort("name", true);
-    projectTable = new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15);
+    projectTable = new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, numberOfProjects);
     add(projectTable);
   }
   
