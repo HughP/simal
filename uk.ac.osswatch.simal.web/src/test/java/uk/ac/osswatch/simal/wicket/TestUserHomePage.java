@@ -17,19 +17,50 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
+import org.apache.wicket.util.tester.FormTester;
+import org.apache.wicket.util.tester.WicketTester;
+import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.Test;
+
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * Simple test using the WicketTester
  */
 public class TestUserHomePage extends TestBase {
 
-  @Test
-  public void testRenderPage() {
+  /**
+   * Delete the repository to ensure that subsequent tests have clean data.
+   * 
+   * @throws SimalRepositoryException
+   */
+  @AfterClass
+  public static void deleteRepostiroy() throws SimalRepositoryException {
+    UserApplication.destroyRepository();
+  }
+
+  @Before
+  public void initTester() throws SimalRepositoryException {
+    logProjectData("before");
+    tester = new WicketTester();
     tester.startPage(UserHomePage.class);
     tester.assertRenderedPage(UserHomePage.class);
+  }
+
+  @Test
+  public void testRenderPage() {
     tester.assertVisible("projectList");
     tester.assertVisible("featuredProject");
     tester.assertVisible("footer");
+  }
+  
+  @Test
+  public void testFilterProjects() {
+    tester.assertVisible("projectList:projectFilterForm");
+    
+    FormTester formTester = tester.newFormTester("projectList:projectFilterForm");
+    formTester.setValue("nameFilter", "Simal");
+    formTester.submit();
   }
 }

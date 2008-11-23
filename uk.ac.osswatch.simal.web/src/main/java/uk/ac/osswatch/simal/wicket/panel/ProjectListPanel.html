@@ -20,6 +20,15 @@ Copyright 2008 University of Oxford
 <wicket:panel>
   <div class="projectList">
   <div class="title">Project List</div>
+  
+  <form wicket:id="projectFilterForm">
+      <p>
+        <label>Name:</label>
+        <input type="text" wicket:id="nameFilter" value="" size="50" />
+        <input type="submit" value="Filter" />
+      </p>
+  </form>
+    
   <table wicket:id="dataTable" class="dataTable">
     <tbody>
       <tr>

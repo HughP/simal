@@ -25,15 +25,22 @@ import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFal
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.data.SortableProjectDataProvider;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
+import uk.ac.osswatch.simal.wicket.doap.ProjectFilterInputModel;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
@@ -41,7 +48,10 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
  */
 public class ProjectListPanel extends Panel {
   private static final long serialVersionUID = -890741585742505383L;
-
+  private static final Logger logger = LoggerFactory.getLogger(ProjectListPanel.class);
+  private static ProjectFilterInputModel inputModel = new ProjectFilterInputModel();
+  AjaxFallbackDefaultDataTable<SortableProjectDataProvider> projectTable;
+  SortableProjectDataProvider dataProvider;
   /**
    * List all projects in the repository.
    * 
@@ -68,6 +78,17 @@ public class ProjectListPanel extends Panel {
   }
 
   /**
+   * Update the data displayed by filtering on the name field using a
+   * regular expression.
+   * 
+   * @param nameFilter
+   * @throws SimalRepositoryException
+   */
+  public void filterProjectsByName(String nameFilter) throws SimalRepositoryException {
+    dataProvider.filterProjectsByName(nameFilter);
+  }
+
+  /**
    * Populate the panel with data.
    * 
    * @param projects -
@@ -78,6 +99,8 @@ public class ProjectListPanel extends Panel {
   @SuppressWarnings("unchecked")
   private void populatePanel(Set<IProject> projects)
       throws SimalRepositoryException {
+    add(new ProjectFilterForm("projectFilterForm"));    
+    
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
       private static final long serialVersionUID = -2174061702366979017L;
@@ -92,13 +115,35 @@ public class ProjectListPanel extends Panel {
     columns.add(new PropertyColumn(new Model("Description"), "shortDesc",
         "shortDesc"));
 
-    SortableDataProvider dataProvider;
     if (projects == null) {
       dataProvider = new SortableProjectDataProvider();
     } else {
       dataProvider = new SortableProjectDataProvider(projects);
     }
     dataProvider.setSort("name", true);
-    add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
+    projectTable = new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15);
+    add(projectTable);
+  }
+  
+  private class ProjectFilterForm extends Form<ProjectFilterInputModel> {
+    private static final long serialVersionUID = 4350446873545711199L;
+    private TextField<String> nameFilter;
+    
+    public ProjectFilterForm(String name) {
+      super(name, new CompoundPropertyModel<ProjectFilterInputModel>(inputModel));
+      add(nameFilter = new TextField<String>("nameFilter"));
+    }
+
+    @Override
+    protected void onSubmit() {
+      super.onSubmit();
+      logger.error("Not yet fully implemented on Submit on filter form");
+      try {
+        filterProjectsByName(nameFilter.getValue());
+      } catch (SimalRepositoryException e) {
+        logger.error("Unable to perform search", e);
+        nameFilter.setModel(new Model<String>("ERROR: contact support"));
+      }        
+    }
   }
 }
