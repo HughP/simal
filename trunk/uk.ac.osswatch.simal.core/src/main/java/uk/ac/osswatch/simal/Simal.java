@@ -23,6 +23,7 @@ import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -38,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
@@ -88,6 +90,14 @@ public class Simal {
     Option properties = new Option("p", "properties", true,
         "The properties file to use");
     opts.addOption(properties);
+
+    Option nameFilters = new Option("n", "nameFilter", true,
+        "A regex for filtering entities based on their names");
+    opts.addOption(nameFilters);
+
+    Option summary = new Option("s", "summary", false,
+        "When displaying resource information only display summary details.");
+    opts.addOption(summary);
 
     Option test = new Option(
         "t",
@@ -178,15 +188,24 @@ public class Simal {
           System.exit(1);
         }
         i++;
-      } else if (cmd.equals("writexml")) {
-        writeXML((String) cmds[i + 1]);
+      } if (cmd.equals("getProjects")) {
+        try {
+          getProjects(cl);
+        } catch (SimalRepositoryException e) {
+          logger.error("Unable to get projects: " + e.getMessage() + "\n",
+              e);
+          System.exit(1);
+        }
+        i++;
+      } else if (cmd.equals("write")) {
+        write((String) cmds[i + 1], cl);
         i++;
       } else if (cmd.equals("importPTSW")) {
         try {
           importPTSW();
         } catch (SimalException e) {
-          logger.error(
-              "Unable to Import from PTSW: " + e.getMessage() + "\n", e);
+          logger.error("Unable to Import from PTSW: " + e.getMessage() + "\n",
+              e);
           System.exit(1);
         }
         i++;
@@ -194,8 +213,8 @@ public class Simal {
         try {
           importOhloh((String) cmds[i + 1]);
         } catch (SimalException e) {
-          logger.error("Unable to Import from Ohloh: " + e.getMessage()
-              + "\n", e);
+          logger.error("Unable to Import from Ohloh: " + e.getMessage() + "\n",
+              e);
           System.exit(1);
         }
         i++;
@@ -209,11 +228,56 @@ public class Simal {
   }
 
   /**
-   * Write a backup of the repository to a file defined in the 
-   * next position of the command string.
+   * Get the projects indicated in the options.
+   * (e.g. '-nameFilter foo' will get all projects with 'foo' in their name).
+   * The project data will be dumped to the log in the format
+   * specified by the command line options..
+   * @param cl 
+   * @throws SimalRepositoryException 
+   */
+  private static void getProjects(CommandLine cl) throws SimalRepositoryException {
+    if (cl.hasOption('n')) {
+      String filter = cl.getOptionValue('n');
+      Set<IProject> projects = getRepository().filterProjectsByName(filter);
+      if (projects == null || projects.size() == 0) {
+        logger.info("No projects match the regular expression '" + filter + "'");
+      } else {
+        Iterator<IProject> itr = projects.iterator();
+        while(itr.hasNext()) {
+          IProject project = itr.next();
+          dump(project, cl);
+          logger.info("\n\n============================================\n============================================\n\n");
+        }
+      }
+    }
+  }
+
+  /**
+   * Dump the project details as specified in the command line options.
+   * The default format is XML.
+   * @param project
+   * @param cl 
+   * @throws SimalRepositoryException 
+   */
+  private static void dump(IResource resource, CommandLine cl) throws SimalRepositoryException {
+    if (cl.hasOption('s')) {
+      StringBuilder msg = new StringBuilder(resource.getLabel());
+      msg.append(" - ");
+      msg.append(resource.getURI());
+      logger.info(msg.toString());
+    } else {
+      logger.info(resource.toXML());
+    }
+  }
+
+  /**
+   * Write a backup of the repository to a file defined in the next position of
+   * the command string.
    * 
-   * @param cmds - the array of commands
-   * @param fileIndex - the index of the filename
+   * @param cmds -
+   *          the array of commands
+   * @param fileIndex -
+   *          the index of the filename
    */
   private static void backup(String[] cmds, int fileIndex) {
     if (fileIndex == cmds.length) {
@@ -225,14 +289,14 @@ public class Simal {
       logger.error("You must provide a filename for the backup file");
       System.exit(1);
     }
-    File backupFile= new File(file);
+    File backupFile = new File(file);
     if (backupFile.exists()) {
       logger.error("The file already exists, you must provide a new filename");
       System.exit(1);
     }
     try {
       if (backupFile.createNewFile()) {
-        FileWriter writer = new FileWriter(backupFile); 
+        FileWriter writer = new FileWriter(backupFile);
         getRepository().writeBackup(writer);
         writer.close();
         logger.info("Backup file written to " + backupFile.getAbsolutePath());
@@ -300,15 +364,17 @@ public class Simal {
   }
 
   /**
-   * Write an XML file for the given QName to the log.
+   * Write a resource in the format indicated in the command line options.
+   * Default s XML.
+   * @param cl 
    * 
    * @param qname
    */
-  private static void writeXML(final String uri) {
+  private static void write(final String uri, CommandLine cl) {
     logger.info("Writing XML for " + uri);
     try {
       IResource resource = repository.getResource(uri);
-      logger.info(resource.toXML());
+      dump(resource, cl);
     } catch (SimalRepositoryException e) {
       logger.error("Unable to write XML to standard out");
       System.exit(1);
@@ -386,17 +452,20 @@ public class Simal {
     commandSummary.append("Command      Argument(s)   Description\n\n");
     commandSummary.append("=======      ===========   ===========\n\n");
     commandSummary
-        .append("addxml       FILE_OR_URL   add an RDF/XML file to the repository\n");
+        .append("addxml       FILE_OR_URL   add an RDF/XML file to the repository.\n\n");
     commandSummary
-        .append("addxmldir    DIRECTORY     add all RDF/XML files found in a directory\n");
+        .append("addxmldir    DIRECTORY     add all RDF/XML files found in a directory.\n\n");
     commandSummary
-        .append("writexml     URI           retrive the RDF/XML of an entity and write it to standard IO\n");
+        .append("getProjects                get all projects, or those indicated in the options.\n\n");
     commandSummary
-        .append("importPTSW                 Import all recently updated DOAP files from PTSW\n");
+        .append("importOhloh  ID            import a project from Ohloh with a given ID.\n\n");
     commandSummary
-        .append("importOhloh  ID            import a project from Ohloh with a given ID.\n");
+        .append("importPTSW                 Import all recently updated DOAP files from PTSW\n\n");
     commandSummary
-        .append(CMD_BACKUP + "       FILE          write a backup of the whole repository to FILE.\n");
+        .append("write        URI           write the entity with the given URI in the format indicated in the options (default is XML).\n\n");
+    commandSummary
+        .append(CMD_BACKUP
+            + "       FILE          write a backup of the whole repository to FILE.\n\n");
 
     f.printHelp("simal [options] [command [args] [command [args]] ... ]",
         header, opts, commandSummary.toString(), false);
