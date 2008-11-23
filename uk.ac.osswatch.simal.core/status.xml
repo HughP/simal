@@ -31,6 +31,7 @@
     <context id="docs" title="Changes to Documentation"/>
     <context id="admin" title="Changes to Project Administration"/>
     <context id="design" title="Changes to Designand/or Implementation"/>
+    <context id="cli" title="Changes to command line interface of Simal"/>
     <context id="feature" title="Changes to feature set of Simal"/>
   </contexts>
 
@@ -49,26 +50,26 @@
         </section>
       </notes>
       
-      <action context="feature" dev="RDG" type="add" importance="high">
+      <action context="cli" dev="RDG" type="add" importance="high">
         <p>Added <code>getPeople</code> to the command line. This dumps the details of
         people. Command line options can be used to filter the people
         returned.</p>
       </action>
       
-      <action context="feature" dev="RDG" type="add" importance="high">
+      <action context="cli" dev="RDG" type="add" importance="high">
         <p>Added <code>--summary</code> to the command line. This option
         summarises any output from the command line. For example, when used
         with <code>getProjects</code> or <code>write</code> the output
         will be information such as the project title and its URI.</p>
       </action>
       
-      <action context="feature" dev="RDG" type="add" importance="high">
+      <action context="cli" dev="RDG" type="add" importance="high">
         <p>Added <code>--nameFilter</code> to the command line. This allows commands
         to use a name filter. For example, the <code>getProjects --nameFilter foo</code> command
         will only get projects with 'foo' in their name.</p>
       </action>
       
-      <action context="feature" dev="RDG" type="add" importance="high">
+      <action context="cli" dev="RDG" type="add" importance="high">
         <p>Added <code>getProjects</code> to the command line. This dumps the details of
         projects. Command line options can be used to filter the projects
         returned.</p>
@@ -98,7 +99,7 @@
         <p>Added a how to on adding <a href="developer/addCommandToCLI.html">commands to the CLI</a>.</p>
       </action>
       
-      <action context="feature" dev="RDG" type="add" importance="low" fixes-bug="157">
+      <action context="cli" dev="RDG" type="add" importance="low" fixes-bug="157">
         <p>Added a CLI command <code>backup FILE</code> to write an
         N3 representation of the complete repository to the supplied
         filename.</p>
@@ -130,7 +131,7 @@
         </section>
       </notes>
       
-      <action context="feature" dev="RDG" type="add" importance="high">
+      <action context="cli" dev="RDG" type="add" importance="high">
         <p>Added CLI command <code>importOhloh</code> to import data
         from Ohloh.net. In order to use this feature you must set the value
         of <code>ohloh.api.key</code> in local.simal.properties. See the
