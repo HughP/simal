@@ -134,6 +134,11 @@ public class Person extends Resource implements IPerson {
 
     if (names.size() == 0) {
       names.add("No Name Supplied");
+      try {
+        logger.warn("There is a person with no name attached to projects " + getProjects().toString());
+      } catch (SimalRepositoryException e) {
+        e.printStackTrace();
+      }
     }
     return names;
   }
