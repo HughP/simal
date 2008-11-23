@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -188,7 +189,16 @@ public class Simal {
           System.exit(1);
         }
         i++;
-      } if (cmd.equals("getProjects")) {
+      } if (cmd.equals("getPeople")) {
+        try {
+          getPeople(cl);
+        } catch (SimalRepositoryException e) {
+          logger.error("Unable to get projects: " + e.getMessage() + "\n",
+              e);
+          System.exit(1);
+        }
+        i++;
+      } else if (cmd.equals("getProjects")) {
         try {
           getProjects(cl);
         } catch (SimalRepositoryException e) {
@@ -228,10 +238,35 @@ public class Simal {
   }
 
   /**
+   * Get the people indicated in the options.
+   * (e.g. '-nameFilter foo' will get all people with 'foo' in their name).
+   * The people data will be dumped to the log in the format
+   * specified by the command line options.
+   * @param cl 
+   * @throws SimalRepositoryException 
+   */
+  private static void getPeople(CommandLine cl) throws SimalRepositoryException {
+    if (cl.hasOption('n')) {
+      String filter = cl.getOptionValue('n');
+      Set<IPerson> people = getRepository().filterPeopleByName(filter);
+      if (people == null || people.size() == 0) {
+        logger.info("No projects match the regular expression '" + filter + "'");
+      } else {
+        Iterator<IPerson> itr = people.iterator();
+        while(itr.hasNext()) {
+          IPerson person = itr.next();
+          dump(person, cl);
+          logger.info("\n\n============================================\n============================================\n\n");
+        }
+      }
+    }
+  }
+
+  /**
    * Get the projects indicated in the options.
    * (e.g. '-nameFilter foo' will get all projects with 'foo' in their name).
    * The project data will be dumped to the log in the format
-   * specified by the command line options..
+   * specified by the command line options.
    * @param cl 
    * @throws SimalRepositoryException 
    */
@@ -455,6 +490,8 @@ public class Simal {
         .append("addxml       FILE_OR_URL   add an RDF/XML file to the repository.\n\n");
     commandSummary
         .append("addxmldir    DIRECTORY     add all RDF/XML files found in a directory.\n\n");
+    commandSummary
+        .append("getPeople                  get all people, or those indicated in the options.\n\n");
     commandSummary
         .append("getProjects                get all projects, or those indicated in the options.\n\n");
     commandSummary

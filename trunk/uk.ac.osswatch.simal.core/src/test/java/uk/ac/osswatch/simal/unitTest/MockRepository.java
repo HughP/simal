@@ -212,4 +212,9 @@ public class MockRepository extends AbstractSimalRepository {
     return null;
   }
 
+  public Set<IPerson> filterPeopleByName(String filter) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

@@ -462,7 +462,7 @@ public interface ISimalRepository {
   public void writeBackup(Writer writer);
 
   /**
-   * Return all the projects that match the
+   * Return all the projects with a name that matches the
    * supplied regular expression. The filter
    * is not case sensitive.
    * 
@@ -471,5 +471,16 @@ public interface ISimalRepository {
    * @return
    */
   public Set<IProject> filterProjectsByName(String filter);
+
+  /**
+   * Return all the people with a name that matches the
+   * supplied regular expression. The filter
+   * is not case sensitive.
+   * 
+   * 
+   * @param value
+   * @return
+   */
+  public Set<IPerson> filterPeopleByName(String filter);
 
 }

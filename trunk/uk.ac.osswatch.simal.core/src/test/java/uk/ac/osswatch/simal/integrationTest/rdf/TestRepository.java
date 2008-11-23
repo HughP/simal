@@ -70,6 +70,17 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
+  public void testFilterPeopleByName() {
+    // Test exact Match
+    Set<IPerson> people = getRepository().filterPeopleByName("Ross Gardler");
+    assertEquals("Not the right number of projects with the name 'Ross Gardler'", 1, people.size());
+    
+    // Test wildcard match
+    people = getRepository().filterPeopleByName("Ro");
+    assertEquals("Not the right number of projects match the filter 'Ro'", 3, people.size());
+  }
+
+  @Test
   public void testAddCategories() throws SimalRepositoryException,
       URISyntaxException {
     Set<IDoapCategory> cats = getRepository().getAllCategories();

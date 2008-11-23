@@ -305,6 +305,18 @@ public final class SimalRepository extends AbstractSimalRepository {
 
     return category;
   }
+  
+  public Set<IPerson> filterPeopleByName(String filter) {
+    String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
+    + "> " + "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
+    + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+    + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+    + "SELECT DISTINCT ?person WHERE { ?person a foaf:Person;"
+    + "  foaf:name ?name . "
+    + "  FILTER regex(?name, \"" + filter + "\", \"i\") }";
+
+    return filterPeopleBySPARQL(queryStr);
+  }
 
   public IPerson findPersonById(String id) throws SimalRepositoryException {
     if (!isValidSimalID(id)) {
@@ -480,6 +492,29 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
     qe.close();
     return projects;
+  }
+
+  /**
+   * Find all people returned using a SPARQL query.
+   * 
+   * @param queryStr
+   * @return
+   */
+  private Set<IPerson> filterPeopleBySPARQL(String queryStr) {
+    Query query = QueryFactory.create(queryStr);
+    QueryExecution qe = QueryExecutionFactory.create(query, model);
+    ResultSet results = qe.execSelect();
+
+    Set<IPerson> people = new HashSet<IPerson>();
+    while (results.hasNext()) {
+      QuerySolution soln = results.nextSolution();
+      RDFNode node = soln.get("person");
+      if (node.isResource()) {
+        people.add(new Person((com.hp.hpl.jena.rdf.model.Resource) node));
+      }
+    }
+    qe.close();
+    return people;
   }
 
   public Set<IDoapCategory> getAllCategories() throws SimalRepositoryException {
