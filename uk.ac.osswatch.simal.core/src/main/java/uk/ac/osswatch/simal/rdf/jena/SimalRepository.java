@@ -405,6 +405,18 @@ public final class SimalRepository extends AbstractSimalRepository {
     return project;
   }
 
+  public Set<IProject> filterProjectsByName(String filter) {
+    String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
+        + "> " + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?project WHERE { ?project a doap:Project;"
+        + "  doap:name ?name . "
+        + "  FILTER regex(?name, \"" + filter + "\", \"i\") }";
+
+    return filterProjectsBySPARQL(queryStr);
+  }
+
   public IProject findProjectBySeeAlso(String seeAlso)
       throws SimalRepositoryException {
     String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
@@ -419,7 +431,13 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   /**
-   * Find a single project by executing a PARQL query.
+   * Find a single project by executing a SPARQL query.
+   * If the query returns more than one result then
+   * only one is returned.
+   * 
+   * @TODO - we should probably throw an error if we get
+   * multiple projects returned otherwise the results will
+   * be unpredictable
    * 
    * @param queryStr
    * @return
@@ -439,6 +457,29 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
     qe.close();
     return project;
+  }
+
+  /**
+   * Find all projects returned using a SPARQL query.
+   * 
+   * @param queryStr
+   * @return
+   */
+  private Set<IProject> filterProjectsBySPARQL(String queryStr) {
+    Query query = QueryFactory.create(queryStr);
+    QueryExecution qe = QueryExecutionFactory.create(query, model);
+    ResultSet results = qe.execSelect();
+
+    Set<IProject> projects = new HashSet<IProject>();
+    while (results.hasNext()) {
+      QuerySolution soln = results.nextSolution();
+      RDFNode node = soln.get("project");
+      if (node.isResource()) {
+        projects.add(new Project((com.hp.hpl.jena.rdf.model.Resource) node));
+      }
+    }
+    qe.close();
+    return projects;
   }
 
   public Set<IDoapCategory> getAllCategories() throws SimalRepositoryException {

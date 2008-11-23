@@ -207,4 +207,9 @@ public class MockRepository extends AbstractSimalRepository {
     // TODO Auto-generated method stub
   }
 
+  public Set<IProject> filterProjectsByName(String value) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

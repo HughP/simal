@@ -30,7 +30,7 @@
   <contexts>
     <context id="docs" title="Changes to Documentation"/>
     <context id="admin" title="Changes to Project Administration"/>
-    <context id="design" title="Changes to Design"/>
+    <context id="design" title="Changes to Designand/or Implementation"/>
     <context id="feature" title="Changes to feature set of Simal"/>
   </contexts>
 
@@ -49,7 +49,31 @@
         </section>
       </notes>
       
-      <action context="docs" dev="RDG" type="add" importance="high" fixes-bug="32">
+      <action context="feature" dev="RDG" type="add" importance="high">
+        <p>Added <code>--summary</code> to the command line. This option
+        summarises any output from the command line. For example, when used
+        with <code>getProjects</code> or <code>write</code> the output
+        will be information such as the project title and its URI.</p>
+      </action>
+      
+      <action context="feature" dev="RDG" type="add" importance="high">
+        <p>Added <code>--nameFilter</code> to the command line. This allows commands
+        to use a name filter. For example, the <code>getProjects --nameFilter foo</code> command
+        will only get projects with 'foo' in their name.</p>
+      </action>
+      
+      <action context="feature" dev="RDG" type="add" importance="high">
+        <p>Added <code>getProjects</code> to the command line. This dumps the details of
+        projects. COmmand line options can be used to filter the projects
+        returned.</p>
+      </action>
+      
+      <action context="design" dev="RDG" type="add" importance="medium">
+        <p>Added method to SimalRepository to get projects with a name matching a given
+        regular expression. See SimalRepository.filterProjectByName(regex).</p>
+      </action>
+      
+      <action context="feature" dev="RDG" type="add" importance="high" fixes-bug="32">
         <p>Added Handling of weblogs for projects. Use Project.getFeeds() to 
         get a set of feeds defined for a Project. To define a weblog use:</p>
         

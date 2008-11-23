@@ -59,6 +59,17 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
+  public void testFilterProjectsByName() {
+    // Test exact Match
+    Set<IProject> projects = getRepository().filterProjectsByName("Simal Project Catalogue System");
+    assertEquals("Not the right number of projects with the name 'Simal Project Catalogue System'", 1, projects.size());
+    
+    // Test wildcard match
+    projects = getRepository().filterProjectsByName("Simal");
+    assertEquals("Not the right number of projects match the filter 'Simal'", 4, projects.size());
+  }
+
+  @Test
   public void testAddCategories() throws SimalRepositoryException,
       URISyntaxException {
     Set<IDoapCategory> cats = getRepository().getAllCategories();
