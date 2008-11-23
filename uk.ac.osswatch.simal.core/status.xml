@@ -50,6 +50,12 @@
       </notes>
       
       <action context="feature" dev="RDG" type="add" importance="high">
+        <p>Added <code>getPeople</code> to the command line. This dumps the details of
+        people. Command line options can be used to filter the people
+        returned.</p>
+      </action>
+      
+      <action context="feature" dev="RDG" type="add" importance="high">
         <p>Added <code>--summary</code> to the command line. This option
         summarises any output from the command line. For example, when used
         with <code>getProjects</code> or <code>write</code> the output
@@ -64,7 +70,7 @@
       
       <action context="feature" dev="RDG" type="add" importance="high">
         <p>Added <code>getProjects</code> to the command line. This dumps the details of
-        projects. COmmand line options can be used to filter the projects
+        projects. Command line options can be used to filter the projects
         returned.</p>
       </action>
       
