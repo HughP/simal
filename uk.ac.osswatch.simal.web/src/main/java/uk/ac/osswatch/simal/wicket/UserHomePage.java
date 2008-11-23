@@ -27,7 +27,7 @@ public class UserHomePage extends BasePage {
 
   public UserHomePage() {
     try {
-      add(new ProjectListPanel("projectList"));
+      add(new ProjectListPanel("projectList", 7));
       add(new ProjectSummaryPanel("featuredProject"));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
