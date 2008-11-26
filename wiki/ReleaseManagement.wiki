@@ -79,6 +79,8 @@ We must now set up SVN trunk for development of the next release. To do this we 
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y-dev}}}
  * in {{{status.xml}}} add a new {{{<release>}}} element
 
+In addition we need to change the dependency entries for other Simal modules in both the rest and webapp modules.
+
 = Update the Release Notes =
 
 The ReleaseNotes are used to announce a new release. They are held in the wiki and are used in email and blog announcements.
