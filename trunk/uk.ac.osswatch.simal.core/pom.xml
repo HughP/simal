@@ -162,7 +162,7 @@
   <distributionManagement>
     <repository>
       <id>simal.repo.ftp</id>
-      <url>ftp://ftp.16degrees.com.au/var/virtual/web/w0013/html/maven</url>
+      <url>ftp://16degrees.com.au/maven</url>
     </repository>
   </distributionManagement>
 
