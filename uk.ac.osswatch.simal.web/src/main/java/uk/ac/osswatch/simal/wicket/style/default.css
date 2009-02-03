@@ -33,7 +33,7 @@
 
 /* Legacy style */
 .title {
-  background: #008F00;
+  background: #8BBBFD;
   color: white;
   font-weight: bold;
   font-size: 120%;
@@ -48,10 +48,10 @@
 
 .widget {
   clear: right;
-  border: solid #008F00 1px;
+  border: solid #8BBBFD 1px;
   padding: 2px 2px 2px 2px;
   margin: 1em 3em 3em 1em;
-  background: #BFFFBF;
+  background: #B6D3FA;
 }
 
 .widget .content {
@@ -84,12 +84,12 @@ pre {
 .warning {
     margin: 1em;
     padding: 0em 1em 0em 1em;
-    border: 2px solid #008F00;
-    background: #f44800;
+    border: 2px solid #8BBBFD;
+    background: #F0DCF9;
 }
 
 h2 {
-  background: #008F00;
+  background: #8BBBFD;
   color: white;
   font-size: 120%;
   padding: 2px 5px 5px 2px;
@@ -97,11 +97,11 @@ h2 {
 }
 
 tr.even {
-  background: #BFFFBF;
+  background: #CCE6FF;
 }
 
 tr.odd {
-  background: #80FF80;
+  background: #99CCFF;
 }
 
 /* ---------------- */
@@ -112,7 +112,7 @@ tr.odd {
 /* ---------------- */
 
 body {
-	font-family: Arial;
+	font-family: Arial, Helvetica, sans-serif;
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
 }
@@ -122,23 +122,25 @@ body {
    Header
 *****************/
 #header {
-	background-image: url(header_top.png);
+	/*background-image: url(header_top.png);
 	background-repeat: repeat-x;
-	background-position: top right;
+	background-position: top right; */
 	margin: 0;
 	padding: 0px 0px 10px 0px;
 }
 
 #header h1 {
-	width: 920px;
+	width: 590px;
 	height: 50px;
-	margin: 0px auto;
+	margin-left: 100px;
 	padding: 20px 10px 0px 10px;
-	color: white;
+	color: #2C4AA0;
+	text-align : left;
+	font-size: 16px;
 }
 
 #header #menulinks {
-	background-image: url(header_bottom.png);
+	/* background-image: url(header_bottom.png); */
 	position: absolute;
 	width: 100%;
 	left: 0px;
@@ -149,23 +151,21 @@ body {
 #header ul {
 	margin: auto;
 	padding: 10px;
-	width: 920px;
-	height: 34px;
-	/*   	background-image: url(themes/images/selected.png);*/
-   	background-repeat: no-repeat;
-   	background-position: center right;
+	width: 95%;
+	height: auto;
+	background-color: #2C4AA0;
 }
 
 #header ul li {
-	/*	background-image:url(div.png);*/
-	background-repeat: no-repeat;
     display:inline;
     margin: 0;
     padding: 0;
 }
 
 #header ul li a {
-	color: #008F00;
+	color: white;
+	font-weight : bold;
+	font-size : 12px;
 	margin: 0px;
 	padding: 5px 10px 5px 10px;
 	text-decoration: none;
@@ -173,8 +173,7 @@ body {
 
 
 #header ul li a:hover {
-	background: #BFFFBF;
-	/*background-image: url(themes/images/selected.png);*/
+	color: #8BBBFD;
 }
 
 /****************
@@ -182,13 +181,13 @@ body {
 *****************/
 #footer {
 	clear: both;
-	background-image: url(footer.png);
+	background: #2C4AA0;
 	padding: 10px;
 	text-align: center;
 }
 
 #footer a {
-	color: #008F00;
+	color: white;
 	margin: 0px;
 	padding: 5px 10px 5px 10px;
 	text-decoration: none;
@@ -196,7 +195,7 @@ body {
 
 
 #footer a:hover {
-	background: #BFFFBF;
+	color: #8BBBFD;
 	/*background-image: url(themes/images/selected.png);*/
 }
 
@@ -207,7 +206,7 @@ body {
 #content {
 	margin: 54px 0px 0px 0px;
 	padding: 0px 20px 10px 20px;
-	width: 920px;
+	width: 95%;
 	margin-left: auto;
 	margin-right: auto;
 	align: center;
