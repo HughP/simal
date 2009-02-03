@@ -39,12 +39,12 @@
 }
 
 .gfg-root {
-  border: 1px solid #008F00;
+  border: 1px solid #2C4AA0;
 }
 
 .gfg-title {
   color : #FFFFFF;
-  background-color: #008F00;
+  background-color: #2C4AA0;
 }
 
 .gfg-title a {
@@ -52,5 +52,5 @@
 }
 
 .gfg-listentry-odd {
-  background-color : #80FF80;
+  background-color : #B6D3FA;
 }

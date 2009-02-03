@@ -32,11 +32,18 @@ Copyright 2008 University of Oxford *
  See http://www.wellstyled.com/tools/colorscheme2/index-en.html?mono;36;0;180;0.25;1;0.5;1;-1;-1;1;-0.7;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;0
 ********************************************************/
 table.projectList {
-  border: 1px solid #80FF80;
+  border: 1px solid #B6D3FA;
   padding: 0.5em;
 }
 
 div.name {
   font-weight: bold;
   font-size: 120%;
+}
+
+/* Lets override some MIT Styles. */
+
+div.exhibit-viewPanel-viewSelection {
+    text-align: center;
+	background : #8BBBFD;
 }
