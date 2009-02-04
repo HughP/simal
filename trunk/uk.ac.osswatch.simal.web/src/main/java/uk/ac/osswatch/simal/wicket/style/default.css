@@ -34,7 +34,7 @@
 /* Legacy style */
 .title {
   background: #8BBBFD;
-  color: white;
+  color: black;
   font-weight: bold;
   font-size: 120%;
   padding: 5px 10px 10px 5px;
@@ -90,12 +90,32 @@ pre {
 
 h2 {
   background: #8BBBFD;
-  color: white;
+  color: black;
   font-size: 120%;
   padding: 2px 5px 5px 2px;
   margin: 5px 10px 10px 0;
 }
 
+thead{
+	background:#8BBBFD;
+	color : black;
+}
+
+tr{
+	font-size:14px;
+}
+
+tr a{
+	text-decoration : none;
+}
+
+tr a:link, tr a:visited{
+	color:black;
+}
+
+tr a:hover{
+	background : yellow;
+}
 tr.even {
   background: #CCE6FF;
 }
