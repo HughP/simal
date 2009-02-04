@@ -47,3 +47,12 @@ div.exhibit-viewPanel-viewSelection {
     text-align: center;
 	background : #8BBBFD;
 }
+
+div.exhibit-ui-protection{
+	background: #CEE2FB;
+}
+
+.exhibit-ui-protection table{
+	border-color:white;
+	border-collapse:collapse;
+}
