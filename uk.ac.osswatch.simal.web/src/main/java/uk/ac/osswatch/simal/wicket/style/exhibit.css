@@ -50,9 +50,20 @@ div.exhibit-viewPanel-viewSelection {
 
 div.exhibit-ui-protection{
 	background: #CEE2FB;
+	border: 1px solid #2C4AA0;
 }
 
 .exhibit-ui-protection table{
 	border-color:white;
 	border-collapse:collapse;
+}
+
+div.exhibit-facet-body-frame{
+	border: 1px solid #2C4AA0;
+	background: #F0F5FD;
+}
+
+div.exhibit-resizableDivWidget-resizer{
+	border-top: 1px  solid #2C4AA0;
+	background:#CEE2FB;
 }
