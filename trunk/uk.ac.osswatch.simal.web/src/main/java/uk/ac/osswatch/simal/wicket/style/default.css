@@ -135,6 +135,9 @@ body {
 	font-family: Arial, Helvetica, sans-serif;
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
+	border-left: 1px solid #2C4AA0;
+	border-right : 1px solid #2C4AA0;
+	border-top: 1px solid #2C4AA0;
 }
 
 
@@ -142,11 +145,11 @@ body {
    Header
 *****************/
 #header {
-	/*background-image: url(header_top.png);
-	background-repeat: repeat-x;
-	background-position: top right; */
+	background-image: url("simal-logo_82x60.png");
+	background-repeat: no-repeat;
+	background-position: top left;
 	margin: 0;
-	padding: 0px 0px 10px 0px;
+	padding: 5px 5px 10px 5px;
 }
 
 #header h1 {
@@ -171,7 +174,6 @@ body {
 #header ul {
 	margin: auto;
 	padding: 10px;
-	width: 95%;
 	height: auto;
 	background-color: #2C4AA0;
 }
