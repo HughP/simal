@@ -48,10 +48,10 @@
 
 .widget {
   clear: right;
-  border: solid #8BBBFD 1px;
+  border: solid #2C4AA0 1px;
   padding: 2px 2px 2px 2px;
-  margin: 1em 3em 3em 1em;
-  background: #B6D3FA;
+  margin: 1em 0em 1em 0em;
+  background: #F0F5FD;
 }
 
 .widget .content {
@@ -70,11 +70,13 @@ pre {
 .leftcolumn {
   float: left;
   width: 49%;
+  margin-bottom : 1em;
 }
 
 .rightcolumn {
   float: right;
   width: 49%;
+  margin-bottom: 1em;
 }
 
 .singlecolumn {
@@ -82,7 +84,7 @@ pre {
 }
 
 .warning {
-    margin: 1em;
+    margin: 1em 0em 1em 0em;
     padding: 0em 1em 0em 1em;
     border: 2px solid #8BBBFD;
     background: #F0DCF9;
