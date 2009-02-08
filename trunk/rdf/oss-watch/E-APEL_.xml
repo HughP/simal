@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://www.derby.ac.uk/e-apel">
+
+        <name>e-Accreditation of Prior Experiential Learning (e-APEL)</name>
+
+        <shortdesc xml:lang="en">The E-APEL project will use e-learning technologies to automate aspects of the process and enhance the service offered to LTW (Learning Through Work) students.</shortdesc>
+        <description xml:lang="en">The project will: use e-assessment technology to allow potential students to self assess their prior experiential learning and receive an indication of the credit they might be able to claim,
+	 gather additional information from potential students to enable a well informed discussion to take place with an APEL academic advisor, 
+	guide and support LTW applicants in the compiling of their APEL claim using e-portfolio services.</description>
+
+        <homepage rdf:resource="http://www.derby.ac.uk/e-apel" />
+        <homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital/el_xinstit/eapel.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/aboutus/committees/sub_committees/jlt.aspx" />
+
+        <created>2008-7-23</created>
+
+        <!--  <wiki rdf:resource="http://www.pligg.com/wiki/index.php?title=Main_Page"/> -->
+
+        <!--  <screenshots rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> -->
+
+        <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />   -->
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+        
+            <maintainer>
+            <foaf:Person>
+            <foaf:name>James Eaglesfield</foaf:name>
+            <foaf:mbox rdf:resource="mailto:j.eaglesfield@derby.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:name>Aileen Hammersley</foaf:name>
+            <foaf:mbox rdf:resource="mailto:a.e.hammersley@derby.ac.uk"/>
+            </foaf:Person>
+            </maintainer>     
+
+      
+            <developer>
+            <foaf:Person>
+            <foaf:name>Rene Meijer</foaf:name>
+            <foaf:mbox rdf:resource="mailto:r.meijer@derby.ac.uk"/>
+            </foaf:Person>
+            </developer>
+  
+          
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="FIXME: e.g. http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="FIXME: e.g. http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>
