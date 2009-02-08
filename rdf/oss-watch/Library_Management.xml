@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://www.sero.co.uk/jisc-lms.html">
+
+        <name>Library Management Systems Horizon Scan</name>
+	
+	<shortdesc xml:lang="en">The evaluation and horizon scan of library management and related systems will cover Higher Education Institutions across the four UK nations.</shortdesc>
+
+        <description xml:lang="en">The study will use a combination of desk research, survey instruments and consultation, namely: a horizon scan of issues, initiatives and key factors influencing the development library systems and services;
+	an online survey of UK HE libraries, covering electronic systems and services and lastly interviews with the main UK HE LMS vendors to understand their businesses, strategy and development plans, 
+	to ensure the study is informed by current thinking in the sector and the wider library arena, a Reference Group will be formed consisting of around 15 senior librarians and stakeholders from the UK and international community.</description>
+
+        <homepage rdf:resource="http://www.sero.co.uk/jisc-lms.html" />
+        <homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/resourcediscovery/libraryms.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/resourcediscovery.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/aboutus/committees/sub_committees/jiie.aspx" />
+
+        <created>2008-7-8</created>
+
+        <!--  <wiki rdf:resource="http://www.pligg.com/wiki/index.php?title=Main_Page"/> -->
+
+        <!--  <screenshots rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> -->
+
+        <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />   -->
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+        
+            <maintainer>
+            <foaf:Person>
+            <foaf:name>David Kay</foaf:name>
+            <foaf:mbox rdf:resource="mailto:david.kay@sero.co.uk"/>
+            </foaf:Person>
+            </maintainer>
+      
+
+       
+            <developer>
+            <foaf:Person>
+            <foaf:name>Veronica Adamson</foaf:name>
+            <foaf:mbox rdf:resource="mailto:veronica@glenaffric.com"/>
+            </foaf:Person>
+            </developer>
+       
+            <developer>
+            <foaf:Person>
+            <foaf:title>Prof.</foaf:title>
+            <foaf:name>Paul Bacsich</foaf:name>
+            <foaf:mbox rdf:resource="mailto:paul.bacsich@sero.co.uk"/>
+            </foaf:Person>
+            </developer>
+        
+
+            <developer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Jane Plenderleith</foaf:name>
+            <foaf:mbox rdf:resource="mailto:jane@glenaffric.com"/>
+            </foaf:Person>
+            </developer>
+
+
+
+            <developer>
+            <foaf:Person>
+            <foaf:name>Ken Chad</foaf:name>
+            <foaf:mbox rdf:resource="mailto:ken@kenchadconsulting.com"/>
+            </foaf:Person>
+            </developer>
+
+
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="FIXME: e.g. http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="FIXME: e.g. http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>
