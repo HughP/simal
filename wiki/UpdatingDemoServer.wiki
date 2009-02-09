@@ -1,7 +1,7 @@
 #summary Instructions for updating code on the demo server.
 #labels Phase-Deploy,Phase-QA
 
-The demo server at http://data.oss-watch.ac.uk:8080 can be updated by anyone with the necessary priveledges (e.g. a sudo user) on the demo machine with the following steps.
+The demo server at http://simal.16degrees.com.au can be updated by anyone with the necessary priveledges (e.g. a sudo user) on the demo machine with the following steps.
 
 = Update and Compile the Modules =
 
