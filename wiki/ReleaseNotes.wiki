@@ -23,7 +23,7 @@ Source: http://simal.oss-watch.ac.uk/devQuickstart.html
 
 = Demo =
 
-A live demo of the latest developments can be found at http://data.oss-watch.ac.uk:8080
+A live demo of the latest developments can be found at http://simal.16degrees.com.au
 
 = Questions and Feedback =
 
