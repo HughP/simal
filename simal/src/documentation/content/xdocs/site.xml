@@ -114,7 +114,7 @@ See http://forrest.apache.org/docs/linking.html for more info
       </coreModule>
       <restModule href="http://simal.oss-watch.ac.uk/rest"/>
       <webModule href="http://simal.oss-watch.ac.uk/web"/>
-      <demoSite href="http://data.oss-watch.ac.uk:8080/"/>
+      <demoSite href="http://simal.16degrees.com.au/"/>
       <devSite href="http://code.google.com/p/simal"/>
       <devList href="http://groups.google.com/group/simal-contributors"/>
       <userList href="http://groups.google.com/group/simal-users"/>
