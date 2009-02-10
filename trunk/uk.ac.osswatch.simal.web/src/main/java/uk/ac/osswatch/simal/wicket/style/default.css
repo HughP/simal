@@ -238,6 +238,9 @@ body {
 }
 
 
+
+div.footnote .content p{clear:right; position:relative; left:2.5em; font-size:80%; font-weight:700; color:#2C4AA0;}
+
 /***********************
    Widget (right menu)
 ***********************/
