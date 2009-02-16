@@ -108,11 +108,11 @@ tr{
 }
 
 tr a{
-	text-decoration : none;
+	text-decoration : underline;
 }
 
 tr a:link, tr a:visited{
-	color:black;
+	color: #0000EE;
 }
 
 tr a:hover{
