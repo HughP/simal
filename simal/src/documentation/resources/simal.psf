@@ -5,6 +5,6 @@
 		<project reference="0.9.3,http://simal.googlecode.com/svn/wiki,simal-wiki"/>
 		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core,uk.ac.osswatch.simal.core"/>
 		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.web,uk.ac.osswatch.simal.web"/>
-		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.forrest.plugins,uk.ac.osswatch.forrest.plugins"/>
+		<project reference="0.9.3,http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.rest/,uk.ac.osswatch.simal.rest"/>
 	</provider>
 </psf>
