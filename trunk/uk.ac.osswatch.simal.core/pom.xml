@@ -108,6 +108,12 @@
       <groupId>com.hp.hpl.jena</groupId>
       <artifactId>jena</artifactId>
       <version>2.5.6</version>
+      <exclusions>
+         <exclusion>
+           <groupId>xerces</groupId>
+           <artifactId>xmlParserAPIs</artifactId>
+         </exclusion>
+      </exclusions>
     </dependency> 
     
     <dependency>
@@ -156,6 +162,12 @@
       <artifactId>maven-reporting-impl</artifactId>
       <version>2.0.4</version>
       <scope>test</scope>
+      <exclusions>
+         <exclusion>
+           <groupId>xml-apis</groupId>
+           <artifactId>xml-apis</artifactId>
+         </exclusion>
+      </exclusions>
     </dependency>
   </dependencies>
 
