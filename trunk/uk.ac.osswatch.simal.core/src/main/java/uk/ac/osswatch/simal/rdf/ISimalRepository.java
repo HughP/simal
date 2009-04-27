@@ -259,6 +259,7 @@ public interface ISimalRepository {
   /**
    * Create a new project in the repository.
    * 
+   * @param uri a URI to identify this project
    * @return
    * @throws SimalRepositoryException
    *           if an error is thrown whilst communicating with the repository
