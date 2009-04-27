@@ -142,25 +142,9 @@
       
       <p>After following these steps the source code for Simal will be checked out from
       version control, ready for you to start work.</p>
-    </section>
-    
-    <section>
-      <title>Configure Eclipse</title>
       
-      <p>Now that you have the Simal sources you need to tell Eclipse to use the
-      Maven defined dependencies:</p>
-      
-      <ol>
-        <li>Right click on the <code>uk.ac.osswatch.simal.core</code> project and
-        select Maven2 -> Enable Maven dependency management</li>
-        
-        <li>Right click on the <code>uk.ac.osswatch.simal.rest</code> project and
-        select Maven2 -> Locally install artifact</li>
-        
-        <li>Right click on the <code>uk.ac.osswatch.simal.web</code> project and
-        select Maven2 -> Enable Maven dependency management</li>
-      </ol>
-      
+      <note>After importing from SVN Maven will download all dependencies, this can take some
+      time depending on the speed of your network detection, but it is a one-off step.</note>
     </section>
     
     <section>
