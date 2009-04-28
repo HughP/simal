@@ -80,6 +80,22 @@ public interface IProject extends IDoapResource, IProjectService {
   public Set<IDoapHomepage> getHomepages();
 
   /**
+   * Add a homepages for this project.
+   * 
+   * @param homepage - the homepage to add
+   * @return
+   */
+  public void addHomepage(IDoapHomepage homepage);
+
+  /**
+   * Remove a homepages for this project.
+   * 
+   * @param homepage - the homepage to remove
+   * @return
+   */
+  public void removeHomepage(IDoapHomepage homepage);
+
+  /**
    * Get a set of old homepages for this project.
    * 
    * @return

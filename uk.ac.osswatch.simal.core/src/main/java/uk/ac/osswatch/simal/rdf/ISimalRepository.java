@@ -22,6 +22,7 @@ import java.util.Set;
 import org.w3c.dom.Node;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
@@ -279,6 +280,19 @@ public interface ISimalRepository {
    *           if an entity with the given String already exists
    */
   public IPerson createPerson(String uri) throws SimalRepositoryException,
+      DuplicateURIException;
+
+  /**
+   * Create a new homepage in the repository.
+   * 
+   * @param uri a URI to identify this homepage
+   * @return
+   * @throws SimalRepositoryException
+   *           if an error is thrown whilst communicating with the repository
+   * @throws DuplicateURIException
+   *           if an entity with the given String already exists
+   */
+  public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
       DuplicateURIException;
 
   /**

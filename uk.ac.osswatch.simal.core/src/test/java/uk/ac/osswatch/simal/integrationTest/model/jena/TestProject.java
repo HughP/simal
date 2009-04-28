@@ -201,6 +201,26 @@ public class TestProject extends BaseRepositoryTest {
     assertTrue("Project does not appear to have helper "
         + TEST_SIMAL_PROJECT_HELPERS, hasHelper);
   }
+  
+  @Test
+  public void testAddandRemoveHomepage() throws SimalRepositoryException, DuplicateURIException {
+	    Set<IDoapHomepage> prePages = project1.getHomepages();
+
+	    String uri = "http://www.foo.org/homepageTest";
+	    IDoapHomepage page = getRepository().createHomepage(uri);
+
+	    project1.addHomepage(page);
+	    Set<IDoapHomepage> postPages = project1.getHomepages();
+	    assertTrue("Failed to add a homepage to the project",
+	        prePages.size() < postPages.size());
+
+	    project1.removeHomepage(page);
+	    postPages = project1.getHomepages();
+	    assertTrue("Failed to remove a homepage from the project", prePages
+	        .size() == postPages.size());
+
+	    page.delete();
+  }
 
   @Test
   public void testGetHomepages() {
