@@ -56,4 +56,6 @@ RAT can be run manually with the command:
 
 == Adding Licence Headers ==
 
-RAT can also be used to automatically add licence headers.
+RAT can also be used to automatically add licence headers using:
+
+{{{java -jar rat-VERSION.jar --addLicence  --copyright "Copyright 2008 University of Oxford" --force  /path/to/project}}}
