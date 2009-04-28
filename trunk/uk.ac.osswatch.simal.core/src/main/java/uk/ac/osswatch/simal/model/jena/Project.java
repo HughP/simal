@@ -352,6 +352,22 @@ public class Project extends DoapResource implements IProject {
     addCurrentProject(person);
   }
 
+  public void removeHomepage(IDoapHomepage page) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(),
+        Doap.HOMEPAGE, (com.hp.hpl.jena.rdf.model.Resource) page
+            .getRepositoryResource());
+    model.remove(statement);
+  }
+
+  public void addHomepage(IDoapHomepage page) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(),
+        Doap.HOMEPAGE, (com.hp.hpl.jena.rdf.model.Resource) page
+            .getRepositoryResource());
+    model.add(statement);
+  }
+
   /**
    * Add this project as a current project for a person.
    * 

@@ -36,11 +36,13 @@ import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.model.jena.Category;
+import uk.ac.osswatch.simal.model.jena.Homepage;
 import uk.ac.osswatch.simal.model.jena.Person;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
@@ -265,6 +267,23 @@ public final class SimalRepository extends AbstractSimalRepository {
     IProject project = new Project(model.createResource(uri));
     project.setSimalID(getNewProjectID());
     return project;
+  }
+
+  public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
+      DuplicateURIException {
+    if (containsProject(uri)) {
+      throw new DuplicateURIException(
+          "Attempt to create a second homepage with the URI " + uri);
+    }
+
+    Property o = model.createProperty("http://usefulinc.com/ns/doap#homepage");
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
+    Statement s = model.createStatement(r, RDF.type, o);
+    model.add(s);
+
+    IDoapHomepage page = new Homepage(model.createResource(uri));
+    page.setSimalID(getNewProjectID());
+    return page;
   }
 
   public void destroy() throws SimalRepositoryException {
