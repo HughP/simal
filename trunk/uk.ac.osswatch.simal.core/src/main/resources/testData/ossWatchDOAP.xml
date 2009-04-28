@@ -41,6 +41,10 @@
       this by providing unbiased advice and guidance to UK higher and
       further education.
     </description>
+
+	 <foaf:Organization>
+       <foaf:name>University of Oxford</foaf:name>
+     </foaf:Organization> 
     
     <foaf:weblog>
       <foaf:Document rdf:about="http://osswatch.jiscinvolve.org/feed">
