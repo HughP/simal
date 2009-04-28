@@ -42,7 +42,8 @@ public class ModelSupport {
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
 
   public final static String CATEGORIES_RDF = "testData/categories.xml";
-
+  public final static String ORGANISATION_RDF = "testData/organisations.xml";
+  
   /**
    * Adds Simal defined data to the repo. The simal data includes the DOAP for
    * Simal itself, which in turn includes descriptions of all the appropriate
