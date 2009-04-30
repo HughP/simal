@@ -19,16 +19,15 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.model.jena.Organisation;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
@@ -102,11 +101,22 @@ public interface ISimalRepository {
    * return null.
    * 
    * @param uri
-   *          the String of the project to retrieve
+   *          the URI of the project to retrieve
    * @return the project, or if no project with the given String exists Null
    * @throws SimalRepositoryException
    */
   public IProject getProject(String uri) throws SimalRepositoryException;
+  
+  /**
+   * Get an organisation from the repository. If the organisation does not exist then
+   * return null.
+   * 
+   * @param uri
+   *          the URI of the organisation to retrieve
+   * @return the organisation, or if no project with the given String exists Null
+   * @throws SimalRepositoryException
+   */
+  public IOrganisation getOrganisation(String uri) throws SimalRepositoryException;
 
   /**
    * Get a project from the repository.
@@ -389,6 +399,14 @@ public interface ISimalRepository {
    * @return
    */
   public boolean containsProject(String uri);
+
+  /**
+   * Test to see if an organisation with the given String exists.
+   * 
+   * @param uri
+   * @return
+   */
+  public boolean containsOrganisation(String uri); 
 
   /**
    * Test to see if a person with the given String exists.

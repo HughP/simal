@@ -95,7 +95,7 @@ public abstract class BaseRepositoryTest {
 
   public static final String TEST_SIMAL_PROJECT_ISSUE_TRACKER = "http://issues.foo.org";
 
-  public static final String TEST_SIMAL_ORGANISATION_NAME = "TestOrganisation";
+  public static final String TEST_SIMAL_ORGANISATION_NAME = "Test Organisation";
 
   protected final static String project1SeeAlso = "http://foo.org/seeAlso";
 

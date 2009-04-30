@@ -18,16 +18,20 @@ package uk.ac.osswatch.simal.integrationTest.model.jena;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestOrganisation extends BaseRepositoryTest {
 
 	  @Test
 	  public void testGetName() throws SimalRepositoryException {
-	    //assertEquals(TEST_SIMAL_ORGANISATION_NAME, "organisation".equals("expectedOrganisation"));
+		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  assertNotNull(org);
+		  assertEquals(TEST_SIMAL_ORGANISATION_NAME, org.getName());
 	  }
 }

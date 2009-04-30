@@ -55,6 +55,7 @@ import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
@@ -62,6 +63,7 @@ import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.model.jena.Category;
 import uk.ac.osswatch.simal.model.jena.Homepage;
+import uk.ac.osswatch.simal.model.jena.Organisation;
 import uk.ac.osswatch.simal.model.jena.Person;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
@@ -653,7 +655,16 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
   }
 
-  public boolean containsProject(String uri) {
+  public IOrganisation getOrganisation(String uri)
+  		throws SimalRepositoryException {
+    if (containsOrganisation(uri)) {
+        return new Organisation(model.getResource(uri));
+    } else {
+        return null;
+    }
+  }
+
+public boolean containsProject(String uri) {
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
     com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
     Statement doap = model.createStatement(r, RDF.type, o);
@@ -661,6 +672,19 @@ public final class SimalRepository extends AbstractSimalRepository {
     o = model.createProperty(RDFUtils.SIMAL_PROJECT);
     Statement simal = model.createStatement(r, RDF.type, o);
     return model.contains(doap) || model.contains(simal);
+  }
+
+  /**
+   * Test to see if an organisation with the given String exists.
+   * 
+   * @param uri
+   * @return
+   */
+  public boolean containsOrganisation(String uri) {
+	    Property o = model.createProperty(Foaf.NS + "Organization");
+	    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
+	    Statement foaf = model.createStatement(r, RDF.type, o);
+	    return model.contains(foaf);
   }
 
   public boolean containsPerson(String uri) {

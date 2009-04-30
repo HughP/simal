@@ -77,6 +77,9 @@ public class ModelSupport {
 
       repo.addProject(ISimalRepository.class.getClassLoader().getResource(
           TEST_FILE_OSSWATCH), TEST_FILE_BASE_URL);
+      
+      repo.addRDFXML(ISimalRepository.class.getClassLoader().getResource(
+              ORGANISATION_RDF), TEST_FILE_BASE_URL);
 
       addSimalData(repo);
 
