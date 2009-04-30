@@ -136,7 +136,7 @@ public abstract class BaseRepositoryTest {
 
     IPerson documentor = repository
         .findPersonBySeeAlso("http://foo.org/~documentor/#me");
-    String documentorID = documentor.getSimalID();
+    String documentorID = documentor.getUniqueSimalID();
 
     testProjectID = project1.getUniqueSimalID();
     testProjectURI = RDFUtils.getDefaultProjectURI(testProjectID);
