@@ -17,6 +17,9 @@ package uk.ac.osswatch.simal.model.jena;
  * 
  */
 
+import com.hp.hpl.jena.vocabulary.RDFS;
+
+import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IOrganisation;
 
 public class Organisation extends Resource implements IOrganisation {
@@ -28,8 +31,16 @@ public class Organisation extends Resource implements IOrganisation {
 	private static final long serialVersionUID = 1L;
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+	    String name = getLiteralValue(Foaf.NAME);
+	    
+	    if (name == null) {
+	      name = getLiteralValue(RDFS.label);
+	    }
+	    
+	    if (name == null) {
+	      return getURI();
+	    }
+	    return name;
 	}
 
 }

@@ -149,8 +149,8 @@ public class TestOrganisation extends BaseRepositoryTest {
     class. Following the pattern that we find in this class we will add the following method call:</p>
     
     <source>
-repo.addOrganisation(ISimalRepository.class.getClassLoader().getResource(
-          ORGANISATION_RDF), TEST_FILE_BASE_URL);
+      repo.addRDFXML(ISimalRepository.class.getClassLoader().getResource(
+              ORGANISATION_RDF), TEST_FILE_BASE_URL);
     </source>
     
     <p>We also need to add the constant:</p>
@@ -161,24 +161,112 @@ public final static String ORGANISATION_RDF = "testData/organisations.xml";
 
 	<p>The test data file should now be created. At this stage it should look like this:</p>
 	
-	<source>
+	<source><![CDATA[
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xmlns:foaf="http://xmlns.com/foaf/0.1/">
   
 
-	 <foaf:Organization>
+	 <foaf:Organization rdf:about="http://www.test.com/Organization">
        <foaf:name>Test Organisation</foaf:name>
      </foaf:Organization> 
 </rdf:RDF>
-	</source>
+    ]]></source>
 	
-	<p>Now we need to add the method to the <code>IRepository</code> interface and implement it in
-	the Jena instance of this interface. For simplicit in this document we just show the implementation
-	here:</p>
-	
-	<source>
-	</source>
+  </section>
+  
+  <section>
+    <title>Making it do something</title>
+    
+    <p>We now have everything in place to run a real test. So lets expand the test:</p>
+    
+    <source>
+	  @Test
+	  public void testGetName() throws SimalRepositoryException {
+		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  assertNotNull(org);
+		  assertEquals(TEST_SIMAL_ORGANISATION_NAME, "Make it fail!");
+	  }
+    </source>
+    
+    <p>Of course this will not compile as we have no <code>getOrganisation</code> method yet.
+    Lets add this to <code>ISimalRepository</code> and <code>SimalRepostitory</code>:</p>
+    
+    <source>
+  
+  /**
+   * Get an organisation from the repository. If the organisation does not exist then
+   * return null.
+   * 
+   * @param uri
+   *          the URI of the organisation to retrieve
+   * @return the organisation, or if no project with the given String exists Null
+   * @throws SimalRepositoryException
+   */  
+  public IOrganisation getOrganisation(String uri)
+  		throws SimalRepositoryException {
+    if (containsOrganisation(uri)) {
+        return new Organisation(model.getResource(uri));
+    } else {
+        return null;
+    }
+  }
+  
+  
+  /**
+   * Test to see if an organisation with the given String exists.
+   * 
+   * @param uri
+   * @return
+   */
+  public boolean containsOrganisation(String uri) {
+	    Property o = model.createProperty(Foaf.NS + "Organization");
+	    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
+	    Statement foaf = model.createStatement(r, RDF.type, o);
+	    return model.contains(foaf);
+  }
+    </source>
+    
+    <p>We should be able to compile and run the test now. It should still fail as before, but
+    this will indicate that we are writing an organisation to the repostory as well as
+    retrieving it.</p>
+    
+    <p>Now we update the test to make sure we are retrieving the correct organisation
+    by testing the returned name:</p>
+    
+    <source>
+	  @Test
+	  public void testGetName() throws SimalRepositoryException {
+		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  assertNotNull(org);
+		  assertEquals(TEST_SIMAL_ORGANISATION_NAME, org.getName());
+	  }
+    </source>
+    
+    <p>If we run this now the test will fail because the returned name is null. This is because when
+    we implemented the Organisation class we did not implement the <code>getName()</code> method.
+    So, lets implement that method:</p>
+    
+    <source>
+	public String getName() {
+	    String name = getLiteralValue(Foaf.NAME);
+	    
+	    if (name == null) {
+	      name = getLiteralValue(RDFS.label);
+	    }
+	    
+	    if (name == null) {
+	      return getURI();
+	    }
+	    return name;
+	}
+    </source>
+    
+    <p>Now when we run the test it passes, hurrah!</p>
+    
+    <p>We will need to add more methods for manipulating this data object but we'll stop the
+    tutorial. If you need more help just drop an email to
+    our developer list and we'll be happy to help.</p>
   </section>
  
   </body>

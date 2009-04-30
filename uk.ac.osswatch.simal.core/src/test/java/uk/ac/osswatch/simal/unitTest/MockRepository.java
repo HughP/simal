@@ -31,6 +31,7 @@ import org.w3c.dom.Node;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
@@ -242,6 +243,17 @@ public class MockRepository extends AbstractSimalRepository {
 
 public IDoapHomepage createHomepage(String uri)
 		throws SimalRepositoryException, DuplicateURIException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public boolean containsOrganisation(String uri) {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+public IOrganisation getOrganisation(String uri)
+		throws SimalRepositoryException {
 	// TODO Auto-generated method stub
 	return null;
 }

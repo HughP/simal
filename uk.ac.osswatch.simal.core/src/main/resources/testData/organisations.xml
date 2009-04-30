@@ -16,18 +16,11 @@
  limitations under the License.
 
 -->
-<!-- This file describes category definitions available in Simal.
-     Note that this is written before there is an official Simal 
-     repository and therefore is intended to be the primary source
-     of this data. However, once an official Simal repository
-     is made available this file will be superceded by that
-     repo. -->
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xmlns:foaf="http://xmlns.com/foaf/0.1/">
   
-
-	 <foaf:Organization>
-       <foaf:name>Test Organisation</foaf:name>
+	 <foaf:Organization rdf:about="http://www.test.com/Organization">
+	        <foaf:name>Test Organisation</foaf:name>
      </foaf:Organization> 
 </rdf:RDF>
