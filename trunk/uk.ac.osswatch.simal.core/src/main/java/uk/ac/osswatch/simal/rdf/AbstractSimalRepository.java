@@ -19,16 +19,25 @@ package uk.ac.osswatch.simal.rdf;
  */
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 
 import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -37,6 +46,8 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 public abstract class AbstractSimalRepository implements ISimalRepository {
+  private static final char ID_SEPARATOR = '-';
+
   private static final Logger logger = LoggerFactory
       .getLogger(AbstractSimalRepository.class);
 
@@ -141,7 +152,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
         .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID);
     StringBuilder fullID;
     fullID = new StringBuilder(instanceID);
-    fullID.append(":");
+    fullID.append("-");
     fullID.append(entityID);
     return fullID.toString();
   }
@@ -151,7 +162,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       throw new SimalRepositoryException(
           "Attempt get an entity ID from an invalid Simal ID of " + uniqueID);
     }
-    return uniqueID.substring(uniqueID.lastIndexOf(':') + 1);
+    return uniqueID.substring(uniqueID.lastIndexOf(ID_SEPARATOR) + 1);
   }
 
   public String getNewCategoryID() throws SimalRepositoryException {
@@ -247,14 +258,33 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     }
   }
 
-  public void addProject(Node project, URL sourceURL, String baseURI)
+  public void addProject(URL url, String baseURI)
       throws SimalRepositoryException {
+    logger.info("Adding a project from " + url.toString());
+
+    verifyInitialised();
+
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setNamespaceAware(true);
+    Document originalDoc = null;
+
+    DocumentBuilder db;
     try {
-      addRDFXML(RDFUtils.preProcess(project, sourceURL, baseURI, this).toURI()
-          .toURL(), baseURI);
-    } catch (MalformedURLException e) {
-      throw new SimalRepositoryException(
-          "Unable to add data " + e.getMessage(), e);
+      db = dbf.newDocumentBuilder();
+      originalDoc = db.parse(url.openStream());
+      addProject(originalDoc, url, baseURI);
+    } catch (SAXException e) {
+      throw new SimalRepositoryException("Unable to prepare data from "
+          + url.toExternalForm() + " for adding to the repository", e);
+    } catch (FileNotFoundException e) {
+      throw new SimalRepositoryException("Unable to prepare data from "
+          + url.toExternalForm() + " for adding to the repository", e);
+    } catch (IOException e) {
+      throw new SimalRepositoryException("Unable to prepare data from "
+          + url.toExternalForm() + " for adding to the repository", e);
+    } catch (ParserConfigurationException e) {
+      throw new SimalRepositoryException("Unable to prepare data from "
+          + url.toExternalForm() + " for adding to the repository", e);
     }
   }
 
@@ -300,7 +330,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     boolean isValid = false;
     String instanceID;
     String entityID;
-    int delimiter = id.lastIndexOf(':');
+    int delimiter = id.lastIndexOf(ID_SEPARATOR);
     if (delimiter > 0) {
       instanceID = id.substring(0, delimiter - 1);
       entityID = id.substring(delimiter + 1);
@@ -316,7 +346,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     if (id == null) {
       return false;
     }
-    if (id.lastIndexOf(':') > 4 && isValidSimalID(id)) {
+    if (id.lastIndexOf(ID_SEPARATOR) > 4 && isValidSimalID(id)) {
       return true;
     } else {
       return false;

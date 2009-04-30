@@ -43,6 +43,13 @@ public class TestSimalProperties {
     assertEquals(dataDir, SimalProperties
         .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
+  
+  @Test
+  public void testSimalID() throws SimalRepositoryException {
+	    String instanceID = SimalProperties
+	        .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID);
+	    assertEquals("Got the wrong simal instance ID", "simal_test", instanceID);
+  }
 
   @Test
   public void testLocal() throws FileNotFoundException, IOException,

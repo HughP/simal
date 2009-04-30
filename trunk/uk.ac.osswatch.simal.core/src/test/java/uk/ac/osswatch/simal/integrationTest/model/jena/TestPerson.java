@@ -34,6 +34,7 @@ import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -54,15 +55,20 @@ public class TestPerson extends BaseRepositoryTest {
     documentor = getRepository().getPerson(testDocumentorURI);
     assertNotNull(documentor);
   }
+  
+  @Test
+  public void testDeveloperInitialised() {
+    assertEquals("Developer name is incorrect", "developer", developer.getLabel());
+  }
 
   @Test
   public void testAddPersonFromScratch() throws SimalRepositoryException,
       DuplicateURIException, URISyntaxException {
-    String uri = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
+    String sourceURI = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
     IPerson person;
-    person = getRepository().createPerson(uri);
+    person = getRepository().createPerson(sourceURI);
 
-    person = getRepository().getPerson(uri);
+    person = getRepository().getPerson(person.getURI());
     assertNotNull("Person has not been added to repository", person);
     assertNotNull("Person simalID should not be null", person.getSimalID());
     assertNotNull("Person simalID is invalid", getRepository().isUniqueSimalID(
@@ -73,7 +79,7 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testNames() {
-    assertEquals("developer", developer.getGivennames().toArray()[0].toString());
+    assertEquals("developer", developer.getNames().toArray()[0].toString());
   }
 
   @Test
@@ -112,7 +118,7 @@ public class TestPerson extends BaseRepositoryTest {
     Iterator<IPerson> people = colleagues.iterator();
     while (people.hasNext()) {
       IPerson person = people.next();
-      logger.debug("Got colleaue: " + person);
+      logger.debug("Got colleague: " + person);
       assertNotNull("No person should have a null ID (see " + person.getURI()
           + ")", person.getSimalID());
     }
@@ -136,13 +142,13 @@ public class TestPerson extends BaseRepositoryTest {
   @Test
   public void testGeneratedSimalId() throws SimalRepositoryException {
     String id = developer.getColleagues().iterator().next().getSimalID();
-    assertNotNull("Test developer ID incorrect", id);
+    assertNotNull("Test developer ID null", id);
   }
 
   @Test
   public void testSeeAlso() {
     Set<URI> seeAlso = developer.getSeeAlso();
-    assertEquals("Incorrect number of see also values", 3, seeAlso.size());
+    assertEquals("Incorrect number of see also values", 2, seeAlso.size());
   }
 
   @Test
@@ -161,8 +167,8 @@ public class TestPerson extends BaseRepositoryTest {
   }
 
   @Test
-  public void testAddName() {
-    String name = "Test Name";
+  public void testAddName() { 
+    String name = "Unit Test Name";
     developer.addName(name);
     assertEquals("We haven't set the name succesfully", name, developer
         .getNames().toArray()[0]);
@@ -174,10 +180,4 @@ public class TestPerson extends BaseRepositoryTest {
     assertEquals("Simal ID of person is incorrect", testDeveloperID, id);
   }
 
-  @Test
-  public void testGetUniqueSimalID() throws SimalRepositoryException {
-    String id = developer.getUniqueSimalID();
-    assertTrue("Unique Simal ID of person is not valid: " + 15,
-        id.length() > developer.getSimalID().length());
-  }
 }

@@ -40,10 +40,11 @@ public class PimsTest extends BaseRepositoryTest {
 		Pims pims = new Pims();
 		ISimalRepository repo = SimalRepositoryFactory.getInstance();
 		Iterator<IProject> projects = repo.getAllProjects().iterator();
+		IProject project = repo.getProject("http://www.proja.ac.uk/test");
 		
 		boolean projectAIsValid = false;
 		while (projects.hasNext()) {
-			IProject project = projects.next();
+			project = projects.next();
 			String name = project.getName();
 			Set<IDoapHomepage> homepages = project.getHomepages();
 			if (name.equals("Project A")) {
@@ -51,6 +52,7 @@ public class PimsTest extends BaseRepositoryTest {
 					break;
 				}
 				projectAIsValid = true;
+				project.delete();
 			}
 		}
 		assertTrue("Project A is not correctly configured", projectAIsValid);

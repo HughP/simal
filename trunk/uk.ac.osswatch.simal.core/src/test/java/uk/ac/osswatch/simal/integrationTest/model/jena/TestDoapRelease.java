@@ -31,10 +31,8 @@ public class TestDoapRelease extends BaseRepositoryTest {
   @Test
   public void testGetReleases() throws SimalRepositoryException {
     Set<IDoapRelease> releases = project1.getReleases();
-    IDoapRelease release = (IDoapRelease) releases.toArray()[0];
-    Set<String> revisions = release.getRevisions();
-    assertTrue("Don't seem to have revision 0.1", revisions.toString()
-        .contains("0.1"));
+    assertTrue("Don't seem to have release 'Simal Project Registry'", releases.toString()
+        .contains("Simal Project Registry"));
   }
 
   @Test

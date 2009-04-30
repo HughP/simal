@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.model.jena;
  */
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -29,7 +30,6 @@ import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class DoapResource extends Resource implements IDoapResource {
@@ -44,74 +44,77 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   public String getCreated() {
-    Statement created = getJenaResource().getProperty(Doap.CREATED);
+    String created = getLiteralValue(Doap.CREATED);
     if (created != null) {
-      return created.getString();
+      return created;
     } else {
       return "";
     }
   }
 
   public String getDescription() {
-    Statement resource = getJenaResource().getProperty(Doap.DESCRIPTION);
-    String desc;
-    if (resource == null) {
+    String desc = getLiteralValue(Doap.DESCRIPTION);
+    
+    if (desc == null) {
       desc = getShortDesc();
-    } else {
-      desc = resource.getString().trim();
     }
+    
     return desc;
   }
 
   public Set<IDoapLicence> getLicences() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.LICENSE);
+    Iterator<Statement> props = listProperties(Doap.LICENSE).iterator();
     Set<IDoapLicence> results = new HashSet<IDoapLicence>();
-    while (itr.hasNext()) {
-      results.add(new Licence(itr.nextStatement().getResource()));
+    while (props.hasNext()) {
+      results.add(new Licence(props.next().getResource()));
     }
     return results;
   }
 
   public String getName() {
-    Statement name = getJenaResource().getProperty(Doap.NAME);
-    if (name != null) {
-      return name.getString();
-    } else {
-      name = getJenaResource().getProperty(RDFS.label);
-      if (name != null) {
-        return name.getString();
-      } else {
-        return getURI();
-      }
+    String name = getLiteralValue(Doap.NAME);
+    
+    if (name == null) {
+      name = getLiteralValue(RDFS.label);
     }
+    
+    if (name == null) {
+      return getURI();
+    }
+    return name;
   }
 
   @Override
   public String getLabel() {
-    Statement name = getJenaResource().getProperty(Doap.NAME);
+    String name = this.getName();
     if (name == null) {
       return super.getLabel();
     } else {
-      return name.getString();
+      return name;
     }
   }
 
   public Set<String> getNames() {
-    StmtIterator itr = getJenaResource().listProperties(Doap.NAME);
+    Iterator<Statement> itr = listProperties(Doap.NAME).iterator();
     Set<String> results = new HashSet<String>();
     while (itr.hasNext()) {
-      results.add(itr.nextStatement().getString().trim());
+      results.add(itr.next().getString().trim());
     }
     return results;
   }
 
   public String getShortDesc() {
-    Statement desc = getJenaResource().getProperty(Doap.SHORTDESC);
-    if (desc != null) {
-      return desc.getString().trim();
-    } else {
-      return null;
+    String desc = getLiteralValue(Doap.SHORTDESC);
+    if (desc == null) {
+      desc = getLiteralValue(Doap.DESCRIPTION);
+      if (desc != null && 0 < desc.length() && desc.length() > 200) {
+        desc = desc.substring(0, 199);
+      }
+      if (desc == null) {
+        desc = "No description available";
+      }
     }
+    return desc;
   }
 
   public void setCreated(String newCreated) throws SimalRepositoryException {

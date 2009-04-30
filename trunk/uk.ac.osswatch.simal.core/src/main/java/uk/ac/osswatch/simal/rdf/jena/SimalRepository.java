@@ -22,6 +22,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,18 +32,33 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.Doap;
-import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.model.jena.Category;
 import uk.ac.osswatch.simal.model.jena.Homepage;
 import uk.ac.osswatch.simal.model.jena.Person;
@@ -69,6 +87,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public final class SimalRepository extends AbstractSimalRepository {
   private static final Logger logger = LoggerFactory
@@ -164,25 +183,6 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
   }
 
-  public void addProject(URL url, String baseURI)
-      throws SimalRepositoryException {
-    logger.info("Adding a project from " + url.toString());
-
-    verifyInitialised();
-
-    Iterator<File> annotatedFiles = null;
-    try {
-      annotatedFiles = RDFUtils.preProcess(url, baseURI, this).iterator();
-      logger.debug("Adding processed RDF/XML");
-      while (annotatedFiles.hasNext()) {
-        addRDFXML(annotatedFiles.next().toURI().toURL(), baseURI);
-      }
-    } catch (IOException e) {
-      throw new SimalRepositoryException(
-          "Unable to write the annotated RDF/XML file: " + e.getMessage(), e);
-    }
-  }
-
   public void add(String data) throws SimalRepositoryException {
     logger.debug("Adding RDF data string:\n\t" + data);
 
@@ -236,6 +236,23 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
   }
 
+  public void addRDFXML(Document doc) throws SimalRepositoryException {
+    StringWriter xmlAsWriter = new StringWriter();
+    StreamResult result = new StreamResult(xmlAsWriter);
+    try {
+      TransformerFactory.newInstance().newTransformer().transform(
+          new DOMSource(doc), result);
+    } catch (TransformerConfigurationException e) {
+      throw new SimalRepositoryException("Unable configure XSL Transformer", e);
+    } catch (TransformerException e) {
+      throw new SimalRepositoryException("Unable to transform document", e);
+    } catch (TransformerFactoryConfigurationError e) {
+      throw new SimalRepositoryException("Unable to create XSL Transformer", e);
+    }
+    StringReader xmlReader = new StringReader(xmlAsWriter.toString());
+    model.read(xmlReader, "");
+  }
+
   public IPerson createPerson(String uri) throws SimalRepositoryException,
       DuplicateURIException {
     if (containsPerson(uri)) {
@@ -243,12 +260,19 @@ public final class SimalRepository extends AbstractSimalRepository {
           "Attempt to create a second person with the URI " + uri);
     }
 
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    Statement s = model.createStatement(r, RDF.type, Foaf.PERSON);
+    String personID = getNewPersonID();
+    String simalPersonURI = RDFUtils.getDefaultPersonURI(personID);
+    logger.debug("Creating a new Simal Person instance with URI: "
+        + simalPersonURI);
+
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(simalPersonURI);
+    Statement s = model.createStatement(r, RDF.type, SimalOntology.PERSON);
+    model.add(s);
+    s = model.createStatement(r, RDFS.seeAlso, uri);
     model.add(s);
 
-    IPerson person = new Person(model.createResource(uri));
-    person.setSimalID(getNewPersonID());
+    IPerson person = new Person(r);
+    person.setSimalID(personID);
     return person;
   }
 
@@ -260,10 +284,19 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
 
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    Statement s = model.createStatement(r, RDF.type, o);
+    com.hp.hpl.jena.rdf.model.Resource doapProject = model.createResource(uri);
+    Statement s = model.createStatement(doapProject, RDF.type, o);
     model.add(s);
+    
 
+    o = model.createProperty(SIMAL_PROJECT_URI);
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
+    s = model.createStatement(r, RDF.type, o);
+    model.add(s);
+    
+    s = model.createStatement(r, RDFS.seeAlso, doapProject);
+    model.add(s);
+    
     IProject project = new Project(model.createResource(uri));
     project.setSimalID(getNewProjectID());
     return project;
@@ -303,8 +336,7 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IDoapCategory findCategoryById(String id)
       throws SimalRepositoryException {
-    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?category WHERE { "
         + "?category simal:categoryId \"" + id + "\"}";
@@ -327,7 +359,7 @@ public final class SimalRepository extends AbstractSimalRepository {
   
   public Set<IPerson> filterPeopleByName(String filter) {
     String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
-    + "> " + "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
+    + "> " + "PREFIX foaf: <" + RDFUtils.FOAF_NS + "> "
     + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
     + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
     + "SELECT DISTINCT ?person WHERE { ?person a foaf:Person;"
@@ -342,11 +374,10 @@ public final class SimalRepository extends AbstractSimalRepository {
       throw new SimalRepositoryException(
           "Attempt to find a person using an invalid Simal ID of "
               + id
-              + " are you sure that's a world unique identifier? You may need to call RDFUtils.getUniqueSimalID(id)");
+              + " are you sure that's a world unique identifier? You may need to call getUniqueSimalID() or RDFUtils.getUniqueSimalID(id)");
     }
     String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI + "> "
-        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { " + "?person simal:personId \"" + id
         + "\"^^xsd:string }";
@@ -357,11 +388,11 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IPerson findPersonBySeeAlso(String seeAlso)
       throws SimalRepositoryException {
-    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX simal: <" + RDFUtils.SIMAL_NS + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + "> "
         + "SELECT DISTINCT ?person WHERE { "
-        + "?person rdf:type foaf:Person . " + "?person rdfs:seeAlso <"
+        + "?person rdf:type simal:Person . " + "?person rdfs:seeAlso <"
         + seeAlso + ">}";
 
     IPerson person = findPersonBySPARQL(queryStr);
@@ -394,8 +425,8 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IPerson findPersonBySha1Sum(String sha1sum)
       throws SimalRepositoryException {
-    String queryStr = "PREFIX foaf: <" + SimalRepository.FOAF_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX foaf: <" + RDFUtils.FOAF_NS + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { " + "?person foaf:mbox_sha1sum \""
         + sha1sum + "\"}";
 
@@ -406,11 +437,18 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IProject findProjectByHomepage(String homepage)
       throws SimalRepositoryException {
-    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?project WHERE { " + "?project a doap:Project . "
-        + "?project doap:homepage <" + homepage + ">}";
+    String queryStr = "PREFIX simal: <" + RDFUtils.SIMAL_NS + "> "
+        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX doap: <" + RDFUtils.DOAP_NS + ">" + "PREFIX rdfs: <"
+        + SimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "SELECT DISTINCT ?project WHERE { { ?project a simal:Project . "
+        + "?project doap:homepage <" + homepage + "> } UNION "
+        + "{ ?doaproject a doap:Project . " + "?doapProject doap:homepage <"
+        + homepage + "> . ?project rdfs:seeAlso ?doapProject } }";
+    // ?project a simal:Project
+    // ?project doap:homepage x
+    // or ?project rdfs:seeAlso ?linkedProject
+    // ?linkedProject doap:homepage x
 
     IProject project = findProjectBySPARQL(queryStr);
 
@@ -425,8 +463,7 @@ public final class SimalRepository extends AbstractSimalRepository {
               + " are you sure that is a unique ID? You may need to call RDFUtils.getUniqueSimalID(id)");
     }
     String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
-        + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?project WHERE { " + "?project simal:projectId \""
         + id + "\"^^xsd:string }";
@@ -438,7 +475,7 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public Set<IProject> filterProjectsByName(String filter) {
     String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI + "> "
+        + "> " + "PREFIX doap: <" + RDFUtils.DOAP_NS + "> "
         + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
         + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?project WHERE { ?project a doap:Project;"
@@ -450,10 +487,10 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IProject findProjectBySeeAlso(String seeAlso)
       throws SimalRepositoryException {
-    String queryStr = "PREFIX doap: <" + SimalRepository.DOAP_NAMESPACE_URI
+    String queryStr = "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI
         + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
         + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?project WHERE { " + "?project a doap:Project . "
+        + "SELECT DISTINCT ?project WHERE { " + "?project a simal:Project . "
         + "?project rdfs:seeAlso <" + seeAlso + ">}";
 
     IProject project = findProjectBySPARQL(queryStr);
@@ -547,7 +584,8 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   public Set<IPerson> getAllPeople() throws SimalRepositoryException {
-    StmtIterator itr = model.listStatements(null, RDF.type, Foaf.PERSON);
+    Property o = model.createProperty(SIMAL_PERSON_URI);
+    StmtIterator itr = model.listStatements(null, RDF.type, o);
     Set<IPerson> people = new HashSet<IPerson>();
     while (itr.hasNext()) {
       String uri = itr.nextStatement().getSubject().getURI();
@@ -557,7 +595,7 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
-    Property o = model.createProperty(DOAP_PROJECT_URI);
+    Property o = model.createProperty(SIMAL_PROJECT_URI);
     StmtIterator itr = model.listStatements(null, RDF.type, o);
     Set<IProject> projects = new HashSet<IProject>();
     while (itr.hasNext()) {
@@ -617,13 +655,16 @@ public final class SimalRepository extends AbstractSimalRepository {
   public boolean containsProject(String uri) {
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
     com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    Statement s = model.createStatement(r, RDF.type, o);
-    return model.contains(s);
+    Statement doap = model.createStatement(r, RDF.type, o);
+
+    o = model.createProperty(RDFUtils.SIMAL_PROJECT);
+    Statement simal = model.createStatement(r, RDF.type, o);
+    return model.contains(doap) || model.contains(simal);
   }
 
   public boolean containsPerson(String uri) {
     com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    Statement s = model.createStatement(r, RDF.type, Foaf.PERSON);
+    Statement s = model.createStatement(r, RDF.type, SimalOntology.PERSON);
     return model.contains(s);
   }
 
@@ -659,4 +700,389 @@ public final class SimalRepository extends AbstractSimalRepository {
     model.write(writer, "N3");
   }
 
+  public void addProject(Document originalDoc, URL sourceURL, String baseURI)
+      throws SimalRepositoryException {
+    // Strip any extra XML, such as Atom feed data or web services response
+    // data
+    NodeList projects = originalDoc.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "Project");
+
+    if (projects.getLength() == 0) {
+      Element docElement = originalDoc.getDocumentElement();
+      Document doc;
+      if (docElement.getLocalName().equals("RDF")) {
+        doc = originalDoc;
+      } else {
+        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        dbf.setNamespaceAware(true);
+        DocumentBuilder db;
+        try {
+          db = dbf.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+          throw new SimalRepositoryException("Unable to create document builder", e);
+        }
+        
+        doc = db.newDocument();
+        Node root = doc.createElementNS(RDFUtils.RDF_NS, "RDF");
+        root.appendChild(doc.importNode(docElement, true));
+        doc.appendChild(root);
+
+        addProject(doc.getDocumentElement());
+      }
+    } else {
+      for (int i = 0; i < projects.getLength(); i = i + 1) {
+        Element project = (Element) projects.item(i);
+        addProject(project);
+      }
+    }
+  }
+
+  /**
+   * Add an RDF/XML project document.
+   * 
+   * @param sourceProejctRoot
+   *          the project RDF node
+   * @throws DOMException
+   * @throws SimalRepositoryException
+   */
+  public void addProject(Element sourceProjectRoot)
+      throws SimalRepositoryException, DOMException {
+    if (!sourceProjectRoot.getLocalName().equals("Project")) {
+      throw new IllegalArgumentException(
+          "Supplied element is not a doap:Project element it is a "
+              + sourceProjectRoot.getNodeName());
+    }
+    String simalProjectURI = null;
+
+    try {
+      cleanProject(sourceProjectRoot);
+    } catch (UnsupportedEncodingException e) {
+      throw new SimalRepositoryException(
+          "Unable to encode URIs for blank nodes", e);
+    }
+
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setNamespaceAware(true);
+    DocumentBuilder db;
+    try {
+      db = dbf.newDocumentBuilder();
+    } catch (ParserConfigurationException e) {
+      throw new SimalRepositoryException("Unable to create document builder", e);
+    }
+    Document simalProjectDoc = db.newDocument();
+    Node simalProjectRDFRoot = simalProjectDoc.createElementNS(RDFUtils.RDF_NS,
+        "RDF");
+    Element simalProjectElement = simalProjectDoc.createElementNS(
+        RDFUtils.SIMAL_NS, "Project");
+    simalProjectElement.appendChild(simalProjectDoc.createElementNS(
+        RDFUtils.DOAP_NS, "Project"));
+
+    // handle duplicate projects identified by their homepage
+    NodeList homepages = sourceProjectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, "homepage");
+    Element homepage;
+    for (int i = 0; i < homepages.getLength(); i = i + 1) {
+      homepage = (Element) homepages.item(i);
+      if (homepage.getParentNode().equals(sourceProjectRoot)) {
+        if (homepage.getParentNode().equals(sourceProjectRoot)) {
+          String url = homepage.getAttributeNS(RDFUtils.RDF_NS, "resource")
+              .trim();
+          IProject project = findProjectByHomepage(url);
+          if (project != null) {
+            logger
+                .debug("Simal already has a Project record with the homepage "
+                    + url + " with URI " + project.getURI());
+            simalProjectURI = project.getURI();
+          }
+        }
+      }
+    }
+
+    // handle duplicate projects identified by their rdfs:seeAlso
+    NodeList seeAlsos = sourceProjectRoot.getElementsByTagNameNS(
+        RDFUtils.RDFS_NS, "seeAlso");
+    Element seeAlso;
+    for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
+      seeAlso = (Element) seeAlsos.item(i);
+      if (seeAlso.getParentNode().equals(sourceProjectRoot)) {
+        String uri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource").trim();
+        IProject project = findProjectBySeeAlso(uri);
+        if (project != null) {
+          logger
+              .debug("Simal already has a Project record with the rdfs:seeAlso "
+                  + uri);
+          simalProjectURI = project.getURI();
+        } else {
+          seeAlso = simalProjectDoc
+              .createElementNS(RDFUtils.RDFS_NS, "seeAlso");
+          seeAlso.setAttributeNS(RDFUtils.RDF_NS, "resource", uri);
+          simalProjectElement.appendChild(seeAlso);
+        }
+      }
+    }
+
+    if (simalProjectURI == null) {
+      String projectID = getNewProjectID();
+      simalProjectURI = RDFUtils.getDefaultProjectURI(projectID);
+      logger.debug("Creating a new Simal Project instance with URI "
+          + simalProjectURI);
+
+      Element simalID = simalProjectDoc.createElementNS(RDFUtils.SIMAL_NS,
+          RDFUtils.SIMAL_PROJECT_ID);
+      simalID.setTextContent(projectID);
+      simalProjectElement.appendChild(simalID);
+    } else {
+      logger.debug("Updating an existing Simal Project instance with URI "
+          + simalProjectURI);
+    }
+    simalProjectElement.setAttributeNS(RDFUtils.RDF_NS, "about",
+        simalProjectURI);
+
+    seeAlso = simalProjectDoc.createElementNS(RDFUtils.RDFS_NS, "seeAlso");
+    String resource = sourceProjectRoot
+        .getAttributeNS(RDFUtils.RDF_NS, "about");
+    if (resource == null || resource.equals("")) {
+      // we don't allow blank project nodes
+      resource = RDFUtils.getDefaultProjectURI(getNewProjectID());
+      sourceProjectRoot.setAttributeNS(RDFUtils.RDF_NS, "about", resource);
+    }
+    seeAlso.setAttributeNS(RDFUtils.RDF_NS, "resource", resource);
+    simalProjectElement.appendChild(seeAlso);
+
+    simalProjectRDFRoot.appendChild(simalProjectElement);
+    simalProjectDoc.appendChild(simalProjectRDFRoot);
+
+    addRDFXML(simalProjectDoc);
+
+    // Handle all people
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "maintainer"), simalProjectURI);
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "developer"), simalProjectURI);
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "documenter"), simalProjectURI);
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "translator"), simalProjectURI);
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "tester"), simalProjectURI);
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "helper"), simalProjectURI);
+
+    // add the source RDF
+    Document sourceDoc = db.newDocument();
+    Node root = sourceDoc.createElementNS(RDFUtils.RDF_NS, "RDF");
+    root.appendChild(sourceDoc.importNode(sourceProjectRoot, true));
+    sourceDoc.appendChild(root);
+    addRDFXML(sourceDoc);
+  }
+
+  /**
+   * Add the people contained in or referenced from doap:maintianer,
+   * doap:developer, doap:documenter, doap:translator, doap:tester, doap:helper
+   * elements.
+   * 
+   * @param doapPeople
+ * @param simalProjectURI 
+   * @throws SimalRepositoryException
+   */
+  private void addDoapPeople(NodeList doapPeople, String simalProjectURI)
+      throws SimalRepositoryException {
+    Element person;
+    for (int i = 0; i < doapPeople.getLength(); i = i + 1) {
+      Element doapPerson = (Element) doapPeople.item(i);
+      String uri = doapPerson.getAttributeNS(RDFUtils.RDF_NS, "resource");
+      if (uri == null || uri.equals("")) {
+        NodeList people = doapPerson.getElementsByTagNameNS(RDFUtils.FOAF_NS,
+            "Person");
+        for (int idx = 0; idx < people.getLength(); idx = idx + 1) {
+          person = (Element) people.item(idx);
+          addPerson(person, simalProjectURI);
+        }
+      } else {
+        doapPerson.removeAttributeNS(RDFUtils.RDF_NS, "resource");
+        Element personEl = doapPerson.getOwnerDocument().createElementNS(
+            RDFUtils.FOAF_NS, "Person");
+        personEl.setAttributeNS(RDFUtils.RDF_NS, "about", uri);
+        doapPerson.appendChild(personEl);
+        addPerson(personEl, simalProjectURI);
+      }
+    }
+  }
+
+  /**
+   * Look for and fix common mistakes in RDF/XML DOAP records.
+   * 
+   * @param projectRoot
+   * @throws UnsupportedEncodingException
+   * @throws DOMException
+   * @throws SimalRepositoryException
+   */
+  private void cleanProject(Element projectRoot) throws DOMException,
+      UnsupportedEncodingException, SimalRepositoryException {
+    RDFUtils.validateResourceDefinition(projectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, "bug-database"));
+    RDFUtils.validateResourceDefinition(projectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, "download-page"));
+    RDFUtils.validateResourceDefinition(projectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, "license"));
+    RDFUtils.validateResourceDefinition(projectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, "mailing-list"));
+    RDFUtils.validateResourceDefinition(projectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, "wiki"));
+    RDFUtils.validateResourceDefinition(projectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, "category"));
+
+    Document doc = projectRoot.getOwnerDocument();
+    RDFUtils.removeBNodes(doc);
+
+    RDFUtils.checkCategoryIDs(doc, this);
+  }
+
+  /**
+   * Add an RDF/XML FOAF document.
+   * 
+   * @param simalProjectURI
+   *          the URI of the simal record representing the project this person beongs to
+   * @throws DOMException
+   * @throws SimalRepositoryException
+   */
+  public void addPerson(Element sourcePersonRoot, String simalProjectURI)
+      throws SimalRepositoryException, DOMException {
+    if (!sourcePersonRoot.getLocalName().equals("Person")) {
+      throw new IllegalArgumentException(
+          "Supplied element is not a doap:Person element, it is "
+              + sourcePersonRoot.getNodeName());
+    }
+    String simalPersonURI = null;
+    
+    cleanPerson(sourcePersonRoot);
+    RDFUtils.checkPersonSHA1(sourcePersonRoot.getOwnerDocument());
+
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setNamespaceAware(true);
+    DocumentBuilder db;
+    try {
+      db = dbf.newDocumentBuilder();
+    } catch (ParserConfigurationException e) {
+      throw new SimalRepositoryException("Unable to create document builder", e);
+    }
+    Document simalPersonDoc = db.newDocument();
+    Node simalPersonRDFRoot = simalPersonDoc.createElementNS(RDFUtils.RDF_NS,
+        "RDF");
+    Element simalPersonElement = simalPersonDoc.createElementNS(
+        RDFUtils.SIMAL_NS, "Person");
+
+    // handle duplicate people identified by their mbox_sha1sum
+    NodeList sha1sums = sourcePersonRoot.getElementsByTagNameNS(
+        RDFUtils.FOAF_NS, "mbox_sha1sum");
+    for (int i = 0; i < sha1sums.getLength(); i = i + 1) {
+      Element sha1sumNode = (Element) sha1sums.item(i);
+      if (sha1sumNode.getParentNode().equals(sourcePersonRoot)) {
+        String sha1Sum = sha1sumNode.getFirstChild().getNodeValue().trim();
+        IPerson person = findPersonBySha1Sum(sha1Sum);
+        if (person != null) {
+          logger
+              .debug("Simal already has a Person record with the foaf:mbox_sha1: "
+                  + sha1Sum + " called " + person);
+          person = findPersonBySeeAlso(person.getURI());
+          simalPersonURI = person.getURI();
+        }
+      }
+    }
+
+    // handle duplicate people identified by their rdf:about
+    String uri = sourcePersonRoot.getAttributeNS(RDFUtils.RDF_NS, "about");
+    IPerson person = findPersonBySeeAlso(uri);
+    if (person != null) {
+      logger
+          .debug("Simal already has a Person record about "
+                  + uri + " called " + person);
+      simalPersonURI = person.getURI();
+    }
+
+    // handle duplicate people identified by their rdfs:seeAlso
+    NodeList seeAlsos = sourcePersonRoot.getElementsByTagNameNS(
+        RDFUtils.RDFS_NS, "seeAlso");
+    Element seeAlso;
+    for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
+      seeAlso = (Element) seeAlsos.item(i);
+      if (seeAlso.getParentNode().equals(sourcePersonRoot)) {
+        uri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource").trim();
+        person = findPersonBySeeAlso(uri);
+        if (person != null) {
+          logger
+              .debug("Simal already has a Person record with the rdfs:seeAlso "
+                  + uri + " called " + person);
+          simalPersonURI = person.getURI();
+        } else {
+          seeAlso = simalPersonDoc.createElementNS(RDFUtils.RDFS_NS, "seeAlso");
+          seeAlso.setAttributeNS(RDFUtils.RDF_NS, "resource", uri);
+          simalPersonElement.appendChild(seeAlso);
+        }
+      }
+    }
+
+    // Add current project records
+    Element projNode = simalPersonDoc.createElementNS(RDFUtils.FOAF_NS,
+      "currentProject");
+    projNode.setAttributeNS(RDFUtils.RDF_NS, "resource", simalProjectURI);
+    simalPersonElement.appendChild(projNode);
+
+    if (simalPersonURI == null) {
+      String personID = getNewPersonID();
+      simalPersonURI = RDFUtils.getDefaultPersonURI(personID);
+      logger.debug("Creating a new Simal Person instance with URI: "
+          + simalPersonURI);
+
+      Element simalID = simalPersonDoc.createElementNS(RDFUtils.SIMAL_NS,
+          RDFUtils.SIMAL_PERSON_ID);
+      simalID.setTextContent(personID);
+      simalPersonElement.appendChild(simalID);
+    } else {
+      logger.debug("Updating an existing Simal Person instance with URI: "
+          + simalPersonURI);
+    }
+    simalPersonElement.setAttributeNS(RDFUtils.RDF_NS, "about", simalPersonURI);
+
+    seeAlso = simalPersonDoc.createElementNS(RDFUtils.RDFS_NS, "seeAlso");
+    String resource = sourcePersonRoot.getAttributeNS(RDFUtils.RDF_NS, "about");
+    if (resource == null || resource.equals("")) {
+      // we don't allow blank person nodes
+      resource = RDFUtils.getDefaultPersonURI(getNewPersonID());
+      sourcePersonRoot.setAttributeNS(RDFUtils.RDF_NS, "about", resource);
+    }
+    seeAlso.setAttributeNS(RDFUtils.RDF_NS, "resource", resource);
+    simalPersonElement.appendChild(seeAlso);
+
+    simalPersonRDFRoot.appendChild(simalPersonElement);
+    simalPersonDoc.appendChild(simalPersonRDFRoot);
+
+    addRDFXML(simalPersonDoc);
+
+    // Handle all known people
+    NodeList people = sourcePersonRoot.getElementsByTagNameNS(RDFUtils.FOAF_NS,
+        "Person");
+    Element personEl;
+    for (int i = 0; i < people.getLength(); i = i + 1) {
+      personEl = (Element) people.item(i);
+      addPerson(personEl, simalProjectURI);
+    }
+
+    // add the source RDF
+    Document sourceDoc = db.newDocument();
+    Node root = sourceDoc.createElementNS(RDFUtils.RDF_NS, "RDF");
+    root.appendChild(sourceDoc.importNode(sourcePersonRoot, true));
+    sourceDoc.appendChild(root);
+    addRDFXML(sourceDoc);
+  }
+
+  /**
+   * Check the RDF for a person element for common mistakes and try to fix them.
+   * 
+   * @param personRoot
+   */
+  private void cleanPerson(Element personRoot) {
+    RDFUtils.validateResourceDefinition(personRoot.getElementsByTagNameNS(
+        RDFUtils.FOAF_NS, "homepage"));
+  }
 }

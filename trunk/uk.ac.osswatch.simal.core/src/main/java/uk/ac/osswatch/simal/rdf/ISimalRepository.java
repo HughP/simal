@@ -19,6 +19,9 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -26,6 +29,7 @@ import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
  * A class for handling common repository actions. Applications should not
@@ -36,31 +40,30 @@ import uk.ac.osswatch.simal.model.IResource;
  *           for the model object
  */
 public interface ISimalRepository {
-  public static final String FOAF_NAMESPACE_URI = "http://xmlns.com/foaf/0.1/";
-  public static final String FOAF_PERSON_URI = FOAF_NAMESPACE_URI + "Person";
-  public static final String FOAF_KNOWS_URI = FOAF_NAMESPACE_URI + "knows";
-  public static final String FOAF_MBOX_SHA1SUM_URI = FOAF_NAMESPACE_URI
+  public static final String FOAF_PERSON_URI = RDFUtils.FOAF_NS + "Person";
+  public static final String FOAF_KNOWS_URI = RDFUtils.FOAF_NS + "knows";
+  public static final String FOAF_MBOX_SHA1SUM_URI = RDFUtils.FOAF_NS
       + "mbox_sha1sum";
 
-  public static final String DOAP_NAMESPACE_URI = "http://usefulinc.com/ns/doap#";
-  public static final String DOAP_PROJECT_URI = DOAP_NAMESPACE_URI + "Project";
-  public static final String DOAP_CATEGORY_URI = DOAP_NAMESPACE_URI
+  public static final String DOAP_CATEGORY_URI = RDFUtils.DOAP_NS
       + "category";
-  public static final String DOAP_MAINTAINER_URI = DOAP_NAMESPACE_URI
+  public static final String DOAP_MAINTAINER_URI = RDFUtils.DOAP_NS
       + "maintainer";
-  public static final String DOAP_DEVELOPER_URI = DOAP_NAMESPACE_URI
+  public static final String DOAP_DEVELOPER_URI = RDFUtils.DOAP_NS
       + "developer";
-  public static final String DOAP_DOCUMENTER_URI = DOAP_NAMESPACE_URI
+  public static final String DOAP_DOCUMENTER_URI = RDFUtils.DOAP_NS
       + "documenter";
-  public static final String DOAP_HELPER_URI = DOAP_NAMESPACE_URI + "helper";
-  public static final String DOAP_TESTER_URI = DOAP_NAMESPACE_URI + "tester";
-  public static final String DOAP_TRANSLATOR_URI = DOAP_NAMESPACE_URI
+  public static final String DOAP_HELPER_URI = RDFUtils.DOAP_NS + "helper";
+  public static final String DOAP_TESTER_URI = RDFUtils.DOAP_NS + "tester";
+  public static final String DOAP_TRANSLATOR_URI = RDFUtils.DOAP_NS
       + "translator";
-  public static final String DOAP_VERSION_URI = DOAP_NAMESPACE_URI + "Version";
+  public static final String DOAP_VERSION_URI = RDFUtils.DOAP_NS + "Version";
 
   public static final String SIMAL_NAMESPACE_URI = "http://oss-watch.ac.uk/ns/0.2/simal#";
+  public static final String SIMAL_PROJECT_URI = SIMAL_NAMESPACE_URI + "Project";
   public static final String SIMAL_URI_PROJECT_ID = SIMAL_NAMESPACE_URI
       + "projectId";
+  public static final String SIMAL_PERSON_URI = SIMAL_NAMESPACE_URI + "Person";
   public static final String SIMAL_URI_PERSON_ID = SIMAL_NAMESPACE_URI
       + "personId";
 
@@ -79,20 +82,21 @@ public interface ISimalRepository {
    */
   public void addProject(URL url, String baseURI)
       throws SimalRepositoryException;
-
+      
   /**
    * Add an RDF DOAP node.
    * 
-   * @param node
-   *          the doap:Project node, or the document element of a doap:Project
+   * @param doc
+   *          the doap document
    * @param sourceURL
-   *          the URL from which this docuemnt was generated
+   *          the URL from which this document was generated
    * @param baseURI
    * @throws SimalRepositoryException
    */
-  public void addProject(Node project, URL url, String baseURI)
+  public void addProject(Document doc, URL url, String baseURI)
       throws SimalRepositoryException;
-
+      
+  
   /**
    * Get a project from the repository. If the project does not exist then
    * return null.
@@ -165,7 +169,7 @@ public interface ISimalRepository {
    */
   public IPerson findPersonBySeeAlso(String seeAlso)
       throws SimalRepositoryException;
-
+  
   /**
    * Get a project with a given rdf:seeAlso value.
    * 
@@ -260,7 +264,6 @@ public interface ISimalRepository {
   /**
    * Create a new project in the repository.
    * 
-   * @param uri a URI to identify this project
    * @return
    * @throws SimalRepositoryException
    *           if an error is thrown whilst communicating with the repository
@@ -496,6 +499,14 @@ public interface ISimalRepository {
    * @param value
    * @return
    */
-  public Set<IPerson> filterPeopleByName(String filter);
+  public Set<IPerson> filterPeopleByName(String filter);  
+  
+  /**
+   * Add an RDF/XML Document.
+   * 
+   * @param doc
+   * @throws SimalRepositoryException 
+   */
+  public void addRDFXML(Document doc) throws SimalRepositoryException;
 
 }

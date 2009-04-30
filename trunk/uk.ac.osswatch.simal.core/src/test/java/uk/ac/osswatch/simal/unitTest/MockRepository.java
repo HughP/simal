@@ -23,6 +23,9 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import uk.ac.osswatch.simal.SimalProperties;
@@ -57,7 +60,6 @@ public class MockRepository extends AbstractSimalRepository {
   public void addProject(URL url, String baseURI)
       throws SimalRepositoryException {
     // TODO Auto-generated method stub
-
   }
 
   public void addRDFXML(URL url, String baseURL)
@@ -195,16 +197,36 @@ public class MockRepository extends AbstractSimalRepository {
 
   public void removeAllData() {
     // TODO Auto-generated method stub
+  }
 
+  public void writeBackup(Writer writer) {
+    // TODO Auto-generated method stub
   }
 
   public void addProject(Node node, URL sourceURL, String baseUri)
       throws SimalRepositoryException {
     // TODO Auto-generated method stub
-
   }
 
-  public void writeBackup(Writer writer) {
+  public void addRDFXML(Document doc) throws SimalRepositoryException {
+    // TODO Auto-generated method stub
+    
+  }
+
+  public void addPerson(Element sourcePersonRoot)
+      throws SimalRepositoryException, DOMException {
+    // TODO Auto-generated method stub
+    
+  }
+  
+  public void addProject(Element sourceProjectRoot)
+      throws SimalRepositoryException, DOMException {
+    // TODO Auto-generated method stub
+    
+  }
+
+  public void addProject(Document doc, URL url, String baseURI)
+      throws SimalRepositoryException {
     // TODO Auto-generated method stub
   }
 

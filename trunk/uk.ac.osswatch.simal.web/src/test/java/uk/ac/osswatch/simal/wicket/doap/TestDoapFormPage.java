@@ -226,22 +226,4 @@ public class TestDoapFormPage extends TestBase {
     formTester.setFile("fileInput", doapFile, "text/xml");
     formTester.submit();
   }
-
-  @Test
-  public void testUploadedFile() throws SimalRepositoryException,
-      URISyntaxException {
-    uploadFile(); // we need to run this first just in case this is the first
-    // test run and the repo is not initialised
-    initTester(); // and come back to the init state again
-
-    File fileStoreDir = new File(SimalProperties
-        .getProperty(SimalProperties.PROPERTY_SIMAL_DOAP_FILE_STORE)
-        + File.separator + "simal-uploads");
-    int preCount = fileStoreDir.list().length;
-
-    uploadFile();
-
-    int postCount = fileStoreDir.list().length;
-    assertEquals("No local copy of the uploaded file", preCount + 1, postCount);
-  }
 }
