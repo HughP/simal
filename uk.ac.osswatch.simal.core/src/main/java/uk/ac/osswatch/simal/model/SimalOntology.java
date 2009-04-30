@@ -60,6 +60,9 @@ public class SimalOntology {
    */
   public static final Resource NAMESPACE = m_model.createResource(NS);
 
+  public static final Property PERSON = m_model
+      .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#Person");
+  
   public static final Property CATEGORY_ID = m_model
       .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#categoryId");
 

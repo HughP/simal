@@ -70,10 +70,13 @@ public class RDFUtils {
   public static final String PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
   public static final String PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
   public static final String CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
-
-  private static final String SIMAL_CATEGORY_ID = "categoryId";
-  private static final String SIMAL_PERSON_ID = "personId";
-  private static final String SIMAL_PROJECT_ID = "projectId";
+    
+  public static final String SIMAL_NS = "http://oss-watch.ac.uk/ns/0.2/simal#";
+  public static final String SIMAL_PERSON = SIMAL_NS + "Person";
+  public static final String SIMAL_PROJECT = SIMAL_NS + "Project";
+  public static final String SIMAL_CATEGORY_ID = "categoryId";
+  public static final String SIMAL_PERSON_ID = "personId";
+  public static final String SIMAL_PROJECT_ID = "projectId";
 
   private static final Logger logger = LoggerFactory.getLogger(RDFUtils.class);
 
@@ -82,7 +85,6 @@ public class RDFUtils {
   public static final String FOAF_NS = FOAF.NS;
   public static final String RDF_NS = RDF.getURI();
   public static final String RDFS_NS = RDFS.getURI();
-  private static File lastFile;
 
   private RDFUtils() {
   }
@@ -106,7 +108,7 @@ public class RDFUtils {
    * @throws DOMException
    * @throws UnsupportedEncodingException
    */
-  private static void removeBNodes(final Document doc) throws DOMException,
+  public static void removeBNodes(final Document doc) throws DOMException,
       UnsupportedEncodingException {
 
     NodeList nl = doc.getElementsByTagNameNS(DOAP_NS, "Repository");
@@ -258,156 +260,6 @@ public class RDFUtils {
           el.setAttributeNS(RDF_NS, "rdf:about", encode(uri.toString()));
         }
       }
-    }
-  }
-
-  /**
-   * Prepare the file at the supplied URL for addition to the Simal repository.
-   * Each individual doap:Project element found within the file is separated
-   * out. Each file is then processed to do useful things like remove blank
-   * nodes, merge duplicates, filtering content etc. The result is a set of
-   * files ready for importation into a Simal Repository.
-   * 
-   * @param url
-   * @param baseURI
-   * @param repo
-   *          the repository that we are preaparing the data for
-   * @return
-   * @throws URISyntaxException
-   * @throws IOException
-   * @throws ISimalRepositoryException
-   * @refactor there is no need for the baseURI
-   */
-  public static Set<File> preProcess(URL url, String baseURI,
-      ISimalRepository repo) throws SimalRepositoryException {
-    Set<File> annotatedFiles = new HashSet<File>();
-    try {
-      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-      dbf.setNamespaceAware(true);
-      Document originalDoc = null;
-      Document doc = null;
-
-      DocumentBuilder db = dbf.newDocumentBuilder();
-      originalDoc = db.parse(url.openStream());
-
-      // Strip any extra XML, such as Atom feed data or web services response data
-      NodeList projects = originalDoc
-          .getElementsByTagNameNS(DOAP_NS, "Project");
-      if (projects.getLength() == 0) {
-        Element docElement = originalDoc.getDocumentElement();
-        if (docElement.getLocalName().equals("RDF")) {
-          doc = originalDoc;
-        } else {
-          doc = db.newDocument();
-          Node root = doc.createElementNS(RDF_NS, "RDF");
-          root.appendChild(doc.importNode(docElement, true));
-          doc.appendChild(root);
-        }
-
-        File annotatedFile = writeAnnotatedFile(url, doc);
-        annotatedFiles.add(annotatedFile);
-        lastFile = annotatedFile;
-      } else {
-        for (int i = 0; i < projects.getLength(); i = i + 1) {
-          Node project = projects.item(i);
-
-          File annotatedFile = preProcess(project, url, baseURI, repo);
-          annotatedFiles.add(annotatedFile);
-          lastFile = annotatedFile;
-        }
-      }
-    } catch (SAXException e) {
-      throw new SimalRepositoryException("Unable to prepare data from "
-          + url.toExternalForm() + " for adding to the repository", e);
-    } catch (FileNotFoundException e) {
-      throw new SimalRepositoryException("Unable to prepare data from "
-          + url.toExternalForm() + " for adding to the repository", e);
-    } catch (IOException e) {
-      throw new SimalRepositoryException("Unable to prepare data from "
-          + url.toExternalForm() + " for adding to the repository", e);
-    } catch (ParserConfigurationException e) {
-      throw new SimalRepositoryException("Unable to prepare data from "
-          + url.toExternalForm() + " for adding to the repository", e);
-    }
-    return annotatedFiles;
-  }
-
-  /**
-   * Prepare a doap:Project node for addition to the Simal repository. Each
-   * individual doap:Project element found within the file is separated out.
-   * Each file is then processed to do useful things like remove blank nodes,
-   * merge duplicates, filtering content etc. The result is a set of files ready
-   * for importation into a Simal Repository.
-   * 
-   * @param project
-   *          the doap:proejct node
-   * @param sourceURL
-   *          the URL from which this node was retrieved
-   * @param baseURI
-   * @param repo
-   *          the repository that we are preparing the data for
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public static File preProcess(Node project, URL sourceURL, String baseURI,
-      ISimalRepository repo) throws SimalRepositoryException {
-    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-    dbf.setNamespaceAware(true);
-    DocumentBuilder db;
-    try {
-      db = dbf.newDocumentBuilder();
-      Document doc = db.newDocument();
-
-      if (project == null || project.getNodeType() == Node.DOCUMENT_NODE) {
-        throw new SimalRepositoryException(
-            "The supplied node cannot be null and it cannot be the document element (is must be rdf:RDF or doap:Project)");
-      }
-      if (project.getLocalName().equals("RDF")) {
-        project = project.getFirstChild();
-        if (project == null) {
-          throw new SimalRepositoryException(
-              "The supplied node is an rdf:RDF node, but it does not contain a doap:Project node.");
-        }
-      }
-      Node root = doc.createElementNS(RDF_NS, "RDF");
-      root.appendChild(doc.importNode(project, true));
-      doc.appendChild(root);
-
-      // perform various checks on the document
-      deDupeProjects(doc, repo);
-      checkProjectIDs(doc, repo);
-
-      checkPersonSHA1(doc);
-      deDupePeople(doc, repo);
-      checkPersonIDs(doc, repo);
-
-      createSimalURIs(doc, repo);
-
-      removeBNodes(doc);
-
-      addProjectSeeAlso(doc, sourceURL);
-      checkCategoryIDs(doc, repo);
-      checkResources(doc);
-
-      addProjectToPeople(doc);
-
-      checkCDataSections(doc);
-
-      checkHomePageNodes(doc);
-
-      File annotatedFile = writeAnnotatedFile(sourceURL, doc);
-      logger.debug("Written annotated file to "
-          + annotatedFile.toURI().toURL().toString());
-      return annotatedFile;
-    } catch (FileNotFoundException e) {
-      throw new SimalRepositoryException("Unable to prepare data from "
-          + sourceURL.toExternalForm() + " for adding to the repository", e);
-    } catch (IOException e) {
-      throw new SimalRepositoryException("Unable to prepare data from "
-          + sourceURL.toExternalForm() + " for adding to the repository", e);
-    } catch (ParserConfigurationException e) {
-      throw new SimalRepositoryException("Unable to prepare data from "
-          + sourceURL.toExternalForm() + " for adding to the repository", e);
     }
   }
 
@@ -648,7 +500,7 @@ public class RDFUtils {
    * 
    * @param nodes
    */
-  private static void validateResourceDefinition(NodeList nodes) {
+  public static void validateResourceDefinition(NodeList nodes) {
     Element el;
     for (int i = 0; i < nodes.getLength(); i = i + 1) {
       el = (Element) nodes.item(i);
@@ -667,7 +519,7 @@ public class RDFUtils {
    * @param doc
    * @throws ISimalRepositoryException
    */
-  private static void checkPersonSHA1(Document doc)
+  public static void checkPersonSHA1(Document doc)
       throws SimalRepositoryException {
     logger.debug("Check person SHA1 in RDF file");
     NodeList people = doc.getElementsByTagNameNS(FOAF_NS, "Person");
@@ -740,7 +592,7 @@ public class RDFUtils {
    * @param repo
    * @throws ISimalRepositoryException
    */
-  private static void checkCategoryIDs(Document doc, ISimalRepository repo)
+  public static void checkCategoryIDs(Document doc, ISimalRepository repo)
       throws SimalRepositoryException {
     logger.debug("Check category IDs in RDF file");
     NodeList categories = doc.getElementsByTagNameNS(DOAP_NS, "category");
@@ -1109,7 +961,7 @@ public class RDFUtils {
       }
     }
 
-    // handle duplicate projects identified by their rdf:seeAlso
+    // handle duplicate projects identified by their rdfs:seeAlso
     NodeList seeAlsos = doc.getElementsByTagNameNS(RDFS_NS, "seeAlso");
     Element seeAlso;
     for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
@@ -1186,18 +1038,5 @@ public class RDFUtils {
       filename = path;
     }
     return getAnnotatedDoapFile(filename);
-  }
-
-  /**
-   * Get the File that contains the most recently processed data. Note that this
-   * is primarily to allow testing, it cannot be relied upon in product because
-   * when a source file has multiple projects within it that file will be split
-   * into multiple local files. Thus this method will only return the File for
-   * the last Project in the original source file.
-   * 
-   * @return
-   */
-  public static File getLastProcessedFile() {
-    return lastFile;
   }
 }

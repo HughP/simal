@@ -50,9 +50,10 @@ public class TestCategory extends BaseRepositoryTest {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     Set<IProject> projects = category.getProjects();
 
+    String strProject = project1.toString();
     assertTrue(
-        "We haven't got the project we expected from category.getPRojects()",
-        projects.toString().contains(project1.toString()));
+        "We haven't got the project we expected from category.getProjects()",
+        projects.toString().contains(strProject));
   }
 
   @Test

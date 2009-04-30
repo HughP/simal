@@ -23,6 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -230,5 +231,53 @@ public class Resource implements IResource {
       result.add(stmt.getObject().toString());
     }
     return result;
+  }
+
+  /**
+   * Get the literal value of the supplied property by looking in 
+   * the default entity (the Simal Entity) and then working through
+   * the fallback options.
+   * 
+   * @param property
+   * @return
+   */
+  protected String getLiteralValue(Property property) {
+    Statement value = getJenaResource().getProperty(property);
+    if (value == null) {
+      StmtIterator seeAlsos = getJenaResource().listProperties(RDFS.seeAlso);
+      while (seeAlsos.hasNext() && value == null) {
+        String seeAlso = seeAlsos.nextStatement().getObject().toString();
+        com.hp.hpl.jena.rdf.model.Resource resource = getJenaResource().getModel().getResource(seeAlso);
+        value = resource.getProperty(property);
+      }
+    }
+    if (value != null) {
+      return value.getString().trim();
+    } else {
+      return null;
+    }
+  }
+
+
+  /**
+   * Get all properties of a given type attached to this 
+   * resource and those resources linked via rdfs:seealso.
+   * 
+   * @param property
+   * @return
+   */
+  @SuppressWarnings("unchecked")
+  protected List<Statement> listProperties(Property property) {
+    List<Statement> props = getJenaResource().listProperties(property).toList();
+    
+    StmtIterator seeAlsos = getJenaResource().listProperties(RDFS.seeAlso);
+    while (seeAlsos.hasNext()) {
+      String seeAlso = seeAlsos.nextStatement().getObject().toString();
+      com.hp.hpl.jena.rdf.model.Resource resource = getJenaResource().getModel().getResource(seeAlso);
+      List<Statement> seeAlsoProps = resource.listProperties(property).toList();
+      props.addAll(seeAlsoProps);
+    }
+    
+    return props;
   }
 }

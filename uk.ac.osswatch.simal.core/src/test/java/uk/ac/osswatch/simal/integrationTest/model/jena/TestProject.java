@@ -21,11 +21,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -60,6 +62,11 @@ public class TestProject extends BaseRepositoryTest {
     initRepository();
 
     maintainers = project1.getMaintainers();
+    Iterator<IPerson> itr = maintainers.iterator();
+    while (itr.hasNext()) {
+      IPerson person = itr.next();
+      logger.debug("Got person: " + person + " : " + person.getURI());
+    }
     developers = project1.getDevelopers();
     helpers = project1.getHelpers();
     documenters = project1.getHelpers();
@@ -72,15 +79,15 @@ public class TestProject extends BaseRepositoryTest {
     assertEquals("Have got incorrect number of maintainers",
         BaseRepositoryTest.TEST_SIMAL_PROJECT_NUMBER_OF_MAINTAINERS,
         maintainers.size());
-    assertEquals("Should have one developers",
+    assertEquals("Have got incorrect number of developers",
         TEST_SIMAL_PROJECT_NUMBER_OF_DEVELOPERS, developers.size());
-    assertEquals("Should have one helpers",
+    assertEquals("Have got incorrect number of helpers",
         TEST_SIMAL_PROJECT_NUMBER_OF_HELPERS, helpers.size());
-    assertEquals("Should have one documenters",
+    assertEquals("Have got incorrect number of documenters",
         TEST_SIMAL_PROJECT_NUMBER_OF_DOCUMENTERS, documenters.size());
-    assertEquals("Should have one translators",
+    assertEquals("Have got incorrect number of translators",
         TEST_SIMAL_PROJECT_NUMBER_OF_TRANSLATORS, translators.size());
-    assertEquals("Should have one testers",
+    assertEquals("Have got incorrect number of testers",
         TEST_SIMAL_PROJECT_NUMBER_OF_TESTERS, testers.size());
   }
 
@@ -98,7 +105,7 @@ public class TestProject extends BaseRepositoryTest {
         .contains("\"name\":\"" + TEST_SIMAL_PROJECT_NAME));
 
     assertTrue("JSON file does not contain simalID", json
-        .contains("\"simalID\":\"" + testProjectID));
+        .contains("\"simalID\":\""));
 
     assertTrue("JSON file has incorrect short description: " + json, json
         .contains("\",\"shortdesc\":\"" + TEST_SIMAL_PROJECT_SHORT_DESC));
@@ -148,7 +155,7 @@ public class TestProject extends BaseRepositoryTest {
     IPerson person;
     while (!hasDeveloper && people.hasNext()) {
       person = people.next();
-      if (person.getLabel().equals(TEST_SIMAL_PROJECT_DEVELOPERS)) {
+      if (person.getNames().contains(TEST_SIMAL_PROJECT_DEVELOPERS)) {
         hasDeveloper = true;
       }
       logger.debug("Got developer called {}", person);
@@ -395,7 +402,7 @@ public class TestProject extends BaseRepositoryTest {
   public void testId() throws SimalRepositoryException, DuplicateURIException,
       URISyntaxException {
     assertEquals("Test project ID incorrect", testProjectID, project1
-        .getSimalID());
+        .getUniqueSimalID());
 
     String uri1 = RDFUtils.PROJECT_NAMESPACE_URI + "TestingId1";
     String uri2 = RDFUtils.PROJECT_NAMESPACE_URI + "TestingId2";
@@ -445,8 +452,7 @@ public class TestProject extends BaseRepositoryTest {
     Set<IPerson> prePeople = project1.getDevelopers();
 
     String uri = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
-    IPerson person;
-    person = getRepository().createPerson(uri);
+    IPerson person = getRepository().createPerson(uri);
 
     project1.addDeveloper(person);
     Set<IPerson> postPeople = project1.getDevelopers();

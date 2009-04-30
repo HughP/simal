@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.model.jena;
  */
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.Doap;
@@ -26,7 +27,7 @@ import uk.ac.osswatch.simal.model.IDoapLocation;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 
 import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 public class Repository extends DoapResource implements IDoapRepository {
@@ -56,18 +57,18 @@ public class Repository extends DoapResource implements IDoapRepository {
 
   public Set<String> getAnonRoots() {
     HashSet<String> locations = new HashSet<String>();
-    StmtIterator itr = getJenaResource().listProperties(Doap.ANON_ROOT);
+    Iterator<Statement> itr = listProperties(Doap.ANON_ROOT).iterator();
     while (itr.hasNext()) {
-      locations.add(itr.nextStatement().getString());
+      locations.add(itr.next().getString());
     }
     return locations;
   }
 
   public Set<IDoapLocation> getLocations() {
     HashSet<IDoapLocation> locations = new HashSet<IDoapLocation>();
-    StmtIterator itr = getJenaResource().listProperties(Doap.LOCATION);
+    Iterator<Statement> itr = listProperties(Doap.LOCATION).iterator();
     while (itr.hasNext()) {
-      locations.add(new Location(itr.nextStatement().getResource()));
+      locations.add(new Location(itr.next().getResource()));
     }
     return locations;
   }
@@ -90,18 +91,18 @@ public class Repository extends DoapResource implements IDoapRepository {
 
   public Set<String> getModule() {
     HashSet<String> modules = new HashSet<String>();
-    StmtIterator itr = getJenaResource().listProperties(Doap.MODULE);
+    Iterator<Statement> itr = listProperties(Doap.MODULE).iterator();
     while (itr.hasNext()) {
-      modules.add(itr.nextStatement().getString());
+      modules.add(itr.next().getString());
     }
     return modules;
   }
 
   public Set<IDoapLocation> getBrowse() {
     HashSet<IDoapLocation> locations = new HashSet<IDoapLocation>();
-    StmtIterator itr = getJenaResource().listProperties(Doap.BROWSE);
+    Iterator<Statement> itr = listProperties(Doap.BROWSE).iterator();
     while (itr.hasNext()) {
-      locations.add(new Location(itr.nextStatement().getResource()));
+      locations.add(new Location(itr.next().getResource()));
     }
     return locations;
   }

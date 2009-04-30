@@ -198,7 +198,7 @@ public class SimalProperties {
     if (value == null) {
       if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
         if (SimalRepository.getInstance().isTest()) {
-          value = "simal:test";
+          value = "simal_test";
         } else {
           value = UUID.randomUUID().toString();
         }

@@ -21,9 +21,9 @@
   xmlns="http://usefulinc.com/ns/doap#"
   rdf:about="http://simal.oss-watch.ac.uk/simalTest#"
   xmlns:rss="http://purl.org/rss/1.0/">
-
+<!-- 
   <simal:projectId>200</simal:projectId>
-
+ -->
   <created>2007-08-08</created>
 
   <name>Simal DOAP Test</name>
@@ -39,7 +39,7 @@
   <homepage rdfs:label="Project Home Page"
     rdf:resource="http://doapTest.oss-watch.ac.uk" />
   <homepage rdfs:label="Developer Home Page"
-    rdf:resource="http://code.google.com/p/simal" />
+    rdf:resource="http://code.foo.com/p/simal" />
   <old-homepage rdfs:label="Original home page at OSS Watch"
     rdf:resource="http://www.oss-watch.ac.uk/simal" />
     
@@ -168,9 +168,8 @@
   </documenter>
 
   <developer>
-    <foaf:Person rdf:about="http://foo.org/~developer/#me">    
-      <simal:personId>15</simal:personId>
-      <foaf:givenname>developer</foaf:givenname>
+    <foaf:Person rdf:about="http://foo.org/~developer/#me">  
+      <foaf:name>developer</foaf:name>
       <foaf:knows>
         <foaf:Person rdf:about="http://goo.org/known">
           <foaf:name>Known Person</foaf:name>

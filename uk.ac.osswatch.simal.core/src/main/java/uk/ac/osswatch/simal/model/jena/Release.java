@@ -19,12 +19,13 @@ package uk.ac.osswatch.simal.model.jena;
  */
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 
-import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.rdf.model.Statement;
 
 public class Release extends DoapResource implements IDoapRelease {
   private static final long serialVersionUID = 1L;
@@ -35,9 +36,9 @@ public class Release extends DoapResource implements IDoapRelease {
 
   public Set<String> getRevisions() {
     HashSet<String> revisions = new HashSet<String>();
-    StmtIterator statements = getJenaResource().listProperties(Doap.REVISION);
+    Iterator<Statement> statements = listProperties(Doap.REVISION).iterator();
     while (statements.hasNext()) {
-      revisions.add(statements.nextStatement().getString());
+      revisions.add(statements.next().getString());
     }
     return revisions;
   }

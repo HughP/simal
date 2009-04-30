@@ -18,15 +18,16 @@ package uk.ac.osswatch.simal.integrationTest.rdf;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertNull;
+import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.fail;
+import static junit.framework.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -34,6 +35,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -103,7 +105,7 @@ public class TestRepository extends BaseRepositoryTest {
     assertNull(project);
 
     // test a known valid file
-    project = getRepository().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+    project = getRepository().findProjectBySeeAlso(TEST_PROJECT_URI);
     assertEquals("Simal DOAP Test", project.getName());
     logger.debug("Finished testFindProject()");
   }
@@ -147,7 +149,7 @@ public class TestRepository extends BaseRepositoryTest {
     while (itrProjects.hasNext()) {
       project = itrProjects.next();
       assertNotNull(project.getName());
-      logger.debug("Got project: " + project.getName());
+      logger.debug("Got project: " + project.getName() + " with URI " + project.getURI());
     }
 
     assertEquals(6, projects.size());
@@ -156,7 +158,6 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testGetAllPeople() throws SimalRepositoryException, IOException {
-    logger.debug("Starting testGetAllPeople()");
     Set<IPerson> people = getRepository().getAllPeople();
 
     Iterator<IPerson> itrPeople = people.iterator();
@@ -168,8 +169,6 @@ public class TestRepository extends BaseRepositoryTest {
     }
 
     assertEquals(18, people.size());
-
-    logger.debug("Finished testGetAllPeople()");
   }
 
   @SuppressWarnings("unchecked")
@@ -200,7 +199,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetAllPeopleAsJSON() throws SimalRepositoryException {
     logger.debug("Starting testGetAllPeopleAsJSON()");
-    Long targetTime = Long.valueOf(50);
+    Long targetTime = Long.valueOf(75);
     Long startTime = System.currentTimeMillis();
     String json = getRepository().getAllPeopleAsJSON();
     Long endTime = System.currentTimeMillis();
@@ -222,9 +221,8 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testFindPersonById() throws SimalRepositoryException {
-    String uniqueID = getRepository().getUniqueSimalID(testDeveloperID);
-    IPerson person = getRepository().findPersonById(uniqueID);
-    assertNotNull("Can't find a person with the ID " + uniqueID, person);
+    IPerson person = getRepository().findPersonById(testDeveloperID);
+    assertNotNull("Can't find a person with the ID " + testDeveloperID, person);
     assertEquals("Developer URI is not as expected ", RDFUtils
         .getDefaultPersonURI(testDeveloperID), person.getURI());
   }
@@ -240,9 +238,8 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testFindProjectById() throws SimalRepositoryException {
-    String uniqueID = getRepository().getUniqueSimalID(testProjectID);
-    IProject project = getRepository().findProjectById(uniqueID);
-    assertNotNull("Failed to get projectwith ID " + uniqueID, project);
+    IProject project = getRepository().findProjectById(testProjectID);
+    assertNotNull("Failed to get project with ID " + testProjectID, project);
   }
 
   @Test
@@ -258,9 +255,10 @@ public class TestRepository extends BaseRepositoryTest {
       IOException {
     logger.debug("Starting testAdd(data)");
     project1.delete();
-    project1 = getRepository().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+    project1 = getRepository().findProjectBySeeAlso(TEST_PROJECT_URI);
     assertNull("Project has not been deleted as expected", project1);
-
+    
+    int peopleBefore = getRepository().getAllPeople().size();
     File testFile = new File(ISimalRepository.class.getClassLoader()
         .getResource(ModelSupport.TEST_FILE_URI_WITH_QNAME).toURI());
     FileInputStream fis = new FileInputStream(testFile);
@@ -269,8 +267,17 @@ public class TestRepository extends BaseRepositoryTest {
     fis.read(b);
     String data = new String(b);
     getRepository().add(data);
-
-    project1 = getRepository().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+    int peopleAfter = getRepository().getAllPeople().size();
+    
+    
+    Iterator<IPerson> people = getRepository().getAllPeople().iterator();
+    while (people.hasNext()) {
+      IPerson person = people.next();
+      logger.debug("We have got a person labelled " + person.getLabel() + " from " + person.getSeeAlso().toString());
+    }    
+    assertEquals("We have more people after adding a duplicate than we did before", peopleBefore, peopleAfter);
+    
+    project1 = getRepository().findProjectBySeeAlso(TEST_PROJECT_URI);
     assertNotNull("We don't seem to have added the test data as expected",
         project1);
     logger.debug("Starting testAdd(data)");
@@ -336,7 +343,7 @@ public class TestRepository extends BaseRepositoryTest {
       // This is expected
     }
 
-    id = "ThisIsA:validID";
+    id = "ThisIsA-validID";
     getRepository().findPersonById(id);
   }
 
@@ -351,11 +358,11 @@ public class TestRepository extends BaseRepositoryTest {
         .isUniqueSimalID(id));
 
     id = "a:inValidID";
-    assertFalse("Invalid Simal IDs should not be unqiue", getRepository()
+    assertFalse("Invalid Simal IDs should not be considered unqiue", getRepository()
         .isUniqueSimalID(id));
 
-    id = "ThisIsA:uniqueID";
-    assertTrue("Null Simal IDs should not be unqiue", getRepository()
+    id = "ThisIsA-uniqueID";
+    assertTrue("Valid Simal IDs should be considered unqiue", getRepository()
         .isUniqueSimalID(id));
   }
   
@@ -366,26 +373,26 @@ public class TestRepository extends BaseRepositoryTest {
     repo.writeBackup(sw);
     String backup = sw.toString();
     assertNotNull(backup);
-    
-    int numProjects = count(backup, "doap:Project");
-    assertEquals("Number of projects in the backup is incorrect", repo.getAllProjects().size(), numProjects);
-    
-    int numPeople = count(backup, "foaf:Person");
-    assertEquals("Number of people in the backup is incorrect", repo.getAllPeople().size(), numPeople);
-  }
-  
-  private int count(String base, String searchFor) {
-    int len   = searchFor.length();
-    int result = 0;
-  
-    if (len > 0) {
-        int start = base.indexOf(searchFor);
-        while (start != -1) {
-            result++;
-            start = base.indexOf(searchFor, start+len);
-        }
-    }
-    return result;
   }
 
+  @Test
+  public void testSimalEntityExists() throws SimalRepositoryException {
+    URL url = TestRepository.class
+        .getResource("/testData/testIngest.xml");    
+    Long beforeID = new Long(SimalProperties.getProperty(
+        SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1"));
+    getRepository().addProject(url, "");    
+    Long afterID = new Long(SimalProperties.getProperty(
+        SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1"));
+    assertFalse("A new ingest should create a new Simal Project",
+        beforeID.equals(afterID));
+    
+    beforeID = new Long(SimalProperties.getProperty(
+        SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1"));
+    getRepository().addProject(url, "");
+    afterID = new Long(SimalProperties.getProperty(
+        SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1"));
+    assertTrue("A repeated ingest should not create a new Simal Project",
+        beforeID.equals(afterID));    
+  }
 }
