@@ -34,7 +34,6 @@ import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -176,7 +175,7 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testGetSimalID() throws SimalRepositoryException {
-    String id = developer.getSimalID();
+    String id = developer.getUniqueSimalID();
     assertEquals("Simal ID of person is incorrect", testDeveloperID, id);
   }
 

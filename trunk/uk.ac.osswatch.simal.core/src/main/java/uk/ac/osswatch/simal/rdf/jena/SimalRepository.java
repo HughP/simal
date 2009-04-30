@@ -52,6 +52,7 @@ import org.w3c.dom.NodeList;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.Doap;
+import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -663,9 +664,11 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   public boolean containsPerson(String uri) {
+	Property o = model.createProperty(Foaf.NS + "Person");
     com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    Statement s = model.createStatement(r, RDF.type, SimalOntology.PERSON);
-    return model.contains(s);
+    Statement foaf = model.createStatement(r, RDF.type, o); 
+    Statement simal = model.createStatement(r, RDF.type, SimalOntology.PERSON);
+    return model.contains(foaf) || model.contains(simal);
   }
 
   public boolean containsCategory(String uri) {
