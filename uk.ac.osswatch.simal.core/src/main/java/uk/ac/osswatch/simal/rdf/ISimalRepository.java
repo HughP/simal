@@ -218,6 +218,14 @@ public interface ISimalRepository {
   public Set<IProject> getAllProjects() throws SimalRepositoryException;
 
   /**
+   * Get all the organisations known in this repository.
+   * 
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException;
+
+  /**
    * Get all the categories known in this repository.
    * 
    * @return
@@ -526,5 +534,15 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException 
    */
   public void addRDFXML(Document doc) throws SimalRepositoryException;
+  
+  /**
+   * Create a new organisation object.
+   * 
+   * @param uri the URI for this organisation
+   * 
+   * @return
+ * @throws DuplicateURIException 
+   */
+  public IOrganisation createOrganisation(String uri) throws DuplicateURIException;
 
 }

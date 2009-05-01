@@ -262,6 +262,27 @@ public final static String ORGANISATION_RDF = "testData/organisations.xml";
 	}
     </source>
     
+    <p>Running the tests again results in success. Of course it would be useful if we could also add a name to the organisation record.
+    The first step would be to write the test for this:</p>
+    
+    <source>
+	  @Test
+	  public void testAddName() throws SimalRepositoryException {
+		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  String name = "Test Name";
+		  org.addName(name);
+		  assertEquals("Name is not as expected after adding new name", name, org.getName());
+	  }
+    </source>
+    
+    <p>Now we add the method to <code>IOrganisation</code> and <code>Organisation</code>.</p>
+    
+    <source>
+	public void addName(String name) {
+	    getJenaResource().addLiteral(Foaf.NAME, name);
+	}
+    </source>
+    
     <p>Now when we run the test it passes, hurrah!</p>
     
     <p>We will need to add more methods for manipulating this data object but we'll stop the

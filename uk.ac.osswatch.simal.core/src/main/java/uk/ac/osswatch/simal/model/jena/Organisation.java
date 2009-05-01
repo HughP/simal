@@ -43,4 +43,8 @@ public class Organisation extends Resource implements IOrganisation {
 	    return name;
 	}
 
+	public void addName(String name) {
+	    getJenaResource().addLiteral(Foaf.NAME, name);
+	}
+
 }

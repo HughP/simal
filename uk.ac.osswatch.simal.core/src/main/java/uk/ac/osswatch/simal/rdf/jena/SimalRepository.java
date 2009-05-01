@@ -279,6 +279,20 @@ public final class SimalRepository extends AbstractSimalRepository {
     return person;
   }
 
+  public IOrganisation createOrganisation(String uri) throws DuplicateURIException {
+    if (containsProject(uri)) {
+        throw new DuplicateURIException(
+            "Attempt to create a second project with the URI " + uri);
+      }
+
+    com.hp.hpl.jena.rdf.model.Resource foafOrg = model.createResource(uri);
+    Statement s = model.createStatement(foafOrg, RDF.type, Foaf.ORGANIZATION);
+    model.add(s);
+    
+    IOrganisation org = new Organisation(model.createResource(uri));
+    return org;
+  }
+
   public IProject createProject(String uri) throws SimalRepositoryException,
       DuplicateURIException {
     if (containsProject(uri)) {
@@ -606,6 +620,16 @@ public final class SimalRepository extends AbstractSimalRepository {
       projects.add(new Project(model.getResource(uri)));
     }
     return projects;
+  }
+
+  public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException {
+    StmtIterator itr = model.listStatements(null, RDF.type, Foaf.ORGANIZATION);
+    Set<IOrganisation> orgs = new HashSet<IOrganisation>();
+    while (itr.hasNext()) {
+      String uri = itr.nextStatement().getSubject().getURI();
+      orgs.add(new Organisation(model.getResource(uri)));
+    }
+    return orgs;
   }
 
   public String getAllProjectsAsJSON() throws SimalRepositoryException {
