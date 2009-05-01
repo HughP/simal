@@ -24,6 +24,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -68,8 +69,9 @@ public class Pims {
         wb = new HSSFWorkbook(new FileInputStream(filename));
         sheet = wb.getSheetAt(0);
         row   = sheet.getRow(1);
-        //String institutionId = row.getCell(0).getStringCellValue();
-        //String institutionName = row.getCell(1).getStringCellValue();
+        double institutionId = row.getCell(0).getNumericCellValue();
+        IOrganisation org = repo.createOrganisation("http://jisc.ac.uk/institution/" + institutionId);
+        org.addName(row.getCell(1).getStringCellValue());
         //String institutionProjectId = row.getCell(0).getStringCellValue();
         
 	}

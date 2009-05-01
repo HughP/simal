@@ -22,11 +22,13 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import  uk.ac.osswatch.simal.importData.Pims;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -35,12 +37,19 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 public class PimsTest extends BaseRepositoryTest {
 	
-	@Test
-	public void testDumpData() throws FileNotFoundException, IOException, SimalRepositoryException, DuplicateURIException {
+	private static ISimalRepository repo;
+
+	@BeforeClass
+	public static void importTestData() throws FileNotFoundException, SimalRepositoryException, IOException, DuplicateURIException {
 		Pims pims = new Pims();
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+		repo = SimalRepositoryFactory.getInstance();
+	}
+	
+	
+	@Test
+	public void testProjectImport() throws FileNotFoundException, IOException, SimalRepositoryException, DuplicateURIException {
 		Iterator<IProject> projects = repo.getAllProjects().iterator();
-		IProject project = repo.getProject("http://www.proja.ac.uk/test");
+		IProject project;
 		
 		boolean projectAIsValid = false;
 		while (projects.hasNext()) {
@@ -55,7 +64,21 @@ public class PimsTest extends BaseRepositoryTest {
 				project.delete();
 			}
 		}
-		assertTrue("Project A is not correctly configured", projectAIsValid);
+		assertTrue("Project A has not been correctly imported", projectAIsValid);
+	}
+	
+	@Test
+	public void testInstitutionImport() throws SimalRepositoryException {
+		Iterator<IOrganisation> orgs = repo.getAllOrganisations().iterator();
+		boolean orgIsValid = false;
+		while (orgs.hasNext()) {
+			IOrganisation org = orgs.next();
+			if (org.getName().equals("Institution A")) {
+				orgIsValid = true;
+				break;
+			}
+		}
+		assertTrue("Intitution A is not been properly imported", orgIsValid);
 	}
 
 }

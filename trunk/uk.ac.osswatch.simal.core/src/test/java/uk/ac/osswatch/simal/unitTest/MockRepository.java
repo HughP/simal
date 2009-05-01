@@ -258,4 +258,15 @@ public IOrganisation getOrganisation(String uri)
 	return null;
 }
 
+public IOrganisation createOrganisation(String uri)
+		throws DuplicateURIException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }
