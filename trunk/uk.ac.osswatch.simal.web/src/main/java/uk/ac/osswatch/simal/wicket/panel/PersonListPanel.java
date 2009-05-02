@@ -39,6 +39,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.data.SortablePersonDataProvider;
@@ -146,9 +147,29 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     }); 
 
     
-    columns.add(new PropertyColumn(new Model("Projects"), "projects",
-        "projects"));
+    columns.add(new PropertyColumn(new Model("Project"), "projects", "projects") {
+		private static final long serialVersionUID = 1L;
 
+		@Override
+        public void populateItem(Item cellItem, String componentId, IModel model) {
+        	Iterator<IProject> projects;
+			try {
+				projects = ((IPerson)model.getObject()).getProjects().iterator();
+	        	String label = "";
+				while (projects.hasNext()) {
+	        		IProject project = projects.next();
+	        		label = label + project.getLabel();
+	        		if (projects.hasNext()) {
+	        			label = label + ", ";
+	        		}
+	        	}
+	            cellItem.add(new Label(componentId, label));
+			} catch (SimalRepositoryException e) {
+				cellItem.add(new Label(componentId, "ERROR"));
+			}
+        }
+    }); 
+    
     dataProvider = new SortablePersonDataProvider(people);
     dataProvider.setSort(SortablePersonDataProvider.SORT_PROPERTY_LABEL, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, numberOfPeople));
