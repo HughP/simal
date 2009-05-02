@@ -65,17 +65,17 @@ public abstract class LinkPropertyColumn extends PropertyColumn {
     item.add(new LinkPanel(item, componentId, model));
   }
 
-  public abstract void onClick(Item item, String componentId, IModel model);
+  public abstract void onClick(Item<?> item, String componentId, IModel<?> model);
 
   @SuppressWarnings("serial")
   public class LinkPanel extends Panel {
     private static final long serialVersionUID = 1L;
 
-    public LinkPanel(final Item item, final String componentId,
-        final IModel model) {
+    public LinkPanel(final Item<?> item, final String componentId,
+        final IModel<?> model) {
       super(componentId);
 
-      Link link = new Link("link") {
+      Link<?> link = new Link<String>("link") {
 
         @Override
         public void onClick() {
@@ -86,7 +86,7 @@ public abstract class LinkPropertyColumn extends PropertyColumn {
 
       add(link);
 
-      IModel tmpLabelModel = labelModel;
+      IModel<?> tmpLabelModel = labelModel;
 
       if (labelModel == null) {
         tmpLabelModel = createLabelModel(model);
