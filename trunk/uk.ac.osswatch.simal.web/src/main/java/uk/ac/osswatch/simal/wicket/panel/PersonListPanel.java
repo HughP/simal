@@ -18,16 +18,17 @@ package uk.ac.osswatch.simal.wicket.panel;
  */
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
-import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -36,6 +37,7 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -100,7 +102,8 @@ public class PersonListPanel extends Panel {
     addPersonList(people, numberOfPeople);
   }
 
-  private void addPersonList(Set<IPerson> people, int numberOfPeople) {
+  @SuppressWarnings("unchecked")
+private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     /*
      * columns.add(new AbstractColumn(new Model("Actions")) { public void
@@ -116,7 +119,33 @@ public class PersonListPanel extends Panel {
       }
 
     });
-    columns.add(new PropertyColumn(new Model("EMail"), "email", "email"));
+    columns.add(new PropertyColumn(new Model("EMail"), "email", "email") {
+		private static final long serialVersionUID = 1L;
+
+		@Override
+        public void populateItem(Item cellItem, String componentId, IModel model) {
+        	Iterator<IInternetAddress> emails = ((IPerson)model.getObject()).getEmail().iterator();
+        	if (emails.hasNext()) {
+	        	while (emails.hasNext()) {
+	        		IInternetAddress email = emails.next();
+	        		String label = email.getLabel();
+	        		if (label.startsWith("mailto:")) {
+	        			label = label.substring(7);
+	        		}
+	                ExternalLink link = new ExternalLink(componentId,
+	                  email.getAddress(),
+	                  label);
+	
+	                cellItem.add(link);
+	                break;
+	        	}
+        	} else {
+        		cellItem.add(new Label(componentId, ""));
+        	}
+        }
+    }); 
+
+    
     columns.add(new PropertyColumn(new Model("Projects"), "projects",
         "projects"));
 
