@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.integrationTest.model.jena;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -41,5 +42,14 @@ public class TestOrganisation extends BaseRepositoryTest {
 		  String name = "Test Name";
 		  org.addName(name);
 		  assertEquals("Name is not as expected after adding new name", name, org.getName());
+	  }
+	
+	  @Test 
+	  public void testAddCurrentProject() throws SimalRepositoryException {
+		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  int countBefore = org.getCurrentProjects().size();
+		  org.addCurrentProject("http://test.com/project#1");
+		  int countAfter =  org.getCurrentProjects().size();;
+		  assertTrue("We don't seem to have added the current project", countBefore < countAfter);
 	  }
 }
