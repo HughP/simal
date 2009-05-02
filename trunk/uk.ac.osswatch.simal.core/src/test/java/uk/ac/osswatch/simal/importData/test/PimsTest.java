@@ -28,7 +28,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import  uk.ac.osswatch.simal.importData.Pims;
+import uk.ac.osswatch.simal.importData.Pims;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
