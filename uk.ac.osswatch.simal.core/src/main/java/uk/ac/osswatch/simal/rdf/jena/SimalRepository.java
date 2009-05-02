@@ -835,7 +835,6 @@ public boolean containsProject(String uri) {
     for (int i = 0; i < homepages.getLength(); i = i + 1) {
       homepage = (Element) homepages.item(i);
       if (homepage.getParentNode().equals(sourceProjectRoot)) {
-        if (homepage.getParentNode().equals(sourceProjectRoot)) {
           String url = homepage.getAttributeNS(RDFUtils.RDF_NS, "resource")
               .trim();
           IProject project = findProjectByHomepage(url);
@@ -845,7 +844,6 @@ public boolean containsProject(String uri) {
                     + url + " with URI " + project.getURI());
             simalProjectURI = project.getURI();
           }
-        }
       }
     }
 
