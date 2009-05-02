@@ -15,6 +15,8 @@
  */
 package uk.ac.osswatch.simal.rdf;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
@@ -27,7 +29,6 @@ import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
-import uk.ac.osswatch.simal.model.jena.Organisation;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**

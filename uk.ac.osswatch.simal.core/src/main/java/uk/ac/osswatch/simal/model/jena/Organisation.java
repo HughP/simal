@@ -21,14 +21,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import uk.ac.osswatch.simal.model.Foaf;
+import uk.ac.osswatch.simal.model.IOrganisation;
+import uk.ac.osswatch.simal.model.IProject;
+
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.RDFS;
-
-import uk.ac.osswatch.simal.model.Foaf;
-import uk.ac.osswatch.simal.model.IOrganisation;
-import uk.ac.osswatch.simal.model.IProject;
 
 public class Organisation extends Resource implements IOrganisation {
 

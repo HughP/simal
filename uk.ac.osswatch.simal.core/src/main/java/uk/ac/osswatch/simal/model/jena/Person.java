@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
-import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;

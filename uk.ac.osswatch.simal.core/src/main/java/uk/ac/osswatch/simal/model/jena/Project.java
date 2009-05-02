@@ -49,7 +49,6 @@ import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
 public class Project extends DoapResource implements IProject {
