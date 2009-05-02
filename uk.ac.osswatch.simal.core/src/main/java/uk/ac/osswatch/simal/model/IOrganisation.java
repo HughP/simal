@@ -1,4 +1,6 @@
 package uk.ac.osswatch.simal.model;
+
+import java.util.Set;
 /*
  * 
  Copyright 2007 University of Oxford * 
@@ -33,4 +35,18 @@ public interface IOrganisation extends IFoafResource {
 	 * @param name
 	 */
 	public void addName(String name);
+
+	/**
+	 * Add a current poject to this organisation.
+	 * 
+	 * @param string
+	 */
+	public void addCurrentProject(String string);
+
+	/**
+	 * Get all the current projects for this organisation.
+	 * 
+	 * @return
+	 */
+	public Set<IProject> getCurrentProjects();
 }

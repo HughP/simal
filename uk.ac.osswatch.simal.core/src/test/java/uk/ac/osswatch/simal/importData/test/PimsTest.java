@@ -15,6 +15,7 @@
  */
 package uk.ac.osswatch.simal.importData.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
@@ -74,6 +75,8 @@ public class PimsTest extends BaseRepositoryTest {
 		while (orgs.hasNext()) {
 			IOrganisation org = orgs.next();
 			if (org.getName().equals("Institution A")) {
+				Set<IProject> currentProjects = org.getCurrentProjects();
+				assertEquals("Don't have the right number of current projects for Institution A", 2, currentProjects.size());
 				orgIsValid = true;
 				break;
 			}

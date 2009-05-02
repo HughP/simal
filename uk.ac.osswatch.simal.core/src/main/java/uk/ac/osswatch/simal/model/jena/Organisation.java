@@ -17,10 +17,18 @@ package uk.ac.osswatch.simal.model.jena;
  * 
  */
 
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IOrganisation;
+import uk.ac.osswatch.simal.model.IProject;
 
 public class Organisation extends Resource implements IOrganisation {
 
@@ -45,6 +53,24 @@ public class Organisation extends Resource implements IOrganisation {
 
 	public void addName(String name) {
 	    getJenaResource().addLiteral(Foaf.NAME, name);
+	}
+
+	public void addCurrentProject(String uri) {
+	    Model model = getJenaResource().getModel();
+	    com.hp.hpl.jena.rdf.model.Resource r = model.getResource(uri);
+	    Statement statement = model.createStatement(
+	        getJenaResource(),
+	        FOAF.currentProject, r);
+	    model.add(statement);
+	}
+
+	public Set<IProject> getCurrentProjects() {
+	    Iterator<Statement> itr = listProperties(Foaf.CURRENT_PROJECT).iterator();
+	    Set<IProject> projects = new HashSet<IProject>();
+	    while (itr.hasNext()) {
+	      projects.add(new Project(itr.next().getResource()));
+	    }
+	    return projects;
 	}
 
 }
