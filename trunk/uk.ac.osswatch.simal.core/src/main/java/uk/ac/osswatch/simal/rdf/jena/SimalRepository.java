@@ -987,6 +987,12 @@ public boolean containsProject(String uri) {
     RDFUtils.removeBNodes(doc);
 
     RDFUtils.checkCategoryIDs(doc, this);
+    RDFUtils.checkHomePageNodes(doc);
+    RDFUtils.checkCDataSections(doc);
+    RDFUtils.checkResources(doc);
+    RDFUtils.checkPersonIDs(doc, this);
+    RDFUtils.checkProjectIDs(doc, this);
+    RDFUtils.deDupeProjects(doc, this);
   }
 
   /**
