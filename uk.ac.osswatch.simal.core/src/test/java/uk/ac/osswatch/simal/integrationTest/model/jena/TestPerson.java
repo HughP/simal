@@ -16,6 +16,7 @@
 package uk.ac.osswatch.simal.integrationTest.model.jena;
 
 import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -57,7 +58,7 @@ public class TestPerson extends BaseRepositoryTest {
   
   @Test
   public void testDeveloperInitialised() {
-    assertEquals("Developer name is incorrect", "developer", developer.getLabel());
+    assertEquals("Developer label is incorrect", "developer", developer.getLabel());
   }
 
   @Test
@@ -78,7 +79,7 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testNames() {
-    assertEquals("developer", developer.getNames().toArray()[0].toString());
+    assertTrue("Developer name not correct", developer.getNames().contains("developer"));
   }
 
   @Test
@@ -166,11 +167,12 @@ public class TestPerson extends BaseRepositoryTest {
   }
 
   @Test
-  public void testAddName() { 
+  public void testAddRemoveName() throws SimalRepositoryException { 
     String name = "Unit Test Name";
     developer.addName(name);
-    assertEquals("We haven't set the name succesfully", name, developer
-        .getNames().toArray()[0]);
+    assertTrue("We haven't added the name succesfully", developer.getNames().contains(name));
+    developer.removeName(name);
+    assertFalse("We haven't removed the name succesfully", developer.getNames().contains(name));
   }
 
   @Test

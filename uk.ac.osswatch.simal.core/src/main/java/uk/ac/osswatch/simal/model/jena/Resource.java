@@ -236,7 +236,7 @@ public class Resource implements IResource {
   /**
    * Get the literal value of the supplied property by looking in 
    * the default entity (the Simal Entity) and then working through
-   * the fallback options.
+   * the fallback options (the seeAlso entities).
    * 
    * @param property
    * @return

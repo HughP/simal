@@ -21,13 +21,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -72,6 +70,18 @@ public class TestProject extends BaseRepositoryTest {
     documenters = project1.getHelpers();
     translators = project1.getTranslators();
     testers = project1.getTesters();
+  }
+
+  @Test
+  public void testAddRemoveName() throws SimalRepositoryException { 
+    String name = "Unit Test Name";
+    project1.addName(name);
+    String names = project1.getNames().toString();
+	assertTrue("We haven't set the name succesfully, names array does not contain the new name", names.contains(name));
+	assertEquals("We haven't set the name succesfully", name, project1.getName());
+	project1.removeName(name);
+	names = project1.getNames().toString();
+	assertFalse("We haven't removed the name succesfully, names array still contains the new name", names.contains(name));
   }
 
   @Test
