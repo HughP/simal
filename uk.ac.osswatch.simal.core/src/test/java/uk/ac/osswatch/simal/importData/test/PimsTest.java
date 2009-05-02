@@ -22,7 +22,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.Vector;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -31,6 +33,7 @@ import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -39,11 +42,17 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 public class PimsTest extends BaseRepositoryTest {
 	
 	private static ISimalRepository repo;
+	private static Vector<IResource> importedResources;
 
 	@BeforeClass
 	public static void importTestData() throws FileNotFoundException, SimalRepositoryException, IOException, DuplicateURIException {
 		Pims pims = new Pims();
 		repo = SimalRepositoryFactory.getInstance();
+	}
+	
+	@AfterClass
+	public static void deleteImportedData() throws SimalRepositoryException {
+		repo.destroy();
 	}
 	
 	
