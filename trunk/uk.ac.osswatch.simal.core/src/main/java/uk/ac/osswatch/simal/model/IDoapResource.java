@@ -36,6 +36,15 @@ public interface IDoapResource extends IResource {
   public void addName(String name);
 
   /**
+   * Remove a given name from this resource.
+   * 
+   * @throws SimalRepositoryException if the name does not exist
+   * 
+   * @param name
+   */
+  public void removeName(String name) throws SimalRepositoryException;
+
+  /**
    * Get a human readable label for this resource. Wherever posssible return a
    * value degined by rds:label, otherwise return a sensible value derived from
    * other data.

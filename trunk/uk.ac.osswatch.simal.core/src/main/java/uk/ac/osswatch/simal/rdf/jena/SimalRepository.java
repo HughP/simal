@@ -990,7 +990,8 @@ public boolean containsProject(String uri) {
   }
 
   /**
-   * Add an RDF/XML FOAF document.
+   * Add a person to the repository. We attempt to handle duplicates by matching on items
+   * such as email email hashes and seeAlso URIs.
    * 
    * @param simalProjectURI
    *          the URI of the simal record representing the project this person beongs to

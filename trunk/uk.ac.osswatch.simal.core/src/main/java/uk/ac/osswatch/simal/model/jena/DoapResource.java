@@ -29,7 +29,12 @@ import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
+import com.hp.hpl.jena.rdf.model.Literal;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.RSIterator;
+import com.hp.hpl.jena.rdf.model.ReifiedStatement;
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class DoapResource extends Resource implements IDoapResource {
@@ -173,5 +178,14 @@ public class DoapResource extends Resource implements IDoapResource {
         + StringEscapeUtils.escapeJavaScript(desc.trim()) + "\"");
     return json.toString();
   }
+
+	public void removeName(String name) throws SimalRepositoryException {
+	    Model model = getJenaResource().getModel();
+	    StmtIterator statements = model.listStatements(getJenaResource(), Doap.NAME, name);
+	    if (statements == null) {
+	    	throw new SimalRepositoryException("Name does not exist in resource, cannot remove: " + name);
+	    }
+	    model.remove(statements);
+	}
 
 }

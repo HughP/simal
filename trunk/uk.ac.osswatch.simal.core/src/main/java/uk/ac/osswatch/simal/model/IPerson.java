@@ -150,4 +150,13 @@ public interface IPerson extends IFoafResource {
    */
   public void addSHA1Sum(String sha1);
 
+  /**
+   * Remove a given name from this person.
+   * 
+   * @throws SimalRepositoryException if the name does not exist
+   * 
+   * @param name
+   */
+  public void removeName(String name) throws SimalRepositoryException;
+
 }

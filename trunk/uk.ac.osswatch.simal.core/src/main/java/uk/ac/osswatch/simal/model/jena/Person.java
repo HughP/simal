@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -44,6 +45,7 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class Person extends Resource implements IPerson {
   private static final long serialVersionUID = -6510798839142810644L;
@@ -182,24 +184,20 @@ public class Person extends Resource implements IPerson {
    * @return
    */
   public String getLabel() {
-    Set<String> names = getNames();
-    if (names.size() == 0) {
-      names = getGivennames();
-      if (names.size() == 0) {
-        return getURI();
-      }
-    }
-    int maxLength = 0;
-    String name = null;
-    Object[] arr = names.toArray();
-    for (int i = 0; i < names.size(); i++) {
-      String curName = (String) arr[i];
-      if (curName.length() > maxLength) {
-        name = curName;
-        maxLength = curName.length();
-      }
-    }
-    return name;
+	    String name = getLiteralValue(Foaf.NAME);
+	    
+	    if (name == null) {
+	      name = getLiteralValue(Foaf.GIVENNAME);
+	    }
+	    
+	    if (name == null) {
+	      name = getLiteralValue(RDFS.label);
+	    }
+	    
+	    if (name == null) {
+	      return getURI();
+	    }
+	    return name;
   }
 
   public Set<IProject> getProjects() throws SimalRepositoryException {
@@ -312,5 +310,14 @@ public class Person extends Resource implements IPerson {
         FOAF.mbox_sha1sum, sha1);
     model.add(statement);
   }
+
+	public void removeName(String name) throws SimalRepositoryException {
+	    Model model = getJenaResource().getModel();
+	    StmtIterator statements = model.listStatements(getJenaResource(), Foaf.NAME, name);
+	    if (statements == null) {
+	    	throw new SimalRepositoryException("Name does not exist in resource, cannot remove: " + name);
+	    }
+	    model.remove(statements);
+	}
 
 }
