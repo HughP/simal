@@ -106,20 +106,17 @@ public class PersonListPanel extends Panel {
   @SuppressWarnings("unchecked")
 private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
-    /*
-     * columns.add(new AbstractColumn(new Model("Actions")) { public void
-     * populateItem(Item cellItem, String componentId, IModel model) {
-     * cellItem.add(new ActionPanel(componentId, model)); } });
-     */
     columns.add(new LinkPropertyColumn(new Model("Name"), "label", "label") {
+		private static final long serialVersionUID = 1L;
 
-      @Override
+	@Override
       public void onClick(Item item, String componentId, IModel model) {
         IPerson person = (IPerson) model.getObject();
         getRequestCycle().setResponsePage(new PersonDetailPage(person));
       }
 
     });
+
     columns.add(new PropertyColumn(new Model("EMail"), "email", "email") {
 		private static final long serialVersionUID = 1L;
 
@@ -145,7 +142,6 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
         	}
         }
     }); 
-
     
     columns.add(new PropertyColumn(new Model("Project"), "projects", "projects") {
 		private static final long serialVersionUID = 1L;
