@@ -18,9 +18,11 @@ package uk.ac.osswatch.simal.wicket;
  */
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URL;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -34,7 +36,10 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.importData.Pims;
+import uk.ac.osswatch.simal.importData.test.PimsTest;
 import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -104,6 +109,18 @@ public class ToolsPage extends BasePage {
       }
     });
 
+    add(new Link("importPimsData") {
+
+      public void onClick() {
+        try {
+          importPimsData();
+          setResponsePage(new ToolsPage());
+        } catch (UserReportableException e) {
+          setResponsePage(new ErrorReportPage(e));
+        }
+      }
+    });
+
     add(new ImportFromOhlohForm("importFromOhlohForm"));
 
     add(new Link("importPTSWLink") {
@@ -145,6 +162,20 @@ public class ToolsPage extends BasePage {
           ToolsPage.class, e);
     }
     ModelSupport.addTestData(repo);
+  }
+  
+
+
+  private void importPimsData() throws UserReportableException {
+		try {
+			String filename = System.getProperty("user.home") + "/tmp/QryProjectsForSimal.xls";
+			Pims.importProjects(filename);
+			
+			filename = System.getProperty("user.home") + "/tmp/QryProjectInstitutionsForSimal.xls";
+		    Pims.importInstitutions(filename);
+		} catch (Exception e) {
+			throw new UserReportableException("Unable to import PIMS data", ToolsPage.class, e);
+		}
   }
 
   private void importPTSW() throws UserReportableException {
