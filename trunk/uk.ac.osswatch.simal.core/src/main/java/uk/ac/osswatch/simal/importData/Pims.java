@@ -32,21 +32,48 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 public class Pims {
+
+	private Pims(String filename) {
+	}
 	
 	/**
-	 * Create a new PImS importer.
+	 * Import institutions from an export PIMS spreadsheet.
 	 * 
+	 * @param filename
 	 * @throws FileNotFoundException
 	 * @throws IOException
-	 * @throws SimalRepositoryException 
-	 * @throws DuplicateURIException 
+	 * @throws DuplicateURIException
+	 * @throws SimalRepositoryException
 	 */
-	public Pims() throws FileNotFoundException, IOException, SimalRepositoryException, DuplicateURIException {
-        // Get data from projects spreadsheet
-        String filename = this.getClass().getResource("test/data/QryProjectsForSimal.xls").getFile();
+	public static void importInstitutions(String filename) throws FileNotFoundException, IOException, DuplicateURIException, SimalRepositoryException {
+		ISimalRepository repo = SimalRepositoryFactory.getInstance();
         HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
         HSSFSheet sheet = wb.getSheetAt(0);
-        ISimalRepository repo = SimalRepositoryFactory.getInstance();
+        int lastRow = sheet.getLastRowNum();
+        HSSFRow  row;
+        for (int i = 1; i <= lastRow; i++) {
+	        row   = sheet.getRow(i);
+	        int institutionId = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+	        IOrganisation org = repo.createOrganisation("http://jisc.ac.uk/institution#" + institutionId);
+	        org.addName(row.getCell(1).getStringCellValue());
+	        int institutionProjectId = ((Double)row.getCell(2).getNumericCellValue()).intValue();
+	        org.addCurrentProject("http;//jisc.ac.uk/project#" + institutionProjectId);
+        }
+	}
+	
+	/**
+	 * Import projects from an exported PIMS spreadheet.
+	 * 
+	 * @param filename
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws SimalRepositoryException
+	 * @throws DuplicateURIException
+	 */
+	public static void importProjects(String filename) throws FileNotFoundException, IOException, SimalRepositoryException, DuplicateURIException {
+		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
+        HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row;
         int lastRow = sheet.getLastRowNum();
@@ -65,20 +92,6 @@ public class Pims {
 	        // TODO: Capture state info: String projectStateName = row.getCell(7).getStringCellValue();
 	        // TODO: Capture start date info: String projectStartDate = row.getCell(8).getStringCellValue();
 	        // TODO: Capture start date info: String projectEndDate = row.getCell(9).getStringCellValue();
-        }
-        
-        // Get data from Institutions spreadsheet
-        filename = this.getClass().getResource("test/data/QryProjectInstitutionsForSimal.xls").getFile();
-        wb = new HSSFWorkbook(new FileInputStream(filename));
-        sheet = wb.getSheetAt(0);
-        lastRow = sheet.getLastRowNum();
-        for (int i = 1; i <= lastRow; i++) {
-	        row   = sheet.getRow(i);
-	        int institutionId = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IOrganisation org = repo.createOrganisation("http://jisc.ac.uk/institution#" + institutionId);
-	        org.addName(row.getCell(1).getStringCellValue());
-	        int institutionProjectId = ((Double)row.getCell(2).getNumericCellValue()).intValue();
-	        org.addCurrentProject("http;//jisc.ac.uk/project#" + institutionProjectId);
         }
 	}
 }
