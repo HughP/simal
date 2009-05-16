@@ -19,15 +19,18 @@ package uk.ac.osswatch.simal.wicket;
 
 import java.net.URL;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.wicket.IConverterLocator;
+import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadWebRequest;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.request.target.coding.QueryStringUrlCodingStrategy;
 import org.apache.wicket.util.convert.ConverterLocator;
 
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.data.URLConverter;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
@@ -118,5 +121,11 @@ public class UserApplication extends WebApplication {
     converterLocator.set(URL.class, new URLConverter());
     return converterLocator;
   }
-
+  
+  
+  
+  @Override
+  protected WebRequest newWebRequest(HttpServletRequest servletRequest) {
+	    return new UploadWebRequest(servletRequest);
+  }
 }
