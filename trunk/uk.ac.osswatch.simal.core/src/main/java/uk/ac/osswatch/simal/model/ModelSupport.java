@@ -21,7 +21,6 @@ package uk.ac.osswatch.simal.model;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -105,8 +104,8 @@ public class ModelSupport {
   
 
 	public static void importPimsTestData() throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
-		Pims.importProjects(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROJECT).getFile());
-	    Pims.importInstitutions(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_INSTITUTION).getFile());
-	    Pims.importProgrammes(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROGRAMME).getFile());
+		Pims.importProjects(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROJECT));
+	    Pims.importInstitutions(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_INSTITUTION));
+	    Pims.importProgrammes(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROGRAMME));
 	}
 }

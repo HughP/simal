@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.importData;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -46,21 +47,21 @@ public class Pims {
 	/**
 	 * Import institutions from an export PIMS spreadsheet.
 	 * 
-	 * @param filename
+	 * @param url
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws DuplicateURIException
 	 * @throws SimalException 
 	 */
-	public static void importInstitutions(String filename) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
+	public static void importInstitutions(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
 		ISimalRepository repo = SimalRepositoryFactory.getInstance();
-        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
+        HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
 		String title = row.getCell(1).getStringCellValue();
         if (!title.equals("name")) {
-        	throw new SimalException(filename = " is not a valid PIMS project export file");
+        	throw new SimalException(url + " is not a valid PIMS project export file");
         }
         
         int lastRow = sheet.getLastRowNum();
@@ -77,21 +78,21 @@ public class Pims {
 	/**
 	 * Import projects from an exported PIMS spreadheet.
 	 * 
-	 * @param filename
+	 * @param url
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws DuplicateURIException
 	 * @throws SimalException 
 	 */
-	public static void importProjects(String filename) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
+	public static void importProjects(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
 		ISimalRepository repo = SimalRepositoryFactory.getInstance();
-        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
+        HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
 		String title = row.getCell(2).getStringCellValue();
         if (!title.equals("projects.name")) {
-        	throw new SimalException(filename = " is not a valid PIMS project export file");
+        	throw new SimalException(url + " is not a valid PIMS project export file");
         }
         
         int lastRow = sheet.getLastRowNum();
@@ -127,23 +128,23 @@ public class Pims {
 	 * Import programmes from an exported PIMS spreadheet. Themes are known as categories in 
 	 * the Simal application
 	 * 
-	 * @param filename
+	 * @param url
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws DuplicateURIException
 	 * @throws SimalException 
 	 */
-	public static void importProgrammes(String filename) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
+	public static void importProgrammes(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
 		IProject project = getPimsProject();
 		
 		ISimalRepository repo = SimalRepositoryFactory.getInstance();
-        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
+        HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
 		String title = row.getCell(1).getStringCellValue();
         if (!title.equals("programmes.name")) {
-        	throw new SimalException(filename = " is not a valid PIMS programme export file");
+        	throw new SimalException(url + " is not a valid PIMS programme export file");
         }
         
         int lastRow = sheet.getLastRowNum();
@@ -156,7 +157,6 @@ public class Pims {
 	        
 	        project.addCategory(cat);
 	    }
-        
 	}
 
 	/**
