@@ -55,7 +55,7 @@ public class TestProjectListPanel extends TestBase {
     tester.assertVisible("panel:dataTable:rows:2");
     tester.assertVisible("panel:dataTable:rows:6");
     tester.assertLabel("panel:dataTable:rows:1:cells:1:cell:link:label",
-        "CodeGoo");
+        "OSS Watch open source advisory service");
 
     tester.clickLink("panel:dataTable:rows:1:cells:1:cell:link");
     tester.assertRenderedPage(ProjectDetailPage.class);

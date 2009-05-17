@@ -32,8 +32,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public abstract class TestBase {
   public static final String TEST_PROJECT_SEEALSO = "http://simal.oss-watch.ac.uk/simalTest#";
-  protected static final int NUMBER_OF_TEST_CATEGORIES = 53;
-  protected static final int NUMBER_OF_TEST_PROJECTS = 6;
+  protected static final int NUMBER_OF_TEST_CATEGORIES = 55;
+  protected static final int NUMBER_OF_TEST_PROJECTS = 10;
   protected static final int NUMBER_OF_TEST_PEOPLE = 18;
   protected static WicketTester tester;
   protected static String projectURI;
