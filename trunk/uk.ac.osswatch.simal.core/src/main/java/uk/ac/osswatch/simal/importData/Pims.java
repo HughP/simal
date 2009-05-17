@@ -56,7 +56,7 @@ public class Pims {
         HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
         HSSFSheet sheet = wb.getSheetAt(0);
         
-        HSSFRow row = sheet.getRow(1);
+        HSSFRow row = sheet.getRow(0);
 		String title = row.getCell(1).getStringCellValue();
         if (!title.equals("name")) {
         	throw new SimalException(filename = " is not a valid PIMS project export file");
@@ -87,8 +87,8 @@ public class Pims {
         HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
         HSSFSheet sheet = wb.getSheetAt(0);
         
-        HSSFRow row = sheet.getRow(2);
-		String title = row.getCell(1).getStringCellValue();
+        HSSFRow row = sheet.getRow(0);
+		String title = row.getCell(2).getStringCellValue();
         if (!title.equals("projects.name")) {
         	throw new SimalException(filename = " is not a valid PIMS project export file");
         }
