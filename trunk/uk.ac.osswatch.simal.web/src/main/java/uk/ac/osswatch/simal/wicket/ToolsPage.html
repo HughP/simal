@@ -56,7 +56,7 @@
   <p>The tools in this section are useful for developers.</p>
   <ul>
     <li><a href="#" wicket:id="importTestData">Import test data into the repository</a></li>
-    <li><a href="#" wicket:id="importPimsData">Import PIMS data into the repository</a> (will only work if you have pims export data in ~/tmp/)</li>
+    
   </ul>
   
   <p class="warning">The tools below will harm your data and will no ask for confirmation 
@@ -68,6 +68,18 @@
   
   <h1>Pre-Alpha Tools</h1>
   <p>The tools in this section are pre-alpha and should be used at your own risk.</p>
+  
+    <form wicket:id="importProgrammesFromPimsForm">
+      <fieldset>
+      <legend>Import PIMS Programmes</legend>
+        
+        <label for="upload">PIMS Programmes Export File</label>
+        <input wicket:id="fileInput" id="upload" type="file">
+        <input type="submit" value="Import"/>
+        <span wicket:id="uploadProgress"><br>[[ajax upload progressbar]]</span>
+      </fieldset>
+    </form>
+  
   
   <form wicket:id="importFromOhlohForm">
     <fieldset>

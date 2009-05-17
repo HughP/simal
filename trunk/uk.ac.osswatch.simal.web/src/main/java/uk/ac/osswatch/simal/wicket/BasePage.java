@@ -136,6 +136,11 @@ public class BasePage extends WebPage {
    *          the wicket:id of the link within each list
    * @param resources
    *          the resources to be added to the list
+   * @param fetchLabels
+   *          If set to true attempt to fetch a label from the repository if one
+   *          is not supplied by the resource. If set to false the label will be
+   *          set to either the defaultLabel (if not null) or to the resource
+   *          URI.
    * @return
    */
   protected RepeatingView getRepeatingLinks(String repeaterWicketID,

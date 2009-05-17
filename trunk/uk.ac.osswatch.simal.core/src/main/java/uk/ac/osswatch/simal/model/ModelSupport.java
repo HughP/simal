@@ -19,13 +19,17 @@ package uk.ac.osswatch.simal.model;
  * 
  */
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.importData.Pims;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -43,6 +47,9 @@ public class ModelSupport {
 
   public final static String CATEGORIES_RDF = "testData/categories.xml";
   public final static String ORGANISATION_RDF = "testData/organisations.xml";
+  private static final String TEST_PIMS_PROJECT = "testData/pims/QryProjectsForSimal.xls";
+  private static final String TEST_PIMS_INSTITUTION = "testData/pims/QryProjectInstitutionsForSimal.xls";
+  private static final String TEST_PIMS_PROGRAMME = "testData/pims/QryProgrammesForSimal.xls";
   
   /**
    * Adds Simal defined data to the repo. The simal data includes the DOAP for
@@ -61,10 +68,13 @@ public class ModelSupport {
   /**
    * Adds test data to the repo. be careful to only use this when the repo in
    * use is a test repository.
+ * @throws DuplicateURIException 
+ * @throws IOException 
+ * @throws FileNotFoundException 
    * 
    * @throws SimalRepositoryException
    */
-  public static void addTestData(ISimalRepository repo) {
+  public static void addTestData(ISimalRepository repo) throws FileNotFoundException, IOException, DuplicateURIException {
     try {
       repo.addProject(ISimalRepository.class.getClassLoader().getResource(
           CATEGORIES_RDF), TEST_FILE_BASE_URL);
@@ -82,20 +92,21 @@ public class ModelSupport {
               ORGANISATION_RDF), TEST_FILE_BASE_URL);
 
       addSimalData(repo);
-
-      repo.addProject(new URL(
-          "http://simal.oss-watch.ac.uk/projectDetails/codegoo.rdf"),
-          "http://simal.oss-watch.ac.uk");
+      
+      importPimsTestData();
     } catch (SimalRepositoryException e) {
       logger.error("Can't add the test data, there's no point in carrying on");
-      e.printStackTrace();
       throw new RuntimeException("Unable to add test data, aborting", e);
-    } catch (MalformedURLException e) {
-      logger
-          .error(
-              "Malformed URL in test data, should never happen as it is hard coded",
-              e);
-      throw new RuntimeException("Unable to add test data, aborting", e);
-    }
+    } catch (SimalException e) {
+        logger.error("Can't add the test data, there's no point in carrying on");
+        throw new RuntimeException("Unable to add test data, aborting", e);
+	}
   }
+  
+
+	public static void importPimsTestData() throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
+		Pims.importProjects(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROJECT).getFile());
+	    Pims.importInstitutions(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_INSTITUTION).getFile());
+	    Pims.importProgrammes(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROGRAMME).getFile());
+	}
 }

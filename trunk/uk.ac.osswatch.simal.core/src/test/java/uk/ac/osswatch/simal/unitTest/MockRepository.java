@@ -269,4 +269,26 @@ public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException 
 	return null;
 }
 
+public boolean containsResource(String uri) {
+	// TODO Auto-generated method stub
+	return false;
+}
+
+public IDoapCategory createCategory(String uri)
+		throws SimalRepositoryException, DuplicateURIException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public IDoapCategory getOrCreateCategory(String uri)
+		throws SimalRepositoryException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public IDoapHomepage getHomepage(String uri) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }

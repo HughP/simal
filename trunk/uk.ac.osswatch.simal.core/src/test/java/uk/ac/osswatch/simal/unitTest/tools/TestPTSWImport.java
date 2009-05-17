@@ -81,7 +81,7 @@ public class TestPTSWImport {
     Element root = doc.getDocumentElement();
     NodeList projects = root
         .getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
-    assertEquals("Incorrect number of proejct elements", NUM_OF_PINGS, projects
+    assertEquals("Incorrect number of project elements", NUM_OF_PINGS, projects
         .getLength());
 
     assertTrue("RDF namespaces does not seem to be defined", serialise(doc)

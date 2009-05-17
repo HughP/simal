@@ -18,17 +18,22 @@ package uk.ac.osswatch.simal.wicket;
  */
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.URL;
+import java.net.MalformedURLException;
 
+import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.upload.FileUpload;
+import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.util.file.Files;
+import org.apache.wicket.util.file.Folder;
+import org.apache.wicket.util.lang.Bytes;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.slf4j.Logger;
@@ -37,9 +42,7 @@ import org.w3c.dom.Document;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.importData.Pims;
-import uk.ac.osswatch.simal.importData.test.PimsTest;
 import uk.ac.osswatch.simal.model.ModelSupport;
-import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -109,19 +112,12 @@ public class ToolsPage extends BasePage {
       }
     });
 
-    add(new Link("importPimsData") {
-
-      public void onClick() {
-        try {
-          importPimsData();
-          setResponsePage(new ToolsPage());
-        } catch (UserReportableException e) {
-          setResponsePage(new ErrorReportPage(e));
-        }
-      }
-    });
-
     add(new ImportFromOhlohForm("importFromOhlohForm"));
+    
+    final PimsUploadForm ajaxSimpleUploadForm = new PimsUploadForm("importProgrammesFromPimsForm");
+    ajaxSimpleUploadForm.add(new UploadProgressBar("uploadProgress",
+        ajaxSimpleUploadForm));
+    add(ajaxSimpleUploadForm);
 
     add(new Link("importPTSWLink") {
       private static final long serialVersionUID = -6938957715376331902L;
@@ -161,23 +157,13 @@ public class ToolsPage extends BasePage {
       throw new UserReportableException("Unable to import test data",
           ToolsPage.class, e);
     }
-    ModelSupport.addTestData(repo);
+    try {
+		ModelSupport.addTestData(repo);
+	} catch (Exception e) {
+		throw new UserReportableException("Unable to add test data: " + e.getMessage(), ToolsPage.class);
+	}
   }
   
-
-
-  private void importPimsData() throws UserReportableException {
-		try {
-			String filename = System.getProperty("user.home") + "/tmp/QryProjectsForSimal.xls";
-			Pims.importProjects(filename);
-			
-			filename = System.getProperty("user.home") + "/tmp/QryProjectInstitutionsForSimal.xls";
-		    Pims.importInstitutions(filename);
-		} catch (Exception e) {
-			throw new UserReportableException("Unable to import PIMS data", ToolsPage.class, e);
-		}
-  }
-
   private void importPTSW() throws UserReportableException {
     ISimalRepository repo;
     int preProjectCount;
@@ -263,4 +249,78 @@ public class ToolsPage extends BasePage {
       }
     }
   }
+
+  private class PimsUploadForm extends Form<FileUploadField> {
+	    private static final long serialVersionUID = 1L;
+		private FileUploadField fileUploadField;
+
+	    /**
+	     * Simple constructor.
+	     * 
+	     * @param name
+	     *          Component name
+	     */
+	    public PimsUploadForm(String name) {
+	      super(name);
+	      setMultiPart(true);
+	      add(fileUploadField = new FileUploadField("fileInput"));
+	    }
+
+	    /**
+	     * @see org.apache.wicket.markup.html.form.Form#onSubmit()
+	     */
+	    protected void onSubmit() {
+	      super.onSubmit();
+
+	      if (!this.hasError()) {
+	        final FileUpload upload = fileUploadField.getFileUpload();
+	        if (upload != null) {
+	          File newFile = new File(getUploadFolder(), upload.getClientFileName());
+
+	          if (newFile.exists()) {
+	            if (!Files.remove(newFile)) {
+	              throw new IllegalStateException("Unable to overwrite "
+	                  + newFile.getAbsolutePath());
+	            }
+	          }
+
+	          try {
+	            boolean success = newFile.createNewFile();
+	            if (!success) {
+	              logger.warn("Trying ot create a file that already exists: "
+	                  + newFile);
+	            }
+	            upload.writeTo(newFile);
+	            logger.info("Uploaded PIMS export saved to " + upload.getClientFileName());
+	            ToolsPage.this.info("saved file: " + upload.getClientFileName());
+	          } catch (IOException e) {
+	            throw new IllegalStateException("Unable to write file");
+	          }
+
+	          try {
+	            Pims.importProgrammes(newFile.toURL().getFile());
+	            setResponsePage(new UserHomePage());
+	          } catch (Exception e) {
+	            setResponsePage(new ErrorReportPage(new UserReportableException(
+	                "Unable to import PIMS data", ToolsPage.class, e)));
+	          }
+	        } else {
+	            setResponsePage(new ErrorReportPage(new UserReportableException(
+	            		"Must select a file to upload", ToolsPage.class)));
+	        }
+		  }
+	    }
+	  }
+
+  private Folder uploadFolder;
+  private Folder getUploadFolder() {
+    if (uploadFolder == null) {
+      uploadFolder = new Folder(System.getProperty("java.io.tmpdir"),
+          "wicket-uploads");
+      uploadFolder.mkdirs();
+    }
+    return uploadFolder;
+  }
+
+
 }

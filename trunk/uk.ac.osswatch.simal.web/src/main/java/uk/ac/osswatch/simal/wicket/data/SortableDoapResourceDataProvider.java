@@ -31,6 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
@@ -133,9 +134,11 @@ public class SortableDoapResourceDataProvider extends
         return new DetachableProjectModel((IProject) object);
       } else if (object instanceof IDoapCategory) {
         return new DetachableCategoryModel((IDoapCategory) object);
+      } else if (object instanceof IDoapHomepage) {
+        return new DetachableHomepageModel((IDoapHomepage) object);
       } else {
         throw new IllegalArgumentException(
-            "sortableDoapResourceDataProvider only works for Project models - should it work for more? Your help appreciated.");
+            "sortableDoapResourceDataProvider only works for Project, Homepage an Category models - should it work for more? Your help appreciated.");
       }
     } catch (SimalRepositoryException e) {
       logger.warn("Error reading from repository", e);

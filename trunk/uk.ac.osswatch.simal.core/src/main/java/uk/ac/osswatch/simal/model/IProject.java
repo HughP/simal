@@ -66,7 +66,14 @@ public interface IProject extends IDoapResource, IProjectService {
    * Set the default description name for this project.
    */
   public void setDescription(String desc);
-
+  
+  /**
+   * Add a category to this project.
+   * 
+   * @param category the category resource
+   */
+  public void addCategory(IDoapCategory category);
+  
   /**
    * Get a set of categories that this project belongs to.
    */
@@ -303,4 +310,5 @@ public interface IProject extends IDoapResource, IProjectService {
    * @return
    */
   public Set<IFeed> getFeeds();
+
 }
