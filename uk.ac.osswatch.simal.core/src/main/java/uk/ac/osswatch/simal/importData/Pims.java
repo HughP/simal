@@ -15,15 +15,15 @@
  */
 package uk.ac.osswatch.simal.importData;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -36,6 +36,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 public class Pims {
+    private static final Logger logger = LoggerFactory.getLogger(Pims.class);
 
 	public static final String PIMS_PROJECT_URI = "http://www.jisc.ac.uk/project/pims";
 
@@ -100,9 +101,17 @@ public class Pims {
 	        IProject project = repo.createProject("http://jisc.ac.uk/project#" + id);
 	        project.addName(row.getCell(2).getStringCellValue());
 	        project.setDescription(row.getCell(4).getStringCellValue());
-	        IDoapHomepage page = repo.createHomepage(row.getCell(6).getStringCellValue());
-	        page.addName("Homepage");
-	        project.addHomepage(page);
+	        
+	        String homepage = row.getCell(6).getStringCellValue();
+	        if (homepage.length() != 0 && !homepage.equals("tbc")) {
+				try {
+					IDoapHomepage page = repo.createHomepage(homepage);
+			        page.addName("Homepage");
+			        project.addHomepage(page);
+			    } catch (DuplicateURIException e) {
+			    	logger.warn("PIMS import used a duplicate homepage URL of " + homepage);
+			    }
+	        }
 	        //TODO: capture workpackage info: String projectWorkpackage = row.getCell(5).getStringCellValue();
 	        //TODO: capture short name: String shortName = row.getCell(3).getStringCellValue();
 	        String programmeId = getCategoryURI(((Double)row.getCell(1).getNumericCellValue()).intValue());
