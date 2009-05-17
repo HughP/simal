@@ -86,6 +86,7 @@ public class Category extends DoapResource implements IDoapCategory {
     Statement idStatement = getJenaResource().getProperty(
         SimalOntology.CATEGORY_ID);
     if (idStatement == null) {
+      
       logger.warn("Category instance with no Simal ID - " + getURI());
       id = null;
     } else {

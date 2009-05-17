@@ -87,6 +87,16 @@ public class DoapResource extends Resource implements IDoapResource {
   }
 
   @Override
+  public String getLabel(String defaultLabel) {
+    String name = this.getName();
+    if (name == null) {
+    	return super.getLabel(defaultLabel);
+    } else {
+      return name;
+    }
+  }
+
+@Override
   public String getLabel() {
     String name = this.getName();
     if (name == null) {

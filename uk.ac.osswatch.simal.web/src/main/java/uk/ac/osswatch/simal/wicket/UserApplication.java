@@ -122,8 +122,6 @@ public class UserApplication extends WebApplication {
     return converterLocator;
   }
   
-  
-  
   @Override
   protected WebRequest newWebRequest(HttpServletRequest servletRequest) {
 	    return new UploadWebRequest(servletRequest);

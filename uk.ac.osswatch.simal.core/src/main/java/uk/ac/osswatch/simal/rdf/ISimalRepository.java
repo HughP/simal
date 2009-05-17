@@ -118,14 +118,24 @@ public interface ISimalRepository {
   public IOrganisation getOrganisation(String uri) throws SimalRepositoryException;
 
   /**
-   * Get a project from the repository.
+   * Get a project from the repository. If the project does not yet exist return null.
    * 
    * @param uri
-   *          the String of the project to retrieve
-   * @return the project, or if no project with the given String exists Null
+   *          the String of the category to retrieve
+   * @return the category, or if no category with the given String exists Null
    * @throws SimalRepositoryException
    */
   public IDoapCategory getCategory(String uri) throws SimalRepositoryException;
+
+  /**
+   * Get a project from the repository. If the project does not yet exist it will be created.
+   * 
+   * @param uri
+   *          the String of the category to retrieve or create
+   * @return the category resource
+   * @throws SimalRepositoryException
+   */
+  public IDoapCategory getOrCreateCategory(String uri) throws SimalRepositoryException;
 
   /**
    * Get a category with a given simal id.
@@ -291,6 +301,18 @@ public interface ISimalRepository {
       DuplicateURIException;
 
   /**
+   * Create a new project category in the repository.
+   * 
+   * @return
+   * @throws SimalRepositoryException
+   *           if an error is thrown whilst communicating with the repository
+   * @throws DuplicateURIException
+   *           if an entity with the given String already exists
+   */
+  public IDoapCategory createCategory(String uri) throws SimalRepositoryException,
+      DuplicateURIException;
+
+  /**
    * Create a new person in the repository.
    * 
    * @return
@@ -424,12 +446,12 @@ public interface ISimalRepository {
   public boolean containsPerson(String uri);
 
   /**
-   * Test to see if a category with the given String exists.
+   * Test to see if a resource with the given URI exists.
    * 
    * @param uri
    * @return
    */
-  public boolean containsCategory(String uri);
+  public boolean containsResource(String uri);
 
   /**
    * Add all RDF/XML files found in a directory to the repository. Only files
@@ -543,5 +565,13 @@ public interface ISimalRepository {
  * @throws DuplicateURIException 
    */
   public IOrganisation createOrganisation(String uri) throws DuplicateURIException;
+
+  /**
+   * Get an homepage resources. If the resource does not yet exist return null.
+   * 
+   * @param uri URI of the homepage resource
+   * @return
+   */
+  public IDoapHomepage getHomepage(String uri);
 
 }

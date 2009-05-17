@@ -74,10 +74,17 @@ public class Project extends DoapResource implements IProject {
     Iterator<Statement> itr = listProperties(Doap.CATEGORY).iterator();
     Set<IDoapCategory> cats = new HashSet<IDoapCategory>();
     while (itr.hasNext()) {
-      cats.add(new Category(itr.next().getResource()));
+      Statement stmt = itr.next();
+	  cats.add(new Category(stmt.getResource()));
     }
     return cats;
   }
+  
+  public void addCategory(IDoapCategory category) {
+	  com.hp.hpl.jena.rdf.model.Resource jenaCat = (com.hp.hpl.jena.rdf.model.Resource)category.getRepositoryResource();
+	  getJenaResource().addProperty(Doap.CATEGORY, jenaCat);
+  }
+
 
   public Set<IPerson> getDevelopers() {
     return getUniquePeople(listProperties(Doap.DEVELOPER));
@@ -110,10 +117,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDoapHomepage> getHomepages() {
-    Iterator<Statement> itr = listProperties(Doap.HOMEPAGE).iterator();
+    List<Statement> props = listProperties(Doap.HOMEPAGE);
+	Iterator<Statement> itr = props.iterator();
     Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
-      pages.add(new Homepage(itr.next().getResource()));
+      Statement stmnt = itr.next();
+      pages.add(new Homepage(stmnt.getResource()));
     }
     return pages;
   }
@@ -251,7 +260,7 @@ public class Project extends DoapResource implements IProject {
     if (newId.contains(":")
         && !newId.startsWith(SimalProperties
             .getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
-      throw new SimalRepositoryException("Simal ID cannot contain a '-'");
+      throw new SimalRepositoryException("Simal ID cannot contain a '-', id is " + newId);
     }
     StringBuilder id = new StringBuilder(SimalProperties
         .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
@@ -351,11 +360,15 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void addHomepage(IDoapHomepage page) {
+	    Set<IDoapHomepage> pages = getHomepages();
     Model model = getJenaResource().getModel();
     Statement statement = model.createStatement(getJenaResource(),
         Doap.HOMEPAGE, (com.hp.hpl.jena.rdf.model.Resource) page
             .getRepositoryResource());
+    pages = getHomepages();
     model.add(statement);
+    pages = getHomepages();
+    System.out.println(pages.size());
   }
 
   /**

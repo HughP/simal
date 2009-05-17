@@ -182,7 +182,11 @@ public final class SimalRepository extends AbstractSimalRepository {
     initialised = true;
 
     if (isTest) {
-      ModelSupport.addTestData(this);
+      try {
+		ModelSupport.addTestData(this);
+	  } catch (Exception e) {
+		throw new SimalRepositoryException("Unable to add test data", e);
+	  }
     }
   }
 
@@ -271,8 +275,11 @@ public final class SimalRepository extends AbstractSimalRepository {
     com.hp.hpl.jena.rdf.model.Resource r = model.createResource(simalPersonURI);
     Statement s = model.createStatement(r, RDF.type, SimalOntology.PERSON);
     model.add(s);
-    s = model.createStatement(r, RDFS.seeAlso, uri);
-    model.add(s);
+    
+
+    // FIXME 15 May 2009: check when this was added and why as it seems that it should not be here
+    //s = model.createStatement(r, RDFS.seeAlso, uri);
+    //model.add(s);
 
     IPerson person = new Person(r);
     person.setSimalID(personID);
@@ -289,7 +296,7 @@ public final class SimalRepository extends AbstractSimalRepository {
     Statement s = model.createStatement(foafOrg, RDF.type, Foaf.ORGANIZATION);
     model.add(s);
     
-    IOrganisation org = new Organisation(model.createResource(uri));
+    IOrganisation org = new Organisation(foafOrg);
     return org;
   }
 
@@ -311,17 +318,18 @@ public final class SimalRepository extends AbstractSimalRepository {
     s = model.createStatement(r, RDF.type, o);
     model.add(s);
     
-    s = model.createStatement(r, RDFS.seeAlso, doapProject);
-    model.add(s);
+    // FIXME 15 May 2009: check when this was added and why as it seems that it should not be here
+    //s = model.createStatement(r, RDFS.seeAlso, doapProject);
+    //model.add(s);
     
-    IProject project = new Project(model.createResource(uri));
+    IProject project = new Project(r);
     project.setSimalID(getNewProjectID());
     return project;
   }
 
   public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
       DuplicateURIException {
-    if (containsProject(uri)) {
+    if (containsResource(uri)) {
       throw new DuplicateURIException(
           "Attempt to create a second homepage with the URI " + uri);
     }
@@ -331,9 +339,40 @@ public final class SimalRepository extends AbstractSimalRepository {
     Statement s = model.createStatement(r, RDF.type, o);
     model.add(s);
 
-    IDoapHomepage page = new Homepage(model.createResource(uri));
-    page.setSimalID(getNewProjectID());
+    IDoapHomepage page = new Homepage(r);
+    page.setSimalID(getNewHomepageID());
     return page;
+  }
+  
+  public IDoapCategory getOrCreateCategory(String uri)
+  		throws SimalRepositoryException {
+	if (containsResource(uri)) {
+		return getCategory(uri);
+	} else {
+		try {
+			return createCategory(uri);
+		} catch (DuplicateURIException e) {
+			logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
+			return null;
+		}
+	}
+  }
+  
+  public IDoapCategory createCategory(String uri) throws SimalRepositoryException,
+	DuplicateURIException {
+      if (containsResource(uri)) {
+        throw new DuplicateURIException(
+            "Attempt to create a second project category with the URI " + uri);
+      }
+
+      Property o = Doap.CATEGORY;
+      com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
+      Statement s = model.createStatement(r, RDF.type, o);
+      model.add(s);
+
+      IDoapCategory cat = new Category(r);
+      cat.setSimalID(getNewCategoryID());
+      return cat;
   }
 
   public void destroy() throws SimalRepositoryException {
@@ -344,11 +383,19 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   public IDoapCategory getCategory(String uri) throws SimalRepositoryException {
-    if (containsCategory(uri)) {
+    if (containsResource(uri)) {
       return new Category(model.getResource(uri));
     } else {
       return null;
     }
+  }
+  
+  public IDoapHomepage getHomepage(String uri) {
+	  if (containsResource(uri)) {
+	      return new Homepage(model.getResource(uri));
+	  } else {
+	      return null;
+      }
   }
 
   public IDoapCategory findCategoryById(String id)
@@ -719,7 +766,7 @@ public boolean containsProject(String uri) {
     return model.contains(foaf) || model.contains(simal);
   }
 
-  public boolean containsCategory(String uri) {
+  public boolean containsResource(String uri) {
     com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
     return model.containsResource(r);
   }

@@ -120,7 +120,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
      */
     boolean validID = false;
     while (!validID) {
-      fullID = getUniqueSimalID(Long.toString(entityID));
+      fullID = getUniqueSimalID("prj" + Long.toString(entityID));
       logger.debug("Checking to see if project ID of {} is available", fullID);
       if (findProjectById(fullID) == null) {
         validID = true;
@@ -142,7 +142,45 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     logger.debug("Generated new project ID {}", fullID);
     return fullID;
   }
+  
+  public String getNewHomepageID() throws SimalRepositoryException {
+	    String fullID = null;
+	    String strEntityID = SimalProperties.getProperty(
+	        SimalProperties.PROPERTY_SIMAL_NEXT_HOMEPAGE_ID, "1");
+	    long entityID = Long.parseLong(strEntityID);
 
+	    /**
+	     * If the properties file is lost for any reason the next ID value will be
+	     * lost. We therefore need to perform a sanity check that this is unique.
+	     * 
+	     * @FIXME: the ID should really be held in the database then there would be
+	     *         no need for this time consuming verification See ISSUE 190
+	     */
+	    boolean validID = false;
+	    while (!validID) {
+	      fullID = getUniqueSimalID("page" + Long.toString(entityID));
+	      logger.debug("Checking to see if homepage ID of {} is available", fullID);
+	      if (findProjectById(fullID) == null) {
+	        validID = true;
+	      } else {
+	        entityID = entityID + 1;
+	      }
+	    }
+
+	    long newId = entityID + 1;
+	    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_HOMEPAGE_ID,
+	        Long.toString(newId));
+	    try {
+	      SimalProperties.save();
+	    } catch (Exception e) {
+	      logger.warn("Unable to save properties file", e);
+	      throw new SimalRepositoryException(
+	          "Unable to save properties file when creating the next project ID", e);
+	    }
+	    logger.debug("Generated new homepage ID {}", fullID);
+	    return fullID;
+	  }
+  
   public String getUniqueSimalID(String entityID)
       throws SimalRepositoryException {
     String instanceID = SimalProperties
@@ -174,7 +212,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
      */
     boolean validID = false;
     while (!validID) {
-      fullID = getUniqueSimalID(Long.toString(entityID));
+      fullID = getUniqueSimalID("cat" + Long.toString(entityID));
       if (findCategoryById(fullID) == null) {
         validID = true;
       } else {
@@ -208,7 +246,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
      */
     boolean validID = false;
     while (!validID) {
-      fullID = getUniqueSimalID(Long.toString(entityID));
+      fullID = getUniqueSimalID("per" + Long.toString(entityID));
       if (findPersonById(fullID) == null) {
         validID = true;
       } else {

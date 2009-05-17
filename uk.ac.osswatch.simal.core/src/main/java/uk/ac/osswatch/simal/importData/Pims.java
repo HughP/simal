@@ -15,25 +15,31 @@
  */
 package uk.ac.osswatch.simal.importData;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 public class Pims {
 
-	private Pims(String filename) {
+	public static final String PIMS_PROJECT_URI = "http://www.jisc.ac.uk/project/pims";
+
+	private Pims() {
 	}
 	
 	/**
@@ -43,14 +49,20 @@ public class Pims {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 * @throws DuplicateURIException
-	 * @throws SimalRepositoryException
+	 * @throws SimalException 
 	 */
-	public static void importInstitutions(String filename) throws FileNotFoundException, IOException, DuplicateURIException, SimalRepositoryException {
+	public static void importInstitutions(String filename) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
 		ISimalRepository repo = SimalRepositoryFactory.getInstance();
         HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
         HSSFSheet sheet = wb.getSheetAt(0);
+        
+        HSSFRow row = sheet.getRow(1);
+		String title = row.getCell(1).getStringCellValue();
+        if (!title.equals("name")) {
+        	throw new SimalException(filename = " is not a valid PIMS project export file");
+        }
+        
         int lastRow = sheet.getLastRowNum();
-        HSSFRow  row;
         for (int i = 1; i <= lastRow; i++) {
 	        row   = sheet.getRow(i);
 	        int institutionId = ((Double)row.getCell(0).getNumericCellValue()).intValue();
@@ -67,20 +79,25 @@ public class Pims {
 	 * @param filename
 	 * @throws FileNotFoundException
 	 * @throws IOException
-	 * @throws SimalRepositoryException
 	 * @throws DuplicateURIException
+	 * @throws SimalException 
 	 */
-	public static void importProjects(String filename) throws FileNotFoundException, IOException, SimalRepositoryException, DuplicateURIException {
+	public static void importProjects(String filename) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
 		ISimalRepository repo = SimalRepositoryFactory.getInstance();
         HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
         HSSFSheet sheet = wb.getSheetAt(0);
         
-        HSSFRow row;
+        HSSFRow row = sheet.getRow(2);
+		String title = row.getCell(1).getStringCellValue();
+        if (!title.equals("projects.name")) {
+        	throw new SimalException(filename = " is not a valid PIMS project export file");
+        }
+        
         int lastRow = sheet.getLastRowNum();
         for (int i = 1; i<= lastRow; i++) {
 	        row = sheet.getRow(i);
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IProject project = repo.createProject("http;//jisc.ac.uk/project#" + id);
+	        IProject project = repo.createProject("http://jisc.ac.uk/project#" + id);
 	        project.addName(row.getCell(2).getStringCellValue());
 	        project.setDescription(row.getCell(4).getStringCellValue());
 	        IDoapHomepage page = repo.createHomepage(row.getCell(6).getStringCellValue());
@@ -88,10 +105,74 @@ public class Pims {
 	        project.addHomepage(page);
 	        //TODO: capture workpackage info: String projectWorkpackage = row.getCell(5).getStringCellValue();
 	        //TODO: capture short name: String shortName = row.getCell(3).getStringCellValue();
-	        //TODO: capture programme info: String programmeId = row.getCell(1).getStringCellValue();
+	        String programmeId = getCategoryURI(((Double)row.getCell(1).getNumericCellValue()).intValue());
+	        IDoapCategory cat = repo.getOrCreateCategory(programmeId);
+	        project.addCategory(cat);
 	        // TODO: Capture state info: String projectStateName = row.getCell(7).getStringCellValue();
 	        // TODO: Capture start date info: String projectStartDate = row.getCell(8).getStringCellValue();
 	        // TODO: Capture start date info: String projectEndDate = row.getCell(9).getStringCellValue();
         }
+	}
+	
+	/**
+	 * Import programmes from an exported PIMS spreadheet. Themes are known as categories in 
+	 * the Simal application
+	 * 
+	 * @param filename
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws DuplicateURIException
+	 * @throws SimalException 
+	 */
+	public static void importProgrammes(String filename) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
+		IProject project = getPimsProject();
+		
+		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+        HSSFWorkbook wb = new HSSFWorkbook(new FileInputStream(filename));
+        HSSFSheet sheet = wb.getSheetAt(0);
+        
+        HSSFRow row = sheet.getRow(0);
+		String title = row.getCell(1).getStringCellValue();
+        if (!title.equals("programmes.name")) {
+        	throw new SimalException(filename = " is not a valid PIMS programme export file");
+        }
+        
+        int lastRow = sheet.getLastRowNum();
+        for (int i = 1; i<= lastRow; i++) {
+	        row = sheet.getRow(i);
+	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+	        IDoapCategory cat = repo.getOrCreateCategory(getCategoryURI(id));
+	        String name = row.getCell(1).getStringCellValue();
+	        cat.addName(name);
+	        
+	        project.addCategory(cat);
+	    }
+        
+	}
+
+	/**
+	 * Get a URI for the programme ID provided.
+	 * @param id
+	 * @return
+	 */
+	private static String getCategoryURI(int id) {
+		return "http://jisc.ac.uk/programme#" + id;
+	}
+
+	/**
+	 * Get or create a resource to represent the PIMS project.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * @throws DuplicateURIException 
+	 */
+	private static IProject getPimsProject() throws SimalRepositoryException, DuplicateURIException {
+		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+		IProject project = repo.getProject(PIMS_PROJECT_URI);
+		if (project == null) {
+			project = repo.createProject(PIMS_PROJECT_URI);
+			project.addName("PIMS");;
+			project.setShortDesc("JISC Project Information Management System");
+		}
+		return project;
 	}
 }

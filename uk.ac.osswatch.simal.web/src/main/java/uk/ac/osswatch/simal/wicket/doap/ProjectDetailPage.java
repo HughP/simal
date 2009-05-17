@@ -179,7 +179,7 @@ public class ProjectDetailPage extends BasePage {
       setResponsePage(new ErrorReportPage(error));
     }
     add(getRepeatingLinks("homepages", "homepage",
-        new SortableDoapResourceDataProvider(project.getHomepages()), false));
+        new SortableDoapResourceDataProvider(project.getHomepages()), true));
 
     // Community tools
     add(getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker",

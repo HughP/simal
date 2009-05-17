@@ -152,7 +152,7 @@ public class TestRepository extends BaseRepositoryTest {
       logger.debug("Got project: " + project.getName() + " with URI " + project.getURI());
     }
 
-    assertEquals(6, projects.size());
+    assertEquals(10, projects.size());
     logger.debug("Finished testGetAllProjects()");
   }
 
@@ -394,5 +394,30 @@ public class TestRepository extends BaseRepositoryTest {
         SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1"));
     assertTrue("A repeated ingest should not create a new Simal Project",
         beforeID.equals(afterID));    
+  }
+  
+  @Test
+  public void testGetOrCreateCategory() throws SimalRepositoryException {
+	 boolean exists =getRepository().containsResource(TEST_SIMAL_PROJECT_CATEGORY_TWO);
+	 assertTrue("Test category does not exist", exists);
+	 
+	 IDoapCategory gotCat = getRepository().getCategory(TEST_SIMAL_PROJECT_CATEGORY_TWO);
+	 IDoapCategory gotOrCreateCat = getRepository().getOrCreateCategory(TEST_SIMAL_PROJECT_CATEGORY_TWO);
+	 assertEquals("Retrieved categories are different depending on method of retrieval", gotCat.getURI(), gotOrCreateCat.getURI());
+  
+	 String uri = "http://test.com/category";
+	 gotCat = getRepository().getCategory(uri);
+	 assertNull("Retrieved a category we should not have been able to get", gotCat);
+	 
+	 gotOrCreateCat = getRepository().getOrCreateCategory(uri);
+	 assertNotNull("Failed to create a category using getOrCreateCategory", gotOrCreateCat);
+	 
+	 gotCat = getRepository().getCategory(uri);
+	 assertNotNull("Failed to retrieve a recently created category", gotCat);
+	 
+	 gotOrCreateCat.delete();
+	 gotCat = getRepository().getCategory(uri);
+	 assertNull("Retrieved a category we should have deleted", gotCat);
+	 
   }
 }
