@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
-import java.net.MalformedURLException;
 
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
 import org.apache.wicket.markup.html.basic.Label;
@@ -31,9 +30,9 @@ import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
-import org.apache.wicket.util.lang.Bytes;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.slf4j.Logger;
@@ -114,11 +113,16 @@ public class ToolsPage extends BasePage {
 
     add(new ImportFromOhlohForm("importFromOhlohForm"));
     
-    final PimsUploadForm ajaxSimpleUploadForm = new PimsUploadForm("importProgrammesFromPimsForm");
-    ajaxSimpleUploadForm.add(new UploadProgressBar("uploadProgress",
-        ajaxSimpleUploadForm));
-    add(ajaxSimpleUploadForm);
-
+    final PimsUploadForm pimsProgrammesUploadForm = new PimsUploadForm("importProgrammesFromPimsForm", PimsUploadForm.PROGRAMMES);
+    pimsProgrammesUploadForm.add(new UploadProgressBar("uploadProgress",
+        pimsProgrammesUploadForm));
+    add(pimsProgrammesUploadForm);
+    
+    final PimsUploadForm pimsProjectsUploadForm = new PimsUploadForm("importProjectsFromPimsForm", PimsUploadForm.PROJECTS);
+    pimsProjectsUploadForm.add(new UploadProgressBar("uploadProgress",
+        pimsProjectsUploadForm));
+    add(pimsProjectsUploadForm);
+    
     add(new Link("importPTSWLink") {
       private static final long serialVersionUID = -6938957715376331902L;
 
@@ -252,18 +256,23 @@ public class ToolsPage extends BasePage {
 
   private class PimsUploadForm extends Form<FileUploadField> {
 	    private static final long serialVersionUID = 1L;
+		public static final int PROGRAMMES = 10;
+		public static final int PROJECTS = 20;
 		private FileUploadField fileUploadField;
+		private int type;
 
 	    /**
 	     * Simple constructor.
 	     * 
 	     * @param name
 	     *          Component name
+	     * @param i 
 	     */
-	    public PimsUploadForm(String name) {
+	    public PimsUploadForm(String name, int type) {
 	      super(name);
 	      setMultiPart(true);
 	      add(fileUploadField = new FileUploadField("fileInput"));
+	      this.type = type;
 	    }
 
 	    /**
@@ -298,8 +307,18 @@ public class ToolsPage extends BasePage {
 	          }
 
 	          try {
-	            Pims.importProgrammes(newFile.toURL().getFile());
-	            setResponsePage(new UserHomePage());
+	        	  switch (type) {
+	        	  case PROGRAMMES:
+		              Pims.importProgrammes(newFile.toURL());
+		              break;
+	        	  case PROJECTS:
+		              Pims.importProjects(newFile.toURL());
+		              break;
+        		  default:
+        			  setResponsePage(new ErrorReportPage(new UserReportableException(
+        		                "Illegal type setting for PIMS uploader", ToolsPage.class)));
+        		  }
+	            setResponsePage(new ToolsPage());
 	          } catch (Exception e) {
 	            setResponsePage(new ErrorReportPage(new UserReportableException(
 	                "Unable to import PIMS data", ToolsPage.class, e)));
