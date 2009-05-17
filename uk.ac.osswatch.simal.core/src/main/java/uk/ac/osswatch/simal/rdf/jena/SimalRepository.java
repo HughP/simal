@@ -90,7 +90,6 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
-import com.hp.hpl.jena.vocabulary.RDFS;
 
 public final class SimalRepository extends AbstractSimalRepository {
   private static final Logger logger = LoggerFactory
@@ -329,6 +328,9 @@ public final class SimalRepository extends AbstractSimalRepository {
 
   public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
       DuplicateURIException {
+	if (uri == null || uri.length() == 0) {
+		throw new SimalRepositoryException("URI cannot be blank or null");
+	}
     if (containsResource(uri)) {
       throw new DuplicateURIException(
           "Attempt to create a second homepage with the URI " + uri);
