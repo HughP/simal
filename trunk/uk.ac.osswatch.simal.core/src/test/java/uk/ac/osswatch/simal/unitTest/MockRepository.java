@@ -291,4 +291,14 @@ public IDoapHomepage getHomepage(String uri) {
 	return null;
 }
 
+public IPerson getOrCreatePerson(String uri) throws SimalRepositoryException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public IProject getOrCreateProject(String uri) throws SimalRepositoryException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }
