@@ -32,6 +32,7 @@ import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -101,7 +102,6 @@ public class PimsTest extends BaseRepositoryTest {
 				
 				IProject proj = repo.getProject(Pims.PIMS_PROJECT_URI);
 				Set<IDoapCategory> pimsCats = proj.getCategories();
-				int catCount = pimsCats.size();
 				
 				assertEquals("Don't have the right number of current projects for Programme A",3, projects.size());
 				catIsValid = true;
@@ -109,6 +109,24 @@ public class PimsTest extends BaseRepositoryTest {
 			}
 		}
 		assertTrue("Programme A is not been properly imported", catIsValid);	
+	}
+	
+	@Test
+	public void testImportProjectContacts() throws SimalRepositoryException {
+		Iterator<IPerson> people = repo.getAllPeople().iterator();
+		boolean personIsValid = false;
+		while (people.hasNext()) {
+			IPerson person = people.next();
+			Set<String> name = person.getNames();
+			if (name.contains("Person A")) {
+				Set<IProject> projects = person.getProjects();
+				assertEquals("Don't have the right number of projects for Person A",2, projects.size());
+				
+				personIsValid = true;
+				break;
+			}
+		}
+		assertTrue("Person is not been properly imported", personIsValid);	
 	}
 	
 	@Test

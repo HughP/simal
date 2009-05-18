@@ -34,7 +34,7 @@ public abstract class TestBase {
   public static final String TEST_PROJECT_SEEALSO = "http://simal.oss-watch.ac.uk/simalTest#";
   protected static final int NUMBER_OF_TEST_CATEGORIES = 55;
   protected static final int NUMBER_OF_TEST_PROJECTS = 10;
-  protected static final int NUMBER_OF_TEST_PEOPLE = 18;
+  protected static final int NUMBER_OF_TEST_PEOPLE = 22;
   protected static WicketTester tester;
   protected static String projectURI;
   protected static String developerURI;

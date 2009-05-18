@@ -15,10 +15,10 @@
  */
 package uk.ac.osswatch.simal.importData;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -99,7 +100,7 @@ public class Pims {
         for (int i = 1; i<= lastRow; i++) {
 	        row = sheet.getRow(i);
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IProject project = repo.createProject("http://jisc.ac.uk/project#" + id);
+	        IProject project = repo.createProject(getProjectURI(id));
 	        project.addName(row.getCell(2).getStringCellValue());
 	        project.setDescription(row.getCell(4).getStringCellValue());
 	        
@@ -160,12 +161,75 @@ public class Pims {
 	}
 
 	/**
+	 * Import contacts relating to each project as exported by PIMS.
+	 * 
+	 * @param url
+	 * @throws IOException 
+	 * @throws SimalException 
+	 */
+	public static void importProjectContacts(URL url) throws IOException, SimalException {
+		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+        HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
+        HSSFSheet sheet = wb.getSheetAt(0);
+        
+        HSSFRow row = sheet.getRow(0);
+		String title = row.getCell(2).getStringCellValue();
+        if (!title.equals("contacts.name")) {
+        	throw new SimalException(url + " is not a valid PIMS project contact export file");
+        }
+        
+        int lastRow = sheet.getLastRowNum();
+        for (int i = 1; i<= lastRow; i++) {
+	        row = sheet.getRow(i);
+	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+	        IPerson person = repo.getOrCreatePerson(getPersonURI(id));
+	        
+	        String name = row.getCell(2).getStringCellValue();
+	        person.addName(name);
+	        
+	        int projectId = ((Double)row.getCell(1).getNumericCellValue()).intValue();
+	        IProject project = repo.getOrCreateProject(getProjectURI(projectId));
+	        
+	        String role = row.getCell(3).getStringCellValue();
+	        if (role.equals("Director") || role.equals("Manager")) {
+	        	project.addMaintainer(person);
+	        	Set<IProject> projs = person.getProjects();
+	        	System.out.println(projs.size());
+	        } else if (role.equals("Member")) {
+	        	project.addDeveloper(person);
+	        	Set<IProject> projs = person.getProjects();
+	        	System.out.println(projs.size());
+	        } else {
+	        	logger.warn("Got a person with an unown role: " + role);
+	        }
+	    }
+	}
+	
+	/**
 	 * Get a URI for the programme ID provided.
 	 * @param id
 	 * @return
 	 */
 	private static String getCategoryURI(int id) {
 		return "http://jisc.ac.uk/programme#" + id;
+	}
+	
+	/**
+	 * Get a URI for the person ID provided.
+	 * @param id
+	 * @return
+	 */
+	private static String getPersonURI(int id) {
+		return "http://jisc.ac.uk/person#" + id;
+	}
+	
+	/**
+	 * Get a URI for the project ID provided.
+	 * @param id
+	 * @return
+	 */
+	private static String getProjectURI(int id) {
+		return "http://jisc.ac.uk/project#" + id;
 	}
 
 	/**

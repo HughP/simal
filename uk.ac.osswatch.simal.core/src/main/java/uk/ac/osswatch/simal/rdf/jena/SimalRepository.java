@@ -90,6 +90,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public final class SimalRepository extends AbstractSimalRepository {
   private static final Logger logger = LoggerFactory
@@ -275,10 +276,11 @@ public final class SimalRepository extends AbstractSimalRepository {
     Statement s = model.createStatement(r, RDF.type, SimalOntology.PERSON);
     model.add(s);
     
-
-    // FIXME 15 May 2009: check when this was added and why as it seems that it should not be here
-    //s = model.createStatement(r, RDFS.seeAlso, uri);
-    //model.add(s);
+    if (!uri.startsWith(RDFUtils.PERSON_NAMESPACE_URI)) {
+      com.hp.hpl.jena.rdf.model.Resource res = model.createResource(uri);
+      s = model.createStatement(r, RDFS.seeAlso, res);
+      model.add(s);
+    }
 
     IPerson person = new Person(r);
     person.setSimalID(personID);
@@ -305,22 +307,27 @@ public final class SimalRepository extends AbstractSimalRepository {
       throw new DuplicateURIException(
           "Attempt to create a second project with the URI " + uri);
     }
+    
+    String simalProjectURI;
+    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
+	    String projectID = getNewProjectID();
+	    simalProjectURI = RDFUtils.getDefaultProjectURI(projectID);
+	    logger.debug("Creating a new Simal Projectinstance with URI: "
+	        + simalProjectURI);
+    } else {
+        simalProjectURI = uri;
+    }
 
-    Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
-    com.hp.hpl.jena.rdf.model.Resource doapProject = model.createResource(uri);
-    Statement s = model.createStatement(doapProject, RDF.type, o);
+    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(simalProjectURI);
+    Statement s = model.createStatement(r, RDF.type, SimalOntology.PROJECT);
     model.add(s);
-    
+        
+    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
+        com.hp.hpl.jena.rdf.model.Resource res = model.createResource(uri);
+        s = model.createStatement(r, RDFS.seeAlso, res);
+        model.add(s);
+      }
 
-    o = model.createProperty(SIMAL_PROJECT_URI);
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    s = model.createStatement(r, RDF.type, o);
-    model.add(s);
-    
-    // FIXME 15 May 2009: check when this was added and why as it seems that it should not be here
-    //s = model.createStatement(r, RDFS.seeAlso, doapProject);
-    //model.add(s);
-    
     IProject project = new Project(r);
     project.setSimalID(getNewProjectID());
     return project;
@@ -356,6 +363,44 @@ public final class SimalRepository extends AbstractSimalRepository {
 		} catch (DuplicateURIException e) {
 			logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
 			return null;
+		}
+	}
+  }
+  
+  public IPerson getOrCreatePerson(String uri)
+  		throws SimalRepositoryException {
+	if (containsResource(uri)) {
+		return getPerson(uri);
+	} else {
+		IPerson person = findPersonBySeeAlso(uri);
+		if (person == null) {
+			try {
+				return createPerson(uri);
+			} catch (DuplicateURIException e) {
+				logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
+				return null;
+			}
+		} else {
+			return person;
+		}
+	}
+  }
+  
+  public IProject getOrCreateProject(String uri)
+  		throws SimalRepositoryException {
+	if (containsResource(uri)) {
+		return getProject(uri);
+	} else {
+		IProject project = findProjectBySeeAlso(uri);
+		if (project == null) {
+			try {
+				return createProject(uri);
+			} catch (DuplicateURIException e) {
+				logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
+				return null;
+			}
+		} else {
+			return project;
 		}
 	}
   }
@@ -713,19 +758,27 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   public IPerson getPerson(String uri) throws SimalRepositoryException {
-    if (containsPerson(uri)) {
-      return new Person(model.getResource(uri));
-    } else {
-      return null;
-    }
+	if(uri.startsWith(RDFUtils.PERSON_NAMESPACE_URI)) {
+	    if (containsPerson(uri)) {
+	      return new Person(model.getResource(uri));
+	    } else {
+	      return null;
+	    }
+	} else {
+		return findPersonBySeeAlso(uri);
+	}
   }
 
   public IProject getProject(String uri) throws SimalRepositoryException {
-    if (containsProject(uri)) {
-      return new Project(model.getResource(uri));
-    } else {
-      return null;
-    }
+	if(uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
+	    if (containsProject(uri)) {
+	      return new Project(model.getResource(uri));
+	    } else {
+	      return null;
+	    }
+	} else {
+		return findProjectBySeeAlso(uri);
+	}
   }
 
   public IOrganisation getOrganisation(String uri)

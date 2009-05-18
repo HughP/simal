@@ -410,7 +410,7 @@ public class Project extends DoapResource implements IProject {
     model.add(statement);
     addCurrentProject(person);
   }
-
+  
   public void addTester(IPerson person) {
     Model model = getJenaResource().getModel();
     Statement statement = model.createStatement(getJenaResource(), Doap.TESTER,

@@ -574,4 +574,22 @@ public interface ISimalRepository {
    */
   public IDoapHomepage getHomepage(String uri);
 
+  /**
+   * Get a person from the repository. If the person does not yet exist it is created.
+   * 
+   * @param personURI
+   * @return
+   * @throws SimalRepositoryException 
+   */
+   public IPerson getOrCreatePerson(String uri) throws SimalRepositoryException;
+
+   /**
+    * Get a project from the repository. If the project does not yet exist it is created.
+    * 
+    * @param personURI
+    * @return
+    * @throws SimalRepositoryException 
+    */
+    public IProject getOrCreateProject(String uri) throws SimalRepositoryException;
+
 }
