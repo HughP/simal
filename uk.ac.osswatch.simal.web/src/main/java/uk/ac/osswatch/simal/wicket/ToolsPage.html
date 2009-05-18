@@ -90,7 +90,18 @@
         <span wicket:id="uploadProgress"><br>[[ajax upload progressbar]]</span>
       </fieldset>
     </form>  
-  
+
+    <form wicket:id="importProjectContactsFromPimsForm">
+      <fieldset>
+      <legend>Import PIMS Contacts</legend>
+        
+        <label for="upload">PIMS Contacts Export File</label>
+        <input wicket:id="fileInput" id="upload" type="file">
+        <input type="submit" value="Import"/>
+        <span wicket:id="uploadProgress"><br>[[ajax upload progressbar]]</span>
+      </fieldset>
+    </form>  
+      
   <form wicket:id="importFromOhlohForm">
     <fieldset>
     <legend>Import from Ohloh</legend>

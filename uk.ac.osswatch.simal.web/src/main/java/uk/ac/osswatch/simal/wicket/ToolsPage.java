@@ -30,7 +30,6 @@ import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
 import org.apache.xml.serialize.OutputFormat;
@@ -122,6 +121,11 @@ public class ToolsPage extends BasePage {
     pimsProjectsUploadForm.add(new UploadProgressBar("uploadProgress",
         pimsProjectsUploadForm));
     add(pimsProjectsUploadForm);
+    
+    final PimsUploadForm pimsProjectContactsUploadForm = new PimsUploadForm("importProjectContactsFromPimsForm", PimsUploadForm.PROJECT_CONTACTS);
+    pimsProjectContactsUploadForm.add(new UploadProgressBar("uploadProgress",
+        pimsProjectContactsUploadForm));
+    add(pimsProjectContactsUploadForm);
     
     add(new Link("importPTSWLink") {
       private static final long serialVersionUID = -6938957715376331902L;
@@ -258,6 +262,7 @@ public class ToolsPage extends BasePage {
 	    private static final long serialVersionUID = 1L;
 		public static final int PROGRAMMES = 10;
 		public static final int PROJECTS = 20;
+		public static final int PROJECT_CONTACTS = 30;
 		private FileUploadField fileUploadField;
 		private int type;
 
@@ -313,6 +318,9 @@ public class ToolsPage extends BasePage {
 		              break;
 	        	  case PROJECTS:
 		              Pims.importProjects(newFile.toURL());
+		              break;
+	        	  case PROJECT_CONTACTS:
+		              Pims.importProjectContacts(newFile.toURL());
 		              break;
         		  default:
         			  setResponsePage(new ErrorReportPage(new UserReportableException(
