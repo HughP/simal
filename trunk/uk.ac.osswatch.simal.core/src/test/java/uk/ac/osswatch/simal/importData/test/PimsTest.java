@@ -31,6 +31,7 @@ import uk.ac.osswatch.simal.importData.Pims;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -119,10 +120,14 @@ public class PimsTest extends BaseRepositoryTest {
 			IPerson person = people.next();
 			Set<String> name = person.getNames();
 			if (name.contains("Person A")) {
+				personIsValid = true;
+				
 				Set<IProject> projects = person.getProjects();
 				assertEquals("Don't have the right number of projects for Person A",2, projects.size());
 				
-				personIsValid = true;
+				Set<IInternetAddress> emails = person.getEmail();
+				assertTrue("Persons A has an invalid email setting", emails.toString().contains("persona@institutiona.ac.uk"));
+				
 				break;
 			}
 		}
