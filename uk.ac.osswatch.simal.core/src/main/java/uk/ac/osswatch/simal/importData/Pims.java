@@ -190,6 +190,9 @@ public class Pims {
 	        int projectId = ((Double)row.getCell(1).getNumericCellValue()).intValue();
 	        IProject project = repo.getOrCreateProject(getProjectURI(projectId));
 	        
+	        // FIXME: record the contacts job_title
+	        // FIXME: record the contacts institutions.name
+	        
 	        String role = row.getCell(3).getStringCellValue();
 	        if (role.equals("Director") || role.equals("Manager")) {
 	        	project.addMaintainer(person);
@@ -202,6 +205,12 @@ public class Pims {
 	        } else {
 	        	logger.warn("Got a person with an unown role: " + role);
 	        }
+	        
+	        String email = row.getCell(6).getStringCellValue();
+	        person.addEmail(email);
+	        
+	        String tel = row.getCell(7).getStringCellValue();
+	        // FIXME: record contact telephone detail
 	    }
 	}
 	
