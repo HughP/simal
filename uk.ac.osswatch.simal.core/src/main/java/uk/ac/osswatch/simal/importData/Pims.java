@@ -194,14 +194,15 @@ public class Pims {
 	        // FIXME: record the contacts institutions.name
 	        
 	        String role = row.getCell(3).getStringCellValue();
-	        if (role.equals("Director") || role.equals("Manager")) {
+	        if (role.equals("Programme Strand Manager") || role.equals("Programme Manager")) {
+	        	project.addHelper(person);
+	        	Set<IProject> projs = person.getProjects();
+	        } else if (role.equals("Project Director") || role.equals("Project Manager")) {
 	        	project.addMaintainer(person);
 	        	Set<IProject> projs = person.getProjects();
-	        	System.out.println(projs.size());
-	        } else if (role.equals("Member")) {
+	        } else if (role.equals("Project Team Member")) {
 	        	project.addDeveloper(person);
 	        	Set<IProject> projs = person.getProjects();
-	        	System.out.println(projs.size());
 	        } else {
 	        	logger.warn("Got a person with an unown role: " + role);
 	        }
