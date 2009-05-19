@@ -18,8 +18,8 @@ package uk.ac.osswatch.simal.importData;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Set;
 
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -60,8 +60,8 @@ public class Pims {
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
-		String title = row.getCell(1).getStringCellValue();
-        if (!title.equals("name")) {
+		HSSFRichTextString title = row.getCell(1).getRichStringCellValue();
+        if (!title.getString().equals("name")) {
         	throw new SimalException(url + " is not a valid PIMS project export file");
         }
         
@@ -70,7 +70,7 @@ public class Pims {
 	        row   = sheet.getRow(i);
 	        int institutionId = ((Double)row.getCell(0).getNumericCellValue()).intValue();
 	        IOrganisation org = repo.createOrganisation("http://jisc.ac.uk/institution#" + institutionId);
-	        org.addName(row.getCell(1).getStringCellValue());
+	        org.addName(row.getCell(1).getRichStringCellValue().getString());
 	        int institutionProjectId = ((Double)row.getCell(2).getNumericCellValue()).intValue();
 	        org.addCurrentProject("http;//jisc.ac.uk/project#" + institutionProjectId);
         }
@@ -91,8 +91,8 @@ public class Pims {
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
-		String title = row.getCell(2).getStringCellValue();
-        if (!title.equals("projects.name")) {
+		HSSFRichTextString title = row.getCell(2).getRichStringCellValue();
+        if (!title.getString().equals("projects.name")) {
         	throw new SimalException(url + " is not a valid PIMS project export file");
         }
         
@@ -101,10 +101,10 @@ public class Pims {
 	        row = sheet.getRow(i);
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
 	        IProject project = repo.getOrCreateProject(getProjectURI(id));
-	        project.addName(row.getCell(2).getStringCellValue());
-	        project.setDescription(row.getCell(4).getStringCellValue());
+	        project.addName(row.getCell(2).getRichStringCellValue().toString());
+	        project.setDescription(row.getCell(4).getRichStringCellValue().getString());
 	        
-	        String homepage = row.getCell(6).getStringCellValue();
+	        String homepage = row.getCell(6).getRichStringCellValue().getString();
 	        if (homepage.length() != 0 && !homepage.equals("tbc")) {
 				try {
 					IDoapHomepage page = repo.createHomepage(homepage);
@@ -143,7 +143,7 @@ public class Pims {
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
-		String title = row.getCell(1).getStringCellValue();
+		String title = row.getCell(1).getRichStringCellValue().getString();
         if (!title.equals("programmes.name")) {
         	throw new SimalException(url + " is not a valid PIMS programme export file");
         }
@@ -153,7 +153,7 @@ public class Pims {
 	        row = sheet.getRow(i);
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
 	        IDoapCategory cat = repo.getOrCreateCategory(getCategoryURI(id));
-	        String name = row.getCell(1).getStringCellValue();
+	        String name = row.getCell(1).getRichStringCellValue().getString();
 	        cat.addName(name);
 	        
 	        project.addCategory(cat);
@@ -173,7 +173,7 @@ public class Pims {
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
-		String title = row.getCell(2).getStringCellValue();
+		String title = row.getCell(2).getRichStringCellValue().getString();
         if (!title.equals("contacts.name")) {
         	throw new SimalException(url + " is not a valid PIMS project contact export file");
         }
@@ -184,7 +184,7 @@ public class Pims {
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
 	        IPerson person = repo.getOrCreatePerson(getPersonURI(id));
 	        
-	        String name = row.getCell(2).getStringCellValue();
+	        String name = row.getCell(2).getRichStringCellValue().getString();
 	        person.addName(name);
 	        
 	        int projectId = ((Double)row.getCell(1).getNumericCellValue()).intValue();
@@ -193,25 +193,22 @@ public class Pims {
 	        // FIXME: record the contacts job_title
 	        // FIXME: record the contacts institutions.name
 	        
-	        String role = row.getCell(3).getStringCellValue();
+	        String role = row.getCell(3).getRichStringCellValue().getString();
 	        if (role.equals("Programme Strand Manager") || role.equals("Programme Manager")) {
 	        	project.addHelper(person);
-	        	Set<IProject> projs = person.getProjects();
 	        } else if (role.equals("Project Director") || role.equals("Project Manager")) {
 	        	project.addMaintainer(person);
-	        	Set<IProject> projs = person.getProjects();
 	        } else if (role.equals("Project Team Member")) {
 	        	project.addDeveloper(person);
-	        	Set<IProject> projs = person.getProjects();
 	        } else {
-	        	logger.warn("Got a person with an unown role: " + role);
+	        	logger.warn("Got a person with an unkown role: " + role);
 	        }
 	        
-	        String email = row.getCell(6).getStringCellValue();
-	        person.addEmail(email);
+	        HSSFRichTextString email = row.getCell(6).getRichStringCellValue();
+	        person.addEmail(email.getString());
 	        
-	        String tel = row.getCell(7).getStringCellValue();
 	        // FIXME: record contact telephone detail
+	        //HSSFRichTextString tel = row.getCell(7).getRichStringCellValue();
 	    }
 	}
 	
