@@ -124,6 +124,8 @@ public class PimsTest extends BaseRepositoryTest {
 				
 				Set<IProject> projects = person.getProjects();
 				assertEquals("Don't have the right number of projects for Person A",2, projects.size());
+				IProject prj = (IProject) projects.toArray()[0];
+				assertTrue("Person A is not associated with project foo", prj.getName().equals("Project A") || prj.getName().equals("Project D"));
 				
 				Set<IInternetAddress> emails = person.getEmail();
 				assertTrue("Persons A has an invalid email setting", emails.toString().contains("persona@institutiona.ac.uk"));

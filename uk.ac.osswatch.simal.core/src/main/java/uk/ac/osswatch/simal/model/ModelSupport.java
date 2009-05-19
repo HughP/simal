@@ -105,9 +105,9 @@ public class ModelSupport {
   
 
 	public static void importPimsTestData() throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
-		Pims.importProjects(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROJECT));
+		Pims.importProjectContacts(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROJECT_CONTACT));
+	    Pims.importProjects(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROJECT));
 	    Pims.importInstitutions(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_INSTITUTION));
-	    Pims.importProjectContacts(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROJECT_CONTACT));
 	    Pims.importProgrammes(ISimalRepository.class.getClassLoader().getResource(TEST_PIMS_PROGRAMME));
 	}
 }
