@@ -100,7 +100,7 @@ public class Pims {
         for (int i = 1; i<= lastRow; i++) {
 	        row = sheet.getRow(i);
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IProject project = repo.createProject(getProjectURI(id));
+	        IProject project = repo.getOrCreateProject(getProjectURI(id));
 	        project.addName(row.getCell(2).getStringCellValue());
 	        project.setDescription(row.getCell(4).getStringCellValue());
 	        
