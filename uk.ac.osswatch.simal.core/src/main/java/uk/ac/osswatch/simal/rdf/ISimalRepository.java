@@ -21,8 +21,6 @@ import java.util.Set;
 
 import org.w3c.dom.Document;
 
-import com.hp.hpl.jena.query.Dataset;
-
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
@@ -30,7 +28,6 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.rdf.jena.AbstractService;
 import uk.ac.osswatch.simal.rdf.jena.ProjectService;
 
 /**
