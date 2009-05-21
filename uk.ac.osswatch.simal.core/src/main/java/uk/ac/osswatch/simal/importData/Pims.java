@@ -190,8 +190,8 @@ public class Pims {
 	        int projectId = ((Double)row.getCell(1).getNumericCellValue()).intValue();
 	        IProject project = repo.getOrCreateProject(getProjectURI(projectId));
 	        
-	        // FIXME: record the contacts job_title
-	        // FIXME: record the contacts institutions.name
+	        // TODO: record the contacts job_title
+	        // TODO: record the contacts institutions.name
 	        
 	        String role = row.getCell(3).getRichStringCellValue().getString();
 	        if (role.equals("Programme Strand Manager") || role.equals("Programme Manager")) {
@@ -207,7 +207,7 @@ public class Pims {
 	        HSSFRichTextString email = row.getCell(6).getRichStringCellValue();
 	        person.addEmail(email.getString());
 	        
-	        // FIXME: record contact telephone detail
+	        // TODO: record contact telephone detail
 	        //HSSFRichTextString tel = row.getCell(7).getRichStringCellValue();
 	    }
 	}
