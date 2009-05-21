@@ -110,6 +110,7 @@ public abstract class BaseRepositoryTest {
   public static String testDeveloperURI;
   public static String testDocumentorURI;
   protected static String testDeveloperID;
+  protected static String testDeveloperEMail;
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
@@ -133,7 +134,8 @@ public abstract class BaseRepositoryTest {
     IPerson developer = repository
         .findPersonBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getUniqueSimalID();
-
+    testDeveloperEMail = developer.getEmail().toArray()[0].toString();
+    
     IPerson documentor = repository
         .findPersonBySeeAlso("http://foo.org/~documentor/#me");
     String documentorID = documentor.getUniqueSimalID();

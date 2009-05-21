@@ -75,8 +75,6 @@ public class TestCategory extends BaseRepositoryTest {
   public void testGetPeople() throws SimalRepositoryException {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     Set<IPerson> people = category.getPeople();
-    assertTrue("Not got enough people for the test category",
-        people.size() >= 10);
-
+    assertEquals("Not got enough people for the test category", 9, people.size());
   }
 }

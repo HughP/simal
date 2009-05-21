@@ -74,4 +74,19 @@ public interface IDoapResource extends IResource {
   public abstract void setDescription(String newDescription);
 
   public abstract Set<IDoapLicence> getLicences();
+  /**
+   * Get a JSON representation of this resource.
+   * 
+   * @return
+   */
+  public abstract String toJSON() throws SimalRepositoryException;
+
+  /**
+   * Get a JSON representation of this resource as a JSON record, that is a
+   * representation that is not a complete JSON file but is intended to be
+   * inserted into another JSON file.
+   * 
+   * @return
+   */
+  public abstract String toJSONRecord() throws SimalRepositoryException;
 }

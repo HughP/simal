@@ -61,7 +61,7 @@ public class InternetAddressListView extends ListView<IInternetAddress> {
     ExternalLink externalLink = new ExternalLink("linkURL", addr.getAddress());
     String href = addr.getLabel();
     if (href.startsWith("mailto")) {
-    	href = href.substring(6);
+    	href = href.substring(7);
     }
     externalLink.add(new Label("linkText", href));
     listItem.add(externalLink);

@@ -18,7 +18,6 @@ package uk.ac.osswatch.simal.wicket;
  */
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectSummaryPanel;
@@ -34,7 +33,7 @@ public class UserHomePage extends BasePage {
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get project from the repository",
-          ExhibitProjectBrowserPage.class, e);
+          UserHomePage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
   }

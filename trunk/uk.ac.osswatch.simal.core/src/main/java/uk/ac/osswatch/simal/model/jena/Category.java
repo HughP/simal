@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.model.jena;
  * 
  */
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -110,11 +111,18 @@ public class Category extends DoapResource implements IDoapCategory {
   }
 
   public Set<IPerson> getPeople() {
+	  // FIXME: this would be much faster if it used a SPARQL query -but what would the query be?
     Iterator<IProject> projects = getProjects().iterator();
-    HashSet<IPerson> people = new HashSet<IPerson>();
+    HashMap<String, IPerson> allPeople = new HashMap<String, IPerson>();
     while (projects.hasNext()) {
-      people.addAll(projects.next().getAllPeople());
+      Iterator<IPerson> people = projects.next().getAllPeople().iterator();
+      while (people.hasNext()) {
+    	  IPerson person = people.next();
+    	  if (!allPeople.containsKey(person.getURI())) {
+    		  allPeople.put(person.getURI(), person);
+    	  }
+      }
     }
-    return people;
+    return new HashSet<IPerson>(allPeople.values());
   }
 }

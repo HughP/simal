@@ -50,6 +50,17 @@
         </section>
       </notes>
       
+      <action context="features" dev="RDG" type="add" importance="high">
+        <p>Added <code>uk.ac.osswatch.simal.importData.Pims</p> which contains a number of methods
+        for importing Pims data from exported PIMS dumps. Pims is the official source of data about
+        projects funded by the Joint Information Systems Committee (JISC).</p>
+      </action>
+      
+      <action context="features" dev="RDG" type="add" importance="high">
+        <p>Added some reporting functionality to ProjectService, such as getProjectsWithXYZ, where
+        XYZ is the name of a property we want to test for.</p>
+      </action>
+      
       <action context="cli" dev="RDG" type="add" importance="high">
         <p>Added <code>getPeople</code> to the command line. This dumps the details of
         people. Command line options can be used to filter the people

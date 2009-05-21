@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -152,6 +153,7 @@ public class TestRepository extends BaseRepositoryTest {
       logger.debug("Got project: " + project.getName() + " with URI " + project.getURI());
     }
 
+    // FIXME: when a project is a seeAlso it is returned as a distinct project by getAllProjects
     assertEquals(10, projects.size());
     logger.debug("Finished testGetAllProjects()");
   }
@@ -225,6 +227,12 @@ public class TestRepository extends BaseRepositoryTest {
     assertNotNull("Can't find a person with the ID " + testDeveloperID, person);
     assertEquals("Developer URI is not as expected ", RDFUtils
         .getDefaultPersonURI(testDeveloperID), person.getURI());
+  }
+
+  @Test
+  public void testFindPersonByEMail() throws SimalRepositoryException, NoSuchAlgorithmException {
+    IPerson person = getRepository().findPersonBySha1Sum(RDFUtils.getSHA1(testDeveloperEMail));
+    assertNotNull("Can't find a person with the EMail " + testDeveloperEMail, person);
   }
 
   @Test

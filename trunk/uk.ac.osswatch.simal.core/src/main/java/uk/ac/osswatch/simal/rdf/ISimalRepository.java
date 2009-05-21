@@ -21,6 +21,8 @@ import java.util.Set;
 
 import org.w3c.dom.Document;
 
+import com.hp.hpl.jena.query.Dataset;
+
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
@@ -28,6 +30,8 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.rdf.jena.AbstractService;
+import uk.ac.osswatch.simal.rdf.jena.ProjectService;
 
 /**
  * A class for handling common repository actions. Applications should not
@@ -536,6 +540,14 @@ public interface ISimalRepository {
    * @return
    */
   public Set<IProject> filterProjectsByName(String filter);
+  
+  /**
+   * Find all projects returned using a SPARQL query.
+   * 
+   * @param queryStr
+   * @return
+   */
+  public Set<IProject> filterProjectsBySPARQL(String queryStr);
 
   /**
    * Return all the people with a name that matches the
@@ -591,5 +603,12 @@ public interface ISimalRepository {
     * @throws SimalRepositoryException 
     */
     public IProject getOrCreateProject(String uri) throws SimalRepositoryException;
+    
+	/**
+	 * Get an instance of a project service operating on this repository.
+	 * @param repo
+	 * @return
+	 */
+	public ProjectService getProjectService();
 
 }

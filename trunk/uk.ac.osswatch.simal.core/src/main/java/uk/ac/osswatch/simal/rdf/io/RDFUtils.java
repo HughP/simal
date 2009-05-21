@@ -429,6 +429,7 @@ public class RDFUtils {
    */
   public static String getSHA1(String data) throws NoSuchAlgorithmException {
     String addr;
+    data = data.toLowerCase();
     if (data.startsWith("mailto:")) {
       addr = data.substring(7);
     } else {
@@ -601,6 +602,7 @@ public class RDFUtils {
     }
 
     // handle duplicates with supplied URI
+    /*
     NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
     for (int i = 0; i < projects.getLength(); i = i + 1) {
       Element projectElement = (Element) projects.item(i);
@@ -612,6 +614,7 @@ public class RDFUtils {
         projectElement.setAttributeNS(RDF_NS, "about", project.getURI());
       }
     }
+    */
   }
 
   /**

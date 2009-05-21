@@ -41,6 +41,7 @@ public class ModelSupport {
   public static final String TEST_FILE_BASE_URL = "http://example.org/baseURI";
   public static final String TEST_FILE_URI_NO_QNAME = "testData/testNoRDFAboutDOAP.xml";
   public static final String TEST_FILE_URI_WITH_QNAME = "testData/testDOAP.xml";
+  public static final String TEST_FILE_SEE_ALSO = "testData/testSeeAlso.xml";
   private static final String TEST_FILE_OSSWATCH = "testData/ossWatchDOAP.xml";
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
 
@@ -81,9 +82,12 @@ public class ModelSupport {
 
       repo.addProject(ISimalRepository.class.getClassLoader().getResource(
           TEST_FILE_URI_NO_QNAME), TEST_FILE_BASE_URL);
-
+      
       repo.addProject(ISimalRepository.class.getClassLoader().getResource(
           TEST_FILE_URI_WITH_QNAME), TEST_FILE_BASE_URL);
+
+      repo.addProject(ISimalRepository.class.getClassLoader().getResource(
+          TEST_FILE_SEE_ALSO), TEST_FILE_BASE_URL);
 
       repo.addProject(ISimalRepository.class.getClassLoader().getResource(
           TEST_FILE_OSSWATCH), TEST_FILE_BASE_URL);

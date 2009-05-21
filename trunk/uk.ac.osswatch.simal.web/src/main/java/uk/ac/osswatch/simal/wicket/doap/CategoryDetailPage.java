@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.doap;
 
 /*
- * Copyright 2008 University of Oxford
+ * Copyright 2008-9 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -26,6 +26,7 @@ import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.panel.CategorySummaryPanel;
+import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 
 /**
@@ -69,6 +70,7 @@ public class CategoryDetailPage extends BasePage {
   private void populatePage(IDoapCategory category)
       throws SimalRepositoryException {
     add(new CategorySummaryPanel("summary", category));
-    add(new ProjectListPanel("projects", category.getProjects(), 15));
+    add(new ProjectListPanel("projectList", category.getProjects(), 15));
+    add(new PersonListPanel("peopleList", "People working in this category", category.getPeople(), 15));
   }
 }

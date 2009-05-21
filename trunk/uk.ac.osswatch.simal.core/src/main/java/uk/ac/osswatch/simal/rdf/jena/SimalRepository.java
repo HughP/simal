@@ -644,11 +644,11 @@ public final class SimalRepository extends AbstractSimalRepository {
    * @param queryStr
    * @return
    */
-  private Set<IProject> filterProjectsBySPARQL(String queryStr) {
+  public Set<IProject> filterProjectsBySPARQL(String queryStr) {
     Query query = QueryFactory.create(queryStr);
     QueryExecution qe = QueryExecutionFactory.create(query, model);
     ResultSet results = qe.execSelect();
-
+	
     Set<IProject> projects = new HashSet<IProject>();
     while (results.hasNext()) {
       QuerySolution soln = results.nextSolution();
@@ -660,7 +660,7 @@ public final class SimalRepository extends AbstractSimalRepository {
     qe.close();
     return projects;
   }
-
+  
   /**
    * Find all people returned using a SPARQL query.
    * 
@@ -925,11 +925,22 @@ public boolean containsProject(String uri) {
     Document simalProjectDoc = db.newDocument();
     Node simalProjectRDFRoot = simalProjectDoc.createElementNS(RDFUtils.RDF_NS,
         "RDF");
-    Element simalProjectElement = simalProjectDoc.createElementNS(
-        RDFUtils.SIMAL_NS, "Project");
-    simalProjectElement.appendChild(simalProjectDoc.createElementNS(
-        RDFUtils.DOAP_NS, "Project"));
-
+    
+    Element simalProjectElement = null;
+    String uri = sourceProjectRoot.getAttributeNS(RDFUtils.RDF_NS, "about");
+    IProject project = findProjectBySeeAlso(uri);
+    if (project == null) {
+  	    simalProjectElement = simalProjectDoc.createElementNS(
+  	        RDFUtils.SIMAL_NS, "Project");
+   	    simalProjectElement.appendChild(simalProjectDoc.createElementNS(
+  	        RDFUtils.DOAP_NS, "Project"));
+     } else {
+   	    simalProjectElement = simalProjectDoc.createElementNS(
+   	        RDFUtils.DOAP_NS, "Project");
+     }
+    
+    // FIXME: the duplicate handling below is duplicated in RDFUtils.deDupeProject
+    
     // handle duplicate projects identified by their homepage
     NodeList homepages = sourceProjectRoot.getElementsByTagNameNS(
         RDFUtils.DOAP_NS, "homepage");
@@ -939,7 +950,7 @@ public boolean containsProject(String uri) {
       if (homepage.getParentNode().equals(sourceProjectRoot)) {
           String url = homepage.getAttributeNS(RDFUtils.RDF_NS, "resource")
               .trim();
-          IProject project = findProjectByHomepage(url);
+          project = findProjectByHomepage(url);
           if (project != null) {
             logger
                 .debug("Simal already has a Project record with the homepage "
@@ -956,8 +967,8 @@ public boolean containsProject(String uri) {
     for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
       seeAlso = (Element) seeAlsos.item(i);
       if (seeAlso.getParentNode().equals(sourceProjectRoot)) {
-        String uri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource").trim();
-        IProject project = findProjectBySeeAlso(uri);
+        uri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource").trim();
+        project = findProjectBySeeAlso(uri);
         if (project != null) {
           logger
               .debug("Simal already has a Project record with the rdfs:seeAlso "
@@ -1243,4 +1254,16 @@ public boolean containsProject(String uri) {
     RDFUtils.validateResourceDefinition(personRoot.getElementsByTagNameNS(
         RDFUtils.FOAF_NS, "homepage"));
   }
+
+	public ProjectService getProjectService() {
+		return new ProjectService(this);
+	}
+	
+	/**
+	 * Get the RDF model for this repository.
+	 * @return
+	 */
+	protected Model getModel() {
+		return model;
+	}
 }

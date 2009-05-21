@@ -118,4 +118,5 @@ public interface IResource extends IResourceService, Serializable {
    * 
    */
   public void setSimalID(String newID) throws SimalRepositoryException;
+
 }

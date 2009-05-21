@@ -38,6 +38,7 @@ import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.jena.ProjectService;
 
 /**
  * @FIXME: make this a true MockObject
@@ -297,6 +298,16 @@ public IPerson getOrCreatePerson(String uri) throws SimalRepositoryException {
 }
 
 public IProject getOrCreateProject(String uri) throws SimalRepositoryException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public Set<IProject> filterProjectsBySPARQL(String queryStr) {
+	// TODO Auto-generated method stub
+	return null;
+}
+
+public ProjectService getProjectService() {
 	// TODO Auto-generated method stub
 	return null;
 }

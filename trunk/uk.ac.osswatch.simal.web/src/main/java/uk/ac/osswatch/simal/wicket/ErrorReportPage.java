@@ -47,6 +47,9 @@ public class ErrorReportPage extends BasePage {
 
   public ErrorReportPage(UserReportableException e) {
     logger.error("Reporting an error to the user", e);
+    
+    add(new Label("errorMessage", new Model(e.getMessage())));
+    
     StringBuffer sb = new StringBuffer();
     sb.append(e.getMessage());
     if (e.getReportingClass() != null) {
