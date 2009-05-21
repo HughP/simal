@@ -360,15 +360,11 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void addHomepage(IDoapHomepage page) {
-	    Set<IDoapHomepage> pages = getHomepages();
-    Model model = getJenaResource().getModel();
+	Model model = getJenaResource().getModel();
     Statement statement = model.createStatement(getJenaResource(),
         Doap.HOMEPAGE, (com.hp.hpl.jena.rdf.model.Resource) page
             .getRepositoryResource());
-    pages = getHomepages();
     model.add(statement);
-    pages = getHomepages();
-    System.out.println(pages.size());
   }
 
   /**
