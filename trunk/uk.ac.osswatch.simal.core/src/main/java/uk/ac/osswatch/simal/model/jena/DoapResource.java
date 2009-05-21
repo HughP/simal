@@ -178,7 +178,7 @@ public class DoapResource extends Resource implements IDoapResource {
         desc = desc.substring(128) + "...";
       }
     }
-    if (desc == null) {
+    if (desc == null || desc.equals("")) {
       desc = "No description available";
     }
     json.append("\"shortdesc\":\""

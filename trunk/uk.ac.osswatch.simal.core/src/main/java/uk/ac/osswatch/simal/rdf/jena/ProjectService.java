@@ -33,7 +33,6 @@ import com.hp.hpl.jena.rdf.model.ResIterator;
  * 
  */
 public class ProjectService extends AbstractService implements IProjectService {
-	static ProjectService service;
 
 	ProjectService(SimalRepository simalRepository) {
 		setRepository(simalRepository);

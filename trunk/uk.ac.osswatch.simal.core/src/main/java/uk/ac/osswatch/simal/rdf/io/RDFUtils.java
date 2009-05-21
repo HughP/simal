@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -429,7 +430,7 @@ public class RDFUtils {
    */
   public static String getSHA1(String data) throws NoSuchAlgorithmException {
     String addr;
-    data = data.toLowerCase();
+    data = data.toLowerCase(Locale.getDefault());
     if (data.startsWith("mailto:")) {
       addr = data.substring(7);
     } else {
