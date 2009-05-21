@@ -17,6 +17,8 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
+import java.security.NoSuchAlgorithmException;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.behavior.StringHeaderContributor;
@@ -25,6 +27,7 @@ import org.apache.wicket.markup.html.link.IPageLink;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
@@ -43,25 +46,57 @@ public class PersonDetailPage extends BasePage {
   private static final long serialVersionUID = -2362335968055139016L;
   IPerson person;
 
+  /**
+   * Allowed parameters in the URL are:
+   * 
+   * <ul>
+   *   <li>id - a simal ID for a person</li>
+   *   <li>email - a persons email address</li>
+   * </ul>
+   * 
+   * If no person can be found using the supplied parameters then the person list page is displayed instead
+   * of the person detail page. The person list page has the ability to search the repository.
+   * 
+   * @param parameters
+   */
   public PersonDetailPage(PageParameters parameters) {
     String id = null;
-    if (parameters.containsKey("simalID")) {
-      try {
-        id = SimalRepository.getInstance().getUniqueSimalID(
-            parameters.getString("simalID"));
-        person = UserApplication.getRepository().findPersonById(id);
-        populatePage(person);
-      } catch (SimalRepositoryException e) {
-        UserReportableException error = new UserReportableException(
-            "Unable to get person from the repository", PersonDetailPage.class,
-            e);
-        setResponsePage(new ErrorReportPage(error));
-      }
-    } else {
+    try {
+	    if (parameters.containsKey("simalID")) {
+	        id = SimalRepository.getInstance().getUniqueSimalID(
+	            parameters.getString("simalID"));
+	        person = UserApplication.getRepository().findPersonById(id);
+	    } else if (parameters.containsKey("email")) {
+	    	String[] emails = (String[]) parameters.get("email");
+	    	String email = emails[0];
+	    	if (email == null || email.length() == 0) {
+	  	      UserReportableException error = new UserReportableException(
+	  		          "Must provide an email in the request URL", PersonDetailPage.class);
+	  		  setResponsePage(new ErrorReportPage(error));
+	    	}
+	    	person = UserApplication.getRepository().findPersonBySha1Sum(RDFUtils.getSHA1(email));
+	    } else {
+	      UserReportableException error = new UserReportableException(
+	          "URL does not have sufficient parameters for finding a unique person", PersonDetailPage.class);
+	      setResponsePage(new ErrorReportPage(error));
+	    }
+	    
+	    if (person == null) {
+		      setResponsePage(new PersonListPage());
+	    } else {
+	        populatePage(person);
+	    }
+    } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
-          "Unable to get simalID parameter from URL", PersonDetailPage.class);
+        "Unable to get person from the repository", PersonDetailPage.class,
+        e);
       setResponsePage(new ErrorReportPage(error));
-    }
+    } catch (NoSuchAlgorithmException e) {
+        UserReportableException error = new UserReportableException(
+                "Unable to calculate SHA1 has for email", PersonDetailPage.class,
+                e);
+        setResponsePage(new ErrorReportPage(error));
+	}
   }
 
   public PersonDetailPage(IPerson person) {

@@ -46,6 +46,7 @@ import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.tools.Ohloh;
 import uk.ac.osswatch.simal.tools.PTSWImport;
+import uk.ac.osswatch.simal.wicket.report.ProjectsSummaryReportPage;
 import uk.ac.osswatch.simal.wicket.tools.OhlohFormInputModel;
 
 /**
@@ -107,6 +108,13 @@ public class ToolsPage extends BasePage {
         } catch (UserReportableException e) {
           setResponsePage(new ErrorReportPage(e));
         }
+      }
+    });
+
+    add(new Link("projectsReportLink") {
+
+      public void onClick() {
+          setResponsePage(new ProjectsSummaryReportPage());
       }
     });
 

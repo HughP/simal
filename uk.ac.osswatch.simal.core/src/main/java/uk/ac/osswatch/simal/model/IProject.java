@@ -25,7 +25,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * doap.Project objects.
  * 
  */
-public interface IProject extends IDoapResource, IProjectService {
+public interface IProject extends IDoapResource {
 
   /**
    * Set the Simal ID for this project. This is a unique identifier within the
