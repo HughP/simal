@@ -18,7 +18,17 @@ If you want to reset the demo data follow these steps:
 
 On the Tools page of the demo server select "Remove all data from the repository" - be very *careful* with this, it will delete all data in the server. Only use it if you know what you are doing.
 
-_NOTE: The need to stop and restart the server are as a result of ISSUE 142_
+NOTE: you will need to stop the server as described in the next section before proceeding.
+
+Now deploy the approved data using:
+
+{{{
+./deployData.sh
+}}}
+
+This will deploy all the data files we have that are known to work cleanly in the Simal repository. We need to do this because the update command we ran earlier deleted the current demo data. This is done to ensure hte demo server isn't filled up with spam entries, we periodically reset it in this way.
+
+= Stop the currently running process =
 
 {{{
 ps aux | grep maven
@@ -29,14 +39,6 @@ Note the process ID for the currently running instance of Simal.
 {{{
 kill [SIMAL_PROCESS_ID]
 }}}
-
-Now deploy the approved data using:
-
-{{{
-./deployData.sh
-}}}
-
-This will deploy all the data files we have that are known to work cleanly in the Simal repository. We need to do this because the update command we ran earlier deleted the current demo data. This is done to ensure hte demo server isn't filled up with spam entries, we periodically reset it in this way.
 
 = Run the Server =
 
