@@ -17,11 +17,13 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
  * API functionality for working with Person objects.
@@ -61,7 +63,7 @@ public class PersonAPI extends AbstractHandler {
   }
 
   /**
-   * Get all a person record.
+   * Get a person record.
    * 
    * @param cmd
    * @return
@@ -69,29 +71,46 @@ public class PersonAPI extends AbstractHandler {
    */
   public String getPerson(RESTCommand cmd) throws SimalAPIException {
     String id = command.getPersonID();
+    String email = command.getPersonEMail();
+	IPerson person = null;
+	  
+    try {
+  	  if (id != null) {
+	        person = getRepository().findPersonById(
+	            getRepository().getUniqueSimalID(id));
+	          if (person == null) {
+	              throw new SimalAPIException("Person with Simal ID " + id
+	           		  + " does not exist");
+	            }
+  	  } else if (email != null){
+  		person = getRepository().findPersonBySha1Sum(RDFUtils.getSHA1(email));
+          if (person == null) {
+              throw new SimalAPIException("Person with email " + email
+           		  + " does not exist");
+            }
+  	  } else {
+  		  throw new SimalAPIException("Must provide sufficient parameters to identify a person, see REST API documentation for more details");
+  	  }
+    } catch (SimalRepositoryException e) {
+      throw new SimalAPIException(
+          "Unable to get XML representation of project from the repository",
+          e);
+    } catch (NoSuchAlgorithmException e) {
+        throw new SimalAPIException(
+                "Unable to generate an SHA1 hash of email: " + email,
+                e);
+	}
 
     if (command.isXML()) {
       try {
-        IPerson person = getRepository().findPersonById(
-            getRepository().getUniqueSimalID(id));
-        if (person == null) {
-          throw new SimalAPIException("Person with Simal ID " + id
-              + " does not exist");
-        }
-        return person.toXML();
+    	return person.toXML();
       } catch (SimalRepositoryException e) {
         throw new SimalAPIException(
             "Unable to get XML representation of project from the repository",
             e);
       }
     } else if (command.isJSON()) {
-      try {
-        return getRepository().findPersonById(id).toJSON(false);
-      } catch (SimalRepositoryException e) {
-        throw new SimalAPIException(
-            "Unable to get JSON representation of project from the repository",
-            e);
-      }
+        return person.toJSON(false);
     } else {
       throw new SimalAPIException("Unkown format requested - " + command);
     }

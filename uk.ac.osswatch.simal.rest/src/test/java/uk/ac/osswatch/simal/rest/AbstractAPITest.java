@@ -31,6 +31,7 @@ public abstract class AbstractAPITest {
 
   private static ISimalRepository repo;
   protected static String testDeveloperID;
+  protected static String testDeveloperEMail;
   protected static String testProjectID;
 
   @BeforeClass
@@ -44,6 +45,7 @@ public abstract class AbstractAPITest {
     IPerson developer = repo
         .findPersonBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getSimalID();
+    testDeveloperEMail = developer.getEmail().toArray()[0].toString();
     Set<IProject> projects = developer.getProjects();
 	testProjectID = ((IProject) projects.toArray()[0])
         .getSimalID();

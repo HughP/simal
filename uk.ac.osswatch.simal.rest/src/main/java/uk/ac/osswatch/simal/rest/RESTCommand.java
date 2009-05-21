@@ -40,6 +40,7 @@ public final class RESTCommand {
 
   public static final String PARAM_PERSON_ID = "/person-";
   public static final String PARAM_PROJECT_ID = "/project-";
+  public static final String PARAM_PERSON_EMAIL = "/email-";
   public static final String PARAM_SOURCE = "/source-";
   public static final String PARAM_RDF = "rdf";
 
@@ -147,6 +148,24 @@ public final class RESTCommand {
     return params.get(PARAM_PERSON_ID);
   }
 
+  /**
+   * Get the EMail of the person that this command relates to. 
+   * 
+   * @return The EMAil of the person or null if not applicable.
+   */
+  public String getPersonEMail() {
+    return params.get(PARAM_PERSON_EMAIL);
+  }
+
+  /**
+   * Set the EMail of the person that this command relates to. 
+   * 
+   * @param email The EMAil of the person or null if not applicable.
+   */
+  public void setPersonEMail(String email) {
+    params.put(PARAM_PERSON_EMAIL, email);
+  }
+  
   /**
    * Test to see if this command is a person command. That is, a command that
    * operates on a person.
@@ -273,6 +292,7 @@ public final class RESTCommand {
       RESTCommand cmd = new RESTCommand();
       cmd.setCommandMethod(extractCommandMethod(cmdString));
       cmd.setPersonID(extractPersonId(cmdString));
+      cmd.setPersonEMail(extractPersonEMail(cmdString));
       cmd.setProjectID(extractProjectId(cmdString));
       cmd.setSource(extractSource(cmdString));
       cmd.setFormat(extractFormat(cmdString));
@@ -343,6 +363,24 @@ public final class RESTCommand {
         + PARAM_PROJECT_ID.length();
     int paramEnd = cmdString.indexOf("/", paramStart);
     if (paramEnd < 0 || paramStart < PARAM_PROJECT_ID.length()) {
+      return null;
+    } else {
+      return cmdString.substring(paramStart, paramEnd);
+    }
+  }
+  
+  /**
+   * Extract the person EMail from the supplied URI command string.
+   * 
+   * @param cmdString
+   *          the PathInfo portion of a URI representing a REST command
+   * @return the person EMail if it is present, or null if not present.
+   */
+  private static String extractPersonEMail(String cmdString) {
+    int paramStart = cmdString.indexOf(PARAM_PERSON_EMAIL)
+        + PARAM_PERSON_EMAIL.length();
+    int paramEnd = cmdString.indexOf("/", paramStart);
+    if (paramEnd < 0 || paramStart < PARAM_PERSON_EMAIL.length()) {
       return null;
     } else {
       return cmdString.substring(paramStart, paramEnd);

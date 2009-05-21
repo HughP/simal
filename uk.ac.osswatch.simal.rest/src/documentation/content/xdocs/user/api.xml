@@ -110,9 +110,17 @@
       <section>
         <title>Retrieve a Single Person</title>
 
-        <p>To retrieve the details of a single person use:</p>
+        <p>To retrieve the details of a single person use one of:</p>
 
         <source>http://foo.com/simal-rest/person/person-ID/FORMAT</source>
+        
+        <p>Where ID is replaced with the Simal ID for the required person and
+        FORMAT is replaced with the data format required.</p>
+        
+        <source>http://foo.com/simal-rest/person/email-EMAIL/FORMAT</source>
+        
+        <p>Where EMAIL is replaced with the email address for the required person and
+        FORMAT is replaced with the data format required.</p>
       </section>
 
       <section>
