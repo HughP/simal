@@ -879,9 +879,8 @@ public boolean containsProject(String uri) {
         Node root = doc.createElementNS(RDFUtils.RDF_NS, "RDF");
         root.appendChild(doc.importNode(docElement, true));
         doc.appendChild(root);
-
-        addProject(doc.getDocumentElement());
       }
+      addProject(doc.getDocumentElement());
     } else {
       for (int i = 0; i < projects.getLength(); i = i + 1) {
         Element project = (Element) projects.item(i);
