@@ -25,7 +25,7 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.jena.ProjectService;
 
-public class testProjectService extends BaseRepositoryTest {
+public class TestProjectService extends BaseRepositoryTest {
 
 	
 	@Test
