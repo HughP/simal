@@ -175,7 +175,7 @@ public class DoapResource extends Resource implements IDoapResource {
     if (desc == null || desc.equals("")) {
       desc = getDescription();
       if (desc != null && desc.length() > 128) {
-        desc = desc.substring(128);
+        desc = desc.substring(128) + "...";
       }
     }
     if (desc == null) {
