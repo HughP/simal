@@ -76,4 +76,17 @@ public class TestPersonAPI extends AbstractAPITest {
     assertTrue("JSON does not include person name: JSON = " + result, result
         .contains("\"label\":\"Joe Blogs Maintainer\""));
   }
+
+  @Test
+  public void testGetPersonByEmail() throws SimalAPIException {
+	    RESTCommand command = RESTCommand.createCommand(RESTCommand.PERSON
+	            + RESTCommand.PARAM_PERSON_EMAIL + testDeveloperEMail
+	            + RESTCommand.FORMAT_XML);
+	    IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
+	    String result = handler.execute();
+	    assertNotNull("No XML Returned by getPerson", result);
+
+	    assertTrue("XML file does not appear to describe a person", result
+	        .contains("Person>"));
+  }
 }
