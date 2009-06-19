@@ -136,7 +136,7 @@ public class Review extends Resource implements IReview {
 	}
 
 	public String getShortDate() {
-		DateFormat df = DateFormat.getDateInstance();
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
 		return df.format(getDate().getTime());
 	}
 }
