@@ -151,15 +151,15 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
         	Iterator<IProject> projects;
 			try {
 				projects = ((IPerson)model.getObject()).getProjects().iterator();
-	        	String label = "";
+	        	StringBuffer label = new StringBuffer();
 				while (projects.hasNext()) {
 	        		IProject project = projects.next();
-	        		label = label + project.getLabel();
+	        		label.append(project.getLabel());
 	        		if (projects.hasNext()) {
-	        			label = label + ", ";
+	        			label.append(", ");
 	        		}
 	        	}
-	            cellItem.add(new Label(componentId, label));
+	            cellItem.add(new Label(componentId, label.toString()));
 			} catch (SimalRepositoryException e) {
 				cellItem.add(new Label(componentId, "ERROR"));
 			}

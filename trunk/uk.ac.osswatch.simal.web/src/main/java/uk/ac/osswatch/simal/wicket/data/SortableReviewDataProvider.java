@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.wicket.data;
  * under the License.                                                *
  */
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -72,7 +73,7 @@ public class SortableReviewDataProvider extends
     return comparator;
   }
 
-  private class ReviewComparator implements Comparator<IReview> {
+  private static class ReviewComparator implements Comparator<IReview>, Serializable {
     private static final long serialVersionUID = 1L;
 
     public int compare(IReview review1, IReview review2) {
@@ -94,12 +95,7 @@ public Iterator<? extends IReview> iterator(int first, int count) {
 
 public IModel<IReview> model(IReview object) {
     try {
-        if (object instanceof IReview) {
           return new DetachableReviewModel((IReview) object);
-        } else {
-          throw new IllegalArgumentException(
-              "sortableReviewResourceDataProvider only works for IReview models - should it work for more? Your help appreciated.");
-        }
       } catch (SimalRepositoryException e) {
         logger.warn("Error reading from repository", e);
         return new Model("Error");

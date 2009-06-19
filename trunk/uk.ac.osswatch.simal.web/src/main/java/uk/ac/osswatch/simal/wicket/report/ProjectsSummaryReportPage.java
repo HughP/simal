@@ -55,7 +55,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  int numOfProjectsWithoutRCS = numOfProjects - numOfProjectsWithRCS;
 		  add(new Label("numOfProjectsWithoutRCS", Integer.toString(numOfProjectsWithoutRCS)));
 
-		  Double percentOfProjectsWithRCS = new Double(((double)numOfProjectsWithRCS / (double)numOfProjects) * 100);
+		  Double percentOfProjectsWithRCS = Double.valueOf(((double)numOfProjectsWithRCS / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithRCS", Math.round(percentOfProjectsWithRCS) + "%"));
 	}
 
@@ -66,7 +66,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  int numOfProjectsWithoutHomepage = numOfProjects - numOfProjectsWithHomepage;
 		  add(new Label("numOfProjectsWithoutHomepage", Integer.toString(numOfProjectsWithoutHomepage)));
 
-		  Double percentOfProjectsWithHomepage = new Double(((double)numOfProjectsWithHomepage / (double)numOfProjects) * 100);
+		  Double percentOfProjectsWithHomepage = Double.valueOf(((double)numOfProjectsWithHomepage / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithHomepage", Math.round(percentOfProjectsWithHomepage) + "%"));
 	}
 
@@ -77,7 +77,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  int numOfProjectsWithoutMailingList = numOfProjects - numOfProjectsWithMailingList;
 		  add(new Label("numOfProjectsWithoutMailingList", Integer.toString(numOfProjectsWithoutMailingList)));
 
-		  Double percentOfProjectsWithMailingList = new Double(((double)numOfProjectsWithMailingList / (double)numOfProjects) * 100);
+		  Double percentOfProjectsWithMailingList = Double.valueOf(((double)numOfProjectsWithMailingList / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithMailingList", Math.round(percentOfProjectsWithMailingList) + "%"));
 	}
 
@@ -88,7 +88,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  int numOfProjectsWithoutMaintainer = numOfProjects - numOfProjectsWithMaintainer;
 		  add(new Label("numOfProjectsWithoutMaintainer", Integer.toString(numOfProjectsWithoutMaintainer)));
 
-		  Double percentOfProjectsWithMaintainer = new Double(((double)numOfProjectsWithMaintainer / (double)numOfProjects) * 100);
+		  Double percentOfProjectsWithMaintainer = Double.valueOf(((double)numOfProjectsWithMaintainer / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithMaintainer", Math.round(percentOfProjectsWithMaintainer) + "%"));
 	}
 
@@ -99,7 +99,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  int numOfProjectsWithoutBugDatabase = numOfProjects - numOfProjectsWithBugDatabase;
 		  add(new Label("numOfProjectsWithoutBugDatabase", Integer.toString(numOfProjectsWithoutBugDatabase)));
 
-		  Double percentOfProjectsWithBugDatabase = new Double(((double)numOfProjectsWithBugDatabase / (double)numOfProjects) * 100);
+		  Double percentOfProjectsWithBugDatabase = Double.valueOf(((double)numOfProjectsWithBugDatabase / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithBugDatabase", Math.round(percentOfProjectsWithBugDatabase) + "%"));
 	}
 
@@ -110,7 +110,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  int numOfProjectsWithoutRelease = numOfProjects - numOfProjectsWithRelease;
 		  add(new Label("numOfProjectsWithoutRelease", Integer.toString(numOfProjectsWithoutRelease)));
 
-		  Double percentOfProjectsWithRelease = new Double(((double)numOfProjectsWithRelease / (double)numOfProjects) * 100);
+		  Double percentOfProjectsWithRelease = Double.valueOf(((double)numOfProjectsWithRelease / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithRelease", Math.round(percentOfProjectsWithRelease) + "%"));
 	}
 	
