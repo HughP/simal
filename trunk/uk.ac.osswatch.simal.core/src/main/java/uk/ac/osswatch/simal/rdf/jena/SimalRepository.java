@@ -597,17 +597,12 @@ public final class SimalRepository extends AbstractSimalRepository {
     return filterProjectsBySPARQL(queryStr);
   }
 
+  /**
+   * @deprecated
+   */
   public IProject findProjectBySeeAlso(String seeAlso)
       throws SimalRepositoryException {
-    String queryStr = "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?project WHERE { " + "?project a simal:Project . "
-        + "?project rdfs:seeAlso <" + seeAlso + ">}";
-
-    IProject project = findProjectBySPARQL(queryStr);
-
-    return project;
+    return getProjectService().findProjectBySeeAlso(seeAlso);
   }
 
   /**
@@ -769,16 +764,11 @@ public final class SimalRepository extends AbstractSimalRepository {
 	}
   }
 
+  /**
+   * @deprecated
+   */
   public IProject getProject(String uri) throws SimalRepositoryException {
-	if(uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
-	    if (containsProject(uri)) {
-	      return new Project(model.getResource(uri));
-	    } else {
-	      return null;
-	    }
-	} else {
-		return findProjectBySeeAlso(uri);
-	}
+	return getProjectService().getProject(uri);
   }
 
   public IOrganisation getOrganisation(String uri)
@@ -790,14 +780,11 @@ public final class SimalRepository extends AbstractSimalRepository {
     }
   }
 
-public boolean containsProject(String uri) {
-    Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    Statement doap = model.createStatement(r, RDF.type, o);
-
-    o = model.createProperty(RDFUtils.SIMAL_PROJECT);
-    Statement simal = model.createStatement(r, RDF.type, o);
-    return model.contains(doap) || model.contains(simal);
+  /**
+   * @deprecated
+   */
+  public boolean containsProject(String uri) {
+    return getProjectService().containsProject(uri);
   }
 
   /**
