@@ -21,9 +21,12 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URISyntaxException;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -32,6 +35,9 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestCategory extends BaseRepositoryTest {
+  private static final Logger logger = LoggerFactory
+      .getLogger(TestCategory.class);
+  
   @Test
   public void testGetCategoryLabel() throws SimalRepositoryException,
       URISyntaxException {
@@ -75,6 +81,10 @@ public class TestCategory extends BaseRepositoryTest {
   public void testGetPeople() throws SimalRepositoryException {
     IDoapCategory category = (IDoapCategory) project1.getCategories().toArray()[0];
     Set<IPerson> people = category.getPeople();
+    Iterator<IPerson>itr = people.iterator();
+    while (itr.hasNext()) {
+    	logger.debug("Got person: " + itr.next().toString());
+    }
     assertEquals("Not got the right number of people for the test category", 9, people.size());
   }
 }
