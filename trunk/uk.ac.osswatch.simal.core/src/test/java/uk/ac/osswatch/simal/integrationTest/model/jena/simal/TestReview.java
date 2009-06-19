@@ -78,6 +78,6 @@ public class TestReview extends BaseRepositoryTest {
 		Set<IReview> reviews = service.getReviews();
 		IReview review = (IReview)reviews.toArray()[0];
 		String date = review.getShortDate();
-		assertEquals("Short date is not correct", "5/22/2009", date);
+		assertEquals("Short date is not correct", "5/22/09", date);
 	}
 }
