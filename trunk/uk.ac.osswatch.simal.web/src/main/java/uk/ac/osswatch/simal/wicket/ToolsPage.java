@@ -326,13 +326,13 @@ public class ToolsPage extends BasePage {
 	          try {
         	    switch (type) {
           	      case PROGRAMMES:
-					Pims.importProgrammes(newFile.toURL());
+					Pims.importProgrammes(newFile.toURI().toURL());
 	                break;
         	      case PROJECTS:
-	                Pims.importProjects(newFile.toURL());
+	                Pims.importProjects(newFile.toURI().toURL());
 	                break;
         	      case PROJECT_CONTACTS:
-	                Pims.importProjectContacts(newFile.toURL());
+	                Pims.importProjectContacts(newFile.toURI().toURL());
 	                break;
     		      default:
     			    setResponsePage(new ErrorReportPage(new UserReportableException(

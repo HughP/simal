@@ -40,7 +40,7 @@ public class TestProjectSummaryPanel extends TestBase {
       public Panel getTestPanel(String panelId) {
         try {
           return new ProjectSummaryPanel(panelId, UserApplication
-              .getRepository().getProject(projectURI));
+              .getRepository().getProjectService().getProject(projectURI));
         } catch (SimalRepositoryException e) {
           fail(e.getMessage());
           return null;

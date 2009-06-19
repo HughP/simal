@@ -39,7 +39,7 @@ public class TestReleasesPanel extends TestBase {
       public Panel getTestPanel(String panelId) {
         try {
           return new ReleasesPanel(panelId, UserApplication.getRepository()
-              .getProject(projectURI).getReleases());
+              .getProjectService().getProject(projectURI).getReleases());
         } catch (SimalRepositoryException e) {
           fail(e.getMessage());
           return null;
