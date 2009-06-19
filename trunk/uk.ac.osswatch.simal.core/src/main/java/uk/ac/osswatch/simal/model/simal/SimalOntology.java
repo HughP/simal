@@ -1,5 +1,5 @@
 /* CVS $Id: $ */
-package uk.ac.osswatch.simal.model;
+package uk.ac.osswatch.simal.model.simal;
 
 /*
  * 
@@ -74,5 +74,13 @@ public class SimalOntology {
 
   public static final Property PROJECT_ID = m_model
       .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#projectId");
+  
+  public static final Property REVIEW = m_model
+    .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#Review");
 
+  public static final Property DATE = m_model
+    .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#date");
+
+  public static final Property TYPE = m_model
+    .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#type");
 }

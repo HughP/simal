@@ -33,7 +33,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.SimalOntology;
+import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.TestBase;

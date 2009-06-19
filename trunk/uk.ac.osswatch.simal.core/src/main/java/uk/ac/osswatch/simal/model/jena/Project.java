@@ -43,7 +43,9 @@ import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.SimalOntology;
+import uk.ac.osswatch.simal.model.simal.IReview;
+import uk.ac.osswatch.simal.model.simal.SimalOntology;
+import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
@@ -474,5 +476,36 @@ public class Project extends DoapResource implements IProject {
     }
     return feeds;
   }
+
+public int getOpennessRating() throws SimalRepositoryException {
+	IReviewService service = SimalRepository.getInstance().getReviewService();
+	Set<IReview> reviews = service.getReviewsForProject(this);
+	if (reviews.size() == 0) {
+		throw new SimalRepositoryException("Unable to get an openness rating since there has been no review of this entry yet");
+	}
+	
+	int score = 0;
+	if (getDownloadPages().size() > 0) {
+		score = score + 1;
+	}
+	if (getFeeds().size() > 0) {
+		score = score + 1;
+	}
+	if (getHomepages().size() > 0) {
+		score = score + 1;
+	}
+	if (getIssueTrackers().size() > 0) {
+		score = score + 1;
+	}
+	if (getMailingLists().size() > 0) {
+		score = score + 1;
+	}
+	if (getRepositories().size() > 0) {
+		score = score + 1;
+	}
+	
+	int rating = (score/6) * 100;
+	return rating;
+}
 
 }

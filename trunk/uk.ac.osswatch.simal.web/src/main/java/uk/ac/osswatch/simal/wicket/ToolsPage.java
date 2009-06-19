@@ -67,6 +67,8 @@ public class ToolsPage extends BasePage {
           .getRepository().getAllPeople().size())));
       add(new Label("numOfCategories", Integer.toString(UserApplication
           .getRepository().getAllCategories().size())));
+      add(new Label("numOfReviews", Integer.toString(UserApplication
+              .getRepository().getReviewService().getReviews().size())));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get repository statistics", ToolsPage.class, e);

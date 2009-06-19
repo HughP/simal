@@ -42,6 +42,7 @@ public class ModelSupport {
   public static final String TEST_FILE_URI_NO_QNAME = "testData/testNoRDFAboutDOAP.xml";
   public static final String TEST_FILE_URI_WITH_QNAME = "testData/testDOAP.xml";
   public static final String TEST_FILE_SEE_ALSO = "testData/testSeeAlso.xml";
+  private static final String TEST_REVIEW = "testData/testReview.xml";
   private static final String TEST_FILE_OSSWATCH = "testData/ossWatchDOAP.xml";
   public static final String TEST_FILE_REMOTE_URL = "http://svn.apache.org/repos/asf/velocity/site/site/doap_anakia.rdf";
 
@@ -94,6 +95,8 @@ public class ModelSupport {
       
       repo.addRDFXML(ISimalRepository.class.getClassLoader().getResource(
               ORGANISATION_RDF), TEST_FILE_BASE_URL);
+      repo.addRDFXML(ISimalRepository.class.getClassLoader().getResource(
+              TEST_REVIEW), TEST_FILE_BASE_URL);
 
       addSimalData(repo);
       

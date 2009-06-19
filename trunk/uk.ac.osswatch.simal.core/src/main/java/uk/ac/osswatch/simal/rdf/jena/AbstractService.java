@@ -16,24 +16,23 @@ package uk.ac.osswatch.simal.rdf.jena;
  * under the License.
  * 
  */
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 
 public abstract class AbstractService {
-	ISimalRepository repo;
+	SimalRepository repo;
 	
 
 	/**
 	 * Set the repository this service is to work on.
 	 * @param repo
 	 */
-	protected void setRepository(ISimalRepository repo) {
+	protected void setRepository(SimalRepository repo) {
 		this.repo = repo;
 	}
 	
 	/**
 	 * Return the repository this service is operating on.
 	 */
-	protected ISimalRepository getRepository() {
+	protected SimalRepository getRepository() {
 		return this.repo;
 	}
 	

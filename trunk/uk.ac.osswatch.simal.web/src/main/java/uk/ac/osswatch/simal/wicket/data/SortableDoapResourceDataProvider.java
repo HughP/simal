@@ -95,6 +95,7 @@ public class SortableDoapResourceDataProvider extends
   }
 
   public Iterator<IDoapResource> iterator(int first, int count) {
+	// FIXME: Do we really need to test for duplicates here now that we have proper duplicate handling?
     Comparator<IDoapResource> comparator = getComparator();
     TreeSet<IDoapResource> treeSet = new TreeSet<IDoapResource>(comparator);
     treeSet.addAll(resources);
@@ -129,22 +130,21 @@ public class SortableDoapResourceDataProvider extends
 
   @SuppressWarnings("unchecked")
   public IModel<IResource> model(IResource object) {
-    try {
-      if (object instanceof IProject) {
-        return new DetachableProjectModel((IProject) object);
-      } else if (object instanceof IDoapCategory) {
-        return new DetachableCategoryModel((IDoapCategory) object);
-      } else if (object instanceof IDoapHomepage) {
-        return new DetachableHomepageModel((IDoapHomepage) object);
-      } else {
-        throw new IllegalArgumentException(
-            "sortableDoapResourceDataProvider only works for Project, Homepage an Category models - should it work for more? Your help appreciated.");
-      }
-    } catch (SimalRepositoryException e) {
-      logger.warn("Error reading from repository", e);
-      return new Model("Error");
-    }
-
+	    try {
+	        if (object instanceof IProject) {
+	          return new DetachableProjectModel((IProject) object);
+	        } else if (object instanceof IDoapCategory) {
+	          return new DetachableCategoryModel((IDoapCategory) object);
+	        } else if (object instanceof IDoapHomepage) {
+	          return new DetachableHomepageModel((IDoapHomepage) object);
+	        } else {
+	          throw new IllegalArgumentException(
+	              "sortableDoapResourceDataProvider only works for Project, Homepage an Category models - should it work for more? Your help appreciated.");
+	        }
+	      } catch (SimalRepositoryException e) {
+	        logger.warn("Error reading from repository", e);
+	        return new Model("Error");
+	      }
   }
 
   public int size() {

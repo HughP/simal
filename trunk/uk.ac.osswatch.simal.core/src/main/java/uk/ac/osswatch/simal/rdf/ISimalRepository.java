@@ -28,7 +28,6 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.rdf.jena.ProjectService;
 
 /**
  * A class for handling common repository actions. Applications should not
@@ -104,6 +103,8 @@ public interface ISimalRepository {
    *          the URI of the project to retrieve
    * @return the project, or if no project with the given String exists Null
    * @throws SimalRepositoryException
+   * 
+   * @deprecated Use ProjectService.getProject(uri) instead
    */
   public IProject getProject(String uri) throws SimalRepositoryException;
   
@@ -196,6 +197,8 @@ public interface ISimalRepository {
    * @param seeAlso
    * @return
    * @throws SimalRepositoryException
+   * 
+   * @deprecated use ProjectService.findProjectBySeeAlso(seeAlso) instead
    */
   public IProject findProjectBySeeAlso(String seeAlso)
       throws SimalRepositoryException;
@@ -427,6 +430,8 @@ public interface ISimalRepository {
    * 
    * @param uri
    * @return
+   * 
+   * @deprecated Use ProjectService.containsProject(uri) instead
    */
   public boolean containsProject(String uri);
 
@@ -606,6 +611,12 @@ public interface ISimalRepository {
 	 * @param repo
 	 * @return
 	 */
-	public ProjectService getProjectService();
+	public IProjectService getProjectService();
+
+	/**
+	 * Get an instance of a review service operating on this repository.
+	 * @return
+	 */
+	public IReviewService getReviewService();
 
 }

@@ -49,6 +49,7 @@ public class SimalProperties {
   public static final String PROPERTY_SIMAL_NEXT_HOMEPAGE_ID = "simal.nextProjectID";
   public static final String PROPERTY_SIMAL_NEXT_PROJECT_ID = "simal.nextProjectID";
   public static final String PROPERTY_SIMAL_NEXT_PERSON_ID = "simal.nextPersonID";
+  public static final String PROPERTY_SIMAL_NEXT_REVIEW_ID = "simal.nextReviewID";
   public static final String PROPERTY_SIMAL_DOAP_FILE_STORE = "simal.doap.filestore";
 
   public static final String PROPERTY_LOCAL_PROPERTIES_LOCATION = "simal.local.properties.path";

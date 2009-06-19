@@ -33,35 +33,72 @@ public interface IProjectService {
 	 * Get all projects in the repository that have a revision control system recorded.
 	 * 
 	 * @return
+	 * @throws SimalRepositoryException 
 	 */
-	public Set<IProject> getProjectsWithRCS();
+	public Set<IProject> getProjectsWithRCS() throws SimalRepositoryException;
 
 	/**
 	 * Get all projects in the repository that have a homepage recorded.
 	 * 
 	 * @return
+	 * @throws SimalRepositoryException 
 	 */
-	public Set<IProject> getProjectsWithHomepage();
+	public Set<IProject> getProjectsWithHomepage() throws SimalRepositoryException;
 
 	/**
 	 * Get all projects in the repository that have a mailing list recorded.
 	 * 
 	 * @return
+	 * @throws SimalRepositoryException 
 	 */
-	public Set<IProject> getProjectsWithMailingList();
+	public Set<IProject> getProjectsWithMailingList() throws SimalRepositoryException;
 
 	/**
 	 * Get all projects in the repository that have a Maintainer recorded.
 	 * 
 	 * @return
+	 * @throws SimalRepositoryException 
 	 */
-	public Set<IProject> getProjectsWithMaintainer();
+	public Set<IProject> getProjectsWithMaintainer() throws SimalRepositoryException;
 
 	/**
 	 * Get all projects in the repository that have a release recorded.
 	 * 
 	 * @return
+	 * @throws SimalRepositoryException 
 	 */
-	public Set<IProject> getProjectsWithRelease();
+	public Set<IProject> getProjectsWithRelease() throws SimalRepositoryException;
 	
+	/**
+	 * Get all Bug database entries recorded in the repository.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public Set<IProject> getProjectsWithBugDatabase() throws SimalRepositoryException;
+
+	/**
+	 * Get a project from the repository. Return null if the project does not exist.
+	 * @param uri
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public IProject getProject(String uri) throws SimalRepositoryException;
+	  
+	  /**
+	   * Get a project with a given rdf:seeAlso value.
+	   * 
+	   * @param seeAlso
+	   * @return
+	   * @throws SimalRepositoryException
+	   */
+	  public IProject findProjectBySeeAlso(String seeAlso)
+	      throws SimalRepositoryException;
+
+	  /**
+	   * Find all projects returned using a SPARQL query.
+	   * 
+	   * @param queryStr
+	   * @return
+	   */
+	  public Set<IProject> findProjectsBySPARQL(String queryStr);
 }
