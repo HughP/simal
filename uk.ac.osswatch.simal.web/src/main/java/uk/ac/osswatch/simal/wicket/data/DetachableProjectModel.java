@@ -40,7 +40,7 @@ public class DetachableProjectModel extends LoadableDetachableModel {
   protected Object load() {
     IProject project;
     try {
-      project = UserApplication.getRepository().getProject(uri);
+      project = UserApplication.getRepository().getProjectService().getProject(uri);
     } catch (SimalRepositoryException e) {
       e.printStackTrace();
       project = null;

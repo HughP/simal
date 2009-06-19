@@ -75,12 +75,12 @@ public class TestDoapFormPage extends TestBase {
   @After
   public void cleanUp() throws SimalRepositoryException {
     logProjectData("after");
-    IProject project = UserApplication.getRepository().getProject(
+    IProject project = UserApplication.getRepository().getProjectService().getProject(
         "http://simal.oss-watch.ac.uk/loadFromFormTest#");
     if (project != null) {
       project.delete();
     }
-    project = UserApplication.getRepository().getProject(formInputURI);
+    project = UserApplication.getRepository().getProjectService().getProject(formInputURI);
     if (project != null) {
       project.delete();
     }
@@ -185,12 +185,12 @@ public class TestDoapFormPage extends TestBase {
     tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
 
-    IProject project = UserApplication.getRepository().findProjectBySeeAlso(
+    IProject project = UserApplication.getRepository().getProjectService().findProjectBySeeAlso(
         TEST_RAW_RDF_URI);
     assertNotNull(project);
 
     project.delete();
-    project = UserApplication.getRepository().findProjectBySeeAlso(
+    project = UserApplication.getRepository().getProjectService().findProjectBySeeAlso(
         TEST_RAW_RDF_URI);
     assertNull(project);
   }
@@ -208,7 +208,7 @@ public class TestDoapFormPage extends TestBase {
     tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
 
-    IProject project = UserApplication.getRepository().getProject(formInputURI);
+    IProject project = UserApplication.getRepository().getProjectService().getProject(formInputURI);
     assertNotNull(project);
     assertEquals("Name is not correct", TEST_NAME, project.getName());
     assertEquals("Short descritpion is not correct", TEST_SHORT_DESC, project

@@ -40,7 +40,7 @@ public class TestPersonSummaryPanel extends TestBase {
       public Panel getTestPanel(String panelId) {
         try {
           return new PersonSummaryPanel(panelId,
-              (IPerson) UserApplication.getRepository().getProject(projectURI)
+              (IPerson) UserApplication.getRepository().getProjectService().getProject(projectURI)
                   .getDevelopers().toArray()[0]);
         } catch (SimalRepositoryException e) {
           fail(e.getMessage());

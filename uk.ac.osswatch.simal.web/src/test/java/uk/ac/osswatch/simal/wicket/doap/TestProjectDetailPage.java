@@ -29,7 +29,6 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
-import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 
 /**
  * Simple test using the WicketTester
@@ -43,7 +42,7 @@ public class TestProjectDetailPage extends TestBase {
       public Page getTestPage() {
         try {
           return new ProjectDetailPage(UserApplication.getRepository()
-              .getProject(projectURI));
+              .getProjectService().getProject(projectURI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
           System.exit(1);
@@ -108,7 +107,7 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testAddMaintainer() throws SimalRepositoryException {
-    Set<IPerson> peopleBefore = UserApplication.getRepository().getProject(
+    Set<IPerson> peopleBefore = UserApplication.getRepository().getProjectService().getProject(
         projectURI).getMaintainers();
 
     tester.assertVisible("addMaintainerPanel");

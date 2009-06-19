@@ -46,7 +46,7 @@ public abstract class TestBase {
     UserApplication.setIsTest(true);
     ISimalRepository repository = UserApplication.getRepository();
 
-    IProject project = repository.findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+    IProject project = repository.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
     projectURI = project.getURI();
 
     IPerson developer = repository
