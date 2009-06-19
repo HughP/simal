@@ -94,7 +94,7 @@ public class Review extends Resource implements IReview {
 
 	public String getType() {
 		String type = getLiteralValue(SimalOntology.TYPE);
-		if (type == null || type =="") {
+		if (type == null || type.equals("")) {
 			return "Unknown type";
 		} else {
 			return type;
