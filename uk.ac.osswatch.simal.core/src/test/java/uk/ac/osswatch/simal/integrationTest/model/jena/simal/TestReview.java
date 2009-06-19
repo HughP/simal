@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.Calendar;
 import java.util.Set;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
@@ -32,21 +33,24 @@ import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestReview extends BaseRepositoryTest {
+	
+	static IReview review;
+
+    @BeforeClass
+	public static void getTestReview() {
+		IReviewService service = getRepository().getReviewService();
+		Set<IReview> reviews = service.getReviews();
+		review = (IReview) reviews.toArray()[0];
+	}
 
 	@Test
 	public void testPerson() throws SimalException {
-		IReviewService service = getRepository().getReviewService();
-		Set<IReview> reviews = service.getReviews();
-		IReview review = (IReview) reviews.toArray()[0];
 		assertEquals("Got the wrong person for this review", "http://people.apache.org/~rgardler/#me", review.getReviewer().getURI());
 	}
 
 	
 	@Test
 	public void testProject() throws SimalException {
-		IReviewService service = getRepository().getReviewService();
-		Set<IReview> reviews = service.getReviews();
-		IReview review = (IReview)reviews.toArray()[0];
 		IProject project = review.getProject();
 		assertEquals("We have the wrong project for the test review", "http://simal.oss-watch.ac.uk/simalTest#", project.getURI());
 	}
@@ -63,9 +67,6 @@ public class TestReview extends BaseRepositoryTest {
 	
 	@Test
 	public void getDate() throws SimalException {
-		IReviewService service = getRepository().getReviewService();
-		Set<IReview> reviews = service.getReviews();
-		IReview review = (IReview)reviews.toArray()[0];
 		Calendar date = review.getDate();
 		assertEquals("We have the wrong year in the date for the test review", 2009, date.get(Calendar.YEAR));
 		assertEquals("We have the wrong month in the date for the test review", 4, date.get(Calendar.MONTH));
@@ -74,9 +75,6 @@ public class TestReview extends BaseRepositoryTest {
 	
 	@Test
 	public void getShortDate() {
-		IReviewService service = getRepository().getReviewService();
-		Set<IReview> reviews = service.getReviews();
-		IReview review = (IReview)reviews.toArray()[0];
 		String date = review.getShortDate();
 		assertEquals("Short date is not correct", "5/22/09", date);
 	}
