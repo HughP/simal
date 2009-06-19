@@ -85,6 +85,6 @@ public class TestCategory extends BaseRepositoryTest {
     while (itr.hasNext()) {
     	logger.debug("Got person: " + itr.next().toString());
     }
-    assertEquals("Not got the right number of people for the test category", 10, people.size());
+    assertEquals("Not got the right number of people for the test category", 9, people.size());
   }
 }

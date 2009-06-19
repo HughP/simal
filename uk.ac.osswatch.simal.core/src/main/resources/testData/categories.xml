@@ -58,7 +58,6 @@
     <doap:programming-language>RDF</doap:programming-language>
     <doap:programming-language>XML</doap:programming-language>
 
-
     <doap:maintainer>
       <foaf:Person rdf:about="http://people.apache.org/~rgardler/#me">
         <foaf:name>Ross Gardler</foaf:name>
@@ -69,7 +68,7 @@
     
   <!-- Simal Test Categories -->
   <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/simalIDTest#" rdfs:label="Simal ID Test" simal:categoryId="1"/>
-  <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" rdfs:label="DOAP Test"/>
+<!-- <doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" rdfs:label="DOAP Test"/> -->
   <doap:category rdf:resource="" rdfs:label="unknown category"/>
 </doap:Project>
 </rdf:RDF>

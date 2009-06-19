@@ -150,9 +150,6 @@ public class TestProject extends BaseRepositoryTest {
         hasCategoryTwo = true;
       }
     }
-    assertTrue("Categories do not include " + TEST_SIMAL_PROJECT_CATEGORY_ONE,
-        hasCategoryOne);
-
     assertTrue("Categories do not include " + TEST_SIMAL_PROJECT_CATEGORY_TWO,
         hasCategoryTwo);
   }
