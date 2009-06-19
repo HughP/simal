@@ -77,6 +77,6 @@ public class TestReview extends BaseRepositoryTest {
 	@Test
 	public void getShortDate() {
 		String date = review.getShortDate();
-		assertEquals("Short date is not correct", "5/22/09", date);
+		assertEquals("Short date is not correct", "22/05/09", date);
 	}
 }

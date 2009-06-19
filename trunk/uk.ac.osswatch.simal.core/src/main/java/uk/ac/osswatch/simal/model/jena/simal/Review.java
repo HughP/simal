@@ -16,11 +16,14 @@ package uk.ac.osswatch.simal.model.jena.simal;
  */
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -35,6 +38,8 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
 
 public class Review extends Resource implements IReview {
+  private static final Logger logger = LoggerFactory
+      .getLogger(Review.class);
 
 	private static final long serialVersionUID = 1L;
 
@@ -46,9 +51,15 @@ public class Review extends Resource implements IReview {
 	    String dateString = getLiteralValue(SimalOntology.DATE);
 	    if (dateString != null) {
 	      Calendar cal = GregorianCalendar.getInstance();
-	      cal.setTime(new Date(dateString));
+	      try {
+			cal.setTime(getDateFormatter().parse(dateString));
+		} catch (ParseException e) {
+			logger.error("Unable to parse date string", e);
+			return null;
+		}
 	      return cal;
 	    } else {
+	      logger.warn("Date of review is not set");
 	      return null;
 	    }
 	}
@@ -142,7 +153,7 @@ public class Review extends Resource implements IReview {
 	}
 
 	private DateFormat getDateFormatter() {
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH);
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.UK);
 		return df;
 	}
 }
