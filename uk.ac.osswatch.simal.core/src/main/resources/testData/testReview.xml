@@ -4,7 +4,7 @@
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
   You may obtain a copy of the License at
-  
+
   http://www.apache.org/licenses/LICENSE-2.0
   
   Unless required by applicable law or agreed to in writing, software
@@ -18,7 +18,7 @@
   xmlns:simal="http://oss-watch.ac.uk/ns/0.2/simal#">
 
   <simal:Review rdf:about="http://simal.oss-watch.ac.uk/Review#testReview">
-    <simal:date>2009/05/22</simal:date>
+    <simal:date>22/5/2009</simal:date>
     <simal:Person rdf:resource="http://people.apache.org/~rgardler/#me"/>
     <simal:Project rdf:resource="http://simal.oss-watch.ac.uk/simalTest#"/>
     <simal:type>Openness</simal:type>
