@@ -101,8 +101,7 @@ public class PimsTest extends BaseRepositoryTest {
 			if (name.equals("Programme A")) {
 				Set<IProject> projects = cat.getProjects();
 				
-				IProject proj = repo.getProject(Pims.PIMS_PROJECT_URI);
-				Set<IDoapCategory> pimsCats = proj.getCategories();
+				IProject proj = repo.getProjectService().getProject(Pims.PIMS_PROJECT_URI);
 				
 				assertEquals("Don't have the right number of current projects for Programme A",3, projects.size());
 				catIsValid = true;
@@ -138,14 +137,14 @@ public class PimsTest extends BaseRepositoryTest {
 	
 	@Test
 	public void testProjectCategories() throws SimalRepositoryException {
-		IProject project = repo.getProject("http://jisc.ac.uk/project#10");
+		IProject project = repo.getProjectService().getProject("http://jisc.ac.uk/project#10");
 		Set<IDoapCategory> cats = project.getCategories();
 		assertEquals("Project A has an incorrect number of categories", 1, cats.size());
 	}
 	
 	@Test
 	public void testProjectHomepages() throws SimalRepositoryException {
-		IProject project = repo.getProject("http://jisc.ac.uk/project#10");
+		IProject project = repo.getProjectService().getProject("http://jisc.ac.uk/project#10");
 		Set<IDoapHomepage> pages = project.getHomepages();
 		assertEquals("Project A has an incorrect number of homepages", 1, pages.size());
 	}
