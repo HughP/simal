@@ -75,7 +75,7 @@ public class TestProjectDetailPage extends TestBase {
 	  tester.assertVisible("reviews");
 	  tester.assertVisible("reviews:dataTable:rows:1");
 	  tester.assertLabel("reviews:dataTable:rows:1:cells:1:cell", "Simal DOAP Test");
-	  tester.assertLabel("reviews:dataTable:rows:1:cells:3:cell", "May 22, 2009");
+	  tester.assertLabel("reviews:dataTable:rows:1:cells:3:cell", "22/05/09");
   }
   
   @Test
