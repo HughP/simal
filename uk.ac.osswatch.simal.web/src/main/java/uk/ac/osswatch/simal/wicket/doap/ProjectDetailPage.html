@@ -25,9 +25,12 @@ Copyright 2008 University of Oxford
 <div class="content">
 
   <div class="widget">
-    <div class="content">  
+    <div class="content">
+      <p>  
       <input type="button" wicket:id = "deleteProjectActionLink" value="Delete"/>
-      <a wicket:id="doapLink" href="#">RDF</a>
+      <a wicket:id="doapLink" href="#">RDF</a> 
+      Openness: <span wicket:id="opennessRating">60</span>
+      </p> 
     </div>
   </div>
   
@@ -139,6 +142,17 @@ Copyright 2008 University of Oxford
       <div wicket:id="addTranslatorPanel">Add Translator Panel</div>
       <div wicket:id="translators">
         A list of translators
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="content">
+    <div class="singlecolumn">
+      <h3>Reviews</h3>
+      <div wicket:id="addReviewPanel">Add Review Panel</div>
+      <div wicket:id="reviews">
+        A list of reviews for this project
       </div>
     </div>
   </div>

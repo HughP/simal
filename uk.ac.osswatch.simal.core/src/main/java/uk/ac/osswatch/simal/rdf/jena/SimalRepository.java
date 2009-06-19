@@ -60,15 +60,16 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
-import uk.ac.osswatch.simal.model.SimalOntology;
 import uk.ac.osswatch.simal.model.jena.Category;
 import uk.ac.osswatch.simal.model.jena.Homepage;
 import uk.ac.osswatch.simal.model.jena.Organisation;
 import uk.ac.osswatch.simal.model.jena.Person;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
+import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -614,12 +615,10 @@ public final class SimalRepository extends AbstractSimalRepository {
    * If the query returns more than one result then
    * only one is returned.
    * 
-   * @TODO - we should probably throw an error if we get
-   * multiple projects returned otherwise the results will
-   * be unpredictable
-   * 
    * @param queryStr
    * @return
+   * 
+   * @deprecated Use ProjectService.findProjectbySPARQL(queryStr) instead
    */
   private IProject findProjectBySPARQL(String queryStr) {
     Query query = QueryFactory.create(queryStr);
@@ -643,6 +642,7 @@ public final class SimalRepository extends AbstractSimalRepository {
    * 
    * @param queryStr
    * @return
+   * @deprecated use ProjectService.findProjectsbySPARQL
    */
   public Set<IProject> filterProjectsBySPARQL(String queryStr) {
     Query query = QueryFactory.create(queryStr);
@@ -1262,7 +1262,11 @@ public boolean containsProject(String uri) {
 	 * Get the RDF model for this repository.
 	 * @return
 	 */
-	protected Model getModel() {
+	public Model getModel() {
 		return model;
+	}
+
+	public IReviewService getReviewService() {
+		return new ReviewService(this);
 	}
 }

@@ -37,7 +37,7 @@ import org.w3c.dom.Text;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.SimalOntology;
+import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -56,6 +56,8 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 public class RDFUtils {
   public static final String PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
   public static final String PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
+  public static final String SIMAL_NAMESPACE_URI = "http://oss-watch.ac.uk/ns/0.2/simal#";
+  public static final String SIMAL_REVIEW_NAMESPACE_URI = SIMAL_NAMESPACE_URI + "Review";
   public static final String CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
     
   public static final String SIMAL_NS = "http://oss-watch.ac.uk/ns/0.2/simal#";
@@ -199,6 +201,14 @@ public class RDFUtils {
     String uri = PERSON_NAMESPACE_URI;
     uri = uri + name;
     uri = uri + "#Person";
+    uri = encode(uri);
+    return uri;
+  }
+
+  public static String getDefaultReviewURI(String name) {
+    String uri = "http://simal.oss-watch.ac.uk/";
+    uri = uri + name;
+    uri = uri + "#Review";
     uri = encode(uri);
     return uri;
   }

@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.wicket.foaf;
+package uk.ac.osswatch.simal.wicket.simal;
 
 /*
  * Copyright 2008 University of Oxford
@@ -17,53 +17,45 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormValidatingBehavior;
 import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.time.Duration;
-import org.apache.wicket.validation.validator.EmailAddressValidator;
-import org.apache.wicket.validation.validator.StringValidator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.ErrorReportPage;
-import uk.ac.osswatch.simal.wicket.UserReportableException;
-import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
-import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
+import uk.ac.osswatch.simal.wicket.foaf.FoafFormInputModel;
+import uk.ac.osswatch.simal.wicket.panel.ReviewListPanel;
 
 /**
- * Container for adding a new person. This is an AJAX enabled container that
- * either shows the form for entering data about a person or a command link to
+ * Container for adding a new review. This is an AJAX enabled container that
+ * either shows the form for entering data about a review or a command link to
  * display the form.
  */
-public class AddPersonPanel extends Panel {
-  private static final long serialVersionUID = 8348295085251890400L;
-
-  public static final int HELPER = 1;
-  public static final int MAINTAINER = 2;
-  public static final int DEVELOPER = 4;
-  public static final int DOCUMENTOR = 8;
-  public static final int TESTER = 16;
-  public static final int TRANSLATOR = 32;
+public class AddReviewPanel extends Panel {
+  private static final long serialVersionUID = 1L;
+  private static final Logger logger = LoggerFactory.getLogger(AddReviewPanel.class);
 
   /** Visibility toggle so that either the link or the form is visible. */
   private boolean formVisible = false;
-  private FoafFormInputModel inputModel = new FoafFormInputModel();
-  TextField<String> nameField;
-  TextField<String> emailField;
+  private ReviewFormInputModel inputModel;
+  TextField<String> reviewerField;
+  TextField<String> projectField;
   FeedbackPanel feedback;
-  private int personRole;
   private IProject project;
 
-  private PersonListPanel updatePanel;
+  private ReviewListPanel updatePanel;
 
   /**
    * Create a new container that will initially display the command link to show
@@ -79,25 +71,25 @@ public class AddPersonPanel extends Panel {
    *          the container that should be updated when the person has been
    *          added (must have setOutputMarkupId(true)
    */
-  public AddPersonPanel(String wicketid, IProject project, int role,
-      PersonListPanel updatePanel) {
+  public AddReviewPanel(String wicketid, IProject project, IPerson reviewer,
+      ReviewListPanel updatePanel) {
     super(wicketid);
-    this.personRole = role;
     this.project = project;
     this.updatePanel = updatePanel;
+    this.inputModel = new ReviewFormInputModel(project, reviewer);
     setOutputMarkupId(true);
-    add(new NewPersonLink("newLink"));
-    add(new AddPersonForm("personForm"));
+    add(new NewReviewLink("newLink"));
+    add(new AddReviewForm("reviewForm", project));
   }
 
   /**
-   * Called when the new person link is clicked. Shows the form, and hides the
+   * Called when the new review link is clicked. Shows the form, and hides the
    * link.
    * 
    * @param target
    *          the request target.
    */
-  void onShowPersonForm(AjaxRequestTarget target) {
+  void onShowReviewForm(AjaxRequestTarget target) {
     formVisible = true;
     target.addComponent(this);
   }
@@ -108,7 +100,7 @@ public class AddPersonPanel extends Panel {
    * @param target
    *          the request target.
    */
-  void onHidePersonForm(AjaxRequestTarget target) {
+  void onHideReviewForm(AjaxRequestTarget target) {
     formVisible = false;
     target.addComponent(this);
   }
@@ -117,10 +109,10 @@ public class AddPersonPanel extends Panel {
    * Link for adding a person described in the form to the repository.
    * 
    */
-  private final class AddPersonButton extends AjaxFallbackButton {
+  private final class AddReviewButton extends AjaxFallbackButton {
     private static final long serialVersionUID = -3425972816770998300L;
 
-    private AddPersonButton(String id, Form form) {
+    private AddReviewButton(String id, Form form) {
       super(id, form);
     }
 
@@ -133,41 +125,16 @@ public class AddPersonPanel extends Panel {
      */
     @Override
     public void onSubmit(AjaxRequestTarget target, Form form) {
-      inputModel.setName(nameField.getValue());
-      inputModel.setEmail(emailField.getValue());
-      try {
-        IPerson person = inputModel.getPerson();
-        if (project != null) {
-          switch (personRole) {
-          case MAINTAINER:
-            project.addMaintainer(person);
-            break;
-          case DEVELOPER:
-            project.addDeveloper(person);
-            break;
-          case TESTER:
-            project.addTester(person);
-            break;
-          case HELPER:
-            project.addHelper(person);
-            break;
-          case DOCUMENTOR:
-            project.addDocumenter(person);
-            break;
-          case TRANSLATOR:
-            project.addTranslator(person);
-            break;
-          }
-        }
-        updatePanel.addPerson(person);
-      } catch (SimalRepositoryException e) {
-        UserReportableException error = new UserReportableException(
-            "Unable to generate a person from the given form data",
-            ProjectDetailPage.class, e);
-        setResponsePage(new ErrorReportPage(error));
-      }
-      onHidePersonForm(target);
-      target.addComponent(updatePanel);
+      //FIXME: inputModel.setEmail(reviewerField.getValue());
+      IReview review;
+	  try {
+		  review = inputModel.getReview();
+		  updatePanel.addReview(review);
+	      onHideReviewForm(target);
+	      target.addComponent(updatePanel);
+	  } catch (SimalRepositoryException e) {
+		logger.error("Unable to her the review from the input model", e);
+	  }
     }
 
     protected void onError(AjaxRequestTarget target, Form form) {
@@ -192,7 +159,7 @@ public class AddPersonPanel extends Panel {
      */
     @Override
     public void onClick(AjaxRequestTarget target) {
-      onHidePersonForm(target);
+      onHideReviewForm(target);
     }
 
   }
@@ -214,7 +181,7 @@ public class AddPersonPanel extends Panel {
      */
     @Override
     public void onClick(AjaxRequestTarget target) {
-      onShowPersonForm(target);
+      onShowReviewForm(target);
     }
 
     @Override
@@ -228,27 +195,27 @@ public class AddPersonPanel extends Panel {
    * Displays a form for creating a person record. The visibility of this
    * component is mutually exclusive with the visibility of the new person link.
    */
-  private final class AddPersonForm extends Form<FoafFormInputModel> {
+  private final class AddReviewForm extends Form<FoafFormInputModel> {
     private static final long serialVersionUID = 2931852197898067993L;
 
-    public AddPersonForm(String id) {
+    public AddReviewForm(String id, IProject project) {
       super(id, new CompoundPropertyModel<FoafFormInputModel>(inputModel));
       setOutputMarkupId(true);
 
       feedback = new FeedbackPanel("feedback");
       feedback.setOutputMarkupId(true);
       add(feedback);
-
-      add(nameField = new RequiredTextField<String>("name"));
-      nameField.add(StringValidator.minimumLength(4));
+/*
+      add(personField = new RequiredTextField<String>("name"));
+      personField.add(StringValidator.minimumLength(4));
 
       add(emailField = new RequiredTextField<String>("email"));
       emailField.add(EmailAddressValidator.getInstance());
-
+*/
       AjaxFormValidatingBehavior.addToAllFormComponents(this, "onkeyup",
           Duration.ONE_SECOND);
 
-      add(new AddPersonButton("addPersonButton", this));
+      add(new AddReviewButton("addReviewButton", this));
       add(new CancelLink("cancelLink"));
     }
 
@@ -266,6 +233,33 @@ public class AddPersonPanel extends Panel {
   void onCancel(AjaxRequestTarget target) {
     formVisible = false;
     target.addComponent(this);
+  }
+
+  /** Link for displaying the AddReviewForm. */
+  @SuppressWarnings("unchecked")
+  private final class NewReviewLink extends AjaxFallbackLink {
+    private static final long serialVersionUID = 1L;
+
+    public NewReviewLink(String id) {
+      super(id);
+    }
+
+    /**
+     * When the link is clicked the form is shown and the link is hidden.
+     * 
+     * @param target
+     *          the request target.
+     */
+    @Override
+    public void onClick(AjaxRequestTarget target) {
+      onShowReviewForm(target);
+    }
+
+    @Override
+    public boolean isVisible() {
+      return !formVisible;
+    }
+
   }
 
 }

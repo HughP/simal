@@ -29,6 +29,7 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
+import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 
 /**
  * Simple test using the WicketTester
@@ -68,7 +69,38 @@ public class TestProjectDetailPage extends TestBase {
 
     tester.assertVisible("footer");
   }
+  
+  @Test
+  public void testReviewList() {
+	  tester.assertVisible("reviews");
+	  tester.assertVisible("reviews:dataTable:rows:1");
+	  tester.assertLabel("reviews:dataTable:rows:1:cells:1:cell", "Simal DOAP Test");
+	  tester.assertLabel("reviews:dataTable:rows:1:cells:3:cell", "May 22, 2009");
+  }
+  
+  @Test
+  public void testShowHideReviewForm() {
+	    tester.assertVisible("addReviewPanel");
+	    tester.assertVisible("addReviewPanel:newLink");
 
+	    tester.assertInvisible("addReviewPanel:reviewForm");
+	    tester.clickLink("addReviewPanel:newLink");
+
+	    tester.assertVisible("addReviewPanel:reviewForm");
+	    tester.assertInvisible("addReviewPanel:newLink");
+
+	    tester.clickLink("addReviewPanel:reviewForm:cancelLink");
+	    tester.assertInvisible("addReviewPanel:reviewForm");
+  }
+
+  @Test
+  public void testAddReview() {
+	    tester.clickLink("addReviewPanel:newLink");
+	    FormTester formTester = tester.newFormTester("addReviewPanel:reviewForm");
+	    
+	    formTester.submit();
+  }
+  
   /**
    * Check the add Maintainer form is working OK.
    * 
@@ -89,13 +121,14 @@ public class TestProjectDetailPage extends TestBase {
     tester.assertVisible("addMaintainerPanel:personForm");
     tester.assertInvisible("addMaintainerPanel:newLink");
 
-    FormTester formTester = tester
-        .newFormTester("addMaintainerPanel:personForm");
     tester.clickLink("addMaintainerPanel:personForm:cancelLink");
     tester.assertInvisible("addMaintainerPanel:personForm");
 
     /**
      * Commented out as the submit does not seem to work with an Ajax form
+     * 
+     * FormTester formTester = tester
+     *   .newFormTester("addMaintainerPanel:personForm");
      * 
      * tester.clickLink("addMaintainerPanel:newLink"); formTester =
      * tester.newFormTester("addMaintainerPanel:personForm");
@@ -121,5 +154,11 @@ public class TestProjectDetailPage extends TestBase {
   @Test
   public void testMaintainers() {
     tester.assertVisible("maintainers");
+  }
+
+  @Test
+  public void testOpennessRating() {
+    tester.assertVisible("opennessRating");
+    tester.assertLabel("opennessRating", "100%");
   }
 }

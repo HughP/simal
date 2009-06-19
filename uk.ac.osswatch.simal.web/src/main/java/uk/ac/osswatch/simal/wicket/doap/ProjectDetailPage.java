@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IFeed;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rest.RESTCommand;
@@ -47,7 +48,9 @@ import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
 import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
+import uk.ac.osswatch.simal.wicket.panel.ReviewListPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
+import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
 
 public class ProjectDetailPage extends BasePage {
   private static final long serialVersionUID = 8719708525508677833L;
@@ -160,6 +163,11 @@ public class ProjectDetailPage extends BasePage {
       setResponsePage(new ErrorReportPage(error));
     }
 
+    try {
+      add(new Label("opennessRating", Integer.toString(project.getOpennessRating()) + "%"));
+    } catch (SimalRepositoryException e) {
+        add(new Label("opennessRating", "Not reviewed"));
+    }
     add(new Label("projectName", project.getName()));
 
     Label shortDesc = new Label("shortDesc", project.getShortDesc());
@@ -251,6 +259,27 @@ public class ProjectDetailPage extends BasePage {
 
     // sources
     add(getRepeatingDataSourcePanel("sources", "seeAlso", project.getSources()));
+    
+    // reviews
+    ReviewListPanel reviewList;
+	try {
+		reviewList = new ReviewListPanel("reviews",
+		    UserApplication.getRepository().getReviewService().getReviewsForProject(project));
+	    reviewList.setOutputMarkupId(true);
+	} catch (SimalRepositoryException e) {
+		reviewList = null;
+	}
+    add(reviewList);
+    
+    // FIXME: reviewer should be set from a drop down
+    IPerson reviewer;
+	try {
+		reviewer = UserApplication.getRepository().getPerson("http://people.apache.org/~rgardler/#me");
+	} catch (SimalRepositoryException e) {
+		logger.error("Unable to get Ross Gardler as a reviewer", e);
+		reviewer = null;
+	}
+    add(new AddReviewPanel("addReviewPanel", project, reviewer, reviewList));
 
     add(new Label("created", project.getCreated()));
   }

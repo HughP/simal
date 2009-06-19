@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Set;
 
 import org.junit.BeforeClass;
@@ -40,6 +41,7 @@ import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -481,5 +483,11 @@ public class TestProject extends BaseRepositoryTest {
   public void testGetFeeds() {
     Set<IFeed> feeds = project1.getFeeds();
     assertNotNull(feeds);
+  }
+  
+  @Test
+  public void testOpennessRating() throws SimalRepositoryException {
+	  int rating = project1.getOpennessRating();
+	  assertEquals("Got an incorrect openness rating for the test project", 100, rating);
   }
 }

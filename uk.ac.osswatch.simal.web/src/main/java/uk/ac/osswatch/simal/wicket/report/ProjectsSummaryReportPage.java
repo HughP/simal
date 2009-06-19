@@ -29,9 +29,7 @@ import uk.ac.osswatch.simal.wicket.UserReportableException;
  * This page provides summary information about the projects supplied.
  */
 public class ProjectsSummaryReportPage extends BasePage {
-
-
-	  private int numOfProjects;
+    private int numOfProjects;
 
 	public ProjectsSummaryReportPage() {
 	      try {

@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.model;
 import java.util.HashSet;
 import java.util.Set;
 
+import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -297,7 +298,7 @@ public interface IProject extends IDoapResource {
   public void removeTranslator(IPerson person) throws SimalRepositoryException;
 
   /**
-   * Add a person as a translator on this project. If the person dows not yet
+   * Add a person as a translator on this project. If the person does not yet
    * exist in the repository they will be added to the repository first.
    * 
    * @param person
@@ -310,5 +311,16 @@ public interface IProject extends IDoapResource {
    * @return
    */
   public Set<IFeed> getFeeds();
+  
+  /**
+   * Get a value between 0 and 100 that represents the openness of the project development model.
+   * 0 is low, 100 is high. This value is only available for projects that have been manually 
+   * reviewed at least once. However, even when a project had been reviewed we cannot assume that
+   * the value returned is up to date.
+   *  
+   * @throws SimalRepositoryException thrown is there is a problem calculating the openness rating or if
+   * no manual review has been conducted.
+   */
+ public int getOpennessRating() throws SimalRepositoryException;
 
 }
