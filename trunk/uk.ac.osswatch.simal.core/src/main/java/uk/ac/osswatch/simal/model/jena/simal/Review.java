@@ -22,9 +22,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.Statement;
-
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.Person;
@@ -33,6 +30,9 @@ import uk.ac.osswatch.simal.model.jena.Resource;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalException;
+
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.Statement;
 
 public class Review extends Resource implements IReview {
 

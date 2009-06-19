@@ -18,7 +18,6 @@ package uk.ac.osswatch.simal.model;
 import java.util.HashSet;
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**

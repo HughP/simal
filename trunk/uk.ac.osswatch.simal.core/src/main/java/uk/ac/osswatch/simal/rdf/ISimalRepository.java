@@ -15,6 +15,8 @@
  */
 package uk.ac.osswatch.simal.rdf;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
