@@ -138,15 +138,12 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetCategories() {
-    boolean hasCategoryOne = false;
     boolean hasCategoryTwo = false;
     Iterator<IDoapCategory> categories = project1.getCategories().iterator();
     String label;
     while (categories.hasNext()) {
       label = categories.next().getLabel();
-      if (label.equals(TEST_SIMAL_PROJECT_CATEGORY_ONE)) {
-        hasCategoryOne = true;
-      } else if (label.equals(TEST_SIMAL_PROJECT_CATEGORY_TWO)) {
+      if (label.equals(TEST_SIMAL_PROJECT_CATEGORY_TWO)) {
         hasCategoryTwo = true;
       }
     }

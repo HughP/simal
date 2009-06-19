@@ -27,7 +27,6 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.importData.Pims;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -100,8 +99,6 @@ public class PimsTest extends BaseRepositoryTest {
 			String name = cat.getName();
 			if (name.equals("Programme A")) {
 				Set<IProject> projects = cat.getProjects();
-				
-				IProject proj = repo.getProjectService().getProject(Pims.PIMS_PROJECT_URI);
 				
 				assertEquals("Don't have the right number of current projects for Programme A",3, projects.size());
 				catIsValid = true;
