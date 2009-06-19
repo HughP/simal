@@ -63,6 +63,7 @@ public class TestReview extends BaseRepositoryTest {
 		
 		IProject project = review.getProject();
 		assertEquals("Incorrectly setting the project", project1.getName(), project.getName());
+		review.delete();
 	}
 	
 	@Test
