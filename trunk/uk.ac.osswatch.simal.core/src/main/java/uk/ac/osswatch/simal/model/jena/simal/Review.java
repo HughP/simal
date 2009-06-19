@@ -20,6 +20,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -54,7 +55,7 @@ public class Review extends Resource implements IReview {
 	
 	public void setDate(Calendar cal) {
 		Model model = getJenaResource().getModel();
-		String dateString = DateFormat.getDateInstance().format(cal.getTime());
+		String dateString = getDateFormatter().format(cal.getTime());
 	    Statement statement = model.createLiteralStatement(getJenaResource(),
 	        SimalOntology.DATE, dateString);
 	    model.add(statement);
@@ -136,7 +137,12 @@ public class Review extends Resource implements IReview {
 	}
 
 	public String getShortDate() {
-		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT);
+		DateFormat df = getDateFormatter();
 		return df.format(getDate().getTime());
+	}
+
+	private DateFormat getDateFormatter() {
+		DateFormat df = DateFormat.getDateInstance(DateFormat.SHORT, Locale.ENGLISH);
+		return df;
 	}
 }
