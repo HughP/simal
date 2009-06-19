@@ -24,7 +24,6 @@ import static org.junit.Assert.fail;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.Set;
 
 import org.junit.BeforeClass;
@@ -41,7 +40,6 @@ import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -392,7 +390,7 @@ public class TestProject extends BaseRepositoryTest {
       project.addName("Testing");
       project.setShortDesc("Just testing adding a manually built project");
 
-      project = getRepository().getProject(uri);
+      project = getRepository().getProjectService().getProject(uri);
       assertNotNull("Project has not been added to repository", project);
       assertEquals("Project name is incorrectly set", "Testing", project
           .getName());
@@ -421,24 +419,24 @@ public class TestProject extends BaseRepositoryTest {
 
     IProject project;
     project = getRepository().createProject(uri1);
-    project = getRepository().getProject(uri1);
+    project = getRepository().getProjectService().getProject(uri1);
     String id1 = project.getSimalID();
 
     project = getRepository().createProject(uri2);
-    project = getRepository().getProject(uri2);
+    project = getRepository().getProjectService().getProject(uri2);
     String id2 = project.getSimalID();
 
     assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1
         .equals(id2));
 
     // check IDs are being written to the repository
-    project = getRepository().getProject(uri1);
+    project = getRepository().getProjectService().getProject(uri1);
     String id3 = project.getSimalID();
     assertTrue("Project IDs don't appear to be written to the repo", id1
         .equals(id3));
 
     project.delete();
-    project = getRepository().getProject(uri2);
+    project = getRepository().getProjectService().getProject(uri2);
     project.delete();
   }
 
