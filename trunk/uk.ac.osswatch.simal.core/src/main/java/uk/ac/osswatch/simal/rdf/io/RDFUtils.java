@@ -603,7 +603,7 @@ public class RDFUtils {
     for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
       seeAlso = (Element) seeAlsos.item(i);
       String uri = seeAlso.getAttributeNS(RDF_NS, "resource").trim();
-      IProject project = repo.findProjectBySeeAlso(uri);
+      IProject project = repo.getProjectService().findProjectBySeeAlso(uri);
       if (project != null) {
         logger.info("Merging duplicate project (based on seeAlso): "
             + project.toString() + " into " + project.getURI());
