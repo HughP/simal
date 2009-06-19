@@ -18,9 +18,11 @@ package uk.ac.osswatch.simal.wicket;
  */
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.MalformedURLException;
 
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
 import org.apache.wicket.markup.html.basic.Label;
@@ -41,6 +43,7 @@ import org.w3c.dom.Document;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.importData.Pims;
 import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -268,7 +271,7 @@ public class ToolsPage extends BasePage {
     }
   }
 
-  private class PimsUploadForm extends Form<FileUploadField> {
+  private static class PimsUploadForm extends Form<FileUploadField> {
 	    private static final long serialVersionUID = 1L;
 		public static final int PROGRAMMES = 10;
 		public static final int PROJECTS = 20;
@@ -316,31 +319,42 @@ public class ToolsPage extends BasePage {
 	            }
 	            upload.writeTo(newFile);
 	            logger.info("Uploaded PIMS export saved to " + upload.getClientFileName());
-	            ToolsPage.this.info("saved file: " + upload.getClientFileName());
 	          } catch (IOException e) {
 	            throw new IllegalStateException("Unable to write file");
 	          }
 
 	          try {
-	        	  switch (type) {
-	        	  case PROGRAMMES:
-		              Pims.importProgrammes(newFile.toURL());
-		              break;
-	        	  case PROJECTS:
-		              Pims.importProjects(newFile.toURL());
-		              break;
-	        	  case PROJECT_CONTACTS:
-		              Pims.importProjectContacts(newFile.toURL());
-		              break;
-        		  default:
-        			  setResponsePage(new ErrorReportPage(new UserReportableException(
-        		                "Illegal type setting for PIMS uploader", ToolsPage.class)));
-        		  }
+        	    switch (type) {
+          	      case PROGRAMMES:
+					Pims.importProgrammes(newFile.toURL());
+	                break;
+        	      case PROJECTS:
+	                Pims.importProjects(newFile.toURL());
+	                break;
+        	      case PROJECT_CONTACTS:
+	                Pims.importProjectContacts(newFile.toURL());
+	                break;
+    		      default:
+    			    setResponsePage(new ErrorReportPage(new UserReportableException(
+    		                "Illegal type setting for PIMS uploader", ToolsPage.class)));
+    		    }
 	            setResponsePage(new ToolsPage());
-	          } catch (Exception e) {
-	            setResponsePage(new ErrorReportPage(new UserReportableException(
-	                "Unable to import PIMS data", ToolsPage.class, e)));
-	          }
+			  } catch (FileNotFoundException e) {
+		        setResponsePage(new ErrorReportPage(new UserReportableException(
+			                "Cannot find PIMS data file to import", ToolsPage.class, e)));
+			  } catch (MalformedURLException e) {
+			        setResponsePage(new ErrorReportPage(new UserReportableException(
+			                "Cannot find PIMS data file to import", ToolsPage.class, e)));
+			  } catch (IOException e) {
+			        setResponsePage(new ErrorReportPage(new UserReportableException(
+			                "Cannot read PIMS data file to import", ToolsPage.class, e)));
+			  } catch (DuplicateURIException e) {
+			        setResponsePage(new ErrorReportPage(new UserReportableException(
+			                "Cannot import PIMS data file", ToolsPage.class, e)));
+			  } catch (SimalException e) {
+			        setResponsePage(new ErrorReportPage(new UserReportableException(
+			                "Cannot import PIMS data file", ToolsPage.class, e)));
+			  }
 	        } else {
 	            setResponsePage(new ErrorReportPage(new UserReportableException(
 	            		"Must select a file to upload", ToolsPage.class)));
@@ -349,8 +363,8 @@ public class ToolsPage extends BasePage {
 	    }
 	  }
 
-  private Folder uploadFolder;
-  private Folder getUploadFolder() {
+  private static Folder uploadFolder;
+  private static Folder getUploadFolder() {
     if (uploadFolder == null) {
       uploadFolder = new Folder(System.getProperty("java.io.tmpdir"),
           "wicket-uploads");
