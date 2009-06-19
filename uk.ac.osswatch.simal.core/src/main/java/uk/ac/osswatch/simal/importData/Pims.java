@@ -250,7 +250,7 @@ public class Pims {
 		IProject project = repo.getProject(PIMS_PROJECT_URI);
 		if (project == null) {
 			project = repo.createProject(PIMS_PROJECT_URI);
-			project.addName("PIMS");;
+			project.addName("PIMS");
 			project.setShortDesc("JISC Project Information Management System");
 		}
 		return project;
