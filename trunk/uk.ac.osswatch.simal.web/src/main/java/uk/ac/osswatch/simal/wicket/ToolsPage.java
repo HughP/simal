@@ -116,13 +116,6 @@ public class ToolsPage extends BasePage {
       }
     });
 
-    add(new Link("projectsReportLink") {
-
-      public void onClick() {
-          setResponsePage(new ProjectsSummaryReportPage());
-      }
-    });
-
     add(new ImportFromOhlohForm("importFromOhlohForm"));
     
     final PimsUploadForm pimsProgrammesUploadForm = new PimsUploadForm("importProgrammesFromPimsForm", PimsUploadForm.PROGRAMMES);
