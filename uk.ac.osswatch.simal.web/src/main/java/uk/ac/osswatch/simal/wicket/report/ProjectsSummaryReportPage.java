@@ -34,7 +34,8 @@ public class ProjectsSummaryReportPage extends BasePage {
 	public ProjectsSummaryReportPage() {
 	      try {
 	  		  numOfProjects = UserApplication.getRepository().getAllProjects().size();
-	  		  add(new Label("numOfProjects", Integer.toString(numOfProjects)));			  
+	  		  add(new Label("numOfProjects", Integer.toString(numOfProjects)));	
+	  		  populateReviewDetails();
 	  		  populateRepositoryDetails();
 			  populateHomepageDetails();
 			  populateMailingListDetails();
@@ -47,6 +48,17 @@ public class ProjectsSummaryReportPage extends BasePage {
 		      setResponsePage(new ErrorReportPage(error));
 		}
 	  }
+
+	private void populateReviewDetails() throws SimalRepositoryException {
+		  int numOfProjectsWithReview = UserApplication.getRepository().getProjectService().getProjectsWithReview().size();
+		  add(new Label("numOfProjectsWithReview", Integer.toString(numOfProjectsWithReview)));
+		  
+		  int numOfProjectsWithoutReview = numOfProjects - numOfProjectsWithReview;
+		  add(new Label("numOfProjectsWithoutReview", Integer.toString(numOfProjectsWithoutReview)));
+
+		  Double percentOfProjectsWithReview = Double.valueOf(((double)numOfProjectsWithReview / (double)numOfProjects) * 100);
+		  add(new Label("percentProjectsWithReview", Math.round(percentOfProjectsWithReview) + "%"));
+	}
 
 	private void populateRepositoryDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithRCS = UserApplication.getRepository().getProjectService().getProjectsWithRCS().size();
