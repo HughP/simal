@@ -155,4 +155,16 @@ public class ProjectService extends AbstractService implements IProjectService {
 	    return projects;
 	  }
 
+	public Set<IProject> getProjectsWithReview() throws SimalRepositoryException {
+		String queryStr = "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "PREFIX doap: <" + Doap.NS + ">"
+        + "SELECT DISTINCT ?project WHERE {" 
+        + "?review a simal:Review . "
+        + "?review simal:Project ?project }";
+		
+	    return findProjectsBySPARQL(queryStr);
+	}
+
 }
