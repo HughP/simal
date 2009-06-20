@@ -69,6 +69,13 @@ public class TestProjectService extends BaseRepositoryTest {
 		Set<IProject> projects = service.getProjectsWithBugDatabase();
 		assertEquals("Got incorect number of projects with BugDatabaseList", 4, projects.size());
 	}
+
+	@Test
+	public void testGetProjectsWithReview() throws SimalRepositoryException {
+		IProjectService service = getRepository().getProjectService();
+		Set<IProject> projects = service.getProjectsWithReview();
+		assertEquals("Got incorect number of projects witha review", 1, projects.size());
+	}
 	
 	@Test
 	public void testGetProject() throws SimalRepositoryException {

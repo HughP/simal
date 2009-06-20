@@ -101,4 +101,12 @@ public interface IProjectService {
 	   * @return
 	   */
 	  public Set<IProject> findProjectsBySPARQL(String queryStr);
+
+	  /**
+	   * Find all projects that have a review assigned to it.
+	   * 
+	   * @return
+	   * @throws SimalRepositoryException 
+	   */
+  	  public Set<IProject> getProjectsWithReview() throws SimalRepositoryException;
 }
