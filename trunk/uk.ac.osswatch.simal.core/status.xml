@@ -51,6 +51,19 @@
       </notes>
       
       <action context="features" dev="RDG" type="add" importance="high">
+        <p>Add <code>ImportPTSWTask</code> that can be used to create timed imports from 
+        Ping the Semantic Web as follows.</p>
+        <source>
+        timer = new Timer();
+        timer.schedule(new ImportPTSWTask(),
+                       0,        //initial delay
+                       1000*60*60);  //subsequent rate in milliseconds
+        </source>
+        <p>Note that you should not update more frequently than every 5 minutes since PTSW
+        will block more frequent calls.</p>
+      </action>
+      
+      <action context="features" dev="RDG" type="add" importance="high">
         <p>Added <code>uk.ac.osswatch.simal.importData.Pims</p> which contains a number of methods
         for importing Pims data from exported PIMS dumps. Pims is the official source of data about
         projects funded by the Joint Information Systems Committee (JISC).</p>
