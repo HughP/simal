@@ -71,6 +71,7 @@ import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
@@ -848,26 +849,7 @@ public final class SimalRepository extends AbstractSimalRepository {
         "Project");
 
     if (projects.getLength() == 0) {
-      Element docElement = originalDoc.getDocumentElement();
-      Document doc;
-      if (docElement.getLocalName().equals("RDF")) {
-        doc = originalDoc;
-      } else {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setNamespaceAware(true);
-        DocumentBuilder db;
-        try {
-          db = dbf.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-          throw new SimalRepositoryException("Unable to create document builder", e);
-        }
-        
-        doc = db.newDocument();
-        Node root = doc.createElementNS(RDFUtils.RDF_NS, "RDF");
-        root.appendChild(doc.importNode(docElement, true));
-        doc.appendChild(root);
-      }
-      addProject(doc.getDocumentElement());
+    	throw new SimalRepositoryException("No projecs in the supplied RDF/XML document");
     } else {
       for (int i = 0; i < projects.getLength(); i = i + 1) {
         Element project = (Element) projects.item(i);
@@ -877,12 +859,17 @@ public final class SimalRepository extends AbstractSimalRepository {
   }
 
   /**
-   * Add an RDF/XML project document.
+   * Add a single DOAP project document. The root of the project must be a "doap:Project" element
+   * otherwise an IllegalArgumentException is thrown. If your document is an RDF document with
+   * multiple doap:Projects in it (i.e. the root is rdf:RDF) then use 
+   * addProject(Document originalDoc, URL sourceURL, String baseURI) instead.
    * 
    * @param sourceProejctRoot
-   *          the project RDF node
+   *          the doap:Project RDF node
    * @throws DOMException
    * @throws SimalRepositoryException
+   * @throws IllegalArgumentException if the element supplied is no a "doap:Project" element
+   * @seeAlso addProject(Document originalDoc, URL sourceURL, String baseURI)
    */
   public void addProject(Element sourceProjectRoot)
       throws SimalRepositoryException, DOMException {
