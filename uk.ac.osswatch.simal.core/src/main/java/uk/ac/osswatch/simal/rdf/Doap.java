@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.model;
+package uk.ac.osswatch.simal.rdf;
 
 /*
  * Copyright 2007 University of Oxford 

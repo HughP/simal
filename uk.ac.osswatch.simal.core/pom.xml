@@ -125,7 +125,21 @@
         <artifactId>derby</artifactId>
         <version>10.4.1.3</version>
     </dependency> 
-
+    
+    <!--  JACKRABBIT DEPENDENCIS -->
+    
+    <dependency>
+	    <groupId>org.apache.jackrabbit</groupId>
+	    <artifactId>jackrabbit-core</artifactId>
+	    <version>1.5.5</version>
+	</dependency> 
+	
+	<dependency>
+	    <groupId>javax.jcr</groupId>
+	    <artifactId>jcr</artifactId>
+	    <version>1.0</version>
+	</dependency> 
+	
     <!-- LOGGING DEPENDENCIES - LOG4J -->
 
     <dependency>

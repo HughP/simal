@@ -69,7 +69,7 @@ public class Simal {
   @SuppressWarnings( { "unchecked", "static-access" })
   public static void main(String[] args) throws SimalRepositoryException {
     try {
-      repository = SimalRepositoryFactory.getInstance();
+      repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
     } catch (SimalRepositoryException e) {
       throw new IllegalStateException("Unable to create repository", e);
     }
