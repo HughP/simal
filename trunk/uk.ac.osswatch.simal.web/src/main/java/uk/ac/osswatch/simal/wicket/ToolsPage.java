@@ -80,6 +80,20 @@ public class ToolsPage extends BasePage {
           .toString()));
       add(new Label("repositoryDir", SimalProperties
           .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR)));
+      if (UserApplication.getScheduledPtswStatus() ) {
+        add(new Label("PTSWUpdaterStatus", "True"));
+      } else  {
+        add(new Label("PTSWUpdaterStatus", "False"));
+      }
+
+
+      add(new Link("toggleImportPTSWLink") {
+
+        public void onClick() {
+          UserApplication.setScheduledPtswStatus(!UserApplication.getScheduledPtswStatus());
+          setResponsePage(new ToolsPage());
+        }
+      });
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get repository configuration data", ToolsPage.class, e);
