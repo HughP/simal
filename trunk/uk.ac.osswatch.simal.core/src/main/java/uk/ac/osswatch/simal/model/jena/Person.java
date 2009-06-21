@@ -28,6 +28,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -37,7 +38,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
@@ -154,7 +154,7 @@ public class Person extends Resource implements IPerson {
     Statement idStatement = getJenaResource().getProperty(
         SimalOntology.PERSON_ID);
     if (idStatement == null) {
-      id = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA).getNewPersonID();
+      id = SimalRepositoryFactory.getInstance().getNewPersonID();
       setSimalID(id);
     } else {
       id = idStatement.getString();

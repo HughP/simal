@@ -37,6 +37,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -339,7 +340,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       throw new SimalRepositoryException(
           "Unable to generate SHA1Sum for email address");
     }
-    IPerson duplicate = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA).findPersonBySha1Sum(
+    IPerson duplicate = SimalRepositoryFactory.getInstance().findPersonBySha1Sum(
         sha1sum);
     if (duplicate != null) {
       return duplicate;

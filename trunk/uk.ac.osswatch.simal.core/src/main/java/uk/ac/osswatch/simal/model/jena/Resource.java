@@ -30,10 +30,10 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -87,7 +87,7 @@ public class Resource implements IResource {
   protected com.hp.hpl.jena.rdf.model.Resource getJenaResource() {
     if (jenaResource == null) {
       try {
-        ISimalRepository repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+        ISimalRepository repo = SimalRepositoryFactory.getInstance();
         return ((SimalRepository) repo).getJenaResource(getURI());
       } catch (SimalRepositoryException e) {
         logger

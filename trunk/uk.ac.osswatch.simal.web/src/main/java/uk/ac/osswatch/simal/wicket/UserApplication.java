@@ -29,9 +29,9 @@ import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.request.target.coding.QueryStringUrlCodingStrategy;
 import org.apache.wicket.util.convert.ConverterLocator;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.schedule.ImportPTSWTask;
 import uk.ac.osswatch.simal.wicket.data.URLConverter;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
@@ -94,7 +94,7 @@ public class UserApplication extends WebApplication {
   public static ISimalRepository getRepository()
       throws SimalRepositoryException {
     if (repository == null) {
-      repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+      repository = SimalRepositoryFactory.getInstance();
       repository.setIsTest(isTest);
       if (!repository.isInitialised()) {
         repository.initialise();

@@ -20,11 +20,11 @@ import java.net.URISyntaxException;
 import org.junit.BeforeClass;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
@@ -124,8 +124,7 @@ public abstract class BaseRepositoryTest {
 
   protected static void initRepository() throws SimalRepositoryException,
       URISyntaxException {
-    repository = SimalRepositoryFactory
-        .getInstance(SimalRepositoryFactory.TYPE_JENA);
+    repository = SimalRepositoryFactory.getInstance();
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
       repository.initialise(null);
