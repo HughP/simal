@@ -23,6 +23,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.IProjectService;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
@@ -44,7 +45,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
  */
 public class ProjectService extends AbstractService implements IProjectService {
 
-	ProjectService(JenaSimalRepository simalRepository) {
+	public ProjectService(ISimalRepository simalRepository) {
 		setRepository(simalRepository);
 	};
 	
@@ -92,7 +93,7 @@ public class ProjectService extends AbstractService implements IProjectService {
 	  public IProject getProject(String uri) throws SimalRepositoryException {
 		if(uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
 		    if (containsProject(uri)) {
-		      return new Project(getRepository().getModel().getResource(uri));
+		      return new Project(((JenaSimalRepository)getRepository()).getModel().getResource(uri));
 		    } else {
 		      return null;
 		    }
@@ -102,7 +103,7 @@ public class ProjectService extends AbstractService implements IProjectService {
 	  }
 	  
 	  public boolean containsProject(String uri) {
-		  Model model = getRepository().getModel();
+		  Model model = ((JenaSimalRepository)getRepository()).getModel();
 		    Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
 		    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
 		    Statement doap = model.createStatement(r, RDF.type, o);
@@ -138,7 +139,7 @@ public class ProjectService extends AbstractService implements IProjectService {
 	   * @return
 	   */
 	  public Set<IProject> findProjectsBySPARQL(String queryStr) {
-		Model model = getRepository().getModel();
+		Model model = ((JenaSimalRepository)getRepository()).getModel();
 	    Query query = QueryFactory.create(queryStr);
 	    QueryExecution qe = QueryExecutionFactory.create(query, model);
 	    ResultSet results = qe.execSelect();

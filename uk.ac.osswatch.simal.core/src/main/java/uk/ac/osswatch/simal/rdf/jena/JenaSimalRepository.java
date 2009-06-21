@@ -1226,10 +1226,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     RDFUtils.validateResourceDefinition(personRoot.getElementsByTagNameNS(
         RDFUtils.FOAF_NS, "homepage"));
   }
-
-	public ProjectService getProjectService() {
-		return new ProjectService(this);
-	}
 	
 	/**
 	 * Get the RDF model for this repository.
@@ -1239,7 +1235,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 		return model;
 	}
 
-	public IReviewService getReviewService() {
-		return new ReviewService(this);
-	}
+
+
 }
