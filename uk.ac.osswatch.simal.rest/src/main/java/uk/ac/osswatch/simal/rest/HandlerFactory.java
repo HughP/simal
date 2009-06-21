@@ -17,10 +17,10 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.myExperiment.MyExperimentHandlerFactory;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 /**
  * A factory class for REST command handlers.
@@ -38,8 +38,7 @@ public class HandlerFactory {
    */
   public HandlerFactory() throws SimalAPIException {
     try {
-      simalRepo = SimalRepositoryFactory
-          .getInstance(SimalRepositoryFactory.TYPE_JENA);
+      simalRepo = SimalRepositoryFactory.getInstance();
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to create HandlerFactory", e);
     }

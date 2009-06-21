@@ -27,6 +27,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -37,7 +38,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 public class PimsTest extends BaseRepositoryTest {
@@ -46,7 +46,7 @@ public class PimsTest extends BaseRepositoryTest {
 
 	@BeforeClass
 	public static void importTestData() throws FileNotFoundException, SimalRepositoryException, IOException, DuplicateURIException {
-		repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+		repo = SimalRepositoryFactory.getInstance();
 	}
 	
 	@AfterClass

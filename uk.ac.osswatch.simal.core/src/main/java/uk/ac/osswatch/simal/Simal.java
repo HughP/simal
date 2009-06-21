@@ -46,7 +46,6 @@ import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.tools.Ohloh;
 
 /**
@@ -69,7 +68,7 @@ public class Simal {
   @SuppressWarnings( { "unchecked", "static-access" })
   public static void main(String[] args) throws SimalRepositoryException {
     try {
-      repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+      repository = SimalRepositoryFactory.getInstance();
     } catch (SimalRepositoryException e) {
       throw new IllegalStateException("Unable to create repository", e);
     }

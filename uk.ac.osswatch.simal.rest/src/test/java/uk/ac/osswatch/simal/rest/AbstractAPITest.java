@@ -21,11 +21,11 @@ import java.util.Set;
 
 import org.junit.BeforeClass;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 public abstract class AbstractAPITest {
 
@@ -36,7 +36,7 @@ public abstract class AbstractAPITest {
 
   @BeforeClass
   public static void setUpRepo() throws SimalRepositoryException {
-    repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+    repo = SimalRepositoryFactory.getInstance();
     if (!repo.isInitialised()) {
       repo.setIsTest(true);
       repo.initialise();

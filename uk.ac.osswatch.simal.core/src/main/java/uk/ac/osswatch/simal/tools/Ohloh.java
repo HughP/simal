@@ -42,10 +42,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
@@ -64,7 +64,7 @@ public class Ohloh {
    * @throws SimalException
    */
   public void addProjectToSimal(String projectID) throws SimalException {
-    ISimalRepository repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
+    ISimalRepository repo = SimalRepositoryFactory.getInstance();
 
     try {
       DOMResult domProjectResult = getProjectDataAsDOAP(projectID);

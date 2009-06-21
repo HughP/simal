@@ -28,9 +28,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 
 /**
  * A servlet class that allows multiple resources to be used for retrieving
@@ -66,8 +66,7 @@ public class RESTServlet extends HttpServlet {
     String response = "Could not handle request for " + req.getPathInfo();
 
     try {
-      ISimalRepository repo = SimalRepositoryFactory
-          .getInstance(SimalRepositoryFactory.TYPE_JENA);
+      ISimalRepository repo = SimalRepositoryFactory.getInstance();
       if (!repo.isInitialised()) {
         repo.initialise();
       }
@@ -111,8 +110,7 @@ public class RESTServlet extends HttpServlet {
     String response = "Could not handle request for " + req.getPathInfo();
 
     try {
-      ISimalRepository repo = SimalRepositoryFactory
-          .getInstance(SimalRepositoryFactory.TYPE_JENA);
+      ISimalRepository repo = SimalRepositoryFactory.getInstance();
       if (!repo.isInitialised()) {
         repo.initialise();
       }
