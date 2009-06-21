@@ -94,7 +94,7 @@ public class UserApplication extends WebApplication {
   public static ISimalRepository getRepository()
       throws SimalRepositoryException {
     if (repository == null) {
-      repository = SimalRepositoryFactory.getInstance();
+      repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
       repository.setIsTest(isTest);
       if (!repository.isInitialised()) {
         repository.initialise();
