@@ -13,9 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.tools;
+package uk.ac.osswatch.simal.importData;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -28,6 +31,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Attr;
@@ -38,8 +43,11 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 public class PTSWImport {
   private static final Logger logger = LoggerFactory
@@ -54,8 +62,6 @@ public class PTSWImport {
    * site for the IP number that is making the request.
    * 
    * @throws SimalException
-   * 
-   * @SeeAlso #getListOfPings, #getPingsAsRDF
    * 
    */
   public Document getLatestPingsAsRDF() throws SimalException {
@@ -169,4 +175,50 @@ public class PTSWImport {
     resultDoc.appendChild(root);
     return resultDoc;
   }
+
+  /**
+   * Import all the latest Doap documents.
+ * @throws SimalException 
+ * @throws IOException 
+   */
+  public void importLatestDOAP() throws SimalException, IOException {	
+	      ISimalRepository repo;
+		  int preProjectCount;
+		  repo = SimalRepository.getInstance();
+		  preProjectCount = repo.getAllProjects().size();
+		  
+		  Document pings = getLatestPingsAsRDF();
+		  
+  	      OutputFormat format = new OutputFormat(pings);
+		  StringWriter writer = new StringWriter();
+		  XMLSerializer serial = new XMLSerializer(writer, format);
+		  serial.serialize(pings);
+		  logger.info("Updated DOAP documents:\n");
+		  logger.info(writer.toString());
+		
+		  File tmpFile = new File(System.getProperty("java.io.tmpdir")
+		      + File.separator + "PTSWExport.xml");
+		  FileWriter fw = null;
+		  try {
+		    fw = new FileWriter(tmpFile);
+		    fw.write(writer.toString());
+		  } catch (IOException e) {
+		    throw new SimalException(
+		        "Unable to write PTSW export file to temporary space");
+		  } finally {
+		    if (fw != null) {
+		      try {
+		        fw.close();
+		      } catch (IOException e) {
+		        logger.warn("Unable to close file", e);
+		      }
+		    }
+		  }
+		
+		  repo.addProject(tmpFile.toURI().toURL(), tmpFile.toURI().toURL()
+				      .toExternalForm());
+		  int postProjectCount = repo.getAllProjects().size();
+		  logger.info("Imported " + (postProjectCount - preProjectCount)
+		        + " project records from PTSW");		
+	  }
 }

@@ -178,67 +178,18 @@ public class ToolsPage extends BasePage {
   }
   
   private void importPTSW() throws UserReportableException {
-    ISimalRepository repo;
-    int preProjectCount;
-    try {
-      repo = UserApplication.getRepository();
-      preProjectCount = repo.getAllProjects().size();
-    } catch (SimalRepositoryException e) {
-      throw new UserReportableException("Unable to get the count of projects",
-          ToolsPage.class, e);
-    }
     PTSWImport importer = new PTSWImport();
-    Document pings;
     try {
-      pings = importer.getLatestPingsAsRDF();
-    } catch (SimalException e) {
-      throw new UserReportableException(
-          "Unable to retrieve the latest pings from PTSW", ToolsPage.class, e);
-    }
-    OutputFormat format = new OutputFormat(pings);
-    StringWriter writer = new StringWriter();
-    XMLSerializer serial = new XMLSerializer(writer, format);
-    try {
-      serial.serialize(pings);
-    } catch (IOException e) {
-      throw new UserReportableException("Unable to serialize PTSW response",
-          ToolsPage.class);
-    }
-    logger.info("Updated DOAP documents:\n");
-    logger.info(writer.toString());
-
-    File tmpFile = new File(System.getProperty("java.io.tmpdir")
-        + File.separator + "PTSWExport.xml");
-    FileWriter fw = null;
-    try {
-      fw = new FileWriter(tmpFile);
-      fw.write(writer.toString());
-    } catch (IOException e) {
-      throw new UserReportableException(
-          "Unable to write PTSW export file to temporary space",
-          ToolsPage.class);
-    } finally {
-      if (fw != null) {
-        try {
-          fw.close();
-        } catch (IOException e) {
-          logger.warn("Unable to close file", e);
-        }
-      }
-    }
-
-    try {
-		repo.addProject(tmpFile.toURI().toURL(), tmpFile.toURI().toURL()
-		      .toExternalForm());
-      int postProjectCount = repo.getAllProjects().size();
-      logger.info("Imported " + (postProjectCount - preProjectCount)
-          + " project records from PTSW");
-  	} catch (SimalRepositoryException e) {
-	      throw new UserReportableException(
-	              "Unable to add projects from PTSW Export, this is probably caused by an invalid response from PTSW", ToolsPage.class, e);
-	} catch (MalformedURLException e) {
-	      throw new UserReportableException(
-	              "Unable to add projects from PTSW due to a malformed URL", ToolsPage.class, e);
+		importer.importLatestDOAP();
+	} catch (SimalRepositoryException e) {
+	    throw new UserReportableException("Unable to import data into the repostory",
+		        ToolsPage.class, e);
+	} catch (SimalException e) {
+	    throw new UserReportableException("Unable to import data from PTSW",
+	        ToolsPage.class, e);
+	} catch (IOException e) {
+	    throw new UserReportableException("Unable to retrive data from PTSW",
+	        ToolsPage.class, e);
 	}
   }
 
