@@ -41,6 +41,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.importData.PTSWImport;
 import uk.ac.osswatch.simal.importData.Pims;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
@@ -48,8 +49,6 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.tools.Ohloh;
-import uk.ac.osswatch.simal.tools.PTSWImport;
-import uk.ac.osswatch.simal.wicket.report.ProjectsSummaryReportPage;
 import uk.ac.osswatch.simal.wicket.tools.OhlohFormInputModel;
 
 /**
