@@ -85,11 +85,18 @@ public class PTSWImport {
   /**
    * Get a list of pings contained within the supplied XML Export from Ping The
    * Semantic Web.
+ * @throws SimalException 
    */
-  public Set<URI> getListOfPings(Document export) {
+  public Set<URI> getListOfPings(Document export) throws SimalException {
     String strURL = null;
     HashSet<URI> uris = new HashSet<URI>();
     Element root = export.getDocumentElement();
+    
+    NodeList errors = root.getElementsByTagName("error");
+    if (errors.getLength() > 0) {
+      throw new SimalException("Unable to communicate with PTSW: " + errors.item(0).getTextContent());
+    }
+    
     NodeList pings = root.getElementsByTagName("rdfdocument");
     for (int i = 0; i < pings.getLength(); i++) {
       Element ping = (Element) pings.item(i);
