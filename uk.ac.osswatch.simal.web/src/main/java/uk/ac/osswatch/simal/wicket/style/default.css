@@ -85,9 +85,10 @@ pre {
 
 .warning {
     margin: 1em 0em 1em 0em;
-    padding: 0em 1em 0em 1em;
+    padding: 2em 2em 2em 2em;
     border: 2px solid #8BBBFD;
-    background: #F0DCF9;
+    background: #FF0011;
+    font-size: 120%;
 }
 
 h2 {
