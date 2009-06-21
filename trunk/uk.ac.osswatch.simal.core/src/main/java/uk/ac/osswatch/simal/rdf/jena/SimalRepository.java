@@ -848,7 +848,7 @@ public final class SimalRepository extends AbstractSimalRepository {
         "Project");
 
     if (projects.getLength() == 0) {
-    	throw new SimalRepositoryException("No projecs in the supplied RDF/XML document");
+    	throw new SimalRepositoryException("No projects in the supplied RDF/XML document");
     } else {
       for (int i = 0; i < projects.getLength(); i = i + 1) {
         Element project = (Element) projects.item(i);
