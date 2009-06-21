@@ -54,6 +54,14 @@
       <td>RDF Repository Dir</td>
       <td wicket:id="repositoryDir">Repository Dir</td>
     </tr>
+    <tr>
+      <td>Update from PTSW:</td>
+      <td>
+        <span wicket:id="PTSWUpdaterStatus">False</span>
+        <a href="#" wicket:id="toggleImportPTSWLink">Turn On/Off</a>
+        <a href="#" wicket:id="importPTSWLink">Perform Import Now</a>
+      </td>
+    </tr>
   </table>
   
   <h1>Developer Tools</h1>
@@ -117,10 +125,6 @@
     </fieldset>
   </form>
   
-  <hr/>    
-  <ul>
-    <li><a href="#" wicket:id="importPTSWLink">Import from Ping The Semantic Web</a></li>
-  </ul>
 </wicket:extend>
 </body>
 </html>

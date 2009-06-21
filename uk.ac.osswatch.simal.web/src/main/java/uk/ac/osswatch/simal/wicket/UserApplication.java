@@ -20,6 +20,7 @@ package uk.ac.osswatch.simal.wicket;
 import java.net.URL;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Timer;
 
 import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadWebRequest;
@@ -31,6 +32,7 @@ import org.apache.wicket.util.convert.ConverterLocator;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.schedule.ImportPTSWTask;
 import uk.ac.osswatch.simal.wicket.data.URLConverter;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
@@ -48,7 +50,12 @@ public class UserApplication extends WebApplication {
 
   private static boolean isTest;
 
+  private static boolean schedulePTSW;
+
+  private static Timer ptswTimer;
+
   public UserApplication() {
+	  setScheduledPtswStatus(true);
   }
 
   @Override
@@ -113,7 +120,10 @@ public class UserApplication extends WebApplication {
    * @param value
    */
   public static void setIsTest(boolean value) {
-    isTest = value;
+	  if (value) {
+		  setScheduledPtswStatus(false);
+	  }
+      isTest = value;
   }
 
   protected IConverterLocator newConverterLocator() {
@@ -125,5 +135,34 @@ public class UserApplication extends WebApplication {
   @Override
   protected WebRequest newWebRequest(HttpServletRequest servletRequest) {
 	    return new UploadWebRequest(servletRequest);
+  }
+
+  /**
+   * Indicates if this application instance should attempt to perform scheduled updates
+   * from Ping The Semantic Web.
+   * 
+   * @return
+   */
+  public static boolean getScheduledPtswStatus() {
+	return schedulePTSW ;
+  }
+
+  /**
+   * Sets whether this application instance should attempt to perform scheduled updates
+   * from Ping The Semantic Web.
+   * 
+   * @param status
+   */
+  public static void setScheduledPtswStatus(boolean status) {
+	schedulePTSW = status;
+	  if (schedulePTSW) {
+		  ptswTimer = new Timer(true);
+		  ptswTimer.schedule(new ImportPTSWTask(),
+				  1000 * 60 * 1,
+				  1000 * 60 * 60);
+	  } else if (ptswTimer != null) {
+		  ptswTimer.cancel();
+		  ptswTimer = null;
+	  }
   }
 }
