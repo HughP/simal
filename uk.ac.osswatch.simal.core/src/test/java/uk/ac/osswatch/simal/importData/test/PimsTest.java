@@ -38,7 +38,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
+import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
 
 public class PimsTest extends BaseRepositoryTest {
 	

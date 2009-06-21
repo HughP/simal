@@ -56,12 +56,12 @@ public class ReviewService extends AbstractService implements IReviewService {
   private static final Logger logger = LoggerFactory
       .getLogger(ReviewService.class);
 
-	ReviewService(SimalRepository simalRepository) {
+	ReviewService(JenaSimalRepository simalRepository) {
 		setRepository(simalRepository);
 	};
 	
 	public Set<IReview> getReviews() {
-		SimalRepository simalRepository = (SimalRepository)getRepository();
+		JenaSimalRepository simalRepository = (JenaSimalRepository)getRepository();
 		Model model = simalRepository.getModel();
 	    StmtIterator itr = model.listStatements(null, RDF.type, SimalOntology.REVIEW);
         
@@ -77,17 +77,17 @@ public class ReviewService extends AbstractService implements IReviewService {
 		// FIXME: there must be a better way of doing this using SPARQL
 		
 		Iterator<URI> seeAlso = project.getSeeAlso().iterator();
-		String queryStr = "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+		String queryStr = "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + JenaSimalRepository.RDFS_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?review WHERE { " + "?review a simal:Review . "
         + "?review simal:Project <" + project.getURI() + ">} ";
 		HashSet<IReview> reviews = findReviewsBySPARQL(queryStr);
 
 		while (seeAlso.hasNext()) {
-			queryStr = "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI
-	        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + "> "
-	        + "PREFIX rdfs: <" + SimalRepository.RDFS_NAMESPACE_URI + ">"
+			queryStr = "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI
+	        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
+	        + "PREFIX rdfs: <" + JenaSimalRepository.RDFS_NAMESPACE_URI + ">"
 	        + "SELECT DISTINCT ?review WHERE { " + "?review a simal:Review . "
 	        + "?review simal:Project <" + seeAlso.next() + ">} ";
 			reviews.addAll(findReviewsBySPARQL(queryStr));
@@ -152,9 +152,9 @@ public class ReviewService extends AbstractService implements IReviewService {
 		  }
 
 	  public IReview findReviewById(String id) throws SimalRepositoryException {
-	    String queryStr = "PREFIX xsd: <" + SimalRepository.XSD_NAMESPACE_URI
-	        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
-	        + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+	    String queryStr = "PREFIX xsd: <" + JenaSimalRepository.XSD_NAMESPACE_URI
+	        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
+	        + "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI + ">"
 	        + "SELECT DISTINCT ?review WHERE { " + "?review simal:reviewId \"" + id
 	        + "\"^^xsd:string }";
 	    HashSet<IReview> reviews = findReviewsBySPARQL(queryStr);
@@ -172,7 +172,7 @@ public class ReviewService extends AbstractService implements IReviewService {
 	      throw new DuplicateURIException(
 	          "Attempt to create a second review with the URI " + uri);
 	    }
-		Model model = ((SimalRepository)getRepository()).getModel();
+		Model model = ((JenaSimalRepository)getRepository()).getModel();
 	    
 	    String simalReviewURI;
 	    if (!uri.startsWith(RDFUtils.SIMAL_REVIEW_NAMESPACE_URI)) {
@@ -200,7 +200,7 @@ public class ReviewService extends AbstractService implements IReviewService {
 	  }
 	
 	  public boolean containsReview(String uri) {
-		Model model = ((SimalRepository)getRepository()).getModel();
+		Model model = ((JenaSimalRepository)getRepository()).getModel();
 	    Property o = model.createProperty(RDFUtils.SIMAL_REVIEW_NAMESPACE_URI);
 	    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
 	    Statement doap = model.createStatement(r, RDF.type, o);

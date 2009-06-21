@@ -19,22 +19,19 @@ package uk.ac.osswatch.simal.model.jena;
  */
 
 import java.io.StringWriter;
-import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.model.AbstractResource;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
+import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -46,7 +43,7 @@ import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
-public class Resource implements IResource {
+public class Resource extends AbstractResource {
   private static final long serialVersionUID = -10828811166985970L;
 
   private static final Logger logger = LoggerFactory.getLogger(Resource.class);
@@ -58,7 +55,6 @@ public class Resource implements IResource {
    * reinstate the object when necessary.
    */
   transient private com.hp.hpl.jena.rdf.model.Resource jenaResource;
-  String uri;
 
   public Resource(com.hp.hpl.jena.rdf.model.Resource resource) {
     setJenaResource(resource);
@@ -88,7 +84,7 @@ public class Resource implements IResource {
     if (jenaResource == null) {
       try {
         ISimalRepository repo = SimalRepositoryFactory.getInstance();
-        return ((SimalRepository) repo).getJenaResource(getURI());
+        return ((JenaSimalRepository) repo).getJenaResource(getURI());
       } catch (SimalRepositoryException e) {
         logger
             .warn(
@@ -110,10 +106,6 @@ public class Resource implements IResource {
       comment = commentStatement.getString();
     }
     return comment;
-  }
-
-  public String getLabel() {
-    return getLabel(null);
   }
 
   public String getLabel(String defaultLabel) {
@@ -151,64 +143,15 @@ public class Resource implements IResource {
     return uris;
   }
 
-  public String getURI() {
-    return uri;
-  }
-
-  /**
-   * @deprecated use getURI()
-   */
-  public URL getURL() throws SimalRepositoryException {
-    try {
-      return new URL(getURI());
-    } catch (MalformedURLException e) {
-      throw new SimalRepositoryException(
-          "Unable to create an URL for resource, this method is deprecated, use getURI() instead",
-          e);
-    }
-  }
-
   public void delete() throws SimalRepositoryException {
     getJenaResource().removeProperties();
     Model model = getJenaResource().getModel();
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
     model.remove(jenaResource, RDF.type, o);
   }
-
-  public String toJSON(boolean asRecord) {
-    StringBuffer json = new StringBuffer();
-    if (!asRecord) {
-      json.append("{ \"items\": [");
-    }
-    json.append("{");
-    json.append("\"id\":\"" + getJenaResource().getURI() + "\",");
-    json.append("\"label\":\""
-        + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\",");
-    json.append("}");
-    if (!asRecord) {
-      json.append("]}");
-    }
-    return json.toString();
-  }
-
-  public String toXML() throws SimalRepositoryException {
-    Model model = ResourceUtils.reachableClosure(getJenaResource());
-    RDFWriter writer = model.getWriter("RDF/XML-ABBREV");
-    StringWriter sw = new StringWriter();
-    writer.write(model, sw, null);
-    return sw.toString();
-  }
-
-  public String toString() {
-    return getLabel();
-  }
-
+  
   public Object getRepositoryResource() {
     return getJenaResource();
-  }
-
-  public String getSimalID() throws SimalRepositoryException {
-    return getUniqueSimalID();
   }
 
   /**
@@ -259,6 +202,13 @@ public class Resource implements IResource {
     }
   }
 
+  public String toXML() throws SimalRepositoryException {
+    Model model = ResourceUtils.reachableClosure(getJenaResource());
+    RDFWriter writer = model.getWriter("RDF/XML-ABBREV");
+    StringWriter sw = new StringWriter();
+    writer.write(model, sw, null);
+    return sw.toString();
+  }
 
   /**
    * Get all properties of a given type attached to this 

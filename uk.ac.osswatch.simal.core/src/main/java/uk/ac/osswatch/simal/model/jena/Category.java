@@ -33,7 +33,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
+import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -54,8 +54,8 @@ public class Category extends DoapResource implements IDoapCategory {
 
   public Set<IProject> getProjects() {
     String queryStr = "PREFIX doap: <" + RDFUtils.DOAP_NS
-        + "> " + "PREFIX rdf: <" + SimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + SimalRepository.SIMAL_NAMESPACE_URI + ">"
+        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?project WHERE { " + "?project doap:category <"
         + getURI() + ">}";
     Query query = QueryFactory.create(queryStr);
