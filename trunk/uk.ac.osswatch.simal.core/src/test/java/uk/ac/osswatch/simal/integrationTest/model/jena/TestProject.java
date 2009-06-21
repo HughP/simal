@@ -40,7 +40,9 @@ import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
@@ -481,5 +483,15 @@ public class TestProject extends BaseRepositoryTest {
   public void testOpennessRating() throws SimalRepositoryException {
 	  int rating = project1.getOpennessRating();
 	  assertEquals("Got an incorrect openness rating for the test project", 100, rating);
+  }
+  
+  @Test
+  public void testAddExisting() throws SimalRepositoryException {
+	  int preCount = project1.getHomepages().size();
+      repository.addProject(ISimalRepository.class.getClassLoader().getResource(
+          ModelSupport.TEST_FILE_URI_NO_QNAME), ModelSupport.TEST_FILE_BASE_URL);
+      int postCount = project1.getHomepages().size();
+      
+      assertEquals("When adding an existing project we should not get extra homepages", preCount, postCount);
   }
 }
