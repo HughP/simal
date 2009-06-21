@@ -63,7 +63,7 @@ public class TestPTSWImport {
   }
 
   @Test
-  public void testListOfPings() {
+  public void testListOfPings() throws SimalException {
     Set<URI> pings = importer.getListOfPings(ptswExport);
     assertEquals("Incorrect number of pings", NUM_OF_PINGS, pings.size());
   }
