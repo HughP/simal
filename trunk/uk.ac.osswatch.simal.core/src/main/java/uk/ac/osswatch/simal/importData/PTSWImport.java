@@ -45,6 +45,7 @@ import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
@@ -183,7 +184,7 @@ public class PTSWImport {
   public void importLatestDOAP() throws SimalException, IOException {	
 	      ISimalRepository repo;
 		  int preProjectCount;
-		  repo = SimalRepository.getInstance();
+		  repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
 		  preProjectCount = repo.getAllProjects().size();
 		  
 		  Document pings = getLatestPingsAsRDF();

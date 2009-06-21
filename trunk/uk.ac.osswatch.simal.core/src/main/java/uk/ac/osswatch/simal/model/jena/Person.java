@@ -37,6 +37,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
@@ -153,7 +154,7 @@ public class Person extends Resource implements IPerson {
     Statement idStatement = getJenaResource().getProperty(
         SimalOntology.PERSON_ID);
     if (idStatement == null) {
-      id = SimalRepository.getInstance().getNewPersonID();
+      id = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA).getNewPersonID();
       setSimalID(id);
     } else {
       id = idStatement.getString();

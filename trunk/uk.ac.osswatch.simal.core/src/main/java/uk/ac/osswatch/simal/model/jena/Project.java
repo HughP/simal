@@ -28,7 +28,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
-import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
@@ -45,8 +44,10 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
+import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -165,9 +166,9 @@ public class Project extends DoapResource implements IProject {
     while (itr.hasNext()) {
       String uri = itr.next().getResource().getURI();
       try {
-        IPerson person = SimalRepository.getInstance().findPersonBySeeAlso(uri);
+        IPerson person = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA).findPersonBySeeAlso(uri);
         if (person == null) {
-          person = SimalRepository.getInstance().getPerson(uri);
+          person = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA).getPerson(uri);
           if (person == null) {
             throw new SimalRepositoryException("No person with the URI " + uri);
           }
@@ -478,7 +479,7 @@ public class Project extends DoapResource implements IProject {
   }
 
 public int getOpennessRating() throws SimalRepositoryException {
-	IReviewService service = SimalRepository.getInstance().getReviewService();
+	IReviewService service = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA).getReviewService();
 	Set<IReview> reviews = service.getReviewsForProject(this);
 	if (reviews.size() == 0) {
 		throw new SimalRepositoryException("Unable to get an openness rating since there has been no review of this entry yet");

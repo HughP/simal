@@ -21,25 +21,14 @@ package uk.ac.osswatch.simal.rdf;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
+
 public class SimalRepositoryFactory {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepositoryFactory.class);
 
-  public static final int TYPE_SESAME = 1;
   public static final int TYPE_JENA = 2;
-  public static final int TYPE_DEFAULT = TYPE_JENA;
-
-  /**
-   * Get the SimalRepository object using the default repository type. Note that
-   * only one of these can exist in a single virtual machine.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public static ISimalRepository getInstance() throws SimalRepositoryException {
-    logger.debug("Creating repository of default type");
-    return getInstance(TYPE_DEFAULT);
-  }
+  public static final int TYPE_JCR = 3;
 
   /**
    * Get the SimalRepository object. Note that only one of each type can exist
@@ -54,7 +43,7 @@ public class SimalRepositoryFactory {
       throws SimalRepositoryException {
     if (type == TYPE_JENA) {
       logger.debug("Creating Jena repository");
-      return uk.ac.osswatch.simal.rdf.jena.SimalRepository.getInstance();
+      return SimalRepository.getInstance();
     } else {
       throw new SimalRepositoryException(
           "Unable to create repository instance of type " + type);

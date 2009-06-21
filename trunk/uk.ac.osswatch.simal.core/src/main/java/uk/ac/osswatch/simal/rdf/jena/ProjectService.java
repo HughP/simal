@@ -19,9 +19,9 @@ package uk.ac.osswatch.simal.rdf.jena;
 import java.util.HashSet;
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.Project;
+import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.IProjectService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;

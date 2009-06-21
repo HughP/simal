@@ -55,7 +55,7 @@ public class Pims {
 	 * @throws SimalException 
 	 */
 	public static void importInstitutions(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+		ISimalRepository repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
         HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
@@ -86,7 +86,7 @@ public class Pims {
 	 * @throws SimalException 
 	 */
 	public static void importProjects(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+		ISimalRepository repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
         HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
@@ -138,7 +138,7 @@ public class Pims {
 	public static void importProgrammes(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
 		IProject project = getPimsProject();
 		
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+		ISimalRepository repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
         HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
@@ -168,7 +168,7 @@ public class Pims {
 	 * @throws SimalException 
 	 */
 	public static void importProjectContacts(URL url) throws IOException, SimalException {
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+		ISimalRepository repo =  SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
         HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
@@ -246,7 +246,7 @@ public class Pims {
 	 * @throws DuplicateURIException 
 	 */
 	private static IProject getPimsProject() throws SimalRepositoryException, DuplicateURIException {
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
+		ISimalRepository repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA);
 		IProject project = repo.getProjectService().getProject(PIMS_PROJECT_URI);
 		if (project == null) {
 			project = repo.createProject(PIMS_PROJECT_URI);

@@ -22,8 +22,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.Doap;
 import uk.ac.osswatch.simal.model.IDoapRelease;
+import uk.ac.osswatch.simal.rdf.Doap;
 
 import com.hp.hpl.jena.rdf.model.Statement;
 

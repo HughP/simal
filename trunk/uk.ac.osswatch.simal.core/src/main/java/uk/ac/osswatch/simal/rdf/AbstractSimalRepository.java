@@ -339,7 +339,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       throw new SimalRepositoryException(
           "Unable to generate SHA1Sum for email address");
     }
-    IPerson duplicate = SimalRepository.getInstance().findPersonBySha1Sum(
+    IPerson duplicate = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.TYPE_JENA).findPersonBySha1Sum(
         sha1sum);
     if (duplicate != null) {
       return duplicate;
