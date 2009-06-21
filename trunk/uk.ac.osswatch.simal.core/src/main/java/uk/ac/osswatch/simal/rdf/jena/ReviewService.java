@@ -29,6 +29,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.simal.Review;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
+import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -56,8 +57,8 @@ public class ReviewService extends AbstractService implements IReviewService {
   private static final Logger logger = LoggerFactory
       .getLogger(ReviewService.class);
 
-	ReviewService(JenaSimalRepository simalRepository) {
-		setRepository(simalRepository);
+	public ReviewService(AbstractSimalRepository abstractSimalRepository) {
+		setRepository(abstractSimalRepository);
 	};
 	
 	public Set<IReview> getReviews() {
@@ -96,7 +97,7 @@ public class ReviewService extends AbstractService implements IReviewService {
 	}
 	  
 	  public HashSet<IReview> findReviewsBySPARQL(String queryStr) {
-	    Model model = getRepository().getModel();
+	    Model model = ((JenaSimalRepository)getRepository()).getModel();
 	    Query query = QueryFactory.create(queryStr);
 	    QueryExecution qe = QueryExecutionFactory.create(query, model);
 	    ResultSet results = qe.execSelect();
@@ -212,7 +213,7 @@ public class ReviewService extends AbstractService implements IReviewService {
 
 	public IReview getReview(String uri) {
 	    if (containsReview(uri)) {
-	      return new Review(getRepository().getModel().getResource(uri));
+	      return new Review(((JenaSimalRepository)getRepository()).getModel().getResource(uri));
 	    } else {
 	      return null;
 	    }

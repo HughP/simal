@@ -1,4 +1,6 @@
 package uk.ac.osswatch.simal.rdf.jena;
+
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 /*
  * Copyright 2007 University of Oxford 
  * 
@@ -18,21 +20,21 @@ package uk.ac.osswatch.simal.rdf.jena;
  */
 
 public abstract class AbstractService {
-	JenaSimalRepository repo;
+	ISimalRepository repo;
 	
 
 	/**
 	 * Set the repository this service is to work on.
-	 * @param repo
+	 * @param simalRepository
 	 */
-	protected void setRepository(JenaSimalRepository repo) {
-		this.repo = repo;
+	protected void setRepository(ISimalRepository simalRepository) {
+		this.repo = simalRepository;
 	}
 	
 	/**
 	 * Return the repository this service is operating on.
 	 */
-	protected JenaSimalRepository getRepository() {
+	protected ISimalRepository getRepository() {
 		return this.repo;
 	}
 	

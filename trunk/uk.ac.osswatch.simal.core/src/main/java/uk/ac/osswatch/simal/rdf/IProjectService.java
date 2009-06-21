@@ -109,4 +109,9 @@ public interface IProjectService {
 	   * @throws SimalRepositoryException 
 	   */
   	  public Set<IProject> getProjectsWithReview() throws SimalRepositoryException;
+
+  	  /**
+  	   * Tests to see if a project already exists in the repository.
+  	   */
+	  public boolean containsProject(String uri); 
 }

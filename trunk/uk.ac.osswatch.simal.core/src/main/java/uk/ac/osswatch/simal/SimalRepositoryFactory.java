@@ -21,6 +21,7 @@ package uk.ac.osswatch.simal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
@@ -40,6 +41,9 @@ public class SimalRepositoryFactory {
       throws SimalRepositoryException {
       logger.debug("Creating Jena repository");
       return JenaSimalRepository.getInstance();
+	  
+      //logger.debug("Creating Jackrabbit repository");
+      //return JcrSimalRepository.getInstance();
   }
 
 }
