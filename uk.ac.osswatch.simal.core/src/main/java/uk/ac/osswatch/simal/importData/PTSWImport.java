@@ -45,7 +45,6 @@ import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 
