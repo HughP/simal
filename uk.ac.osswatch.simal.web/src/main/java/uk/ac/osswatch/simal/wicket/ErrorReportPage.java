@@ -50,6 +50,8 @@ public class ErrorReportPage extends BasePage {
     
     add(new Label("errorMessage", new Model(e.getMessage())));
     
+    add(new Label("causedBy", new Model(e.getCause().getMessage())));
+    
     StringBuffer sb = new StringBuffer();
     sb.append(e.getMessage());
     if (e.getReportingClass() != null) {

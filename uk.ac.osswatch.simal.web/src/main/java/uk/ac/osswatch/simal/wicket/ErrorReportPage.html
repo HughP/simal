@@ -22,14 +22,20 @@ Copyright 2008 University of Oxford
 <html xmlns="http://www.w3.org/1999/xhtml">
 <body>
 <wicket:extend>
-  <h1>We have encountered a problem</h1>
-  
-  <h3 wicket:id="errorMessage">This is the error message.</h3>
-  
   <p class="warning">This is an early alpha release of the Simal
   Project Registry. It is a long way from complete, but is useful as a
   proof of concept. Please help us by 
   <a href="http://code.google.com/p/simal/issues/entry">reporting</a> this bug.</p>
+
+  <h1>We have encountered a problem</h1>
+  
+  <p wicket:id="errorMessage">This is the error message.</p>
+  
+  <h3>Cause</h3>
+  
+  <p wicket:id="causedBy">The reason for the error.</p> 
+  
+  <h4>Please help us</h4>
   
   <p>We will do our best to resolve this as quickly as possible. 
   In order to assist us please take a few moments to report this error in our 
