@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
+import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
 
 public class SimalRepositoryFactory {
   private static final Logger logger = LoggerFactory
@@ -39,7 +39,7 @@ public class SimalRepositoryFactory {
   public static ISimalRepository getInstance()
       throws SimalRepositoryException {
       logger.debug("Creating Jena repository");
-      return SimalRepository.getInstance();
+      return JenaSimalRepository.getInstance();
   }
 
 }

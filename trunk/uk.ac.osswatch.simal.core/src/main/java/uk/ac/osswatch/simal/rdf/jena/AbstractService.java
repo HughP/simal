@@ -18,21 +18,21 @@ package uk.ac.osswatch.simal.rdf.jena;
  */
 
 public abstract class AbstractService {
-	SimalRepository repo;
+	JenaSimalRepository repo;
 	
 
 	/**
 	 * Set the repository this service is to work on.
 	 * @param repo
 	 */
-	protected void setRepository(SimalRepository repo) {
+	protected void setRepository(JenaSimalRepository repo) {
 		this.repo = repo;
 	}
 	
 	/**
 	 * Return the repository this service is operating on.
 	 */
-	protected SimalRepository getRepository() {
+	protected JenaSimalRepository getRepository() {
 		return this.repo;
 	}
 	
