@@ -19,9 +19,7 @@ package uk.ac.osswatch.simal.wicket;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.StringWriter;
 import java.net.MalformedURLException;
 
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
@@ -34,11 +32,8 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
-import org.apache.xml.serialize.OutputFormat;
-import org.apache.xml.serialize.XMLSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.importData.PTSWImport;
