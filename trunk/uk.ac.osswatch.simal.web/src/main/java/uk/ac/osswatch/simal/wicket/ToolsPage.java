@@ -229,15 +229,18 @@ public class ToolsPage extends BasePage {
     }
 
     try {
-      repo.addProject(tmpFile.toURI().toURL(), tmpFile.toURI().toURL()
-          .toExternalForm());
+		repo.addProject(tmpFile.toURI().toURL(), tmpFile.toURI().toURL()
+		      .toExternalForm());
       int postProjectCount = repo.getAllProjects().size();
       logger.info("Imported " + (postProjectCount - preProjectCount)
           + " project records from PTSW");
-    } catch (Exception e) {
-      throw new UserReportableException(
-          "Unable to add projects from PTSW Export", ToolsPage.class, e);
-    }
+  	} catch (SimalRepositoryException e) {
+	      throw new UserReportableException(
+	              "Unable to add projects from PTSW Export, this is probably caused by an invalid response from PTSW", ToolsPage.class, e);
+	} catch (MalformedURLException e) {
+	      throw new UserReportableException(
+	              "Unable to add projects from PTSW due to a malformed URL", ToolsPage.class, e);
+	}
   }
 
   private static class ImportFromOhlohForm extends Form<OhlohFormInputModel> {
