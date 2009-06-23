@@ -26,9 +26,9 @@ import uk.ac.osswatch.simal.rdf.IProjectService;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
-import uk.ac.osswatch.simal.rdf.jena.ProjectService;
-import uk.ac.osswatch.simal.rdf.jena.ReviewService;
+import uk.ac.osswatch.simal.service.jena.JenaProjectService;
+import uk.ac.osswatch.simal.service.jena.JenaReviewService;
+import uk.ac.osswatch.simal.service.jena.JenaSimalRepository;
 
 public class SimalRepositoryFactory {
   private static final Logger logger = LoggerFactory
@@ -69,7 +69,7 @@ public class SimalRepositoryFactory {
 	public static IProjectService getProjectService() throws SimalRepositoryException {
 		 switch (type) {
 		    case JENA:
-		      return new ProjectService(getInstance());
+		      return new JenaProjectService(getInstance());
 		    case JCR:  
 		      throw new SimalRepositoryException("Not able to create Project Service for JCR repository yet.");
 		    default:
@@ -86,7 +86,7 @@ public class SimalRepositoryFactory {
 	public static IReviewService getReviewService() throws SimalRepositoryException {
 		 switch (type) {
 		    case JENA:
-		      return new ReviewService(getInstance());
+		      return new JenaReviewService(getInstance());
 		    case JCR:  
 		      throw new SimalRepositoryException("Not able to create Project Service for JCR repository yet.");
 		    default:

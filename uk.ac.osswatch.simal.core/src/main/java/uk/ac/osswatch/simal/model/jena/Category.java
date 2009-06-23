@@ -33,7 +33,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
+import uk.ac.osswatch.simal.service.jena.JenaSimalRepository;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
