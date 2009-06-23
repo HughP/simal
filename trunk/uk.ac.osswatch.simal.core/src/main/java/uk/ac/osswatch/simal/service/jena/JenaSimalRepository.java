@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.rdf.jena;
+package uk.ac.osswatch.simal.service.jena;
 
 /*
  * 

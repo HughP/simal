@@ -39,7 +39,7 @@ import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.ProjectService;
+import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 
 /**
  * @FIXME: make this a true MockObject
@@ -308,7 +308,7 @@ public Set<IProject> filterProjectsBySPARQL(String queryStr) {
 	return null;
 }
 
-public ProjectService getProjectService() {
+public JenaProjectService getProjectService() {
 	// TODO Auto-generated method stub
 	return null;
 }

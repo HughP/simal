@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.rdf.jena;
+package uk.ac.osswatch.simal.service.jena;
 /*
  * Copyright 2007 University of Oxford 
  * 
@@ -34,6 +34,7 @@ import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.service.AbstractService;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -53,11 +54,11 @@ import com.hp.hpl.jena.vocabulary.RDFS;
  * A class for working with projects in the repository.
  * 
  */
-public class ReviewService extends AbstractService implements IReviewService {
+public class JenaReviewService extends AbstractService implements IReviewService {
   private static final Logger logger = LoggerFactory
-      .getLogger(ReviewService.class);
+      .getLogger(JenaReviewService.class);
 
-	public ReviewService(ISimalRepository simalRepository) {
+	public JenaReviewService(ISimalRepository simalRepository) {
 		setRepository(simalRepository);
 	};
 	

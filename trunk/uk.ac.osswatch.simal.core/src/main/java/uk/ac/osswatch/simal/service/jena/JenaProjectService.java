@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.rdf.jena;
+package uk.ac.osswatch.simal.service.jena;
 /*
  * Copyright 2007 University of Oxford 
  * 
@@ -26,6 +26,7 @@ import uk.ac.osswatch.simal.rdf.IProjectService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.service.AbstractService;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -43,9 +44,9 @@ import com.hp.hpl.jena.vocabulary.RDF;
  * A class for working with projects in the repository.
  * 
  */
-public class ProjectService extends AbstractService implements IProjectService {
+public class JenaProjectService extends AbstractService implements IProjectService {
 
-	public ProjectService(ISimalRepository simalRepository) {
+	public JenaProjectService(ISimalRepository simalRepository) {
 		setRepository(simalRepository);
 	};
 	
