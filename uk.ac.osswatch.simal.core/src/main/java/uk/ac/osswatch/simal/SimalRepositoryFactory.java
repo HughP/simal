@@ -22,14 +22,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
+import uk.ac.osswatch.simal.rdf.IProjectService;
+import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
+import uk.ac.osswatch.simal.rdf.jena.ProjectService;
+import uk.ac.osswatch.simal.rdf.jena.ReviewService;
 
 public class SimalRepositoryFactory {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepositoryFactory.class);
-
+  public static final int JENA = 1;
+  public static final int JCR = 2;
+  private static final int type = JENA;
+  
   /**
    * Get the SimalRepository object. Note that only one of each type can exist
    * in a single virtual machine.
@@ -39,11 +46,51 @@ public class SimalRepositoryFactory {
    */
   public static ISimalRepository getInstance()
       throws SimalRepositoryException {
-      logger.debug("Creating Jena repository");
-      return JenaSimalRepository.getInstance();
-	  
-      //logger.debug("Creating Jackrabbit repository");
-      //return JcrSimalRepository.getInstance();
+	  switch (type) {
+	    case JENA:
+	      logger.debug("Creating Jena repository");
+	      return JenaSimalRepository.getInstance();
+	    case JCR:  
+	      logger.debug("Creating Jackrabbit repository");
+	      return JcrSimalRepository.getInstance();
+	    default:
+	      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+	  }
   }
+  
 
+	/**
+	 * Get an instance of a project service operating on this repository.
+	 * @param repo
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * 
+	 */
+	public static IProjectService getProjectService() throws SimalRepositoryException {
+		 switch (type) {
+		    case JENA:
+		      return new ProjectService(getInstance());
+		    case JCR:  
+		      throw new SimalRepositoryException("Not able to create Project Service for JCR repository yet.");
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+		  }	
+	}
+	
+	/**
+	 * Get an instance of a review service operating on this repository.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * 
+	 */
+	public static IReviewService getReviewService() throws SimalRepositoryException {
+		 switch (type) {
+		    case JENA:
+		      return new ReviewService(getInstance());
+		    case JCR:  
+		      throw new SimalRepositoryException("Not able to create Project Service for JCR repository yet.");
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+		  }
+	}
 }

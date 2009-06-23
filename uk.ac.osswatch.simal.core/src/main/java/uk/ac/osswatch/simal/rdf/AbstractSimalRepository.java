@@ -41,8 +41,6 @@ import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.rdf.jena.ProjectService;
-import uk.ac.osswatch.simal.rdf.jena.ReviewService;
 
 public abstract class AbstractSimalRepository implements ISimalRepository {
   private static final char ID_SEPARATOR = '-';
@@ -404,12 +402,4 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       }
     }
   }
-  
-	public IProjectService getProjectService() {
-		return new ProjectService(this);
-	}
-
-	public IReviewService getReviewService() {
-		return new ReviewService(this);
-	}
 }

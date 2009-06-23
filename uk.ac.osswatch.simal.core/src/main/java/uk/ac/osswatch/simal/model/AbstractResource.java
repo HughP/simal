@@ -19,7 +19,6 @@ import java.net.URL;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public abstract class AbstractResource implements IResource {

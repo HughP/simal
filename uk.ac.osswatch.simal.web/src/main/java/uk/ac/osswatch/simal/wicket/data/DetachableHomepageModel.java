@@ -19,7 +19,6 @@ package uk.ac.osswatch.simal.wicket.data;
 
 import org.apache.wicket.model.LoadableDetachableModel;
 
-import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;

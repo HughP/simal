@@ -25,10 +25,10 @@ import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
  * Simple test using the WicketTester
@@ -41,8 +41,7 @@ public class TestProjectDetailPage extends TestBase {
     tester.startPage(new ITestPageSource() {
       public Page getTestPage() {
         try {
-          return new ProjectDetailPage(UserApplication.getRepository()
-              .getProjectService().getProject(projectURI));
+          return new ProjectDetailPage(SimalRepositoryFactory.getProjectService().getProject(projectURI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
           System.exit(1);
@@ -107,7 +106,7 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testAddMaintainer() throws SimalRepositoryException {
-    Set<IPerson> peopleBefore = UserApplication.getRepository().getProjectService().getProject(
+    Set<IPerson> peopleBefore = SimalRepositoryFactory.getProjectService().getProject(
         projectURI).getMaintainers();
 
     tester.assertVisible("addMaintainerPanel");

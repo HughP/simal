@@ -37,6 +37,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -102,11 +103,11 @@ public class TestRepository extends BaseRepositoryTest {
       URISyntaxException {
     logger.debug("Starting testFindProject()");
     String uri = "http://foo.org/nonExistent";
-    IProject project = getRepository().getProjectService().getProject(uri);
+    IProject project = SimalRepositoryFactory.getProjectService().getProject(uri);
     assertNull(project);
 
     // test a known valid file
-    project = getRepository().getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
+    project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
     assertEquals("Simal DOAP Test", project.getName());
     logger.debug("Finished testFindProject()");
   }
@@ -252,7 +253,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testFindProjectBySeeAlso() throws SimalRepositoryException {
     logger.debug("Starting testFindProjectBySeeAlso()");
-    IProject project = getRepository().getProjectService().findProjectBySeeAlso(project1SeeAlso);
+    IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(project1SeeAlso);
     assertNotNull(project);
     logger.debug("Finished testFindProjectBySeeAlso()");
   }
@@ -262,7 +263,7 @@ public class TestRepository extends BaseRepositoryTest {
       IOException {
     logger.debug("Starting testAdd(data)");
     project1.delete();
-    project1 = getRepository().getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
+    project1 = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
     assertNull("Project has not been deleted as expected", project1);
     
     int peopleBefore = getRepository().getAllPeople().size();
@@ -284,7 +285,7 @@ public class TestRepository extends BaseRepositoryTest {
     }    
     assertEquals("We have more people after adding a duplicate than we did before", peopleBefore, peopleAfter);
     
-    project1 = getRepository().getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
+    project1 = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
     assertNotNull("We don't seem to have added the test data as expected",
         project1);
     logger.debug("Starting testAdd(data)");

@@ -30,6 +30,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -45,7 +46,7 @@ public class TestResource extends BaseRepositoryTest {
       URISyntaxException {
     assertNotNull(project1);
     project1.delete();
-    IProject project = getRepository().getProjectService().findProjectBySeeAlso(
+    IProject project = SimalRepositoryFactory.getInstance().findProjectBySeeAlso(
         TEST_PROJECT_URI);
     assertNull("The simal project should have been deleted", project);
     // force the repo to be rebuilt

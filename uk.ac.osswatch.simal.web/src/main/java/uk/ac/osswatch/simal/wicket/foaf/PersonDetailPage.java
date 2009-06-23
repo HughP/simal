@@ -25,10 +25,10 @@ import org.apache.wicket.behavior.StringHeaderContributor;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.IPageLink;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.rdf.jena.SimalRepository;
 import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 import uk.ac.osswatch.simal.wicket.BasePage;
@@ -63,7 +63,7 @@ public class PersonDetailPage extends BasePage {
     String id = null;
     try {
 	    if (parameters.containsKey("simalID")) {
-	        id = SimalRepository.getInstance().getUniqueSimalID(
+	        id = SimalRepositoryFactory.getInstance().getUniqueSimalID(
 	            parameters.getString("simalID"));
 	        person = UserApplication.getRepository().findPersonById(id);
 	    } else if (parameters.containsKey("email")) {

@@ -29,9 +29,9 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
  * A project data provider that allows the projects to be sorted.
@@ -55,7 +55,7 @@ public class SortableReviewDataProvider extends
    * @throws SimalRepositoryException
    */
   public SortableReviewDataProvider() throws SimalRepositoryException {
-    this.reviews = UserApplication.getRepository().getReviewService().getReviews();
+    this.reviews = SimalRepositoryFactory.getReviewService().getReviews();
   }
 
   /**

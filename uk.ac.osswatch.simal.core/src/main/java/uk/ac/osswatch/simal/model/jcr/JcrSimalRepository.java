@@ -37,8 +37,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.IProjectService;
-import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -292,17 +290,7 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		return null;
 	}
 
-	public IProjectService getProjectService() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public IResource getResource(String uri) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public IReviewService getReviewService() {
 		// TODO Auto-generated method stub
 		return null;
 	}

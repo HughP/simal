@@ -48,7 +48,6 @@ import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -479,7 +478,7 @@ public class Project extends DoapResource implements IProject {
   }
 
 public int getOpennessRating() throws SimalRepositoryException {
-	IReviewService service = SimalRepositoryFactory.getInstance().getReviewService();
+	IReviewService service = SimalRepositoryFactory.getReviewService();
 	Set<IReview> reviews = service.getReviewsForProject(this);
 	if (reviews.size() == 0) {
 		throw new SimalRepositoryException("Unable to get an openness rating since there has been no review of this entry yet");

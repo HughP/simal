@@ -18,9 +18,9 @@ package uk.ac.osswatch.simal.wicket;
  */
 
 import java.net.URL;
+import java.util.Timer;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Timer;
 
 import org.apache.wicket.IConverterLocator;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadWebRequest;

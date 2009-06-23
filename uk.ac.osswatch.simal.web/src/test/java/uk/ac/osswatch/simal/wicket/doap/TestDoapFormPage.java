@@ -32,6 +32,7 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -75,12 +76,12 @@ public class TestDoapFormPage extends TestBase {
   @After
   public void cleanUp() throws SimalRepositoryException {
     logProjectData("after");
-    IProject project = UserApplication.getRepository().getProjectService().getProject(
+    IProject project = SimalRepositoryFactory.getProjectService().getProject(
         "http://simal.oss-watch.ac.uk/loadFromFormTest#");
     if (project != null) {
       project.delete();
     }
-    project = UserApplication.getRepository().getProjectService().getProject(formInputURI);
+    project = SimalRepositoryFactory.getProjectService().getProject(formInputURI);
     if (project != null) {
       project.delete();
     }
@@ -185,12 +186,12 @@ public class TestDoapFormPage extends TestBase {
     tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
 
-    IProject project = UserApplication.getRepository().getProjectService().findProjectBySeeAlso(
+    IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(
         TEST_RAW_RDF_URI);
     assertNotNull(project);
 
     project.delete();
-    project = UserApplication.getRepository().getProjectService().findProjectBySeeAlso(
+    project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(
         TEST_RAW_RDF_URI);
     assertNull(project);
   }
@@ -208,7 +209,7 @@ public class TestDoapFormPage extends TestBase {
     tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
 
-    IProject project = UserApplication.getRepository().getProjectService().getProject(formInputURI);
+    IProject project = SimalRepositoryFactory.getProjectService().getProject(formInputURI);
     assertNotNull(project);
     assertEquals("Name is not correct", TEST_NAME, project.getName());
     assertEquals("Short descritpion is not correct", TEST_SHORT_DESC, project

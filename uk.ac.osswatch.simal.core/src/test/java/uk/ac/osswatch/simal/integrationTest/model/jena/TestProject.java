@@ -31,6 +31,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -386,7 +387,7 @@ public class TestProject extends BaseRepositoryTest {
       project.addName("Testing");
       project.setShortDesc("Just testing adding a manually built project");
 
-      project = getRepository().getProjectService().getProject(uri);
+      project = SimalRepositoryFactory.getInstance().getProject(uri);
       assertNotNull("Project has not been added to repository", project);
       assertEquals("Project name is incorrectly set", "Testing", project
           .getName());
@@ -415,24 +416,24 @@ public class TestProject extends BaseRepositoryTest {
 
     IProject project;
     project = getRepository().createProject(uri1);
-    project = getRepository().getProjectService().getProject(uri1);
+    project = SimalRepositoryFactory.getInstance().getProject(uri1);
     String id1 = project.getSimalID();
 
     project = getRepository().createProject(uri2);
-    project = getRepository().getProjectService().getProject(uri2);
+    project = SimalRepositoryFactory.getInstance().getProject(uri2);
     String id2 = project.getSimalID();
 
     assertFalse("Project IDs are not unique: " + id1 + " == " + id2, id1
         .equals(id2));
 
     // check IDs are being written to the repository
-    project = getRepository().getProjectService().getProject(uri1);
+    project = SimalRepositoryFactory.getInstance().getProject(uri1);
     String id3 = project.getSimalID();
     assertTrue("Project IDs don't appear to be written to the repo", id1
         .equals(id3));
 
     project.delete();
-    project = getRepository().getProjectService().getProject(uri2);
+    project = SimalRepositoryFactory.getInstance().getProject(uri2);
     project.delete();
   }
 

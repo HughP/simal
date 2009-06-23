@@ -16,7 +16,6 @@ package uk.ac.osswatch.simal.integrationTest.model.jena.simal;
  */
 
 import static junit.framework.Assert.assertEquals;
-import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
 import java.util.Set;
@@ -24,20 +23,22 @@ import java.util.Set;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.SimalException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestReview extends BaseRepositoryTest {
 	
 	static IReview review;
 
     @BeforeClass
-	public static void getTestReview() {
-		IReviewService service = getRepository().getReviewService();
+	public static void getTestReview() throws SimalRepositoryException {
+		IReviewService service = SimalRepositoryFactory.getReviewService();
 		Set<IReview> reviews = service.getReviews();
 		review = (IReview) reviews.toArray()[0];
 	}
@@ -56,7 +57,7 @@ public class TestReview extends BaseRepositoryTest {
 	
 	@Test
 	public void setSetProject() throws DuplicateURIException, SimalException {
-		IReviewService service = getRepository().getReviewService();
+		IReviewService service = SimalRepositoryFactory.getReviewService();
 		IReview review = service.create("http://test.org/Review");
 		review.setProject(project1);
 		
