@@ -35,6 +35,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
@@ -603,7 +604,7 @@ public class RDFUtils {
     for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
       seeAlso = (Element) seeAlsos.item(i);
       String uri = seeAlso.getAttributeNS(RDF_NS, "resource").trim();
-      IProject project = repo.getProjectService().findProjectBySeeAlso(uri);
+      IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(uri);
       if (project != null) {
         logger.info("Merging duplicate project (based on seeAlso): "
             + project.toString() + " into " + project.getURI());

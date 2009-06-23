@@ -32,6 +32,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -264,7 +265,7 @@ public class ProjectDetailPage extends BasePage {
     ReviewListPanel reviewList;
 	try {
 		reviewList = new ReviewListPanel("reviews",
-		    UserApplication.getRepository().getReviewService().getReviewsForProject(project));
+		    SimalRepositoryFactory.getReviewService().getReviewsForProject(project));
 	    reviewList.setOutputMarkupId(true);
 	} catch (SimalRepositoryException e) {
 		reviewList = null;

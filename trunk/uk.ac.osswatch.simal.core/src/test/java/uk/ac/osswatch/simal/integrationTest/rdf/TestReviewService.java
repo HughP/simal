@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.IProjectService;
 import uk.ac.osswatch.simal.rdf.IReviewService;
@@ -38,8 +39,8 @@ public class TestReviewService extends BaseRepositoryTest {
       .getLogger(TestReviewService.class);
 
 	@Test
-	public void getAllReviews() {
-		IReviewService service = getRepository().getReviewService();
+	public void getAllReviews() throws SimalRepositoryException {
+		IReviewService service = SimalRepositoryFactory.getReviewService();
 		Set<IReview> reviews = service.getReviews();
 		Iterator<IReview> itr = reviews.iterator();
 		while (itr.hasNext()) {
@@ -51,8 +52,8 @@ public class TestReviewService extends BaseRepositoryTest {
 	}
 	
 	@Test
-	public void getReview() {
-		IReviewService service = getRepository().getReviewService();
+	public void getReview() throws SimalRepositoryException {
+		IReviewService service = SimalRepositoryFactory.getReviewService();
 		IReview review = service.getReview("http://simal.oss-watch.ac.uk/Review#testReview");
 		assertNotNull("Failed to get the review from the repository", review);
 	}
@@ -60,8 +61,8 @@ public class TestReviewService extends BaseRepositoryTest {
 	  
 	  @Test
 	  public void testGetReviewsForProject() throws SimalRepositoryException {
-		IReviewService service = getRepository().getReviewService();
-		IProjectService projectService = getRepository().getProjectService();
+		IReviewService service = SimalRepositoryFactory.getReviewService();
+		IProjectService projectService = SimalRepositoryFactory.getProjectService();
 		Set<IReview> reviews = service.getReviewsForProject(projectService.getProject(testProjectURI));  
 		assertTrue("We should have a project review", 1 == reviews.size());
 		IReview review = (IReview) reviews.toArray()[0];

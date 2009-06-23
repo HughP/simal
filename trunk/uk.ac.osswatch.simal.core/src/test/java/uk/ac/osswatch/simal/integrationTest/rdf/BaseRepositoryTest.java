@@ -129,7 +129,7 @@ public abstract class BaseRepositoryTest {
       repository.setIsTest(true);
       repository.initialise(null);
     }
-    project1 = getRepository().getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
+    project1 = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
     IPerson developer = repository
         .findPersonBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getUniqueSimalID();

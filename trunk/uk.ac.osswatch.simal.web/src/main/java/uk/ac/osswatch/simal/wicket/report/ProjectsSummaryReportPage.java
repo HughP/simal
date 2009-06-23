@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.wicket.report;
 
 import org.apache.wicket.markup.html.basic.Label;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
@@ -50,7 +51,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 	  }
 
 	private void populateReviewDetails() throws SimalRepositoryException {
-		  int numOfProjectsWithReview = UserApplication.getRepository().getProjectService().getProjectsWithReview().size();
+		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
 		  add(new Label("numOfProjectsWithReview", Integer.toString(numOfProjectsWithReview)));
 		  
 		  int numOfProjectsWithoutReview = numOfProjects - numOfProjectsWithReview;
@@ -61,7 +62,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 	}
 
 	private void populateRepositoryDetails() throws SimalRepositoryException {
-		  int numOfProjectsWithRCS = UserApplication.getRepository().getProjectService().getProjectsWithRCS().size();
+		  int numOfProjectsWithRCS = SimalRepositoryFactory.getProjectService().getProjectsWithRCS().size();
 		  add(new Label("numOfProjectsWithRCS", Integer.toString(numOfProjectsWithRCS)));
 		  
 		  int numOfProjectsWithoutRCS = numOfProjects - numOfProjectsWithRCS;
@@ -72,7 +73,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 	}
 
 	private void populateHomepageDetails() throws SimalRepositoryException {
-		  int numOfProjectsWithHomepage = UserApplication.getRepository().getProjectService().getProjectsWithHomepage().size();
+		  int numOfProjectsWithHomepage = SimalRepositoryFactory.getProjectService().getProjectsWithHomepage().size();
 		  add(new Label("numOfProjectsWithHomepage", Integer.toString(numOfProjectsWithHomepage)));
 		  
 		  int numOfProjectsWithoutHomepage = numOfProjects - numOfProjectsWithHomepage;
@@ -83,7 +84,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 	}
 
 	private void populateMailingListDetails() throws SimalRepositoryException {
-		  int numOfProjectsWithMailingList = UserApplication.getRepository().getProjectService().getProjectsWithMailingList().size();
+		  int numOfProjectsWithMailingList = SimalRepositoryFactory.getProjectService().getProjectsWithMailingList().size();
 		  add(new Label("numOfProjectsWithMailingList", Integer.toString(numOfProjectsWithMailingList)));
 		  
 		  int numOfProjectsWithoutMailingList = numOfProjects - numOfProjectsWithMailingList;
@@ -94,7 +95,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 	}
 
 	private void populateStaffDetails() throws SimalRepositoryException {
-		  int numOfProjectsWithMaintainer = UserApplication.getRepository().getProjectService().getProjectsWithMaintainer().size();
+		  int numOfProjectsWithMaintainer = SimalRepositoryFactory.getProjectService().getProjectsWithMaintainer().size();
 		  add(new Label("numOfProjectsWithMaintainer", Integer.toString(numOfProjectsWithMaintainer)));
 		  
 		  int numOfProjectsWithoutMaintainer = numOfProjects - numOfProjectsWithMaintainer;
@@ -105,7 +106,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 	}
 
 	private void populateBugDatabaseDetails() throws SimalRepositoryException {
-		  int numOfProjectsWithBugDatabase = UserApplication.getRepository().getProjectService().getProjectsWithBugDatabase().size();
+		  int numOfProjectsWithBugDatabase = SimalRepositoryFactory.getProjectService().getProjectsWithBugDatabase().size();
 		  add(new Label("numOfProjectsWithBugDatabase", Integer.toString(numOfProjectsWithBugDatabase)));
 		  
 		  int numOfProjectsWithoutBugDatabase = numOfProjects - numOfProjectsWithBugDatabase;
@@ -116,7 +117,7 @@ public class ProjectsSummaryReportPage extends BasePage {
 	}
 
 	private void populateReleaseDetails() throws SimalRepositoryException {
-		  int numOfProjectsWithRelease = UserApplication.getRepository().getProjectService().getProjectsWithRelease().size();
+		  int numOfProjectsWithRelease = SimalRepositoryFactory.getProjectService().getProjectsWithRelease().size();
 		  add(new Label("numOfProjectsWithRelease", Integer.toString(numOfProjectsWithRelease)));
 		  
 		  int numOfProjectsWithoutRelease = numOfProjects - numOfProjectsWithRelease;

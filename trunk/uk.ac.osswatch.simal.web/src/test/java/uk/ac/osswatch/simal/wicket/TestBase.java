@@ -25,6 +25,7 @@ import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -46,7 +47,7 @@ public abstract class TestBase {
     UserApplication.setIsTest(true);
     ISimalRepository repository = UserApplication.getRepository();
 
-    IProject project = repository.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+    IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
     projectURI = project.getURI();
 
     IPerson developer = repository

@@ -24,6 +24,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.IProjectService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -33,14 +34,14 @@ public class TestProjectService extends BaseRepositoryTest {
 	
 	@Test
 	public void testGetProjectsWithRCS() throws SimalRepositoryException {
-		IProjectService service = getRepository().getProjectService();
+		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithRCS();
 		assertEquals("Got incorect number of projects with RCS", 2, projects.size());
 	}
 
 	@Test
 	public void testGetProjectsWithHomepage() throws SimalRepositoryException {
-		IProjectService service = getRepository().getProjectService();
+		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithHomepage();
 		Iterator<IProject> itr = projects.iterator();
 		while (itr.hasNext()) {
@@ -51,35 +52,35 @@ public class TestProjectService extends BaseRepositoryTest {
 
 	@Test
 	public void testGetProjectsWithMaintainer() throws SimalRepositoryException {
-		IProjectService service = getRepository().getProjectService();
+		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithMaintainer();
 		assertEquals("Got incorect number of projects with Mainteiner", 7, projects.size());
 	}
  
 	@Test
 	public void testGetProjectsWithMailingList() throws SimalRepositoryException {
-		IProjectService service = getRepository().getProjectService();
+		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithMailingList();
 		assertEquals("Got incorect number of projects with MailingList", 4, projects.size());
 	}
 
 	@Test
 	public void testGetProjectsWithBugDatabase() throws SimalRepositoryException {
-		IProjectService service = getRepository().getProjectService();
+		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithBugDatabase();
 		assertEquals("Got incorect number of projects with BugDatabaseList", 4, projects.size());
 	}
 
 	@Test
 	public void testGetProjectsWithReview() throws SimalRepositoryException {
-		IProjectService service = getRepository().getProjectService();
+		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithReview();
 		assertEquals("Got incorect number of projects witha review", 1, projects.size());
 	}
 	
 	@Test
 	public void testGetProject() throws SimalRepositoryException {
-		IProjectService service = getRepository().getProjectService();
+		IProjectService service = SimalRepositoryFactory.getProjectService();
 		IProject project = service.getProject(testProjectURI);
 		assertNotNull("Failed to get the test project from the repository", project);
 	}

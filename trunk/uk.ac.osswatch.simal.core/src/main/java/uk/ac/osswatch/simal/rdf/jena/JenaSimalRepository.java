@@ -29,7 +29,7 @@ import java.io.Writer;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashSet;
-import java.util.Iterator; 
+import java.util.Iterator;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -51,6 +51,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -69,7 +70,6 @@ import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -288,7 +288,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return person;
   }
 
-  public IOrganisation createOrganisation(String uri) throws DuplicateURIException {
+  public IOrganisation createOrganisation(String uri) throws DuplicateURIException, SimalRepositoryException {
     if (containsProject(uri)) {
         throw new DuplicateURIException(
             "Attempt to create a second project with the URI " + uri);
@@ -602,7 +602,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    */
   public IProject findProjectBySeeAlso(String seeAlso)
       throws SimalRepositoryException {
-    return getProjectService().findProjectBySeeAlso(seeAlso);
+    return SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(seeAlso);
   }
 
   /**
@@ -768,7 +768,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    * @deprecated
    */
   public IProject getProject(String uri) throws SimalRepositoryException {
-	return getProjectService().getProject(uri);
+	return SimalRepositoryFactory.getProjectService().getProject(uri);
   }
 
   public IOrganisation getOrganisation(String uri)
@@ -781,10 +781,11 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   }
 
   /**
-   * @deprecated
+   * @throws SimalRepositoryException 
+ * @deprecated
    */
-  public boolean containsProject(String uri) {
-    return getProjectService().containsProject(uri);
+  public boolean containsProject(String uri) throws SimalRepositoryException {
+    return SimalRepositoryFactory.getProjectService().containsProject(uri);
   }
 
   /**
@@ -1234,7 +1235,4 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 	public Model getModel() {
 		return model;
 	}
-
-
-
 }

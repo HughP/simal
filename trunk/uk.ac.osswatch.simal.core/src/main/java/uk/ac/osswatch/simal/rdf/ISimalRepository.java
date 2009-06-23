@@ -21,6 +21,8 @@ import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
+import javax.jcr.RepositoryException;
+
 import org.w3c.dom.Document;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -432,10 +434,11 @@ public interface ISimalRepository {
    * 
    * @param uri
    * @return
+   * @throws SimalRepositoryException 
    * 
    * @deprecated Use ProjectService.containsProject(uri) instead
    */
-  public boolean containsProject(String uri);
+  public boolean containsProject(String uri) throws SimalRepositoryException;
 
   /**
    * Test to see if an organisation with the given String exists.
@@ -578,9 +581,10 @@ public interface ISimalRepository {
    * @param uri the URI for this organisation
    * 
    * @return
- * @throws DuplicateURIException 
+   * @throws DuplicateURIException 
+   * @throws SimalRepositoryException 
    */
-  public IOrganisation createOrganisation(String uri) throws DuplicateURIException;
+  public IOrganisation createOrganisation(String uri) throws DuplicateURIException, SimalRepositoryException;
 
   /**
    * Get an homepage resources. If the resource does not yet exist return null.
@@ -607,18 +611,5 @@ public interface ISimalRepository {
     * @throws SimalRepositoryException 
     */
     public IProject getOrCreateProject(String uri) throws SimalRepositoryException;
-    
-	/**
-	 * Get an instance of a project service operating on this repository.
-	 * @param repo
-	 * @return
-	 */
-	public IProjectService getProjectService();
-
-	/**
-	 * Get an instance of a review service operating on this repository.
-	 * @return
-	 */
-	public IReviewService getReviewService();
 
 }

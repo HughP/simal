@@ -32,7 +32,6 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapLocation;
 import uk.ac.osswatch.simal.model.IDoapRepository;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * A panel to display one or more Source Repository details.

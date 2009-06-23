@@ -38,7 +38,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.jena.JenaSimalRepository;
 
 public class PimsTest extends BaseRepositoryTest {
 	
@@ -135,14 +134,14 @@ public class PimsTest extends BaseRepositoryTest {
 	
 	@Test
 	public void testProjectCategories() throws SimalRepositoryException {
-		IProject project = repo.getProjectService().getProject("http://jisc.ac.uk/project#10");
+		IProject project = SimalRepositoryFactory.getProjectService().getProject("http://jisc.ac.uk/project#10");
 		Set<IDoapCategory> cats = project.getCategories();
 		assertEquals("Project A has an incorrect number of categories", 1, cats.size());
 	}
 	
 	@Test
 	public void testProjectHomepages() throws SimalRepositoryException {
-		IProject project = repo.getProjectService().getProject("http://jisc.ac.uk/project#10");
+		IProject project = SimalRepositoryFactory.getProjectService().getProject("http://jisc.ac.uk/project#10");
 		Set<IDoapHomepage> pages = project.getHomepages();
 		assertEquals("Project A has an incorrect number of homepages", 1, pages.size());
 	}

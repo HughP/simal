@@ -27,9 +27,9 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.data.SortableReviewDataProvider;
 
 /**
@@ -41,7 +41,7 @@ public class ReviewListPanel extends Panel {
 
   public ReviewListPanel(String id) throws SimalRepositoryException {
     super(id);
-    this.reviews = UserApplication.getRepository().getReviewService().getReviews();
+    this.reviews = SimalRepositoryFactory.getReviewService().getReviews();
     SortableReviewDataProvider dataProvider = new SortableReviewDataProvider(this.reviews);
     addReviewList(dataProvider);
   }

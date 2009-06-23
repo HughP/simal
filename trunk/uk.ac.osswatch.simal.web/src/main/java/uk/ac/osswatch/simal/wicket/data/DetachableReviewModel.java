@@ -19,9 +19,9 @@ package uk.ac.osswatch.simal.wicket.data;
 
 import org.apache.wicket.model.LoadableDetachableModel;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class DetachableReviewModel extends LoadableDetachableModel {
   private static final long serialVersionUID = -9017519516676203598L;
@@ -40,7 +40,7 @@ public class DetachableReviewModel extends LoadableDetachableModel {
   protected Object load() {
     IReview review;
     try {
-      review = UserApplication.getRepository().getReviewService().getReview(uri);
+      review = SimalRepositoryFactory.getReviewService().getReview(uri);
     } catch (SimalRepositoryException e) {
       e.printStackTrace();
       review = null;

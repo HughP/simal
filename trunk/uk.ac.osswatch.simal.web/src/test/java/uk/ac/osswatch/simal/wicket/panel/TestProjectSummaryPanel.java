@@ -23,9 +23,9 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
 /**
@@ -39,8 +39,7 @@ public class TestProjectSummaryPanel extends TestBase {
     tester.startPanel(new TestPanelSource() {
       public Panel getTestPanel(String panelId) {
         try {
-          return new ProjectSummaryPanel(panelId, UserApplication
-              .getRepository().getProjectService().getProject(projectURI));
+          return new ProjectSummaryPanel(panelId, SimalRepositoryFactory.getProjectService().getProject(projectURI));
         } catch (SimalRepositoryException e) {
           fail(e.getMessage());
           return null;

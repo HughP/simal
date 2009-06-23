@@ -247,7 +247,7 @@ public class Pims {
 	 */
 	private static IProject getPimsProject() throws SimalRepositoryException, DuplicateURIException {
 		ISimalRepository repo = SimalRepositoryFactory.getInstance();
-		IProject project = repo.getProjectService().getProject(PIMS_PROJECT_URI);
+		IProject project = SimalRepositoryFactory.getProjectService().getProject(PIMS_PROJECT_URI);
 		if (project == null) {
 			project = repo.createProject(PIMS_PROJECT_URI);
 			project.addName("PIMS");
