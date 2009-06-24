@@ -140,6 +140,18 @@
 	    <version>1.0</version>
 	</dependency> 
 	
+	<dependency>
+	    <groupId>org.apache.jackrabbit</groupId>
+	    <artifactId>jackrabbit-ocm</artifactId>
+	    <version>1.5.3</version>
+	    <exclusions>
+		   <exclusion>
+		     <groupId>xml-apis</groupId>
+		     <artifactId>xml-apis</artifactId>
+		   </exclusion>
+	    </exclusions>
+	</dependency> 
+	
     <!-- LOGGING DEPENDENCIES - LOG4J -->
 
     <dependency>

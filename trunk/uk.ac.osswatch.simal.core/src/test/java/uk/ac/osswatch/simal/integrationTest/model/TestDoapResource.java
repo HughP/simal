@@ -20,7 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestDoapResource extends BaseRepositoryTest {

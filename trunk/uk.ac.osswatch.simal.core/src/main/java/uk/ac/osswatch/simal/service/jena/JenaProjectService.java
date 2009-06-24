@@ -21,6 +21,7 @@ import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.Project;
+import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.IProjectService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -75,9 +76,9 @@ public class JenaProjectService extends AbstractService implements IProjectServi
 	}
 	
 	private Set<IProject> getProjectsWith(Property property) throws SimalRepositoryException {
-		String queryStr = "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + JenaSimalRepository.RDFS_NAMESPACE_URI + ">"
+		String queryStr = "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
         + "PREFIX doap: <" + Doap.NS + ">"
         + "SELECT DISTINCT ?project WHERE { {" + "?project a simal:Project . "
         + "?project <" + property.getURI() + "> ?value }"
@@ -117,9 +118,9 @@ public class JenaProjectService extends AbstractService implements IProjectServi
 
 	  public IProject findProjectBySeeAlso(String seeAlso)
 	      throws SimalRepositoryException {
-		String queryStr = "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI
-	        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
-	        + "PREFIX rdfs: <" + JenaSimalRepository.RDFS_NAMESPACE_URI + ">"
+		String queryStr = "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI
+	        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+	        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
 	        + "SELECT DISTINCT ?project WHERE { " + "?project a simal:Project . "
 	        + "?project rdfs:seeAlso <" + seeAlso + ">}";
 
@@ -158,9 +159,9 @@ public class JenaProjectService extends AbstractService implements IProjectServi
 	  }
 
 	public Set<IProject> getProjectsWithReview() throws SimalRepositoryException {
-		String queryStr = "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + JenaSimalRepository.RDFS_NAMESPACE_URI + ">"
+		String queryStr = "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
         + "PREFIX doap: <" + Doap.NS + ">"
         + "SELECT DISTINCT ?project WHERE {" 
         + "?review a simal:Review . "

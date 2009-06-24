@@ -24,7 +24,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;

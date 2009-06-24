@@ -21,7 +21,7 @@ import java.util.Iterator;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 

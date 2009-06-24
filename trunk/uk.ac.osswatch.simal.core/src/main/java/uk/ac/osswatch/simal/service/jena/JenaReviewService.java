@@ -29,6 +29,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.simal.Review;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
+import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -79,17 +80,17 @@ public class JenaReviewService extends AbstractService implements IReviewService
 		// FIXME: there must be a better way of doing this using SPARQL
 		
 		Iterator<URI> seeAlso = project.getSeeAlso().iterator();
-		String queryStr = "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + JenaSimalRepository.RDFS_NAMESPACE_URI + ">"
+		String queryStr = "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?review WHERE { " + "?review a simal:Review . "
         + "?review simal:Project <" + project.getURI() + ">} ";
 		HashSet<IReview> reviews = findReviewsBySPARQL(queryStr);
 
 		while (seeAlso.hasNext()) {
-			queryStr = "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI
-	        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
-	        + "PREFIX rdfs: <" + JenaSimalRepository.RDFS_NAMESPACE_URI + ">"
+			queryStr = "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI
+	        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+	        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
 	        + "SELECT DISTINCT ?review WHERE { " + "?review a simal:Review . "
 	        + "?review simal:Project <" + seeAlso.next() + ">} ";
 			reviews.addAll(findReviewsBySPARQL(queryStr));
@@ -154,9 +155,9 @@ public class JenaReviewService extends AbstractService implements IReviewService
 		  }
 
 	  public IReview findReviewById(String id) throws SimalRepositoryException {
-	    String queryStr = "PREFIX xsd: <" + JenaSimalRepository.XSD_NAMESPACE_URI
-	        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
-	        + "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI + ">"
+	    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
+	        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
+	        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
 	        + "SELECT DISTINCT ?review WHERE { " + "?review simal:reviewId \"" + id
 	        + "\"^^xsd:string }";
 	    HashSet<IReview> reviews = findReviewsBySPARQL(queryStr);

@@ -392,7 +392,30 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     return isTest;
   }
 
-  static class RDFFilenameFilter implements FilenameFilter {
+  public void initialise() throws SimalRepositoryException {
+    initialise(SimalProperties
+        .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
+  }
+
+public IPerson getOrCreatePerson(String uri) throws SimalRepositoryException {
+	if (containsResource(uri)) {
+		return getPerson(uri);
+	} else {
+		IPerson person = findPersonBySeeAlso(uri);
+		if (person == null) {
+			try {
+				return createPerson(uri);
+			} catch (DuplicateURIException e) {
+				logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
+				return null;
+			}
+		} else {
+			return person;
+		}
+	}
+  }
+
+static class RDFFilenameFilter implements FilenameFilter {
 
     public boolean accept(File dir, String name) {
       if (name.endsWith(".xml") || name.endsWith(".rdf")) {
