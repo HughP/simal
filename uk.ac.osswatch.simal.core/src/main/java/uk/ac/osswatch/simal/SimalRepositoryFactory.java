@@ -26,6 +26,8 @@ import uk.ac.osswatch.simal.rdf.IProjectService;
 import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
+import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 import uk.ac.osswatch.simal.service.jena.JenaReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaSimalRepository;
@@ -71,7 +73,7 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaProjectService(getInstance());
 		    case JCR:  
-		      throw new SimalRepositoryException("Not able to create Project Service for JCR repository yet.");
+		      return new JcrProjectService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }	
@@ -88,7 +90,7 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaReviewService(getInstance());
 		    case JCR:  
-		      throw new SimalRepositoryException("Not able to create Project Service for JCR repository yet.");
+		      return new JcrReviewService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }

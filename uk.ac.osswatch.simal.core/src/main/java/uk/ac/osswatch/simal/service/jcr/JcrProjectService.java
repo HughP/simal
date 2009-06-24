@@ -20,15 +20,15 @@ import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.IProjectService;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.AbstractService;
 
 public class JcrProjectService extends AbstractService implements
 		IProjectService {
 
-	public boolean containsProject(String uri) {
-		// TODO Auto-generated method stub
-		return false;
+	public JcrProjectService(ISimalRepository simalRepository) {
+		setRepository(simalRepository);
 	}
 
 	public IProject findProjectBySeeAlso(String seeAlso)
@@ -86,6 +86,11 @@ public class JcrProjectService extends AbstractService implements
 			throws SimalRepositoryException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public boolean containsProject(String uri) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
