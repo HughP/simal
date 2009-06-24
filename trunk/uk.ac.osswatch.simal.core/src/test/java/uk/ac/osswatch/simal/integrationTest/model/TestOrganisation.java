@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.integrationTest.model.jena;
+package uk.ac.osswatch.simal.integrationTest.model;
 /*
  * 
  Copyright 2007 University of Oxford * 
