@@ -188,11 +188,6 @@ public class MockRepository extends AbstractSimalRepository {
     return null;
   }
 
-  public void initialise() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-
-  }
-
   public void initialise(String directory) throws SimalRepositoryException {
     // TODO Auto-generated method stub
 
@@ -289,11 +284,6 @@ public IDoapCategory getOrCreateCategory(String uri)
 }
 
 public IDoapHomepage getHomepage(String uri) {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-public IPerson getOrCreatePerson(String uri) throws SimalRepositoryException {
 	// TODO Auto-generated method stub
 	return null;
 }

@@ -23,7 +23,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 

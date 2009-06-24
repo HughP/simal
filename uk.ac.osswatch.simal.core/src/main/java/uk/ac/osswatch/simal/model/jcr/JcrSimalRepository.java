@@ -26,6 +26,8 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 
+import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
+import org.apache.jackrabbit.ocm.manager.impl.ObjectContentManagerImpl;
 import org.apache.jackrabbit.core.TransientRepository;
 import org.w3c.dom.Document;
 
@@ -35,6 +37,7 @@ import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -42,6 +45,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class JcrSimalRepository extends AbstractSimalRepository {
 
+	private static final String JCR_MAPPING = "jcr/mapping.xml";
 	private static ISimalRepository instance;
 	private Session session;
 
@@ -50,21 +54,6 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	 */
 	private JcrSimalRepository() throws SimalRepositoryException {
 		super();
-        Repository repository;
-		try {
-			repository = new TransientRepository();
-		} catch (IOException e) {
-			throw new SimalRepositoryException("Unable to create repository", e);
-		}
-        try {
-			session = repository.login(
-			        new SimpleCredentials("username", "password".toCharArray()));
-		} catch (LoginException e) {
-			throw new SimalRepositoryException("Unable to login to repository", e);
-		} catch (RepositoryException e) {
-
-			throw new SimalRepositoryException("Unable to access repository", e);
-		}
 	}
 
 	/**
@@ -262,12 +251,6 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		return null;
 	}
 
-	public IPerson getOrCreatePerson(String uri)
-			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public IProject getOrCreateProject(String uri)
 			throws SimalRepositoryException {
 		// TODO Auto-generated method stub
@@ -295,14 +278,40 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		return null;
 	}
 
-	public void initialise() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-
-	}
-
 	public void initialise(String directory) throws SimalRepositoryException {
-		// TODO Auto-generated method stub
+        Repository repository;
+        if (isTest) {
+			try {
+				repository = new TransientRepository();
+			} catch (IOException e) {
+				throw new SimalRepositoryException("Unable to create repository", e);
+			}
+	        
+			try {
+				session = repository.login(
+				        new SimpleCredentials("username", "password".toCharArray()));
+				String[] files = {
+						ISimalRepository.class.getClassLoader().getResource(JCR_MAPPING).getFile()
+					  };
 
+				ObjectContentManager ocm = new ObjectContentManagerImpl(session, files);
+			} catch (LoginException e) {
+				throw new SimalRepositoryException("Unable to login to repository", e);
+			} catch (RepositoryException e) {
+	
+				throw new SimalRepositoryException("Unable to access repository", e);
+			}
+			
+		    initialised = true;
+
+			try {
+				ModelSupport.addTestData(this);
+		    } catch (Exception e) {
+				throw new SimalRepositoryException("Unable to add test data", e);
+		    }
+        } else {
+        	throw new SimalRepositoryException("We don't know how to implement a not test JCR repository yet");
+        }
 	}
 
 	public void removeAllData() {

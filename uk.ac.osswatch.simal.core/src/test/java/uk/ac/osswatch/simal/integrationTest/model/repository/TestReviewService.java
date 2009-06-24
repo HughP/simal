@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.integrationTest.rdf;
+package uk.ac.osswatch.simal.integrationTest.model.repository;
 /*
  * Copyright 2007 University of Oxford
  *

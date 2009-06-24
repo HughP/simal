@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.integrationTest.rdf;
+package uk.ac.osswatch.simal.integrationTest.model.repository;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;

@@ -94,7 +94,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public final class JenaSimalRepository extends AbstractSimalRepository {
-  private static final Logger logger = LoggerFactory
+  public static final Logger logger = LoggerFactory
       .getLogger(JenaSimalRepository.class);
 
   private static ISimalRepository instance;
@@ -368,25 +368,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 	}
   }
   
-  public IPerson getOrCreatePerson(String uri)
-  		throws SimalRepositoryException {
-	if (containsResource(uri)) {
-		return getPerson(uri);
-	} else {
-		IPerson person = findPersonBySeeAlso(uri);
-		if (person == null) {
-			try {
-				return createPerson(uri);
-			} catch (DuplicateURIException e) {
-				logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
-				return null;
-			}
-		} else {
-			return person;
-		}
-	}
-  }
-  
   public IProject getOrCreateProject(String uri)
   		throws SimalRepositoryException {
 	if (containsResource(uri)) {
@@ -448,8 +429,8 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 
   public IDoapCategory findCategoryById(String id)
       throws SimalRepositoryException {
-    String queryStr = "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?category WHERE { "
         + "?category simal:categoryId \"" + id + "\"}";
     Query query = QueryFactory.create(queryStr);
@@ -470,10 +451,10 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   }
   
   public Set<IPerson> filterPeopleByName(String filter) {
-    String queryStr = "PREFIX xsd: <" + JenaSimalRepository.XSD_NAMESPACE_URI
+    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
     + "> " + "PREFIX foaf: <" + RDFUtils.FOAF_NS + "> "
-    + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
-    + "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI + ">"
+    + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
+    + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
     + "SELECT DISTINCT ?person WHERE { ?person a foaf:Person;"
     + "  foaf:name ?name . "
     + "  FILTER regex(?name, \"" + filter + "\", \"i\") }";
@@ -488,9 +469,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
               + id
               + " are you sure that's a world unique identifier? You may need to call getUniqueSimalID() or RDFUtils.getUniqueSimalID(id)");
     }
-    String queryStr = "PREFIX xsd: <" + JenaSimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { " + "?person simal:personId \"" + id
         + "\"^^xsd:string }";
     IPerson person = findPersonBySPARQL(queryStr);
@@ -501,8 +482,8 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   public IPerson findPersonBySeeAlso(String seeAlso)
       throws SimalRepositoryException {
     String queryStr = "PREFIX simal: <" + RDFUtils.SIMAL_NS + "> "
-        + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + JenaSimalRepository.RDFS_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + "> "
         + "SELECT DISTINCT ?person WHERE { "
         + "?person rdf:type simal:Person . " + "?person rdfs:seeAlso <"
         + seeAlso + ">}";
@@ -538,7 +519,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   public IPerson findPersonBySha1Sum(String sha1sum)
       throws SimalRepositoryException {
     String queryStr = "PREFIX foaf: <" + RDFUtils.FOAF_NS + "> "
-        + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { " + "?person foaf:mbox_sha1sum \""
         + sha1sum + "\"}";
 
@@ -550,9 +531,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   public IProject findProjectByHomepage(String homepage)
       throws SimalRepositoryException {
     String queryStr = "PREFIX simal: <" + RDFUtils.SIMAL_NS + "> "
-        + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
         + "PREFIX doap: <" + RDFUtils.DOAP_NS + ">" + "PREFIX rdfs: <"
-        + JenaSimalRepository.RDFS_NAMESPACE_URI + ">"
+        + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?project WHERE { { ?project a simal:Project . "
         + "?project doap:homepage <" + homepage + "> } UNION "
         + "{ ?doaproject a doap:Project . " + "?doapProject doap:homepage <"
@@ -574,9 +555,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
               + id
               + " are you sure that is a unique ID? You may need to call RDFUtils.getUniqueSimalID(id)");
     }
-    String queryStr = "PREFIX xsd: <" + JenaSimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI + ">"
+    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?project WHERE { " + "?project simal:projectId \""
         + id + "\"^^xsd:string }";
 
@@ -586,10 +567,10 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   }
 
   public Set<IProject> filterProjectsByName(String filter) {
-    String queryStr = "PREFIX xsd: <" + JenaSimalRepository.XSD_NAMESPACE_URI
+    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
         + "> " + "PREFIX doap: <" + RDFUtils.DOAP_NS + "> "
-        + "PREFIX rdf: <" + JenaSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + JenaSimalRepository.SIMAL_NAMESPACE_URI + ">"
+        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
+        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?project WHERE { ?project a doap:Project;"
         + "  doap:name ?name . "
         + "  FILTER regex(?name, \"" + filter + "\", \"i\") }";
@@ -812,11 +793,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   public boolean containsResource(String uri) {
     com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
     return model.containsResource(r);
-  }
-
-  public void initialise() throws SimalRepositoryException {
-    initialise(SimalProperties
-        .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
 
   public void removeAllData() {
