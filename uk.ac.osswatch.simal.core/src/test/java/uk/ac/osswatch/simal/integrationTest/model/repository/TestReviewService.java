@@ -30,9 +30,9 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.simal.IReview;
-import uk.ac.osswatch.simal.rdf.IProjectService;
-import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.IProjectService;
+import uk.ac.osswatch.simal.service.IReviewService;
 
 public class TestReviewService extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory

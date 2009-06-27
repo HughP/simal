@@ -105,6 +105,9 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     return new QName(strQName);
   }
 
+  /**
+   * @deprecated use ProjectService,getNewProjectID() instead
+   */
   public String getNewProjectID() throws SimalRepositoryException {
     String fullID = null;
     String strEntityID = SimalProperties.getProperty(
@@ -358,7 +361,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
    *          the ID to validate
    * @return true if the id is a valid Simal ID
    */
-  protected boolean isValidSimalID(String id) {
+  public boolean isValidSimalID(String id) {
     if (id == null) {
       return false;
     }

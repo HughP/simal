@@ -19,15 +19,22 @@ package uk.ac.osswatch.simal.service.jena;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.Project;
+import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.Doap;
-import uk.ac.osswatch.simal.rdf.IProjectService;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.service.AbstractService;
+import uk.ac.osswatch.simal.service.IProjectService;
 
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -40,12 +47,15 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 /**
  * A class for working with projects in the repository.
  * 
  */
 public class JenaProjectService extends AbstractService implements IProjectService {
+  public static final Logger logger = LoggerFactory
+      .getLogger(JenaProjectService.class);
 
 	public JenaProjectService(ISimalRepository simalRepository) {
 		setRepository(simalRepository);
@@ -169,5 +179,140 @@ public class JenaProjectService extends AbstractService implements IProjectServi
 		
 	    return findProjectsBySPARQL(queryStr);
 	}
+	
+	  public IProject getOrCreateProject(String uri)
+	  		throws SimalRepositoryException {
+		if (SimalRepositoryFactory.getInstance().containsResource(uri)) {
+			return getProject(uri);
+		} else {
+			IProject project = findProjectBySeeAlso(uri);
+			if (project == null) {
+				try {
+					return createProject(uri);
+				} catch (DuplicateURIException e) {
+					logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
+					return null;
+				}
+			} else {
+				return project;
+			}
+		}
+	  }
+	  
+	  public IProject createProject(String uri) throws SimalRepositoryException,
+	      DuplicateURIException {
+	    if (containsProject(uri)) {
+	      throw new DuplicateURIException(
+	          "Attempt to create a second project with the URI " + uri);
+	    }
+		Model model = ((JenaSimalRepository)getRepository()).getModel();
+	    
+	    String simalProjectURI;
+	    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
+		    String projectID = getNewProjectID();
+		    simalProjectURI = RDFUtils.getDefaultProjectURI(projectID);
+		    logger.debug("Creating a new Simal Projectinstance with URI: "
+		        + simalProjectURI);
+	    } else {
+	        simalProjectURI = uri;
+	    }
+
+	    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(simalProjectURI);
+	    Statement s = model.createStatement(r, RDF.type, SimalOntology.PROJECT);
+	    model.add(s);
+	        
+	    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
+	        com.hp.hpl.jena.rdf.model.Resource res = model.createResource(uri);
+	        s = model.createStatement(r, RDFS.seeAlso, res);
+	        model.add(s);
+	      }
+
+	    IProject project = new Project(r);
+	    project.setSimalID(getNewProjectID());
+	    return project;
+	  }
+	  
+	  public String getNewProjectID() throws SimalRepositoryException {
+		    String fullID = null;
+		    String strEntityID = SimalProperties.getProperty(
+		        SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
+		    long entityID = Long.parseLong(strEntityID);
+
+		    /**
+		     * If the properties file is lost for any reason the next ID value will be
+		     * lost. We therefore need to perform a sanity check that this is unique.
+		     * 
+		     * @FIXME: the ID should really be held in the database then there would be
+		     *         no need for this time consuming verification See ISSUE 190
+		     */
+		    boolean validID = false;
+		    while (!validID) {
+		      fullID = SimalRepositoryFactory.getInstance().getUniqueSimalID("prj" + Long.toString(entityID));
+		      logger.debug("Checking to see if project ID of {} is available", fullID);
+		      if (getProjectById(fullID) == null) {
+		        validID = true;
+		      } else {
+		        entityID = entityID + 1;
+		      }
+		    }
+
+		    long newId = entityID + 1;
+		    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID,
+		        Long.toString(newId));
+		    try {
+		      SimalProperties.save();
+		    } catch (Exception e) {
+		      logger.warn("Unable to save properties file", e);
+		      throw new SimalRepositoryException(
+		          "Unable to save properties file when creating the next project ID", e);
+		    }
+		    logger.debug("Generated new project ID {}", fullID);
+		    return fullID;
+		  }
+	  
+	  public IProject getProjectById(String id) throws SimalRepositoryException {
+		    if (!SimalRepositoryFactory.getInstance().isValidSimalID(id)) {
+		      throw new SimalRepositoryException(
+		          "Attempt to find a project using an invalid Simal ID of "
+		              + id
+		              + " are you sure that is a unique ID? You may need to call RDFUtils.getUniqueSimalID(id)");
+		    }
+		    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
+		        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
+		        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
+		        + "SELECT DISTINCT ?project WHERE { " + "?project simal:projectId \""
+		        + id + "\"^^xsd:string }";
+
+		    IProject project = findProjectBySPARQL(queryStr);
+
+		    return project;
+		  }
+	  
+	  /**
+	   * Find a single project by executing a SPARQL query.
+	   * If the query returns more than one result then
+	   * only one is returned.
+	   * 
+	   * @param queryStr
+	   * @return
+	   * 
+	   */
+	  private IProject findProjectBySPARQL(String queryStr) {
+		Model model = ((JenaSimalRepository)getRepository()).getModel();
+	    Query query = QueryFactory.create(queryStr);
+	    QueryExecution qe = QueryExecutionFactory.create(query, model);
+	    ResultSet results = qe.execSelect();
+
+	    IProject project = null;
+	    while (results.hasNext()) {
+	      QuerySolution soln = results.nextSolution();
+	      RDFNode node = soln.get("project");
+	      if (node.isResource()) {
+	        project = new Project((com.hp.hpl.jena.rdf.model.Resource) node);
+	      }
+	    }
+	    qe.close();
+	    return project;
+	  }
 
 }

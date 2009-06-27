@@ -26,8 +26,8 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.IProjectService;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.IProjectService;
 
 public class TestProjectService extends BaseRepositoryTest {
 

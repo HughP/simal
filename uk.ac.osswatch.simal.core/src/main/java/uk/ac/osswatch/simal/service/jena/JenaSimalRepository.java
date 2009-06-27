@@ -302,6 +302,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return org;
   }
 
+  /**
+   * @deprecated use ProjectService.createProject(uri) instead
+   */
   public IProject createProject(String uri) throws SimalRepositoryException,
       DuplicateURIException {
     if (containsProject(uri)) {
@@ -367,7 +370,10 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 		}
 	}
   }
-  
+
+  /** 
+   * @deprecated Use ProjectServer.getOrCreateProject(uri) instead
+   */
   public IProject getOrCreateProject(String uri)
   		throws SimalRepositoryException {
 	if (containsResource(uri)) {
@@ -548,6 +554,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return project;
   }
 
+  /**
+   * @deprecated use ProjectService.getProjecByID(id) instead
+   */
   public IProject findProjectById(String id) throws SimalRepositoryException {
     if (!isValidSimalID(id)) {
       throw new SimalRepositoryException(
@@ -594,7 +603,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    * @param queryStr
    * @return
    * 
-   * @deprecated Use ProjectService.findProjectbySPARQL(queryStr) instead
+   * @deprecated Use JenaProjectService.findProjectbySPARQL(queryStr) instead
    */
   private IProject findProjectBySPARQL(String queryStr) {
     Query query = QueryFactory.create(queryStr);

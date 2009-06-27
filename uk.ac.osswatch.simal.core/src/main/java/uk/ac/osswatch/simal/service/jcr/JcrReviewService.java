@@ -21,10 +21,10 @@ import java.util.Set;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.AbstractService;
+import uk.ac.osswatch.simal.service.IReviewService;
 
 public class JcrReviewService extends AbstractService implements IReviewService {
 

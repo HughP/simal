@@ -223,6 +223,7 @@ public interface ISimalRepository {
    * @param id
    * @return
    * @throws SimalRepositoryException
+   * @deprecated use ProjectService.getProjecByID(id) instead
    */
   public IProject findProjectById(String id) throws SimalRepositoryException;
 
@@ -304,6 +305,7 @@ public interface ISimalRepository {
    *           if an error is thrown whilst communicating with the repository
    * @throws DuplicateURIException
    *           if an entity with the given String already exists
+   * @deprecated use ProjectService.createProject(uri) instead
    */
   public IProject createProject(String uri) throws SimalRepositoryException,
       DuplicateURIException;
@@ -350,6 +352,7 @@ public interface ISimalRepository {
    * 
    * @throws IOException
    * @throws FileNotFoundException
+   * @deprecated use ProjectService,getNewProjectID() instead
    */
   public String getNewProjectID() throws SimalRepositoryException;
 
@@ -609,7 +612,20 @@ public interface ISimalRepository {
     * @param personURI
     * @return
     * @throws SimalRepositoryException 
+    * @deprecated Use ProjectServer.getOrCreateProject(uri) instead
     */
     public IProject getOrCreateProject(String uri) throws SimalRepositoryException;
+    
+    /**
+     * Ensure an ID is a valid Simal ID. Being valid does not mean that it is
+     * necessarily an ID for this instance of Simal, but that it is a valid ID for
+     * some instance of Simal. Validation does not include checking that the
+     * instance that the ID belongs to is also valid.
+     * 
+     * @param id -
+     *          the ID to validate
+     * @return true if the id is a valid Simal ID
+     */
+    public boolean isValidSimalID(String id);
 
 }
