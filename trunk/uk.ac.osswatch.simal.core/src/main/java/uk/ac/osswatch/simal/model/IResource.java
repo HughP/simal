@@ -80,6 +80,12 @@ public interface IResource extends IResourceService, Serializable {
    * @return
    */
   public Set<URI> getSeeAlso();
+  
+  /**
+   * Add a seeAlso record to this resource. A seeAlso record points to another record that
+   * describes the same entity.
+   */
+  public void addSeeAlso(URI uri);
 
   /**
    * Get the raw resource as it is stored in the repository.

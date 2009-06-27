@@ -72,4 +72,23 @@ public class Resource extends AbstractResource {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void addSeeAlso(URI uri) {
+		seeAlsos.add(uri);
+	}
+	
+
+	/** The JCR Path of this object **/
+    String path;
+    public String getPath() {
+    	return path;
+    }
+    
+    protected void setPath(URI uri) {
+    	path = uri.getPath();
+    }
+    
+    public void setPath(String path) {
+    	this.path = path;
+    }
 }

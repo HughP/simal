@@ -18,11 +18,24 @@
 -->
 <jackrabbit-ocm>
 	<class-descriptor
+		className="uk.ac.osswatch.simal.model.jcr.Resource"
+		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
+		<!-- Field-descriptor is used to map simple attributes to jcr property -->
+		<field-descriptor fieldName="path" path="true" />
+		<field-descriptor fieldName="name" jcrName="name" />
+	</class-descriptor>
+	
+	<class-descriptor
 		className="uk.ac.osswatch.simal.model.jcr.Project"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
 		<!-- Field-descriptor is used to map simple attributes to jcr property -->
-		<field-descriptor fieldName="name" jcrName="a1" />
-
+	</class-descriptor>
+	
+	<class-descriptor
+		className="uk.ac.osswatch.simal.model.jcr.Person"
+		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
+		<!-- Field-descriptor is used to map simple attributes to jcr property -->
+		<field-descriptor fieldName="path" path="true" />
 	</class-descriptor>
 </jackrabbit-ocm>
 
