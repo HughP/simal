@@ -100,7 +100,7 @@ public class Pims {
         for (int i = 1; i<= lastRow; i++) {
 	        row = sheet.getRow(i);
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IProject project = repo.getOrCreateProject(getProjectURI(id));
+	        IProject project = SimalRepositoryFactory.getProjectService().getOrCreateProject(getProjectURI(id));
 	        project.addName(row.getCell(2).getRichStringCellValue().toString());
 	        project.setDescription(row.getCell(4).getRichStringCellValue().getString());
 	        
@@ -188,7 +188,7 @@ public class Pims {
 	        person.addName(name);
 	        
 	        int projectId = ((Double)row.getCell(1).getNumericCellValue()).intValue();
-	        IProject project = repo.getOrCreateProject(getProjectURI(projectId));
+	        IProject project = SimalRepositoryFactory.getProjectService().getOrCreateProject(getProjectURI(projectId));
 	        
 	        // TODO: record the contacts job_title
 	        // TODO: record the contacts institutions.name
@@ -246,10 +246,9 @@ public class Pims {
 	 * @throws DuplicateURIException 
 	 */
 	private static IProject getPimsProject() throws SimalRepositoryException, DuplicateURIException {
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
 		IProject project = SimalRepositoryFactory.getProjectService().getProject(PIMS_PROJECT_URI);
 		if (project == null) {
-			project = repo.createProject(PIMS_PROJECT_URI);
+			project = SimalRepositoryFactory.getProjectService().createProject(PIMS_PROJECT_URI);
 			project.addName("PIMS");
 			project.setShortDesc("JISC Project Information Management System");
 		}

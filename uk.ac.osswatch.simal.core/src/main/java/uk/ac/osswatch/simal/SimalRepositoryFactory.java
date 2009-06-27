@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
+import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IProjectService;
@@ -30,14 +31,13 @@ import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
 import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 import uk.ac.osswatch.simal.service.jena.JenaReviewService;
-import uk.ac.osswatch.simal.service.jena.JenaSimalRepository;
 
 public class SimalRepositoryFactory {
   private static final Logger logger = LoggerFactory
       .getLogger(SimalRepositoryFactory.class);
   public static final int JENA = 1;
   public static final int JCR = 2;
-  private static final int type = JENA;
+  private static final int type = JCR;
   
   /**
    * Get the SimalRepository object. Note that only one of each type can exist

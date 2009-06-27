@@ -17,7 +17,6 @@ package uk.ac.osswatch.simal.model.jcr;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Set;
@@ -35,10 +34,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.vocabulary.RDF;
-import com.hp.hpl.jena.vocabulary.RDFS;
-
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
@@ -46,13 +41,11 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
-import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.service.jena.JenaSimalRepository;
 
 public class JcrSimalRepository extends AbstractSimalRepository {
     public static final Logger logger = LoggerFactory
@@ -69,6 +62,14 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	 */
 	private JcrSimalRepository() throws SimalRepositoryException {
 		super();
+	}
+	
+	/**
+	 * Get the ObectContentManager for this repository. The OCM manages
+	 * mappings between POJOs and the repository.
+	 */
+	public ObjectContentManager getObjectContentManager() {
+		return ocm;
 	}
 
 	/**
@@ -165,7 +166,7 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 			throw new SimalRepositoryException("Unable to create a person with the URI " + uri, e);
 		}
 	    person.setSimalID(personID);
-	    
+	  
 	    ocm.insert(person);
 	    
 	    return person;
