@@ -22,10 +22,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
-import uk.ac.osswatch.simal.rdf.IProjectService;
-import uk.ac.osswatch.simal.rdf.IReviewService;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.IProjectService;
+import uk.ac.osswatch.simal.service.IReviewService;
 import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
 import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;

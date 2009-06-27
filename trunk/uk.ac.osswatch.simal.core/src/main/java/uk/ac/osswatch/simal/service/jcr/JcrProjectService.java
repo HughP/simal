@@ -19,10 +19,11 @@ package uk.ac.osswatch.simal.service.jcr;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.IProjectService;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.AbstractService;
+import uk.ac.osswatch.simal.service.IProjectService;
 
 public class JcrProjectService extends AbstractService implements
 		IProjectService {
@@ -91,6 +92,28 @@ public class JcrProjectService extends AbstractService implements
 	public boolean containsProject(String uri) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	public IProject createProject(String uri) throws SimalRepositoryException,
+			DuplicateURIException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getNewProjectID() throws SimalRepositoryException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IProject getOrCreateProject(String uri)
+			throws SimalRepositoryException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public IProject getProjectById(String id) throws SimalRepositoryException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

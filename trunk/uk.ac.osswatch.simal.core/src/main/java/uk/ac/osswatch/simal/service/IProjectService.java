@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.rdf;
+package uk.ac.osswatch.simal.service;
 /*
  * Copyright 2007 University of Oxford 
  * 
@@ -16,9 +16,13 @@ package uk.ac.osswatch.simal.rdf;
  * under the License.
  * 
  */
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 
 /**
@@ -114,4 +118,42 @@ public interface IProjectService {
   	   * Tests to see if a project already exists in the repository.
   	   */
 	  public boolean containsProject(String uri); 
+
+	   /**
+	    * Get a project from the repository. If the project does not yet exist it is created.
+	    * 
+	    * @param personURI
+	    * @return
+	    * @throws SimalRepositoryException 
+	    */
+	    public IProject getOrCreateProject(String uri) throws SimalRepositoryException;
+	    
+	    /**
+	     * Create a new project in the repository.
+	     * 
+	     * @return
+	     * @throws SimalRepositoryException
+	     *           if an error is thrown whilst communicating with the repository
+	     * @throws DuplicateURIException
+	     *           if an entity with the given String already exists
+	     */
+	    public IProject createProject(String uri) throws SimalRepositoryException,
+	        DuplicateURIException;
+
+	    /**
+	     * Create a new project ID and save the next value in the properties file.
+	     * 
+	     * @throws IOException
+	     * @throws FileNotFoundException
+	     */
+	    public String getNewProjectID() throws SimalRepositoryException;
+
+	    /**
+	     * Get a project with a given simal id.
+	     * 
+	     * @param id
+	     * @return
+	     * @throws SimalRepositoryException
+	     */
+	    public IProject getProjectById(String id) throws SimalRepositoryException;
 }

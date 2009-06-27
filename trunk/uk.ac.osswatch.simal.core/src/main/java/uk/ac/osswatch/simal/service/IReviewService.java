@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.rdf;
+package uk.ac.osswatch.simal.service;
 /*
  * Copyright 2007 University of Oxford 
  * 
@@ -20,6 +20,8 @@ import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.IReview;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 
 /**
