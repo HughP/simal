@@ -295,6 +295,7 @@
           <excludes>
             <exclude>.pmd</exclude>
             <exclude>derby.log</exclude>
+            <exclude>repository/**/*</exclude>
             <exclude>reports/**/*</exclude>
             <exclude>simal/**/*</exclude>
             <exclude>build/**/*</exclude>
