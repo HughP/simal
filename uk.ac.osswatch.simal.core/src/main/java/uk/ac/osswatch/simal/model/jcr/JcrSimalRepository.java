@@ -17,6 +17,8 @@ package uk.ac.osswatch.simal.model.jcr;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Set;
 
@@ -29,7 +31,13 @@ import javax.jcr.SimpleCredentials;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.apache.jackrabbit.ocm.manager.impl.ObjectContentManagerImpl;
 import org.apache.jackrabbit.core.TransientRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -38,16 +46,23 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.service.jena.JenaSimalRepository;
 
 public class JcrSimalRepository extends AbstractSimalRepository {
+    public static final Logger logger = LoggerFactory
+      .getLogger(JcrSimalRepository.class);
 
 	private static final String JCR_MAPPING = "jcr/mapping.xml";
 	private static ISimalRepository instance;
 	private Session session;
+
+	private ObjectContentManager ocm;
 
 	/**
 	 * Use getInstance instead.
@@ -133,8 +148,27 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 
 	public IPerson createPerson(String uri) throws SimalRepositoryException,
 			DuplicateURIException {
-		// TODO Auto-generated method stub
-		return null;
+	    if (containsPerson(uri)) {
+	      throw new DuplicateURIException(
+	          "Attempt to create a second person with the URI " + uri);
+	    }
+
+	    String personID = getNewPersonID();
+	    String simalPersonURI = RDFUtils.getDefaultPersonURI(personID);
+	    logger.debug("Creating a new Simal Person instance with URI: "
+	        + simalPersonURI);
+	    
+	    IPerson person;
+		try {
+			person = new Person(uri);
+		} catch (URISyntaxException e) {
+			throw new SimalRepositoryException("Unable to create a person with the URI " + uri, e);
+		}
+	    person.setSimalID(personID);
+	    
+	    ocm.insert(person);
+	    
+	    return person;
 	}
 
 	public IProject createProject(String uri) throws SimalRepositoryException,
@@ -294,7 +328,7 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 						ISimalRepository.class.getClassLoader().getResource(JCR_MAPPING).getFile()
 					  };
 
-				ObjectContentManager ocm = new ObjectContentManagerImpl(session, files);
+				ocm = new ObjectContentManagerImpl(session, files);
 			} catch (LoginException e) {
 				throw new SimalRepositoryException("Unable to login to repository", e);
 			} catch (RepositoryException e) {

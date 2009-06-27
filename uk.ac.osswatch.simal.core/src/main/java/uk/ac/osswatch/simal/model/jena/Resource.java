@@ -231,4 +231,9 @@ public class Resource extends AbstractResource {
     
     return props;
   }
+
+public void addSeeAlso(URI uri) {
+	// TODO Auto-generated method stub
+	
+}
 }
