@@ -29,6 +29,7 @@
 		className="uk.ac.osswatch.simal.model.jcr.Project"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
 		<!-- Field-descriptor is used to map simple attributes to jcr property -->
+		<field-descriptor fieldName="path" path="true" />
 	</class-descriptor>
 	
 	<class-descriptor
