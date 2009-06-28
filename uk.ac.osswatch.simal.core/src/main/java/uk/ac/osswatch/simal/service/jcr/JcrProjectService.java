@@ -22,6 +22,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
@@ -127,8 +128,41 @@ public class JcrProjectService extends AbstractService implements
 	}
 
 	public String getNewProjectID() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+	    String fullID = null;
+	    String strEntityID = SimalProperties.getProperty(
+	        SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1");
+	    long entityID = Long.parseLong(strEntityID);
+
+	    /**
+	     * If the properties file is lost for any reason the next ID value will be
+	     * lost. We therefore need to perform a sanity check that this is unique.
+	     * 
+	     * @FIXME: the ID should really be held in the database then there would be
+	     *         no need for this time consuming verification See ISSUE 190
+	     */
+	    boolean validID = false;
+	    while (!validID) {
+	      fullID = SimalRepositoryFactory.getInstance().getUniqueSimalID("prj" + Long.toString(entityID));
+	      logger.debug("Checking to see if project ID of {} is available", fullID);
+	      if (getProjectById(fullID) == null) {
+	        validID = true;
+	      } else {
+	        entityID = entityID + 1;
+	      }
+	    }
+
+	    long newId = entityID + 1;
+	    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID,
+	        Long.toString(newId));
+	    try {
+	      SimalProperties.save();
+	    } catch (Exception e) {
+	      logger.warn("Unable to save properties file", e);
+	      throw new SimalRepositoryException(
+	          "Unable to save properties file when creating the next project ID", e);
+	    }
+	    logger.debug("Generated new project ID {}", fullID);
+	    return fullID;
 	}
 
 	public IProject getOrCreateProject(String uri)
