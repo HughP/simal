@@ -606,7 +606,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    * @param queryStr
    * @return
    * 
-   * @deprecated Use JenaProjectService.findProjectbySPARQL(queryStr) instead
+   * @deprecated No longer needed when other methods have been moved to ProjectService
    */
   private IProject findProjectBySPARQL(String queryStr) {
     Query query = QueryFactory.create(queryStr);

@@ -146,6 +146,9 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     return fullID;
   }
   
+  /**
+   * @deprecated use JenaHomepageService.getNewHomepageID() instead
+   */
   public String getNewHomepageID() throws SimalRepositoryException {
 	    String fullID = null;
 	    String strEntityID = SimalProperties.getProperty(

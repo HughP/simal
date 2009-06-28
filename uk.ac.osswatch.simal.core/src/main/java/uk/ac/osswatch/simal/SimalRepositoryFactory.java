@@ -31,6 +31,7 @@ import uk.ac.osswatch.simal.service.IReviewService;
 import uk.ac.osswatch.simal.service.jcr.HomepageService;
 import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
 import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
+import uk.ac.osswatch.simal.service.jena.JenaHomepageService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 import uk.ac.osswatch.simal.service.jena.JenaReviewService;
 
@@ -71,7 +72,7 @@ public class SimalRepositoryFactory {
 	public static IHomepageService getHomepageService() throws SimalRepositoryException {
 		 switch (type) {
 		    case JENA:
-		      return null;
+		      return new JenaHomepageService(getInstance());
 		    case JCR:  
 		      return new HomepageService(getInstance());
 		    default:
