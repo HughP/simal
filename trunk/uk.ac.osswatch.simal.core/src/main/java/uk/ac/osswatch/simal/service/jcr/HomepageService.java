@@ -16,6 +16,10 @@ package uk.ac.osswatch.simal.service.jcr;
  * under the License.
  * 
  */
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.jcr.Homepage;
@@ -27,6 +31,8 @@ import uk.ac.osswatch.simal.service.AbstractService;
 import uk.ac.osswatch.simal.service.IHomepageService;
 
 public class HomepageService extends AbstractService implements IHomepageService {
+  public static final Logger logger = LoggerFactory
+      .getLogger(HomepageService.class);
 
 	public HomepageService(ISimalRepository repo) {
 		super(repo);
@@ -49,8 +55,41 @@ public class HomepageService extends AbstractService implements IHomepageService
 	}
 
 	public String getNewHomepageID() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+	    String fullID = null;
+	    String strEntityID = SimalProperties.getProperty(
+	        SimalProperties.PROPERTY_SIMAL_NEXT_HOMEPAGE_ID, "1");
+	    long entityID = Long.parseLong(strEntityID);
+
+	    /**
+	     * If the properties file is lost for any reason the next ID value will be
+	     * lost. We therefore need to perform a sanity check that this is unique.
+	     * 
+	     * @FIXME: the ID should really be held in the database then there would be
+	     *         no need for this time consuming verification See ISSUE 190
+	     */
+	    boolean validID = false;
+	    while (!validID) {
+	      fullID = getRepository().getUniqueSimalID("page" + Long.toString(entityID));
+	      logger.debug("Checking to see if homepage ID of {} is available", fullID);
+	      if (SimalRepositoryFactory.getProjectService().getProjectById(fullID) == null) {
+	        validID = true;
+	      } else {
+	        entityID = entityID + 1;
+	      }
+	    }
+
+	    long newId = entityID + 1;
+	    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_HOMEPAGE_ID,
+	        Long.toString(newId));
+	    try {
+	      SimalProperties.save();
+	    } catch (Exception e) {
+	      logger.warn("Unable to save properties file", e);
+	      throw new SimalRepositoryException(
+	          "Unable to save properties file when creating the next project ID", e);
+	    }
+	    logger.debug("Generated new homepage ID {}", fullID);
+	    return fullID;
 	}
 
 	public IHomepageService getOrCreateHomepage(String url)
