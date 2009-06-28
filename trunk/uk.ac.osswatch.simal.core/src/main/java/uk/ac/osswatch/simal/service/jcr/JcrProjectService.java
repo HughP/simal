@@ -16,7 +16,6 @@ package uk.ac.osswatch.simal.service.jcr;
  * under the License.
  * 
  */
-import java.net.URISyntaxException;
 import java.util.Set;
 
 import org.slf4j.Logger;

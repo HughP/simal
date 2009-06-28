@@ -15,7 +15,6 @@ package uk.ac.osswatch.simal.model.jcr;
  * limitations under the License.
  */
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.AbstractResource;
