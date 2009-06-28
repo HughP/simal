@@ -46,7 +46,7 @@ public class TestResource extends BaseRepositoryTest {
       URISyntaxException {
     assertNotNull(project1);
     project1.delete();
-    IProject project = SimalRepositoryFactory.getInstance().findProjectBySeeAlso(
+    IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(
         TEST_PROJECT_URI);
     assertNull("The simal project should have been deleted", project);
     // force the repo to be rebuilt
