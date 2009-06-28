@@ -1,8 +1,8 @@
 package uk.ac.osswatch.simal;
 
 /*
- * 
- Copyright 2007 University of Oxford * 
+ * Copyright 2007 University of Oxford 
+ *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -40,7 +40,7 @@ public class SimalRepositoryFactory {
       .getLogger(SimalRepositoryFactory.class);
   public static final int JENA = 1;
   public static final int JCR = 2;
-  private static final int type = JENA;
+  private static final int type = JCR;
   
   /**
    * Get the SimalRepository object. Note that only one of each type can exist
