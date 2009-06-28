@@ -120,7 +120,7 @@ public class JcrProjectService extends AbstractService implements
 		        simalProjectURI = uri;
 		    }
 
-		    Project project = new Project(getNewProjectID());
+		    Project project = new Project(getRepository().getEntityID(getNewProjectID()));
 		    ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager().insert(project);
 		    
 		    return project;

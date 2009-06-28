@@ -42,7 +42,7 @@ public class HomepageService extends AbstractService implements IHomepageService
 	          "Attempt to create a second homepage with the URI " + uri);
 	    }
 
-	    Homepage page= new Homepage(getNewHomepageID());
+	    Homepage page= new Homepage(getRepository().getEntityID(getNewHomepageID()));
 	    ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager().insert(page);
 	    
 	    return page;

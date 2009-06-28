@@ -39,6 +39,9 @@ public abstract class AbstractResource implements IResource {
 	 * @throws URISyntaxException
 	 */
 	public AbstractResource(String simalID) throws SimalRepositoryException {
+		if (!simalID.startsWith("/")) {
+			simalID = "/" + simalID;
+		}
 		setPath(simalID);
 		setSimalID(simalID);
 	}
