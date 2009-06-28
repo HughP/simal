@@ -29,7 +29,7 @@ import uk.ac.osswatch.simal.service.IReviewService;
 public class JcrReviewService extends AbstractService implements IReviewService {
 
 	public JcrReviewService(ISimalRepository simalRepository) {
-		setRepository(simalRepository);
+		super(simalRepository);
 	}
 
 	public IReview findReviewById(String id) throws SimalRepositoryException {

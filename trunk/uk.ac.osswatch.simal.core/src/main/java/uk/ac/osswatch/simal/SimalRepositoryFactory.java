@@ -25,8 +25,10 @@ import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IReviewService;
+import uk.ac.osswatch.simal.service.jcr.HomepageService;
 import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
 import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
@@ -59,6 +61,23 @@ public class SimalRepositoryFactory {
 	      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 	  }
   }
+	
+	/**
+	 * Get an instance of a homepage service operating on this repository.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * 
+	 */
+	public static IHomepageService getHomepageService() throws SimalRepositoryException {
+		 switch (type) {
+		    case JENA:
+		      return null;
+		    case JCR:  
+		      return new HomepageService(getInstance());
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+		  }
+	}
   
 
 	/**

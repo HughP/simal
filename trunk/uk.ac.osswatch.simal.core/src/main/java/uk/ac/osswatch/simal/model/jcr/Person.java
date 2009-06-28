@@ -15,8 +15,6 @@ package uk.ac.osswatch.simal.model.jcr;
  * limitations under the License.
  */
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IDoapHomepage;
@@ -28,8 +26,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class Person extends Resource implements IPerson {
 	private static final long serialVersionUID = 1L;
 
-	public Person(String uri) throws URISyntaxException {
-		setPath(new URI(uri));
+	public Person(String simalID) throws SimalRepositoryException {
+		super(simalID);
 	}
 
 	public void addEmail(String email) {

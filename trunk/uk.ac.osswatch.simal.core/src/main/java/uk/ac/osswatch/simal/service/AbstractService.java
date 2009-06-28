@@ -22,6 +22,10 @@ public abstract class AbstractService {
 	ISimalRepository repo;
 	
 
+	public AbstractService(ISimalRepository simalRepository) {
+		setRepository(simalRepository);
+	}
+
 	/**
 	 * Set the repository this service is to work on.
 	 * @param simalRepository

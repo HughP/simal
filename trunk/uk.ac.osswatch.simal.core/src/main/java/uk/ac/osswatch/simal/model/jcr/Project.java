@@ -14,7 +14,6 @@ package uk.ac.osswatch.simal.model.jcr;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
@@ -37,8 +36,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class Project extends DoapResource implements IProject {
 	private static final long serialVersionUID = 1L;
 	
-	public Project(String uri) throws URISyntaxException {
-		setPath(new URI(uri));
+	public Project(String simalID) throws SimalRepositoryException {
+		super(simalID);
 	}
 
 	public void addCategory(IDoapCategory category) {

@@ -15,6 +15,7 @@ package uk.ac.osswatch.simal.model.jcr;
  * limitations under the License.
  */
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.AbstractResource;
@@ -27,6 +28,10 @@ public class Resource extends AbstractResource {
 	private Set<URI> seeAlsos;
 	private String simalID;
 	private Set<String> sources;
+
+	public Resource(String simalID) throws SimalRepositoryException {
+		super(simalID);
+	}
 
 	public String getComment() {
 		return comment;
@@ -78,17 +83,4 @@ public class Resource extends AbstractResource {
 	}
 	
 
-	/** The JCR Path of this object **/
-    String path;
-    public String getPath() {
-    	return path;
-    }
-    
-    protected void setPath(URI uri) {
-    	path = uri.getPath();
-    }
-    
-    public void setPath(String path) {
-    	this.path = path;
-    }
 }

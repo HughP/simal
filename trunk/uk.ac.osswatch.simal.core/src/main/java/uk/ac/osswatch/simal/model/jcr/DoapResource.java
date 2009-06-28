@@ -15,6 +15,7 @@ package uk.ac.osswatch.simal.model.jcr;
  * limitations under the License.
  */
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IDoapLicence;
@@ -22,6 +23,11 @@ import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class DoapResource extends Resource implements IDoapResource {
+	private static final long serialVersionUID = 1L;
+
+	public DoapResource(String simalID) throws SimalRepositoryException {
+		super(simalID);
+	}
 
 	public void addName(String name) {
 		// TODO Auto-generated method stub
