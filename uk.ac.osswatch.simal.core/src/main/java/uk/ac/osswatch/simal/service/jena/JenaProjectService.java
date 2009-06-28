@@ -59,7 +59,7 @@ public class JenaProjectService extends AbstractService implements IProjectServi
       .getLogger(JenaProjectService.class);
 
 	public JenaProjectService(ISimalRepository simalRepository) {
-		setRepository(simalRepository);
+		super(simalRepository);
 	};
 	
 	public Set<IProject> getProjectsWithRCS() throws SimalRepositoryException {

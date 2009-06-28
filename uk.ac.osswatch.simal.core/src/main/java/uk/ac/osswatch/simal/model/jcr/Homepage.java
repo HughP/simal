@@ -14,7 +14,15 @@ package uk.ac.osswatch.simal.model.jcr;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import java.net.URISyntaxException;
+
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Homepage extends DoapResource implements IDoapHomepage {
+	public Homepage(String simalID) throws SimalRepositoryException {
+		super(simalID);
+	}
+
+	private static final long serialVersionUID = 1L;
 }

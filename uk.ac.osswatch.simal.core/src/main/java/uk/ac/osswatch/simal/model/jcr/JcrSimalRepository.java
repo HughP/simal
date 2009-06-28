@@ -159,13 +159,7 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	    logger.debug("Creating a new Simal Person instance with URI: "
 	        + simalPersonURI);
 	    
-	    IPerson person;
-		try {
-			person = new Person(uri);
-		} catch (URISyntaxException e) {
-			throw new SimalRepositoryException("Unable to create a person with the URI " + uri, e);
-		}
-	    person.setSimalID(personID);
+	    IPerson person= new Person(personID);
 	  
 	    ocm.insert(person);
 	    

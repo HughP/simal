@@ -337,6 +337,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return project;
   }
 
+  /**
+   * @deprecated use HomepageService.createHomepage(uri) instead
+   */
   public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
       DuplicateURIException {
 	if (uri == null || uri.length() == 0) {

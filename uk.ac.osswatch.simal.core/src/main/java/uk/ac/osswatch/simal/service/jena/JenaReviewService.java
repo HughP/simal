@@ -61,7 +61,7 @@ public class JenaReviewService extends AbstractService implements IReviewService
       .getLogger(JenaReviewService.class);
 
 	public JenaReviewService(ISimalRepository simalRepository) {
-		setRepository(simalRepository);
+		super(simalRepository);
 	};
 	
 	public Set<IReview> getReviews() {

@@ -343,6 +343,7 @@ public interface ISimalRepository {
    *           if an error is thrown whilst communicating with the repository
    * @throws DuplicateURIException
    *           if an entity with the given String already exists
+   * @deprecated use HomePageservice.createHomepage(ur) instead
    */
   public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
       DuplicateURIException;

@@ -204,7 +204,7 @@ public class SimalProperties {
           value = UUID.randomUUID().toString();
         }
         setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
-      } if (key.equals(PROPERTY_RDF_DATA_DIR)) {
+      } else if (key.equals(PROPERTY_RDF_DATA_DIR)) {
         value = System.getProperty("user.dir");
       } else {
         StringBuilder sb = new StringBuilder("The property '");

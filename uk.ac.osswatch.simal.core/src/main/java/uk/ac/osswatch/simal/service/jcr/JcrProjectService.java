@@ -39,7 +39,7 @@ public class JcrProjectService extends AbstractService implements
       .getLogger(JcrProjectService.class);
 
 	public JcrProjectService(ISimalRepository simalRepository) {
-		setRepository(simalRepository);
+		super(simalRepository);
 	}
 
 	public IProject findProjectBySeeAlso(String seeAlso)
@@ -120,13 +120,7 @@ public class JcrProjectService extends AbstractService implements
 		        simalProjectURI = uri;
 		    }
 
-		    Project project;
-			try {
-				project = new Project(uri);
-			} catch (URISyntaxException e) {
-				throw new SimalRepositoryException("Unable to create a new project object", e);
-			}
-		    project.setSimalID(getNewProjectID());
+		    Project project = new Project(getNewProjectID());
 		    ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager().insert(project);
 		    
 		    return project;

@@ -15,6 +15,8 @@ package uk.ac.osswatch.simal.model;
  * limitations under the License.
  */
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.apache.commons.lang.StringEscapeUtils;
@@ -24,6 +26,22 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public abstract class AbstractResource implements IResource {
 	private static final long serialVersionUID = 1L;
 	protected String uri;
+	
+	public AbstractResource() {
+		super();
+	}
+
+	/**
+	 * Create a new resource.
+	 * 
+ 	 * @param simalID - the id of this resource in this server. Note this is not a world unique identifier.
+	 * @throws SimalRepositoryException 
+	 * @throws URISyntaxException
+	 */
+	public AbstractResource(String simalID) throws SimalRepositoryException {
+		setPath(simalID);
+		setSimalID(simalID);
+	}
 
 	public String getLabel() {
 		return getLabel(null);
@@ -70,6 +88,22 @@ public abstract class AbstractResource implements IResource {
 
     public String getSimalID() throws SimalRepositoryException {
       return getUniqueSimalID();
+    }
+    
+
+	/** The JCR Path of this object **/
+    String path;
+    public String getPath() {
+    	return path;
+    }
+    
+    protected void setPath(URI uri) {
+    	path = "/" + uri.getHost() + uri.getPath();
+    	path = "/myFolder";
+    }
+    
+    public void setPath(String path) {
+    	this.path = path;
     }
 
 }

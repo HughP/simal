@@ -26,7 +26,7 @@
 	</class-descriptor>
 	
 	<class-descriptor
-		className="uk.ac.osswatch.simal.model.jcr.Project"
+		className="uk.ac.osswatch.simal.model.jcr.Homepage"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
 		<!-- Field-descriptor is used to map simple attributes to jcr property -->
 		<field-descriptor fieldName="path" path="true" />
@@ -34,6 +34,13 @@
 	
 	<class-descriptor
 		className="uk.ac.osswatch.simal.model.jcr.Person"
+		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
+		<!-- Field-descriptor is used to map simple attributes to jcr property -->
+		<field-descriptor fieldName="path" path="true" />
+	</class-descriptor>
+	
+	<class-descriptor
+		className="uk.ac.osswatch.simal.model.jcr.Project"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
 		<!-- Field-descriptor is used to map simple attributes to jcr property -->
 		<field-descriptor fieldName="path" path="true" />
