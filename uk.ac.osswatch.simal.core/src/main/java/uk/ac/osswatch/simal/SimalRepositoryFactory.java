@@ -40,7 +40,7 @@ public class SimalRepositoryFactory {
       .getLogger(SimalRepositoryFactory.class);
   public static final int JENA = 1;
   public static final int JCR = 2;
-  private static final int type = JENA;
+  private static final int type = JCR;
   
   /**
    * Get the SimalRepository object. Note that only one of each type can exist
