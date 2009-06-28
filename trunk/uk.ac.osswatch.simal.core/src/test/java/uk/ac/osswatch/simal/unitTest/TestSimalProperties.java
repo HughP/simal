@@ -31,9 +31,10 @@ import java.net.URL;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class TestSimalProperties {
+public class TestSimalProperties extends BaseRepositoryTest {
 
   @Test
   public void testDefaults() throws SimalRepositoryException {
