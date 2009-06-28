@@ -14,7 +14,6 @@ package uk.ac.osswatch.simal.model.jcr;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
 
