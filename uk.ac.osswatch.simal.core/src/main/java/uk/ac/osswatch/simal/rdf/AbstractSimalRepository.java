@@ -206,40 +206,6 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     return uniqueID.substring(uniqueID.lastIndexOf(ID_SEPARATOR) + 1);
   }
 
-  public String getNewCategoryID() throws SimalRepositoryException {
-    String fullID = null;
-    String strEntityID = SimalProperties.getProperty(
-        SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, "1");
-    long entityID = Long.parseLong(strEntityID);
-
-    /**
-     * If the properties file is lost for any reason the next ID value will be
-     * lost. We therefore need to perform a sanity check that this is unique.
-     */
-    boolean validID = false;
-    while (!validID) {
-      fullID = getUniqueSimalID("cat" + Long.toString(entityID));
-      if (findCategoryById(fullID) == null) {
-        validID = true;
-      } else {
-        entityID = entityID + 1;
-      }
-    }
-
-    long newId = entityID + 1;
-    SimalProperties.setProperty(
-        SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, Long.toString(newId));
-    try {
-      SimalProperties.save();
-    } catch (Exception e) {
-      logger.warn("Unable to save properties file", e);
-      throw new SimalRepositoryException(
-          "Unable to save properties file when creating the next category ID",
-          e);
-    }
-    return fullID;
-  }
-
   public String getNewPersonID() throws SimalRepositoryException {
     String fullID = null;
     String strEntityID = SimalProperties.getProperty(

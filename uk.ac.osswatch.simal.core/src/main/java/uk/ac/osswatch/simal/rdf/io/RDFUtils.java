@@ -485,7 +485,7 @@ public class RDFUtils {
         IDoapCategory simalCategory;
         try {
           Attr att = category.getAttributeNodeNS(RDF_NS, "resource");
-          simalCategory = repo.getCategory(att.getNodeValue().trim());
+          simalCategory = SimalRepositoryFactory.getCategoryService().get(att.getNodeValue().trim());
           if (simalCategory != null) {
             id = simalCategory.getSimalID();
           } else {

@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.wicket.data;
 
 import org.apache.wicket.model.LoadableDetachableModel;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -40,7 +41,7 @@ public class DetachableCategoryModel extends LoadableDetachableModel {
   protected Object load() {
     IDoapCategory category;
     try {
-      category = UserApplication.getRepository().getCategory(uri);
+      category = SimalRepositoryFactory.getCategoryService().get(uri);
     } catch (SimalRepositoryException e) {
       e.printStackTrace();
       category = null;

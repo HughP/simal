@@ -92,7 +92,7 @@ public class PimsTest extends BaseRepositoryTest {
 	
 	@Test
 	public void testImportProgrammes() throws SimalRepositoryException {
-		Iterator<IDoapCategory> cats = repo.getAllCategories().iterator();
+		Iterator<IDoapCategory> cats = SimalRepositoryFactory.getCategoryService().getAll().iterator();
 		boolean catIsValid = false;
 		while (cats.hasNext()) {
 			IDoapCategory cat = cats.next();

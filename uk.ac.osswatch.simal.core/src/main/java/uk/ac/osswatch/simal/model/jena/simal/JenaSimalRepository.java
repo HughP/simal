@@ -53,14 +53,12 @@ import org.w3c.dom.NodeList;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
-import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
-import uk.ac.osswatch.simal.model.jena.Category;
 import uk.ac.osswatch.simal.model.jena.Homepage;
 import uk.ac.osswatch.simal.model.jena.Organisation;
 import uk.ac.osswatch.simal.model.jena.Person;
@@ -68,7 +66,6 @@ import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
-import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -85,7 +82,6 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.ModelMaker;
-import com.hp.hpl.jena.rdf.model.NodeIterator;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -362,20 +358,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     page.setSimalID(getNewHomepageID());
     return page;
   }
-  
-  public IDoapCategory getOrCreateCategory(String uri)
-  		throws SimalRepositoryException {
-	if (containsResource(uri)) {
-		return getCategory(uri);
-	} else {
-		try {
-			return createCategory(uri);
-		} catch (DuplicateURIException e) {
-			logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
-			return null;
-		}
-	}
-  }
 
   /** 
    * @deprecated Use ProjectServer.getOrCreateProject(uri) instead
@@ -399,36 +381,11 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 	}
   }
   
-  public IDoapCategory createCategory(String uri) throws SimalRepositoryException,
-	DuplicateURIException {
-      if (containsResource(uri)) {
-        throw new DuplicateURIException(
-            "Attempt to create a second project category with the URI " + uri);
-      }
-
-      Property o = Doap.CATEGORY;
-      com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-      Statement s = model.createStatement(r, RDF.type, o);
-      model.add(s);
-
-      IDoapCategory cat = new Category(r);
-      cat.setSimalID(getNewCategoryID());
-      return cat;
-  }
-
   public void destroy() throws SimalRepositoryException {
     logger.info("Destorying the SimalRepository");
     model.close();
     model = null;
     initialised = false;
-  }
-
-  public IDoapCategory getCategory(String uri) throws SimalRepositoryException {
-    if (containsResource(uri)) {
-      return new Category(model.getResource(uri));
-    } else {
-      return null;
-    }
   }
   
   public IDoapHomepage getHomepage(String uri) {
@@ -439,28 +396,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
       }
   }
 
-  public IDoapCategory findCategoryById(String id)
-      throws SimalRepositoryException {
-    String queryStr = "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?category WHERE { "
-        + "?category simal:categoryId \"" + id + "\"}";
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-
-    IDoapCategory category = null;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("category");
-      if (node.isResource()) {
-        category = new Category((com.hp.hpl.jena.rdf.model.Resource) node);
-      }
-    }
-    qe.close();
-
-    return category;
-  }
   
   public Set<IPerson> filterPeopleByName(String filter) {
     String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
@@ -673,16 +608,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     }
     qe.close();
     return people;
-  }
-
-  public Set<IDoapCategory> getAllCategories() throws SimalRepositoryException {
-    NodeIterator itr = model.listObjectsOfProperty(Doap.CATEGORY);
-    Set<IDoapCategory> categories = new HashSet<IDoapCategory>();
-    while (itr.hasNext()) {
-      String uri = itr.nextNode().toString();
-      categories.add(new Category(model.getResource(uri)));
-    }
-    return categories;
   }
 
   public Set<IPerson> getAllPeople() throws SimalRepositoryException {
