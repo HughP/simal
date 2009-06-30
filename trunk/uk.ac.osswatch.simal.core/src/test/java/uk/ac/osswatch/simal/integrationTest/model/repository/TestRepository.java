@@ -87,7 +87,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testAddCategories() throws SimalRepositoryException,
       URISyntaxException {
-    Set<IDoapCategory> cats = getRepository().getAllCategories();
+    Set<IDoapCategory> cats = SimalRepositoryFactory.getCategoryService().getAll();
     assertTrue("Not managed to get any categories from the repo",
         cats.size() > 0);
 
@@ -129,7 +129,7 @@ public class TestRepository extends BaseRepositoryTest {
   @Test
   public void testGetAllCategories() throws SimalRepositoryException,
       IOException {
-    Set<IDoapCategory> cats = getRepository().getAllCategories();
+    Set<IDoapCategory> cats = SimalRepositoryFactory.getCategoryService().getAll();
 
     Iterator<IDoapCategory> itrCats = cats.iterator();
     IDoapCategory cat;
@@ -216,7 +216,7 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testFindCategoryById() throws SimalRepositoryException {
-    IDoapCategory cat = getRepository().findCategoryById("1");
+    IDoapCategory cat = SimalRepositoryFactory.getCategoryService().findById("1");
     assertNotNull(cat);
     assertEquals("Category name is incorrect", "Simal ID Test", cat.getName());
   }
@@ -409,22 +409,22 @@ public class TestRepository extends BaseRepositoryTest {
 	 boolean exists =getRepository().containsResource(TEST_SIMAL_PROJECT_CATEGORY_TWO);
 	 assertTrue("Test category does not exist", exists);
 	 
-	 IDoapCategory gotCat = getRepository().getCategory(TEST_SIMAL_PROJECT_CATEGORY_TWO);
-	 IDoapCategory gotOrCreateCat = getRepository().getOrCreateCategory(TEST_SIMAL_PROJECT_CATEGORY_TWO);
+	 IDoapCategory gotCat = SimalRepositoryFactory.getCategoryService().get(TEST_SIMAL_PROJECT_CATEGORY_TWO);
+	 IDoapCategory gotOrCreateCat = SimalRepositoryFactory.getCategoryService().getOrCreate(TEST_SIMAL_PROJECT_CATEGORY_TWO);
 	 assertEquals("Retrieved categories are different depending on method of retrieval", gotCat.getURI(), gotOrCreateCat.getURI());
   
 	 String uri = "http://test.com/category";
-	 gotCat = getRepository().getCategory(uri);
+	 gotCat = SimalRepositoryFactory.getCategoryService().get(uri);
 	 assertNull("Retrieved a category we should not have been able to get", gotCat);
 	 
-	 gotOrCreateCat = getRepository().getOrCreateCategory(uri);
+	 gotOrCreateCat = SimalRepositoryFactory.getCategoryService().getOrCreate(uri);
 	 assertNotNull("Failed to create a category using getOrCreateCategory", gotOrCreateCat);
 	 
-	 gotCat = getRepository().getCategory(uri);
+	 gotCat = SimalRepositoryFactory.getCategoryService().get(uri);
 	 assertNotNull("Failed to retrieve a recently created category", gotCat);
 	 
 	 gotOrCreateCat.delete();
-	 gotCat = getRepository().getCategory(uri);
+	 gotCat = SimalRepositoryFactory.getCategoryService().get(uri);
 	 assertNull("Retrieved a category we should have deleted", gotCat);
 	 
   }

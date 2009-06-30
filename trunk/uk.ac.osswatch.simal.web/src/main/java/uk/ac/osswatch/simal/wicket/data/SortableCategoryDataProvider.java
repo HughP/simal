@@ -22,6 +22,7 @@ import java.util.Set;
 
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -44,7 +45,7 @@ public class SortableCategoryDataProvider extends
    * @throws SimalRepositoryException
    */
   public SortableCategoryDataProvider() throws SimalRepositoryException {
-    super(UserApplication.getRepository().getAllCategories());
+    super(SimalRepositoryFactory.getCategoryService().getAll());
   }
 
   /**

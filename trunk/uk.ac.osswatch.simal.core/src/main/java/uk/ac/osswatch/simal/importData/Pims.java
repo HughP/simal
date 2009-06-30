@@ -116,7 +116,7 @@ public class Pims {
 	        //TODO: capture workpackage info: String projectWorkpackage = row.getCell(5).getStringCellValue();
 	        //TODO: capture short name: String shortName = row.getCell(3).getStringCellValue();
 	        String programmeId = getCategoryURI(((Double)row.getCell(1).getNumericCellValue()).intValue());
-	        IDoapCategory cat = repo.getOrCreateCategory(programmeId);
+	        IDoapCategory cat = SimalRepositoryFactory.getCategoryService().getOrCreate(programmeId);
 	        project.addCategory(cat);
 	        // TODO: Capture state info: String projectStateName = row.getCell(7).getStringCellValue();
 	        // TODO: Capture start date info: String projectStartDate = row.getCell(8).getStringCellValue();
@@ -125,7 +125,7 @@ public class Pims {
 	}
 	
 	/**
-	 * Import programmes from an exported PIMS spreadheet. Themes are known as categories in 
+	 * Import programmes from an exported PIMS spreadsheet. Themes are known as categories in 
 	 * the Simal application
 	 * 
 	 * @param url
@@ -151,7 +151,7 @@ public class Pims {
         for (int i = 1; i<= lastRow; i++) {
 	        row = sheet.getRow(i);
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IDoapCategory cat = repo.getOrCreateCategory(getCategoryURI(id));
+	        IDoapCategory cat = SimalRepositoryFactory.getCategoryService().getOrCreate(getCategoryURI(id));
 	        String name = row.getCell(1).getRichStringCellValue().getString();
 	        cat.addName(name);
 	        

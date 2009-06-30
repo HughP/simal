@@ -28,6 +28,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -41,13 +42,13 @@ public class TestCategory extends BaseRepositoryTest {
   @Test
   public void testGetCategoryLabel() throws SimalRepositoryException,
       URISyntaxException {
-    IDoapCategory category = getRepository().getCategory(
+    IDoapCategory category = SimalRepositoryFactory.getCategoryService().get(
         "http://simal.oss-watch.ac.uk/category/socialNews");
     String label = category.getLabel();
     assertEquals("Category Label is incorrect", "Social News", label);
 
     String uri = "http://example.org/does/not/exist";
-    category = getRepository().getCategory(uri);
+    category = SimalRepositoryFactory.getCategoryService().get(uri);
     assertNull("Somehow we have a category that should not exist", category);
   }
 

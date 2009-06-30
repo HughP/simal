@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.wicket.doap;
 
 import org.apache.wicket.PageParameters;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
@@ -52,7 +53,7 @@ public class CategoryDetailPage extends BasePage {
       id = parameters.getString("simalID");
 
       try {
-        category = UserApplication.getRepository().findCategoryById(id);
+        category = SimalRepositoryFactory.getCategoryService().findById(id);
         populatePage(category);
       } catch (SimalRepositoryException e) {
         UserReportableException error = new UserReportableException(

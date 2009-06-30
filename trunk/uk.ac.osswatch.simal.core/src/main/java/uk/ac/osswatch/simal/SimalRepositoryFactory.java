@@ -25,6 +25,7 @@ import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.ICategoryService;
 import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IOrganisationService;
 import uk.ac.osswatch.simal.service.IProjectService;
@@ -33,6 +34,7 @@ import uk.ac.osswatch.simal.service.jcr.HomepageService;
 import uk.ac.osswatch.simal.service.jcr.JcrOrganisationService;
 import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
 import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
+import uk.ac.osswatch.simal.service.jena.JenaCategoryService;
 import uk.ac.osswatch.simal.service.jena.JenaHomepageService;
 import uk.ac.osswatch.simal.service.jena.JenaOrganisationService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
@@ -131,6 +133,23 @@ public class SimalRepositoryFactory {
 		      return new JenaOrganisationService(getInstance());
 		    case JCR:  
 		      return new JcrOrganisationService(getInstance());
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+		  }
+	}
+	
+	/**
+	 * Get an instance of a category service.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * 
+	 */
+	public static ICategoryService getCategoryService() throws SimalRepositoryException {
+		 switch (type) {
+		    case JENA:
+		      return new JenaCategoryService(getInstance());
+		    case JCR:  
+		      throw new SimalRepositoryException("Not implemented JcrOrganisaionService yet");
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }

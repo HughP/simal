@@ -25,7 +25,6 @@ import javax.jcr.RepositoryException;
 
 import org.w3c.dom.Document;
 
-import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -125,36 +124,6 @@ public interface ISimalRepository {
   public IOrganisation getOrganisation(String uri) throws SimalRepositoryException;
 
   /**
-   * Get a project from the repository. If the project does not yet exist return null.
-   * 
-   * @param uri
-   *          the String of the category to retrieve
-   * @return the category, or if no category with the given String exists Null
-   * @throws SimalRepositoryException
-   */
-  public IDoapCategory getCategory(String uri) throws SimalRepositoryException;
-
-  /**
-   * Get a project from the repository. If the project does not yet exist it will be created.
-   * 
-   * @param uri
-   *          the String of the category to retrieve or create
-   * @return the category resource
-   * @throws SimalRepositoryException
-   */
-  public IDoapCategory getOrCreateCategory(String uri) throws SimalRepositoryException;
-
-  /**
-   * Get a category with a given simal id.
-   * 
-   * @param id
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public IDoapCategory findCategoryById(String id)
-      throws SimalRepositoryException;
-
-  /**
    * Get a person from the repository.
    * 
    * @param uri
@@ -246,14 +215,6 @@ public interface ISimalRepository {
   public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException;
 
   /**
-   * Get all the categories known in this repository.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public Set<IDoapCategory> getAllCategories() throws SimalRepositoryException;
-
-  /**
    * Get all the people known in this repository.
    * 
    * @return
@@ -313,18 +274,6 @@ public interface ISimalRepository {
       DuplicateURIException;
 
   /**
-   * Create a new project category in the repository.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   *           if an error is thrown whilst communicating with the repository
-   * @throws DuplicateURIException
-   *           if an entity with the given String already exists
-   */
-  public IDoapCategory createCategory(String uri) throws SimalRepositoryException,
-      DuplicateURIException;
-
-  /**
    * Create a new person in the repository.
    * 
    * @return
@@ -358,14 +307,6 @@ public interface ISimalRepository {
    * @deprecated use ProjectService,getNewProjectID() instead
    */
   public String getNewProjectID() throws SimalRepositoryException;
-
-  /**
-   * Create a new category ID and save the next value in the properties file.
-   * 
-   * @throws IOException
-   * @throws FileNotFoundException
-   */
-  public String getNewCategoryID() throws SimalRepositoryException;
 
   /**
    * Create a new person ID and save the next local value in the properties
