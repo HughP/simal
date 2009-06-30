@@ -26,12 +26,15 @@ import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IHomepageService;
+import uk.ac.osswatch.simal.service.IOrganisationService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IReviewService;
 import uk.ac.osswatch.simal.service.jcr.HomepageService;
+import uk.ac.osswatch.simal.service.jcr.JcrOrganisationService;
 import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
 import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaHomepageService;
+import uk.ac.osswatch.simal.service.jena.JenaOrganisationService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 import uk.ac.osswatch.simal.service.jena.JenaReviewService;
 
@@ -111,6 +114,23 @@ public class SimalRepositoryFactory {
 		      return new JenaReviewService(getInstance());
 		    case JCR:  
 		      return new JcrReviewService(getInstance());
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+		  }
+	}
+	
+	/**
+	 * Get an instance of a review service operating on this repository.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * 
+	 */
+	public static IOrganisationService getOrganisationService() throws SimalRepositoryException {
+		 switch (type) {
+		    case JENA:
+		      return new JenaOrganisationService(getInstance());
+		    case JCR:  
+		      return new JcrOrganisationService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }

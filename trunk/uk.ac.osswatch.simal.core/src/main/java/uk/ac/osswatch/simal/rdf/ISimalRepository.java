@@ -120,6 +120,7 @@ public interface ISimalRepository {
    *          the URI of the organisation to retrieve
    * @return the organisation, or if no project with the given String exists Null
    * @throws SimalRepositoryException
+   * @deprecated use OrganisationService.get(uri)
    */
   public IOrganisation getOrganisation(String uri) throws SimalRepositoryException;
 
@@ -240,6 +241,7 @@ public interface ISimalRepository {
    * 
    * @return
    * @throws SimalRepositoryException
+   * @deprecated use OrganisationService.getAll()
    */
   public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException;
 
@@ -587,6 +589,7 @@ public interface ISimalRepository {
    * @return
    * @throws DuplicateURIException 
    * @throws SimalRepositoryException 
+   * @deprecated use OrganisationService.createOrganisation(url) instead
    */
   public IOrganisation createOrganisation(String uri) throws DuplicateURIException, SimalRepositoryException;
 

@@ -288,6 +288,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return person;
   }
 
+  /**
+   * @deprecated use OrganisationService.create(url)
+   */
   public IOrganisation createOrganisation(String uri) throws DuplicateURIException, SimalRepositoryException {
     if (containsProject(uri)) {
         throw new DuplicateURIException(
@@ -704,6 +707,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return projects;
   }
 
+  /**
+   * @deprecated use OranisationService.getAll() instead
+   */
   public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException {
     StmtIterator itr = model.listStatements(null, RDF.type, Foaf.ORGANIZATION);
     Set<IOrganisation> orgs = new HashSet<IOrganisation>();
@@ -764,6 +770,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 	return SimalRepositoryFactory.getProjectService().getProject(uri);
   }
 
+  /**
+   * @deprecated use OrganisationService.get(uri)
+   */
   public IOrganisation getOrganisation(String uri)
   		throws SimalRepositoryException {
     if (containsOrganisation(uri)) {

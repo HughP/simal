@@ -55,8 +55,7 @@ public class Pims {
 	 * @throws SimalException 
 	 */
 	public static void importInstitutions(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
-        HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
+		HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
@@ -69,7 +68,7 @@ public class Pims {
         for (int i = 1; i <= lastRow; i++) {
 	        row   = sheet.getRow(i);
 	        int institutionId = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IOrganisation org = repo.createOrganisation("http://jisc.ac.uk/institution#" + institutionId);
+	        IOrganisation org = SimalRepositoryFactory.getOrganisationService().create("http://jisc.ac.uk/institution#" + institutionId);
 	        org.addName(row.getCell(1).getRichStringCellValue().getString());
 	        int institutionProjectId = ((Double)row.getCell(2).getNumericCellValue()).intValue();
 	        org.addCurrentProject("http;//jisc.ac.uk/project#" + institutionProjectId);
