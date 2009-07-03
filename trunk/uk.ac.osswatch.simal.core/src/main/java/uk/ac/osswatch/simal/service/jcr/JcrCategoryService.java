@@ -5,6 +5,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.jcr.Category;
@@ -61,14 +62,54 @@ public class JcrCategoryService extends AbstractService implements
 	}
 
 	public String getNewID() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		String fullID = null;
+		String strEntityID = SimalProperties.getProperty(
+				SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, "1");
+		long entityID = Long.parseLong(strEntityID);
+
+		/**
+		 * If the properties file is lost for any reason the next ID value will
+		 * be lost. We therefore need to perform a sanity check that this is
+		 * unique.
+		 */
+		boolean validID = false;
+		while (!validID) {
+			fullID = getRepository().getUniqueSimalID(
+					"cat" + Long.toString(entityID));
+			if (findById(fullID) == null) {
+				validID = true;
+			} else {
+				entityID = entityID + 1;
+			}
+		}
+
+		long newId = entityID + 1;
+		SimalProperties.setProperty(
+				SimalProperties.PROPERTY_SIMAL_NEXT_CATEGORY_ID, Long
+						.toString(newId));
+		try {
+			SimalProperties.save();
+		} catch (Exception e) {
+			logger.warn("Unable to save properties file", e);
+			throw new SimalRepositoryException(
+					"Unable to save properties file when creating the next category ID",
+					e);
+		}
+		return fullID;
 	}
 
 	public IDoapCategory getOrCreate(String uri)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		if (SimalRepositoryFactory.getInstance().containsResource(uri)) {
+			return get(uri);
+		} else {
+			try {
+				return create(uri);
+			} catch (DuplicateURIException e) {
+				logger.error("Threw a DuplicateURIException when we had already checked for resource existence", e);
+				return null;
+			}
+		}
 	}
 
 }
