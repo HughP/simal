@@ -85,8 +85,7 @@ public class Pims {
 	 * @throws SimalException 
 	 */
 	public static void importProjects(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
-        HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
+		HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
@@ -137,7 +136,6 @@ public class Pims {
 	public static void importProgrammes(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
 		IProject project = getPimsProject();
 		
-		ISimalRepository repo = SimalRepositoryFactory.getInstance();
         HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
