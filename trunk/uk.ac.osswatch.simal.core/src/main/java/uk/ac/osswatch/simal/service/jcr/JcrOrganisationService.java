@@ -55,7 +55,7 @@ public class JcrOrganisationService extends AbstractService implements IOrganisa
 	    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
 		    String projectID = getNewOrganisationID();
 		    simalOrganisationURI = RDFUtils.getDefaultProjectURI(projectID);
-		    logger.debug("Creating a new Simal Projectinstance with URI: "
+		    logger.debug("Creating a new Simal Organisation instance with URI: "
 		        + simalOrganisationURI);
 	    } else {
 	        simalOrganisationURI = uri;

@@ -35,7 +35,6 @@ import org.w3c.dom.Document;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
@@ -140,12 +139,6 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		return null;
 	}
 
-	public IOrganisation createOrganisation(String uri)
-			throws DuplicateURIException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public IPerson createPerson(String uri) throws SimalRepositoryException,
 			DuplicateURIException {
 	    if (containsPerson(uri)) {
@@ -236,12 +229,6 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		return null;
 	}
 
-	public Set<IOrganisation> getAllOrganisations()
-			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public Set<IPerson> getAllPeople() throws SimalRepositoryException {
 		// TODO Auto-generated method stub
 		return null;
@@ -284,13 +271,7 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public IOrganisation getOrganisation(String uri)
-			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 	public IPerson getPerson(String uri) throws SimalRepositoryException {
 		// TODO Auto-generated method stub
 		return null;

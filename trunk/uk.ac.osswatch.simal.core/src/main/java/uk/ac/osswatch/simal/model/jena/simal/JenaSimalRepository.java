@@ -54,13 +54,11 @@ import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.model.jena.Homepage;
-import uk.ac.osswatch.simal.model.jena.Organisation;
 import uk.ac.osswatch.simal.model.jena.Person;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
@@ -282,23 +280,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     IPerson person = new Person(r);
     person.setSimalID(personID);
     return person;
-  }
-
-  /**
-   * @deprecated use OrganisationService.create(url)
-   */
-  public IOrganisation createOrganisation(String uri) throws DuplicateURIException, SimalRepositoryException {
-    if (containsProject(uri)) {
-        throw new DuplicateURIException(
-            "Attempt to create a second project with the URI " + uri);
-      }
-
-    com.hp.hpl.jena.rdf.model.Resource foafOrg = model.createResource(uri);
-    Statement s = model.createStatement(foafOrg, RDF.type, Foaf.ORGANIZATION);
-    model.add(s);
-    
-    IOrganisation org = new Organisation(foafOrg);
-    return org;
   }
 
   /**
@@ -632,19 +613,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return projects;
   }
 
-  /**
-   * @deprecated use OranisationService.getAll() instead
-   */
-  public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException {
-    StmtIterator itr = model.listStatements(null, RDF.type, Foaf.ORGANIZATION);
-    Set<IOrganisation> orgs = new HashSet<IOrganisation>();
-    while (itr.hasNext()) {
-      String uri = itr.nextStatement().getSubject().getURI();
-      orgs.add(new Organisation(model.getResource(uri)));
-    }
-    return orgs;
-  }
-
   public String getAllProjectsAsJSON() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer("{ \"items\": [");
     Iterator<IProject> projects = getAllProjects().iterator();
@@ -693,18 +661,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    */
   public IProject getProject(String uri) throws SimalRepositoryException {
 	return SimalRepositoryFactory.getProjectService().getProject(uri);
-  }
-
-  /**
-   * @deprecated use OrganisationService.get(uri)
-   */
-  public IOrganisation getOrganisation(String uri)
-  		throws SimalRepositoryException {
-    if (containsOrganisation(uri)) {
-        return new Organisation(model.getResource(uri));
-    } else {
-        return null;
-    }
   }
 
   /**

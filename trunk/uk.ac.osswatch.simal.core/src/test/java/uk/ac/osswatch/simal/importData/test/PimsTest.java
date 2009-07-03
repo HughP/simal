@@ -76,7 +76,7 @@ public class PimsTest extends BaseRepositoryTest {
 	
 	@Test
 	public void testInstitutionImport() throws SimalRepositoryException {
-		Iterator<IOrganisation> orgs = repo.getAllOrganisations().iterator();
+		Iterator<IOrganisation> orgs = SimalRepositoryFactory.getOrganisationService().getAll().iterator();
 		boolean orgIsValid = false;
 		while (orgs.hasNext()) {
 			IOrganisation org = orgs.next();
