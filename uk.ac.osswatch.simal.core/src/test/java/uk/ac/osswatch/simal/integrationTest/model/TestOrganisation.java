@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -31,14 +32,14 @@ public class TestOrganisation extends BaseRepositoryTest {
 
 	  @Test
 	  public void testGetName() throws SimalRepositoryException {
-		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  IOrganisation org = SimalRepositoryFactory.getOrganisationService().get("http://www.test.com/Organization");
 		  assertNotNull(org);
 		  assertEquals("Name is not as expected", TEST_SIMAL_ORGANISATION_NAME, org.getName());
 	  }
 	  
 	  @Test
 	  public void testAddName() throws SimalRepositoryException {
-		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  IOrganisation org = SimalRepositoryFactory.getOrganisationService().get("http://www.test.com/Organization");
 		  String name = "Test Name";
 		  org.addName(name);
 		  assertEquals("Name is not as expected after adding new name", name, org.getName());
@@ -46,7 +47,7 @@ public class TestOrganisation extends BaseRepositoryTest {
 	
 	  @Test 
 	  public void testAddCurrentProject() throws SimalRepositoryException {
-		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  IOrganisation org = SimalRepositoryFactory.getOrganisationService().get("http://www.test.com/Organization");
 		  int countBefore = org.getCurrentProjects().size();
 		  org.addCurrentProject("http://test.com/project#1");
 		  int countAfter =  org.getCurrentProjects().size();;

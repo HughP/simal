@@ -26,7 +26,6 @@ import javax.jcr.RepositoryException;
 import org.w3c.dom.Document;
 
 import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
@@ -110,18 +109,6 @@ public interface ISimalRepository {
    * @deprecated Use ProjectService.getProject(uri) instead
    */
   public IProject getProject(String uri) throws SimalRepositoryException;
-  
-  /**
-   * Get an organisation from the repository. If the organisation does not exist then
-   * return null.
-   * 
-   * @param uri
-   *          the URI of the organisation to retrieve
-   * @return the organisation, or if no project with the given String exists Null
-   * @throws SimalRepositoryException
-   * @deprecated use OrganisationService.get(uri)
-   */
-  public IOrganisation getOrganisation(String uri) throws SimalRepositoryException;
 
   /**
    * Get a person from the repository.
@@ -204,15 +191,6 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    */
   public Set<IProject> getAllProjects() throws SimalRepositoryException;
-
-  /**
-   * Get all the organisations known in this repository.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   * @deprecated use OrganisationService.getAll()
-   */
-  public Set<IOrganisation> getAllOrganisations() throws SimalRepositoryException;
 
   /**
    * Get all the people known in this repository.
@@ -522,18 +500,6 @@ public interface ISimalRepository {
    */
   public void addRDFXML(Document doc) throws SimalRepositoryException;
   
-  /**
-   * Create a new organisation object.
-   * 
-   * @param uri the URI for this organisation
-   * 
-   * @return
-   * @throws DuplicateURIException 
-   * @throws SimalRepositoryException 
-   * @deprecated use OrganisationService.createOrganisation(url) instead
-   */
-  public IOrganisation createOrganisation(String uri) throws DuplicateURIException, SimalRepositoryException;
-
   /**
    * Get an homepage resources. If the resource does not yet exist return null.
    * 
