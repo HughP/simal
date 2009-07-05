@@ -33,7 +33,6 @@ import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -165,7 +164,6 @@ public class Pims {
 	 * @throws SimalException 
 	 */
 	public static void importProjectContacts(URL url) throws IOException, SimalException {
-		ISimalRepository repo =  SimalRepositoryFactory.getInstance();
         HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
@@ -179,7 +177,7 @@ public class Pims {
         for (int i = 1; i<= lastRow; i++) {
 	        row = sheet.getRow(i);
 	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IPerson person = repo.getOrCreatePerson(getPersonURI(id));
+	        IPerson person = SimalRepositoryFactory.getPersonService().getOrCreate(getPersonURI(id));
 	        
 	        String name = row.getCell(2).getRichStringCellValue().getString();
 	        person.addName(name);

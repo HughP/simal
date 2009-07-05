@@ -130,13 +130,11 @@ public abstract class BaseRepositoryTest {
       repository.initialise(null);
     }
     project1 = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
-    IPerson developer = repository
-        .findPersonBySeeAlso("http://foo.org/~developer/#me");
+    IPerson developer = SimalRepositoryFactory.getPersonService().findBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getUniqueSimalID();
     testDeveloperEMail = developer.getEmail().toArray()[0].toString();
     
-    IPerson documentor = repository
-        .findPersonBySeeAlso("http://foo.org/~documentor/#me");
+    IPerson documentor = SimalRepositoryFactory.getPersonService().findBySeeAlso("http://foo.org/~documentor/#me");
     String documentorID = documentor.getUniqueSimalID();
 
     testProjectID = project1.getUniqueSimalID();

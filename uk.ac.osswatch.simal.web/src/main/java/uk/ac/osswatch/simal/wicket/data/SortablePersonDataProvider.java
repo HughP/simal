@@ -19,9 +19,9 @@ package uk.ac.osswatch.simal.wicket.data;
 
 import java.util.Set;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
  * A person data provider that allows the persons to be sorted.
@@ -38,7 +38,7 @@ public class SortablePersonDataProvider extends
    * @throws SimalRepositoryException
    */
   public SortablePersonDataProvider() throws SimalRepositoryException {
-    super(UserApplication.getRepository().getAllPeople());
+    super(SimalRepositoryFactory.getPersonService().getAll());
   }
 
   /**
@@ -59,7 +59,7 @@ public class SortablePersonDataProvider extends
    * @throws SimalRepositoryException
    */
   public void filterPeopleByName(String nameFilter) throws SimalRepositoryException {
-    Set<IPerson> people = UserApplication.getRepository().filterPeopleByName(nameFilter);
+    Set<IPerson> people = SimalRepositoryFactory.getPersonService().filterByName(nameFilter);
     super.resetData(people);
   }
 }

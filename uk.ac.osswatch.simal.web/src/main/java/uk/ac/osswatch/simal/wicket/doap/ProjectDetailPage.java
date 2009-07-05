@@ -275,7 +275,7 @@ public class ProjectDetailPage extends BasePage {
     // FIXME: reviewer should be set from a drop down
     IPerson reviewer;
 	try {
-		reviewer = UserApplication.getRepository().getPerson("http://people.apache.org/~rgardler/#me");
+		reviewer = SimalRepositoryFactory.getPersonService().get("http://people.apache.org/~rgardler/#me");
 	} catch (SimalRepositoryException e) {
 		logger.error("Unable to get Ross Gardler as a reviewer", e);
 		reviewer = null;

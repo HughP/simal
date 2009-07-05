@@ -19,9 +19,9 @@ package uk.ac.osswatch.simal.wicket.data;
 
 import org.apache.wicket.model.LoadableDetachableModel;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class DetachablePersonModel extends LoadableDetachableModel {
   private static final long serialVersionUID = -9017519516676203598L;
@@ -39,7 +39,7 @@ public class DetachablePersonModel extends LoadableDetachableModel {
   protected Object load() {
     IPerson person;
     try {
-      person = UserApplication.getRepository().getPerson(uri);
+      person = SimalRepositoryFactory.getPersonService().get(uri);
     } catch (SimalRepositoryException e) {
       e.printStackTrace();
       person = null;

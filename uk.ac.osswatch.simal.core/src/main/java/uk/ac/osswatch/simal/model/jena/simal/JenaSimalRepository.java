@@ -59,7 +59,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.model.jena.Homepage;
-import uk.ac.osswatch.simal.model.jena.Person;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
@@ -254,34 +253,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     StringReader xmlReader = new StringReader(xmlAsWriter.toString());
     model.read(xmlReader, "");
   }
-
-  public IPerson createPerson(String uri) throws SimalRepositoryException,
-      DuplicateURIException {
-    if (containsPerson(uri)) {
-      throw new DuplicateURIException(
-          "Attempt to create a second person with the URI " + uri);
-    }
-
-    String personID = getNewPersonID();
-    String simalPersonURI = RDFUtils.getDefaultPersonURI(personID);
-    logger.debug("Creating a new Simal Person instance with URI: "
-        + simalPersonURI);
-
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(simalPersonURI);
-    Statement s = model.createStatement(r, RDF.type, SimalOntology.PERSON);
-    model.add(s);
-    
-    if (!uri.startsWith(RDFUtils.PERSON_NAMESPACE_URI)) {
-      com.hp.hpl.jena.rdf.model.Resource res = model.createResource(uri);
-      s = model.createStatement(r, RDFS.seeAlso, res);
-      model.add(s);
-    }
-
-    IPerson person = new Person(r);
-    person.setSimalID(personID);
-    return person;
-  }
-
+  
   /**
    * @deprecated use ProjectService.createProject(uri) instead
    */
@@ -375,85 +347,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 	  } else {
 	      return null;
       }
-  }
-
-  
-  public Set<IPerson> filterPeopleByName(String filter) {
-    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
-    + "> " + "PREFIX foaf: <" + RDFUtils.FOAF_NS + "> "
-    + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
-    + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
-    + "SELECT DISTINCT ?person WHERE { ?person a foaf:Person;"
-    + "  foaf:name ?name . "
-    + "  FILTER regex(?name, \"" + filter + "\", \"i\") }";
-
-    return filterPeopleBySPARQL(queryStr);
-  }
-
-  public IPerson findPersonById(String id) throws SimalRepositoryException {
-    if (!isValidSimalID(id)) {
-      throw new SimalRepositoryException(
-          "Attempt to find a person using an invalid Simal ID of "
-              + id
-              + " are you sure that's a world unique identifier? You may need to call getUniqueSimalID() or RDFUtils.getUniqueSimalID(id)");
-    }
-    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?person WHERE { " + "?person simal:personId \"" + id
-        + "\"^^xsd:string }";
-    IPerson person = findPersonBySPARQL(queryStr);
-
-    return person;
-  }
-
-  public IPerson findPersonBySeeAlso(String seeAlso)
-      throws SimalRepositoryException {
-    String queryStr = "PREFIX simal: <" + RDFUtils.SIMAL_NS + "> "
-        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
-        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + "> "
-        + "SELECT DISTINCT ?person WHERE { "
-        + "?person rdf:type simal:Person . " + "?person rdfs:seeAlso <"
-        + seeAlso + ">}";
-
-    IPerson person = findPersonBySPARQL(queryStr);
-
-    return person;
-  }
-
-  /**
-   * Find a single person by executing a SPARQL query.
-   * 
-   * @param queryStr
-   * @return
-   */
-  private IPerson findPersonBySPARQL(String queryStr) {
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-
-    IPerson person = null;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("person");
-      if (node.isResource()) {
-        person = new Person((com.hp.hpl.jena.rdf.model.Resource) node);
-      }
-    }
-    qe.close();
-    return person;
-  }
-
-  public IPerson findPersonBySha1Sum(String sha1sum)
-      throws SimalRepositoryException {
-    String queryStr = "PREFIX foaf: <" + RDFUtils.FOAF_NS + "> "
-        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?person WHERE { " + "?person foaf:mbox_sha1sum \""
-        + sha1sum + "\"}";
-
-    IPerson person = findPersonBySPARQL(queryStr);
-
-    return person;
   }
 
   public IProject findProjectByHomepage(String homepage)
@@ -567,40 +460,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     qe.close();
     return projects;
   }
-  
-  /**
-   * Find all people returned using a SPARQL query.
-   * 
-   * @param queryStr
-   * @return
-   */
-  private Set<IPerson> filterPeopleBySPARQL(String queryStr) {
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-
-    Set<IPerson> people = new HashSet<IPerson>();
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("person");
-      if (node.isResource()) {
-        people.add(new Person((com.hp.hpl.jena.rdf.model.Resource) node));
-      }
-    }
-    qe.close();
-    return people;
-  }
-
-  public Set<IPerson> getAllPeople() throws SimalRepositoryException {
-    Property o = model.createProperty(SIMAL_PERSON_URI);
-    StmtIterator itr = model.listStatements(null, RDF.type, o);
-    Set<IPerson> people = new HashSet<IPerson>();
-    while (itr.hasNext()) {
-      String uri = itr.nextStatement().getSubject().getURI();
-      people.add(new Person(model.getResource(uri)));
-    }
-    return people;
-  }
 
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
     Property o = model.createProperty(SIMAL_PROJECT_URI);
@@ -627,35 +486,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     json.append("]}");
     return json.toString();
   }
-
-  public String getAllPeopleAsJSON() throws SimalRepositoryException {
-    StringBuffer json = new StringBuffer("{ \"items\": [");
-    Set<IPerson> setOfPeople = getAllPeople();
-    Iterator<IPerson> people = setOfPeople.iterator();
-    IPerson person;
-    while (people.hasNext()) {
-      person = people.next();
-      json.append(person.toJSONRecord());
-      if (people.hasNext()) {
-        json.append(",");
-      }
-    }
-    json.append("]}");
-    return json.toString();
-  }
-
-  public IPerson getPerson(String uri) throws SimalRepositoryException {
-	if(uri.startsWith(RDFUtils.PERSON_NAMESPACE_URI)) {
-	    if (containsPerson(uri)) {
-	      return new Person(model.getResource(uri));
-	    } else {
-	      return null;
-	    }
-	} else {
-		return findPersonBySeeAlso(uri);
-	}
-  }
-
+  
   /**
    * @deprecated
    */
@@ -835,7 +666,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     }
 
     if (simalProjectURI == null) {
-      String projectID = getNewProjectID();
+      String projectID = SimalRepositoryFactory.getProjectService().getNewProjectID();
       simalProjectURI = RDFUtils.getDefaultProjectURI(projectID);
       logger.debug("Creating a new Simal Project instance with URI "
           + simalProjectURI);
@@ -856,7 +687,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
         .getAttributeNS(RDFUtils.RDF_NS, "about");
     if (resource == null || resource.equals("")) {
       // we don't allow blank project nodes
-      resource = RDFUtils.getDefaultProjectURI(getNewProjectID());
+      resource = RDFUtils.getDefaultProjectURI(SimalRepositoryFactory.getProjectService().getNewProjectID());
       sourceProjectRoot.setAttributeNS(RDFUtils.RDF_NS, "about", resource);
     }
     seeAlso.setAttributeNS(RDFUtils.RDF_NS, "resource", resource);
@@ -999,12 +830,12 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
       Element sha1sumNode = (Element) sha1sums.item(i);
       if (sha1sumNode.getParentNode().equals(sourcePersonRoot)) {
         String sha1Sum = sha1sumNode.getFirstChild().getNodeValue().trim();
-        IPerson person = findPersonBySha1Sum(sha1Sum);
+        IPerson person = SimalRepositoryFactory.getPersonService().findBySha1Sum(sha1Sum);
         if (person != null) {
           logger
               .debug("Simal already has a Person record with the foaf:mbox_sha1: "
                   + sha1Sum + " called " + person);
-          person = findPersonBySeeAlso(person.getURI());
+          person = SimalRepositoryFactory.getPersonService().findBySeeAlso(person.getURI());
           simalPersonURI = person.getURI();
         }
       }
@@ -1012,7 +843,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 
     // handle duplicate people identified by their rdf:about
     String uri = sourcePersonRoot.getAttributeNS(RDFUtils.RDF_NS, "about");
-    IPerson person = findPersonBySeeAlso(uri);
+    IPerson person = SimalRepositoryFactory.getPersonService().findBySeeAlso(uri);
     if (person != null) {
       logger
           .debug("Simal already has a Person record about "
@@ -1028,7 +859,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
       seeAlso = (Element) seeAlsos.item(i);
       if (seeAlso.getParentNode().equals(sourcePersonRoot)) {
         uri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource").trim();
-        person = findPersonBySeeAlso(uri);
+        person = SimalRepositoryFactory.getPersonService().findBySeeAlso(uri);
         if (person != null) {
           logger
               .debug("Simal already has a Person record with the rdfs:seeAlso "

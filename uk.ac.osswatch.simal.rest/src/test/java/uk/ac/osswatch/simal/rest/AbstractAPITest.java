@@ -42,8 +42,7 @@ public abstract class AbstractAPITest {
       repo.initialise();
     }
 
-    IPerson developer = repo
-        .findPersonBySeeAlso("http://foo.org/~developer/#me");
+    IPerson developer = SimalRepositoryFactory.getPersonService().findBySeeAlso("http://foo.org/~developer/#me");
     testDeveloperID = developer.getSimalID();
     testDeveloperEMail = developer.getEmail().toArray()[0].toString();
     Set<IProject> projects = developer.getProjects();

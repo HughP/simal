@@ -23,6 +23,18 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.jena.Category;
+import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
+import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
+import uk.ac.osswatch.simal.rdf.Doap;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.AbstractService;
+import uk.ac.osswatch.simal.service.ICategoryService;
+
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -35,18 +47,6 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.vocabulary.RDF;
-
-import uk.ac.osswatch.simal.SimalProperties;
-import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.jena.Category;
-import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
-import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
-import uk.ac.osswatch.simal.rdf.Doap;
-import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.service.AbstractService;
-import uk.ac.osswatch.simal.service.ICategoryService;
 
 public class JenaCategoryService extends AbstractService implements
 		ICategoryService {

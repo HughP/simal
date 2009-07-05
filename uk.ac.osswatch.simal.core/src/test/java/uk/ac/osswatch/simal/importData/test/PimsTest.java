@@ -110,7 +110,7 @@ public class PimsTest extends BaseRepositoryTest {
 	
 	@Test
 	public void testImportProjectContacts() throws SimalRepositoryException {
-		Iterator<IPerson> people = repo.getAllPeople().iterator();
+		Iterator<IPerson> people = SimalRepositoryFactory.getPersonService().getAll().iterator();
 		boolean personIsValid = false;
 		while (people.hasNext()) {
 			IPerson person = people.next();

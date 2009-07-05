@@ -54,25 +54,11 @@ public class Person extends Resource implements IPerson {
     super(resource);
   }
 
+  /**
+   * @deprecated use PersonService.getColleagues(Person) instead
+   */
   public Set<IPerson> getColleagues() throws SimalRepositoryException {
-    Set<IPerson> colleagues = new HashSet<IPerson>();
-    Set<String> colleagueIDs = new HashSet<String>();
-    
-    Iterator<IProject> projects = getProjects().iterator();
-    while (projects.hasNext()) {
-      IProject project = projects.next();
-      Iterator<IPerson> people = project.getAllPeople().iterator();
-      while (people.hasNext()) {
-        IPerson colleague = people.next();
-        String id = colleague.getSimalID();
-        if (!id.equals(this.getSimalID()) && !colleagueIDs.contains(id)) {
-          colleagues.add(colleague);
-          colleagueIDs.add(id);
-        }
-      }
-    }
-
-    return colleagues;
+    return SimalRepositoryFactory.getPersonService().getColleagues(this);
   }
 
   public Set<IInternetAddress> getEmail() {
@@ -153,7 +139,7 @@ public class Person extends Resource implements IPerson {
     Statement idStatement = getJenaResource().getProperty(
         SimalOntology.PERSON_ID);
     if (idStatement == null) {
-      id = SimalRepositoryFactory.getInstance().getNewPersonID();
+      id = SimalRepositoryFactory.getPersonService().getNewID();
       setSimalID(id);
     } else {
       id = idStatement.getString();

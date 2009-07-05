@@ -30,6 +30,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IInternetAddress;
@@ -50,9 +51,9 @@ public class TestPerson extends BaseRepositoryTest {
   public static void setUpBeforeClass() throws Exception {
     initRepository();
 
-    developer = getRepository().getPerson(testDeveloperURI);
+    developer = SimalRepositoryFactory.getPersonService().get(testDeveloperURI);
     assertNotNull(developer);
-    documentor = getRepository().getPerson(testDocumentorURI);
+    documentor = SimalRepositoryFactory.getPersonService().get(testDocumentorURI);
     assertNotNull(documentor);
   }
   
@@ -66,9 +67,9 @@ public class TestPerson extends BaseRepositoryTest {
       DuplicateURIException, URISyntaxException {
     String sourceURI = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
     IPerson person;
-    person = getRepository().createPerson(sourceURI);
+    person = SimalRepositoryFactory.getPersonService().create(sourceURI);
 
-    person = getRepository().getPerson(person.getURI());
+    person = SimalRepositoryFactory.getPersonService().get(person.getURI());
     assertNotNull("Person has not been added to repository", person);
     assertNotNull("Person simalID should not be null", person.getSimalID());
     assertNotNull("Person simalID is invalid", getRepository().isUniqueSimalID(

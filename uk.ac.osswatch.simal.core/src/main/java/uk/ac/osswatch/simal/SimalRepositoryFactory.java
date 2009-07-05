@@ -28,6 +28,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.ICategoryService;
 import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IOrganisationService;
+import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IReviewService;
 import uk.ac.osswatch.simal.service.jcr.HomepageService;
@@ -38,6 +39,7 @@ import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaCategoryService;
 import uk.ac.osswatch.simal.service.jena.JenaHomepageService;
 import uk.ac.osswatch.simal.service.jena.JenaOrganisationService;
+import uk.ac.osswatch.simal.service.jena.JenaPersonService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 import uk.ac.osswatch.simal.service.jena.JenaReviewService;
 
@@ -151,6 +153,23 @@ public class SimalRepositoryFactory {
 		      return new JenaCategoryService(getInstance());
 		    case JCR: 
 			      return new JcrCategoryService(getInstance()); 
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+		  }
+	}
+	
+	/**
+	 * Get an instance of a person service.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * 
+	 */
+	public static IPersonService getPersonService() throws SimalRepositoryException {
+		 switch (type) {
+		    case JENA:
+		      return new JenaPersonService(getInstance());
+		    case JCR: 
+		    	throw new SimalRepositoryException("JcrPersonService is not implemented yet");
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }

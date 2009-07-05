@@ -33,7 +33,6 @@ import uk.ac.osswatch.simal.rest.RESTCommand;
 import uk.ac.osswatch.simal.rest.SimalAPIException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.panel.ColleaguesPanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
@@ -65,7 +64,7 @@ public class PersonDetailPage extends BasePage {
 	    if (parameters.containsKey("simalID")) {
 	        id = SimalRepositoryFactory.getInstance().getUniqueSimalID(
 	            parameters.getString("simalID"));
-	        person = UserApplication.getRepository().findPersonById(id);
+	        person = SimalRepositoryFactory.getPersonService().findById(id);
 	    } else if (parameters.containsKey("email")) {
 	    	String[] emails = (String[]) parameters.get("email");
 	    	String email = emails[0];
@@ -74,7 +73,7 @@ public class PersonDetailPage extends BasePage {
 	  		          "Must provide an email in the request URL", PersonDetailPage.class);
 	  		  setResponsePage(new ErrorReportPage(error));
 	    	}
-	    	person = UserApplication.getRepository().findPersonBySha1Sum(RDFUtils.getSHA1(email));
+	    	person = SimalRepositoryFactory.getPersonService().findBySha1Sum(RDFUtils.getSHA1(email));
 	    } else {
 	      UserReportableException error = new UserReportableException(
 	          "URL does not have sufficient parameters for finding a unique person", PersonDetailPage.class);
