@@ -74,13 +74,13 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testFilterPeopleByName() {
+  public void testFilterPeopleByName() throws SimalRepositoryException {
     // Test exact Match
-    Set<IPerson> people = getRepository().filterPeopleByName("Ross Gardler");
+    Set<IPerson> people = SimalRepositoryFactory.getPersonService().filterByName("Ross Gardler");
     assertEquals("Not the right number of projects with the name 'Ross Gardler'", 1, people.size());
     
     // Test wildcard match
-    people = getRepository().filterPeopleByName("Ro");
+    people = SimalRepositoryFactory.getPersonService().filterByName("Ro");
     assertEquals("Not the right number of projects match the filter 'Ro'", 3, people.size());
   }
 
@@ -161,7 +161,7 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testGetAllPeople() throws SimalRepositoryException, IOException {
-    Set<IPerson> people = getRepository().getAllPeople();
+    Set<IPerson> people = SimalRepositoryFactory.getPersonService().getAll();
 
     Iterator<IPerson> itrPeople = people.iterator();
     IPerson person;
@@ -203,7 +203,7 @@ public class TestRepository extends BaseRepositoryTest {
     logger.debug("Starting testGetAllPeopleAsJSON()");
     Long targetTime = Long.valueOf(75);
     Long startTime = System.currentTimeMillis();
-    String json = getRepository().getAllPeopleAsJSON();
+    String json = SimalRepositoryFactory.getPersonService().getAllAsJSON();
     Long endTime = System.currentTimeMillis();
     Long actualTime = endTime - startTime;
     assertTrue("Time to create JSON for all people is longer than "
@@ -223,7 +223,7 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testFindPersonById() throws SimalRepositoryException {
-    IPerson person = getRepository().findPersonById(testDeveloperID);
+    IPerson person = SimalRepositoryFactory.getPersonService().findById(testDeveloperID);
     assertNotNull("Can't find a person with the ID " + testDeveloperID, person);
     assertEquals("Developer URI is not as expected ", RDFUtils
         .getDefaultPersonURI(testDeveloperID), person.getURI());
@@ -231,13 +231,13 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testFindPersonByEMail() throws SimalRepositoryException, NoSuchAlgorithmException {
-    IPerson person = getRepository().findPersonBySha1Sum(RDFUtils.getSHA1(testDeveloperEMail));
+    IPerson person = SimalRepositoryFactory.getPersonService().findBySha1Sum(RDFUtils.getSHA1(testDeveloperEMail));
     assertNotNull("Can't find a person with the EMail " + testDeveloperEMail, person);
   }
 
   @Test
   public void testGetPerson() throws SimalRepositoryException {
-    IPerson person = getRepository().getPerson(testDeveloperURI);
+    IPerson person = SimalRepositoryFactory.getPersonService().get(testDeveloperURI);
     assertNotNull("Can't find a person with the URI " + testDeveloperURI,
         person);
     assertEquals("Developer URI is not as expected ", RDFUtils
@@ -266,7 +266,7 @@ public class TestRepository extends BaseRepositoryTest {
     project1 = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
     assertNull("Project has not been deleted as expected", project1);
     
-    int peopleBefore = getRepository().getAllPeople().size();
+    int peopleBefore = SimalRepositoryFactory.getPersonService().getAll().size();
     File testFile = new File(ISimalRepository.class.getClassLoader()
         .getResource(ModelSupport.TEST_FILE_URI_WITH_QNAME).toURI());
     FileInputStream fis = new FileInputStream(testFile);
@@ -275,10 +275,10 @@ public class TestRepository extends BaseRepositoryTest {
     fis.read(b);
     String data = new String(b);
     getRepository().add(data);
-    int peopleAfter = getRepository().getAllPeople().size();
+    int peopleAfter = SimalRepositoryFactory.getPersonService().getAll().size();
     
     
-    Iterator<IPerson> people = getRepository().getAllPeople().iterator();
+    Iterator<IPerson> people = SimalRepositoryFactory.getPersonService().getAll().iterator();
     while (people.hasNext()) {
       IPerson person = people.next();
       logger.debug("We have got a person labelled " + person.getLabel() + " from " + person.getSeeAlso().toString());
@@ -293,8 +293,8 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testDuplicatePeople() throws SimalRepositoryException {
-    int beforeSize = getRepository().getAllPeople().size();
-    Iterator<IPerson> itr = getRepository().getAllPeople().iterator();
+    int beforeSize = SimalRepositoryFactory.getPersonService().getAll().size();
+    Iterator<IPerson> itr = SimalRepositoryFactory.getPersonService().getAll().iterator();
     logger.debug("People before second data addition:");
     while (itr.hasNext()) {
       IPerson person = itr.next();
@@ -303,8 +303,8 @@ public class TestRepository extends BaseRepositoryTest {
 
     ModelSupport.addSimalData(getRepository());
 
-    int afterSize = getRepository().getAllPeople().size();
-    itr = getRepository().getAllPeople().iterator();
+    int afterSize = SimalRepositoryFactory.getPersonService().getAll().size();
+    itr = SimalRepositoryFactory.getPersonService().getAll().iterator();
     logger.debug("People after second data addition are:");
     while (itr.hasNext()) {
       IPerson person = itr.next();
@@ -329,7 +329,7 @@ public class TestRepository extends BaseRepositoryTest {
   public void testIsValidSimalID() throws SimalRepositoryException {
     String id = null;
     try {
-      getRepository().findPersonById(id);
+    	SimalRepositoryFactory.getPersonService().findById(id);
       fail("Null Simal IDs should not be valid");
     } catch (SimalRepositoryException e) {
       // This is expected
@@ -337,7 +337,7 @@ public class TestRepository extends BaseRepositoryTest {
 
     id = "inValidID";
     try {
-      getRepository().findPersonById(id);
+    	SimalRepositoryFactory.getPersonService().findById(id);
       fail("Simal IDs should have an instance ID + ':' + an entity ID");
     } catch (SimalRepositoryException e) {
       // This is expected
@@ -345,14 +345,14 @@ public class TestRepository extends BaseRepositoryTest {
 
     id = "a:inValidID";
     try {
-      getRepository().findPersonById(id);
+    	SimalRepositoryFactory.getPersonService().findById(id);
       fail("Simal instance IDs should be at least 5 characters long");
     } catch (SimalRepositoryException e) {
       // This is expected
     }
 
     id = "ThisIsA-validID";
-    getRepository().findPersonById(id);
+    SimalRepositoryFactory.getPersonService().findById(id);
   }
 
   @Test

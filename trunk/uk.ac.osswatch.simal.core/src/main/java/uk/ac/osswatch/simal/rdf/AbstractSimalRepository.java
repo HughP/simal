@@ -219,7 +219,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     boolean validID = false;
     while (!validID) {
       fullID = getUniqueSimalID("per" + Long.toString(entityID));
-      if (findPersonById(fullID) == null) {
+      if (SimalRepositoryFactory.getPersonService().findById(fullID) == null) {
         validID = true;
       } else {
         entityID = entityID + 1;
@@ -311,7 +311,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
       throw new SimalRepositoryException(
           "Unable to generate SHA1Sum for email address");
     }
-    IPerson duplicate = SimalRepositoryFactory.getInstance().findPersonBySha1Sum(
+    IPerson duplicate = SimalRepositoryFactory.getPersonService().findBySha1Sum(
         sha1sum);
     if (duplicate != null) {
       return duplicate;
@@ -367,24 +367,6 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
   public void initialise() throws SimalRepositoryException {
     initialise(SimalProperties
         .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
-  }
-
-public IPerson getOrCreatePerson(String uri) throws SimalRepositoryException {
-	if (containsResource(uri)) {
-		return getPerson(uri);
-	} else {
-		IPerson person = findPersonBySeeAlso(uri);
-		if (person == null) {
-			try {
-				return createPerson(uri);
-			} catch (DuplicateURIException e) {
-				logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
-				return null;
-			}
-		} else {
-			return person;
-		}
-	}
   }
 
 static class RDFFilenameFilter implements FilenameFilter {

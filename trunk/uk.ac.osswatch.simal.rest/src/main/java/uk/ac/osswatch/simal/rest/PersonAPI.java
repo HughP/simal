@@ -21,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.Set;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -76,14 +77,14 @@ public class PersonAPI extends AbstractHandler {
 	  
     try {
   	  if (id != null) {
-	        person = getRepository().findPersonById(
+	        person = SimalRepositoryFactory.getPersonService().findById(
 	            getRepository().getUniqueSimalID(id));
 	          if (person == null) {
 	              throw new SimalAPIException("Person with Simal ID " + id
 	           		  + " does not exist");
 	            }
   	  } else if (email != null){
-  		person = getRepository().findPersonBySha1Sum(RDFUtils.getSHA1(email));
+  		person = SimalRepositoryFactory.getPersonService().findBySha1Sum(RDFUtils.getSHA1(email));
           if (person == null) {
               throw new SimalAPIException("Person with email " + email
            		  + " does not exist");
@@ -133,7 +134,7 @@ public class PersonAPI extends AbstractHandler {
     Set<IPerson> colleaguesAndFriends;
     Iterator<IPerson> friends = null;
     try {
-      person = getRepository().findPersonById(
+      person = SimalRepositoryFactory.getPersonService().findById(
           getRepository().getUniqueSimalID(id));
 
       colleaguesAndFriends = person.getColleagues();
@@ -195,7 +196,7 @@ public class PersonAPI extends AbstractHandler {
     String response;
     try {
       if (cmd.isJSON()) {
-        response = getRepository().getAllPeopleAsJSON();
+        response = SimalRepositoryFactory.getPersonService().getAllAsJSON();
       } else {
         throw new SimalAPIException("Unknown data format: " + cmd.getFormat());
       }

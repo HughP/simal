@@ -19,12 +19,11 @@ package uk.ac.osswatch.simal.wicket.foaf;
 
 import org.apache.wicket.IClusterable;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
  * An input model for managing a FOAF object.
@@ -65,19 +64,17 @@ public class FoafFormInputModel implements IClusterable {
    * @throws SimalRepositoryException
    */
   public IPerson getPerson() throws SimalRepositoryException {
-    IPerson duplicate = UserApplication.getRepository()
-        .getDuplicate(getEmail());
+    IPerson duplicate = SimalRepositoryFactory.getPersonService().getDuplicate(getEmail());
     if (duplicate != null) {
       populatePerson(duplicate);
       return duplicate;
     }
 
-    ISimalRepository repo = UserApplication.getRepository();
-    String id = repo.getNewPersonID();
+    String id = SimalRepositoryFactory.getPersonService().getNewID();
     String uri = RDFUtils.getDefaultPersonURI(id);
     IPerson person;
     try {
-      person = repo.createPerson(uri);
+      person = SimalRepositoryFactory.getPersonService().create(uri);
       person.setSimalID(id);
       populatePerson(person);
     } catch (DuplicateURIException e) {

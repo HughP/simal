@@ -459,7 +459,7 @@ public class TestProject extends BaseRepositoryTest {
     Set<IPerson> prePeople = project1.getDevelopers();
 
     String uri = RDFUtils.PERSON_NAMESPACE_URI + "TestingPersonFromScratch";
-    IPerson person = getRepository().createPerson(uri);
+    IPerson person = SimalRepositoryFactory.getPersonService().create(uri);
 
     project1.addDeveloper(person);
     Set<IPerson> postPeople = project1.getDevelopers();

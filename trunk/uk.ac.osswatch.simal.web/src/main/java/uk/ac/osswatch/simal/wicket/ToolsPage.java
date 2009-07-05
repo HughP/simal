@@ -61,8 +61,7 @@ public class ToolsPage extends BasePage {
     try {
       add(new Label("numOfProjects", Integer.toString(UserApplication
           .getRepository().getAllProjects().size())));
-      add(new Label("numOfPeople", Integer.toString(UserApplication
-          .getRepository().getAllPeople().size())));
+      add(new Label("numOfPeople", Integer.toString(SimalRepositoryFactory.getPersonService().getAll().size())));
       add(new Label("numOfCategories", Integer.toString(SimalRepositoryFactory.getCategoryService().getAll().size())));
       add(new Label("numOfReviews", Integer.toString(SimalRepositoryFactory.getReviewService().getReviews().size())));
     } catch (SimalRepositoryException e) {

@@ -26,7 +26,6 @@ import javax.jcr.RepositoryException;
 import org.w3c.dom.Document;
 
 import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -109,48 +108,6 @@ public interface ISimalRepository {
    * @deprecated Use ProjectService.getProject(uri) instead
    */
   public IProject getProject(String uri) throws SimalRepositoryException;
-
-  /**
-   * Get a person from the repository.
-   * 
-   * @param uri
-   *          the String of the repository to retrieve
-   * @return the repository or if no repository item with the given String
-   *         exists Null
-   * @throws SimalRepositoryException
-   */
-  public IPerson getPerson(String uri) throws SimalRepositoryException;
-
-  /**
-   * Get a person with a given Simal id.
-   * 
-   * @param id -
-   *          world unique Simal ID
-   * @return
-   * @throws SimalRepositoryException
-   *           if the ID is not a world unique one.
-   */
-  public IPerson findPersonById(String id) throws SimalRepositoryException;
-
-  /**
-   * Get a person with a given MBOX SHA1 SUM.
-   * 
-   * @param sha1sum
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public IPerson findPersonBySha1Sum(String sha1sum)
-      throws SimalRepositoryException;
-
-  /**
-   * Get a person with a given rdf:seeAlso attribute.
-   * 
-   * @param seeAlso
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public IPerson findPersonBySeeAlso(String seeAlso)
-      throws SimalRepositoryException;
   
   /**
    * Get a project with a given rdf:seeAlso value.
@@ -193,14 +150,6 @@ public interface ISimalRepository {
   public Set<IProject> getAllProjects() throws SimalRepositoryException;
 
   /**
-   * Get all the people known in this repository.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   */
-  public Set<IPerson> getAllPeople() throws SimalRepositoryException;
-
-  /**
    * Add an RDF/XML file, other than one supported by more specialised methods,
    * such as addProject(...).
    * 
@@ -219,15 +168,6 @@ public interface ISimalRepository {
    * @throws SimalRepositoryException
    */
   public String getAllProjectsAsJSON() throws SimalRepositoryException;
-
-  /**
-   * Get all the people in the repository and return them in a single JSON file.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   * @throws SimalRepositoryException
-   */
-  public String getAllPeopleAsJSON() throws SimalRepositoryException;
 
   /**
    * Shutdown the repository cleanly.
@@ -252,18 +192,6 @@ public interface ISimalRepository {
       DuplicateURIException;
 
   /**
-   * Create a new person in the repository.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   *           if an error is thrown whilst communicating with the repository
-   * @throws DuplicateURIException
-   *           if an entity with the given String already exists
-   */
-  public IPerson createPerson(String uri) throws SimalRepositoryException,
-      DuplicateURIException;
-
-  /**
    * Create a new homepage in the repository.
    * 
    * @param uri a URI to identify this homepage
@@ -285,15 +213,6 @@ public interface ISimalRepository {
    * @deprecated use ProjectService,getNewProjectID() instead
    */
   public String getNewProjectID() throws SimalRepositoryException;
-
-  /**
-   * Create a new person ID and save the next local value in the properties
-   * file.
-   * 
-   * @throws IOException
-   * @throws FileNotFoundException
-   */
-  public String getNewPersonID() throws SimalRepositoryException;
 
   /**
    * Add the RDF data contained in the supplied data string.
@@ -415,16 +334,6 @@ public interface ISimalRepository {
   public IResource getResource(String uri);
 
   /**
-   * Check to see if a person already exists in the repository with the supplied
-   * EMail address. If they exist return the person otherwise return null.
-   * 
-   * @param person
-   * @return the duplicate person or null
-   * @throws SimalRepositoryException
-   */
-  public IPerson getDuplicate(String email) throws SimalRepositoryException;
-
-  /**
    * Given an entity ID create a unique Simal ID for referencing this entity
    * within this instance of Simal.
    * 
@@ -480,17 +389,6 @@ public interface ISimalRepository {
    * @return
    */
   public Set<IProject> filterProjectsBySPARQL(String queryStr);
-
-  /**
-   * Return all the people with a name that matches the
-   * supplied regular expression. The filter
-   * is not case sensitive.
-   * 
-   * 
-   * @param value
-   * @return
-   */
-  public Set<IPerson> filterPeopleByName(String filter);  
   
   /**
    * Add an RDF/XML Document.
@@ -507,15 +405,6 @@ public interface ISimalRepository {
    * @return
    */
   public IDoapHomepage getHomepage(String uri);
-
-  /**
-   * Get a person from the repository. If the person does not yet exist it is created.
-   * 
-   * @param personURI
-   * @return
-   * @throws SimalRepositoryException 
-   */
-   public IPerson getOrCreatePerson(String uri) throws SimalRepositoryException;
 
    /**
     * Get a project from the repository. If the project does not yet exist it is created.

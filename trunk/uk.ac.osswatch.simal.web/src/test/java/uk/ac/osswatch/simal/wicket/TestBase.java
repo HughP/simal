@@ -50,8 +50,7 @@ public abstract class TestBase {
     IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
     projectURI = project.getURI();
 
-    IPerson developer = repository
-        .findPersonBySeeAlso("http://foo.org/~developer/#me");
+    IPerson developer = SimalRepositoryFactory.getPersonService().findBySeeAlso("http://foo.org/~developer/#me");
     developerURI = developer.getURI();
 
     tester = new WicketTester();

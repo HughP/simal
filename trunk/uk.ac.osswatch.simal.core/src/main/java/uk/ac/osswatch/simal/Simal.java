@@ -247,7 +247,7 @@ public class Simal {
   private static void getPeople(CommandLine cl) throws SimalRepositoryException {
     if (cl.hasOption('n')) {
       String filter = cl.getOptionValue('n');
-      Set<IPerson> people = getRepository().filterPeopleByName(filter);
+      Set<IPerson> people = SimalRepositoryFactory.getPersonService().filterByName(filter);
       if (people == null || people.size() == 0) {
         logger.info("No projects match the regular expression '" + filter + "'");
       } else {

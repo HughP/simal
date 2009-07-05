@@ -22,9 +22,9 @@ import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class TestPersonDetailsPage extends TestBase {
 
@@ -35,8 +35,7 @@ public class TestPersonDetailsPage extends TestBase {
 
       public Page getTestPage() {
         try {
-          return new PersonDetailPage(UserApplication.getRepository()
-              .getPerson(developerURI));
+          return new PersonDetailPage(SimalRepositoryFactory.getPersonService().get(developerURI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
           System.exit(1);

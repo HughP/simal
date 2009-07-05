@@ -37,11 +37,11 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.data.SortablePersonDataProvider;
 import uk.ac.osswatch.simal.wicket.doap.PersonFilterInputModel;
 import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
@@ -74,7 +74,7 @@ public class PersonListPanel extends Panel {
       throws SimalRepositoryException {
     super(id);
     this.title = title;
-    this.people = UserApplication.getRepository().getAllPeople();
+    this.people = SimalRepositoryFactory.getPersonService().getAll();
     populatePanel(numberOfPeople);
   }
 

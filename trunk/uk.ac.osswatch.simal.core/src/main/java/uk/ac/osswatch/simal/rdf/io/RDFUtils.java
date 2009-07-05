@@ -489,7 +489,7 @@ public class RDFUtils {
           if (simalCategory != null) {
             id = simalCategory.getSimalID();
           } else {
-            id = repo.getNewPersonID();
+            id = SimalRepositoryFactory.getPersonService().getNewID();
           }
           simalIDAtt = doc.createAttributeNS(SimalOntology.NS, SIMAL_CATEGORY_ID);
           simalIDAtt.setValue(id);

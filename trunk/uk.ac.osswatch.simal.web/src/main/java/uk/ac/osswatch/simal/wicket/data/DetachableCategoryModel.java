@@ -22,7 +22,6 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class DetachableCategoryModel extends LoadableDetachableModel {
   private static final long serialVersionUID = -9017519516676203598L;

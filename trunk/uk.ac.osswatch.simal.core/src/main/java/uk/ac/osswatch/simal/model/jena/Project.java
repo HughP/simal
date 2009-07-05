@@ -165,9 +165,9 @@ public class Project extends DoapResource implements IProject {
     while (itr.hasNext()) {
       String uri = itr.next().getResource().getURI();
       try {
-        IPerson person = SimalRepositoryFactory.getInstance().findPersonBySeeAlso(uri);
+        IPerson person = SimalRepositoryFactory.getPersonService().findBySeeAlso(uri);
         if (person == null) {
-          person = SimalRepositoryFactory.getInstance().getPerson(uri);
+          person = SimalRepositoryFactory.getPersonService().get(uri);
           if (person == null) {
             throw new SimalRepositoryException("No person with the URI " + uri);
           }
