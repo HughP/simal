@@ -18,6 +18,8 @@ package uk.ac.osswatch.simal.model.jcr;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.jcr.LoginException;
@@ -29,10 +31,14 @@ import javax.jcr.SimpleCredentials;
 import org.apache.jackrabbit.core.TransientRepository;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.apache.jackrabbit.ocm.manager.impl.ObjectContentManagerImpl;
+import org.apache.jackrabbit.ocm.query.Filter;
+import org.apache.jackrabbit.ocm.query.Query;
+import org.apache.jackrabbit.ocm.query.QueryManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -92,8 +98,8 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 
 	public void addProject(Document doc, URL url, String baseURI)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-
+		logger.error("Need to convert a DOAP document to a Project object");
+		System.exit(1);
 	}
 
 	public void addRDFXML(URL url, String baseURL)
@@ -240,8 +246,13 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	}
 
 	public Set<IProject> getAllProjects() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Project.class);
+		Query query = queryManager.createQuery(filter);
+		Collection result = ocm.getObjects(query);
+		return new HashSet(result);
 	}
 
 	public String getAllProjectsAsJSON() throws SimalRepositoryException {
@@ -319,7 +330,29 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 				throw new SimalRepositoryException("Unable to add test data", e);
 		    }
         } else {
-        	throw new SimalRepositoryException("We don't know how to implement a not test JCR repository yet");
+			try {
+				// FIXME: repos that are not test ones should not be transient
+				repository = new TransientRepository();
+			} catch (IOException e) {
+				throw new SimalRepositoryException("Unable to create repository", e);
+			}
+	        
+			try {
+				session = repository.login(
+				        new SimpleCredentials("username", "password".toCharArray()));
+				String[] files = {
+						ISimalRepository.class.getClassLoader().getResource(JCR_MAPPING).getFile()
+					  };
+
+				ocm = new ObjectContentManagerImpl(session, files);
+			} catch (LoginException e) {
+				throw new SimalRepositoryException("Unable to login to repository", e);
+			} catch (RepositoryException e) {
+	
+				throw new SimalRepositoryException("Unable to access repository", e);
+			}
+			
+		    initialised = true;
         }
 	}
 

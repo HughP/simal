@@ -124,7 +124,7 @@ public abstract class BaseRepositoryTest {
 
   protected static void initRepository() throws SimalRepositoryException,
       URISyntaxException {
-    repository = SimalRepositoryFactory.getInstance();
+    repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.JENA);
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
       repository.initialise(null);

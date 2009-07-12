@@ -34,6 +34,7 @@ import uk.ac.osswatch.simal.service.IReviewService;
 import uk.ac.osswatch.simal.service.jcr.HomepageService;
 import uk.ac.osswatch.simal.service.jcr.JcrCategoryService;
 import uk.ac.osswatch.simal.service.jcr.JcrOrganisationService;
+import uk.ac.osswatch.simal.service.jcr.JcrPersonService;
 import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
 import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaCategoryService;
@@ -48,7 +49,7 @@ public class SimalRepositoryFactory {
       .getLogger(SimalRepositoryFactory.class);
   public static final int JENA = 1;
   public static final int JCR = 2;
-  private static final int type = JENA;
+  private static int repoType = JENA;
   
   /**
    * Get the SimalRepository object. Note that only one of each type can exist
@@ -59,12 +60,23 @@ public class SimalRepositoryFactory {
    */
   public static ISimalRepository getInstance()
       throws SimalRepositoryException {
-	  switch (type) {
+	  return getInstance(repoType);
+  }
+  
+  /**
+   * Get the SimalRepository object. Note that only one of each type can exist
+   * in a single virtual machine.
+   * 
+   * @return
+   * @throws SimalRepositoryException
+   */
+  public static ISimalRepository getInstance(int type)
+      throws SimalRepositoryException {
+	  repoType = type;
+	  switch (repoType) {
 	    case JENA:
-	      logger.debug("Creating Jena repository");
 	      return JenaSimalRepository.getInstance();
 	    case JCR:  
-	      logger.debug("Creating Jackrabbit repository");
 	      return JcrSimalRepository.getInstance();
 	    default:
 	      throw new SimalRepositoryException("Attempt to create an unknown repository type");
@@ -78,7 +90,7 @@ public class SimalRepositoryFactory {
 	 * 
 	 */
 	public static IHomepageService getHomepageService() throws SimalRepositoryException {
-		 switch (type) {
+		 switch (repoType) {
 		    case JENA:
 		      return new JenaHomepageService(getInstance());
 		    case JCR:  
@@ -97,7 +109,7 @@ public class SimalRepositoryFactory {
 	 * 
 	 */
 	public static IProjectService getProjectService() throws SimalRepositoryException {
-		 switch (type) {
+		 switch (repoType) {
 		    case JENA:
 		      return new JenaProjectService(getInstance());
 		    case JCR:  
@@ -114,7 +126,7 @@ public class SimalRepositoryFactory {
 	 * 
 	 */
 	public static IReviewService getReviewService() throws SimalRepositoryException {
-		 switch (type) {
+		 switch (repoType) {
 		    case JENA:
 		      return new JenaReviewService(getInstance());
 		    case JCR:  
@@ -131,7 +143,7 @@ public class SimalRepositoryFactory {
 	 * 
 	 */
 	public static IOrganisationService getOrganisationService() throws SimalRepositoryException {
-		 switch (type) {
+		 switch (repoType) {
 		    case JENA:
 		      return new JenaOrganisationService(getInstance());
 		    case JCR:  
@@ -148,7 +160,7 @@ public class SimalRepositoryFactory {
 	 * 
 	 */
 	public static ICategoryService getCategoryService() throws SimalRepositoryException {
-		 switch (type) {
+		 switch (repoType) {
 		    case JENA:
 		      return new JenaCategoryService(getInstance());
 		    case JCR: 
@@ -165,11 +177,11 @@ public class SimalRepositoryFactory {
 	 * 
 	 */
 	public static IPersonService getPersonService() throws SimalRepositoryException {
-		 switch (type) {
+		 switch (repoType) {
 		    case JENA:
 		      return new JenaPersonService(getInstance());
 		    case JCR: 
-		    	throw new SimalRepositoryException("JcrPersonService is not implemented yet");
+		      return new JcrPersonService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }

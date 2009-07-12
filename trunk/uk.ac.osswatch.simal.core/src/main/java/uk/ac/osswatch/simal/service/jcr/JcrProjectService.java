@@ -18,6 +18,10 @@ package uk.ac.osswatch.simal.service.jcr;
  */
 import java.util.Set;
 
+import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
+import org.apache.jackrabbit.ocm.query.Filter;
+import org.apache.jackrabbit.ocm.query.Query;
+import org.apache.jackrabbit.ocm.query.QueryManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,8 +48,14 @@ public class JcrProjectService extends AbstractService implements
 
 	public IProject findProjectBySeeAlso(String seeAlso)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Project.class);
+		filter.addEqualTo("seeAlso", seeAlso); 
+
+		Query query = queryManager.createQuery(filter);
+		return (Project) ocm.getObject(query);
 	}
 
 	public Set<IProject> findProjectsBySPARQL(String queryStr) {
@@ -54,8 +64,14 @@ public class JcrProjectService extends AbstractService implements
 	}
 
 	public IProject getProject(String uri) throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Project.class);
+		filter.addEqualTo("URI", uri);
+
+		Query query = queryManager.createQuery(filter);
+		return (Project) ocm.getObject(query);
 	}
 
 	public Set<IProject> getProjectsWithBugDatabase()
@@ -121,7 +137,10 @@ public class JcrProjectService extends AbstractService implements
 		    }
 
 		    Project project = new Project(getRepository().getEntityID(getNewProjectID()));
-		    ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager().insert(project);
+		    project.setURI(uri);
+		    ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		    ocm.insert(project);
+		    ocm.save();
 		    
 		    return project;
 	}

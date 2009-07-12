@@ -54,6 +54,10 @@ public abstract class AbstractResource implements IResource {
 		return uri;
 	}
 
+	public void setURI(String uri) {
+		this.uri = uri;
+	}
+
 	/**
 	 * @deprecated use getURI()
 	 */
