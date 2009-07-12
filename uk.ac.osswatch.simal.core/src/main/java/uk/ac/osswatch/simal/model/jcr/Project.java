@@ -35,6 +35,10 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class Project extends DoapResource implements IProject {
 	private static final long serialVersionUID = 1L;
 	
+	public Project() {
+		super();
+	}
+	
 	public Project(String simalID) throws SimalRepositoryException {
 		super(simalID);
 	}

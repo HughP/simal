@@ -28,6 +28,10 @@ public class DoapResource extends Resource implements IDoapResource {
 		super(simalID);
 	}
 
+	public DoapResource() {
+		super();
+	}
+
 	public void addName(String name) {
 		// TODO Auto-generated method stub
 		

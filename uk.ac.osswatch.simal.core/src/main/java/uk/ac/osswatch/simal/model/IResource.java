@@ -43,6 +43,14 @@ public interface IResource extends IResourceService, Serializable {
    */
   public String getURI();
 
+
+  /**
+   * Set the URI for this resource.
+   * 
+   * @throws SimalRepositoryException
+   */
+  public void setURI(String uri);
+  
   /**
    * Get the label for this resource. The label of a resource is
    * defined by (in order of priority):

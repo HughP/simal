@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jackrabbit-ocm PUBLIC "-//The Apache Software Foundation//DTD Repository//EN" "http://jackrabbit.apache.org/dtd/jackrabbit-ocm-1.4.dtd"> 
 <!--
  
  Copyright 2007 University of Oxford
@@ -22,9 +23,15 @@
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
 		<!-- Field-descriptor is used to map simple attributes to jcr property -->
 		<field-descriptor fieldName="path" path="true" />
-		<field-descriptor fieldName="name" jcrName="name" />
+		<field-descriptor fieldName="URI" jcrName="uri" /> 
 	</class-descriptor>
 	
+	<class-descriptor
+		className="uk.ac.osswatch.simal.model.jcr.DoapResource"
+		extend="uk.ac.osswatch.simal.model.jcr.Resource"
+		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
+	</class-descriptor>
+		
 	<class-descriptor
 		className="uk.ac.osswatch.simal.model.jcr.Category"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
@@ -55,9 +62,12 @@
 	
 	<class-descriptor
 		className="uk.ac.osswatch.simal.model.jcr.Project"
+		extend="uk.ac.osswatch.simal.model.jcr.DoapResource"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
-		<!-- Field-descriptor is used to map simple attributes to jcr property -->
-		<field-descriptor fieldName="path" path="true" />
+		<!-- 
+		<collection-descriptor fieldName="seeAlso" jcrName="seeAlso" 
+		  elementClassName="java.util.String"/> 
+		   -->
 	</class-descriptor>
 </jackrabbit-ocm>
 

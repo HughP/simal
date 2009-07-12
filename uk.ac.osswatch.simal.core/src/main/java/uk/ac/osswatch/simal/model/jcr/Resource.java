@@ -32,6 +32,10 @@ public class Resource extends AbstractResource {
 		super(simalID);
 	}
 
+	public Resource() {
+		super();
+	}
+
 	public String getComment() {
 		return comment;
 	}
