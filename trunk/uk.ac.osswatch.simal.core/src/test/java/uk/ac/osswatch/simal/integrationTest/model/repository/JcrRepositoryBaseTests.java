@@ -41,9 +41,11 @@ public class JcrRepositoryBaseTests {
 	static ISimalRepository repo;
 	private static ObjectContentManager ocm;
 
+	static String uri = "http://foo.org/test";
+	
 	@BeforeClass
 	public static void initialise() throws SimalRepositoryException,
-			RepositoryException {
+			RepositoryException, DuplicateURIException {
 		repo = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.JCR);
 		repo.initialise(null);
 
@@ -55,7 +57,7 @@ public class JcrRepositoryBaseTests {
 		Node root = session.getRootNode();
 		assertNotNull("Repository root node is null", root);
 
-		Node n = root.addNode("test");
+		session.getRootNode().addNode("test");
 		root.save();
 		assertTrue("test node doesn't exist", session.itemExists("/test"));
 		Node test = (Node) session.getItem("/test");
@@ -63,6 +65,11 @@ public class JcrRepositoryBaseTests {
 		session.save();
 
 		assertFalse("test node exists", session.itemExists("/test"));
+		
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		IProject project = service.createProject(uri);
+		assertNotNull("Created project is a null object", project);
+		assertEquals("Project URI is not correct", uri, project.getURI());
 	}
 
 	@AfterClass
@@ -86,26 +93,19 @@ public class JcrRepositoryBaseTests {
 	}
 
 	@Test
-	public void addProject() throws SimalRepositoryException,
-			DuplicateURIException {
-		String uri = "http://foo.org/test";
-		IProjectService service = SimalRepositoryFactory.getProjectService();
-		IProject project = service.createProject(uri);
-		String path = ((AbstractResource) project).getPath();
-		assertNotNull("Created project is a null object", project);
-		assertEquals("Project URI is not correct", uri, project.getURI());
-
-		project = (Project) ocm.getObject(path);
-		assertNotNull("Retrieved project is a null object", project);
-
+	public void getAllProjects() throws SimalRepositoryException {
 		Set<IProject> projects = repo.getAllProjects();
 		assertEquals("Got an incorrect number of projects", 1, projects.size());
 		Iterator<IProject> itr = projects.iterator();
 		while (itr.hasNext()) {
 			logger.debug("Got a project with uri " + itr.next().getURI());
 		}
-
-		project = service.getProject(uri);
+	}
+	
+	@Test
+	public void addProject() throws SimalRepositoryException {
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		IProject project = service.getProject(uri);
 		assertNotNull("Retrieved project is a null object", project);
 
 		ocm.remove(project);
