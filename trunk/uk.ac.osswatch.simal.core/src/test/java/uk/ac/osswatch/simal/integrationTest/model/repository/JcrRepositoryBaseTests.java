@@ -2,6 +2,7 @@ package uk.ac.osswatch.simal.integrationTest.model.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
@@ -13,7 +14,6 @@ import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
-import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -83,11 +83,6 @@ public class JcrRepositoryBaseTests {
 		} catch (Exception e) {
 			logger.error("cleanUpRepository failed", e);
 		}
-	}
-
-	private static void assertFalse(String string, boolean itemExists) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Test
