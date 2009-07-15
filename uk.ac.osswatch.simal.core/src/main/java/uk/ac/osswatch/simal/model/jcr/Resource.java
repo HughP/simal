@@ -40,6 +40,10 @@ public class Resource extends AbstractResource {
 		return comment;
 	}
 
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
 	public String getLabel(String defaultLabel) {
 		if (label != null) {
 			return label;
@@ -50,6 +54,10 @@ public class Resource extends AbstractResource {
 		return getURI();
 	}
 
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
 	public Object getRepositoryResource() {
 		// TODO Auto-generated method stub
 		return null;
@@ -57,6 +65,10 @@ public class Resource extends AbstractResource {
 
 	public Set<URI> getSeeAlso() {
 		return seeAlsos;
+	}
+	
+	public void setSeeAlso(Set<URI> seeAlso) {
+		this.seeAlsos = seeAlso;
 	}
 
 	public String getUniqueSimalID() throws SimalRepositoryException {
