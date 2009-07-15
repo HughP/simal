@@ -44,6 +44,7 @@ public class SimalProperties {
   public static final String PROPERTY_TEST = "simal.test";
   public static final String PROPERTY_SIMAL_INSTANCE_ID = "simal.instance.id";
   public static final String PROPERTY_SIMAL_VERSION = "simal.version";
+  public static final String PROPERTY_SIMAL_NEXT_BUG_DATABASE_ID = "simal.nextBugDatabaseID";
   public static final String PROPERTY_SIMAL_NEXT_CATEGORY_ID = "simal.nextCategoryID";
   public static final String PROPERTY_SIMAL_NEXT_HOMEPAGE_ID = "simal.nextProjectID";
   public static final String PROPERTY_SIMAL_NEXT_ORGANISATION_ID = "simal.nextOrganisatonID";

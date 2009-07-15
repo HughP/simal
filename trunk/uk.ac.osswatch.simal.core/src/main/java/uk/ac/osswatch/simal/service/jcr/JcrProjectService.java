@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.model.jcr.Project;
@@ -75,8 +74,22 @@ public class JcrProjectService extends AbstractService implements
 
 	public Set<IProject> getProjectsWithBugDatabase()
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Project.class);
+		
+		Query query = queryManager.createQuery(filter);
+		// FIXME: The NotNull filter is not working is there a better way to do this? See http://markmail.org/message/wssnpbeftf6gcuzp
+		Iterator<IProject> itr = ((Collection<IProject>)ocm.getObjects(query)).iterator();
+		HashSet<IProject> projects = new HashSet<IProject>();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			if (project.getIssueTrackers().size() > 0) {
+				projects.add(project);
+			}
+		}
+		return projects;
 	}
 
 	public Set<IProject> getProjectsWithHomepage()

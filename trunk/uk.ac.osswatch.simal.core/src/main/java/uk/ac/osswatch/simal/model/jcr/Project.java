@@ -37,6 +37,7 @@ public class Project extends DoapResource implements IProject {
 	private static final long serialVersionUID = 1L;
 	private Set<IDoapRepository> revisionControl = new HashSet<IDoapRepository>();
 	private Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
+	public Set<IDoapBugDatabase> issueTrackers = new HashSet<IDoapBugDatabase>();
 	
 	public Project() {
 		super();
@@ -134,8 +135,11 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public Set<IDoapBugDatabase> getIssueTrackers() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.issueTrackers;
+	}
+	
+	public void setIssueTrackers(Set<IDoapBugDatabase> trackers) {
+		this.issueTrackers = trackers;
 	}
 
 	public Set<IDoapMailingList> getMailingLists() {
@@ -245,5 +249,9 @@ public class Project extends DoapResource implements IProject {
 
 	public void addRepository(IDoapRepository rcs) throws SimalRepositoryException {
 		revisionControl.add(rcs);
+	}
+
+	public void addIssueTracker(IDoapBugDatabase tracker) {
+		issueTrackers.add(tracker);
 	}
 }

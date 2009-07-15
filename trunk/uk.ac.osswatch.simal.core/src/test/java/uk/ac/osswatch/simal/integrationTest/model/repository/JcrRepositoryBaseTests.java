@@ -38,6 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IProject;
@@ -46,6 +47,7 @@ import uk.ac.osswatch.simal.model.jcr.Project;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.IBugDatabaseService;
 import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IRepositoryService;
@@ -65,6 +67,7 @@ public class JcrRepositoryBaseTests {
 	static String skeletonProjectURI = "http://foo.org/skeletonTestProject";
 	static String rcsURI = "http://foo.org/testRCS";
 	static String homepageURI = "http://foo.org";
+	static String issuesURI = "http://foo.org/issues";
 	
 	@BeforeClass
 	public static void initialise() throws SimalRepositoryException,
@@ -107,6 +110,7 @@ public class JcrRepositoryBaseTests {
 		IProject project = projectService.createProject(detailedProjectURI);
 		addRepository(project);
 		addHomePage(project);
+		addIssueTrackers(project);
 		SimalRepositoryFactory.getProjectService().save(project);
 		assertNotNull("Created project is a null object", project);
 		assertEquals("Project URI is not correct", detailedProjectURI, project.getURI());
@@ -128,6 +132,15 @@ public class JcrRepositoryBaseTests {
 		assertNotNull(homepage);
 		project.addHomepage(homepage);
 		assertEquals("Don't seem to have added the homepage", 1, project.getHomepages().size());
+	}
+
+	private static void addIssueTrackers(IProject project)
+			throws SimalRepositoryException, DuplicateURIException {
+		IBugDatabaseService service = SimalRepositoryFactory.getBugDatabaseService();
+		IDoapBugDatabase tracker = service.create(issuesURI);
+		assertNotNull(tracker);
+		project.addIssueTracker(tracker);
+		assertEquals("Don't seem to have added the issue tracker", 1, project.getIssueTrackers().size());
 	}
 
 	@AfterClass
@@ -184,6 +197,12 @@ public class JcrRepositoryBaseTests {
 	public void getProjectsWithHomepages() throws SimalRepositoryException {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
 		assertEquals("Got incorrect number of projects with homepage", 1, service.getProjectsWithHomepage().size());
+	}
+	
+	@Test
+	public void getProjectsWithIssueTrackers() throws SimalRepositoryException {
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		assertEquals("Got incorrect number of projects with issueTrackers", 1, service.getProjectsWithBugDatabase().size());
 	}
 
 }
