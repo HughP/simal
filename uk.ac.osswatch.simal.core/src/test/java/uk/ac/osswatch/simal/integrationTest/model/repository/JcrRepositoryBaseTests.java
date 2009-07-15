@@ -61,7 +61,8 @@ public class JcrRepositoryBaseTests {
 	static ISimalRepository repo;
 	private static ObjectContentManager ocm;
 
-	static String projectURI = "http://foo.org/testProject";
+	static String detailedProjectURI = "http://foo.org/dtailedTestProject";
+	static String skeletonProjectURI = "http://foo.org/skeletonTestProject";
 	static String rcsURI = "http://foo.org/testRCS";
 	static String homepageURI = "http://foo.org";
 	
@@ -88,26 +89,45 @@ public class JcrRepositoryBaseTests {
 
 		assertFalse("test node exists", session.itemExists("/test"));
 		
+		createDetailedProject();
+		createSkeletonProject();
+	}
+
+	private static void createSkeletonProject()
+			throws SimalRepositoryException, DuplicateURIException {
 		IProjectService projectService = SimalRepositoryFactory.getProjectService();
-		IProject project = projectService.createProject(projectURI);
-		
+		IProject project = projectService.createProject(skeletonProjectURI);
+		SimalRepositoryFactory.getProjectService().save(project);
+		assertNotNull("Created project is a null object", project);
+	}
+
+	private static void createDetailedProject()
+			throws SimalRepositoryException, DuplicateURIException {
+		IProjectService projectService = SimalRepositoryFactory.getProjectService();
+		IProject project = projectService.createProject(detailedProjectURI);
+		addRepository(project);
+		addHomePage(project);
+		SimalRepositoryFactory.getProjectService().save(project);
+		assertNotNull("Created project is a null object", project);
+		assertEquals("Project URI is not correct", detailedProjectURI, project.getURI());
+	}
+
+	private static void addRepository(IProject project)
+			throws SimalRepositoryException, DuplicateURIException {
 		IRepositoryService rcsService = SimalRepositoryFactory.getRepositoryService();
 		IDoapRepository rcs = rcsService.create(rcsURI);
 		assertNotNull(rcs);
 		project.addRepository(rcs);
 		assertEquals("Don't seem to have added the repository", 1, project.getRepositories().size());
-		
+	}
+
+	private static void addHomePage(IProject project)
+			throws SimalRepositoryException, DuplicateURIException {
 		IHomepageService homepageService = SimalRepositoryFactory.getHomepageService();
 		IDoapHomepage homepage = homepageService.create(homepageURI);
 		assertNotNull(homepage);
 		project.addHomepage(homepage);
 		assertEquals("Don't seem to have added the homepage", 1, project.getHomepages().size());
-		
-		
-		SimalRepositoryFactory.getProjectService().save(project);
-		
-		assertNotNull("Created project is a null object", project);
-		assertEquals("Project URI is not correct", projectURI, project.getURI());
 	}
 
 	@AfterClass
@@ -133,7 +153,7 @@ public class JcrRepositoryBaseTests {
 	@Test
 	public void getAllProjects() throws SimalRepositoryException {
 		Set<IProject> projects = repo.getAllProjects();
-		assertEquals("Got an incorrect number of projects", 1, projects.size());
+		assertEquals("Got an incorrect number of projects", 2, projects.size());
 		Iterator<IProject> itr = projects.iterator();
 		while (itr.hasNext()) {
 			IProject project = itr.next();
@@ -144,7 +164,7 @@ public class JcrRepositoryBaseTests {
 	@Test
 	public void getProject() throws SimalRepositoryException {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
-		IProject project = service.getProject(projectURI);
+		IProject project = service.getProject(detailedProjectURI);
 		assertNotNull("Retrieved project is a null object", project);
 		
 		Set<IDoapRepository> repos = project.getRepositories();
