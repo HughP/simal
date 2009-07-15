@@ -16,7 +16,6 @@
 package uk.ac.osswatch.simal.model;
 
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -342,5 +341,17 @@ public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryEx
  * @param homepages
  */
 public void setHomepages(Set<IDoapHomepage> homepages);
+
+/**
+ * Set the issue trackers associated with this project.
+ * @param homepages
+ */
+public void setIssueTrackers(Set<IDoapBugDatabase> trackers);
+
+/**
+ * Add an issue tracker for this project
+ * @param tracker
+ */
+public void addIssueTracker(IDoapBugDatabase tracker);
 
 }

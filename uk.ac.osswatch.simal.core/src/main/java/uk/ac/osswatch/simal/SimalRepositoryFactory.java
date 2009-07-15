@@ -32,6 +32,7 @@ import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IRepositoryService;
 import uk.ac.osswatch.simal.service.IReviewService;
+import uk.ac.osswatch.simal.service.jcr.JcrBugDatabaseService;
 import uk.ac.osswatch.simal.service.jcr.JcrHomepageService;
 import uk.ac.osswatch.simal.service.jcr.JcrCategoryService;
 import uk.ac.osswatch.simal.service.jcr.JcrOrganisationService;
@@ -198,12 +199,30 @@ public class SimalRepositoryFactory {
 		 switch (repoType) {
 		    case JENA:
 		      // return new JenaRepositoryService(getInstance());
-		      logger.error("Not implmented JenaRepositoryService");
+		      logger.error("Not implemented JenaRepositoryService");
 		      System.exit(1);
 		    case JCR: 
 		      return new JcrRepositoryService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+		  }
+	}
+
+	/**
+	 * Get an instance of the bug database service.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public static JcrBugDatabaseService getBugDatabaseService() throws SimalRepositoryException {
+		 switch (repoType) {
+		    case JENA:
+		      // return new JenaRepositoryService(getInstance());
+		      logger.error("Not implemented JenaBugDatabaseService");
+		      System.exit(1);
+		    case JCR: 
+		      return new JcrBugDatabaseService(getInstance());
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown type of bug datatbase service");
 		  }
 	}
 }

@@ -123,7 +123,7 @@ public interface IResource extends IResourceService, Serializable {
    * @see getUniqueSimalID()
    */
   public String getSimalID() throws SimalRepositoryException;
-
+  
   /**
    * Set the Simal ID for this resource. This is a unique identifier within the
    * repository from which it was retrieved.

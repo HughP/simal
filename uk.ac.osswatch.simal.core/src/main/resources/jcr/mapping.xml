@@ -24,12 +24,20 @@
 		<!-- Field-descriptor is used to map simple attributes to jcr property -->
 		<field-descriptor fieldName="path" path="true" />
 		<field-descriptor fieldName="URI" jcrName="uri" /> 
+		<field-descriptor fieldName="simalID" jcrName="simalID" /> 
 	</class-descriptor>
 	
 	<class-descriptor
 		className="uk.ac.osswatch.simal.model.jcr.DoapResource"
 		extend="uk.ac.osswatch.simal.model.jcr.Resource"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
+	</class-descriptor>
+		
+	<class-descriptor
+		className="uk.ac.osswatch.simal.model.jcr.BugDatabase"
+		extend="uk.ac.osswatch.simal.model.jcr.DoapResource"
+		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
+		<field-descriptor fieldName="path" path="true" />
 	</class-descriptor>
 		
 	<class-descriptor
@@ -70,6 +78,9 @@
 		<collection-descriptor
           fieldName="homepages" jcrName="homepage"
           elementClassName="uk.ac.osswatch.simal.model.jcr.Homepage" />
+		<collection-descriptor
+          fieldName="issueTrackers" jcrName="issueTracker"
+          elementClassName="uk.ac.osswatch.simal.model.jcr.BugDatabase" />
 	</class-descriptor>
 	
 	<class-descriptor
