@@ -64,10 +64,18 @@
 		className="uk.ac.osswatch.simal.model.jcr.Project"
 		extend="uk.ac.osswatch.simal.model.jcr.DoapResource"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
-		<!-- 
-		<collection-descriptor fieldName="seeAlso" jcrName="seeAlso" 
-		  elementClassName="java.util.String"/> 
-		   -->
+		<collection-descriptor
+          fieldName="repositories" jcrName="rcs"
+          elementClassName="uk.ac.osswatch.simal.model.jcr.Repository" />
+		<collection-descriptor
+          fieldName="homepages" jcrName="homepage"
+          elementClassName="uk.ac.osswatch.simal.model.jcr.Homepage" />
+	</class-descriptor>
+	
+	<class-descriptor
+		className="uk.ac.osswatch.simal.model.jcr.Repository"
+		extend="uk.ac.osswatch.simal.model.jcr.DoapResource"
+		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
 	</class-descriptor>
 </jackrabbit-ocm>
 

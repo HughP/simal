@@ -15,6 +15,7 @@ package uk.ac.osswatch.simal.model.jcr;
  * limitations under the License.
  */
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
@@ -34,6 +35,8 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Project extends DoapResource implements IProject {
 	private static final long serialVersionUID = 1L;
+	private Set<IDoapRepository> revisionControl = new HashSet<IDoapRepository>();
+	private Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
 	
 	public Project() {
 		super();
@@ -64,8 +67,7 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public void addHomepage(IDoapHomepage homepage) {
-		// TODO Auto-generated method stub
-		
+		homepages.add(homepage);
 	}
 
 	public void addMaintainer(IPerson person) {
@@ -124,8 +126,11 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public Set<IDoapHomepage> getHomepages() {
-		// TODO Auto-generated method stub
-		return null;
+		return homepages;
+	}
+
+	public void setHomepages(Set<IDoapHomepage> homepages) {
+		this.homepages = homepages;
 	}
 
 	public Set<IDoapBugDatabase> getIssueTrackers() {
@@ -168,9 +173,16 @@ public class Project extends DoapResource implements IProject {
 		return null;
 	}
 
-	public Set<IDoapRepository> getRepositories() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<IDoapRepository> getRepositories() throws SimalRepositoryException {
+		return revisionControl;
+	}
+
+	public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryException {
+		if (repos == null) return;
+		Iterator<IDoapRepository> itr = repos.iterator();
+		while (itr.hasNext()) {
+			addRepository(itr.next());
+		}
 	}
 
 	public Set<IDoapScreenshot> getScreenshots() {
@@ -229,5 +241,9 @@ public class Project extends DoapResource implements IProject {
 			throws SimalRepositoryException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void addRepository(IDoapRepository rcs) throws SimalRepositoryException {
+		revisionControl.add(rcs);
 	}
 }

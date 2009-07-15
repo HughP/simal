@@ -221,7 +221,7 @@ public class TestProject extends BaseRepositoryTest {
 	    Set<IDoapHomepage> prePages = project1.getHomepages();
 
 	    String uri = "http://www.foo.org/homepageTest";
-	    IDoapHomepage page = SimalRepositoryFactory.getHomepageService().createHomepage(uri);
+	    IDoapHomepage page = SimalRepositoryFactory.getHomepageService().create(uri);
 
 	    project1.addHomepage(page);
 	    Set<IDoapHomepage> postPages = project1.getHomepages();

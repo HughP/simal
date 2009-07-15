@@ -30,15 +30,15 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.AbstractService;
 import uk.ac.osswatch.simal.service.IHomepageService;
 
-public class HomepageService extends AbstractService implements IHomepageService {
+public class JcrHomepageService extends AbstractService implements IHomepageService {
   public static final Logger logger = LoggerFactory
-      .getLogger(HomepageService.class);
+      .getLogger(JcrHomepageService.class);
 
-	public HomepageService(ISimalRepository repo) {
+	public JcrHomepageService(ISimalRepository repo) {
 		super(repo);
 	}
 
-	public IDoapHomepage createHomepage(String uri)
+	public IDoapHomepage create(String uri)
 			throws SimalRepositoryException, DuplicateURIException {
 		if (uri == null || uri.length() == 0) {
 			throw new SimalRepositoryException("URI cannot be blank or null");
@@ -48,13 +48,13 @@ public class HomepageService extends AbstractService implements IHomepageService
 	          "Attempt to create a second homepage with the URI " + uri);
 	    }
 
-	    Homepage page= new Homepage(getRepository().getEntityID(getNewHomepageID()));
+	    Homepage page= new Homepage(getRepository().getEntityID(getNewID()));
 	    ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager().insert(page);
 	    
 	    return page;
 	}
 
-	public String getNewHomepageID() throws SimalRepositoryException {
+	public String getNewID() throws SimalRepositoryException {
 	    String fullID = null;
 	    String strEntityID = SimalProperties.getProperty(
 	        SimalProperties.PROPERTY_SIMAL_NEXT_HOMEPAGE_ID, "1");
@@ -92,7 +92,7 @@ public class HomepageService extends AbstractService implements IHomepageService
 	    return fullID;
 	}
 
-	public IHomepageService getOrCreateHomepage(String url)
+	public IHomepageService getOrCreate(String url)
 			throws SimalRepositoryException {
 		// TODO Auto-generated method stub
 		return null;

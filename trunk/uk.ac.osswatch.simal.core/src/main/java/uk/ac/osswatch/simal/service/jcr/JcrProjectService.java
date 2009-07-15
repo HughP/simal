@@ -16,6 +16,9 @@ package uk.ac.osswatch.simal.service.jcr;
  * under the License.
  * 
  */
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
@@ -27,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.model.jcr.Project;
@@ -55,12 +59,7 @@ public class JcrProjectService extends AbstractService implements
 		filter.addEqualTo("seeAlso", seeAlso); 
 
 		Query query = queryManager.createQuery(filter);
-		return (Project) ocm.getObject(query);
-	}
-
-	public Set<IProject> findProjectsBySPARQL(String queryStr) {
-		// TODO Auto-generated method stub
-		return null;
+		return (IProject) ocm.getObject(query);
 	}
 
 	public IProject getProject(String uri) throws SimalRepositoryException {
@@ -71,7 +70,7 @@ public class JcrProjectService extends AbstractService implements
 		filter.addEqualTo("URI", uri);
 
 		Query query = queryManager.createQuery(filter);
-		return (Project) ocm.getObject(query);
+		return (IProject) ocm.getObject(query);
 	}
 
 	public Set<IProject> getProjectsWithBugDatabase()
@@ -82,8 +81,22 @@ public class JcrProjectService extends AbstractService implements
 
 	public Set<IProject> getProjectsWithHomepage()
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Project.class);
+		
+		Query query = queryManager.createQuery(filter);
+		// FIXME: The NotNull filter is not working is there a better way to do this? See http://markmail.org/message/wssnpbeftf6gcuzp
+		Iterator<IProject> itr = ((Collection<IProject>)ocm.getObjects(query)).iterator();
+		HashSet<IProject> projects = new HashSet<IProject>();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			if (project.getHomepages().size() > 0) {
+				projects.add(project);
+			}
+		}
+		return projects;
 	}
 
 	public Set<IProject> getProjectsWithMailingList()
@@ -99,8 +112,22 @@ public class JcrProjectService extends AbstractService implements
 	}
 
 	public Set<IProject> getProjectsWithRCS() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Project.class);
+		
+		Query query = queryManager.createQuery(filter);
+		// FIXME: The NotNull filter is not working is there a better way to do this? See http://markmail.org/message/wssnpbeftf6gcuzp
+		Iterator<IProject> itr = ((Collection<IProject>)ocm.getObjects(query)).iterator();
+		HashSet<IProject> projects = new HashSet<IProject>();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			if (project.getRepositories().size() > 0) {
+				projects.add(project);
+			}
+		}
+		return projects;
 	}
 
 	public Set<IProject> getProjectsWithRelease()
@@ -111,8 +138,15 @@ public class JcrProjectService extends AbstractService implements
 
 	public Set<IProject> getProjectsWithReview()
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Project.class);
+
+		// FIXME: The NotNull filter is not working is there a better way to do this? See http://markmail.org/message/wssnpbeftf6gcuzp
+		Query query = queryManager.createQuery(filter);
+		Collection<IProject> projects = (Collection<IProject>)ocm.getObjects(query);
+		return new HashSet<IProject>(projects);
 	}
 
 	public boolean containsProject(String uri) {
@@ -136,7 +170,7 @@ public class JcrProjectService extends AbstractService implements
 		        simalProjectURI = uri;
 		    }
 
-		    Project project = new Project(getRepository().getEntityID(getNewProjectID()));
+		    IProject project = new Project("/project/" + getRepository().getEntityID(getNewProjectID()));
 		    project.setURI(uri);
 		    ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
 		    ocm.insert(project);

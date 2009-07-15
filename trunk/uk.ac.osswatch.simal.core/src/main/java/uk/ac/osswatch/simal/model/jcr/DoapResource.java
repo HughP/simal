@@ -102,9 +102,14 @@ public class DoapResource extends Resource implements IDoapResource {
 		return null;
 	}
 
+	@Override
 	public String getLabel(String defaultLabel) {
-		// TODO Auto-generated method stub
-		return null;
+	    String name = this.getName();
+	    if (name == null) {
+	    	return super.getLabel(defaultLabel);
+	    } else {
+	      return name;
+	    }
 	}
 
 	public Object getRepositoryResource() {

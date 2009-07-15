@@ -31,7 +31,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * @TODO refactor appropriate methods in SimalRepository into this class
  *
  */
-public interface IProjectService {
+public interface IProjectService extends IService {
 	
 	/**
 	 * Get all projects in the repository that have a revision control system recorded.
@@ -97,14 +97,6 @@ public interface IProjectService {
 	   */
 	  public IProject findProjectBySeeAlso(String seeAlso)
 	      throws SimalRepositoryException;
-
-	  /**
-	   * Find all projects returned using a SPARQL query.
-	   * 
-	   * @param queryStr
-	   * @return
-	   */
-	  public Set<IProject> findProjectsBySPARQL(String queryStr);
 
 	  /**
 	   * Find all projects that have a review assigned to it.

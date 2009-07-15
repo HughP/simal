@@ -57,6 +57,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
 public class RDFUtils {
   public static final String PROJECT_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/doap/";
   public static final String PERSON_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/foaf/";
+  public static final String REPOSITORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/rcs/";
   public static final String SIMAL_NAMESPACE_URI = "http://oss-watch.ac.uk/ns/0.2/simal#";
   public static final String SIMAL_REVIEW_NAMESPACE_URI = SIMAL_NAMESPACE_URI + "Review";
   public static final String CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";

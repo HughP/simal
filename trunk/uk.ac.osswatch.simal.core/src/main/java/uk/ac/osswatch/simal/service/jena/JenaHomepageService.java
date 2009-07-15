@@ -45,7 +45,7 @@ public class JenaHomepageService extends AbstractService implements IHomepageSer
 	}
 
 
-  public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
+  public IDoapHomepage create(String uri) throws SimalRepositoryException,
       DuplicateURIException {
 	if (uri == null || uri.length() == 0) {
 		throw new SimalRepositoryException("URI cannot be blank or null");
@@ -62,11 +62,11 @@ public class JenaHomepageService extends AbstractService implements IHomepageSer
     model.add(s);
 
     IDoapHomepage page = new Homepage(r);
-    page.setSimalID(getNewHomepageID());
+    page.setSimalID(getNewID());
     return page;
   }
 
-	public String getNewHomepageID() throws SimalRepositoryException {
+	public String getNewID() throws SimalRepositoryException {
 	    String fullID = null;
 	    String strEntityID = SimalProperties.getProperty(
 	        SimalProperties.PROPERTY_SIMAL_NEXT_HOMEPAGE_ID, "1");
@@ -104,7 +104,7 @@ public class JenaHomepageService extends AbstractService implements IHomepageSer
 	    return fullID;
 	}
 
-	public IHomepageService getOrCreateHomepage(String url)
+	public IHomepageService getOrCreate(String url)
 			throws SimalRepositoryException {
 		// TODO Auto-generated method stub
 		return null;

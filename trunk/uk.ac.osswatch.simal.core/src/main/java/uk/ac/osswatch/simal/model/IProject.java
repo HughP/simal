@@ -16,6 +16,7 @@
 package uk.ac.osswatch.simal.model;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -161,8 +162,15 @@ public interface IProject extends IDoapResource {
 
   /**
    * Get all repositories associated with this project.
+ * @throws SimalRepositoryException 
    */
-  public Set<IDoapRepository> getRepositories();
+  public Set<IDoapRepository> getRepositories() throws SimalRepositoryException;
+
+  /**
+   * Add a repository to the project..
+ * @throws SimalRepositoryException 
+   */
+  public void addRepository(IDoapRepository rcs) throws SimalRepositoryException;
 
   /**
    * Get all screen shots associated with this project.
@@ -321,5 +329,18 @@ public interface IProject extends IDoapResource {
    * no manual review has been conducted.
    */
  public int getOpennessRating() throws SimalRepositoryException;
+
+ /**
+  * Set the revision control repositories that are attached to the project.
+  * @param repos
+  * @throws SimalRepositoryException
+  */
+public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryException;
+
+/**
+ * Set the homepages associated with this project.
+ * @param homepages
+ */
+public void setHomepages(Set<IDoapHomepage> homepages);
 
 }

@@ -508,4 +508,18 @@ public int getOpennessRating() throws SimalRepositoryException {
 	return rating;
 }
 
+public void addRepository(IDoapRepository rcs) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(),
+        Doap.REPOSITORY, (com.hp.hpl.jena.rdf.model.Resource) rcs
+            .getRepositoryResource());
+    model.add(statement);
+}
+
+public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryException {
+}
+
+public void setHomepages(Set<IDoapHomepage> homepages) {
+}
+
 }
