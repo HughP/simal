@@ -234,6 +234,20 @@ public class Resource extends AbstractResource {
 
 public void addSeeAlso(URI uri) {
 	// TODO Auto-generated method stub
+}
+
+public void setComment(String comment) {
+	// TODO Auto-generated method stub
+	
+}
+
+public void setLabel(String label) {
+	// TODO Auto-generated method stub
+	
+}
+
+public void setSeeAlso(Set<URI> seeAlso) {
+	// TODO Auto-generated method stub
 	
 }
 }

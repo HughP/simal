@@ -74,13 +74,25 @@ public interface IResource extends IResourceService, Serializable {
    * @return
    */
   public String getLabel(String defaultLabel);
-
+  
+  /**
+   * Set the label to use for this resource. 
+   * @param label
+   */
+  public void setLabel(String label);
+  
   /**
    * A human readable comment describing the resource.
    * 
    * @return
    */
   public String getComment();
+  
+  /**
+   * Set the human readable comment describing this resource.
+   * @param comment
+   */
+  public void setComment(String comment);
 
   /**
    * Get all URIs for other descriptions for this resource.
@@ -88,6 +100,12 @@ public interface IResource extends IResourceService, Serializable {
    * @return
    */
   public Set<URI> getSeeAlso();
+  
+  /**
+   * Set the URIs for other descriptions of this resource.
+   * @param seeAlso
+   */
+  public void setSeeAlso(Set<URI> seeAlso);
   
   /**
    * Add a seeAlso record to this resource. A seeAlso record points to another record that

@@ -39,7 +39,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -58,9 +57,8 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 
 	private static final String JCR_MAPPING = "jcr/mapping.xml";
 	private static ISimalRepository instance;
-	private Session session;
-
-	private ObjectContentManager ocm;
+	private Session session = null;
+	private ObjectContentManager ocm = null;
 
 	/**
 	 * Use getInstance instead.
@@ -247,7 +245,6 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	}
 
 	public Set<IProject> getAllProjects() throws SimalRepositoryException {
-		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
 		QueryManager queryManager = ocm.getQueryManager();
 
 		Filter filter = queryManager.createFilter(Project.class);
@@ -356,7 +353,6 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		    initialised = true;
         }
         
-		Session session = ocm.getSession();
 		try {
 			session.getRootNode().addNode("project");
 			session.getRootNode().addNode("rcs");
