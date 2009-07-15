@@ -18,6 +18,11 @@ import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Homepage extends DoapResource implements IDoapHomepage {
+	
+	public Homepage() {
+		
+	}
+	
 	public Homepage(String simalID) throws SimalRepositoryException {
 		super(simalID);
 	}

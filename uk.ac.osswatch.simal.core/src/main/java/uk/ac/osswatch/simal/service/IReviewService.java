@@ -30,7 +30,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * @TODO refactor appropriate methods in SimalRepository into this class
  *
  */
-public interface IReviewService {
+public interface IReviewService extends IService {
 	
 	/**
 	 * Get all Reviews in the repository.

@@ -16,9 +16,15 @@ package uk.ac.osswatch.simal.service;
  * under the License.
  * 
  */
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 
-public abstract class AbstractService {
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
+public abstract class AbstractService implements IService {
 	ISimalRepository repo;
 	
 
@@ -39,6 +45,19 @@ public abstract class AbstractService {
 	 */
 	protected ISimalRepository getRepository() {
 		return this.repo;
+	}
+	
+
+    /**
+     * Save a resource.
+     * 
+     * @param project
+     * @throws SimalRepositoryException 
+     */
+	public void save(IResource resource) throws SimalRepositoryException {
+	    ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+	    ocm.update(resource);
+	    ocm.save();
 	}
 	
 }

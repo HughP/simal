@@ -22,6 +22,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jcr.ItemExistsException;
 import javax.jcr.LoginException;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
@@ -354,6 +355,16 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 			
 		    initialised = true;
         }
+        
+		Session session = ocm.getSession();
+		try {
+			session.getRootNode().addNode("project");
+			session.getRootNode().addNode("rcs");
+		} catch (ItemExistsException e) {
+			// ignore, we need this node
+		} catch (Exception e) {
+			throw new SimalRepositoryException("Unable to add root node", e);
+		}
 	}
 
 	public void removeAllData() {

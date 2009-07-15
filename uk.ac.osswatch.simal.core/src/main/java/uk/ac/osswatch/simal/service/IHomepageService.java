@@ -30,7 +30,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * @TODO refactor appropriate methods in SimalRepository into this class
  *
  */
-public interface IHomepageService {
+public interface IHomepageService extends IService {
 	   /**
 	    * Get a homepage from the repository. If the homepage does not yet exist it is created.
 	    * 
@@ -38,7 +38,7 @@ public interface IHomepageService {
 	    * @return
 	    * @throws SimalRepositoryException 
 	    */
-	    public IHomepageService getOrCreateHomepage(String url) throws SimalRepositoryException;
+	    public IHomepageService getOrCreate(String url) throws SimalRepositoryException;
 	    
 	    /**
 	     * Create a new project in the repository.
@@ -49,7 +49,7 @@ public interface IHomepageService {
 	     * @throws DuplicateURIException
 	     *           if an entity with the given String already exists
 	     */
-	    public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
+	    public IDoapHomepage create(String uri) throws SimalRepositoryException,
 	        DuplicateURIException;
 
 	    /**
@@ -58,5 +58,5 @@ public interface IHomepageService {
 	     * @throws IOException
 	     * @throws FileNotFoundException
 	     */
-	    public String getNewHomepageID() throws SimalRepositoryException;
+	    public String getNewID() throws SimalRepositoryException;
 }

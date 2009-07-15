@@ -25,7 +25,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * under the License.
  * 
  */
-public interface ICategoryService {
+public interface ICategoryService extends IService {
 
 	/**
 	 * Create a new organisation entity.

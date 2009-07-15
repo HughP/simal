@@ -38,18 +38,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.AbstractResource;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.model.jcr.Project;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IProjectService;
+import uk.ac.osswatch.simal.service.IRepositoryService;
 
 /**
  * A set of tests that ensure the JCR repository is working in isolation of test
- * data. That is it tests simple CRUD operations on the repositry.
+ * data. That is it tests simple CRUD operations on the repository.
  * 
  */
 public class JcrRepositoryBaseTests {
@@ -58,7 +61,9 @@ public class JcrRepositoryBaseTests {
 	static ISimalRepository repo;
 	private static ObjectContentManager ocm;
 
-	static String uri = "http://foo.org/test";
+	static String projectURI = "http://foo.org/testProject";
+	static String rcsURI = "http://foo.org/testRCS";
+	static String homepageURI = "http://foo.org";
 	
 	@BeforeClass
 	public static void initialise() throws SimalRepositoryException,
@@ -83,10 +88,26 @@ public class JcrRepositoryBaseTests {
 
 		assertFalse("test node exists", session.itemExists("/test"));
 		
-		IProjectService service = SimalRepositoryFactory.getProjectService();
-		IProject project = service.createProject(uri);
+		IProjectService projectService = SimalRepositoryFactory.getProjectService();
+		IProject project = projectService.createProject(projectURI);
+		
+		IRepositoryService rcsService = SimalRepositoryFactory.getRepositoryService();
+		IDoapRepository rcs = rcsService.create(rcsURI);
+		assertNotNull(rcs);
+		project.addRepository(rcs);
+		assertEquals("Don't seem to have added the repository", 1, project.getRepositories().size());
+		
+		IHomepageService homepageService = SimalRepositoryFactory.getHomepageService();
+		IDoapHomepage homepage = homepageService.create(homepageURI);
+		assertNotNull(homepage);
+		project.addHomepage(homepage);
+		assertEquals("Don't seem to have added the homepage", 1, project.getHomepages().size());
+		
+		
+		SimalRepositoryFactory.getProjectService().save(project);
+		
 		assertNotNull("Created project is a null object", project);
-		assertEquals("Project URI is not correct", uri, project.getURI());
+		assertEquals("Project URI is not correct", projectURI, project.getURI());
 	}
 
 	@AfterClass
@@ -115,17 +136,34 @@ public class JcrRepositoryBaseTests {
 		assertEquals("Got an incorrect number of projects", 1, projects.size());
 		Iterator<IProject> itr = projects.iterator();
 		while (itr.hasNext()) {
-			logger.debug("Got a project with uri " + itr.next().getURI());
+			IProject project = itr.next();
+			logger.debug("Got a project with uri " + project.getURI());
 		}
 	}
 	
 	@Test
-	public void addProject() throws SimalRepositoryException {
+	public void getProject() throws SimalRepositoryException {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
-		IProject project = service.getProject(uri);
+		IProject project = service.getProject(projectURI);
 		assertNotNull("Retrieved project is a null object", project);
-
-		ocm.remove(project);
+		
+		Set<IDoapRepository> repos = project.getRepositories();
+		assertEquals("Retrieved project does not have a repository record", 1, repos.size());
+		
+		Set<IDoapHomepage> pages = project.getHomepages();
+		assertEquals("Retrieved project does not have a homepages record", 1, pages.size());
+	}
+	
+	@Test
+	public void getProjectsWithRCS() throws SimalRepositoryException {
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		assertEquals("Got incorrect number of projects with RCS", 1, service.getProjectsWithRCS().size());
+	}
+	
+	@Test
+	public void getProjectsWithHomepages() throws SimalRepositoryException {
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		assertEquals("Got incorrect number of projects with homepage", 1, service.getProjectsWithHomepage().size());
 	}
 
 }

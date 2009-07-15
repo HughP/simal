@@ -22,7 +22,7 @@ import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public interface IOrganisationService {
+public interface IOrganisationService extends IService {
 
 	/**
 	 * Create a new organisation entity.

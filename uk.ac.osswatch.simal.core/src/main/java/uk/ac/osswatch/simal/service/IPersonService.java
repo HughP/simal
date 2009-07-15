@@ -26,7 +26,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  */
 
-public interface IPersonService {
+public interface IPersonService extends IService {
 	
 
 	  /**

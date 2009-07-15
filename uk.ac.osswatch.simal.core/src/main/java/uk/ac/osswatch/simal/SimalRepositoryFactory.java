@@ -30,12 +30,14 @@ import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IOrganisationService;
 import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.service.IProjectService;
+import uk.ac.osswatch.simal.service.IRepositoryService;
 import uk.ac.osswatch.simal.service.IReviewService;
-import uk.ac.osswatch.simal.service.jcr.HomepageService;
+import uk.ac.osswatch.simal.service.jcr.JcrHomepageService;
 import uk.ac.osswatch.simal.service.jcr.JcrCategoryService;
 import uk.ac.osswatch.simal.service.jcr.JcrOrganisationService;
 import uk.ac.osswatch.simal.service.jcr.JcrPersonService;
 import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
+import uk.ac.osswatch.simal.service.jcr.JcrRepositoryService;
 import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaCategoryService;
 import uk.ac.osswatch.simal.service.jena.JenaHomepageService;
@@ -94,7 +96,7 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaHomepageService(getInstance());
 		    case JCR:  
-		      return new HomepageService(getInstance());
+		      return new JcrHomepageService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
@@ -182,6 +184,24 @@ public class SimalRepositoryFactory {
 		      return new JenaPersonService(getInstance());
 		    case JCR: 
 		      return new JcrPersonService(getInstance());
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
+		  }
+	}
+
+	/**
+	 * Get an instance of the revision control repository service.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public static IRepositoryService getRepositoryService() throws SimalRepositoryException {
+		 switch (repoType) {
+		    case JENA:
+		      // return new JenaRepositoryService(getInstance());
+		      logger.error("Not implmented JenaRepositoryService");
+		      System.exit(1);
+		    case JCR: 
+		      return new JcrRepositoryService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }

@@ -104,7 +104,7 @@ public class Pims {
 	        String homepage = row.getCell(6).getRichStringCellValue().getString();
 	        if (homepage.length() != 0 && !homepage.equals("tbc")) {
 				try {
-					IDoapHomepage page = SimalRepositoryFactory.getHomepageService().createHomepage(homepage);
+					IDoapHomepage page = SimalRepositoryFactory.getHomepageService().create(homepage);
 			        page.addName("Homepage");
 			        project.addHomepage(page);
 			    } catch (DuplicateURIException e) {
