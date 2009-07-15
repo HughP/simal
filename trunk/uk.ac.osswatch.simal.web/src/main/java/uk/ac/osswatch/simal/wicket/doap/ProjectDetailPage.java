@@ -69,8 +69,8 @@ public class ProjectDetailPage extends BasePage {
       try {
         String uniqueSimalID = UserApplication.getRepository()
             .getUniqueSimalID(id);
-        project = UserApplication.getRepository()
-            .findProjectById(uniqueSimalID);
+        project = SimalRepositoryFactory.getProjectService()
+            .getProjectById(uniqueSimalID);
         populatePage(project);
       } catch (SimalRepositoryException e) {
         UserReportableException error = new UserReportableException(
@@ -197,8 +197,15 @@ public class ProjectDetailPage extends BasePage {
         new SortableDoapResourceDataProvider(project.getMailingLists()), false));
     add(getRepeatingLinks("wikis", "wiki", "Wiki",
         new SortableDoapResourceDataProvider(project.getWikis()), false));
-    add(new SourceRepositoriesPanel("sourceRepositories", project
-        .getRepositories()));
+    try {
+		add(new SourceRepositoriesPanel("sourceRepositories", project
+		    .getRepositories()));
+	} catch (SimalRepositoryException e) {
+		UserReportableException error = new UserReportableException(
+	          "Unable to get project releases from the repository",
+	          ExhibitProjectBrowserPage.class, e);
+	      setResponsePage(new ErrorReportPage(error));
+	    }
     add(getRepeatingLinks("screenshots", "screenshot", "Screenshot",
         new SortableDoapResourceDataProvider(project.getScreenshots()), false));
 
