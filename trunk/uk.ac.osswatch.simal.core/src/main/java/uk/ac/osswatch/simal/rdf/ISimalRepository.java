@@ -1,3 +1,4 @@
+package uk.ac.osswatch.simal.rdf;
 /*
  * Copyright 2007 University of Oxford
  *
@@ -13,15 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.rdf;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
-
-import javax.jcr.RepositoryException;
 
 import org.w3c.dom.Document;
 

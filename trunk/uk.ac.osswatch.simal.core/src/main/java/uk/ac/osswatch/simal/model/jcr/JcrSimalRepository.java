@@ -244,13 +244,14 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Set<IProject> getAllProjects() throws SimalRepositoryException {
 		QueryManager queryManager = ocm.getQueryManager();
 
 		Filter filter = queryManager.createFilter(Project.class);
 		Query query = queryManager.createQuery(filter);
-		Collection result = ocm.getObjects(query);
-		return new HashSet(result);
+		Collection<IProject> result = ocm.getObjects(query);
+		return new HashSet<IProject>(result);
 	}
 
 	public String getAllProjectsAsJSON() throws SimalRepositoryException {
@@ -354,10 +355,18 @@ public class JcrSimalRepository extends AbstractSimalRepository {
         }
         
 		try {
-			session.getRootNode().addNode("project");
-			session.getRootNode().addNode("rcs");
+			try {
+				session.getRootNode().addNode("project");
+			} catch (ItemExistsException e) {
+				logger.warn("Attempt to create project node that already exists");
+			}
+			try {
+				session.getRootNode().addNode("rcs");
+			} catch (ItemExistsException e) {
+				logger.warn("Attempt to create rcs node that already exists");
+			}
 		} catch (ItemExistsException e) {
-			// ignore, we need this node
+			logger.warn("Attempt to create a node that already exists");
 		} catch (Exception e) {
 			throw new SimalRepositoryException("Unable to add root node", e);
 		}

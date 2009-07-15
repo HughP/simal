@@ -1,13 +1,4 @@
 package uk.ac.osswatch.simal.service;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Set;
-
-import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.rdf.DuplicateURIException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-
 /*
  * Copyright 2007 University of Oxford 
  * 
@@ -25,6 +16,13 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * under the License.
  * 
  */
+
+import java.util.Set;
+
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
 public interface ICategoryService extends IService {
 
 	/**
