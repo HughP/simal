@@ -35,6 +35,7 @@ import uk.ac.osswatch.simal.service.IReviewService;
 import uk.ac.osswatch.simal.service.jcr.JcrBugDatabaseService;
 import uk.ac.osswatch.simal.service.jcr.JcrCategoryService;
 import uk.ac.osswatch.simal.service.jcr.JcrHomepageService;
+import uk.ac.osswatch.simal.service.jcr.JcrMailingListService;
 import uk.ac.osswatch.simal.service.jcr.JcrOrganisationService;
 import uk.ac.osswatch.simal.service.jcr.JcrPersonService;
 import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
@@ -221,6 +222,24 @@ public class SimalRepositoryFactory {
 		      System.exit(1);
 		    case JCR: 
 		      return new JcrBugDatabaseService(getInstance());
+		    default:
+		      throw new SimalRepositoryException("Attempt to create an unknown type of bug datatbase service");
+		  }
+	}
+
+	/**
+	 * Get an instance of the mailing list service.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public static JcrMailingListService getMailingListService() throws SimalRepositoryException {
+		 switch (repoType) {
+		    case JENA:
+		      // return new JenaRepositoryService(getInstance());
+		      logger.error("Not implemented JenaMailingListService");
+		      System.exit(1);
+		    case JCR: 
+		      return new JcrMailingListService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown type of bug datatbase service");
 		  }

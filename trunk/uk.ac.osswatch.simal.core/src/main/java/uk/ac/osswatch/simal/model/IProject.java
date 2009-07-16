@@ -160,6 +160,17 @@ public interface IProject extends IDoapResource {
   public Set<IDoapMailingList> getMailingLists();
 
   /**
+   * Set all mailing lists associated with this project.
+   */
+  public void setMailingLists(Set<IDoapMailingList> lists);
+  
+  /**
+   * Add a mailing list to the lists recorded for this project.
+   * @param list
+   */
+  public void addMailingList(IDoapMailingList list);
+
+  /**
    * Get all repositories associated with this project.
  * @throws SimalRepositoryException 
    */

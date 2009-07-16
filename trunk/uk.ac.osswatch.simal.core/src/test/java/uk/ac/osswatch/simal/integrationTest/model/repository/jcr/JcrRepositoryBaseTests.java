@@ -40,6 +40,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
@@ -49,6 +50,7 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IBugDatabaseService;
 import uk.ac.osswatch.simal.service.IHomepageService;
+import uk.ac.osswatch.simal.service.IMailingListService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IRepositoryService;
 
@@ -69,6 +71,7 @@ public class JcrRepositoryBaseTests {
 	public static String rcsURI = "http://foo.org/testRCS";
 	public static String homepageURI = "http://foo.org";
 	public static String issuesURI = "http://foo.org/issues";
+	public static String LIST_URI = "http://foo.org/list";
 	
 	@BeforeClass
 	public static void initialise() throws SimalRepositoryException,
@@ -116,6 +119,8 @@ public class JcrRepositoryBaseTests {
 		addHomePage(project);
 		addIssueTrackers(project);
 		addLabel(project);
+		addMailingLists(project);
+		
 		SimalRepositoryFactory.getProjectService().save(project);
 		assertNotNull("Created project is a null object", project);
 		assertEquals("Project URI is not correct", detailedProjectURI, project.getURI());
@@ -150,6 +155,15 @@ public class JcrRepositoryBaseTests {
 		assertNotNull(tracker);
 		project.addIssueTracker(tracker);
 		assertEquals("Don't seem to have added the issue tracker", 1, project.getIssueTrackers().size());
+	}
+
+	private static void addMailingLists(IProject project)
+			throws SimalRepositoryException, DuplicateURIException {
+		IMailingListService service = SimalRepositoryFactory.getMailingListService();
+		IDoapMailingList list = service.create(LIST_URI);
+		assertNotNull(list);
+		project.addMailingList(list);
+		assertEquals("Don't seem to have added the mailing list", 1, project.getMailingLists().size());
 	}
 
 	@AfterClass
