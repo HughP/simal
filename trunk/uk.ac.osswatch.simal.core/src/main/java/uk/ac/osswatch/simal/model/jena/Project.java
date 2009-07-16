@@ -517,29 +517,23 @@ public void addRepository(IDoapRepository rcs) {
 }
 
 public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryException {
-	// TODO Auto-generated method stub
 }
 
 public void setHomepages(Set<IDoapHomepage> homepages) {
-	// TODO Auto-generated method stub
 }
 
 public void setIssueTrackers(Set<IDoapBugDatabase> trackers) {
-	// TODO Auto-generated method stub
 }
 
 public void addIssueTracker(IDoapBugDatabase tracker) {
-	// TODO Auto-generated method stub
 	
 }
 
 public void setMailingLists(Set<IDoapMailingList> lists) {
-	// TODO Auto-generated method stub
 	
 }
 
 public void addMailingList(IDoapMailingList list) {
-	// TODO Auto-generated method stub
 	
 }
 
