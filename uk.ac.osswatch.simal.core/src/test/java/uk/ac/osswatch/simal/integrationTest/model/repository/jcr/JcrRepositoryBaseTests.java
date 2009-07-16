@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.integrationTest.model.repository;
+package uk.ac.osswatch.simal.integrationTest.model.repository.jcr;
 /*
  * Copyright 2007 University of Oxford 
  * 
@@ -63,11 +63,12 @@ public class JcrRepositoryBaseTests {
 	static ISimalRepository repo;
 	private static ObjectContentManager ocm;
 
-	static String detailedProjectURI = "http://foo.org/dtailedTestProject";
-	static String skeletonProjectURI = "http://foo.org/skeletonTestProject";
-	static String rcsURI = "http://foo.org/testRCS";
-	static String homepageURI = "http://foo.org";
-	static String issuesURI = "http://foo.org/issues";
+	public static final String DETAILED_PROJECT_LABEL = "Detailed Project";
+	public static String detailedProjectURI = "http://foo.org/dtailedTestProject";
+	public static String skeletonProjectURI = "http://foo.org/skeletonTestProject";
+	public static String rcsURI = "http://foo.org/testRCS";
+	public static String homepageURI = "http://foo.org";
+	public static String issuesURI = "http://foo.org/issues";
 	
 	@BeforeClass
 	public static void initialise() throws SimalRepositoryException,
@@ -94,6 +95,9 @@ public class JcrRepositoryBaseTests {
 		
 		createDetailedProject();
 		createSkeletonProject();
+		
+		//session.ex
+		//logger.debug(msg)
 	}
 
 	private static void createSkeletonProject()
@@ -111,9 +115,14 @@ public class JcrRepositoryBaseTests {
 		addRepository(project);
 		addHomePage(project);
 		addIssueTrackers(project);
+		addLabel(project);
 		SimalRepositoryFactory.getProjectService().save(project);
 		assertNotNull("Created project is a null object", project);
 		assertEquals("Project URI is not correct", detailedProjectURI, project.getURI());
+	}
+
+	private static void addLabel(IProject project) {
+		project.setLabel(DETAILED_PROJECT_LABEL);
 	}
 
 	private static void addRepository(IProject project)
@@ -162,47 +171,4 @@ public class JcrRepositoryBaseTests {
 			logger.error("cleanUpRepository failed", e);
 		}
 	}
-
-	@Test
-	public void getAllProjects() throws SimalRepositoryException {
-		Set<IProject> projects = repo.getAllProjects();
-		assertEquals("Got an incorrect number of projects", 2, projects.size());
-		Iterator<IProject> itr = projects.iterator();
-		while (itr.hasNext()) {
-			IProject project = itr.next();
-			logger.debug("Got a project with uri " + project.getURI());
-		}
-	}
-	
-	@Test
-	public void getProject() throws SimalRepositoryException {
-		IProjectService service = SimalRepositoryFactory.getProjectService();
-		IProject project = service.getProject(detailedProjectURI);
-		assertNotNull("Retrieved project is a null object", project);
-		
-		Set<IDoapRepository> repos = project.getRepositories();
-		assertEquals("Retrieved project does not have a repository record", 1, repos.size());
-		
-		Set<IDoapHomepage> pages = project.getHomepages();
-		assertEquals("Retrieved project does not have a homepages record", 1, pages.size());
-	}
-	
-	@Test
-	public void getProjectsWithRCS() throws SimalRepositoryException {
-		IProjectService service = SimalRepositoryFactory.getProjectService();
-		assertEquals("Got incorrect number of projects with RCS", 1, service.getProjectsWithRCS().size());
-	}
-	
-	@Test
-	public void getProjectsWithHomepages() throws SimalRepositoryException {
-		IProjectService service = SimalRepositoryFactory.getProjectService();
-		assertEquals("Got incorrect number of projects with homepage", 1, service.getProjectsWithHomepage().size());
-	}
-	
-	@Test
-	public void getProjectsWithIssueTrackers() throws SimalRepositoryException {
-		IProjectService service = SimalRepositoryFactory.getProjectService();
-		assertEquals("Got incorrect number of projects with issueTrackers", 1, service.getProjectsWithBugDatabase().size());
-	}
-
 }
