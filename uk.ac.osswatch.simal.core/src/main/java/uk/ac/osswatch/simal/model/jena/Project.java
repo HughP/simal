@@ -533,4 +533,14 @@ public void addIssueTracker(IDoapBugDatabase tracker) {
 	
 }
 
+public void setMailingLists(Set<IDoapMailingList> lists) {
+	// TODO Auto-generated method stub
+	
+}
+
+public void addMailingList(IDoapMailingList list) {
+	// TODO Auto-generated method stub
+	
+}
+
 }

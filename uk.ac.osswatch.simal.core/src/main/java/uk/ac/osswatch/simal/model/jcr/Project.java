@@ -38,6 +38,7 @@ public class Project extends DoapResource implements IProject {
 	private Set<IDoapRepository> repositories = new HashSet<IDoapRepository>();
 	private Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
 	public Set<IDoapBugDatabase> issueTrackers = new HashSet<IDoapBugDatabase>();
+	private Set<IDoapMailingList> mailingLists = new HashSet<IDoapMailingList>();
 	
 	public Project() {
 		super();
@@ -143,8 +144,15 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public Set<IDoapMailingList> getMailingLists() {
-		// TODO Auto-generated method stub
-		return null;
+		return mailingLists;
+	}
+	
+	public void setMailingLists(Set<IDoapMailingList> lists) {
+		this.mailingLists = lists;
+	}
+	
+	public void addMailingList(IDoapMailingList list) {
+		this.mailingLists.add(list);
 	}
 
 	public Set<IPerson> getMaintainers() {

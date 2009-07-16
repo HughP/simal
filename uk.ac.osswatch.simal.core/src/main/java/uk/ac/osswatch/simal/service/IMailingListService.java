@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.model.jcr;
+package uk.ac.osswatch.simal.service;
 /*
  * Copyright 2007 University of Oxford
  *
@@ -14,19 +14,22 @@ package uk.ac.osswatch.simal.model.jcr;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import uk.ac.osswatch.simal.model.IDoapBugDatabase;
+import uk.ac.osswatch.simal.model.IDoapMailingList;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class BugDatabase extends DoapResource implements IDoapBugDatabase {
-	private static final long serialVersionUID = 1L;
-
-	public BugDatabase() {
-		super();
-	}
-	
-	public BugDatabase(String simalID) throws SimalRepositoryException {
-		super(simalID);
-	}
-
+public interface IMailingListService extends IService {
+    
+    /**
+     * Create a new Mailing List in the repository.
+     * 
+     * @return
+     * @throws SimalRepositoryException
+     *           if an error is thrown whilst communicating with the repository
+     * @throws DuplicateURIException
+     *           if an entity with the given String already exists
+     */
+    public IDoapMailingList create(String uri) throws SimalRepositoryException,
+        DuplicateURIException;
 
 }

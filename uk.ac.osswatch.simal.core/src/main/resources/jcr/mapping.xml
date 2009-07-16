@@ -56,6 +56,12 @@
 	</class-descriptor>
 	
 	<class-descriptor
+		className="uk.ac.osswatch.simal.model.jcr.MailingList"
+		extend="uk.ac.osswatch.simal.model.jcr.DoapResource"
+		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
+	</class-descriptor>
+	
+	<class-descriptor
 		className="uk.ac.osswatch.simal.model.jcr.Organisation"
 		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
 		<!-- Field-descriptor is used to map simple attributes to jcr property -->
@@ -82,6 +88,9 @@
 		<collection-descriptor
           fieldName="issueTrackers" jcrName="issueTracker"
           elementClassName="uk.ac.osswatch.simal.model.jcr.BugDatabase" />
+		<collection-descriptor
+          fieldName="mailingLists" jcrName="mailingList"
+          elementClassName="uk.ac.osswatch.simal.model.jcr.MailingList" />
 	</class-descriptor>
 	
 	<class-descriptor
