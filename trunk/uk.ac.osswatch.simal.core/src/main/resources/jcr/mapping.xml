@@ -25,6 +25,7 @@
 		<field-descriptor fieldName="path" path="true" />
 		<field-descriptor fieldName="URI" jcrName="uri" /> 
 		<field-descriptor fieldName="simalID" jcrName="simalID" /> 
+		<field-descriptor fieldName="label" jcrName="label" /> 
 	</class-descriptor>
 	
 	<class-descriptor

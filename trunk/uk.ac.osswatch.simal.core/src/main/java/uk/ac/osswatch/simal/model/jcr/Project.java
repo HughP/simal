@@ -35,7 +35,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Project extends DoapResource implements IProject {
 	private static final long serialVersionUID = 1L;
-	private Set<IDoapRepository> revisionControl = new HashSet<IDoapRepository>();
+	private Set<IDoapRepository> repositories = new HashSet<IDoapRepository>();
 	private Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
 	public Set<IDoapBugDatabase> issueTrackers = new HashSet<IDoapBugDatabase>();
 	
@@ -178,9 +178,9 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public Set<IDoapRepository> getRepositories() throws SimalRepositoryException {
-		return revisionControl;
+		return repositories;
 	}
-
+	
 	public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryException {
 		if (repos == null) return;
 		Iterator<IDoapRepository> itr = repos.iterator();
@@ -248,7 +248,7 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public void addRepository(IDoapRepository rcs) throws SimalRepositoryException {
-		revisionControl.add(rcs);
+		repositories.add(rcs);
 	}
 
 	public void addIssueTracker(IDoapBugDatabase tracker) {

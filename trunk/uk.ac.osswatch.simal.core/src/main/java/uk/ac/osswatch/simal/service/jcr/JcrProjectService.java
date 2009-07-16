@@ -76,7 +76,14 @@ public class JcrProjectService extends AbstractService implements
 			throws SimalRepositoryException {
 		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
 		QueryManager queryManager = ocm.getQueryManager();
+/*
+        Filter filter = queryManager.createFilter(Project.class);
+        filter.addNotNull("rcs");
 
+        Query query = queryManager.createQuery(filter);
+        Collection<IProject> projects = (Collection<IProject>)ocm.getObjects(query);
+        return new HashSet<IProject>(projects);
+*/	
 		Filter filter = queryManager.createFilter(Project.class);
 		
 		Query query = queryManager.createQuery(filter);
