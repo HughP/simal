@@ -22,9 +22,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Iterator;
-import java.util.Set;
-
 import javax.jcr.Node;
 import javax.jcr.NodeIterator;
 import javax.jcr.RepositoryException;
@@ -33,7 +30,6 @@ import javax.jcr.Session;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +38,7 @@ import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.model.jcr.Project;
@@ -51,6 +48,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IBugDatabaseService;
 import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IMailingListService;
+import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IRepositoryService;
 
@@ -66,6 +64,7 @@ public class JcrRepositoryBaseTests {
 	private static ObjectContentManager ocm;
 
 	public static final String DETAILED_PROJECT_LABEL = "Detailed Project";
+	private static final String MAINTAINER_URI = "http://foo.org/maintainer";
 	public static String detailedProjectURI = "http://foo.org/dtailedTestProject";
 	public static String skeletonProjectURI = "http://foo.org/skeletonTestProject";
 	public static String rcsURI = "http://foo.org/testRCS";
@@ -115,11 +114,13 @@ public class JcrRepositoryBaseTests {
 			throws SimalRepositoryException, DuplicateURIException {
 		IProjectService projectService = SimalRepositoryFactory.getProjectService();
 		IProject project = projectService.createProject(detailedProjectURI);
+		
 		addRepository(project);
 		addHomePage(project);
 		addIssueTrackers(project);
 		addLabel(project);
 		addMailingLists(project);
+		addMaintainers(project);
 		
 		SimalRepositoryFactory.getProjectService().save(project);
 		assertNotNull("Created project is a null object", project);
@@ -164,6 +165,15 @@ public class JcrRepositoryBaseTests {
 		assertNotNull(list);
 		project.addMailingList(list);
 		assertEquals("Don't seem to have added the mailing list", 1, project.getMailingLists().size());
+	}
+
+	private static void addMaintainers(IProject project)
+			throws SimalRepositoryException, DuplicateURIException {
+		IPersonService service = SimalRepositoryFactory.getPersonService();
+		IPerson person = service.create(MAINTAINER_URI);
+		assertNotNull(person);
+		project.addMaintainer(person);
+		assertEquals("Don't seem to have added the maintainer", 1, project.getMaintainers().size());
 	}
 
 	@AfterClass

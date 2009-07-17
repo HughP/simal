@@ -39,6 +39,7 @@ public class Project extends DoapResource implements IProject {
 	private Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
 	public Set<IDoapBugDatabase> issueTrackers = new HashSet<IDoapBugDatabase>();
 	private Set<IDoapMailingList> mailingLists = new HashSet<IDoapMailingList>();
+	private Set<IPerson> maintainers = new HashSet<IPerson>();
 	
 	public Project() {
 		super();
@@ -73,9 +74,8 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public void addMaintainer(IPerson person) {
-		// TODO Auto-generated method stub
-		
-	}
+		this.maintainers.add(person)
+;	}
 
 	public void addTester(IPerson person) {
 		// TODO Auto-generated method stub
@@ -156,8 +156,11 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public Set<IPerson> getMaintainers() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.maintainers;
+	}
+
+	public void setMaintainers(Set<IPerson> maintainers) {
+		this.maintainers = maintainers;
 	}
 
 	public Set<String> getOSes() {

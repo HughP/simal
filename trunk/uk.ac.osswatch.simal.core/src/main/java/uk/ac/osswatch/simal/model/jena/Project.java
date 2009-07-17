@@ -537,4 +537,8 @@ public void addMailingList(IDoapMailingList list) {
 	
 }
 
+public void setMaintainers(Set<IPerson> maintainers) {
+	
+}
+
 }

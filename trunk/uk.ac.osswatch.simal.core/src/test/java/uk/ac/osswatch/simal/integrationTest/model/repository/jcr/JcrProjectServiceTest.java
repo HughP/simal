@@ -78,6 +78,12 @@ public class JcrProjectServiceTest extends JcrRepositoryBaseTests {
 		IProjectService service = getService();
 		assertEquals("Got incorrect number of projects with issueTrackers", 1, service.getProjectsWithMailingList().size());
 	}
+	
+	@Test
+	public void getProjectsWithMaintainers() throws SimalRepositoryException {
+		IProjectService service = getService();
+		assertEquals("Got incorrect number of projects with issueTrackers", 1, service.getProjectsWithMaintainer().size());
+	}
 
 	@Test
 	public void getAllProjects() throws SimalRepositoryException {
