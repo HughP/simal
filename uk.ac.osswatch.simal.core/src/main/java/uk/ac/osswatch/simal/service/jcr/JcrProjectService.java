@@ -141,8 +141,22 @@ public class JcrProjectService extends AbstractService implements
 
 	public Set<IProject> getProjectsWithMaintainer()
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Project.class);
+		
+		Query query = queryManager.createQuery(filter);
+		// FIXME: The NotNull filter is not working is there a better way to do this? See http://markmail.org/message/wssnpbeftf6gcuzp
+		Iterator<IProject> itr = ((Collection<IProject>)ocm.getObjects(query)).iterator();
+		HashSet<IProject> projects = new HashSet<IProject>();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			if (project.getMaintainers().size() > 0) {
+				projects.add(project);
+			}
+		}
+		return projects;
 	}
 
 	public Set<IProject> getProjectsWithRCS() throws SimalRepositoryException {

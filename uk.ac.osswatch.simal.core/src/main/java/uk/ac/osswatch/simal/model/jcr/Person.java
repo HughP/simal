@@ -25,6 +25,10 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Person extends Resource implements IPerson {
 	private static final long serialVersionUID = 1L;
+	
+	public Person() {
+		super();
+	}
 
 	public Person(String simalID) throws SimalRepositoryException {
 		super(simalID);

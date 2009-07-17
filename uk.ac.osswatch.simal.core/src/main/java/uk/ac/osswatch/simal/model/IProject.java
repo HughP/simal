@@ -130,6 +130,12 @@ public interface IProject extends IDoapResource {
   public Set<IPerson> getMaintainers();
 
   /**
+   * Set the maintainers who work on this project.
+   * @param maintainers
+   */
+  public void setMaintainers(Set<IPerson> maintainers);
+  
+  /**
    * Get all testers who work on this project.
    */
   public Set<IPerson> getTesters();

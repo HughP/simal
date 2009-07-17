@@ -91,6 +91,9 @@
 		<collection-descriptor
           fieldName="mailingLists" jcrName="mailingList"
           elementClassName="uk.ac.osswatch.simal.model.jcr.MailingList" />
+		<collection-descriptor
+          fieldName="maintainers" jcrName="maintainer"
+          elementClassName="uk.ac.osswatch.simal.model.jcr.Person" />
 	</class-descriptor>
 	
 	<class-descriptor
