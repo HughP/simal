@@ -40,6 +40,7 @@ public class Project extends DoapResource implements IProject {
 	public Set<IDoapBugDatabase> issueTrackers = new HashSet<IDoapBugDatabase>();
 	private Set<IDoapMailingList> mailingLists = new HashSet<IDoapMailingList>();
 	private Set<IPerson> maintainers = new HashSet<IPerson>();
+	private Set<IDoapRelease> releases = new HashSet<IDoapRelease>();
 	
 	public Project() {
 		super();
@@ -83,8 +84,11 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public void addTranslator(IPerson person) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
+	}
+
+	public void addRelease(IDoapRelease release) {
+		releases.add(release);	
 	}
 
 	public HashSet<IPerson> getAllPeople() {
@@ -184,8 +188,11 @@ public class Project extends DoapResource implements IProject {
 	}
 
 	public Set<IDoapRelease> getReleases() {
-		// TODO Auto-generated method stub
-		return null;
+		return releases;
+	}
+
+	public void setReleases(Set<IDoapRelease> releases) {
+		this.releases = releases;
 	}
 
 	public Set<IDoapRepository> getRepositories() throws SimalRepositoryException {

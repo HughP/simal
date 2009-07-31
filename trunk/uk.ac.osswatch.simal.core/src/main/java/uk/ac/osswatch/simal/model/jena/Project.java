@@ -541,4 +541,10 @@ public void setMaintainers(Set<IPerson> maintainers) {
 	
 }
 
+public void setReleases(Set<IDoapRelease> releases) {
+}
+
+public void addRelease(IDoapRelease release) {
+}
+
 }
