@@ -371,4 +371,18 @@ public void setIssueTrackers(Set<IDoapBugDatabase> trackers);
  */
 public void addIssueTracker(IDoapBugDatabase tracker);
 
+/**
+ * Set the collection of releases.
+ * 
+ * @param releases
+ */
+public void setReleases(Set<IDoapRelease> releases);
+
+/**
+ * Add a release to the collection of releases.
+ * 
+ * @param release
+ */
+public void addRelease(IDoapRelease release);
+
 }

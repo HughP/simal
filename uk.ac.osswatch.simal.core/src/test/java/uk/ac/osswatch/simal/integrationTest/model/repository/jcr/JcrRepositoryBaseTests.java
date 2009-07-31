@@ -37,6 +37,7 @@ import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
+import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -50,6 +51,7 @@ import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IMailingListService;
 import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.service.IProjectService;
+import uk.ac.osswatch.simal.service.IReleaseService;
 import uk.ac.osswatch.simal.service.IRepositoryService;
 
 /**
@@ -65,6 +67,8 @@ public class JcrRepositoryBaseTests {
 
 	public static final String DETAILED_PROJECT_LABEL = "Detailed Project";
 	private static final String MAINTAINER_URI = "http://foo.org/maintainer";
+	private static final String RELEASE_ONE_URI = "http://foo.org/releaseTwo";
+	private static final String RELEASE_TWO_URI = "http://foo.org/releaseOne";
 	public static String detailedProjectURI = "http://foo.org/dtailedTestProject";
 	public static String skeletonProjectURI = "http://foo.org/skeletonTestProject";
 	public static String rcsURI = "http://foo.org/testRCS";
@@ -121,6 +125,7 @@ public class JcrRepositoryBaseTests {
 		addLabel(project);
 		addMailingLists(project);
 		addMaintainers(project);
+		addReleases(project);
 		
 		SimalRepositoryFactory.getProjectService().save(project);
 		assertNotNull("Created project is a null object", project);
@@ -174,6 +179,19 @@ public class JcrRepositoryBaseTests {
 		assertNotNull(person);
 		project.addMaintainer(person);
 		assertEquals("Don't seem to have added the maintainer", 1, project.getMaintainers().size());
+	}
+
+	private static void addReleases(IProject project)
+			throws SimalRepositoryException, DuplicateURIException {
+		IReleaseService service = SimalRepositoryFactory.getReleaseService();
+		IDoapRelease release = service.create(RELEASE_ONE_URI);
+		assertNotNull(release);
+		project.addRelease(release);
+		assertEquals("Don't seem to have added release one", 1, project.getReleases().size());
+
+		release = service.create(RELEASE_TWO_URI);
+		project.addRelease(release);
+		assertEquals("Don't seem to have added release one", 2, project.getReleases().size());
 	}
 
 	@AfterClass

@@ -94,6 +94,15 @@
 		<collection-descriptor
           fieldName="maintainers" jcrName="maintainer"
           elementClassName="uk.ac.osswatch.simal.model.jcr.Person" />
+		<collection-descriptor
+          fieldName="releases" jcrName="release"
+          elementClassName="uk.ac.osswatch.simal.model.jcr.Release" />
+	</class-descriptor>
+	
+	<class-descriptor
+		className="uk.ac.osswatch.simal.model.jcr.Release"
+		extend="uk.ac.osswatch.simal.model.jcr.DoapResource"
+		jcrType="nt:unstructured" jcrMixinTypes="mix:lockable" >
 	</class-descriptor>
 	
 	<class-descriptor
