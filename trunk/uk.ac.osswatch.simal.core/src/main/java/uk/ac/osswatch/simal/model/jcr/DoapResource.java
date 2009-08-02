@@ -15,6 +15,7 @@ package uk.ac.osswatch.simal.model.jcr;
  * limitations under the License.
  */
 import java.net.URI;
+import java.util.HashSet;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IDoapLicence;
@@ -23,6 +24,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class DoapResource extends Resource implements IDoapResource {
 	private static final long serialVersionUID = 1L;
+	private Set<String> names = new HashSet<String>();
+	private String description;
+	private String shortDesc;
 
 	public DoapResource(String simalID) throws SimalRepositoryException {
 		super(simalID);
@@ -33,8 +37,7 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 
 	public void addName(String name) {
-		// TODO Auto-generated method stub
-		
+		this.names.add(name);
 	}
 
 	public String getCreated() {
@@ -43,8 +46,7 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 
 	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return description;
 	}
 
 	public Set<IDoapLicence> getLicences() {
@@ -53,18 +55,18 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		if (names.size() == 0) {
+			return null;
+		}
+		return (String)names.toArray()[0];
 	}
 
 	public Set<String> getNames() {
-		// TODO Auto-generated method stub
-		return null;
+		return names;
 	}
 
 	public String getShortDesc() {
-		// TODO Auto-generated method stub
-		return null;
+		return shortDesc;
 	}
 
 	public void removeName(String name) throws SimalRepositoryException {
@@ -78,13 +80,11 @@ public class DoapResource extends Resource implements IDoapResource {
 	}
 
 	public void setDescription(String newDescription) {
-		// TODO Auto-generated method stub
-		
+		this.description = newDescription;
 	}
 
 	public void setShortDesc(String shortDesc) {
-		// TODO Auto-generated method stub
-		
+		this.shortDesc = shortDesc;
 	}
 
 	public String toJSON() throws SimalRepositoryException {

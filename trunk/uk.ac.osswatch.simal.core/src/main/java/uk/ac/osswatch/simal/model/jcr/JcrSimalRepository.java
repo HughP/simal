@@ -38,7 +38,12 @@ import org.apache.jackrabbit.ocm.query.QueryManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
+import com.hp.hpl.jena.vocabulary.RDF;
+
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -46,10 +51,12 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
+import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.service.IProjectService;
 
 public class JcrSimalRepository extends AbstractSimalRepository {
     public static final Logger logger = LoggerFactory
@@ -97,8 +104,55 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 
 	public void addProject(Document doc, URL url, String baseURI)
 			throws SimalRepositoryException {
-		logger.error("Need to convert a DOAP document to a Project object");
-		System.exit(1);
+		NodeList projects = doc.getElementsByTagNameNS(Doap.NS, "Project");
+		if (projects.getLength() == 0) {
+			throw new SimalRepositoryException("Unable to add a project from the supplied document");
+		} else if (projects.getLength() > 1) {
+			throw new SimalRepositoryException("There is more than one project defined in the supplied document");
+		}
+
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		
+		Node projectNode = projects.item(0);
+		Node about = projectNode.getAttributes().getNamedItemNS(RDF.getURI(), "about");
+		String id = service.getNewProjectID();
+		String uri;
+		if (about != null) {
+		    uri = about.getTextContent();
+		} else {
+			uri = RDFUtils.getDefaultProjectURI(id);
+		}
+		IProject project;
+		try {
+			project = service.createProject(uri);
+			project.setSimalID(id);
+		} catch (DuplicateURIException e) {
+			throw new SimalRepositoryException("The project already exists, currently we don't knwo how to merge data. URI = " + uri, e);
+		}
+		
+		NodeList children = projectNode.getChildNodes();
+		for(int i = 0; children.getLength() > i; i = i + 1) {
+			Node node = children.item(i);
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+			    String name = node.getLocalName();
+				logger.debug("Processing node: " + name);
+				if (node.getNamespaceURI().equals(Doap.NS)) {
+				    if (name.equals("name")) {
+				    	project.addName(node.getTextContent());
+				    } else if (name.equals("shortdesc")) {
+				    	project.setShortDesc(node.getTextContent());
+				    } else if (name.equals("description")) {
+				    	project.setDescription(node.getTextContent());
+				    } else {
+				        logger.warn("We don't know how to handle this node.");
+				    }
+				} else {
+			        logger.warn("We don't know how to handle nodes in the namespace " + node.getNamespaceURI());
+				}
+			}
+		}
+		
+		service.save(project);
 	}
 
 	public void addRDFXML(URL url, String baseURL)
@@ -320,7 +374,8 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	
 				throw new SimalRepositoryException("Unable to access repository", e);
 			}
-			
+	        
+			initialiseRepositoryStructure();
 		    initialised = true;
 
 			try {
@@ -351,9 +406,13 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 				throw new SimalRepositoryException("Unable to access repository", e);
 			}
 			
+			initialiseRepositoryStructure();
 		    initialised = true;
         }
-        
+	}
+
+	private void initialiseRepositoryStructure()
+			throws SimalRepositoryException {
 		try {
 			try {
 				session.getRootNode().addNode("project");

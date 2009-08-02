@@ -24,9 +24,12 @@ import java.util.Set;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IProjectService;
 
@@ -100,6 +103,14 @@ public class JcrProjectServiceTest extends JcrRepositoryBaseTests {
 			IProject project = itr.next();
 			logger.debug("Got a project with uri " + project.getURI());
 		}
+	}
+	
+	@Test
+	public void addProjectFromDOAP() throws SimalRepositoryException {
+	      repo.addProject(ISimalRepository.class.getClassLoader().getResource(
+	          ModelSupport.TEST_FILE_URI_WITH_QNAME), ModelSupport.TEST_FILE_BASE_URL);
+	      IProject project = SimalRepositoryFactory.getProjectService().getProject(BaseRepositoryTest.TEST_PROJECT_URI);
+	      assertNotNull("We don't seem to have imported the project from a DOAP file", project);
 	}
 	
 	private IProjectService getService() throws SimalRepositoryException {
