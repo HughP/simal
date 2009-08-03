@@ -28,6 +28,11 @@ import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.jackrabbit.core.TransientRepository;
 import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
@@ -54,6 +59,7 @@ import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
+import uk.ac.osswatch.simal.rdf.SimalNamespaceContext;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.service.IProjectService;
@@ -130,28 +136,22 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 			throw new SimalRepositoryException("The project already exists, currently we don't knwo how to merge data. URI = " + uri, e);
 		}
 		
-		NodeList children = projectNode.getChildNodes();
-		for(int i = 0; children.getLength() > i; i = i + 1) {
-			Node node = children.item(i);
-			if (node.getNodeType() == Node.ELEMENT_NODE) {
-			    String name = node.getLocalName();
-				logger.debug("Processing node: " + name);
-				if (node.getNamespaceURI().equals(Doap.NS)) {
-				    if (name.equals("name")) {
-				    	project.addName(node.getTextContent());
-				    } else if (name.equals("shortdesc")) {
-				    	project.setShortDesc(node.getTextContent());
-				    } else if (name.equals("description")) {
-				    	project.setDescription(node.getTextContent());
-				    } else {
-				        logger.warn("We don't know how to handle this node.");
-				    }
-				} else {
-			        logger.warn("We don't know how to handle nodes in the namespace " + node.getNamespaceURI());
-				}
-			}
+		XPathFactory xpFactory = XPathFactory.newInstance();
+		XPath xpath = xpFactory.newXPath();
+		xpath.setNamespaceContext(new SimalNamespaceContext());
+		try {
+			String value = xpath.evaluate("//doap:name", projectNode);
+			project.addName(value);
+			
+			value = xpath.evaluate("//doap:shortDesc", projectNode);
+			project.addName(value);
+			
+			value = xpath.evaluate("//doap:description", projectNode);
+			project.addName(value);
+		} catch (XPathExpressionException e) {
+			throw new SimalRepositoryException("Problem with XPath experession", e);
 		}
-		
+				
 		service.save(project);
 	}
 
