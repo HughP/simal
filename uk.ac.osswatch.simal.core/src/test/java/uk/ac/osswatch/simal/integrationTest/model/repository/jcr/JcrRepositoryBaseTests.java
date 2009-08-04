@@ -69,7 +69,7 @@ public class JcrRepositoryBaseTests {
 	private static final String MAINTAINER_URI = "http://foo.org/maintainer";
 	private static final String RELEASE_ONE_URI = "http://foo.org/releaseTwo";
 	private static final String RELEASE_TWO_URI = "http://foo.org/releaseOne";
-	public static String detailedProjectURI = "http://foo.org/dtailedTestProject";
+	public static String detailedProjectURI = "http://foo.org/detailedTestProject";
 	public static String skeletonProjectURI = "http://foo.org/skeletonTestProject";
 	public static String rcsURI = "http://foo.org/testRCS";
 	public static String homepageURI = "http://foo.org";
@@ -209,6 +209,7 @@ public class JcrRepositoryBaseTests {
 				}
 			}
 			session.save();
+			repo.destroy();
 		} catch (Exception e) {
 			logger.error("cleanUpRepository failed", e);
 		}

@@ -20,6 +20,7 @@ import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
@@ -307,5 +308,9 @@ public class JenaPersonService extends AbstractService implements
 	    }
 
 	    return colleagues;
+	}
+
+	public IPerson createFromFoaf(Node node) {
+		throw new UnsupportedOperationException();
 	}
 }

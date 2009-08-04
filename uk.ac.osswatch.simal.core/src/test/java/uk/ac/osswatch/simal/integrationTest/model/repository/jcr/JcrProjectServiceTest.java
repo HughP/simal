@@ -16,7 +16,9 @@ package uk.ac.osswatch.simal.integrationTest.model.repository.jcr;
  */
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -111,6 +113,13 @@ public class JcrProjectServiceTest extends JcrRepositoryBaseTests {
 	          ModelSupport.TEST_FILE_URI_WITH_QNAME), ModelSupport.TEST_FILE_BASE_URL);
 	      IProject project = SimalRepositoryFactory.getProjectService().getProject(BaseRepositoryTest.TEST_PROJECT_URI);
 	      assertNotNull("We don't seem to have imported the project from a DOAP file", project);
+	}
+
+	@Test
+	public void containsProject() throws SimalRepositoryException {
+		IProjectService service = getService();
+		assertTrue("We should have a resource with URI " + detailedProjectURI, service.containsProject(detailedProjectURI));
+		assertFalse("We should not have a resource with URI " + detailedProjectURI + "/noResource", service.containsProject(detailedProjectURI + "/noResource"));
 	}
 	
 	private IProjectService getService() throws SimalRepositoryException {

@@ -19,6 +19,8 @@ package uk.ac.osswatch.simal.service;
 
 import java.util.Set;
 
+import org.w3c.dom.Node;
+
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -152,5 +154,12 @@ public interface IPersonService extends IService {
 	    * @throws SimalRepositoryException
 	    */
 	   public Set<IPerson> getColleagues(IPerson person) throws SimalRepositoryException;
+
+	   /**
+	    * Create a person object from the given foaf:Person node.
+	    * @param node
+	 * @throws SimalRepositoryException 
+	    */
+	   public IPerson createFromFoaf(Node node) throws SimalRepositoryException;
 
 }

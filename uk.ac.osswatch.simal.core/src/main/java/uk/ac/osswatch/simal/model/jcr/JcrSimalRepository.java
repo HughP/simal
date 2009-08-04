@@ -21,16 +21,17 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.StringTokenizer;
 
 import javax.jcr.ItemExistsException;
 import javax.jcr.LoginException;
+import javax.jcr.PathNotFoundException;
 import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
@@ -62,6 +63,7 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalNamespaceContext;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.service.IProjectService;
 
 public class JcrSimalRepository extends AbstractSimalRepository {
@@ -72,6 +74,8 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	private static ISimalRepository instance;
 	private Session session = null;
 	private ObjectContentManager ocm = null;
+
+	private TransientRepository repository;
 
 	/**
 	 * Use getInstance instead.
@@ -104,10 +108,13 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	}
 
 	public void add(String data) throws SimalRepositoryException {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 
 	}
 
+	/**
+	 * FIXME: this method should be in the ProjectService class
+	 */
 	public void addProject(Document doc, URL url, String baseURI)
 			throws SimalRepositoryException {
 		NodeList projects = doc.getElementsByTagNameNS(Doap.NS, "Project");
@@ -117,11 +124,12 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 			throw new SimalRepositoryException("There is more than one project defined in the supplied document");
 		}
 
-		IProjectService service = SimalRepositoryFactory.getProjectService();
+		IProjectService projectService = SimalRepositoryFactory.getProjectService();
+		IPersonService personService = SimalRepositoryFactory.getPersonService();
 		
 		Node projectNode = projects.item(0);
 		Node about = projectNode.getAttributes().getNamedItemNS(RDF.getURI(), "about");
-		String id = service.getNewProjectID();
+		String id = projectService.getNewProjectID();
 		String uri;
 		if (about != null) {
 		    uri = about.getTextContent();
@@ -130,7 +138,7 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		}
 		IProject project;
 		try {
-			project = service.createProject(uri);
+			project = projectService.createProject(uri);
 			project.setSimalID(id);
 		} catch (DuplicateURIException e) {
 			throw new SimalRepositoryException("The project already exists, currently we don't knwo how to merge data. URI = " + uri, e);
@@ -140,62 +148,81 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 		XPath xpath = xpFactory.newXPath();
 		xpath.setNamespaceContext(new SimalNamespaceContext());
 		try {
-			String value = xpath.evaluate("//doap:name", projectNode);
-			project.addName(value);
+			Object value = xpath.evaluate("//doap:name", projectNode);
+			project.addName((String)value);
 			
 			value = xpath.evaluate("//doap:shortDesc", projectNode);
-			project.addName(value);
+			project.addName((String)value);
 			
 			value = xpath.evaluate("//doap:description", projectNode);
-			project.addName(value);
+			project.addName((String)value);
+			
+			value = xpath.evaluate("//doap:developer/foaf:Person", projectNode, XPathConstants.NODESET);
+			for (int i =0; ((NodeList)value).getLength() > i; i ++) {
+				Node node = ((NodeList)value).item(i);
+				IPerson person = personService.createFromFoaf(node);
+			}
 		} catch (XPathExpressionException e) {
 			throw new SimalRepositoryException("Problem with XPath experession", e);
 		}
 				
-		service.save(project);
+		projectService.save(project);
 	}
 
 	public void addRDFXML(URL url, String baseURL)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 
 	}
 
 	public void addRDFXML(Document doc) throws SimalRepositoryException {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
 
 	}
 
 	public boolean containsOrganisation(String uri) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
+	// TODO: this method should be in a PersonService class
 	public boolean containsPerson(String uri) {
-		// TODO Auto-generated method stub
-		return false;
+		QueryManager queryManager = ocm.getQueryManager(); 
+		Filter filter = queryManager.createFilter(Person.class); 
+		filter.addEqualTo("URI", uri);
+		 
+		Query query = queryManager.createQuery(filter); 
+		Person person = (Person) ocm.getObject(query); 
+		return person != null;
 	}
 
+	/**
+	 * @deprecated use ProjectService.containsProject() instead
+	 */
 	public boolean containsProject(String uri) {
-		// TODO Auto-generated method stub
-		return false;
+		throw new UnsupportedOperationException();
 	}
 
+	// TODO: this method should be in a ResourceService class
 	public boolean containsResource(String uri) {
-		// TODO Auto-generated method stub
-		return false;
+		QueryManager queryManager = ocm.getQueryManager(); 
+		Filter filter = queryManager.createFilter(Resource.class); 
+		filter.addEqualTo("URI", uri);
+		 
+		Query query = queryManager.createQuery(filter); 
+		Resource resource = (Resource) ocm.getObject(query); 
+		return resource != null;
 	}
 
 	public IDoapCategory createCategory(String uri)
 			throws SimalRepositoryException, DuplicateURIException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IDoapHomepage createHomepage(String uri)
 			throws SimalRepositoryException, DuplicateURIException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IPerson createPerson(String uri) throws SimalRepositoryException,
@@ -219,83 +246,84 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 
 	public IProject createProject(String uri) throws SimalRepositoryException,
 			DuplicateURIException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public void destroy() throws SimalRepositoryException {
 		session.logout();
+		((org.apache.jackrabbit.api.JackrabbitRepository)repository).shutdown();
 	}
 
 	public Set<IPerson> filterPeopleByName(String filter) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public Set<IProject> filterProjectsByName(String filter) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public Set<IProject> filterProjectsBySPARQL(String queryStr) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IDoapCategory findCategoryById(String id)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IPerson findPersonById(String id) throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IPerson findPersonBySeeAlso(String seeAlso)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IPerson findPersonBySha1Sum(String sha1sum)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IProject findProjectByHomepage(String homepage)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IProject findProjectById(String id) throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IProject findProjectBySeeAlso(String seeAlso)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public Set<IDoapCategory> getAllCategories()
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public Set<IPerson> getAllPeople() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public String getAllPeopleAsJSON() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	@SuppressWarnings("unchecked")
@@ -309,50 +337,49 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	}
 
 	public String getAllProjectsAsJSON() throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IDoapCategory getCategory(String uri)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IDoapHomepage getHomepage(String uri) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IDoapCategory getOrCreateCategory(String uri)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IProject getOrCreateProject(String uri)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 	
 	public IPerson getPerson(String uri) throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IProject getProject(String uri) throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public IResource getResource(String uri) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
+		
 	}
 
 	public void initialise(String directory) throws SimalRepositoryException {
-        Repository repository;
         if (isTest) {
 			try {
 				repository = new TransientRepository();
@@ -415,6 +442,11 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 			throws SimalRepositoryException {
 		try {
 			try {
+				session.getRootNode().addNode("person");
+			} catch (ItemExistsException e) {
+				logger.warn("Attempt to create project node that already exists");
+			}
+			try {
 				session.getRootNode().addNode("project");
 			} catch (ItemExistsException e) {
 				logger.warn("Attempt to create project node that already exists");
@@ -432,13 +464,46 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	}
 
 	public void removeAllData() {
-		// TODO Auto-generated method stub
-
+		throw new UnsupportedOperationException();
 	}
 
 	public void writeBackup(Writer writer) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException();
+	}
 
+	/**
+	 * Get a JCR node with the path relative to the root of this repository.
+	 * @param relPath
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * @throws SimalRepositoryException 
+	 * @throws RepositoryException 
+	 * @throws PathNotFoundException 
+	 */
+	public javax.jcr.Node getNode(String relPath) throws SimalRepositoryException {
+		try {
+			return session.getRootNode().getNode(relPath);
+		} catch (PathNotFoundException e) {
+			StringTokenizer tk = new StringTokenizer(relPath, "/");
+			String path = "";
+			javax.jcr.Node node = null;
+			while (tk.hasMoreTokens()) {
+				path = path + tk.nextToken();
+				try {
+					node = session.getRootNode().addNode(path);
+				} catch (ItemExistsException e1) {
+					// we can ignore this since we are just building the path
+				} catch (PathNotFoundException e1) {
+					// we can ignore this since we are just building the path
+				} catch (RepositoryException e1) {
+					throw new SimalRepositoryException("Unable to create the ID node", e1);
+				}
+				path = path + '/';
+			}
+			return node;
+		} catch (RepositoryException e1) {
+			throw new SimalRepositoryException("Unable to create the ID node", e1);
+		}
 	}
 
 }

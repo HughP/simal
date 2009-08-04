@@ -32,6 +32,7 @@ import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
+import uk.ac.osswatch.simal.model.jcr.Person;
 import uk.ac.osswatch.simal.model.jcr.Project;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -212,8 +213,20 @@ public class JcrProjectService extends AbstractService implements
 	}
 
 	public boolean containsProject(String uri) {
-		// TODO Auto-generated method stub
-		return false;
+		ObjectContentManager ocm;
+		try {
+			ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		} catch (SimalRepositoryException e) {
+			logger.error("Problem testing for existence of a project", e);
+			return false;
+		}
+		QueryManager queryManager = ocm.getQueryManager(); 
+		Filter filter = queryManager.createFilter(Project.class); 
+		filter.addEqualTo("URI", uri);
+		 
+		Query query = queryManager.createQuery(filter); 
+		Project project = (Project) ocm.getObject(query); 
+		return project != null;
 	}
 
 	public IProject createProject(String uri) throws SimalRepositoryException,
@@ -221,24 +234,25 @@ public class JcrProjectService extends AbstractService implements
 	    if (containsProject(uri)) {
 		      throw new DuplicateURIException(
 		          "Attempt to create a second project with the URI " + uri);
-		    }
-		    String simalProjectURI;
-		    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
-			    String projectID = getNewProjectID();
-			    simalProjectURI = RDFUtils.getDefaultProjectURI(projectID);
-			    logger.debug("Creating a new Simal Projectinstance with URI: "
-			        + simalProjectURI);
-		    } else {
-		        simalProjectURI = uri;
-		    }
+		}
 
-		    IProject project = new Project("/project/" + getRepository().getEntityID(getNewProjectID()));
-		    project.setURI(uri);
-		    ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
-		    ocm.insert(project);
-		    ocm.save();
-		    
-		    return project;
+	    String projectID = getNewProjectID();
+	    String simalProjectURI;
+	    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
+		    simalProjectURI = RDFUtils.getDefaultProjectURI(projectID);
+		    logger.debug("Creating a new Simal Projectinstance with URI: "
+		        + simalProjectURI);
+	    } else {
+	        simalProjectURI = uri;
+	    }
+
+	    IProject project = new Project("/project/" + getRepository().getEntityID(projectID));
+	    project.setURI(uri);
+	    ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+	    ocm.insert(project);
+	    ocm.save();
+	    
+	    return project;
 	}
 
 	public String getNewProjectID() throws SimalRepositoryException {
