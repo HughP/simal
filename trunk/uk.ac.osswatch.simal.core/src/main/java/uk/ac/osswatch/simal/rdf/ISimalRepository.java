@@ -15,11 +15,15 @@ package uk.ac.osswatch.simal.rdf;
  * limitations under the License.
  */
 
+import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
 import java.util.Set;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IProject;
@@ -152,9 +156,12 @@ public interface ISimalRepository {
    * @param categoriesRdf
    * @param testFileBaseUrl
    * @throws SimalRepositoryException
+   * @throws ParserConfigurationException 
+   * @throws IOException 
+   * @throws SAXException 
    */
   public void addRDFXML(URL url, String baseURL)
-      throws SimalRepositoryException;
+      throws SimalRepositoryException, ParserConfigurationException, SAXException, IOException;
 
   /**
    * Get all the projects in the repository and return them in a single JSON

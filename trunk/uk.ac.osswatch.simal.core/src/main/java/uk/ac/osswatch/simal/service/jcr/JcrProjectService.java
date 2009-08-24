@@ -32,7 +32,6 @@ import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
-import uk.ac.osswatch.simal.model.jcr.Person;
 import uk.ac.osswatch.simal.model.jcr.Project;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;

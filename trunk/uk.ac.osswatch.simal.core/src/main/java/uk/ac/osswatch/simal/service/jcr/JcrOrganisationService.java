@@ -18,14 +18,27 @@ package uk.ac.osswatch.simal.service.jcr;
  */
 import java.util.Set;
 
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+
+import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
+import org.apache.jackrabbit.ocm.query.Filter;
+import org.apache.jackrabbit.ocm.query.Query;
+import org.apache.jackrabbit.ocm.query.QueryManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IOrganisation;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.model.jcr.Organisation;
+import uk.ac.osswatch.simal.model.jcr.Project;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -52,7 +65,7 @@ public class JcrOrganisationService extends AbstractService implements IOrganisa
 	 */
 	public IOrganisation create(String uri) throws DuplicateURIException, SimalRepositoryException {
 	    String simalOrganisationURI;
-	    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
+	    if (uri == null || uri.length() == 0) {
 		    String projectID = getNewOrganisationID();
 		    simalOrganisationURI = RDFUtils.getDefaultProjectURI(projectID);
 		    logger.debug("Creating a new Simal Organisation instance with URI: "
@@ -62,6 +75,7 @@ public class JcrOrganisationService extends AbstractService implements IOrganisa
 	    }
 
 	    Organisation org = new Organisation(getRepository().getEntityID(getNewOrganisationID()));
+	    org.setURI(simalOrganisationURI);
 	    ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager().insert(org);
 	    
 	    return org;
@@ -120,6 +134,46 @@ public class JcrOrganisationService extends AbstractService implements IOrganisa
 
 
 	public IOrganisation get(String uri) throws SimalRepositoryException {
-		return null;
+		ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
+		QueryManager queryManager = ocm.getQueryManager();
+
+		Filter filter = queryManager.createFilter(Organisation.class);
+		filter.addEqualTo("URI", uri);
+
+		Query query = queryManager.createQuery(filter);
+		return (IOrganisation) ocm.getObject(query);
+	}
+
+
+	public void addFoafOrganisation(Node orgNode) throws SimalRepositoryException {
+		Node about = orgNode.getAttributes().getNamedItem("rdf:about");
+		String aboutURI = about.getNodeValue();
+		IOrganisation org = getOrCreate(aboutURI);
+		XPathExpression expr;
+		try {
+			expr = ((JcrSimalRepository)getRepository()).getXPathExpression("foaf:name");
+			NodeList names = (NodeList) expr.evaluate(orgNode, XPathConstants.NODESET);  
+			for (int i = 0; i < names.getLength(); i++) {
+				org.addName(names.item(i).getNodeValue());
+			}
+		} catch (XPathExpressionException e) {
+			throw new SimalRepositoryException("Unable to process name from foaf:Organization", e);
+		}
+		this.save(org);
+	}
+
+
+	public IOrganisation getOrCreate(String uri)
+			throws SimalRepositoryException {
+		if (SimalRepositoryFactory.getInstance().containsResource(uri)) {
+			return get(uri);
+		} else {
+			try {
+				return create(uri);
+			} catch (DuplicateURIException e) {
+				logger.error("Threw a DuplicateURIException when we had already checked for resource existence", e);
+				return null;
+			}
+		}
 	}
 }

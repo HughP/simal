@@ -26,12 +26,15 @@ import java.util.StringTokenizer;
 import javax.jcr.ItemExistsException;
 import javax.jcr.LoginException;
 import javax.jcr.PathNotFoundException;
-import javax.jcr.Repository;
 import javax.jcr.RepositoryException;
 import javax.jcr.Session;
 import javax.jcr.SimpleCredentials;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
@@ -46,6 +49,7 @@ import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import com.hp.hpl.jena.vocabulary.RDF;
 
@@ -161,6 +165,8 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 			for (int i =0; ((NodeList)value).getLength() > i; i ++) {
 				Node node = ((NodeList)value).item(i);
 				IPerson person = personService.createFromFoaf(node);
+				
+				project.addDeveloper(person);
 			}
 		} catch (XPathExpressionException e) {
 			throw new SimalRepositoryException("Problem with XPath experession", e);
@@ -170,9 +176,35 @@ public class JcrSimalRepository extends AbstractSimalRepository {
 	}
 
 	public void addRDFXML(URL url, String baseURL)
-			throws SimalRepositoryException {
-		throw new UnsupportedOperationException();
+			throws SimalRepositoryException, ParserConfigurationException, SAXException, IOException {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder;
+		builder = factory.newDocumentBuilder();
+		Document doc = builder.parse(url.openStream());
+		try {
+			XPathExpression expr = getXPathExpression("//foaf:Organization");
+			NodeList nodes = (NodeList) expr.evaluate(doc, XPathConstants.NODESET);  
+			for (int i = 0; i < nodes.getLength(); i++) {
+				SimalRepositoryFactory.getOrganisationService().addFoafOrganisation(nodes.item(i));
+			}
+		} catch (XPathExpressionException e) {
+			throw new SimalRepositoryException("Unable to process XPath expression", e);
+		}
+	}
 
+	/**
+	 * Get an XPath expression on this repository.
+	 * @return
+	 * @throws XPathExpressionException
+	 */
+	public XPathExpression getXPathExpression(String xpath)
+			throws XPathExpressionException {
+		XPathFactory xpathFactory = XPathFactory.newInstance();
+		XPath path = xpathFactory.newXPath();
+		path.setNamespaceContext(new SimalNamespaceContext());
+		XPathExpression expr = path.compile(xpath);
+		return expr;
 	}
 
 	public void addRDFXML(Document doc) throws SimalRepositoryException {

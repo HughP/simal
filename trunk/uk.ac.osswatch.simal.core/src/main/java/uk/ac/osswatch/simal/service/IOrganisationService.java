@@ -18,6 +18,8 @@ package uk.ac.osswatch.simal.service;
  */
 import java.util.Set;
 
+import org.w3c.dom.Node;
+
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -64,5 +66,26 @@ public interface IOrganisationService extends IService {
 	 * @throws SimalRepositoryException
 	 */
 	public IOrganisation get(String uri) throws SimalRepositoryException;
+
+	/**
+	 * Add details about an organisation from an foaf:Organisation document.
+	 * If the organisation already exists then new data is added should the document
+	 * include any new information.
+	 * 
+	 * @param org
+	 * @throws DuplicateURIException 
+	 * @throws SimalRepositoryException 
+	 */
+	public void addFoafOrganisation(Node org) throws SimalRepositoryException;
+
+	/**
+	 * Get an organisation object if it allready exists in the repo, otherwise
+	 * create a new one.
+	 * 
+	 * @param uri
+	 * @return
+	 * @throws SimalRepositoryException
+	 */
+	public IOrganisation getOrCreate(String uri) throws SimalRepositoryException; 
 
 }
