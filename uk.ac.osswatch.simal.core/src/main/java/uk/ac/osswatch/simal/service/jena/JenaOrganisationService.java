@@ -19,6 +19,8 @@ package uk.ac.osswatch.simal.service.jena;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.w3c.dom.Node;
+
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.jena.Organisation;
@@ -94,6 +96,15 @@ public class JenaOrganisationService extends AbstractService implements
 			orgs.add(new Organisation(model.getResource(uri)));
 		}
 		return orgs;
+	}
+
+	public void addFoafOrganisation(Node org) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public IOrganisation getOrCreate(String uri) throws SimalRepositoryException {
+		return null;
 	}
 
 }

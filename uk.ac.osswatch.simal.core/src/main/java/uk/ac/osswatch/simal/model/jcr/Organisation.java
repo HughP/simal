@@ -16,6 +16,7 @@ package uk.ac.osswatch.simal.model.jcr;
  * under the License.
  * 
  */
+import java.util.HashSet;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IOrganisation;
@@ -24,7 +25,12 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class Organisation extends Resource implements IOrganisation {
 	private static final long serialVersionUID = 1L;
-
+	private Set<String> names = new HashSet<String>();
+	
+	public Organisation() {
+		super();
+	}
+	
 	public Organisation(String simalID) throws SimalRepositoryException {
 		super(simalID);
 	}
@@ -35,8 +41,7 @@ public class Organisation extends Resource implements IOrganisation {
 	}
 
 	public void addName(String name) {
-		// TODO Auto-generated method stub
-
+		this.names.add(name);
 	}
 
 	public Set<IProject> getCurrentProjects() {

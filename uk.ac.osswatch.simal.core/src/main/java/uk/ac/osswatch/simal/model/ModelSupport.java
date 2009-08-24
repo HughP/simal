@@ -22,8 +22,11 @@ package uk.ac.osswatch.simal.model;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.importData.Pims;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
@@ -107,6 +110,12 @@ public class ModelSupport {
     } catch (SimalException e) {
         logger.error("Can't add the test data, there's no point in carrying on");
         throw new RuntimeException("Unable to add test data, aborting", e);
+	} catch (ParserConfigurationException e) {
+	      logger.error("Can't add the test data, there's no point in carrying on");
+	      throw new RuntimeException("Unable to add test data, aborting", e);
+	} catch (SAXException e) {
+	      logger.error("Can't add the test data, there's no point in carrying on");
+	      throw new RuntimeException("Unable to add test data, aborting", e);
 	}
   }
   
