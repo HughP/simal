@@ -20,7 +20,7 @@ This document describes the Schema currently in use within Simal as well as outl
 
 DOAP is used to capture key details about a project.
 
-|| *Name* || *Since* || *Description* || *Example* ||
+|| *Name* || *Description* || *Since* || *Example* ||
 ||doap:Project||A project.||0.2||<doap:Project rdf:about="http://foo.org/projectX#">...<doap:Project>||
 ||doap:name||A name of something.||0.2||<doap:name>Project X</doap:name>||
 ||doap:homepage||URL of a project's homepage, associated with exactly one project.||0.2||<doap:homepage rdf:resource="http://www.foo.org"/>||
