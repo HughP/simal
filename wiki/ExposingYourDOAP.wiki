@@ -5,7 +5,11 @@
 
 Description of a Project (DOAP) is a RDF schema for describing projects. It was designed for software development projects, but need not be limited to them. This document describes various strategies for exposing DOAP descriptions of your project so that Simal (can other DOAP consumers) can use it.
 
-For more backround see the [http://www.oss-watch.ac.uk/resources/doap.xml OSS Watch DOAP briefing note].
+= Background =
+
+A good introduction to DOAP and its purpose can be found in the [http://www.oss-watch.ac.uk/resources/doap.xml OSS Watch DOAP briefing note].
+
+Other resources you may find useful are listed at the end of this document.
 
 = How to create your projects DOAP =
 
@@ -42,3 +46,18 @@ RDFa provides a neat way for projects to markup their existing web pages with RD
 If you maintain a database of projects then you really ought to be thinking of exposing your data via an API. Simply pull the data from your database, convert it to RDF/XML and provide a way of requesting that data via an API.
 
 You could also expose it via your normal web pages (see RDFa above). However, since you are probably generating your pages dynamically and since the processing to create an HTML page is greater than that to create a RDF/XML document you may want to consider performance here. However, if your data set is small annotating your HTML pages with RDFa is a quick and easy way of exposing your existing data. It also has the added benefit of ensuring that you only expose the data you want to expose. That is, if the HTML page is visible there is no reason why the DOAP data within it should not be visible.
+
+= Resources =
+
+DOAP home page http://trac.usefulinc.com/doap
+
+How it is used in Simal at http://code.google.com/p/simal/wiki/Schema
+
+Samples we use in testing Simal
+http://code.google.com/p/simal/source/browse/#svn/trunk/uk.ac.osswatch.simal.core/src/main/resources/testData
+
+Most complete sample (i.e. uses tricky combinations of elements)
+http://code.google.com/p/simal/source/browse/trunk/uk.ac.osswatch.simal.core/src/main/resources/testData/testDOAP.xml
+
+You can test DOAP outputs by pasting them into the "raw doap" field at
+at http://simal.16degrees.com.au/?wicket:bookmarkablePage=:uk.ac.osswatch.simal.wicket.doap.DoapFormPage
