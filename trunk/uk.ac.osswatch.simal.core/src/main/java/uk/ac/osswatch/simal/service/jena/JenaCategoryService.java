@@ -32,7 +32,6 @@ import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.service.AbstractService;
 import uk.ac.osswatch.simal.service.ICategoryService;
 
 import com.hp.hpl.jena.query.Query;
@@ -48,7 +47,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.vocabulary.RDF;
 
-public class JenaCategoryService extends AbstractService implements
+public class JenaCategoryService extends JenaService implements
 		ICategoryService {
 	public static final Logger logger = LoggerFactory
 			.getLogger(JenaCategoryService.class);
