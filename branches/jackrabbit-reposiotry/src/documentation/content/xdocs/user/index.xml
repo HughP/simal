@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document> 
+  <header> 
+    <title>Simal User Documentation</title> 
+  </header> 
+  <body> 
+    <p>Welcome to the user section of the Simal website. In this section
+    you will find useful materials that are intended to help an interested party,
+    like you, to get started with this application.</p>
+    
+    <ul>
+      <li><a href="faq.html">User FAQ</a></li>
+    </ul>
+    
+    <note>Our documentation is quite sparse at present. Please ask
+    for help on our <a href="ext:simal/devList">mailing list</a> and
+    we'll be sure to expand the documentation in response to your 
+    questions. Unless you ask, we don't know what people need to
+    see.</note>
+    
+  </body>
+</document>

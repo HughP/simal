@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Developing Simal Core</title>
+  </header>
+  <body>
+    <p>
+      This document describes how to work with Simal Core in a
+      development environment. Simal use Maven to manage its build
+      process. So any IDE that supports Maven can be used, that includes
+      the command line!
+    </p>
+
+    <section>
+      <title>Prerequisites</title>
+
+      <p>
+        You must have set up the {{{download.html} prerequisites and
+        downloaded}} the source for Simal Core.
+      </p>
+    </section>
+
+    <section>
+      <title>Building with Maven</title>
+
+      <p>
+        To build Simal Core with Maven all you need to do is (from
+        within your Simal Core home directory):
+      </p>
+
+      <source>mvn compile</source>
+
+      <p>
+        The first time you run this command Maven will automatically
+        download all the dependencies needed for compilation. This means
+        you must be connected to the Internet to run the command.
+      </p>
+
+      <p>
+        In order to verify that your install has worked you can run the
+        test suite with:
+      </p>
+
+      <source>mvn test</source>
+
+
+      <p>
+        Simal provides a command line interface (CLI) for working with
+        core, other interfaces are possible, such as the separate web
+        application found in the module uk.ac.osswatch.simal.web. It is
+        outside the scope of this document to discuss these other
+        interfaces. However, a very brief introduction to the CLI is
+        useful at this point since it means you can can start playing
+        immediately.
+      </p>
+
+      <p>
+        To use the CLI you must first build a distribution with the
+        following command.
+      </p>
+
+      <source>mvn assembly:assembly</source>
+
+      <p>Now you can run the CLI with a command such as</p>
+
+      <source>
+        java -cp
+        target/simal-core-0.1-SNAPSHOT-jar-with-dependencies.jar
+        uk.ac.osswatch.simal.Simal -h
+      </source>
+
+      <note>
+        You may need to change the version number ("0.1-SNAPSHOT" in the
+        above example).
+      </note>
+
+      <p>
+        The above command displays the CLI help message, try a few of
+        the described commands out.
+      </p>
+
+    </section>
+
+    <section>
+      <title>Building Reports</title>
+
+      <p>
+        If you are working on the code of Simal Core then you will want
+        to build the reports to check everything is OK, simply use:
+      </p>
+
+      <source>mvn site</source>
+
+      <p>
+        The site will be built in SIMAL_CORE/target/site. Point your
+        browser at the index.html file in this folder and you will see
+        the full range of documentation and reports available.
+      </p>
+
+    </section>
+
+    <section>
+      <title>Using Eclipse</title>
+
+      <p>
+        If you use Eclipse as your IDE then you can set up an Eclipse
+        project with the command:
+      </p>
+
+      <source>mvn eclipse:eclipse</source>
+
+      <p>
+        We also recommend that you install the
+        <a href="http://code.google.com/p/q4e/">Q4e</a>
+        plugin and enable Maven Dependency Management to simplfy the
+        management of your classpath within Eclipse.
+      </p>
+
+      <section>
+        <title>Mylyn and Google Code</title>
+
+        <p>
+          Eclipse 3.3 and onwards includes the excellent Mylyn task
+          management tool. You may want to configure Mylyn to work with
+          our Issue Tracker, in which case you will find this
+          <a
+            href="http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code">
+            blog
+          </a>
+          from Alex Ruiz very useful (well I did anyway).
+        </p>
+      </section>
+    </section>
+
+    <section>
+      <title>Installing Simal Core</title>
+
+      <p>To install Simal from source run <code>mvn assembly:assembly</code>
+      and add the <code>bin</code>directory of Simal core to your
+      <code>PATH</code> environment variable and run 
+      <code>simal.bat --help</code> or  <code>simal.sh --help</code>.</p>
+
+      <p>
+        For other Maven built applications to use this library
+        it needs to be made available in your local Maven repository.
+        Simply run:
+      </p>
+
+      <source>mvn install</source>
+      
+    </section>
+
+    <section>
+      <title>Now What?</title>
+
+      <p>So you have Simal Core installed, now what?</p>
+      
+      <p>Simal core comes complete with a command line interface.
+      to run it use <code>simal.bat --help</code> or 
+      <code>simal.sh --help</code>.</p>
+
+      <p>
+        The Simal project provides a web application for working with
+        Simal Core. You'll probably want to download that too.
+      </p>
+
+      <p>
+        Alternatively, you may be interested in building your own
+        application on top of the Simal Core library. If this is the
+        case then, at this early stage, we encourage you to join our
+        <a href="ext:simal/devList">mailing list</a>
+        .
+      </p>
+    </section>
+  </body>
+</document>
