@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/epics.aspx">
-<shortdesc>The EPICS project is a collaboration of representatives throughout the North East of England (NE) educational sectors (within and between FE/HE) who propose a scalable and sustainable regional pilot project in personal development planning (PDP) and ePortfolios to support learners at all levels of post-16 education.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>EPICS - North East regional collaboration around e-portfolio progression pathways with illustrative studies</name>
-<homepage rdf:resource="http://www.eportfolios.ac.uk/EPICS"/>
-</Project>

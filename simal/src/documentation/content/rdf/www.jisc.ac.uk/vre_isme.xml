@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_isme.aspx">
-<shortdesc>This project aims to develop and refine the experimental steering process, shared workspace and distributed visualisation into a VRE making them deployable by dispersed teams of instrument scientists, material scientists and engineers in a transparent and robust manner.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>ISME: Integration &amp; Steering of Multi-site Experiments to Assemble Engineering Body Scans</name>
-<homepage rdf:resource="http://pwlinda.mt.umist.ac.uk/~isme"/>
-</Project>

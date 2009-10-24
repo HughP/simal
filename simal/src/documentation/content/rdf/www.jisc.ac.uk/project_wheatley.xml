@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation/programme_404/project_wheatley.aspx">
-<shortdesc>The project will produce a toolkit which will enable FE colleges to bring a coherent approach to the management and preservation of digital assets</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_preservation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>Managing Digital Assets in Tertiary Education (Mandate)</name>
-<homepage rdf:resource="http://www.jwheatley.ac.uk/mandate/"/>
-</Project>

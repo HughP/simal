@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle/project_informs.aspx">
-<shortdesc>The project will be part of the gradual iterative process of disseminating and scaling up the INHALE model for delivery in a wider range of institutions</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>INFORMS: Information skills project</name>
-<homepage rdf:resource="http://informs.hud.ac.uk/"/>
-</Project>

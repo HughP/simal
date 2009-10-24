@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/programme_semantic_grid/project_fabrics.aspx">
-<shortdesc>This project is motivated by the observation that many existing Grid applications have very specific requirements for the configuration of the fabric on which the service is deployed.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>Dynamic Configuration of Grid Fabrics for OGSA Services</name>
-<homepage rdf:resource="http://groups.inf.ed.ac.uk/ogsaconfig"/>
-</Project>

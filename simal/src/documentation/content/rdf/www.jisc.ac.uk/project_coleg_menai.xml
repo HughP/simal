@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani/project_coleg_menai.aspx">
-<shortdesc>Spread across multiple sites in a rural Welsh speaking area, the possibilities presented by an MLE are extremely significant for Coleg Menai within its day-to-day operating procedures. For the VLE to be suitable for each of these uses it is vital that every piece of software making up the MLE works together reliably. Significant work has already been done in this area, but the JISC SWaNI project will allow us to address many issues sooner than we had envisaged  and to disseminate our findings and results to a far broader audience than would otherwise have been possible.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Coleg Menai (SWaNI)</name>
-<homepage rdf:resource="http://www.menai.ac.uk/swani"/>
-</Project>

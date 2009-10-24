@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlitc/project_dialogplus.aspx">
-<shortdesc>This project aims to embed a wealth of existing digital resources developed in the US and the UK into the curricula of four US and UK higher education institutions, in four different sub-areas of Geography.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlitc.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>DialogPlus - Digital Libraries in Support of Innovative Approaches to Teaching and Learning in Geography</name>
-<homepage rdf:resource="http://www.dialogplus.org/"/>
-</Project>

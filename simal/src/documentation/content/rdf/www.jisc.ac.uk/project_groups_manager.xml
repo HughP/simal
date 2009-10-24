@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_groups_manager.aspx">
-<shortdesc>The Groups Manager project's aim is to contribute to the Internet2 MACE-Dir-Groups working group - "Grouper" project, with an objective being to ensure that it can meet the needs of UK HE and FE institutions.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
-<name>Groups Manager</name>
-</Project>

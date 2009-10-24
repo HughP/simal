@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa/project_aaa_ties.aspx">
-<shortdesc>The TIES project will implement a pilot Public Key Infrastructure for Higher and Futher Education</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
-<name>TIES: Technologies for Information Environment security</name>
-<homepage rdf:resource="http://www.edina.ac.uk/projects/ties/"/>
-</Project>

@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc/sfc_econstruction.aspx">
-<shortdesc>The overall aim of the project is to transform the efficiency, effectiveness and economy of the Scotland-wide college delivery of work-based/related qualifications and learning in the construction sector in order to meet skills shortages and gaps and individual learning and tutoring needs mainly at general operative and craft levels (SVQ levels 1, 2 and 3) initially in Brickwork, Stonework, Carpentry and Joinery and Painting and Decorating.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>e-Construction Transformation project</name>
-<homepage rdf:resource="http://www.learndirectandbuild.com/Transformation/course5.htm"/>
-</Project>

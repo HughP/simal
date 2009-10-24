@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_perx.aspx">
-<shortdesc>The project will develop a pilot service which provides subject resource discovery across a series of repositories of interest to the engineering learning and research communities.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>PERX</name>
-<homepage rdf:resource="http://www.icbl.hw.ac.uk/perx/"/>
-</Project>

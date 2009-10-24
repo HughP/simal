@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/elp_constructing2learn.aspx">
-<shortdesc>A growing body of research indicates that playing computer games can lead to serious learning. We propose however that the learning can be deeper and more richly interconnected if game playing is combined with game making.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Constructing 2 Learn</name>
-<homepage rdf:resource="http://dfl.cetis.ac.uk/wiki/index.php/Constructing2Learn"/>
-</Project>

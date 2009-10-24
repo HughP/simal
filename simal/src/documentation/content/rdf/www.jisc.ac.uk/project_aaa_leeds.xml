@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa/project_aaa_leeds.aspx">
-<shortdesc>The overall aim of this project is to integrate previously developed Open Source Certificate Authority software (a Java implementation which also invokes vanilla OpenSSL) with student &amp; staff databases of the collaborating institutions to widen experience in the deployment and use of certificates, providing a full-scale, portable and scalable solution.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
-<name>LUCIE2: Leeds University certificate issuing engine 2</name>
-</Project>

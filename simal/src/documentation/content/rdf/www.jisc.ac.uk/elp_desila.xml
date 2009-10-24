@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/elp_desila.aspx">
-<shortdesc>The project aims to implement and evaluate LAMS, a tool that supports design for learning and the sharing and reuse of learning designs, in a real-life case study context of development and innovation in "blended" and fully online forms of IBL in HE specifically within arts and social sciences disciplines.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Desila</name>
-<homepage rdf:resource="http://www.shef.ac.uk/desila"/>
-</Project>

@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/digitisation_bln.aspx">
-<shortdesc>This project will revolutionise scholarly research bringing richer results with precision and speed at the click of a mouse.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>British Library 19th century newspapers</name>
-<homepage rdf:resource="http://www.bl.uk/collections/britishnewspapers1800to1900.html"/>
-</Project>

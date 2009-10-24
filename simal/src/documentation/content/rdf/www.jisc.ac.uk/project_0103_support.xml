@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe/project_0103_support.aspx">
-<shortdesc>This project will extend work already carried out by extending the work of the Centre for Recording Achievement in the development, co-ordination and engagement with practitioners in the MLE community to support the development of more effective interoperability between learner-centred MLEs and the production of helpful relevant standards to underpin the related technical work.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Generic support project for the MLEs for Lifelong Learning programme</name>
-<homepage rdf:resource="http://www.cetis.ac.uk/members/PDPcontent"/>
-</Project>

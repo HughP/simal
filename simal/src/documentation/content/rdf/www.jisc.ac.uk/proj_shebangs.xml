@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/proj_shebangs.aspx">
-<shortdesc>Shebangs aims to develop a bridge enabling a user authenticated by a trusted Shibboleth IdP to acquire (or delegate) temporary credentials to access resources on the National Grid Service. Our method assumes a user equipped with a standard Web browser. It makes use of a standard MyProxy server, requires no modifications to Shibboleth or Globus middleware, but may necessitate minor modifications to a Web portal such as the NGS portal.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
-<name>SHEBANGS: Shibboleth Enabled Bridge to Access the National Grid Service</name>
-<homepage rdf:resource="http://www.mc.manchester.ac.uk/research/projects/shebangs"/>
-</Project>
