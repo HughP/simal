@@ -27,7 +27,7 @@ import org.apache.wicket.util.convert.IConverter;
 /**
  * Converts from and to URLs.
  */
-public class URLConverter implements IConverter<URL> {
+public class URLConverter implements IConverter {
   private static final long serialVersionUID = 6821787035834490918L;
 
   /**
@@ -52,7 +52,8 @@ public class URLConverter implements IConverter<URL> {
     }
   }
 
-  public String convertToString(URL value, Locale locale) {
+
+  public String convertToString(Object value, Locale locale) {
     return value != null ? value.toString() : null;
   }
 }
