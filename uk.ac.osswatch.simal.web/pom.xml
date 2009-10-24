@@ -190,6 +190,12 @@
       <version>${jetty.version}</version>
       <scope>provided</scope>
     </dependency>
+    
+    <dependency>
+	  <groupId>org.apache.wicket</groupId>
+	  <artifactId>wicket</artifactId>
+	  <version>1.4.2</version>
+	</dependency>
   </dependencies>
 
   <build>
