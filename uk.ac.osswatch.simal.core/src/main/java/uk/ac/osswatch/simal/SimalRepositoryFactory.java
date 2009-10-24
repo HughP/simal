@@ -21,7 +21,6 @@ package uk.ac.osswatch.simal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -32,16 +31,6 @@ import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IRepositoryService;
 import uk.ac.osswatch.simal.service.IReviewService;
-import uk.ac.osswatch.simal.service.jcr.JcrBugDatabaseService;
-import uk.ac.osswatch.simal.service.jcr.JcrCategoryService;
-import uk.ac.osswatch.simal.service.jcr.JcrHomepageService;
-import uk.ac.osswatch.simal.service.jcr.JcrMailingListService;
-import uk.ac.osswatch.simal.service.jcr.JcrOrganisationService;
-import uk.ac.osswatch.simal.service.jcr.JcrPersonService;
-import uk.ac.osswatch.simal.service.jcr.JcrProjectService;
-import uk.ac.osswatch.simal.service.jcr.JcrReleaseService;
-import uk.ac.osswatch.simal.service.jcr.JcrRepositoryService;
-import uk.ac.osswatch.simal.service.jcr.JcrReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaCategoryService;
 import uk.ac.osswatch.simal.service.jena.JenaHomepageService;
 import uk.ac.osswatch.simal.service.jena.JenaOrganisationService;
@@ -82,7 +71,8 @@ public class SimalRepositoryFactory {
 	    case JENA:
 	      return JenaSimalRepository.getInstance();
 	    case JCR:  
-	      return JcrSimalRepository.getInstance();
+	      // commented out as this code moved to a branch - do we need to remove it yet?
+	      // return JcrSimalRepository.getInstance();
 	    default:
 	      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 	  }
@@ -99,7 +89,8 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaHomepageService(getInstance());
 		    case JCR:  
-		      return new JcrHomepageService(getInstance());
+		    	// commented out as this code moved to a branch - do we need to remove it yet?
+			    // return new JcrHomepageService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
@@ -118,7 +109,8 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaProjectService(getInstance());
 		    case JCR:  
-		      return new JcrProjectService(getInstance());
+		    	// commented out as this code moved to a branch - do we need to remove it yet?
+			    // return new JcrProjectService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }	
@@ -135,7 +127,8 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaReviewService(getInstance());
 		    case JCR:  
-		      return new JcrReviewService(getInstance());
+		    	// commented out as this code moved to a branch - do we need to remove it yet?
+			    // return new JcrReviewService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
@@ -152,7 +145,8 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaOrganisationService(getInstance());
 		    case JCR:  
-		      return new JcrOrganisationService(getInstance());
+		    	// commented out as this code moved to a branch - do we need to remove it yet?
+			    // return new JcrOrganisationService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
@@ -169,7 +163,8 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaCategoryService(getInstance());
 		    case JCR: 
-			      return new JcrCategoryService(getInstance()); 
+		    	// commented out as this code moved to a branch - do we need to remove it yet?
+			      // return new JcrCategoryService(getInstance()); 
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
@@ -186,7 +181,8 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      return new JenaPersonService(getInstance());
 		    case JCR: 
-		      return new JcrPersonService(getInstance());
+		    	// commented out as this code moved to a branch - do we need to remove it yet?
+			      // return new JcrPersonService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
@@ -204,7 +200,8 @@ public class SimalRepositoryFactory {
 		      logger.error("Not implemented JenaRepositoryService");
 		      System.exit(1);
 		    case JCR: 
-		      return new JcrRepositoryService(getInstance());
+		    	// commented out as this code moved to a branch - do we need to remove it yet?
+			      // return new JcrRepositoryService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
@@ -213,8 +210,10 @@ public class SimalRepositoryFactory {
 	/**
 	 * Get an instance of the bug database service.
 	 * @return
-	 * @throws SimalRepositoryException 
-	 */
+	 * @throws SimalRepositoryException
+	 * 
+	 * commented out as this code moved to a branch - do we need to remove it yet?
+	 * 
 	public static JcrBugDatabaseService getBugDatabaseService() throws SimalRepositoryException {
 		 switch (repoType) {
 		    case JENA:
@@ -222,17 +221,21 @@ public class SimalRepositoryFactory {
 		      logger.error("Not implemented JenaBugDatabaseService");
 		      System.exit(1);
 		    case JCR: 
-		      return new JcrBugDatabaseService(getInstance());
+		    	// commented out as this code moved to a branch - do we need to remove it yet?
+			      // return new JcrBugDatabaseService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown type of bug datatbase service");
 		  }
-	}
+	} 
+	 */
 
 	/**
 	 * Get an instance of the mailing list service.
 	 * @return
 	 * @throws SimalRepositoryException 
-	 */
+	 * 
+	 * commented out as this code moved to a branch - do we need to remove it yet?
+	 * 
 	public static JcrMailingListService getMailingListService() throws SimalRepositoryException {
 		 switch (repoType) {
 		    case JENA:
@@ -240,17 +243,20 @@ public class SimalRepositoryFactory {
 		      logger.error("Not implemented JenaMailingListService");
 		      System.exit(1);
 		    case JCR: 
-		      return new JcrMailingListService(getInstance());
+		    	return new JcrMailingListService(getInstance());
 		    default:
 		      throw new SimalRepositoryException("Attempt to create an unknown type of bug datatbase service");
 		  }
 	}
+	*/
 
+	
 	/**
 	 * Get an instance of the release service.
 	 * @return
 	 * @throws SimalRepositoryException 
-	 */
+	 * 
+	 * commented out as this code moved to a branch - do we need to remove it yet?
 	public static JcrReleaseService getReleaseService() throws SimalRepositoryException {
 		 switch (repoType) {
 		    case JENA:
@@ -263,4 +269,6 @@ public class SimalRepositoryFactory {
 		      throw new SimalRepositoryException("Attempt to create an unknown type of release service");
 		  }
 	}
+	
+	 */
 }

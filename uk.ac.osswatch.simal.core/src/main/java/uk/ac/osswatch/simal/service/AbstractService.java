@@ -20,7 +20,6 @@ import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IResource;
-import uk.ac.osswatch.simal.model.jcr.JcrSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -53,11 +52,7 @@ public abstract class AbstractService implements IService {
      * 
      * @param project
      * @throws SimalRepositoryException 
-     */
-	public void save(IResource resource) throws SimalRepositoryException {
-	    ObjectContentManager ocm = ((JcrSimalRepository)SimalRepositoryFactory.getInstance()).getObjectContentManager();
-	    ocm.update(resource);
-	    ocm.save();
-	}
+	 */
+	public abstract void save(IResource resource) throws SimalRepositoryException;
 	
 }

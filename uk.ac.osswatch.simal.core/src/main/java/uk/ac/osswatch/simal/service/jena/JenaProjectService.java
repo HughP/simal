@@ -34,7 +34,6 @@ import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
-import uk.ac.osswatch.simal.service.AbstractService;
 import uk.ac.osswatch.simal.service.IProjectService;
 
 import com.hp.hpl.jena.query.Query;
@@ -54,7 +53,7 @@ import com.hp.hpl.jena.vocabulary.RDFS;
  * A class for working with projects in the repository.
  * 
  */
-public class JenaProjectService extends AbstractService implements IProjectService {
+public class JenaProjectService extends JenaService implements IProjectService {
   public static final Logger logger = LoggerFactory
       .getLogger(JenaProjectService.class);
 
