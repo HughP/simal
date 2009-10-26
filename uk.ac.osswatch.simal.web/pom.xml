@@ -92,6 +92,11 @@
                 <enabled>true</enabled>
         </snapshots>
     </repository>
+    <repository>
+    	<id>maven2</id>
+    	<name>Maven 2</name>
+    	<url>http://repo2.maven.org/maven</url>
+    </repository>
   </repositories>
 
   <distributionManagement>
@@ -176,7 +181,7 @@
       <version>${jetty.version}</version>
       <scope>provided</scope>
     </dependency>
-
+    
     <dependency>
       <groupId>org.mortbay.jetty</groupId>
       <artifactId>jetty-util</artifactId>
@@ -184,13 +189,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <dependency>
-      <groupId>org.mortbay.jetty</groupId>
-      <artifactId>jetty-management</artifactId>
-      <version>${jetty.version}</version>
-      <scope>provided</scope>
-    </dependency>
-    
     <dependency>
 	  <groupId>org.apache.wicket</groupId>
 	  <artifactId>wicket</artifactId>
@@ -295,7 +293,8 @@
 
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
+        <artifactId>maven-jetty-plugin</artifactId>
+        <version>${jetty.version}</version>
         <configuration>
           <contextPath>/</contextPath>
         </configuration>
@@ -342,7 +341,7 @@
 
   <properties>
     <wicket.version>1.4-m3</wicket.version>
-    <jetty.version>6.1.4</jetty.version>
+    <jetty.version>6.1.18</jetty.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
