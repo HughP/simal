@@ -203,7 +203,10 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     
     public PersonFilterForm(String name) {
       super(name, new CompoundPropertyModel<PersonFilterInputModel>(inputModel));
-      add(nameFilter = new TextField<String>("nameFilter"));
+      nameFilter = new TextField<String>("nameFilter");
+      add(nameFilter);
+      String[] defaultValue = { "" };
+      nameFilter.setModelValue(defaultValue);
     }
 
     @Override
