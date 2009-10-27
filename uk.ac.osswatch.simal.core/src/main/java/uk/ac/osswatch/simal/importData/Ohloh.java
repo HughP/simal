@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.tools;
+package uk.ac.osswatch.simal.importData;
 
 /*
  * 

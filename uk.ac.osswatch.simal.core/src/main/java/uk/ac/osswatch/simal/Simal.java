@@ -39,6 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
+import uk.ac.osswatch.simal.importData.Ohloh;
 import uk.ac.osswatch.simal.importData.PTSWImport;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -46,7 +47,6 @@ import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.tools.Ohloh;
 
 /**
  * The Command Line Interface for a Simal repository.
