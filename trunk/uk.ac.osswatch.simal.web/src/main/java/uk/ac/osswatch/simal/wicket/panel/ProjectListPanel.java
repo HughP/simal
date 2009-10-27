@@ -132,7 +132,10 @@ public class ProjectListPanel extends Panel {
     
     public ProjectFilterForm(String name) {
       super(name, new CompoundPropertyModel<ProjectFilterInputModel>(inputModel));
-      add(nameFilter = new TextField<String>("nameFilter"));
+      nameFilter = new TextField<String>("nameFilter");
+      add(nameFilter);
+      String[] defaultValue = { "" };
+      nameFilter.setModelValue(defaultValue);
     }
 
     @Override

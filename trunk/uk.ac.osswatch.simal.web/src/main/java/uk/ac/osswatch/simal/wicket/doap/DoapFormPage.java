@@ -184,7 +184,10 @@ public class DoapFormPage extends BasePage {
       stringTextField.setLabel(new Model<String>());
       add(stringTextField);
 
-      add(new TextArea<String>("description"));
+      TextArea<String> descriptionField = new TextArea<String>("description");
+	  add(descriptionField);
+      String[] defaultValue = { "" };
+      descriptionField.setModelValue(defaultValue);
     }
 
     @Override
@@ -216,7 +219,10 @@ public class DoapFormPage extends BasePage {
 
     public AddByURLForm(String name) {
       super(name, new CompoundPropertyModel<DoapFormInputModel>(inputModel));
-      add(new TextField<URL>("sourceURL", URL.class));
+      TextField<URL> urlField = new TextField<URL>("sourceURL", URL.class);
+	  add(urlField);
+      String[] defaultValue = { "" };
+      urlField.setModelValue(defaultValue);
     }
 
     @Override

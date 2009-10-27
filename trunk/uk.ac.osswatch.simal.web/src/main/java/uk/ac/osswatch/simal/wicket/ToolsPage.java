@@ -205,7 +205,10 @@ public class ToolsPage extends BasePage {
 
     public ImportFromOhlohForm(String name) {
       super(name, new CompoundPropertyModel<OhlohFormInputModel>(inputModel));
-      add(new TextField<String>("projectID"));
+      TextField<String> idField = new TextField<String>("projectID");
+	  add(idField);
+      String[] defaultValue = { "" };
+      idField.setModelValue(defaultValue);
     }
 
     @Override
