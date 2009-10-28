@@ -28,6 +28,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.file.Files;
@@ -123,6 +124,8 @@ public class ToolsPage extends BasePage {
       }
     });
 
+    add(new BookmarkablePageLink("settingsPageLink", SettingsPage.class));
+    
     add(new ImportFromOhlohForm("importFromOhlohForm"));
     
     final PimsUploadForm pimsProgrammesUploadForm = new PimsUploadForm("importProgrammesFromPimsForm", PimsUploadForm.PROGRAMMES);
