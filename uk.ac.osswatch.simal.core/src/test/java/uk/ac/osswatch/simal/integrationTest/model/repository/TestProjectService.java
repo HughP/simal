@@ -40,6 +40,13 @@ public class TestProjectService extends BaseRepositoryTest {
 	}
 
 	@Test
+	public void testGetProjectsById() throws SimalRepositoryException {
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		IProject project = service.getProjectById(testProjectID);
+		assertEquals("Got incorect project by ID","Simal DOAP Test", project.getName());
+	}
+
+	@Test
 	public void testGetProjectsWithHomepage() throws SimalRepositoryException {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithHomepage();
