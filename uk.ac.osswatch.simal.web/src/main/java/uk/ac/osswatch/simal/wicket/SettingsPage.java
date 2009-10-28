@@ -17,7 +17,12 @@
 package uk.ac.osswatch.simal.wicket;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.CompoundPropertyModel;
+
+import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * A page for editing settings for the web application.
@@ -28,7 +33,18 @@ public class SettingsPage extends BasePage {
 	final static Integer SET_OHLOH_API = 1;
 	
 	int field = 0;
-	
+	static TextField<String> ohlohApiField = new TextField<String>("ohlohApiKey");
+	 
+    private static SettingsFormInputModel inputModel = new SettingsFormInputModel();
+	  
+    /**
+     * Create default settings page with no field receiving focus.
+     */
+    public SettingsPage() {
+    	super();
+    	init();
+    }
+    
 	/**
 	 * Create a settings page that tells the user to set a particular setting and
 	 * sets the focus on that field.
@@ -41,9 +57,8 @@ public class SettingsPage extends BasePage {
 	}
 	
 	public void init() {
-		TextField<String> ohlohApiField = new TextField<String>("ohloh.api");
-		add(ohlohApiField);
-
+		add(new SettingsForm("settingsForm"));
+		
 		switch (field) {
 		  case 1:
 		    add(new Label("message", "Please set your Ohloh API in order to import data from Ohloh."));
@@ -54,6 +69,35 @@ public class SettingsPage extends BasePage {
 		}
 	}
 
+
+
+  private static class SettingsForm extends Form<SettingsFormInputModel> {
+    private static final long serialVersionUID = 1L;
+
+    public SettingsForm(String name) {
+      super(name, new CompoundPropertyModel<SettingsFormInputModel>(inputModel));
+
+	  add(ohlohApiField);
+	  String[] defaultValue = { "" };
+      ohlohApiField.setModelValue(defaultValue);
+    }
+
+    @Override
+    protected void onSubmit() {
+      super.onSubmit();
+      if (!this.hasError()) {
+        String apiKey = inputModel.getOhlohApiKey();
+        SimalProperties.setProperty(SimalProperties.PROPERTY_OHLOH_API_KEY, apiKey);
+      }
+      try {
+		SimalProperties.save();
+		setResponsePage(new UserHomePage());
+	  } catch (SimalRepositoryException e) {
+		setResponsePage(new ErrorReportPage(new UserReportableException(
+	              "Unable to save properties",SettingsPage.class, e)));
+	  }
+    }
+  }
 
 
 }

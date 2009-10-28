@@ -25,10 +25,20 @@
   
   <p class="warning" wicket:id="message"></p>
   
-  <p>
-    <label>Ohloh API Key</label>
-    <input type="text" wicket:id="ohloh.api" value="" size="50" />
-  </p>
+  
+  <form wicket:id="settingsForm">
+    <fieldset>
+    <legend>Ohloh</legend>
+	  <p>
+	    <label>Ohloh API Key</label>
+	    <input type="text" wicket:id="ohlohApiKey" value="" size="50" />
+	  </p>
+	</fieldset>
+	  
+	  <p>
+	      <input type="submit" value="Save" />
+	  </p>
+  </form>
 </wicket:extend>
 </body>
 </html>
