@@ -62,7 +62,7 @@ public class Ohloh {
    * @return
    * @throws SimalException
    */
-  public void addProjectToSimal(String projectID) throws SimalException {
+  public void addProjectToSimal(String projectID) throws SimalException, ImportException {
     ISimalRepository repo = SimalRepositoryFactory.getInstance();
 
     try {
@@ -212,14 +212,15 @@ public class Ohloh {
    * local.simal.properties with the parameter name ohloh.api.key
    * 
    * @return
-   * @throws SimalException
+   * @throws ImportException if the ohloh.api.key property has not been set
+   * @throws SimalRepositoryException if there is a problem retrieving the ohloh.api.key from properties 
    */
-  protected String getApiKey() throws SimalException {
+  protected String getApiKey() throws ImportException, SimalRepositoryException {
     String apiKey = SimalProperties
         .getProperty(SimalProperties.PROPERTY_OHLOH_API_KEY);
     if (apiKey == null || apiKey.length() == 0
         || apiKey.contains("has not been set")) {
-      throw new SimalException(
+      throw new ImportException(
           "To import from Ohloh it is necessary to provide an Ohloh API key. Please set ohloh.api.key in local.simal.properties");
     }
     return apiKey;
