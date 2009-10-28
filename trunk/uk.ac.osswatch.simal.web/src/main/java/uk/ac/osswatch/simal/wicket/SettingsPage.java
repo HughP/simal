@@ -23,6 +23,7 @@ import org.apache.wicket.markup.html.form.TextField;
  * A page for editing settings for the web application.
  */
 public class SettingsPage extends BasePage {
+    private static final long serialVersionUID = 1L;
 
 	final static Integer SET_OHLOH_API = 1;
 	

@@ -24,7 +24,7 @@ import org.apache.wicket.markup.html.form.FormComponent;
 public class FocusBehaviour extends AbstractBehavior {
 	 private static final long serialVersionUID = 1L;
 
-	 private Component component;
+	 private Component component = null;
 
 	 @Override
 	 public void bind(Component component) {
