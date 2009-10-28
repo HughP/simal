@@ -272,10 +272,13 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	  
 	  public IProject getProjectById(String id) throws SimalRepositoryException {
 		    if (!SimalRepositoryFactory.getInstance().isValidSimalID(id)) {
-		      throw new SimalRepositoryException(
+		      logger.info(
 		          "Attempt to find a project using an invalid Simal ID of "
 		              + id
-		              + " are you sure that is a unique ID? You may need to call RDFUtils.getUniqueSimalID(id)");
+		              + " attempting to create a valid ID using ISimalRepository.getUniqueSimalID(id)");
+		      id = JenaSimalRepository.getInstance().getUniqueSimalID(id);
+		      logger.info("Trying to retrieve project using unique ID of " + id);
+		      return getProjectById(id);
 		    }
 		    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
 		        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
