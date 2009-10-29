@@ -271,6 +271,7 @@ public class JenaProjectService extends JenaService implements IProjectService {
 		  }
 	  
 	  public IProject getProjectById(String id) throws SimalRepositoryException {
+		    logger.debug("Attempting to get a project with the id " + id);
 		    if (!SimalRepositoryFactory.getInstance().isValidSimalID(id)) {
 		      logger.info(
 		          "Attempt to find a project using an invalid Simal ID of "
@@ -288,6 +289,12 @@ public class JenaProjectService extends JenaService implements IProjectService {
 
 		    IProject project = findProjectBySPARQL(queryStr);
 
+		    if (project == null) {
+		      logger.debug("No project with that ID found");
+		    } else {
+		      logger.debug("Retrieved project name: " + project.getName());
+		    }
+		    
 		    return project;
 		  }
 	  
@@ -301,6 +308,7 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	   * 
 	   */
 	  private IProject findProjectBySPARQL(String queryStr) {
+		logger.debug("Get project with SPARQL:\n" + queryStr);
 		Model model = ((JenaSimalRepository)getRepository()).getModel();
 	    Query query = QueryFactory.create(queryStr);
 	    QueryExecution qe = QueryExecutionFactory.create(query, model);
