@@ -258,16 +258,12 @@ public class Project extends DoapResource implements IProject {
     return id;
   }
 
-  public void setSimalID(String newId) throws SimalRepositoryException {
-    if (newId.contains(":")
-        && !newId.startsWith(SimalProperties
+  public void setSimalID(String id) throws SimalRepositoryException {
+    if (id.contains(":")
+        && !id.startsWith(SimalProperties
             .getProperty((SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)))) {
-      throw new SimalRepositoryException("Simal ID cannot contain a '-', id is " + newId);
+      throw new SimalRepositoryException("Simal ID cannot contain a ':', id is " + id);
     }
-    StringBuilder id = new StringBuilder(SimalProperties
-        .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID));
-    id.append("-");
-    id.append(newId);
     logger.info("Setting simalId for " + this + " to " + id);
     getJenaResource().addLiteral(SimalOntology.PROJECT_ID, id);
   }
