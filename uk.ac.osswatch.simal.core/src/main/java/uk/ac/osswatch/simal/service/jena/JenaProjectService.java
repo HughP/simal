@@ -179,6 +179,22 @@ public class JenaProjectService extends JenaService implements IProjectService {
 		
 	    return findProjectsBySPARQL(queryStr);
 	}
+
+	public Set<IProject> getProjectsWithoutReview() throws SimalRepositoryException {
+		String queryStr = "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "PREFIX doap: <" + Doap.NS + ">"
+        + "SELECT DISTINCT ?project WHERE {"
+        + "?project rdf:type doap:Project . "
+        + "OPTIONAL { "
+        + "?review a simal:Review . "
+        + "?review simal:Project ?project "
+        + "} "
+        + "FILTER (!bound(?review)) }";
+		return findProjectsBySPARQL(queryStr);
+	}
+
 	
 	  public IProject getOrCreateProject(String uri)
 	  		throws SimalRepositoryException {

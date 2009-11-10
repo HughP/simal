@@ -104,6 +104,14 @@ public interface IProjectService extends IService {
 	   */
   	  public Set<IProject> getProjectsWithReview() throws SimalRepositoryException;
 
+	  /**
+	   * Find all projects that have no reviews assigned to it.
+	   * 
+	   * @return
+	   * @throws SimalRepositoryException 
+	   */
+  	  public Set<IProject> getProjectsWithoutReview() throws SimalRepositoryException;
+
   	  /**
   	   * Tests to see if a project already exists in the repository.
   	   */
