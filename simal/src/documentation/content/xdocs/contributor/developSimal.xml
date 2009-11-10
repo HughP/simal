@@ -55,12 +55,10 @@
       <title>Recommended Plugins</title>
         
       <section>
-        <title>Eclipse 3.3 + Web Tools Project 2.0</title>
+        <title>Eclipse 3.5 + Web Tools Project 3.1</title>
         
         <p class="instruction">If you do not currently have eclipse installed we recommend that you 
-        download and unpack the 
-        <a href="http://download.eclipse.org/webtools/downloads/">Eclipse + WTP</a> All in one
-        package.</p>
+        download and unpack the <a href="http://www.eclipse.org/downloads/">Eclipse IDE for Java EE Developers</a>package.</p>
         
         <p class="instruction">If you already have eclipse then you will need to ensure that you also
         have the Web Standards Tools (WST) plugin installed (use the WTP 
@@ -71,28 +69,12 @@
       <section>
         <title>Subclipse</title>
           <p>We use a Subversion repository for our source code, therefore you need
-          the subclipse plugins for working with the repository. Follow these simple 
-          steps:</p>
-          
-          <p class="instruction">In the Eclipse menu select 
-          <em>Help -> Software Updates -> Find and Install...</em></p>
-          <p class="instruction">In the resulting dialog select <em>Search for new
-          features to install</em> then click <em>next</em></p>
-          <p class="instruction">Click <em>New Remote Site...</em></p>
-          <p class="instruction">Enter a <em>Name</em> of Subclipse and
-          and <em>URL</em> of http://subclipse.tigris.org/update_1.2.x and click <em>Finish</em></p>
-          <p class="instruction">After a short delay whilst the update site is searched you will
-          be able to expand the <em>subclipse</em> node and select <em>subclipse</em> for download.</p>
-          <p class="instruction">[OPTIONAL] You may also choose to install the Mylar Integration
-          plugin at this time. Mylar is not required, but is one of the optional plugins we
-          will discuss later in this document.</p>
-          <p class="instruction">Click <em>Next</em></p>
-          <p class="instruction">Agree to the license terms (assuming you do agree that is)
-          and click <em>Next</em></p>
-          <p class="instruction">Review the plugins you have selected and click <em>Finish</em></p>
-          <p class="instruction">After the plugins are downloaded click the <em>Install All</em> 
-          button</p>
-          <p class="instruction">Restart Eclipse when asked to do so</p>
+          an SVN plugin like Subclipse for working with the repository. You can install
+          the Subclipse plugin in Eclipse using their update site <a href="http://subclipse.tigris.org/update_1.6.x">
+          http://subclipse.tigris.org/update_1.6.x</a> in the Eclipse Update Manager. If you are unfamiliar
+          with the Eclipse update manager you can find a good tutorial <a href="http://www.vogella.de/articles/Eclipse/article.html#plugin_installation">
+          here</a></p>
+
         </section>
     </section>
     
@@ -103,15 +85,15 @@
       you need to <a href="http://maven.apache.org/download.html">
       download and install</a> Maven 2 on your machine. However, if
       you only intend to use maven from within Eclipse then you just
-      need the Q4E plugin described in the next section.</p> 
+      need the a Maven plugin described in the next section.</p> 
       
       <section>
-        <title>Q4e</title>
+        <title>m2eclipse</title>
         
-        <p>If you are using Eclipse we also recommend the Q4e plugin that allows
-        you to work with Maven projects within Eclipse. Q4e is available from the
-        q4e <a href="http://q4e.googlecode.com/svn/trunk/updatesite/">update 
-        site</a> and is installed as described for the subclipse plugin above.</p>
+        <p>If you are using Eclipse we also recommend the m2eclipse plugin that allows
+        you to work with Maven projects within Eclipse. M2eclipse is available from the
+        m2eclipse <a href="http://m2eclipse.sonatype.org/update/">update site</a> 
+        and is installed as described for the Subclipse plugin above.</p>
       </section>
     </section>
 
@@ -229,7 +211,7 @@
           <p><a href="http://findbugs.sourceforge.net/">FindBugs</a> uses static analysis to look for 
           bugs in Java code.</p>
           
-          <p>Use the <a href="http://findbugs.cs.umd.edu/eclipse-daily/">FindBugs Eclipse update</a> 
+          <p>Use the <a href="http://findbugs.cs.umd.edu/eclipse/">FindBugs Eclipse update</a> 
           site to install this plugin.</p>  
         </section>
       </section>
