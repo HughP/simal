@@ -19,7 +19,7 @@ package uk.ac.osswatch.simal.wicket;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
+import uk.ac.osswatch.simal.wicket.doap.ProjectBrowserPage;
 
 /**
  * Simple test using the WicketTester
@@ -32,7 +32,7 @@ public class TestBasePage extends TestBase {
     tester.assertRenderedPage(BasePage.class);
     tester.assertVisible("footer");
 
-    tester.clickLink("exhibitBrowserLink");
-    tester.assertRenderedPage(ExhibitProjectBrowserPage.class);
+    tester.clickLink("projectBrowserLink");
+    tester.assertRenderedPage(ProjectBrowserPage.class);
   }
 }
