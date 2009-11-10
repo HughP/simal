@@ -7,7 +7,7 @@ For contributor info see http://code.google.com/p/simal
 
 Building the documentation
 
-- download and install forrest 0.8
+- download and install forrest 0.9-dev
 - checkout simal-docs module fiXME: currently simal module)
 - cd SIMAL_HOME
 - forrest run
