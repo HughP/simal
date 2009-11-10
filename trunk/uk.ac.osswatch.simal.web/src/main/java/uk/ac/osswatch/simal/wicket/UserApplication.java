@@ -37,7 +37,7 @@ import uk.ac.osswatch.simal.wicket.data.URLConverter;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
-import uk.ac.osswatch.simal.wicket.foaf.PersonBrowserPage;
+import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 
 /**
@@ -72,7 +72,7 @@ public class UserApplication extends WebApplication {
     mount(new QueryStringUrlCodingStrategy("/person/detailencoded",
         PersonDetailPage.class));
 
-    mountBookmarkablePage("/personBrowser", PersonBrowserPage.class);
+    mountBookmarkablePage("/personBrowser", ExhibitPersonBrowserPage.class);
 
     // Category Pages
     mountBookmarkablePage("/categoryBrowser", CategoryBrowserPage.class);

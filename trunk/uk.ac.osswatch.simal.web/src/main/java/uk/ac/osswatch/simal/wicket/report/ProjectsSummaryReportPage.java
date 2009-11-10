@@ -16,14 +16,20 @@ package uk.ac.osswatch.simal.wicket.report;
  * under the License.                                                *
  */
 
+import java.util.Set;
+
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.Link;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
+import uk.ac.osswatch.simal.wicket.doap.ProjectBrowserPage;
 
 /**
  * A page for reporting on the status of a set of projects in the repository.
@@ -52,11 +58,39 @@ public class ProjectsSummaryReportPage extends BasePage {
 
 	private void populateReviewDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
-		  add(new Label("numOfProjectsWithReview", Integer.toString(numOfProjectsWithReview)));
+		  Link link = new Link("reviewedProjectsLink") {
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithReview();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects with review", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithReview", Integer.toString(numOfProjectsWithReview)));
+		  add(link);
 		  
 		  int numOfProjectsWithoutReview = numOfProjects - numOfProjectsWithReview;
-		  add(new Label("numOfProjectsWithoutReview", Integer.toString(numOfProjectsWithoutReview)));
-
+		  link = new Link("projectsToReviewLink") {
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutReview();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects needing review", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  add(link);
+		  link.add(new Label("numOfProjectsWithoutReview", Integer.toString(numOfProjectsWithoutReview)));
+		  
 		  Double percentOfProjectsWithReview = Double.valueOf(((double)numOfProjectsWithReview / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithReview", Math.round(percentOfProjectsWithReview) + "%"));
 	}
