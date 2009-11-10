@@ -47,6 +47,8 @@ import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
+import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.tools.OhlohFormInputModel;
 
 /**
@@ -155,6 +157,12 @@ public class ToolsPage extends BasePage {
         }
       }
     });
+    
+    // Browsing Tools
+    add(new BookmarkablePageLink("exhibitPersonLink",
+        ExhibitPersonBrowserPage.class));
+    add(new BookmarkablePageLink("exhibitProjectLink",
+            ExhibitProjectBrowserPage.class));
   }
 
   /**

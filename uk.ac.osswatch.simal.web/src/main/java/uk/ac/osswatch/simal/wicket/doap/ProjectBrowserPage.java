@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.wicket.foaf;
+package uk.ac.osswatch.simal.wicket.doap;
 /*
  * Copyright 2009 University of Oxford
  *
@@ -16,25 +16,46 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
+import java.util.Set;
+
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
-import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
+import uk.ac.osswatch.simal.wicket.foaf.PersonBrowserPage;
+import uk.ac.osswatch.simal.wicket.panel.ProjectListPanel;
 
 /**
- * A simple person browser page. List people, pages through them and allows simple searching of the
- * list. This page can be used to show any arbitrary list of people. Simply instantiate with using
- * the empty constructor to display all people, or supply a set of people to be used.
+ * A simple project browser page. List projects, pages through them and allows simple searching of the
+ * list. This page can be used to show any arbitrary list of projects. Simply instantiate with using
+ * the empty constructor to display all projects, or supply a set of projects to be used.
  */
-public class PersonBrowserPage extends BasePage {
+public class ProjectBrowserPage extends BasePage {
 
-	public PersonBrowserPage() {
+	/**
+	 * Create a default page that lists all projects in the repository.
+	 */
+	public ProjectBrowserPage() {
 	    try {
-	        add(new PersonListPanel("personList", "People", 15));
+	        add(new ProjectListPanel("projectList", 15));
 	      } catch (SimalRepositoryException e) {
 	        UserReportableException error = new UserReportableException(
-	            "Unable to get people from the repository",
+	            "Unable to get projects from the repository",
+	            PersonBrowserPage.class, e);
+	        setResponsePage(new ErrorReportPage(error));
+	      }
+	}
+
+	/**
+	 * Create a page that lists only the projects supplied.
+	 */
+	public ProjectBrowserPage(Set<IProject> projects) {
+	    try {
+	        add(new ProjectListPanel("projectList", projects, 15));
+	      } catch (SimalRepositoryException e) {
+	        UserReportableException error = new UserReportableException(
+	            "Unable to get projects from the repository",
 	            PersonBrowserPage.class, e);
 	        setResponsePage(new ErrorReportPage(error));
 	      }
