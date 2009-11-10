@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.integrationTest.model.repository;
+package uk.ac.osswatch.simal.integrationTest.service;
 /*
  * Copyright 2007 University of Oxford
  *
@@ -29,6 +29,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IProjectService;

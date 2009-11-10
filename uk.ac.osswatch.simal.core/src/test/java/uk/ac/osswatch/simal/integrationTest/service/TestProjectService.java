@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.integrationTest.model.repository;
+package uk.ac.osswatch.simal.integrationTest.service;
 /*
  * Copyright 2007 University of Oxford 
  * 
@@ -25,6 +25,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IProjectService;
@@ -86,7 +87,7 @@ public class TestProjectService extends BaseRepositoryTest {
 	public void testGetProjectsWithReview() throws SimalRepositoryException {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithReview();
-		assertEquals("Got incorect number of projects witha review", 1, projects.size());
+		assertEquals("Got incorect number of projects with a review", 1, projects.size());
 	}
 	
 	@Test
