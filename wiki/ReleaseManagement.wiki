@@ -1,34 +1,42 @@
 #summary Steps to go through for a release
 #labels Phase-QA
 
+= Releases and iterations =
+
+Currently we use iterations of two weeks. At the end of each iterations a new release is built. Because of this short span not every release will be uploaded to Google code, but every other release will. The demo server is updated with every release.
+
+= Determine release version number =
+
+The version numbers of Simal releases are of the form {{{x.y.z}}} or {{{<major>.<minor>.<micro>}}}. The {{{<major>}}} version number is only increased when a large amount of new functionality is added. In this case the new release version number will be {{{(x+1).0.0}}}. The {{{<minor>}}} version number is only increased when some functionality is added to the new release, in which case the new release version number will be {{{x.(y+1).0}}}. When only bugfixes are part of the new release there will be a so-called point release. The version number of the new release in this case will be {{{x.y.(z+1)}}}. Currently, all components (core, rest and webapp) get the same version number.
+
 = Pre-Requisites =
 
 Before a release can be made a number of requirements must be met.
 
  * Check all CodeAuditing reports are satisfactory (satisfactory means there are no warnings from the code audit tools)
  * All [http://code.google.com/p/simal/issues/list?can=7&q=&colspec=ID+Type+Status+Priority+Milestone+Summary&x=priority&y=milestone&cells=tiles unverified issues] have been verified by someone other than the owner of that issue
- * All source code has been formatted according to the projects coding standards
+ * All source code has been formatted according to the project's coding standards
  * All documentation has been updated to reflect the new features in this release
 
 = Code Freeze =
 
-Send a mail to the developer and user lists stating that the project has entered a state of code freeze, that is no changes will be made other than preparation changes for the next release until the release branch has been created.
+Send a mail to the developer and user lists stating that the project has entered a state of code freeze, that is no changes will be made other than preparation changes for the next release until the new release has been tagged.
 
-= Change src version numbers to reflect release candidate build =
+= Change src version numbers to reflect release build =
 
-We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-SNAPSHOT" to "-rc1", "-rc2", "rc3" etc.
+First we must correctly set the version number. This means removing the postfix "-SNAPSHOT" in the pom.xml of all the modules and possibly changing the version number (usually when a point release will be made). 
 
  * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
- * in {{{status.xml}}} change the version number and release date for the current release
+ * in {{{status.xml}}} change the version number and release date to the release to be built.
 
 In addition we need to change the dependency entries for other Simal modules in both the rest and webapp modules.
 
-At this early stage we will release all Simal module simultaneously and therefore we need to change the {{{pom.xml}}} as described in each module (there is currently no {{{default.simal.properties}}} file in modules other than core)
+At this early stage we will release all Simal modules simultaneously and therefore we need to change the {{{pom.xml}}} as described in each module (there is currently no {{{default.simal.properties}}} file in modules other than core).
 
 Commit these changes to SVN.
 
-= Build the Release Candidate Binaries =
+= Build the Binaries =
 
 For each of the modules build the binaries as follows:
 
@@ -47,11 +55,22 @@ mvn clean package
 
 Note that the process of building the binaries will run all automated tests against the code.
 
+= Tag the release in SVN =
+
+SVN needs to be tagged with the release information as follows:
+
+{{{
+svn copy https://simal.googlecode.com/svn/trunk https://simal.googlecode.com/svn/tags/x.y.z -m "Tag the x.y.z release"
+}}}
+
 = Upload to Google Code =
 
+If the previous release is not uploaded to Google Code, this release will be (see the start of this document).
 Upload the binaries to the downloads section of Google Code, making them a featured download.
 
-If this is a RC release then previous RC releases should be deleted if possible (they use up the storage quota and can be rebuilt from SVN if people need to do so).
+If this is a point release previous point releases should be deleted if possible (they use up the storage quota and can be rebuilt from SVN if people need to do so).
+
+Deprecate the previous release and remove the featured downloads lable from it (but do not delete the release).
 
 = Ensure documentation is published =
 
@@ -61,22 +80,13 @@ Rebuild and [PublishingSiteDocs publish the docs].
 
 [UpdatingDemoServer Update the version of Simal] on the demo server
 
-= Create a Release Branch = 
-
-From this point forwards only bug fixes will be allowed in the release code. It therefore makes sense to create a branch at this point for the maintenance of the release, This allows development of the new version to continue in the trunk whilst the release candidate is being tested.
-
-To create the release branch run the following commands:
-
-{{{
-svn copy https://simal.googlecode.com/svn/trunk https://simal.googlecode.com/svn/branches/0.2.x -m "Create maintenance branch for the 0.2.x releases"
-}}}
-
 = Change src version numbers in the trunk =
 
-We must now set up SVN trunk for development of the next release. To do this we need to correctly set the version number. Usually this will mean incrementing the minor version number and changing the postfix from "-ga" to "-dev"
+We must now set up SVN trunk for development of the next release. To do this we need to correctly set the version number. 
+Usually this will mean incrementing the minor version number, setting the micro version number to '0' and adding the postfix "-SNAPSHOT".
 
- * in {{{pom.xml}}} change {{{<version>x.y-dev</version>}}}
- * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y-dev}}}
+ * in {{{pom.xml}}} change {{{<version>x.y.z</version>}}} to {{{<version>x.(y+1).0-SNAPSHOT</version>}}}
+ * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.(y+1).0-SNAPSHOT}}}
  * in {{{status.xml}}} add a new {{{<release>}}} element
 
 In addition we need to change the dependency entries for other Simal modules in both the rest and webapp modules.
@@ -85,15 +95,15 @@ In addition we need to change the dependency entries for other Simal modules in 
 
 The ReleaseNotes are used to announce a new release. They are held in the wiki and are used in email and blog announcements.
 
-= Lift Code Freeze and Announce the Release Candidate =
+= Lift Code Freeze and Announce the new Release =
 
-The code freeze on trunk can now be lifted as there is a maintenance branch for any last minute bug fixes or documentation tweaks.
+The code freeze on trunk can now be lifted as the release is tagged, so a maintenance branch can be created if any major bug fixes need to be made.
 
-The release candidate should be announced on the user and contributor lists using the ReleaseNotes.
+The release should be announced on the user and contributor lists using the ReleaseNotes.
 
 = Test =
 
-Each of the binaries should be tested by as many people, on as many platforms as possible. Any reported tests failures must be resolved in the both the release branch and trunk and new binaries are produced produced for testing with a new release candidate version number.
+Each of the binaries should be tested by as many people, on as many platforms as possible. For each reported test failure a decision must be made whether the issue will need to be patched in a patch release or if it can wait until the next release.
 
 More details on how to test are included in:
 
@@ -101,38 +111,13 @@ More details on how to test are included in:
  * TestingRestReleases
  * TestingWebReleases
 
-= Vote =
+= Patch the release when necessary =
 
-Assuming that no critical errors are discovered during the testing phase we can now proceed with getting approval for the release.
-
-A vote on the release is called on the contributor mailing list.
-
-Assuming that the vote passes we can proceed. If it does not pass the reason(s) for the negative votes must be addressed.
-
-= Change release branch version numbers =
-
-We must now build a release package. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-rc*" to "-ga"
-
- * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
- * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
-
-At this early stage we will release all Simal module simultaneously and therefore we need to change the {{{pom.xml}}} as described in each module (there is currently no {{{default.simal.properties}}} file in modules other than core)
-
-= Tag SVN =
-
-SVN needs to be tagged with the release information as follows:
+When one or more critical errors are discovered a patch release needs to be created. If no code has been committed to the trunk after the last release this can be done by creating a new release from the trunk by following this document from the start.
+If changes have been committed a patch release needs to be created from the tag of the latest release. To do that, first copy the tag to a new branch:
 
 {{{
-svn copy http://.../repos/branches/1.0.x http://.../repos/tags/1.0.0
-svn copy https://simal.googlecode.com/svn/branches/0.2.x https://simal.googlecode.com/svn/tags/0.2.0 -m "Tag the 0.2.0 release"
+svn copy https://simal.googlecode.com/svn/tags/x.y.z https://simal.googlecode.com/svn/branches/x.y.z -m "Create patch release branch for the x.y.z release"
 }}}
 
-= Build the release binaries =
-
-For each of the modules build the release binaries using the same process as above.
-
-= Upload to Google Code =
-
-Upload to the downloads section of Google Code, making it a featured download.
-
-Deprecate the previous release and remove the featured downloads lable from it (but do not delete the release).
+Then patch the critical errors on the branch and create a release from that branch following the procedure in this document. Merge the changes from the branch to the trunk to assure the trunk includes these patches. 
