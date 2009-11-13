@@ -268,6 +268,14 @@
         </configuration>
       </plugin>
 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <forkMode>always</forkMode>
+        </configuration>
+      </plugin>
+
       <!--  FIXME: this throws a NPE at present (26 Jan 2008)
         <plugin>
         <groupId>org.apache.maven.plugins</groupId>
