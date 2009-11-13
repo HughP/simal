@@ -67,6 +67,8 @@ public class SimalProperties {
   
   public static final String PROPERTY_GOOGLE_AJAX_FEED_API_KEY = "google.ajax.feed.api.key";
 
+  public static final String PROPERTY_SIMAL_HOMEPAGELABELS_PATH = "simal.homepagelabels.filename";
+  
   private static Properties defaultProps;
   private static Properties localProps;
 
