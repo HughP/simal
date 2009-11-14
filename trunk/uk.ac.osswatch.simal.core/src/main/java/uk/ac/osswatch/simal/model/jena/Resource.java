@@ -40,7 +40,6 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.ResourceUtils;
 import com.hp.hpl.jena.vocabulary.DC;
-import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class Resource extends AbstractResource {
@@ -146,9 +145,7 @@ public class Resource extends AbstractResource {
   public void delete() throws SimalRepositoryException {
     getJenaResource().removeProperties();
     Model model = getJenaResource().getModel();
-    // FIXME: we need to be able to delete resources other than doap:Project
-    Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
-    model.remove(jenaResource, RDF.type, o);
+    model.removeAll(jenaResource, null, null);
     
   }
   
@@ -235,7 +232,8 @@ public class Resource extends AbstractResource {
   }
 
 public void addSeeAlso(URI uri) {
-	// TODO Auto-generated method stub
+  com.hp.hpl.jena.rdf.model.Resource resource = getJenaResource().getModel().createResource(uri.toASCIIString());
+  getJenaResource().addProperty(RDFS.seeAlso, resource);
 }
 
 public void setComment(String comment) {
