@@ -146,8 +146,10 @@ public class Resource extends AbstractResource {
   public void delete() throws SimalRepositoryException {
     getJenaResource().removeProperties();
     Model model = getJenaResource().getModel();
+    // FIXME: we need to be able to delete resources other than doap:Project
     Property o = model.createProperty("http://usefulinc.com/ns/doap#Project");
     model.remove(jenaResource, RDF.type, o);
+    
   }
   
   public Object getRepositoryResource() {
