@@ -46,7 +46,7 @@ public class JenaOrganisationService extends JenaService implements
 			SimalRepositoryException {
 		if (getRepository().containsProject(uri)) {
 			throw new DuplicateURIException(
-					"Attempt to create a second project with the URI " + uri);
+					"Attempt to create a second organisation with the URI " + uri);
 		}
 
 		Model model = ((JenaSimalRepository) getRepository()).getModel();
