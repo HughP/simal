@@ -39,19 +39,19 @@ public class TestProjectsSummaryReport extends TestBase {
 	  @Test
 	  public void testProjectFigures() {
 	    tester.assertVisible("numOfProjects");
-		tester.assertLabel("numOfProjects", "10");
+		tester.assertLabel("numOfProjects", "9");
 	  }
 	  
 	  @Test
 	  public void testRepositoryFigures() {
-		tester.assertVisible("numOfProjectsWithRCS");
-		tester.assertLabel("numOfProjectsWithRCS", "2");
+		//tester.assertVisible("numOfProjectsWithRCS");
+		//tester.assertLabel("reviewedProjectsLink:numOfProjectsWithRCS", "2");
 
-		tester.assertVisible("numOfProjectsWithoutRCS");
-		tester.assertLabel("numOfProjectsWithoutRCS", "8");
+		//tester.assertVisible("numOfProjectsWithoutRCS");
+		//tester.assertLabel("numOfProjectsWithoutRCS", "8");
 
 		tester.assertVisible("percentProjectsWithRCS");
-		tester.assertLabel("percentProjectsWithRCS", "20%");
+		tester.assertLabel("percentProjectsWithRCS", "22%");
 	  }
 	  
 	  @Test
@@ -60,10 +60,10 @@ public class TestProjectsSummaryReport extends TestBase {
 		tester.assertLabel("numOfProjectsWithHomepage", "8");
 
 		tester.assertVisible("numOfProjectsWithoutHomepage");
-		tester.assertLabel("numOfProjectsWithoutHomepage", "2");
+		tester.assertLabel("numOfProjectsWithoutHomepage", "1");
 
 		tester.assertVisible("percentProjectsWithHomepage");
-		tester.assertLabel("percentProjectsWithHomepage", "80%");
+		tester.assertLabel("percentProjectsWithHomepage", "89%");
 	  }
 	  
 	  @Test
@@ -72,10 +72,10 @@ public class TestProjectsSummaryReport extends TestBase {
 		tester.assertLabel("numOfProjectsWithMailingList", "4");
 
 		tester.assertVisible("numOfProjectsWithoutMailingList");
-		tester.assertLabel("numOfProjectsWithoutMailingList", "6");
+		tester.assertLabel("numOfProjectsWithoutMailingList", "5");
 
 		tester.assertVisible("percentProjectsWithMailingList");
-		tester.assertLabel("percentProjectsWithMailingList", "40%");
+		tester.assertLabel("percentProjectsWithMailingList", "44%");
 	  }
 	  
 	  @Test
@@ -84,10 +84,10 @@ public class TestProjectsSummaryReport extends TestBase {
 		tester.assertLabel("numOfProjectsWithMaintainer", "7");
 
 		tester.assertVisible("numOfProjectsWithoutMaintainer");
-		tester.assertLabel("numOfProjectsWithoutMaintainer", "3");
+		tester.assertLabel("numOfProjectsWithoutMaintainer", "2");
 
 		tester.assertVisible("percentProjectsWithMaintainer");
-		tester.assertLabel("percentProjectsWithMaintainer", "70%");
+		tester.assertLabel("percentProjectsWithMaintainer", "78%");
 	  }
 
 	  @Test
@@ -96,9 +96,9 @@ public class TestProjectsSummaryReport extends TestBase {
 		tester.assertLabel("numOfProjectsWithBugDatabase", "4");
 
 		tester.assertVisible("numOfProjectsWithoutBugDatabase");
-		tester.assertLabel("numOfProjectsWithoutBugDatabase", "6");
+		tester.assertLabel("numOfProjectsWithoutBugDatabase", "5");
 
 		tester.assertVisible("percentProjectsWithBugDatabase");
-		tester.assertLabel("percentProjectsWithBugDatabase", "40%");
+		tester.assertLabel("percentProjectsWithBugDatabase", "44%");
 	  }
 }
