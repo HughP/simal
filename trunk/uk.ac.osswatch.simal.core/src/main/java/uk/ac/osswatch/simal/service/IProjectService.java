@@ -81,20 +81,43 @@ public interface IProjectService extends IService {
 	public Set<IProject> getProjectsWithMaintainer() throws SimalRepositoryException;
 
 	/**
+	 * Get all projects in the repository that have no Maintainer recorded.
+	 * 
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public Set<IProject> getProjectsWithoutMaintainer() throws SimalRepositoryException;
+	
+	/**
 	 * Get all projects in the repository that have a release recorded.
 	 * 
 	 * @return
 	 * @throws SimalRepositoryException 
 	 */
 	public Set<IProject> getProjectsWithRelease() throws SimalRepositoryException;
+
+	/**
+	 * Get all projects in the repository that have no releases recorded.
+	 * 
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public Set<IProject> getProjectsWithoutRelease() throws SimalRepositoryException;
 	
 	/**
-	 * Get all Bug database entries recorded in the repository.
+	 * Get all projects that have a bug database assigned to them.
 	 * @return
 	 * @throws SimalRepositoryException 
 	 */
 	public Set<IProject> getProjectsWithBugDatabase() throws SimalRepositoryException;
 
+	/**
+	 * Get all projects that do not have a bug database assigned to them.
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public Set<IProject> getProjectsWithoutBugDatabase() throws SimalRepositoryException;
+	
 	/**
 	 * Get a project from the repository. Return null if the project does not exist.
 	 * @param uri
@@ -171,4 +194,12 @@ public interface IProjectService extends IService {
 	     * @throws SimalRepositoryException
 	     */
 	    public IProject getProjectById(String id) throws SimalRepositoryException;
+
+	    /**
+	     * Get all projects that do not have a mailing list recorded against them.
+	     * 
+	     * @return
+	     * @throws SimalRepositoryException 
+	     */
+		public Set<IProject> getProjectsWithoutMailingList() throws SimalRepositoryException;
 }
