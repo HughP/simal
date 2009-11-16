@@ -55,10 +55,13 @@ public class ProjectsSummaryReportPage extends BasePage {
 		}
 	  }
 
+	@SuppressWarnings("unchecked")
 	private void populateReviewDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
 		  Link link = new Link("reviewedProjectsLink") {
-			  public void onClick() {
+			private static final long serialVersionUID = 1L;
+
+			public void onClick() {
 				  try {
 					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithReview();
 					ProjectBrowserPage page = new ProjectBrowserPage(projects);
@@ -75,6 +78,8 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  
 		  int numOfProjectsWithoutReview = numOfProjects - numOfProjectsWithReview;
 		  link = new Link("projectsToReviewLink") {
+			  private static final long serialVersionUID = 1L;
+
 			  public void onClick() {
 				  try {
 					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutReview();
@@ -94,9 +99,12 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  add(new Label("percentProjectsWithReview", Math.round(percentOfProjectsWithReview) + "%"));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void populateRepositoryDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithRCS = SimalRepositoryFactory.getProjectService().getProjectsWithRCS().size();
 		  Link link = new Link("projectsWithRCSLink") {
+				private static final long serialVersionUID = 1L;
+
 			  public void onClick() {
 				  try {
 					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithRCS();
@@ -114,6 +122,8 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  
 		  int numOfProjectsWithoutRCS = numOfProjects - numOfProjectsWithRCS;
 		  link = new Link("projectsWithoutRCSLink") {
+				private static final long serialVersionUID = 1L;
+
 			  public void onClick() {
 				  try {
 					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutRCS();
@@ -131,61 +141,251 @@ public class ProjectsSummaryReportPage extends BasePage {
 		  
 		  Double percentOfProjectsWithRCS = Double.valueOf(((double)numOfProjectsWithRCS / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithRCS", Math.round(percentOfProjectsWithRCS) + "%"));
+		  
+		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
+		  Double reviewedPercentOfProjectsWithRCS = Double.valueOf(((double)numOfProjectsWithRCS / (double)numOfProjectsWithReview) * 100);
+		  add(new Label("reviewedPercentProjectsWithRCS", Math.round(reviewedPercentOfProjectsWithRCS) + "%"));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void populateHomepageDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithHomepage = SimalRepositoryFactory.getProjectService().getProjectsWithHomepage().size();
-		  add(new Label("numOfProjectsWithHomepage", Integer.toString(numOfProjectsWithHomepage)));
+		  Link link = new Link("projectsWithHomepageLink") {
+				private static final long serialVersionUID = 1L;
+
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithHomepage();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects with homepage", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithHomepage", Integer.toString(numOfProjectsWithHomepage)));
+		  add(link);
 		  
 		  int numOfProjectsWithoutHomepage = numOfProjects - numOfProjectsWithHomepage;
-		  add(new Label("numOfProjectsWithoutHomepage", Integer.toString(numOfProjectsWithoutHomepage)));
+		  link = new Link("projectsWithoutHomepageLink") {
+				private static final long serialVersionUID = 1L;
 
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutHomepage();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects without homepage", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithoutHomepage", Integer.toString(numOfProjectsWithoutHomepage)));
+		  add(link);
+		  
 		  Double percentOfProjectsWithHomepage = Double.valueOf(((double)numOfProjectsWithHomepage / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithHomepage", Math.round(percentOfProjectsWithHomepage) + "%"));
+		  
+		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
+		  Double reviewedPercentOfProjectsWith = Double.valueOf(((double)numOfProjectsWithHomepage / (double)numOfProjectsWithReview) * 100);
+		  add(new Label("reviewedPercentProjectsWithHomepage", Math.round(reviewedPercentOfProjectsWith) + "%"));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void populateMailingListDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithMailingList = SimalRepositoryFactory.getProjectService().getProjectsWithMailingList().size();
-		  add(new Label("numOfProjectsWithMailingList", Integer.toString(numOfProjectsWithMailingList)));
+		  Link link = new Link("projectsWithMailingListLink") {
+			  private static final long serialVersionUID = 1L;
+
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithMailingList();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects with mailing list", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithMailingList", Integer.toString(numOfProjectsWithMailingList)));
+		  add(link);
 		  
 		  int numOfProjectsWithoutMailingList = numOfProjects - numOfProjectsWithMailingList;
-		  add(new Label("numOfProjectsWithoutMailingList", Integer.toString(numOfProjectsWithoutMailingList)));
+		  link = new Link("projectsWithoutMailingListLink") {
+			  private static final long serialVersionUID = 1L;
+
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutMailingList();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects without mailing list", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithoutMailingList", Integer.toString(numOfProjectsWithoutMailingList)));
+		  add(link);
 
 		  Double percentOfProjectsWithMailingList = Double.valueOf(((double)numOfProjectsWithMailingList / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithMailingList", Math.round(percentOfProjectsWithMailingList) + "%"));
+		  
+		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
+		  Double reviewedPercentOfProjectsWith = Double.valueOf(((double)numOfProjectsWithMailingList / (double)numOfProjectsWithReview) * 100);
+		  add(new Label("reviewedPercentProjectsWithMailingList", Math.round(reviewedPercentOfProjectsWith) + "%"));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void populateStaffDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithMaintainer = SimalRepositoryFactory.getProjectService().getProjectsWithMaintainer().size();
-		  add(new Label("numOfProjectsWithMaintainer", Integer.toString(numOfProjectsWithMaintainer)));
+		  Link link = new Link("projectsWithMaintainerLink") {
+			  private static final long serialVersionUID = 1L;
+
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithMaintainer();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects with maintainer", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithMaintainer", Integer.toString(numOfProjectsWithMaintainer)));
+		  add(link);
 		  
 		  int numOfProjectsWithoutMaintainer = numOfProjects - numOfProjectsWithMaintainer;
-		  add(new Label("numOfProjectsWithoutMaintainer", Integer.toString(numOfProjectsWithoutMaintainer)));
+		  link = new Link("projectsWithoutMaintainerLink") {
+			  private static final long serialVersionUID = 1L;
+
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutMaintainer();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects without maintainer", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithoutMaintainer", Integer.toString(numOfProjectsWithoutMaintainer)));
+		  add(link);
 
 		  Double percentOfProjectsWithMaintainer = Double.valueOf(((double)numOfProjectsWithMaintainer / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithMaintainer", Math.round(percentOfProjectsWithMaintainer) + "%"));
+
+		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
+		  Double reviewedPercentOfProjectsWith = Double.valueOf(((double)numOfProjectsWithMaintainer / (double)numOfProjectsWithReview) * 100);
+		  add(new Label("reviewedPercentProjectsWithMaintainer", Math.round(reviewedPercentOfProjectsWith) + "%"));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void populateBugDatabaseDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithBugDatabase = SimalRepositoryFactory.getProjectService().getProjectsWithBugDatabase().size();
-		  add(new Label("numOfProjectsWithBugDatabase", Integer.toString(numOfProjectsWithBugDatabase)));
+		  Link link = new Link("projectsWithBugDatabaseLink") {
+			  private static final long serialVersionUID = 1L;
+
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithBugDatabase();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects with bug database", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithBugDatabase", Integer.toString(numOfProjectsWithBugDatabase)));
+		  add(link);
 		  
 		  int numOfProjectsWithoutBugDatabase = numOfProjects - numOfProjectsWithBugDatabase;
-		  add(new Label("numOfProjectsWithoutBugDatabase", Integer.toString(numOfProjectsWithoutBugDatabase)));
+		  link = new Link("projectsWithoutBugDatabaseLink") {
+			  private static final long serialVersionUID = 1L;
 
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutBugDatabase();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects without bug database", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithoutBugDatabase", Integer.toString(numOfProjectsWithoutBugDatabase)));
+		  add(link);
+		  
 		  Double percentOfProjectsWithBugDatabase = Double.valueOf(((double)numOfProjectsWithBugDatabase / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithBugDatabase", Math.round(percentOfProjectsWithBugDatabase) + "%"));
+
+		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
+		  Double reviewedPercentOfProjectsWith = Double.valueOf(((double)numOfProjectsWithBugDatabase / (double)numOfProjectsWithReview) * 100);
+		  add(new Label("reviewedPercentProjectsWithBugDatabase", Math.round(reviewedPercentOfProjectsWith) + "%"));
 	}
 
+	@SuppressWarnings("unchecked")
 	private void populateReleaseDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithRelease = SimalRepositoryFactory.getProjectService().getProjectsWithRelease().size();
-		  add(new Label("numOfProjectsWithRelease", Integer.toString(numOfProjectsWithRelease)));
+		  Link link = new Link("projectsWithReleasesLink") {
+			  private static final long serialVersionUID = 1L;
+
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithRelease();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects without releases", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithRelease", Integer.toString(numOfProjectsWithRelease)));
+		  add(link);
 		  
 		  int numOfProjectsWithoutRelease = numOfProjects - numOfProjectsWithRelease;
-		  add(new Label("numOfProjectsWithoutRelease", Integer.toString(numOfProjectsWithoutRelease)));
+		  link = new Link("projectsWithoutReleasesLink") {
+			  private static final long serialVersionUID = 1L;
+
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutRelease();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects without releases", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithoutRelease", Integer.toString(numOfProjectsWithoutRelease)));
+		  add(link);
+		  
 
 		  Double percentOfProjectsWithRelease = Double.valueOf(((double)numOfProjectsWithRelease / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithRelease", Math.round(percentOfProjectsWithRelease) + "%"));
+
+		  int numOfProjectsWithReview = SimalRepositoryFactory.getProjectService().getProjectsWithReview().size();
+		  Double reviewedPercentOfProjectsWith = Double.valueOf(((double)numOfProjectsWithRelease / (double)numOfProjectsWithReview) * 100);
+		  add(new Label("reviewedPercentProjectsWithRelease", Math.round(reviewedPercentOfProjectsWith) + "%"));
 	}
 	
 }
