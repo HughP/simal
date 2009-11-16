@@ -46,12 +46,15 @@ public class ErrorReportPage extends BasePage {
   }
 
   public ErrorReportPage(UserReportableException e) {
-    logger.error("Reporting an error to the user", e);
-    
-    add(new Label("errorMessage", new Model(e.getMessage())));
-    
-    add(new Label("causedBy", new Model(e.getCause().getMessage())));
-    
+	logger.error("Reporting an error to the user", e);
+	add(new Label("errorMessage", new Model(e.getMessage())));
+
+	if (e == null) {
+	    add(new Label("causedBy", new Model(e.getCause().getMessage())));
+	} else {
+	    add(new Label("causedBy", "No underlying cause"));
+	}
+	
     StringBuffer sb = new StringBuffer();
     sb.append(e.getMessage());
     if (e.getReportingClass() != null) {
