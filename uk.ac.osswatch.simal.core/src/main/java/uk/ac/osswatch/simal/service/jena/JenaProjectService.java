@@ -81,16 +81,32 @@ public class JenaProjectService extends JenaService implements IProjectService {
 		return getProjectsWith(Doap.MAINTAINER);
 	}
 
+	public Set<IProject> getProjectsWithoutMaintainer() throws SimalRepositoryException {
+		return getProjectsWithout(Doap.MAINTAINER);
+	}
+	
 	public Set<IProject> getProjectsWithMailingList() throws SimalRepositoryException {
 		return getProjectsWith(Doap.MAILING_LIST);
 	}
 
+	public Set<IProject> getProjectsWithoutMailingList() throws SimalRepositoryException {
+		return getProjectsWithout(Doap.MAILING_LIST);
+	}
+	
 	public Set<IProject> getProjectsWithBugDatabase() throws SimalRepositoryException {
 		return getProjectsWith(Doap.BUG_DATABASE);
 	}
 
+	public Set<IProject> getProjectsWithoutBugDatabase() throws SimalRepositoryException {
+		return getProjectsWithout(Doap.BUG_DATABASE);
+	}
+	
 	public Set<IProject> getProjectsWithRelease() throws SimalRepositoryException {
 		return getProjectsWith(Doap.RELEASE);
+	}
+
+	public Set<IProject> getProjectsWithoutRelease() throws SimalRepositoryException {
+		return getProjectsWithout(Doap.RELEASE);
 	}
 	
 	private Set<IProject> getProjectsWith(Property property) throws SimalRepositoryException {
