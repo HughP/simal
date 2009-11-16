@@ -38,6 +38,14 @@ public interface IProjectService extends IService {
 	 * @throws SimalRepositoryException 
 	 */
 	public Set<IProject> getProjectsWithRCS() throws SimalRepositoryException;
+	
+	/**
+	 * Get all projects in the repository that have no revision control system recorded.
+	 * 
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public Set<IProject> getProjectsWithoutRCS() throws SimalRepositoryException;
 
 	/**
 	 * Get all projects in the repository that have a homepage recorded.
@@ -46,6 +54,15 @@ public interface IProjectService extends IService {
 	 * @throws SimalRepositoryException 
 	 */
 	public Set<IProject> getProjectsWithHomepage() throws SimalRepositoryException;
+	
+	/**
+	 * Get all projects in the repository that do not have a homepage recorded.
+	 * 
+	 * @return
+	 * @throws SimalRepositoryException 
+	 * @throws SimalRepositoryException 
+	 */
+	public Set<IProject> getProjectsWithoutHomepage() throws SimalRepositoryException;
 
 	/**
 	 * Get all projects in the repository that have a mailing list recorded.

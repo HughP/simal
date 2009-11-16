@@ -64,9 +64,17 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	public Set<IProject> getProjectsWithRCS() throws SimalRepositoryException {
 		return getProjectsWith(Doap.REPOSITORY);
 	}
+	
+	public Set<IProject> getProjectsWithoutRCS() throws SimalRepositoryException {
+		return getProjectsWithout(Doap.REPOSITORY);
+	}
 
 	public Set<IProject> getProjectsWithHomepage() throws SimalRepositoryException {
 		return getProjectsWith(Doap.HOMEPAGE);
+	}
+
+	public Set<IProject> getProjectsWithoutHomepage() throws SimalRepositoryException {
+		return getProjectsWithout(Doap.HOMEPAGE);
 	}
 
 	public Set<IProject> getProjectsWithMaintainer() throws SimalRepositoryException {
@@ -90,17 +98,37 @@ public class JenaProjectService extends JenaService implements IProjectService {
         + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
         + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
         + "PREFIX doap: <" + Doap.NS + ">"
-        + "SELECT DISTINCT ?project WHERE { {" + "?project a simal:Project . "
-        + "?project <" + property.getURI() + "> ?value }"
-        + " UNION "
-        + "{ ?doapProject a doap:Project . "
+        + "SELECT DISTINCT ?project WHERE { ?doapProject a doap:Project . "
         + "?doapProject <" + property.getURI() + "> ?value . "
         + " ?project a simal:Project . "
-        + " ?project rdfs:seeAlso ?doapProject } }";
+        + " ?project rdfs:seeAlso ?doapProject }";
 
 	    return findProjectsBySPARQL(queryStr);
 	}
+	
+	/**
+	 * Get all proejcts that do not have a given property.
+	 * 
+	 * @param property
+	 * @return
+	 * @throws SimalRepositoryException
+	 */
+	private Set<IProject> getProjectsWithout(Property property) throws SimalRepositoryException {
+		String queryStr = "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI
+        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
+        + "PREFIX doap: <" + Doap.NS + ">"
+        + "SELECT DISTINCT ?project WHERE { { "
+        + " ?project a simal:Project . "
+        + "OPTIONAL { "
+        + " ?doapProject a doap:Project . "
+        + " ?project rdfs:seeAlso ?doapProject . "
+        + " ?doapProject <" + property.getURI() + "> ?value }  "
+        + "FILTER (!bound(?value)) "
+        + " } }";
 
+	    return findProjectsBySPARQL(queryStr);
+	}
 
 	  public IProject getProject(String uri) throws SimalRepositoryException {
 		if(uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
@@ -130,10 +158,11 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	      throws SimalRepositoryException {
 		String queryStr = "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI
 	        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+	        + "PREFIX doap: <" + Doap.NS + ">"
 	        + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + ">"
 	        + "SELECT DISTINCT ?project WHERE { " + "?project a simal:Project . "
-	        + "?project rdfs:seeAlso <" + seeAlso + ">}";
-
+	        + "?project rdfs:seeAlso <" + seeAlso + ">} ";
+		
 	    Set<IProject> projects = findProjectsBySPARQL(queryStr);
 
 	    if (projects.size() == 0) {
