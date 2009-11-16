@@ -19,7 +19,6 @@ package uk.ac.osswatch.simal.wicket.report;
 import java.util.Set;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
@@ -97,11 +96,39 @@ public class ProjectsSummaryReportPage extends BasePage {
 
 	private void populateRepositoryDetails() throws SimalRepositoryException {
 		  int numOfProjectsWithRCS = SimalRepositoryFactory.getProjectService().getProjectsWithRCS().size();
-		  add(new Label("numOfProjectsWithRCS", Integer.toString(numOfProjectsWithRCS)));
+		  Link link = new Link("projectsWithRCSLink") {
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithRCS();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects with RCS", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  link.add(new Label("numOfProjectsWithRCS", Integer.toString(numOfProjectsWithRCS)));
+		  add(link);
 		  
 		  int numOfProjectsWithoutRCS = numOfProjects - numOfProjectsWithRCS;
-		  add(new Label("numOfProjectsWithoutRCS", Integer.toString(numOfProjectsWithoutRCS)));
-
+		  link = new Link("projectsWithoutRCSLink") {
+			  public void onClick() {
+				  try {
+					Set<IProject> projects = SimalRepositoryFactory.getProjectService().getProjectsWithoutRCS();
+					ProjectBrowserPage page = new ProjectBrowserPage(projects);
+					setResponsePage(page);
+				} catch (SimalRepositoryException e) {
+				      UserReportableException error = new UserReportableException(
+				              "Unable to get projects without RCS", ProjectsSummaryReportPage.class, e);
+				      setResponsePage(new ErrorReportPage(error));
+				}
+			  }
+		  };
+		  add(link);
+		  link.add(new Label("numOfProjectsWithoutRCS", Integer.toString(numOfProjectsWithoutRCS)));
+		  
 		  Double percentOfProjectsWithRCS = Double.valueOf(((double)numOfProjectsWithRCS / (double)numOfProjects) * 100);
 		  add(new Label("percentProjectsWithRCS", Math.round(percentOfProjectsWithRCS) + "%"));
 	}
