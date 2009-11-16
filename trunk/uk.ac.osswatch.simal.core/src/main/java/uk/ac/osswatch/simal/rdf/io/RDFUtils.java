@@ -34,6 +34,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 
+import uk.ac.osswatch.simal.HomepageLabelGenerator;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -275,19 +276,7 @@ public class RDFUtils {
       String uri = homepage.getAttributeNS(RDF_NS, "resource");
       String label = homepage.getAttributeNS(RDFS_NS, "label");
       if (label.length() == 0) {
-        if (uri.startsWith("http://www.jisc.ac.uk/whatwedo")) {
-          label = "JISC Project Page";
-        } else if (uri.startsWith("http://code.google.com")) {
-          label = "Google code site";
-        } else if (uri.startsWith("http://www.sf.net")
-            || uri.startsWith("http://www.sourceforge.net")
-            || uri.startsWith("http://sourceforge.net")) {
-          label = "Sourceforge site";
-        } else if (uri.startsWith("http://www.ohloh.net")) {
-          label = "Ohloh stats";
-        } else {
-          label = "Webpage";
-        }
+    	  label =  HomepageLabelGenerator.getHomepageLabel(uri);
         homepage.setAttributeNS(RDFS_NS, "label", label);
         logger.debug("Set title of webpage at {} to {}", new String[] { uri,
             label });
@@ -295,7 +284,7 @@ public class RDFUtils {
     }
   }
 
-  /**
+/**
    * Some of the RDF elements may contain HTML. This content should be within a
    * CData section to prevent it being interpreted as RDF. This method will look
    * at these sections and, if necessary, will mark it as CData.
@@ -567,67 +556,6 @@ public class RDFUtils {
         }
       }
     }
-  }
-
-  /**
-   * Look for duplicate projects and, where they are found, replace the QName
-   * with that already present in the repository. This has the effect of merging
-   * project records.
-   * 
-   * @param doc
-   *          an XML document representing the RDF data
-   * @param repo
-   * @return
-   * @throws ISimalRepositoryException
-   * @throws DOMException
-   */
-  public static void deDupeProjects(Document doc, ISimalRepository repo)
-      throws DOMException, SimalRepositoryException {
-    logger.debug("deDupeProjects found in RDF file");
-    // handle duplicate projects identified by their homepage
-    NodeList homepages = doc.getElementsByTagNameNS(DOAP_NS, "homepage");
-    Element homepage;
-    for (int i = 0; i < homepages.getLength(); i = i + 1) {
-      homepage = (Element) homepages.item(i);
-      IProject project = repo.findProjectByHomepage(homepage.getAttributeNS(
-          RDF_NS, "resource").trim());
-      if (project != null) {
-        logger.info("Merging duplicate project (based on homepage): "
-            + project.toString() + " into " + project.getURI());
-        Element projectNode = (Element) homepage.getParentNode();
-        projectNode.setAttributeNS(RDF_NS, "about", project.getURI());
-      }
-    }
-
-    // handle duplicate projects identified by their rdfs:seeAlso
-    NodeList seeAlsos = doc.getElementsByTagNameNS(RDFS_NS, "seeAlso");
-    Element seeAlso;
-    for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
-      seeAlso = (Element) seeAlsos.item(i);
-      String uri = seeAlso.getAttributeNS(RDF_NS, "resource").trim();
-      IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(uri);
-      if (project != null) {
-        logger.info("Merging duplicate project (based on seeAlso): "
-            + project.toString() + " into " + project.getURI());
-        Element projectNode = (Element) seeAlso.getParentNode();
-        projectNode.setAttributeNS(RDF_NS, "about", project.getURI());
-      }
-    }
-
-    // handle duplicates with supplied URI
-    /*
-    NodeList projects = doc.getElementsByTagNameNS(DOAP_NS, "Project");
-    for (int i = 0; i < projects.getLength(); i = i + 1) {
-      Element projectElement = (Element) projects.item(i);
-      String uri = projectElement.getAttributeNS(RDF_NS, "about");
-      IProject project = repo.findProjectBySeeAlso(uri);
-      if (project != null) {
-        logger.info("Merging duplicate project (based on rdf:about): "
-            + project.toString() + " into " + project.getURI());
-        projectElement.setAttributeNS(RDF_NS, "about", project.getURI());
-      }
-    }
-    */
   }
 
   /**

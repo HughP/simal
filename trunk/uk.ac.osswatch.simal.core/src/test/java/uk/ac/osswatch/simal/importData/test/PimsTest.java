@@ -100,7 +100,7 @@ public class PimsTest extends BaseRepositoryTest {
 			if (name.equals("Programme A")) {
 				Set<IProject> projects = cat.getProjects();
 				
-				assertEquals("Don't have the right number of current projects for Programme A",3, projects.size());
+				assertEquals("Don't have the right number of current projects for Programme A",2, projects.size());
 				catIsValid = true;
 				break;
 			}
@@ -129,7 +129,7 @@ public class PimsTest extends BaseRepositoryTest {
 				break;
 			}
 		}
-		assertTrue("Person is not been properly imported", personIsValid);	
+		assertTrue("Person has not been properly imported", personIsValid);	
 	}
 	
 	@Test

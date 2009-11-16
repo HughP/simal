@@ -19,19 +19,30 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.w3c.dom.DOMImplementation;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
+import org.w3c.dom.ls.LSSerializer;
+
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IOrganisation;
-import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -65,13 +76,41 @@ public class Pims {
         
         int lastRow = sheet.getLastRowNum();
         for (int i = 1; i <= lastRow; i++) {
+        	Document doc;
+        	Element foaf;
+        	try {
+				doc = createRdfDocument();
+				foaf = doc.createElementNS(Foaf.getURI(), "Organization");
+			} catch (ParserConfigurationException e1) {
+				throw new SimalException("Unable to create XML document for import");
+			}
+			
 	        row   = sheet.getRow(i);
-	        int institutionId = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IOrganisation org = SimalRepositoryFactory.getOrganisationService().create("http://jisc.ac.uk/institution#" + institutionId);
-	        org.addName(row.getCell(1).getRichStringCellValue().getString());
-	        int institutionProjectId = ((Double)row.getCell(2).getNumericCellValue()).intValue();
-	        org.addCurrentProject("http;//jisc.ac.uk/project#" + institutionProjectId);
+	        
+	        // rdf:about
+        	int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+	        foaf.setAttributeNS(RDF.getURI(), "about", getOrganisationURI(id));
+	        
+	        // foaf:name
+	        String value = row.getCell(1).getRichStringCellValue().getString();
+	        Element elem = doc.createElementNS(Foaf.getURI(), "name");
+	        elem.setTextContent(value);
+	        foaf.appendChild(elem);
+	        
+	        // foaf:currentProject
+	        int projectId = ((Double)row.getCell(2).getNumericCellValue()).intValue();
+	        elem = doc.createElementNS(Foaf.getURI(), "currentProject");
+	        elem.setAttributeNS(RDF.getURI(), "resource", getProjectURI(projectId));
+	        foaf.appendChild(elem);
+	        
+	        doc.getDocumentElement().appendChild(foaf);
+	        serialise(doc);
+	        SimalRepositoryFactory.getInstance().addRDFXML(doc);
         }
+	}
+
+	private static String getOrganisationURI(int institutionId) {
+		return "http://jisc.ac.uk/institution#" + institutionId;
 	}
 	
 	/**
@@ -95,33 +134,85 @@ public class Pims {
         
         int lastRow = sheet.getLastRowNum();
         for (int i = 1; i<= lastRow; i++) {
-	        row = sheet.getRow(i);
-	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IProject project = SimalRepositoryFactory.getProjectService().getOrCreateProject(getProjectURI(id));
-	        project.addName(row.getCell(2).getRichStringCellValue().toString());
-	        project.setDescription(row.getCell(4).getRichStringCellValue().getString());
+        	Document doc;
+        	Element doap;
+        	try {
+				doc = createRdfDocument();
+				doap = doc.createElementNS(Doap.getURI(), "Project");
+			} catch (ParserConfigurationException e1) {
+				throw new SimalException("Unable to create XML document for import");
+			}
 	        
-	        String homepage = row.getCell(6).getRichStringCellValue().getString();
-	        if (homepage.length() != 0 && !homepage.equals("tbc")) {
-				try {
-					IDoapHomepage page = SimalRepositoryFactory.getHomepageService().create(homepage);
-			        page.addName("Homepage");
-			        project.addHomepage(page);
-			    } catch (DuplicateURIException e) {
-			    	logger.warn("PIMS import used a duplicate homepage URL of " + homepage);
-			    }
+        	row = sheet.getRow(i);
+	        
+        	// rdf:about
+        	int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+	        doap.setAttributeNS(RDF.getURI(), "about", getProjectURI(id));
+	        
+	        // doap:name
+	        String value = row.getCell(2).getRichStringCellValue().toString();
+	        Element elem = doc.createElementNS(Doap.getURI(), "name");
+	        elem.setTextContent(value);
+	        doap.appendChild(elem);
+	        
+	        // doap:description
+	        value = row.getCell(4).getRichStringCellValue().getString();
+	        elem = doc.createElementNS(Doap.getURI(), "description");
+	        elem.setTextContent(value);
+	        doap.appendChild(elem);
+
+	        // doap:homepage
+	        value = row.getCell(6).getRichStringCellValue().getString();
+	        if (value.length() != 0 && !value.equals("tbc")) {
+	        	elem = doc.createElementNS(Doap.getURI(), "homepage");
+	        	elem.setAttributeNS(RDF.getURI(), "resource", value);
+	        	elem.setAttributeNS(RDFS.getURI(), "label", "Homepage");
+		        doap.appendChild(elem);
 	        }
+	        
 	        //TODO: capture workpackage info: String projectWorkpackage = row.getCell(5).getStringCellValue();
+
 	        //TODO: capture short name: String shortName = row.getCell(3).getStringCellValue();
-	        String programmeId = getCategoryURI(((Double)row.getCell(1).getNumericCellValue()).intValue());
-	        IDoapCategory cat = SimalRepositoryFactory.getCategoryService().getOrCreate(programmeId);
-	        project.addCategory(cat);
+	        
+	        // doap:category
+	        value = getCategoryURI(((Double)row.getCell(1).getNumericCellValue()).intValue());
+        	elem = doc.createElementNS(Doap.getURI(), "category");
+        	elem.setAttributeNS(RDF.getURI(), "resource", value);
+	        doap.appendChild(elem);
+	        
 	        // TODO: Capture state info: String projectStateName = row.getCell(7).getStringCellValue();
 	        // TODO: Capture start date info: String projectStartDate = row.getCell(8).getStringCellValue();
 	        // TODO: Capture start date info: String projectEndDate = row.getCell(9).getStringCellValue();
+	        
+	        doc.getDocumentElement().appendChild(doap);
+	        // serialise(doc);
+	        SimalRepositoryFactory.getInstance().addProject(doc, url, "http://www.jisc.ac.uk");
         }
 	}
 	
+	/**
+	 * Serialise an XML document, used for debugging.
+	 * 
+	 * @param domImpl
+	 * @param document
+	 */
+	private static void serialise(Document document) {
+        DOMImplementationLS ls = (DOMImplementationLS) document.getImplementation();
+        LSSerializer lss = ls.createLSSerializer();
+        LSOutput lso = ls.createLSOutput();
+        lso.setByteStream(System.out);
+        lss.write(document, lso);
+    }
+	
+	private static Document createRdfDocument() throws ParserConfigurationException {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+        DOMImplementation domImpl = db.getDOMImplementation();
+        Document document = domImpl.createDocument(RDF.getURI(),
+                "RDF", null);
+        return document;
+	}
+
 	/**
 	 * Import programmes from an exported PIMS spreadsheet. Themes are known as categories in 
 	 * the Simal application
@@ -133,8 +224,6 @@ public class Pims {
 	 * @throws SimalException 
 	 */
 	public static void importProgrammes(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
-		IProject project = getPimsProject();
-		
         HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
@@ -146,13 +235,28 @@ public class Pims {
         
         int lastRow = sheet.getLastRowNum();
         for (int i = 1; i<= lastRow; i++) {
-	        row = sheet.getRow(i);
-	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IDoapCategory cat = SimalRepositoryFactory.getCategoryService().getOrCreate(getCategoryURI(id));
-	        String name = row.getCell(1).getRichStringCellValue().getString();
-	        cat.addName(name);
+        	Document doc;
+        	Element cat;
+        	try {
+				doc = createRdfDocument();
+				cat = doc.createElementNS(Doap.getURI(), "category");
+			} catch (ParserConfigurationException e1) {
+				throw new SimalException("Unable to create XML document for import");
+			}
+
+			row = sheet.getRow(i);
+			
+        	// rdf:about
+			int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+	        cat.setAttributeNS(RDF.getURI(), "about", getCategoryURI(id));
+
+	        // doap:name
+	        String value = row.getCell(1).getRichStringCellValue().getString();
+	        cat.setAttributeNS(RDFS.getURI(), "label", value);
 	        
-	        project.addCategory(cat);
+	        doc.getDocumentElement().appendChild(cat);
+	        serialise(doc);
+	        SimalRepositoryFactory.getInstance().addRDFXML(doc);
 	    }
 	}
 
@@ -175,35 +279,66 @@ public class Pims {
         
         int lastRow = sheet.getLastRowNum();
         for (int i = 1; i<= lastRow; i++) {
+        	Document doc;
+        	Element project;
+        	try {
+				doc = createRdfDocument();
+				project = doc.createElementNS(Doap.getURI(), "Project");
+			} catch (ParserConfigurationException e1) {
+				throw new SimalException("Unable to create XML document for import");
+			}
+			
 	        row = sheet.getRow(i);
-	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
-	        IPerson person = SimalRepositoryFactory.getPersonService().getOrCreate(getPersonURI(id));
 	        
-	        String name = row.getCell(2).getRichStringCellValue().getString();
-	        person.addName(name);
-	        
+	        // rdf:about (Project)
 	        int projectId = ((Double)row.getCell(1).getNumericCellValue()).intValue();
-	        IProject project = SimalRepositoryFactory.getProjectService().getOrCreateProject(getProjectURI(projectId));
+	        project.setAttributeNS(RDF.getURI(), "about", getProjectURI(projectId));
+	        
+	        // foaf:Person
+	        Element person = doc.createElementNS(Foaf.getURI(), "Person");
+        	
+        	// rdf:about (Person)
+	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+	        person.setAttributeNS(RDF.getURI(), "about", getPersonURI(id));
+	        	        
+	        // foaf:name
+	        String name = row.getCell(2).getRichStringCellValue().getString();
+	        Element elem = doc.createElementNS(Foaf.getURI(), "name");
+	        elem.setTextContent(name);
+	        person.appendChild(elem);
 	        
 	        // TODO: record the contacts job_title
 	        // TODO: record the contacts institutions.name
 	        
-	        String role = row.getCell(3).getRichStringCellValue().getString();
-	        if (role.equals("Programme Strand Manager") || role.equals("Programme Manager")) {
-	        	project.addHelper(person);
-	        } else if (role.equals("Project Director") || role.equals("Project Manager")) {
-	        	project.addMaintainer(person);
-	        } else if (role.equals("Project Team Member")) {
-	        	project.addDeveloper(person);
-	        } else {
-	        	logger.warn("Got a person with an unkown role: " + role);
-	        }
-	        
+	        // foaf:mbox
 	        HSSFRichTextString email = row.getCell(6).getRichStringCellValue();
-	        person.addEmail(email.getString());
+	        elem = doc.createElementNS(Foaf.getURI(), "mbox");
+	        elem.setAttributeNS(RDF.getURI(), "resource", email.getString());
+	        person.appendChild(elem);
 	        
 	        // TODO: record contact telephone detail
 	        //HSSFRichTextString tel = row.getCell(7).getRichStringCellValue();
+
+
+	        // add appropriate doap:* element for person
+	        String role = row.getCell(3).getRichStringCellValue().getString();
+	        if (role.equals("Programme Stream Manager") || role.equals("Programme Strand Manager") || role.equals("Programme Manager")) {
+	        	elem = doc.createElementNS(Doap.getURI(), "helper");
+	        	elem.appendChild(person);
+	        } else if (role.equals("Project Director") || role.equals("Project Manager")) {
+	        	elem = doc.createElementNS(Doap.getURI(), "maintainer");
+	        	elem.appendChild(person);
+	        } else if (role.equals("Project Team Member")) {
+	        	elem = doc.createElementNS(Doap.getURI(), "developer");
+	        	elem.appendChild(person);
+	        } else {
+	        	logger.warn("Got a person (" + name + ") with an unkown role, adding as helper: " + role);
+	        }
+        	project.appendChild(elem);
+	        
+	        doc.getDocumentElement().appendChild(project);
+	        serialise(doc);
+	        SimalRepositoryFactory.getInstance().addProject(doc, url, getProjectURI(projectId));
 	    }
 	}
 	

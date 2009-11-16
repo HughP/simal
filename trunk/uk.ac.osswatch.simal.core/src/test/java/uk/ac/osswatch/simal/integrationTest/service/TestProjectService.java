@@ -37,7 +37,28 @@ public class TestProjectService extends BaseRepositoryTest {
 	public void testGetProjectsWithRCS() throws SimalRepositoryException {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithRCS();
-		assertEquals("Got incorect number of projects with RCS", 2, projects.size());
+		
+		Iterator<IProject> itr = projects.iterator();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			System.out.println(project + " has an RCS: " + project.getRepositories());
+		}
+		
+		assertEquals("Got incorrect number of projects with RCS", 2, projects.size());
+	}
+	
+	@Test
+	public void testGetProjectsWithoutRCS() throws SimalRepositoryException {
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		Set<IProject> projects = service.getProjectsWithoutRCS();
+		
+		Iterator<IProject> itr = projects.iterator();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			System.out.println(project + " has no RCS: " + project.getRepositories());
+		}
+		
+		assertEquals("Got incorrect number of projects without RCS", 7, projects.size());
 	}
 
 	@Test
@@ -57,9 +78,22 @@ public class TestProjectService extends BaseRepositoryTest {
 		Set<IProject> projects = service.getProjectsWithHomepage();
 		Iterator<IProject> itr = projects.iterator();
 		while (itr.hasNext()) {
-			System.out.println(itr.next());
+			IProject project = itr.next();
+			System.out.println(project + " has homepages: " + project.getHomepages());
 		}
 	    assertEquals("Got incorect number of projects with Homepage", 8, projects.size());
+	}
+
+	@Test
+	public void testGetProjectsWithoutHomepage() throws SimalRepositoryException {
+		IProjectService service = SimalRepositoryFactory.getProjectService();
+		Set<IProject> projects = service.getProjectsWithoutHomepage();
+		Iterator<IProject> itr = projects.iterator();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			System.out.println(project + " has no homepages: " + project.getHomepages());
+		}
+	    assertEquals("Got incorect number of projects with Homepage", 1, projects.size());
 	}
 
 	@Test
@@ -87,6 +121,11 @@ public class TestProjectService extends BaseRepositoryTest {
 	public void testGetProjectsWithReview() throws SimalRepositoryException {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithReview();
+		Iterator<IProject> itr = projects.iterator();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			System.out.println(project + " has at least one review: " + project.getHomepages());
+		}
 		assertEquals("Got incorect number of projects with a review", 1, projects.size());
 	}
 
@@ -94,7 +133,12 @@ public class TestProjectService extends BaseRepositoryTest {
 	public void testGetProjectsWithoutReview() throws SimalRepositoryException {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
 		Set<IProject> projects = service.getProjectsWithoutReview();
-		assertEquals("Got incorect number of projects without review", 6, projects.size());
+		Iterator<IProject> itr = projects.iterator();
+		while (itr.hasNext()) {
+			IProject project = itr.next();
+			System.out.println(project + " has no reviews: " + project.getHomepages());
+		}
+		assertEquals("Got incorect number of projects without review", 9, projects.size());
 	}
 	
 	@Test

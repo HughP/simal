@@ -154,8 +154,7 @@ public class TestRepository extends BaseRepositoryTest {
       logger.debug("Got project: " + project.getName() + " with URI " + project.getURI());
     }
 
-    // FIXME: when a project is a seeAlso it is returned as a distinct project by getAllProjects
-    assertEquals(10, projects.size());
+    assertEquals(9, projects.size());
     logger.debug("Finished testGetAllProjects()");
   }
 
