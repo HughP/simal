@@ -56,11 +56,11 @@ public class TestProjectsSummaryReport extends TestBase {
 	  
 	  @Test
 	  public void testHomepageFigures() {
-		tester.assertVisible("numOfProjectsWithHomepage");
-		tester.assertLabel("numOfProjectsWithHomepage", "8");
+		//tester.assertVisible("numOfProjectsWithHomepage");
+		//tester.assertLabel("numOfProjectsWithHomepage", "8");
 
-		tester.assertVisible("numOfProjectsWithoutHomepage");
-		tester.assertLabel("numOfProjectsWithoutHomepage", "1");
+		//tester.assertVisible("numOfProjectsWithoutHomepage");
+		//tester.assertLabel("numOfProjectsWithoutHomepage", "1");
 
 		tester.assertVisible("percentProjectsWithHomepage");
 		tester.assertLabel("percentProjectsWithHomepage", "89%");
