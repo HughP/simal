@@ -18,21 +18,39 @@ package uk.ac.osswatch.simal;
  * 
  */
 
+import java.lang.reflect.Field;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * Testing with a bogus homepagelabels configuration to force the loading of the
- * home page labels to fail. Note that it is necessary to have JUnit always fork
- * a new process for each test class for this test to work properly in combination 
- * with other test classes that make use of the homepage labels.
+ * home page labels to fail. Reflection needed to force re-initialisation of the
+ * properties.
  * 
  * @author svanderwaal
  * 
  */
 public class HomepageLabelGeneratorFailsTest {
 
+  @Before 
+  @After
+  public void initClassesUnderTest() throws IllegalArgumentException, IllegalAccessException, SecurityException, NoSuchFieldException
+  {
+    Class<HomepageLabelGenerator> targetClass = HomepageLabelGenerator.class;
+    Field field = targetClass.getDeclaredField("homepageLabels");
+    field.setAccessible(true);
+    field.set(null, null);    
+
+    Class<SimalProperties> targetSimalProperties = SimalProperties.class;
+    Field defaultProps = targetSimalProperties.getDeclaredField("defaultProps");
+    defaultProps.setAccessible(true);
+    defaultProps.set(null, null);    
+  }
+  
   @Test
   public void testWrongPropertiesFile() throws SimalRepositoryException {
     SimalProperties.initProperties();
