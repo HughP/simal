@@ -143,6 +143,12 @@ public class ProjectDetailPage extends BasePage {
 
   private void populatePage(final IProject project) {
     this.project = project;
+    if (project == null) {
+    	UserReportableException error = new UserReportableException(
+          "Null project supplied.", ProjectDetailPage.class);
+        setResponsePage(new ErrorReportPage(error));
+        return;
+    }
     add(new DeleteLink("deleteProjectActionLink", project));
 
     try {
@@ -184,7 +190,7 @@ public class ProjectDetailPage extends BasePage {
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get project releases from the repository",
-          ExhibitProjectBrowserPage.class, e);
+          ProjectDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
     add(getRepeatingLinks("homepages", "homepage",
