@@ -44,11 +44,11 @@ public class TestProjectsSummaryReport extends TestBase {
 	  
 	  @Test
 	  public void testRepositoryFigures() {
-		//tester.assertVisible("numOfProjectsWithRCS");
-		//tester.assertLabel("reviewedProjectsLink:numOfProjectsWithRCS", "2");
+		tester.assertVisible("projectsWithRCSLink:numOfProjectsWithRCS");
+		tester.assertLabel("projectsWithRCSLink:numOfProjectsWithRCS", "2");
 
-		//tester.assertVisible("numOfProjectsWithoutRCS");
-		//tester.assertLabel("numOfProjectsWithoutRCS", "8");
+		tester.assertVisible("projectsWithoutRCSLink:numOfProjectsWithoutRCS");
+		tester.assertLabel("projectsWithoutRCSLink:numOfProjectsWithoutRCS", "7");
 
 		tester.assertVisible("percentProjectsWithRCS");
 		tester.assertLabel("percentProjectsWithRCS", "22%");
@@ -56,11 +56,11 @@ public class TestProjectsSummaryReport extends TestBase {
 	  
 	  @Test
 	  public void testHomepageFigures() {
-		//tester.assertVisible("numOfProjectsWithHomepage");
-		//tester.assertLabel("numOfProjectsWithHomepage", "8");
+		tester.assertVisible("projectsWithHomepageLink:numOfProjectsWithHomepage");
+		tester.assertLabel("projectsWithHomepageLink:numOfProjectsWithHomepage", "8");
 
-		//tester.assertVisible("numOfProjectsWithoutHomepage");
-		//tester.assertLabel("numOfProjectsWithoutHomepage", "1");
+		tester.assertVisible("projectsWithoutHomepageLink:numOfProjectsWithoutHomepage");
+		tester.assertLabel("projectsWithoutHomepageLink:numOfProjectsWithoutHomepage", "1");
 
 		tester.assertVisible("percentProjectsWithHomepage");
 		tester.assertLabel("percentProjectsWithHomepage", "89%");
@@ -68,11 +68,11 @@ public class TestProjectsSummaryReport extends TestBase {
 	  
 	  @Test
 	  public void testMailingListFigures() {
-		tester.assertVisible("numOfProjectsWithMailingList");
-		tester.assertLabel("numOfProjectsWithMailingList", "4");
+		tester.assertVisible("projectsWithMailingListLink:numOfProjectsWithMailingList");
+		tester.assertLabel("projectsWithMailingListLink:numOfProjectsWithMailingList", "4");
 
-		tester.assertVisible("numOfProjectsWithoutMailingList");
-		tester.assertLabel("numOfProjectsWithoutMailingList", "5");
+		tester.assertVisible("projectsWithoutMailingListLink:numOfProjectsWithoutMailingList");
+		tester.assertLabel("projectsWithoutMailingListLink:numOfProjectsWithoutMailingList", "5");
 
 		tester.assertVisible("percentProjectsWithMailingList");
 		tester.assertLabel("percentProjectsWithMailingList", "44%");
@@ -80,11 +80,11 @@ public class TestProjectsSummaryReport extends TestBase {
 	  
 	  @Test
 	  public void testMaintainerFigures() {
-		tester.assertVisible("numOfProjectsWithMaintainer");
-		tester.assertLabel("numOfProjectsWithMaintainer", "7");
+		tester.assertVisible("projectsWithMaintainerLink:numOfProjectsWithMaintainer");
+		tester.assertLabel("projectsWithMaintainerLink:numOfProjectsWithMaintainer", "7");
 
-		tester.assertVisible("numOfProjectsWithoutMaintainer");
-		tester.assertLabel("numOfProjectsWithoutMaintainer", "2");
+		tester.assertVisible("projectsWithoutMaintainerLink:numOfProjectsWithoutMaintainer");
+		tester.assertLabel("projectsWithoutMaintainerLink:numOfProjectsWithoutMaintainer", "2");
 
 		tester.assertVisible("percentProjectsWithMaintainer");
 		tester.assertLabel("percentProjectsWithMaintainer", "78%");
@@ -92,11 +92,11 @@ public class TestProjectsSummaryReport extends TestBase {
 
 	  @Test
 	  public void testBugDatabaseFigures() {
-		tester.assertVisible("numOfProjectsWithBugDatabase");
-		tester.assertLabel("numOfProjectsWithBugDatabase", "4");
+		tester.assertVisible("projectsWithBugDatabaseLink:numOfProjectsWithBugDatabase");
+		tester.assertLabel("projectsWithBugDatabaseLink:numOfProjectsWithBugDatabase", "4");
 
-		tester.assertVisible("numOfProjectsWithoutBugDatabase");
-		tester.assertLabel("numOfProjectsWithoutBugDatabase", "5");
+		tester.assertVisible("projectsWithoutBugDatabaseLink:numOfProjectsWithoutBugDatabase");
+		tester.assertLabel("projectsWithoutBugDatabaseLink:numOfProjectsWithoutBugDatabase", "5");
 
 		tester.assertVisible("percentProjectsWithBugDatabase");
 		tester.assertLabel("percentProjectsWithBugDatabase", "44%");
