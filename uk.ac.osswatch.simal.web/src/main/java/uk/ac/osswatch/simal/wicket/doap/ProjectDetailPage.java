@@ -273,6 +273,11 @@ public class ProjectDetailPage extends BasePage {
 
     // sources
     add(getRepeatingDataSourcePanel("sources", "seeAlso", project.getSources()));
+    try {
+		add(new Label("simalID", project.getSimalID()));
+	} catch (SimalRepositoryException e) {
+		add(new Label("simalID", e.getMessage()));
+	}
     
     // reviews
     ReviewListPanel reviewList;
