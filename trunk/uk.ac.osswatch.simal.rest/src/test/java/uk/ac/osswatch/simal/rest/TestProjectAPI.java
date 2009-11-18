@@ -63,14 +63,27 @@ public class TestProjectAPI extends AbstractAPITest {
   }
 
   @Test
-  public void testGetProject() throws SimalAPIException {
+  public void testGetProjectByCommand() throws SimalAPIException {
     RESTCommand cmd = RESTCommand.createGetProject(testProjectID,
         RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_XML);
+    
     IAPIHandler handler = SimalHandlerFactory.createHandler(cmd, getRepo());
     String result = handler.execute();
-    assertNotNull("No XML Returned by getPerson", result);
-
-    assertTrue("XML file does not appear to describe a person", result
-        .contains("Person>"));
+    
+    assertNotNull("No XML Returned by getProject", result);
+    assertTrue("XML file does not appear to describe a project", result
+        .contains("Project>"));
+  }
+  
+  @Test
+  public void testGetProjectByURL() throws SimalAPIException {
+	String url = "/project/source-simal/project-" + testProjectID + "/xml";
+	RESTCommand cmd = RESTCommand.createCommand(url);
+	IAPIHandler handler = SimalHandlerFactory.createHandler(cmd, getRepo());
+    String result = handler.execute();
+    
+    assertNotNull("No XML Returned by getProject", result);
+    assertTrue("XML file does not appear to describe a project", result
+        .contains("Project>"));
   }
 }
