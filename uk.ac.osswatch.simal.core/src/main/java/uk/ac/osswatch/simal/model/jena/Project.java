@@ -477,10 +477,11 @@ public int getOpennessRating() throws SimalRepositoryException {
 	IReviewService service = SimalRepositoryFactory.getReviewService();
 	Set<IReview> reviews = service.getReviewsForProject(this);
 	if (reviews.size() == 0) {
+		logger.debug(this.toString() + " project does not have a review and thus has no openness rating.");
 		throw new SimalRepositoryException("Unable to get an openness rating since there has been no review of this entry yet");
 	}
 	
-	int score = 0;
+	double score = 0;
 	if (getDownloadPages().size() > 0) {
 		score = score + 1;
 	}
@@ -499,8 +500,8 @@ public int getOpennessRating() throws SimalRepositoryException {
 	if (getRepositories().size() > 0) {
 		score = score + 1;
 	}
-	
-	int rating = (score/6) * 100;
+		
+	int rating = (int)(Math.round((score/6.0) * 100));
 	return rating;
 }
 
