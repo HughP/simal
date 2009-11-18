@@ -51,7 +51,7 @@ public class TestProjectDetailPage extends TestBase {
     });
     tester.assertRenderedPage(ProjectDetailPage.class);
   }
-
+  
   @Test
   public void testRenderPage() {
     tester.assertVisible("projectName");
@@ -66,6 +66,12 @@ public class TestProjectDetailPage extends TestBase {
     tester.assertVisible("categoryList");
 
     tester.assertVisible("footer");
+  }
+  
+  @Test
+  public void testRDFLink() {
+	  tester.assertVisible("doapLink");
+	  // TODO: we need to test "clicking" this link
   }
   
   @Test
