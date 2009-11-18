@@ -66,6 +66,17 @@ Note, in all these cases the documentation is currently held in SVN, we've not g
 
 The Simal web module provides a web application that provides a GUI interface to a Simal repostory. [http://simal.oss-watch.ac.uk/web/developing.html Instructions for running the webapp] are available in the webapp docs (hint "mvn jetty:run" after installing the core and rest modules in your Maven repository - see above).
 
+==== Debug Mode ====
+
+To run the web application in debug mode using JDPA run the command:
+
+{{{
+export MAVEN_OPTS='-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n'
+}}}
+
+After setting this property, run "maven jetty:run" and connect your debugger to port 8000. If "suspend=y" is used, it will will block, waiting for a debug connection.
+
+
 === Simal Rest ===
 
 Simal rest is a module providing a REST API to Simal. Instructions for [http://simal.oss-watch.ac.uk/rest/index.html running and accessing the REST API] are available in the REST module docs (hint "mvn jetty:run" after installing the core module in your Maven repository - see above).
