@@ -431,7 +431,11 @@ public class TestProject extends BaseRepositoryTest {
     String id3 = project.getSimalID();
     assertTrue("Project IDs don't appear to be written to the repo", id1
         .equals(id3));
-
+    
+    // check we are retrieving projects by ID correctly
+    project = SimalRepositoryFactory.getProjectService().getProjectById(id1);
+    assertNotNull(project);
+    
     project.delete();
     project = SimalRepositoryFactory.getProjectService().getProject(uri2);
     project.delete();

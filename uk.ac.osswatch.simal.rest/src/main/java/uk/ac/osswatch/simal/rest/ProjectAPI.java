@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -91,7 +92,7 @@ public class ProjectAPI extends AbstractHandler {
 
     if (command.isXML()) {
       try {
-        IProject project = getRepository().findProjectById(
+        IProject project = SimalRepositoryFactory.getProjectService().getProjectById(
             getRepository().getUniqueSimalID(id));
         if (project == null) {
           throw new SimalAPIException("Project with Simal ID " + id
@@ -105,7 +106,7 @@ public class ProjectAPI extends AbstractHandler {
       }
     } else if (command.isJSON()) {
       try {
-        return getRepository().findProjectById(id).toJSON();
+        return SimalRepositoryFactory.getProjectService().getProjectById(id).toJSON();
       } catch (SimalRepositoryException e) {
         throw new SimalAPIException(
             "Unable to get JSON representation of project from the repository",

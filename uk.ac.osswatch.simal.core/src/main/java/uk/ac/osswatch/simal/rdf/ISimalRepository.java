@@ -132,16 +132,6 @@ public interface ISimalRepository {
       throws SimalRepositoryException;
 
   /**
-   * Get a project with a given simal id.
-   * 
-   * @param id
-   * @return
-   * @throws SimalRepositoryException
-   * @deprecated use ProjectService.getProjecByID(id) instead
-   */
-  public IProject findProjectById(String id) throws SimalRepositoryException;
-
-  /**
    * Get all the projects known in this repository.
    * 
    * @return
