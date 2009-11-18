@@ -245,7 +245,7 @@ public class TestRepository extends BaseRepositoryTest {
 
   @Test
   public void testFindProjectById() throws SimalRepositoryException {
-    IProject project = getRepository().findProjectById(testProjectID);
+    IProject project = SimalRepositoryFactory.getProjectService().getProjectById(testProjectID);
     assertNotNull("Failed to get project with ID " + testProjectID, project);
   }
 

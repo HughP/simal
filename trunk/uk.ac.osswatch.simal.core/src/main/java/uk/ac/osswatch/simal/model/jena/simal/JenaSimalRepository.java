@@ -372,27 +372,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return project;
   }
 
-  /**
-   * @deprecated use ProjectService.getProjecByID(id) instead
-   */
-  public IProject findProjectById(String id) throws SimalRepositoryException {
-    if (!isValidSimalID(id)) {
-      throw new SimalRepositoryException(
-          "Attempt to find a project using an invalid Simal ID of "
-              + id
-              + " are you sure that is a unique ID? You may need to call RDFUtils.getUniqueSimalID(id)");
-    }
-    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?project WHERE { " + "?project simal:projectId \""
-        + id + "\"^^xsd:string }";
-
-    IProject project = findProjectBySPARQL(queryStr);
-
-    return project;
-  }
-
   public Set<IProject> filterProjectsByName(String filter) {
     String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
         + "> " + "PREFIX doap: <" + RDFUtils.DOAP_NS + "> "

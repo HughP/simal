@@ -125,7 +125,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     while (!validID) {
       fullID = getUniqueSimalID("prj" + Long.toString(entityID));
       logger.debug("Checking to see if project ID of {} is available", fullID);
-      if (findProjectById(fullID) == null) {
+      if (SimalRepositoryFactory.getProjectService().getProjectById(fullID) == null) {
         validID = true;
       } else {
         entityID = entityID + 1;
@@ -166,7 +166,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
 	    while (!validID) {
 	      fullID = getUniqueSimalID("page" + Long.toString(entityID));
 	      logger.debug("Checking to see if homepage ID of {} is available", fullID);
-	      if (findProjectById(fullID) == null) {
+	      if (SimalRepositoryFactory.getProjectService().getProjectById(fullID) == null) {
 	        validID = true;
 	      } else {
 	        entityID = entityID + 1;
