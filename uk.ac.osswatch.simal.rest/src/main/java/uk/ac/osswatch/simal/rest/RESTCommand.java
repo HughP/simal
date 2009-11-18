@@ -32,7 +32,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public final class RESTCommand {
 
   public static final String ALL_PROJECTS = "/allProjects";
-  public static final String PROJECT = "/project";
+  public static final String GET_PROJECT = "/project";
   public static final String PROJECT_ADD = "/addProject";
   public static final String ALL_PEOPLE = "/allPeople";
   public static final String PERSON = "/person";
@@ -109,7 +109,7 @@ public final class RESTCommand {
    */
   public static RESTCommand createGetProject(String projectID, String source,
       String format) {
-    return new RESTCommand(projectID, source, PROJECT, format);
+    return new RESTCommand(projectID, source, GET_PROJECT, format);
   }
 
   /**
@@ -288,6 +288,9 @@ public final class RESTCommand {
    */
   public static RESTCommand createCommand(String cmdString)
       throws SimalAPIException {
+	if (cmdString.contains("://")) {
+		throw new SimalAPIException("the command string should not contain a protocol or host and path to the REST-API. It should only contain the command string.");
+	}
     if (cmdString != null) {
       RESTCommand cmd = new RESTCommand();
       cmd.setCommandMethod(extractCommandMethod(cmdString));
@@ -463,7 +466,7 @@ public final class RESTCommand {
    * @return
    */
   public boolean isGetProject() {
-    if (params.get(PARAM_METHOD).equals(PROJECT)) {
+    if (params.get(PARAM_METHOD).equals(GET_PROJECT)) {
       return true;
     }
     return false;
