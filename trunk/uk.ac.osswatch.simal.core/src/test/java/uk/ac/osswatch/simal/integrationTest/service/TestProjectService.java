@@ -23,6 +23,8 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
@@ -32,6 +34,8 @@ import uk.ac.osswatch.simal.service.IProjectService;
 
 public class TestProjectService extends BaseRepositoryTest {
 
+    private static final Logger logger = LoggerFactory
+	      .getLogger(TestProjectService.class);
 	
 	@Test
 	public void testGetProjectsWithRCS() throws SimalRepositoryException {
@@ -66,6 +70,8 @@ public class TestProjectService extends BaseRepositoryTest {
 		IProjectService service = SimalRepositoryFactory.getProjectService();
 		IProject project = service.getProjectById(testProjectID);
 		assertEquals("Got incorect project by ID","Simal DOAP Test", project.getName());
+		
+		logger.debug("Project RDF is:\n" + project.toXML());
 		
 		String shortID = testProjectID.substring(testProjectID.indexOf("-") + 1);
 		project = service.getProjectById(shortID);
