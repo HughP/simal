@@ -200,7 +200,7 @@
       </exclusions>
     </dependency>
     <dependency>
-    	<groupId>poi</groupId>
+    	<groupId>org.apache.poi</groupId>
     	<artifactId>poi</artifactId>
     	<version>3.1-FINAL</version>
     	<optional>false</optional>
