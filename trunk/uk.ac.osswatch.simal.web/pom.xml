@@ -195,12 +195,6 @@
       <version>2.5</version>
       <scope>provided</scope>
     </dependency>
-
-    <dependency>
-	  <groupId>org.apache.wicket</groupId>
-	  <artifactId>wicket</artifactId>
-	  <version>1.4.2</version>
-	</dependency>
   </dependencies>
 
   <build>
@@ -347,7 +341,7 @@
   </reporting>
 
   <properties>
-    <wicket.version>1.4-m3</wicket.version>
+    <wicket.version>1.4.3</wicket.version>
     <jetty.version>6.1.18</jetty.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
