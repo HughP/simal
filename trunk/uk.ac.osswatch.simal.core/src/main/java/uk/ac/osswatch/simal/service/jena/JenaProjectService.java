@@ -346,7 +346,7 @@ public class JenaProjectService extends JenaService implements IProjectService {
 		        + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
 		        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
 		        + "SELECT DISTINCT ?project WHERE { " + "?project simal:projectId \""
-		        + id + "\"^^xsd:string }";
+		        + id + "\" }";
 
 		    IProject project = findProjectBySPARQL(queryStr);
 
