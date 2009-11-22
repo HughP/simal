@@ -116,7 +116,7 @@ public class TestDoapFormPage extends TestBase {
 
     FormTester formTester = tester.newFormTester("addByURLForm");
     formTester.setValue("sourceURL", INVALID_URL);
-    formTester.submit();
+    formTester.submit("login");
     tester.assertRenderedPage(DoapFormPage.class);
     String[] errors = { "'" + INVALID_URL + "' is not a valid URL." };
     tester.assertErrorMessages(errors);
