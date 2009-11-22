@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.wicket;
+package uk.ac.osswatch.simal.wicket.authentication;
 /*
  * Copyright 2008 University of Oxford
  *
@@ -23,6 +23,8 @@ import org.apache.wicket.authorization.IAuthorizationStrategy;
 import org.apache.wicket.authorization.IUnauthorizedComponentInstantiationListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import uk.ac.osswatch.simal.wicket.ToolsPage;
 
 public class SimalAuthorizationStrategy implements IAuthorizationStrategy,
 		IUnauthorizedComponentInstantiationListener {

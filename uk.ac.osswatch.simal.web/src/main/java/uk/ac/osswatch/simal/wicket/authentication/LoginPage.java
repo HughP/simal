@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.wicket;
+package uk.ac.osswatch.simal.wicket.authentication;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
@@ -21,6 +21,8 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel; /*
  * under the License.                                                *
  */
 import org.apache.wicket.model.CompoundPropertyModel;
+
+import uk.ac.osswatch.simal.wicket.BasePage;
 
 /**
  * A page for logging into the system. Display a login form and process the
