@@ -368,20 +368,4 @@ public class Pims {
 	private static String getProjectURI(int id) {
 		return "http://jisc.ac.uk/project#" + id;
 	}
-
-	/**
-	 * Get or create a resource to represent the PIMS project.
-	 * @return
-	 * @throws SimalRepositoryException 
-	 * @throws DuplicateURIException 
-	 */
-	private static IProject getPimsProject() throws SimalRepositoryException, DuplicateURIException {
-		IProject project = SimalRepositoryFactory.getProjectService().getProject(PIMS_PROJECT_URI);
-		if (project == null) {
-			project = SimalRepositoryFactory.getProjectService().createProject(PIMS_PROJECT_URI);
-			project.addName("PIMS");
-			project.setShortDesc("JISC Project Information Management System");
-		}
-		return project;
-	}
 }
