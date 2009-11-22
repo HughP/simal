@@ -3,7 +3,9 @@
 
 = Releases and iterations =
 
-Currently we use iterations of two weeks. At the end of each iterations a new release is built. Because of this short span not every release will be uploaded to Google code, but every other release will. The demo server is updated with every release.
+Currently we use iterations of two weeks. At the end of each iterations a new build is performed and deployed on http://registry.oss-watch.ac.uk. A binary release will only be made every second iteration, i.e. monthly.
+
+This document describes how to build a release.
 
 = Determine release version number =
 
