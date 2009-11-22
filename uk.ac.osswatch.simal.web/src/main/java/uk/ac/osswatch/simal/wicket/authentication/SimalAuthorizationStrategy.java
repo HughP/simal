@@ -36,7 +36,7 @@ public class SimalAuthorizationStrategy implements IAuthorizationStrategy,
 
 	public <T extends Component> boolean isInstantiationAuthorized(Class<T> component) {
 		if (component.isAssignableFrom(ToolsPage.class)) {
-		   return LoginPage.isAuthenticated();
+		   return SimalSession.get().isAuthenticated();
 		}
 		return true;
 	}

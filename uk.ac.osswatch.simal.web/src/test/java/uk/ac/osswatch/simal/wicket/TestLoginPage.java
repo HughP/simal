@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -27,14 +28,27 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.authentication.LoginPage;
+import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
+import uk.ac.osswatch.simal.wicket.doap.ProjectBrowserPage;
 
 public class TestLoginPage extends TestBasePage {
 
 	@Before
 	public void initTester() throws SimalRepositoryException {
-		tester = new WicketTester();
+		tester = new WicketTester(new UserApplication());
 		tester.startPage(LoginPage.class);
 		tester.assertRenderedPage(LoginPage.class);
+	}
+
+	@Override
+	@Test
+	public void testRenderPage() {
+		tester.startPage(BasePage.class);
+		tester.assertRenderedPage(LoginPage.class);
+		tester.assertVisible("footer");
+
+		tester.clickLink("projectBrowserLink");
+		tester.assertRenderedPage(ProjectBrowserPage.class);
 	}
 
 	@Test
@@ -43,12 +57,13 @@ public class TestLoginPage extends TestBasePage {
 		formTester.setValue("username", "bad");
 		formTester.setValue("password", "login");
 		formTester.submit("login");
-		
+
 		tester.assertRenderedPage(LoginPage.class);
-		
+
 		String[] errors = { "Invalid username/password" };
 		tester.assertErrorMessages(errors);
-		assertFalse(LoginPage.isAuthenticated());
+		SimalSession sessionData = SimalSession.get();
+		assertFalse(sessionData.isAuthenticated());
 	}
 
 	@Test
@@ -57,10 +72,14 @@ public class TestLoginPage extends TestBasePage {
 		formTester.setValue("username", "simal");
 		formTester.setValue("password", "simal");
 		formTester.submit("login");
-		
+
 		tester.assertRenderedPage(LoginPage.class);
-		
+
 		tester.assertNoErrorMessage();
-		assertTrue(LoginPage.isAuthenticated());
+		SimalSession sessionData = SimalSession.get();
+		assertTrue("User not authenticated", sessionData.isAuthenticated());
+
+		assertEquals("username is not correct", "simal", sessionData
+				.getUsername());
 	}
 }
