@@ -26,6 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.authentication.LoginPage;
 
 public class TestLoginPage extends TestBasePage {
 
