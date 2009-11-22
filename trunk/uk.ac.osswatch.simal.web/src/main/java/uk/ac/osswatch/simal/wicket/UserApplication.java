@@ -23,6 +23,9 @@ import java.util.Timer;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.wicket.IConverterLocator;
+import org.apache.wicket.Request;
+import org.apache.wicket.Response;
+import org.apache.wicket.Session;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadWebRequest;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebRequest;
@@ -33,6 +36,7 @@ import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.schedule.ImportPTSWTask;
+import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 import uk.ac.osswatch.simal.wicket.authentication.SimalAuthorizationStrategy;
 import uk.ac.osswatch.simal.wicket.data.URLConverter;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
@@ -89,6 +93,14 @@ public class UserApplication extends WebApplication {
 	public Class getHomePage() {
 		return UserHomePage.class;
 	}
+	
+	/**
+     * @see org.apache.wicket.protocol.http.WebApplication#newSession(Request, Response)
+     */
+    @Override
+	public Session newSession(Request request, Response response) {
+    	   return new SimalSession(request);
+    }
 
 	/**
 	 * Get the repository for this application. If the repository has not been

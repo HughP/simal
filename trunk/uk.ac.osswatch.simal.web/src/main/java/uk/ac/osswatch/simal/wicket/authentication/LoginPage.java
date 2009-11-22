@@ -32,8 +32,6 @@ public class LoginPage extends BasePage {
 	private String username;
 	private String password;
 
-	private static Boolean authenticated = false;
-
 	@SuppressWarnings("unchecked")
 	public LoginPage() {
 		Form form;
@@ -44,12 +42,10 @@ public class LoginPage extends BasePage {
 			private static final long serialVersionUID = 1L;
 
 			public void onSubmit() {
-				if (username.equals("simal") && password.equals("simal")) {
-					authenticated = true;
-				} else {
-					authenticated = false;
-				}
-				if (!authenticated) {
+				SimalSession sessionData = SimalSession.get();
+				sessionData.authenticate(username, password);
+				
+				if (!sessionData.isAuthenticated()) {
 					error("Invalid username/password");
 				} else {
 					info("Welcome, " + username);
@@ -59,7 +55,4 @@ public class LoginPage extends BasePage {
 		form.add(new FeedbackPanel("feedback"));
 	}
 
-	public static boolean isAuthenticated() {
-		return authenticated;
-	}
 }
