@@ -198,7 +198,7 @@ public class SimalRepositoryFactory {
 		    case JENA:
 		      // return new JenaRepositoryService(getInstance());
 		      logger.error("Not implemented JenaRepositoryService");
-		      System.exit(1);
+		      throw new RuntimeException("No RepositoryService has been implemented for the JENA repository yet.");
 		    case JCR: 
 		    	// commented out as this code moved to a branch - do we need to remove it yet?
 			      // return new JcrRepositoryService(getInstance());
