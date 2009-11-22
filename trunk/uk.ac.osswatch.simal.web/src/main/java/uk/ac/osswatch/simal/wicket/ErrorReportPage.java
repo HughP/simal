@@ -49,7 +49,7 @@ public class ErrorReportPage extends BasePage {
 	logger.error("Reporting an error to the user", e);
 	add(new Label("errorMessage", new Model(e.getMessage())));
 
-	if (e == null) {
+	if (e.getCause() == null) {
 	    add(new Label("causedBy", new Model(e.getCause().getMessage())));
 	} else {
 	    add(new Label("causedBy", "No underlying cause"));
