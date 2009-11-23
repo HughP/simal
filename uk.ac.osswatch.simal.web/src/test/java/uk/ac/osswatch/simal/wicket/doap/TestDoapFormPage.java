@@ -129,11 +129,9 @@ public class TestDoapFormPage extends TestBase {
 
     // FIXME: since adding the URLConverter the onSubmit method does not work. I
     // (RG) think that this is because the URLConverter is not being loaded.
-    int numProjectsBefore = UserApplication.getRepository().getAllProjects()
-        .size();
+    //int numProjectsBefore = UserApplication.getRepository().getAllProjects().size();
     formTester.submit();
-    int numProjectsAfter = UserApplication.getRepository().getAllProjects()
-        .size();
+    //int numProjectsAfter = UserApplication.getRepository().getAllProjects().size();
 
     // assertTrue("Loading data by URL does not appear to have added any
     // projects", numProjectsAfter > numProjectsBefore);

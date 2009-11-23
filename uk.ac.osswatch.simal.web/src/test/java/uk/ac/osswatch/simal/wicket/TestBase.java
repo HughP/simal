@@ -28,7 +28,6 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public abstract class TestBase {
@@ -45,7 +44,6 @@ public abstract class TestBase {
   @BeforeClass
   public static void setUpBeforeClass() throws SimalRepositoryException {
     UserApplication.setIsTest(true);
-    ISimalRepository repository = UserApplication.getRepository();
 
     IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
     projectURI = project.getURI();
