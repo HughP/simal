@@ -84,8 +84,8 @@ public class SimalSession extends WebSession {
 	 */
 	public void authenticate(String username, String password) throws SimalRepositoryException {
 		setUsername(username);
-		String adminUsername = SimalWebProperties.getProperty(SimalWebProperties.ADMIN_USERNAME);
-		String adminPassword = SimalWebProperties.getProperty(SimalWebProperties.ADMIN_PASSWORD);
+		String adminUsername = SimalWebProperties.getProperty(SimalWebProperties.ADMIN_USERNAME, "simal");
+		String adminPassword = SimalWebProperties.getProperty(SimalWebProperties.ADMIN_PASSWORD, "simal");
 		if (username.equals(adminUsername) && password.equals(adminPassword)) {
 			setAuthenticated(true);
 		} else {
