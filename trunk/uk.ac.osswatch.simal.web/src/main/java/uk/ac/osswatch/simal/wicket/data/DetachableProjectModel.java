@@ -21,9 +21,10 @@ import org.apache.wicket.model.LoadableDetachableModel;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class DetachableProjectModel extends LoadableDetachableModel {
+public class DetachableProjectModel extends LoadableDetachableModel<IResource> {
   private static final long serialVersionUID = -9017519516676203598L;
   String uri;
 
@@ -37,7 +38,7 @@ public class DetachableProjectModel extends LoadableDetachableModel {
   }
 
   @Override
-  protected Object load() {
+  protected IResource load() {
     IProject project;
     try {
       project = SimalRepositoryFactory.getProjectService().getProject(uri);
