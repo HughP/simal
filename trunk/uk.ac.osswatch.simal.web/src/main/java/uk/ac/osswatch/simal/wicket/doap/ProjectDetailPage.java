@@ -21,8 +21,9 @@ import java.util.Iterator;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
+import org.apache.wicket.markup.html.CSSPackageResource;
+import org.apache.wicket.markup.html.JavascriptPackageResource;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.IPageLink;
@@ -98,11 +99,10 @@ public class ProjectDetailPage extends BasePage {
     super.onBeforeRender();
     
     try {
-      add(HeaderContributor.forJavaScript("http://www.google.com/jsapi?key=" + SimalProperties.getProperty(SimalProperties.PROPERTY_GOOGLE_AJAX_FEED_API_KEY)));
-
-      add(HeaderContributor.forJavaScript("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js"));
-      add(HeaderContributor.forCss("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.css"));
-      add(HeaderContributor.forCss(FEED_API_CSS));
+      add(JavascriptPackageResource.getHeaderContribution("http://www.google.com/jsapi?key=" + SimalProperties.getProperty(SimalProperties.PROPERTY_GOOGLE_AJAX_FEED_API_KEY)));
+      add(JavascriptPackageResource.getHeaderContribution("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.js"));
+      add(CSSPackageResource.getHeaderContribution("http://www.google.com/uds/solutions/dynamicfeed/gfdynamicfeedcontrol.css"));
+      add(CSSPackageResource.getHeaderContribution(FEED_API_CSS));
       
       StringBuffer config = new StringBuffer();
       
