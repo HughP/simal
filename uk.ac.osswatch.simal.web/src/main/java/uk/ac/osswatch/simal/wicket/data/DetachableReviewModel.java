@@ -23,7 +23,7 @@ import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class DetachableReviewModel extends LoadableDetachableModel {
+public class DetachableReviewModel extends LoadableDetachableModel<IReview> {
   private static final long serialVersionUID = -9017519516676203598L;
   String uri;
 
@@ -37,7 +37,7 @@ public class DetachableReviewModel extends LoadableDetachableModel {
   }
 
   @Override
-  protected Object load() {
+  protected IReview load() {
     IReview review;
     try {
       review = SimalRepositoryFactory.getReviewService().getReview(uri);

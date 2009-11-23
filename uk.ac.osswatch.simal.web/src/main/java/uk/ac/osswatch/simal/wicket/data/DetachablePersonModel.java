@@ -20,10 +20,11 @@ package uk.ac.osswatch.simal.wicket.data;
 import org.apache.wicket.model.LoadableDetachableModel;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IFoafResource;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class DetachablePersonModel extends LoadableDetachableModel {
+public class DetachablePersonModel extends LoadableDetachableModel<IFoafResource> {
   private static final long serialVersionUID = -9017519516676203598L;
   String uri;
 
@@ -36,7 +37,7 @@ public class DetachablePersonModel extends LoadableDetachableModel {
   }
 
   @Override
-  protected Object load() {
+  protected IFoafResource load() {
     IPerson person;
     try {
       person = SimalRepositoryFactory.getPersonService().get(uri);

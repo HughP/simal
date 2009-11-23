@@ -93,6 +93,7 @@ public Iterator<? extends IReview> iterator(int first, int count) {
     return result.iterator();
 }
 
+@SuppressWarnings("unchecked")
 public IModel<IReview> model(IReview object) {
     try {
           return new DetachableReviewModel((IReview) object);
