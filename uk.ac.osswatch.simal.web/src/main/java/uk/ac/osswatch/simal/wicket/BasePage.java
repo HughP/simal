@@ -20,9 +20,9 @@ package uk.ac.osswatch.simal.wicket;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
+import org.apache.wicket.markup.html.CSSPackageResource;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -35,6 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.DoapFormPage;
@@ -59,16 +60,16 @@ public class BasePage extends WebPage {
       UserApplication.class, DEFAULT_CSS_LOC);
 
   public BasePage() {
-    add(HeaderContributor.forCss(DEFAULT_CSS));
-    add(new BookmarkablePageLink("homePageLink", UserHomePage.class));
-    add(new BookmarkablePageLink("personBrowserLink", PersonBrowserPage.class));
-    add(new BookmarkablePageLink("categoryBrowserPageLink",
+    add(CSSPackageResource.getHeaderContribution(DEFAULT_CSS));
+    add(new BookmarkablePageLink<UserHomePage>("homePageLink", UserHomePage.class));
+    add(new BookmarkablePageLink<PersonBrowserPage>("personBrowserLink", PersonBrowserPage.class));
+    add(new BookmarkablePageLink<CategoryBrowserPage>("categoryBrowserPageLink",
         CategoryBrowserPage.class));
-    add(new BookmarkablePageLink("projectBrowserLink",
+    add(new BookmarkablePageLink<ProjectBrowserPage>("projectBrowserLink",
         ProjectBrowserPage.class));
-    add(new BookmarkablePageLink("addDOAPLink", DoapFormPage.class));
-    add(new BookmarkablePageLink("reportsLink", ProjectsSummaryReportPage.class));
-    add(new BookmarkablePageLink("toolsLink", ToolsPage.class));
+    add(new BookmarkablePageLink<DoapFormPage>("addDOAPLink", DoapFormPage.class));
+    add(new BookmarkablePageLink<ProjectsSummaryReportPage>("reportsLink", ProjectsSummaryReportPage.class));
+    add(new BookmarkablePageLink<ToolsPage>("toolsLink", ToolsPage.class));
     add(new StandardFooter("footer"));
   }
 
@@ -146,7 +147,7 @@ public class BasePage extends WebPage {
    * @return
    */
   protected RepeatingView getRepeatingLinks(String repeaterWicketID,
-      String linkWicketID, SortableDataProvider resources, boolean fetchLabels) {
+      String linkWicketID, SortableDataProvider<IResource> resources, boolean fetchLabels) {
     return getRepeatingLinks(repeaterWicketID, linkWicketID, null, resources,
         fetchLabels);
   }
