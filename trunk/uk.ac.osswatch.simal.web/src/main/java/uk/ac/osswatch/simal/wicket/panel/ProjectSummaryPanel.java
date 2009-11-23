@@ -88,7 +88,6 @@ public class ProjectSummaryPanel extends Panel {
     populatePage(project);
   }
 
-  @SuppressWarnings("serial")
   private void populatePage(final IProject project) {
     if (project != null) {
       add(new Label("widgetTitle", "Featured Project"));

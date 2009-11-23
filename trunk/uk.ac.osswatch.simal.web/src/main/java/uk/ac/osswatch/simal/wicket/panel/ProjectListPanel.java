@@ -57,7 +57,6 @@ public class ProjectListPanel extends Panel {
    * @param numberOfProjects number of projects to display per page
    * @throws SimalRepositoryException
    */
-  @SuppressWarnings("serial")
   public ProjectListPanel(String id, int numberOfProjects) throws SimalRepositoryException {
     super(id);
     populatePanel(null, numberOfProjects);
