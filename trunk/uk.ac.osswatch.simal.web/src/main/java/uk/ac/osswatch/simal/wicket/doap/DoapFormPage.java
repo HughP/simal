@@ -39,6 +39,7 @@ import org.apache.wicket.util.lang.Bytes;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -171,7 +172,6 @@ public class DoapFormPage extends BasePage {
   private static class DoapForm extends Form<DoapFormInputModel> {
     private static final long serialVersionUID = 4350446873545711199L;
 
-    @SuppressWarnings("serial")
     public DoapForm(String name) {
       super(name, new CompoundPropertyModel<DoapFormInputModel>(inputModel));
 
@@ -197,9 +197,7 @@ public class DoapFormPage extends BasePage {
       if (!this.hasError()) {
         String uri = RDFUtils.PROJECT_NAMESPACE_URI + inputModel.getName();
         try {
-          ISimalRepository repo = UserApplication.getRepository();
-
-          IProject project = repo.createProject(uri);
+          IProject project = SimalRepositoryFactory.getProjectService().createProject(uri);
           project.addName(inputModel.getName());
           project.setShortDesc(inputModel.getShortDesc());
           project.setDescription(inputModel.getDescription());
