@@ -120,7 +120,7 @@ public class AddPersonPanel extends Panel {
   private final class AddPersonButton extends AjaxFallbackButton {
     private static final long serialVersionUID = -3425972816770998300L;
 
-    private AddPersonButton(String id, Form form) {
+    private AddPersonButton(String id, Form<FoafFormInputModel> form) {
       super(id, form);
     }
 
@@ -132,7 +132,7 @@ public class AddPersonPanel extends Panel {
      *          the request target.
      */
     @Override
-    public void onSubmit(AjaxRequestTarget target, Form form) {
+    public void onSubmit(AjaxRequestTarget target, Form<?> form) {
       inputModel.setName(nameField.getValue());
       inputModel.setEmail(emailField.getValue());
       try {
@@ -170,7 +170,7 @@ public class AddPersonPanel extends Panel {
       target.addComponent(updatePanel);
     }
 
-    protected void onError(AjaxRequestTarget target, Form form) {
+    protected void onError(AjaxRequestTarget target, Form<?> form) {
       target.addComponent(feedback);
     }
   }
