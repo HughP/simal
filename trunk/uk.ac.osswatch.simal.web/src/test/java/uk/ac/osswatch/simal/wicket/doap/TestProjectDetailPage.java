@@ -17,8 +17,6 @@ package uk.ac.osswatch.simal.wicket.doap;
  * under the License.                                                *
  */
 
-import java.util.Set;
-
 import org.apache.wicket.Page;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.ITestPageSource;
@@ -26,7 +24,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 
@@ -112,9 +109,6 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testAddMaintainer() throws SimalRepositoryException {
-    Set<IPerson> peopleBefore = SimalRepositoryFactory.getProjectService().getProject(
-        projectURI).getMaintainers();
-
     tester.assertVisible("addMaintainerPanel");
     tester.assertVisible("addMaintainerPanel:newLink");
 
