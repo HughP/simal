@@ -17,8 +17,9 @@ package uk.ac.osswatch.simal.wicket.foaf;
  * under the License.                                                *
  */
 
-import org.apache.wicket.behavior.HeaderContributor;
 import org.apache.wicket.behavior.StringHeaderContributor;
+import org.apache.wicket.markup.html.CSSPackageResource;
+import org.apache.wicket.markup.html.JavascriptPackageResource;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 
 import uk.ac.osswatch.simal.wicket.BasePage;
@@ -36,9 +37,8 @@ public class ExhibitPersonBrowserPage extends BasePage {
       BasePage.class, "style/exhibit.css");
 
   public ExhibitPersonBrowserPage() {
-    add(HeaderContributor.forCss(EXHIBIT_CSS));
-    add(HeaderContributor
-        .forJavaScript("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
+    add(CSSPackageResource.getHeaderContribution(EXHIBIT_CSS));
+    add(JavascriptPackageResource.getHeaderContribution("http://static.simile.mit.edu/exhibit/api-2.0/exhibit-api.js"));
     StringBuilder jsonLink = new StringBuilder("<link href=\"");
     jsonLink.append(UserApplication.get().getServletContext().getContextPath());
     jsonLink = jsonLink.append("/simal-rest/allPeople/json\" rel=\"exhibit/data");
