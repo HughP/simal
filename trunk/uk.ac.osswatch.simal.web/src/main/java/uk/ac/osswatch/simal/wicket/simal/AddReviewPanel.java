@@ -53,7 +53,6 @@ public class AddReviewPanel extends Panel {
   TextField<String> reviewerField;
   TextField<String> projectField;
   FeedbackPanel feedback;
-  private IProject project;
 
   private ReviewListPanel updatePanel;
 
@@ -74,7 +73,6 @@ public class AddReviewPanel extends Panel {
   public AddReviewPanel(String wicketid, IProject project, IPerson reviewer,
       ReviewListPanel updatePanel) {
     super(wicketid);
-    this.project = project;
     this.updatePanel = updatePanel;
     this.inputModel = new ReviewFormInputModel(project, reviewer);
     setOutputMarkupId(true);
@@ -112,7 +110,7 @@ public class AddReviewPanel extends Panel {
   private final class AddReviewButton extends AjaxFallbackButton {
     private static final long serialVersionUID = -3425972816770998300L;
 
-    private AddReviewButton(String id, Form form) {
+    private AddReviewButton(String id, Form<FoafFormInputModel> form) {
       super(id, form);
     }
 
@@ -124,7 +122,7 @@ public class AddReviewPanel extends Panel {
      *          the request target.
      */
     @Override
-    public void onSubmit(AjaxRequestTarget target, Form form) {
+    public void onSubmit(AjaxRequestTarget target, Form<?> form) {
       //FIXME: inputModel.setEmail(reviewerField.getValue());
       IReview review;
 	  try {
@@ -137,7 +135,7 @@ public class AddReviewPanel extends Panel {
 	  }
     }
 
-    protected void onError(AjaxRequestTarget target, Form form) {
+    protected void onError(AjaxRequestTarget target, Form<?> form) {
       target.addComponent(feedback);
     }
   }
@@ -160,33 +158,6 @@ public class AddReviewPanel extends Panel {
     @Override
     public void onClick(AjaxRequestTarget target) {
       onHideReviewForm(target);
-    }
-
-  }
-
-  /** Link for displaying the AddPersonForm. */
-  @SuppressWarnings("unchecked")
-  private final class NewPersonLink extends AjaxFallbackLink {
-    private static final long serialVersionUID = 8333095362462779919L;
-
-    public NewPersonLink(String id) {
-      super(id);
-    }
-
-    /**
-     * When the link is clicked the form is shown and the link is hidden.
-     * 
-     * @param target
-     *          the request target.
-     */
-    @Override
-    public void onClick(AjaxRequestTarget target) {
-      onShowReviewForm(target);
-    }
-
-    @Override
-    public boolean isVisible() {
-      return !formVisible;
     }
 
   }
