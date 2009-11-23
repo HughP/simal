@@ -20,6 +20,10 @@ package uk.ac.osswatch.simal.wicket.authentication;
 import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebSession;
 
+import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.SimalWebProperties;
+
 /**
  * Stores information about the current session. This object is to be stored in the session
  * and made available for the the application. To get the data for the current session simply
@@ -76,10 +80,13 @@ public class SimalSession extends WebSession {
 	 * 
 	 * @param username
 	 * @param password
+	 * @throws SimalRepositoryException 
 	 */
-	public void authenticate(String username, String password) {
+	public void authenticate(String username, String password) throws SimalRepositoryException {
 		setUsername(username);
-		if (username.equals("simal") && password.equals("simal")) {
+		String adminUsername = SimalWebProperties.getProperty(SimalWebProperties.ADMIN_USERNAME);
+		String adminPassword = SimalWebProperties.getProperty(SimalWebProperties.ADMIN_PASSWORD);
+		if (username.equals(adminUsername) && password.equals(adminPassword)) {
 			setAuthenticated(true);
 		} else {
 			setAuthenticated(false);
