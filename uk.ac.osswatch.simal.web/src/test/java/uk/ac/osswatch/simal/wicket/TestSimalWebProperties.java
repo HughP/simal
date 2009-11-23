@@ -27,7 +27,7 @@ public class TestSimalWebProperties {
 	
 	@Test
 	public void testAdminAccountDetails() throws SimalRepositoryException {
-		assertEquals("Admin username is not correct", "simal", SimalWebProperties.getProperty(SimalWebProperties.ADMIN_USERNAME));
-		assertEquals("Admin password is not correct", "simal", SimalWebProperties.getProperty(SimalWebProperties.ADMIN_PASSWORD));
+		assertEquals("Admin username is not correct", "simal", SimalWebProperties.getProperty(SimalWebProperties.ADMIN_USERNAME, "simal"));
+		assertEquals("Admin password is not correct", "simal", SimalWebProperties.getProperty(SimalWebProperties.ADMIN_PASSWORD, "simal"));
 	}
 }
