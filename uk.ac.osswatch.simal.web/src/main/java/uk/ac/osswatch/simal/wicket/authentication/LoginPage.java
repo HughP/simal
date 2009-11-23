@@ -1,5 +1,6 @@
 package uk.ac.osswatch.simal.wicket.authentication;
 
+import org.apache.wicket.IPageMap;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -48,7 +49,7 @@ public class LoginPage extends BasePage {
 				if (!sessionData.isAuthenticated()) {
 					error("Invalid username/password");
 				} else {
-					info("Welcome, " + username);
+					getPageMap().continueToOriginalDestination();
 				}
 			}
 		});
