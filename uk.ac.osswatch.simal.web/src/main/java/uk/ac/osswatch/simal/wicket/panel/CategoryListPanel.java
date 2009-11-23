@@ -65,7 +65,6 @@ public class CategoryListPanel extends Panel {
         "name") {
       private static final long serialVersionUID = 2731613682674835708L;
 
-      @SuppressWarnings("unchecked")
       @Override
       public void onClick(Item item, String componentId, IModel model) {
         IDoapCategory category = (IDoapCategory) model.getObject();
