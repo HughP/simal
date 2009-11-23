@@ -20,7 +20,6 @@ package uk.ac.osswatch.simal.wicket.authentication;
 import org.apache.wicket.Request;
 import org.apache.wicket.protocol.http.WebSession;
 
-import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.SimalWebProperties;
 
