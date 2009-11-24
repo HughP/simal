@@ -21,6 +21,7 @@ import java.util.Set;
 
 import org.w3c.dom.Node;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.jena.Organisation;
@@ -44,7 +45,7 @@ public class JenaOrganisationService extends JenaService implements
 
 	public IOrganisation create(String uri) throws DuplicateURIException,
 			SimalRepositoryException {
-		if (getRepository().containsProject(uri)) {
+		if (SimalRepositoryFactory.getProjectService().containsProject(uri)) {
 			throw new DuplicateURIException(
 					"Attempt to create a second organisation with the URI " + uri);
 		}

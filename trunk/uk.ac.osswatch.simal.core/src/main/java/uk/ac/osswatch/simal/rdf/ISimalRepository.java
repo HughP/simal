@@ -97,31 +97,6 @@ public interface ISimalRepository {
       
   
   /**
-   * Get a project from the repository. If the project does not exist then
-   * return null.
-   * 
-   * @param uri
-   *          the URI of the project to retrieve
-   * @return the project, or if no project with the given String exists Null
-   * @throws SimalRepositoryException
-   * 
-   * @deprecated Use ProjectService.getProject(uri) instead
-   */
-  public IProject getProject(String uri) throws SimalRepositoryException;
-  
-  /**
-   * Get a project with a given rdf:seeAlso value.
-   * 
-   * @param seeAlso
-   * @return
-   * @throws SimalRepositoryException
-   * 
-   * @deprecated use ProjectService.findProjectBySeeAlso(seeAlso) instead
-   */
-  public IProject findProjectBySeeAlso(String seeAlso)
-      throws SimalRepositoryException;
-
-  /**
    * Get a project with a given homepage.
    * 
    * @param homepage
@@ -170,33 +145,6 @@ public interface ISimalRepository {
    * @throws RepositoryException
    */
   public void destroy() throws SimalRepositoryException;
-
-  /**
-   * Create a new project in the repository.
-   * 
-   * @return
-   * @throws SimalRepositoryException
-   *           if an error is thrown whilst communicating with the repository
-   * @throws DuplicateURIException
-   *           if an entity with the given String already exists
-   * @deprecated use ProjectService.createProject(uri) instead
-   */
-  public IProject createProject(String uri) throws SimalRepositoryException,
-      DuplicateURIException;
-
-  /**
-   * Create a new homepage in the repository.
-   * 
-   * @param uri a URI to identify this homepage
-   * @return
-   * @throws SimalRepositoryException
-   *           if an error is thrown whilst communicating with the repository
-   * @throws DuplicateURIException
-   *           if an entity with the given String already exists
-   * @deprecated use HomePageservice.createHomepage(ur) instead
-   */
-  public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
-      DuplicateURIException;
 
   /**
    * Create a new project ID and save the next value in the properties file.
@@ -265,17 +213,6 @@ public interface ISimalRepository {
    * @return
    */
   public boolean isInitialised();
-
-  /**
-   * Test to see if a project with the given String exists.
-   * 
-   * @param uri
-   * @return
-   * @throws SimalRepositoryException 
-   * 
-   * @deprecated Use ProjectService.containsProject(uri) instead
-   */
-  public boolean containsProject(String uri) throws SimalRepositoryException;
 
   /**
    * Test to see if an organisation with the given String exists.
@@ -376,14 +313,6 @@ public interface ISimalRepository {
   public Set<IProject> filterProjectsByName(String filter);
   
   /**
-   * Find all projects returned using a SPARQL query.
-   * 
-   * @param queryStr
-   * @return
-   */
-  public Set<IProject> filterProjectsBySPARQL(String queryStr);
-  
-  /**
    * Add an RDF/XML Document.
    * 
    * @param doc
@@ -399,16 +328,6 @@ public interface ISimalRepository {
    */
   public IDoapHomepage getHomepage(String uri);
 
-   /**
-    * Get a project from the repository. If the project does not yet exist it is created.
-    * 
-    * @param personURI
-    * @return
-    * @throws SimalRepositoryException 
-    * @deprecated Use ProjectServer.getOrCreateProject(uri) instead
-    */
-    public IProject getOrCreateProject(String uri) throws SimalRepositoryException;
-    
     /**
      * Ensure an ID is a valid Simal ID. Being valid does not mean that it is
      * necessarily an ID for this instance of Simal, but that it is a valid ID for
