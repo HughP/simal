@@ -15,6 +15,7 @@ package uk.ac.osswatch.simal.rdf;
  * limitations under the License.
  */
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;

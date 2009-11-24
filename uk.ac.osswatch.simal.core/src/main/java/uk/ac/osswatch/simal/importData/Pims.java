@@ -36,16 +36,14 @@ import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
 
-import com.hp.hpl.jena.vocabulary.RDF;
-import com.hp.hpl.jena.vocabulary.RDFS;
-
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
-import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalException;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class Pims {
     private static final Logger logger = LoggerFactory.getLogger(Pims.class);

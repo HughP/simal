@@ -16,9 +16,7 @@ package uk.ac.osswatch.simal.service;
  * under the License.
  * 
  */
-import org.apache.jackrabbit.ocm.manager.ObjectContentManager;
 
-import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
