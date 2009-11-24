@@ -218,8 +218,7 @@ public class SimalRepositoryFactory {
 		 switch (repoType) {
 		    case JENA:
 		      // return new JenaRepositoryService(getInstance());
-		      logger.error("Not implemented JenaBugDatabaseService");
-		      System.exit(1);
+		      throw new SimalRepositoryException("Not implemented JenaBugDatabaseService");		      
 		    case JCR: 
 		    	// commented out as this code moved to a branch - do we need to remove it yet?
 			      // return new JcrBugDatabaseService(getInstance());
@@ -240,8 +239,7 @@ public class SimalRepositoryFactory {
 		 switch (repoType) {
 		    case JENA:
 		      // return new JenaRepositoryService(getInstance());
-		      logger.error("Not implemented JenaMailingListService");
-		      System.exit(1);
+		      throw new SimalRepositoryException("Not implemented JenaMailingListService");
 		    case JCR: 
 		    	return new JcrMailingListService(getInstance());
 		    default:
@@ -261,8 +259,7 @@ public class SimalRepositoryFactory {
 		 switch (repoType) {
 		    case JENA:
 		      // return new JenaRepositoryService(getInstance());
-		      logger.error("Not implemented JenaRelaseService");
-		      System.exit(1);
+		      throw new SimalRepositoryException("Not implemented JenaRelaseService");
 		    case JCR: 
 		      return new JcrReleaseService(getInstance());
 		    default:
