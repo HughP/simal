@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URI;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -70,7 +71,8 @@ public class TestPTSWImport {
 
   /**
    * Test the generation of an RDF/XML document containing all pinged DOAP
-   * files.
+   * files. Allow for failure of project imports when offline operation
+   * is detected.
    * 
    * @throws SimalException
    * @throws IOException
@@ -81,11 +83,18 @@ public class TestPTSWImport {
     Element root = doc.getDocumentElement();
     NodeList projects = root
         .getElementsByTagNameNS(RDFUtils.DOAP_NS, "Project");
-    assertEquals("Incorrect number of project elements", NUM_OF_PINGS, projects
-        .getLength());
 
-    assertTrue("RDF namespaces does not seem to be defined", serialise(doc)
-        .contains(RDFUtils.RDF_NS));
+    try {
+      new URL("http://simal.googlecode.com").openStream();
+      assertEquals("Incorrect number of project elements", NUM_OF_PINGS,
+          projects.getLength());
+      assertTrue("RDF namespaces does not seem to be defined", serialise(doc)
+          .contains(RDFUtils.RDF_NS));
+    } catch (UnknownHostException e) {
+      // assume offline operation, number of projects should be 0.
+      assertEquals("Unexpectly found project elements", 0, projects
+          .getLength());
+    }
   }
 
   private String serialise(Document doc) throws IOException {
