@@ -1,4 +1,6 @@
 package uk.ac.osswatch.simal.model;
+
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 /*
  * 
  Copyright 2007 University of Oxford * 

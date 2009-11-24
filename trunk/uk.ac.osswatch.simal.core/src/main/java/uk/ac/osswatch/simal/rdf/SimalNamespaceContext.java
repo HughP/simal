@@ -20,10 +20,10 @@ import java.util.Iterator;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 
-import com.hp.hpl.jena.vocabulary.RDF;
-
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
+
+import com.hp.hpl.jena.vocabulary.RDF;
 
 /**
  * NamespaceContext for working with Simal DOAP files. This is used whenever we

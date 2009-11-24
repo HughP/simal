@@ -17,7 +17,9 @@ package uk.ac.osswatch.simal.service;
  * 
  */
 
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
