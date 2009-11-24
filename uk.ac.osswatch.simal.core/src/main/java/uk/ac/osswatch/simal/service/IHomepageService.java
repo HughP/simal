@@ -39,8 +39,9 @@ public interface IHomepageService extends IService {
 	    public IHomepageService getOrCreate(String url) throws SimalRepositoryException;
 	    
 	    /**
-	     * Create a new project in the repository.
+	     * Create a new homepage in the repository.
 	     * 
+	     * @param uri a URI to identify this homepage
 	     * @return
 	     * @throws SimalRepositoryException
 	     *           if an error is thrown whilst communicating with the repository

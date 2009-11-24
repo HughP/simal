@@ -65,34 +65,27 @@ import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
-import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 
 import com.hp.hpl.jena.db.DBConnection;
 import com.hp.hpl.jena.db.IDBConnection;
-import com.hp.hpl.jena.query.Query;
-import com.hp.hpl.jena.query.QueryExecution;
-import com.hp.hpl.jena.query.QueryExecutionFactory;
-import com.hp.hpl.jena.query.QueryFactory;
-import com.hp.hpl.jena.query.QuerySolution;
-import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.ModelMaker;
 import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
-import com.hp.hpl.jena.vocabulary.RDFS;
 
 public final class JenaSimalRepository extends AbstractSimalRepository {
   public static final Logger logger = LoggerFactory
       .getLogger(JenaSimalRepository.class);
 
   private static ISimalRepository instance;
+  
   private transient Model model;
 
   /**
@@ -110,7 +103,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    * @return
    * @throws SimalRepositoryException
    */
-  public static ISimalRepository getInstance() throws SimalRepositoryException {
+  public synchronized static ISimalRepository getInstance() throws SimalRepositoryException {
     if (instance == null) {
       instance = new JenaSimalRepository();
     }
@@ -257,86 +250,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     model.read(xmlReader, "");
   }
   
-  /**
-   * @deprecated use ProjectService.createProject(uri) instead
-   */
-  public IProject createProject(String uri) throws SimalRepositoryException,
-      DuplicateURIException {
-    if (containsProject(uri)) {
-      throw new DuplicateURIException(
-          "Attempt to create a second project with the URI " + uri);
-    }
-    
-    String simalProjectURI;
-    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
-	    String projectID = getNewProjectID();
-	    simalProjectURI = RDFUtils.getDefaultProjectURI(projectID);
-	    logger.debug("Creating a new Simal Projectinstance with URI: "
-	        + simalProjectURI);
-    } else {
-        simalProjectURI = uri;
-    }
-
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(simalProjectURI);
-    Statement s = model.createStatement(r, RDF.type, SimalOntology.PROJECT);
-    model.add(s);
-        
-    if (!uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
-        com.hp.hpl.jena.rdf.model.Resource res = model.createResource(uri);
-        s = model.createStatement(r, RDFS.seeAlso, res);
-        model.add(s);
-      }
-
-    IProject project = new Project(r);
-    project.setSimalID(getNewProjectID());
-    return project;
-  }
-
-  /**
-   * @deprecated use HomepageService.createHomepage(uri) instead
-   */
-  public IDoapHomepage createHomepage(String uri) throws SimalRepositoryException,
-      DuplicateURIException {
-	if (uri == null || uri.length() == 0) {
-		throw new SimalRepositoryException("URI cannot be blank or null");
-	}
-    if (containsResource(uri)) {
-      throw new DuplicateURIException(
-          "Attempt to create a second homepage with the URI " + uri);
-    }
-
-    Property o = model.createProperty("http://usefulinc.com/ns/doap#homepage");
-    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    Statement s = model.createStatement(r, RDF.type, o);
-    model.add(s);
-
-    IDoapHomepage page = new Homepage(r);
-    page.setSimalID(getNewHomepageID());
-    return page;
-  }
-
-  /** 
-   * @deprecated Use ProjectServer.getOrCreateProject(uri) instead
-   */
-  public IProject getOrCreateProject(String uri)
-  		throws SimalRepositoryException {
-	if (containsResource(uri)) {
-		return getProject(uri);
-	} else {
-		IProject project = findProjectBySeeAlso(uri);
-		if (project == null) {
-			try {
-				return createProject(uri);
-			} catch (DuplicateURIException e) {
-				logger.error("Threw a DuplicateURIEception when we had already checked for resource existence", e);
-				return null;
-			}
-		} else {
-			return project;
-		}
-	}
-  }
-  
   public void destroy() throws SimalRepositoryException {
     logger.info("Destorying the SimalRepository");
     model.close();
@@ -352,6 +265,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
       }
   }
 
+  /**
+   * @refactor should be moved to ProjectService class
+   */ 
   public IProject findProjectByHomepage(String homepage)
       throws SimalRepositoryException {
     String queryStr = "PREFIX simal: <" + RDFUtils.SIMAL_NS + "> "
@@ -367,12 +283,22 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     // or ?project rdfs:seeAlso ?linkedProject
     // ?linkedProject doap:homepage x
 
-    IProject project = findProjectBySPARQL(queryStr);
+    IProject project = null;
+    Set<IProject> projects = ((JenaProjectService) SimalRepositoryFactory
+        .getProjectService()).findProjectsBySPARQL(queryStr);
 
+    if (!projects.isEmpty()) {
+      project = projects.iterator().next();
+    }
+    
     return project;
   }
 
+  /**
+   * @refactor should be moved to ProjectService class
+   */ 
   public Set<IProject> filterProjectsByName(String filter) {
+    Set<IProject> projects = new HashSet<IProject>();
     String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
         + "> " + "PREFIX doap: <" + RDFUtils.DOAP_NS + "> "
         + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
@@ -381,68 +307,19 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
         + "  doap:name ?name . "
         + "  FILTER regex(?name, \"" + filter + "\", \"i\") }";
 
-    return filterProjectsBySPARQL(queryStr);
-  }
-
-  /**
-   * @deprecated
-   */
-  public IProject findProjectBySeeAlso(String seeAlso)
-      throws SimalRepositoryException {
-    return SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(seeAlso);
-  }
-
-  /**
-   * Find a single project by executing a SPARQL query.
-   * If the query returns more than one result then
-   * only one is returned.
-   * 
-   * @param queryStr
-   * @return
-   * 
-   * @deprecated No longer needed when other methods have been moved to ProjectService
-   */
-  private IProject findProjectBySPARQL(String queryStr) {
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-
-    IProject project = null;
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("project");
-      if (node.isResource()) {
-        project = new Project((com.hp.hpl.jena.rdf.model.Resource) node);
-      }
+    try {
+      projects = ((JenaProjectService) SimalRepositoryFactory
+          .getProjectService()).findProjectsBySPARQL(queryStr);
+    } catch (SimalRepositoryException e) {
+      logger.warn("Could not find projects filtering on " + filter, e);
     }
-    qe.close();
-    return project;
-  }
 
-  /**
-   * Find all projects returned using a SPARQL query.
-   * 
-   * @param queryStr
-   * @return
-   * @deprecated use ProjectService.findProjectsbySPARQL
-   */
-  public Set<IProject> filterProjectsBySPARQL(String queryStr) {
-    Query query = QueryFactory.create(queryStr);
-    QueryExecution qe = QueryExecutionFactory.create(query, model);
-    ResultSet results = qe.execSelect();
-	
-    Set<IProject> projects = new HashSet<IProject>();
-    while (results.hasNext()) {
-      QuerySolution soln = results.nextSolution();
-      RDFNode node = soln.get("project");
-      if (node.isResource()) {
-        projects.add(new Project((com.hp.hpl.jena.rdf.model.Resource) node));
-      }
-    }
-    qe.close();
     return projects;
   }
 
+  /**
+   * @refactor should be moved to ProjectService class
+   */ 
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
     Property o = model.createProperty(SIMAL_PROJECT_URI);
     StmtIterator itr = model.listStatements(null, RDF.type, o);
@@ -454,6 +331,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return projects;
   }
 
+  /**
+   * @refactor should be moved to ProjectService class
+   */ 
   public String getAllProjectsAsJSON() throws SimalRepositoryException {
     StringBuffer json = new StringBuffer("{ \"items\": [");
     Iterator<IProject> projects = getAllProjects().iterator();
@@ -469,21 +349,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return json.toString();
   }
   
-  /**
-   * @deprecated
-   */
-  public IProject getProject(String uri) throws SimalRepositoryException {
-	return SimalRepositoryFactory.getProjectService().getProject(uri);
-  }
-
-  /**
-   * @throws SimalRepositoryException 
- * @deprecated
-   */
-  public boolean containsProject(String uri) throws SimalRepositoryException {
-    return SimalRepositoryFactory.getProjectService().containsProject(uri);
-  }
-
   /**
    * Test to see if an organisation with the given String exists.
    * 
@@ -553,7 +418,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    * Create a new simal:Project entity.
    * @param seeAlsoUri the URI for the doap:Project this simal:Project is to represent
    * @throws SimalRepositoryException 
-   */
+   *
+   * @refactor should be moved to ProjectService class
+   */ 
   private IProject createSimalProject(String seeAlsoUri) throws SimalRepositoryException {
     String projectID = SimalRepositoryFactory.getProjectService().getNewProjectID();
     String uri = RDFUtils.getDefaultProjectURI(projectID);
@@ -594,8 +461,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 
     addRDFXML(simalProjectDoc);
 
-    IProject project = getProject(uri);
-    return project;
+    return SimalRepositoryFactory.getProjectService().getProject(uri);
   }
   /**
    * Add a single DOAP project document. The root of the project must be a "doap:Project" element
@@ -609,6 +475,8 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    * @throws SimalRepositoryException
    * @throws IllegalArgumentException if the element supplied is no a "doap:Project" element
    * @seeAlso addProject(Document originalDoc, URL sourceURL, String baseURI)
+   *
+   * @refactor should be moved to ProjectService class
    */
   public void addProject(Element sourceProjectRoot)
       throws SimalRepositoryException, DOMException {
@@ -657,7 +525,7 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 	      seeAlso = (Element) seeAlsos.item(i);
 	      if (seeAlso.getParentNode().equals(sourceProjectRoot)) {
 	        String seeAlsoUri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource").trim();
-	        project = findProjectBySeeAlso(seeAlsoUri);
+	        project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(seeAlsoUri);
 	        if (project != null) {
 	          logger
 	              .debug("Simal already has a Project record with the rdfs:seeAlso "
