@@ -28,7 +28,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -44,7 +43,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
  * test common activities relating to Projects.
@@ -71,17 +69,6 @@ public class TestRepository extends BaseRepositoryTest {
     // Test wildcard match
     projects = getRepository().filterProjectsByName("Simal");
     assertEquals("Not the right number of projects match the filter 'Simal'", 4, projects.size());
-  }
-
-  @Test
-  public void testFilterPeopleByName() throws SimalRepositoryException {
-    // Test exact Match
-    Set<IPerson> people = SimalRepositoryFactory.getPersonService().filterByName("Ross Gardler");
-    assertEquals("Not the right number of projects with the name 'Ross Gardler'", 1, people.size());
-    
-    // Test wildcard match
-    people = SimalRepositoryFactory.getPersonService().filterByName("Ro");
-    assertEquals("Not the right number of projects match the filter 'Ro'", 3, people.size());
   }
 
   @Test
@@ -183,49 +170,10 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testGetAllPeopleAsJSON() throws SimalRepositoryException {
-    logger.debug("Starting testGetAllPeopleAsJSON()");
-    Long targetTime = Long.valueOf(75);
-    Long startTime = System.currentTimeMillis();
-    String json = SimalRepositoryFactory.getPersonService().getAllAsJSON();
-    Long endTime = System.currentTimeMillis();
-    Long actualTime = endTime - startTime;
-    assertTrue("Time to create JSON for all people is longer than "
-        + targetTime + " took " + actualTime, actualTime <= targetTime);
-    assertTrue("JSON file does not appear to be correct", json
-        .startsWith("{ \"items\": ["));
-    assertTrue("JSON file does not appear to be correct", json.endsWith("]}"));
-    logger.debug("Finished testGetAllPeoplesAsJSON()");
-  }
-
-  @Test
   public void testFindCategoryById() throws SimalRepositoryException {
     IDoapCategory cat = SimalRepositoryFactory.getCategoryService().findById("1");
     assertNotNull(cat);
     assertEquals("Category name is incorrect", "Simal ID Test", cat.getName());
-  }
-
-  @Test
-  public void testFindPersonById() throws SimalRepositoryException {
-    IPerson person = SimalRepositoryFactory.getPersonService().findById(testDeveloperID);
-    assertNotNull("Can't find a person with the ID " + testDeveloperID, person);
-    assertEquals("Developer URI is not as expected ", RDFUtils
-        .getDefaultPersonURI(testDeveloperID), person.getURI());
-  }
-
-  @Test
-  public void testFindPersonByEMail() throws SimalRepositoryException, NoSuchAlgorithmException {
-    IPerson person = SimalRepositoryFactory.getPersonService().findBySha1Sum(RDFUtils.getSHA1(testDeveloperEMail));
-    assertNotNull("Can't find a person with the EMail " + testDeveloperEMail, person);
-  }
-
-  @Test
-  public void testGetPerson() throws SimalRepositoryException {
-    IPerson person = SimalRepositoryFactory.getPersonService().get(testDeveloperURI);
-    assertNotNull("Can't find a person with the URI " + testDeveloperURI,
-        person);
-    assertEquals("Developer URI is not as expected ", RDFUtils
-        .getDefaultPersonURI(testDeveloperID), person.getURI());
   }
 
   @Test
