@@ -16,7 +16,6 @@ package uk.ac.osswatch.simal.model;
  */
 import java.net.MalformedURLException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.apache.commons.lang.StringEscapeUtils;

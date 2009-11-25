@@ -17,8 +17,6 @@ package uk.ac.osswatch.simal.service;
  * 
  */
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
@@ -82,8 +80,6 @@ public interface ICategoryService extends IService {
 	  /**
 	   * Create a new category ID and save the next value in the properties file.
 	   * 
-	   * @throws IOException
-	   * @throws FileNotFoundException
 	   */
 	  public String getNewID() throws SimalRepositoryException;
 

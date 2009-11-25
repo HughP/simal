@@ -15,7 +15,6 @@ package uk.ac.osswatch.simal.rdf;
  * limitations under the License.
  */
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URL;
@@ -151,7 +150,6 @@ public interface ISimalRepository {
    * Create a new project ID and save the next value in the properties file.
    * 
    * @throws IOException
-   * @throws FileNotFoundException
    * @deprecated use ProjectService,getNewProjectID() instead
    */
   public String getNewProjectID() throws SimalRepositoryException;
