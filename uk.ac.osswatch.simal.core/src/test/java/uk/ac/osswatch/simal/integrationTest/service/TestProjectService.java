@@ -184,6 +184,20 @@ public class TestProjectService extends BaseRepositoryTest {
 	    assertNotNull(project);
 	    logger.debug("Finished testFindProjectBySeeAlso()");
 	  }
+	  
+
+	  @Test
+	  public void testFilterProjectsByName() throws SimalRepositoryException {
+	    // Test exact Match
+	    Set<IProject> projects = SimalRepositoryFactory.getProjectService().filterByName("Simal Project Catalogue System");
+	    assertEquals("Not the right number of projects with the name 'Simal Project Catalogue System'", 1, projects.size());
+	    
+	    // Test wildcard match
+	    projects = SimalRepositoryFactory.getProjectService().filterByName("Simal");
+	    assertEquals("Not the right number of projects match the filter 'Simal'", 4, projects.size());
+	  }
+
+
 
 
 }

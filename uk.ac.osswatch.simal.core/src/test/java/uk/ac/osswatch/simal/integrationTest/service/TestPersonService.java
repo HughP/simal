@@ -71,9 +71,30 @@ public class TestPersonService extends BaseRepositoryTest {
       Set<IPerson> people = service.filterByName("Ross Gardler");
       assertEquals("Not the right number of projects with the name 'Ross Gardler'", 1, people.size());
       
-      // Test wildcard match
-      people = service.filterByName("Ro");
-      assertEquals("Not the right number of projects match the filter 'Ro'", 3, people.size());
+    }
+
+    @Test
+    public void testFilterPersonByNameByWildcard() {
+        Set<IPerson> people = service.filterByName("R*s");
+        Iterator<IPerson> itr = people.iterator();
+        while (itr.hasNext()) {
+        	logger.info("R*s matches: " + itr.next().toString());
+        }
+        assertEquals("Not the right number of projects match the filter 'R*s'", 11, people.size());
+        
+        people = service.filterByName("^Ro");
+        itr = people.iterator();
+        while (itr.hasNext()) {
+        	logger.info("^Ro matches: " + itr.next().toString());
+        }
+        assertEquals("Not the right number of projects match the filter '^Ro'", 2, people.size());
+
+        people = service.filterByName("A$");
+        itr = people.iterator();
+        while (itr.hasNext()) {
+        	logger.info("A$ matches: " + itr.next().toString());
+        }
+        assertEquals("Not the right number of projects match the filter 'A$'", 1, people.size());
     }
     
     @Test
@@ -114,7 +135,4 @@ public class TestPersonService extends BaseRepositoryTest {
       assertEquals("Developer URI is not as expected ", RDFUtils
           .getDefaultPersonURI(testDeveloperID), person.getURI());
     }
-
-
-
 }

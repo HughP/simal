@@ -199,4 +199,18 @@ public interface IProjectService extends IService {
 	     * @throws SimalRepositoryException 
 	     */
 		public Set<IProject> getProjectsWithoutMailingList() throws SimalRepositoryException;
+		
+
+	  /**
+	   * Return all the projects with a name that matches the
+	   * supplied regular expression. The filter
+	   * is not case sensitive.
+	   * 
+	   * 
+	   * @param value
+	   * @return
+	   * 
+	   * @refactor move to ProjectService
+	   */
+	  public Set<IProject> filterByName(String filter);
 }
