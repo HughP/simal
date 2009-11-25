@@ -159,21 +159,6 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testGetAllPeople() throws SimalRepositoryException, IOException {
-    Set<IPerson> people = SimalRepositoryFactory.getPersonService().getAll();
-
-    Iterator<IPerson> itrPeople = people.iterator();
-    IPerson person;
-    while (itrPeople.hasNext()) {
-      person = itrPeople.next();
-      assertNotNull(person.getLabel());
-      logger.debug("Got person: " + person + " : " + person.getURI());
-    }
-
-    assertEquals(22, people.size());
-  }
-
-  @Test
   public void testNullQNameHandling() throws SimalRepositoryException {
     logger.debug("Starting testNullQNameHandling()");
     Set<IProject> projects = getRepository().getAllProjects();
