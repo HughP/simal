@@ -288,10 +288,10 @@ public final class RESTCommand {
    */
   public static RESTCommand createCommand(String cmdString)
       throws SimalAPIException {
-	if (cmdString.contains("://")) {
-		throw new SimalAPIException("the command string should not contain a protocol or host and path to the REST-API. It should only contain the command string.");
-	}
     if (cmdString != null) {
+  	  if (cmdString.contains("://")) {
+		throw new SimalAPIException("the command string should not contain a protocol or host and path to the REST-API. It should only contain the command string.");
+	  }
       RESTCommand cmd = new RESTCommand();
       cmd.setCommandMethod(extractCommandMethod(cmdString));
       cmd.setPersonID(extractPersonId(cmdString));
