@@ -86,20 +86,6 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testFindProject() throws SimalRepositoryException,
-      URISyntaxException {
-    logger.debug("Starting testFindProject()");
-    String uri = "http://foo.org/nonExistent";
-    IProject project = SimalRepositoryFactory.getProjectService().getProject(uri);
-    assertNull(project);
-
-    // test a known valid file
-    project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
-    assertEquals("Simal DOAP Test", project.getName());
-    logger.debug("Finished testFindProject()");
-  }
-
-  @Test
   public void testGetRdfXml() throws SimalRepositoryException,
       URISyntaxException {
     logger.debug("Starting testGetRdfXML()");
@@ -174,20 +160,6 @@ public class TestRepository extends BaseRepositoryTest {
     IDoapCategory cat = SimalRepositoryFactory.getCategoryService().findById("1");
     assertNotNull(cat);
     assertEquals("Category name is incorrect", "Simal ID Test", cat.getName());
-  }
-
-  @Test
-  public void testFindProjectById() throws SimalRepositoryException {
-    IProject project = SimalRepositoryFactory.getProjectService().getProjectById(testProjectID);
-    assertNotNull("Failed to get project with ID " + testProjectID, project);
-  }
-
-  @Test
-  public void testFindProjectBySeeAlso() throws SimalRepositoryException {
-    logger.debug("Starting testFindProjectBySeeAlso()");
-    IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(project1SeeAlso);
-    assertNotNull(project);
-    logger.debug("Finished testFindProjectBySeeAlso()");
   }
 
   @Test
