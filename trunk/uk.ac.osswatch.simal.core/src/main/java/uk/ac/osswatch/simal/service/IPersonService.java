@@ -17,8 +17,6 @@ package uk.ac.osswatch.simal.service;
  * 
  */
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Set;
 
 import org.w3c.dom.Node;
@@ -43,7 +41,6 @@ public interface IPersonService extends IService {
 	   * Get all the people in the repository and return them in a single JSON file.
 	   * 
 	   * @return
-	   * @throws SimalRepositoryException
 	   * @throws SimalRepositoryException
 	   */
 	  public String getAllAsJSON() throws SimalRepositoryException;
@@ -77,9 +74,6 @@ public interface IPersonService extends IService {
 	  /**
 	   * Create a new person ID and save the next local value in the properties
 	   * file.
-	   * 
-	   * @throws IOException
-	   * @throws FileNotFoundException
 	   */
 	  public String getNewID() throws SimalRepositoryException;
 	  

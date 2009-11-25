@@ -1,6 +1,4 @@
 package uk.ac.osswatch.simal.model;
-
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 /*
  * 
  Copyright 2007 University of Oxford * 
@@ -28,7 +26,6 @@ public interface IInternetAddress extends IResource {
    * Get the complete email address.
    * 
    * @return
-   * @throws SimalRepositoryException
    */
   public String getAddress();
 

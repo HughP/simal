@@ -17,9 +17,6 @@ package uk.ac.osswatch.simal.service;
  * 
  */
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -55,9 +52,6 @@ public interface IReleaseService extends IService {
 
 	    /**
 	     * Create a new homepage ID and save the next value in the properties file.
-	     * 
-	     * @throws IOException
-	     * @throws FileNotFoundException
 	     */
 	    public String getNewID() throws SimalRepositoryException;
 }

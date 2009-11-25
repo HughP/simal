@@ -16,8 +16,7 @@ package uk.ac.osswatch.simal.service;
  * under the License.
  * 
  */
-import java.io.FileNotFoundException;
-import java.io.IOException;
+
 import java.util.Set;
 
 import uk.ac.osswatch.simal.model.IProject;
@@ -61,7 +60,6 @@ public interface IProjectService extends IService {
 	 * Get all projects in the repository that do not have a homepage recorded.
 	 * 
 	 * @return
-	 * @throws SimalRepositoryException 
 	 * @throws SimalRepositoryException 
 	 */
 	public Set<IProject> getProjectsWithoutHomepage() throws SimalRepositoryException;
@@ -182,9 +180,6 @@ public interface IProjectService extends IService {
 
 	    /**
 	     * Create a new project ID and save the next value in the properties file.
-	     * 
-	     * @throws IOException
-	     * @throws FileNotFoundException
 	     */
 	    public String getNewProjectID() throws SimalRepositoryException;
 
