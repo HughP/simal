@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.wicket.data;
 
 import java.util.Set;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -58,7 +59,7 @@ public class SortableProjectDataProvider extends
    * @throws SimalRepositoryException
    */
   public void filterProjectsByName(String nameFilter) throws SimalRepositoryException {
-    Set<IProject> projects = UserApplication.getRepository().filterProjectsByName(nameFilter);
+    Set<IProject> projects = SimalRepositoryFactory.getProjectService().filterByName(nameFilter);
     super.resetData(projects);
   }
 }
