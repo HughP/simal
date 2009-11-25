@@ -37,7 +37,6 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.ModelSupport;
@@ -72,20 +71,6 @@ public class TestRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testAddCategories() throws SimalRepositoryException,
-      URISyntaxException {
-    Set<IDoapCategory> cats = SimalRepositoryFactory.getCategoryService().getAll();
-    assertTrue("Not managed to get any categories from the repo",
-        cats.size() > 0);
-
-    Iterator<IDoapCategory> catsIt = cats.iterator();
-    while (catsIt.hasNext()) {
-      IDoapCategory cat = catsIt.next();
-      logger.debug("Got category: " + cat.getLabel());
-    }
-  }
-
-  @Test
   public void testGetRdfXml() throws SimalRepositoryException,
       URISyntaxException {
     logger.debug("Starting testGetRdfXML()");
@@ -97,21 +82,6 @@ public class TestRepository extends BaseRepositoryTest {
     assertTrue("XML appears to contain more than one project record",
         indexOf == lastIndexOf);
     logger.debug("Finished testGetRdfXML()");
-  }
-
-  @Test
-  public void testGetAllCategories() throws SimalRepositoryException,
-      IOException {
-    Set<IDoapCategory> cats = SimalRepositoryFactory.getCategoryService().getAll();
-
-    Iterator<IDoapCategory> itrCats = cats.iterator();
-    IDoapCategory cat;
-    while (itrCats.hasNext()) {
-      cat = itrCats.next();
-      logger.debug("Got category: " + cat.getSimalID() + " : " + cat.getURI());
-    }
-
-    assertTrue("Got too few categories", 50 < cats.size());
   }
 
   @Test
@@ -153,13 +123,6 @@ public class TestRepository extends BaseRepositoryTest {
         .startsWith("{ \"items\": ["));
     assertTrue("JSON file does not appear to be correct", json.endsWith("]}"));
     logger.debug("Finished testGetAllProjectsAsJSON()");
-  }
-
-  @Test
-  public void testFindCategoryById() throws SimalRepositoryException {
-    IDoapCategory cat = SimalRepositoryFactory.getCategoryService().findById("1");
-    assertNotNull(cat);
-    assertEquals("Category name is incorrect", "Simal ID Test", cat.getName());
   }
 
   @Test
@@ -306,30 +269,5 @@ public class TestRepository extends BaseRepositoryTest {
         SimalProperties.PROPERTY_SIMAL_NEXT_PROJECT_ID, "1"));
     assertTrue("A repeated ingest should not create a new Simal Project",
         beforeID.equals(afterID));    
-  }
-  
-  @Test
-  public void testGetOrCreateCategory() throws SimalRepositoryException {
-	 boolean exists =getRepository().containsResource(TEST_SIMAL_PROJECT_CATEGORY_TWO);
-	 assertTrue("Test category does not exist", exists);
-	 
-	 IDoapCategory gotCat = SimalRepositoryFactory.getCategoryService().get(TEST_SIMAL_PROJECT_CATEGORY_TWO);
-	 IDoapCategory gotOrCreateCat = SimalRepositoryFactory.getCategoryService().getOrCreate(TEST_SIMAL_PROJECT_CATEGORY_TWO);
-	 assertEquals("Retrieved categories are different depending on method of retrieval", gotCat.getURI(), gotOrCreateCat.getURI());
-  
-	 String uri = "http://test.com/category";
-	 gotCat = SimalRepositoryFactory.getCategoryService().get(uri);
-	 assertNull("Retrieved a category we should not have been able to get", gotCat);
-	 
-	 gotOrCreateCat = SimalRepositoryFactory.getCategoryService().getOrCreate(uri);
-	 assertNotNull("Failed to create a category using getOrCreateCategory", gotOrCreateCat);
-	 
-	 gotCat = SimalRepositoryFactory.getCategoryService().get(uri);
-	 assertNotNull("Failed to retrieve a recently created category", gotCat);
-	 
-	 gotOrCreateCat.delete();
-	 gotCat = SimalRepositoryFactory.getCategoryService().get(uri);
-	 assertNull("Retrieved a category we should have deleted", gotCat);
-	 
   }
 }
