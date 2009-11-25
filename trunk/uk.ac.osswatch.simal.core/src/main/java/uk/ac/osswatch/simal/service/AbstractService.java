@@ -53,4 +53,22 @@ public abstract class AbstractService implements IService {
 	 */
 	public abstract void save(IResource resource) throws SimalRepositoryException;
 	
+  
+	
+	/**
+	 * Take a filter string provided from the UI and convert it to a regular expression.
+	 * Supported notation:
+	 * 
+	 * <ul>
+	 *   <li>* wildcard - converted to '.*' in the RE</li>
+	 * </ul>
+	 * 
+	 * @param filter
+	 * @return
+	 */
+	protected String convertFilterToRE(String filter) {
+		String re = filter.replace("*", ".*");
+		return re;
+	}
+	
 }

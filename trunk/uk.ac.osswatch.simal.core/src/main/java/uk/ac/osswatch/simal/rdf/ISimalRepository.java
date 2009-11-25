@@ -303,19 +303,6 @@ public interface ISimalRepository {
    * @param writer The writer to write the N3 to
    */
   public void writeBackup(Writer writer);
-
-  /**
-   * Return all the projects with a name that matches the
-   * supplied regular expression. The filter
-   * is not case sensitive.
-   * 
-   * 
-   * @param value
-   * @return
-   * 
-   * @refactor move to ProjectService
-   */
-  public Set<IProject> filterProjectsByName(String filter);
   
   /**
    * Add an RDF/XML Document.

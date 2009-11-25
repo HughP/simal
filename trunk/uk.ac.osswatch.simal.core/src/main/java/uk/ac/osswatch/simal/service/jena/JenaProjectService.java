@@ -386,5 +386,19 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	    qe.close();
 	    return project;
 	  }
+	  
+	  public Set<IProject> filterByName(String filter) {
+	    Set<IProject> projects = new HashSet<IProject>();
+	    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
+	        + "> " + "PREFIX doap: <" + RDFUtils.DOAP_NS + "> "
+	        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
+	        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
+	        + "SELECT DISTINCT ?project WHERE { ?project a doap:Project;"
+	        + "  doap:name ?name . "
+	        + "  FILTER regex(?name, \"" + convertFilterToRE(filter) + "\", \"i\") }";
+	    projects = findProjectsBySPARQL(queryStr);
+
+	    return projects;
+	  }
 
 }

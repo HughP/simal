@@ -297,29 +297,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   /**
    * @refactor should be moved to ProjectService class
    */ 
-  public Set<IProject> filterProjectsByName(String filter) {
-    Set<IProject> projects = new HashSet<IProject>();
-    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
-        + "> " + "PREFIX doap: <" + RDFUtils.DOAP_NS + "> "
-        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
-        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
-        + "SELECT DISTINCT ?project WHERE { ?project a doap:Project;"
-        + "  doap:name ?name . "
-        + "  FILTER regex(?name, \"" + filter + "\", \"i\") }";
-
-    try {
-      projects = ((JenaProjectService) SimalRepositoryFactory
-          .getProjectService()).findProjectsBySPARQL(queryStr);
-    } catch (SimalRepositoryException e) {
-      logger.warn("Could not find projects filtering on " + filter, e);
-    }
-
-    return projects;
-  }
-
-  /**
-   * @refactor should be moved to ProjectService class
-   */ 
   public Set<IProject> getAllProjects() throws SimalRepositoryException {
     Property o = model.createProperty(SIMAL_PROJECT_URI);
     StmtIterator itr = model.listStatements(null, RDF.type, o);

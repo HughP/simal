@@ -88,17 +88,17 @@ public class JenaPersonService extends JenaService implements
 	}
 
 	public Set<IPerson> filterByName(String filter) {
-	    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
+		String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
 	    + "> " + "PREFIX foaf: <" + RDFUtils.FOAF_NS + "> "
 	    + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
 	    + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
 	    + "SELECT DISTINCT ?person WHERE { ?person a foaf:Person;"
 	    + "  foaf:name ?name . "
-	    + "  FILTER regex(?name, \"" + filter + "\", \"i\") }";
+	    + "  FILTER regex(?name, \"" + convertFilterToRE(filter) + "\", \"i\") }";
 
 	    return filterBySPARQL(queryStr);
-	}  
-	
+	}
+
 	/**
 	   * Find all people returned using a SPARQL query.
 	   * 
