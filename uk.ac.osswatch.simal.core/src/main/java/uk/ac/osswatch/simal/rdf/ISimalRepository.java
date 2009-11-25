@@ -111,6 +111,8 @@ public interface ISimalRepository {
    * 
    * @return
    * @throws SimalRepositoryException
+   * 
+   * @refactor move to ProjectService.getAll()
    */
   public Set<IProject> getAllProjects() throws SimalRepositoryException;
 
@@ -134,6 +136,8 @@ public interface ISimalRepository {
    * 
    * @return
    * @throws SimalRepositoryException
+   * 
+   * @refactor move to ProjectService.getAllAsJSON
    */
   public String getAllProjectsAsJSON() throws SimalRepositoryException;
 
@@ -308,6 +312,8 @@ public interface ISimalRepository {
    * 
    * @param value
    * @return
+   * 
+   * @refactor move to ProjectService
    */
   public Set<IProject> filterProjectsByName(String filter);
   
