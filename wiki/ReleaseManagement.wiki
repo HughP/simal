@@ -17,8 +17,7 @@ The timeline for communicating the release plan to the community is:
   * Two weeks before release date
     * Notify simal-contributors@googlegroups.com of the intention to implement a code freeze in X days (3 days before release day)
   * One week before release date
-    * Notify simal-contributors@googlegroups.com of the intention to implement a code 
-freeze in X days (3 days before release day)
+    * Notify simal-contributors@googlegroups.com of the intention to implement a code freeze in X days (3 days before release day)
     * Notify simal-contributors@googlegroups.com and simal-users@googlegroups.com of binary release available for testing
   * Three days before release day
     * Notify simal-contributors@googlegroups.com that code freeze has started
