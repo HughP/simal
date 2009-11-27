@@ -37,6 +37,7 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.service.IProjectService;
 
 import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryException;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
 import com.hp.hpl.jena.query.QueryFactory;
@@ -194,22 +195,35 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	   * 
 	   * @param queryStr
 	   * @return
+	   * @throws SimalRepositoryException 
+	   * @TODO should be private 
 	   */
-	  public Set<IProject> findProjectsBySPARQL(String queryStr) {
-		Model model = ((JenaSimalRepository)getRepository()).getModel();
-	    Query query = QueryFactory.create(queryStr);
-	    QueryExecution qe = QueryExecutionFactory.create(query, model);
-	    ResultSet results = qe.execSelect();
-		
-	    Set<IProject> projects = new HashSet<IProject>();
-	    while (results.hasNext()) {
-	      QuerySolution soln = results.nextSolution();
-	      RDFNode node = soln.get("project");
-	      if (node.isResource()) {
-	        projects.add(new Project((com.hp.hpl.jena.rdf.model.Resource) node));
-	      }
-	    }
-	    qe.close();
+	  public Set<IProject> findProjectsBySPARQL(String queryStr) throws SimalRepositoryException {
+      Set<IProject> projects = new HashSet<IProject>();
+      Model model = ((JenaSimalRepository)getRepository()).getModel();
+      QueryExecution qe = null;
+      try {
+        Query query = QueryFactory.create(queryStr);
+        qe = QueryExecutionFactory.create(query, model);
+        ResultSet results = qe.execSelect();
+            
+        while (results.hasNext()) {
+          QuerySolution soln = results.nextSolution();
+          RDFNode node = soln.get("project");
+          if (node.isResource()) {
+            projects.add(new Project((com.hp.hpl.jena.rdf.model.Resource) node));
+          }
+        }
+      } catch (QueryException e) {
+        String message = "QueryException when trying to SPARQLquery projects with query: " + queryStr;
+        logger.warn(message + "; message: " + e.getMessage());
+        throw new SimalRepositoryException(message, e);
+      } finally {
+        if (qe != null) {
+          qe.close();
+        }
+      }
+      
 	    return projects;
 	  }
 
@@ -387,7 +401,7 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	    return project;
 	  }
 	  
-	  public Set<IProject> filterByName(String filter) {
+	  public Set<IProject> filterByName(String filter) throws SimalRepositoryException {
 	    Set<IProject> projects = new HashSet<IProject>();
 	    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
 	        + "> " + "PREFIX doap: <" + RDFUtils.DOAP_NS + "> "
