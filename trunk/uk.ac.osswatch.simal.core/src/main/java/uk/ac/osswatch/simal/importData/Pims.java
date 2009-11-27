@@ -23,7 +23,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -46,7 +45,14 @@ import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class Pims {
-    private static final Logger logger = LoggerFactory.getLogger(Pims.class);
+
+  private static final String VALID_PROJECT_CONTACTS_FILE_ID = "Fullname";
+
+  private static final String VALID_PROJECTS_FILE_ID = "projects_name";
+
+  private static final String VALID_PROGRAMMES_FILE_ID = "programmes_name";
+
+  private static final Logger logger = LoggerFactory.getLogger(Pims.class);
 
 	public static final String PIMS_PROJECT_URI = "http://www.jisc.ac.uk/project/pims";
 
@@ -67,8 +73,8 @@ public class Pims {
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
-		HSSFRichTextString title = row.getCell(1).getRichStringCellValue();
-        if (!title.getString().equals("name")) {
+        String title = getNullSafeStringValue(row, 1);
+        if (!title.equals("name")) {
         	throw new SimalException(url + " is not a valid PIMS project export file");
         }
         
@@ -86,17 +92,17 @@ public class Pims {
 	        row   = sheet.getRow(i);
 	        
 	        // rdf:about
-        	int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+        	int id = getNullSafeIntValue(row, 0);
 	        foaf.setAttributeNS(RDF.getURI(), "about", getOrganisationURI(id));
 	        
 	        // foaf:name
-	        String value = row.getCell(1).getRichStringCellValue().getString();
+	        String value = getNullSafeStringValue(row, 1);
 	        Element elem = doc.createElementNS(Foaf.getURI(), "name");
 	        elem.setTextContent(value);
 	        foaf.appendChild(elem);
 	        
 	        // foaf:currentProject
-	        int projectId = ((Double)row.getCell(2).getNumericCellValue()).intValue();
+	        int projectId = getNullSafeIntValue(row, 2);
 	        elem = doc.createElementNS(Foaf.getURI(), "currentProject");
 	        elem.setAttributeNS(RDF.getURI(), "resource", getProjectURI(projectId));
 	        foaf.appendChild(elem);
@@ -125,8 +131,8 @@ public class Pims {
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
-		HSSFRichTextString title = row.getCell(2).getRichStringCellValue();
-        if (!title.getString().equals("projects.name")) {
+        String title = getNullSafeStringValue(row, 2);
+        if (!title.equals(VALID_PROJECTS_FILE_ID)) {
         	throw new SimalException(url + " is not a valid PIMS project export file");
         }
         
@@ -144,23 +150,23 @@ public class Pims {
         	row = sheet.getRow(i);
 	        
         	// rdf:about
-        	int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+        	int id = getNullSafeIntValue(row, 0);
 	        doap.setAttributeNS(RDF.getURI(), "about", getProjectURI(id));
 	        
 	        // doap:name
-	        String value = row.getCell(2).getRichStringCellValue().toString();
+	        String value = getNullSafeStringValue(row, 2);
 	        Element elem = doc.createElementNS(Doap.getURI(), "name");
 	        elem.setTextContent(value);
 	        doap.appendChild(elem);
 	        
 	        // doap:description
-	        value = row.getCell(4).getRichStringCellValue().getString();
+	        value = getNullSafeStringValue(row, 4);
 	        elem = doc.createElementNS(Doap.getURI(), "description");
 	        elem.setTextContent(value);
 	        doap.appendChild(elem);
 
 	        // doap:homepage
-	        value = row.getCell(6).getRichStringCellValue().getString();
+	        value = getNullSafeStringValue(row, 6);
 	        if (value.length() != 0 && !value.equals("tbc")) {
 	        	elem = doc.createElementNS(Doap.getURI(), "homepage");
 	        	elem.setAttributeNS(RDF.getURI(), "resource", value);
@@ -173,7 +179,7 @@ public class Pims {
 	        //TODO: capture short name: String shortName = row.getCell(3).getStringCellValue();
 	        
 	        // doap:category
-	        value = getCategoryURI(((Double)row.getCell(1).getNumericCellValue()).intValue());
+	        value = getCategoryURI(getNullSafeIntValue(row,1));
         	elem = doc.createElementNS(Doap.getURI(), "category");
         	elem.setAttributeNS(RDF.getURI(), "resource", value);
 	        doap.appendChild(elem);
@@ -226,8 +232,8 @@ public class Pims {
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
-		String title = row.getCell(1).getRichStringCellValue().getString();
-        if (!title.equals("programmes.name")) {
+        String title = getNullSafeStringValue(row, 1);
+        if (!title.equals(VALID_PROGRAMMES_FILE_ID)) {
         	throw new SimalException(url + " is not a valid PIMS programme export file");
         }
         
@@ -245,11 +251,11 @@ public class Pims {
 			row = sheet.getRow(i);
 			
         	// rdf:about
-			int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+			int id = getNullSafeIntValue(row, 0);
 	        cat.setAttributeNS(RDF.getURI(), "about", getCategoryURI(id));
 
 	        // doap:name
-	        String value = row.getCell(1).getRichStringCellValue().getString();
+	        String value = getNullSafeStringValue(row, 1);
 	        cat.setAttributeNS(RDFS.getURI(), "label", value);
 	        
 	        doc.getDocumentElement().appendChild(cat);
@@ -270,8 +276,8 @@ public class Pims {
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
-		String title = row.getCell(2).getRichStringCellValue().getString();
-        if (!title.equals("contacts.name")) {
+        String title = getNullSafeStringValue(row, 2);
+        if (!title.equals(VALID_PROJECT_CONTACTS_FILE_ID)) {
         	throw new SimalException(url + " is not a valid PIMS project contact export file");
         }
         
@@ -289,18 +295,18 @@ public class Pims {
 	        row = sheet.getRow(i);
 	        
 	        // rdf:about (Project)
-	        int projectId = ((Double)row.getCell(1).getNumericCellValue()).intValue();
+	        int projectId = getNullSafeIntValue(row, 1);
 	        project.setAttributeNS(RDF.getURI(), "about", getProjectURI(projectId));
 	        
 	        // foaf:Person
 	        Element person = doc.createElementNS(Foaf.getURI(), "Person");
         	
         	// rdf:about (Person)
-	        int id = ((Double)row.getCell(0).getNumericCellValue()).intValue();
+	        int id = getNullSafeIntValue(row, 0);
 	        person.setAttributeNS(RDF.getURI(), "about", getPersonURI(id));
 	        	        
 	        // foaf:name
-	        String name = row.getCell(2).getRichStringCellValue().getString();
+	        String name = getNullSafeStringValue(row, 2);
 	        Element elem = doc.createElementNS(Foaf.getURI(), "name");
 	        elem.setTextContent(name);
 	        person.appendChild(elem);
@@ -309,9 +315,9 @@ public class Pims {
 	        // TODO: record the contacts institutions.name
 	        
 	        // foaf:mbox
-	        HSSFRichTextString email = row.getCell(6).getRichStringCellValue();
+	        String email = getNullSafeStringValue(row, 6);
 	        elem = doc.createElementNS(Foaf.getURI(), "mbox");
-	        elem.setAttributeNS(RDF.getURI(), "resource", email.getString());
+	        elem.setAttributeNS(RDF.getURI(), "resource", email);
 	        person.appendChild(elem);
 	        
 	        // TODO: record contact telephone detail
@@ -319,7 +325,7 @@ public class Pims {
 
 
 	        // add appropriate doap:* element for person
-	        String role = row.getCell(3).getRichStringCellValue().getString();
+	        String role = getNullSafeStringValue(row, 3);
 	        if (role.equals("Programme Stream Manager") || role.equals("Programme Strand Manager") || role.equals("Programme Manager")) {
 	        	elem = doc.createElementNS(Doap.getURI(), "helper");
 	        	elem.appendChild(person);
@@ -340,6 +346,28 @@ public class Pims {
 	    }
 	}
 	
+        /**
+         * Get the int value of the specified cell index in the row
+         * @param row
+         * @param cellIndex
+         * @return int value of the specified cell, will be 0 in case of a null cell
+         */
+        private static int getNullSafeIntValue(HSSFRow row, int cellIndex)
+        {
+          return ((Double)row.getCell(cellIndex, HSSFRow.CREATE_NULL_AS_BLANK).getNumericCellValue()).intValue();
+        }
+        
+        /**
+         * Get a String value from the specified cell index in the row.
+         * @param row
+         * @param cellIndex
+         * @return String value of the specified cell, possibly empty in case of null cell
+         */
+        private static String getNullSafeStringValue(HSSFRow row, int cellIndex)
+        {
+          return row.getCell(cellIndex, HSSFRow.CREATE_NULL_AS_BLANK).getRichStringCellValue().getString();
+        }
+        
 	/**
 	 * Get a URI for the programme ID provided.
 	 * @param id

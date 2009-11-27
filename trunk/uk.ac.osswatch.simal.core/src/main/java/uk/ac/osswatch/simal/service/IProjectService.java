@@ -209,8 +209,9 @@ public interface IProjectService extends IService {
 	   * 
 	   * @param value
 	   * @return
+	   * @throws SimalRepositoryException 
 	   * 
 	   * @refactor move to ProjectService
 	   */
-	  public Set<IProject> filterByName(String filter);
+	  public Set<IProject> filterByName(String filter) throws SimalRepositoryException;
 }
