@@ -7,6 +7,27 @@ Currently we use iterations of two weeks. At the end of each iterations a new bu
 
 This document describes how to build a release.
 
+= Timelines and keeping the community informed =
+
+A binary release is made every second iteration. This means that every second iteration must assign sufficient velocity points to the release to ensure this process is fully implemented. We cannot cut corners on this process as this is where our final quality control checks are performs.
+
+It is likely that every second iteration will focus only on refactoring, testing and bug fixing in order to ensure the release is ready.
+
+The timeline for communicating the release plan to the community is:
+  * Two weeks before release date
+    * Notify simal-contributors@googlegroups.com of the intention to implement a code freeze in X days (3 days before release day)
+  * One week before release date
+    * Notify simal-contributors@googlegroups.com of the intention to implement a code 
+freeze in X days (3 days before release day)
+    * Notify simal-contributors@googlegroups.com and simal-users@googlegroups.com of binary release available for testing
+  * Three days before release day
+    * Notify simal-contributors@googlegroups.com that code freeze has started
+  * Day of release
+    * Notify simal-contributors@googlegroups.com and simal-users@googlegroups.com of binary release available
+    * Notify simal-contributors@googlegroups.com that code freeze has ended
+
+In a future improvement of this release process we will move the release code into a branch for the period of the release iteration, this will allow people to continue to develop new features for future releases. However, at present the community is small enough to not require such overhead. In the meantime all commits for new features that introduce code quality issues will be rejected during a release iteration.
+
 = Determine release version number =
 
 The version numbers of Simal releases are of the form {{{x.y.z}}} or {{{<major>.<minor>.<micro>}}}. The {{{<major>}}} version number is only increased when a large amount of new functionality is added. In this case the new release version number will be {{{(x+1).0.0}}}. The {{{<minor>}}} version number is only increased when some functionality is added to the new release, in which case the new release version number will be {{{x.(y+1).0}}}. When only bugfixes are part of the new release there will be a so-called point release. The version number of the new release in this case will be {{{x.y.(z+1)}}}. Currently, all components (core, rest and webapp) get the same version number.
