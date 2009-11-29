@@ -54,7 +54,13 @@ simal.user.webapp.baseurl=http://localhost:8080
 simal.rest.baseurl=http://localhost:8080/simal-rest
 }}}
 
-Other configuration proerties are available. See {{{$PROJECT_HOME/uk.ac.osswatch.simal.core/src/main/resources/default.simal.properties}}} for details.
+It is possible to run the server on a different port using the property "jetty.port". For example:
+
+{{{
+mvn -Djetty.port=9999 jetty:run
+}}}
+
+Other configuration properties are available. See {{{$PROJECT_HOME/uk.ac.osswatch.simal.core/src/main/resources/default.simal.properties}}} for details.
 
 == Running ==
 
