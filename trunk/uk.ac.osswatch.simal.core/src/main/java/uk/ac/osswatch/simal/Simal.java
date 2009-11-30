@@ -188,7 +188,7 @@ public class Simal {
           System.exit(1);
         }
         i++;
-      } if (cmd.equals("getPeople")) {
+      } else if (cmd.equals("getPeople")) {
         try {
           getPeople(cl);
         } catch (SimalRepositoryException e) {
