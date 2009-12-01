@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle/project_olive.aspx">
+<shortdesc>The project is a practical exploration of the OpenURL as a method of linking between VLE (Virtual Learning Environment) software and digital library resources at both reference list and learning object levels.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_divle.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Open Linking Implementation in a Virtual Learning Environment</name>
+<homepage rdf:resource="http://www.wmin.ac.uk/"/>
+</Project>

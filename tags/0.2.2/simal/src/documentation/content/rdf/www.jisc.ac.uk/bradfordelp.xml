@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/bradfordelp.aspx">
+<shortdesc>The overall aim of the project is to evaluate the application and potential of e-Portfolios to support students through their lifelong learning journey, particularly at key transfer points in that journey. The project will examine three of those transfer points; Context 1, moving from school/FE into University; Context 2, moving from University into the workplace (both in placement experience and first career positions); and Context 3, moving between Universities.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>ELP - Enhancing Learner Progression</name>
+<homepage rdf:resource="http://www.brad.ac.uk/acad/tqeg/resources/eportfolios/elp.php"/>
+</Project>

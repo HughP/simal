@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_repomman.aspx">
+<shortdesc>The project will assist the development of repository infrastructure in several key areas by: Assessing the feasibility of automated population of object metadata, conducting detailed user requirements analysis and review of associated DRM issues, adapting and providing a human interface to a generic workflow framework.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>RepoMMan: Repository Metadata and Management</name>
+<homepage rdf:resource="http://www.hull.ac.uk/esig/repomman/"/>
+</Project>

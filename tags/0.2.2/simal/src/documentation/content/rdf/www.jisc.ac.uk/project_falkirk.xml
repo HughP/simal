@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani/project_falkirk.aspx">
+<shortdesc>This project will investigate and seek to resolve the technical issues that have to be addressed in order that TekniCAL's Virtual Campus (as the VLE) can interface with SITS Vision and Capita's UNITe as the student record systems in use within the consortium.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Falkirk - Scottish Teknical User Group (SWaNI)</name>
+<homepage rdf:resource="http://swani.falkirkcollege.ac.uk/"/>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_portals/project_cree.aspx">
+<shortdesc>The Contextual Resource Evaluation Environment (CREE) is a project arising from the Joint Information Systems Committee Portals: Investigations into User Requirements &amp; Sustainability invitation to tender. This seeks to build an environment where the portal developments within JISC can be tested within a variety of situations and establish how users interact with portals, and will help to inform the delivery of portals as services within the JISC Information Environment.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_portals.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>CREE: Contextual Resource Evaluation Environment</name>
+<homepage rdf:resource="http://www.hull.ac.uk/esig/cree/"/>
+</Project>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://projects.oucs.ox.ac.uk/ask/">
+
+        <name>ASK: Accessing and Storing Knowledge</name>
+
+        <shortdesc xml:lang="en">The overall goal of the project is to build interoperability between user agents (such as VLEs and Activity Management systems) and information systems normally under the management of library departments.</shortdesc>
+
+        <description xml:lang="en">Accessing and Storing Knowledge (ASK) project team is creating an open source repository system for use by students, teachers, researchers, and librarians. The system supports the storing, organisation and sharing of digital resources, such as text files, images, audio, and video.</description>
+
+        <homepage rdf:resource="http://projects.oucs.ox.ac.uk/ask/" />
+        <homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/digitalrepositories2005/ask.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" />
+	  <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx" />
+	  <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx" />
+	  <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/digitalrepositories2005.aspx" />
+        
+        <created>2008-9-24</created>
+
+        	<wiki rdf:resource="http://projects.oucs.ox.ac.uk/ask/wiki/"/>
+
+        <!--  <screenshots rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> -->
+
+        <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />   -->
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+        
+            <maintainer>
+            <foaf:Person>
+            <foaf:name>Howard Noble</foaf:name>
+            <foaf:mbox rdf:resource="mailto:howard.noble@computing-services.oxford.ac.uk"/>
+            <foaf:homepage rdf:resource="http://elgg.jiscemerge.org.uk/howardn/profile" />
+            </foaf:Person>
+            </maintainer>
+        
+       
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="FIXME: e.g. http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="FIXME: e.g. http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>

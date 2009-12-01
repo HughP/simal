@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://www.ib.ecs.soton.ac.uk/">
+
+        <name>Innovation Base</name>
+
+       <shortdesc xml:lang="en">The IB will offer a powerful new way for
+understanding universities and how they work.</shortdesc> 
+
+       <description xml:lang="en">It aims to provide a way of visually
+exploring the functions, roles, activities and applications within the
+university and a space in which these can be submitted, discussed and explored
+in an open way. It is creating a community of people which crosses departmental
+and institutional boundaries who have an interest in understanding how their
+institution works and how it can be improved.</description> 
+
+        <homepage rdf:resource="http://www.ib.ecs.soton.ac.uk/" />
+
+        <created>2008/11/15</created>
+
+       <!--  <wiki
+rdf:resource="http://www.pligg.com/wiki/index.php?title=Main_Page"/> --> 
+
+       <!--  <screenshots
+rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> --> 
+
+       <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />  
+--> 
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+       <!-- <download-page
+rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> --> 
+
+       <!-- <download-mirror
+rdf:resource="http://sourceforge.net/projects/librdf/" /> --> 
+
+       <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" />
+--> 
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>David Millard</foaf:name>
+            <foaf:mbox rdf:resource="mailto:dem@ecs.soton.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Yvonne Howard</foaf:name>
+            <foaf:mbox rdf:resource="mailto:ymh@ecs.soton.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:name>Matt R Taylor</foaf:name>
+            <foaf:mbox rdf:resource="mailto:mrt@ecs.soton.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:name>Marcus Ramsden</foaf:name>
+            <foaf:mbox rdf:resource="mailto:mmr@ecs.soton.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:name>Tom Franklin</foaf:name>
+            <foaf:mbox rdf:resource="mailto:tom@franklin-consulting.co.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Hilary Dexter</foaf:name>
+            <foaf:mbox rdf:resource="mailto:hilary.dexter@manchester.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+
+           <maintainer>             <foaf:Person>            
+<foaf:name>Alisdair Smithies</foaf:name>             <foaf:mbox
+rdf:resource="mailto:alisdair.smithies@manchester.ac.uk"/>            
+</foaf:Person>             </maintainer> 
+
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:name>Roland Ukor</foaf:name>
+            <foaf:mbox rdf:resource="mailto:roland.ukor@cs.man.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+
+
+
+        <!-- 
+            <developer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>FIXME: John Doe</foaf:name>
+            <foaf:mbox rdf:resource="FIXME: mailto:email@foo.org"/>
+            <foaf:homepage rdf:resource="http://john.doe.org" />
+            </foaf:Person>
+            </developer>
+        -->
+
+
+
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+       <!--              <repository>             <SVNRepository>            
+<location rdf:resource="FIXME: e.g.
+http://svn.usefulinc.com/svn/repos/trunk/doap/"; />             <browse
+rdf:resource="FIXME: e.g.
+http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/"; />            
+</SVNRepository>             </repository> 
+
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>

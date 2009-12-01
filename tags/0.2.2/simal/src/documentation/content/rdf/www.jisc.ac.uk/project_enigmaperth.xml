@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani/project_enigmaperth.aspx">
+<shortdesc>The aim of the project is to prototype a data transfer engine which has been developed by Capita to allow course and student information to flow freely between existing virtual learning environments and existing student records systems used by academic partners to create the beginnings of a managed learning environment. Predetermined test criteria will be set out which will be used as a framework for both technical and pedagogical testing and evaluation of the system.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_swani.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Enigma Project, Perth (SWaNI)</name>
+<homepage rdf:resource="http://extranet.lauder.ac.uk/enigma"/>
+</Project>

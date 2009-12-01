@@ -1,0 +1,138 @@
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<html>
+<head>
+  <title>Tools: Simal Project Registry</title>
+</head>
+<body>
+<wicket:extend>
+  <h1>Repository Information</h1>
+  <h2>Repository Stats</h2>
+  <table>
+    <tr>
+      <td>Number of Projects</td>
+      <td wicket:id="numOfProjects">####</td>
+    </tr>
+    <tr>
+      <td>Number of People</td>
+      <td wicket:id="numOfPeople">####</td>
+    </tr>
+    <tr>
+      <td>Number of Categories</td>
+      <td wicket:id="numOfCategories">####</td>
+    </tr>
+    <tr>
+      <td>Number of Reviews</td>
+      <td wicket:id="numOfReviews">####</td>
+    </tr>
+  </table>
+  
+  <h2>Respository Config</h2>
+  <table>
+    <tr>
+      <td>Repository Instance ID</td>
+      <td wicket:id="instanceID">####-####-####-####</td>
+    </tr>
+    <tr>
+      <td>Local Properties File</td>
+      <td wicket:id="propertiesFile">Properties filepath</td>
+    </tr>
+    <tr>
+      <td>RDF Repository Dir</td>
+      <td wicket:id="repositoryDir">Repository Dir</td>
+    </tr>
+    <tr>
+      <td>Update from PTSW:</td>
+      <td>
+        <span wicket:id="PTSWUpdaterStatus">False</span>
+        <a href="#" wicket:id="toggleImportPTSWLink">Turn On/Off</a>
+        <a href="#" wicket:id="importPTSWLink">Perform Import Now</a>
+      </td>
+    </tr>
+  </table>
+  
+  <h1>Developer Tools</h1>
+  <p>The tools in this section are useful for developers.</p>
+  <ul>
+    <li><a href="#" wicket:id="importTestData">Import test data into the repository</a></li>
+    
+  </ul>
+  
+  <p class="warning">The tools below will harm your data and will no ask for confirmation 
+  before doing so. They are provided for test repositories only.</p>
+  
+  <ul>
+    <li><a href="#" wicket:id="removeAllData">Remove all data from the repository</a></li>
+  </ul>
+  
+  <h1>Browsing Tools</h1>
+  
+  <ul>
+	<li><a href="#" wicket:id="exhibitPersonLink">AJAX Person Browser</a></li>
+	<li><a href="#" wicket:id="exhibitProjectLink">AJAX Project Browser</a></li>
+  </ul>
+  <h1>Pre-Alpha Tools</h1>
+  <p>The tools in this section are pre-alpha and should be used at your own risk.</p>
+  
+  <p><a href="#" wicket:id="settingsPageLink">Settings</a></p>
+  
+    <form wicket:id="importProgrammesFromPimsForm">
+      <fieldset>
+      <legend>Import PIMS Programmes</legend>
+        
+        <label for="upload">PIMS Programmes Export File</label>
+        <input wicket:id="fileInput" id="upload" type="file">
+        <input type="submit" value="Import"/>
+        <span wicket:id="uploadProgress"><br>[[ajax upload progressbar]]</span>
+      </fieldset>
+    </form>
+
+    <form wicket:id="importProjectsFromPimsForm">
+      <fieldset>
+      <legend>Import PIMS Projects</legend>
+        
+        <label for="upload">PIMS Projects Export File</label>
+        <input wicket:id="fileInput" id="upload" type="file">
+        <input type="submit" value="Import"/>
+        <span wicket:id="uploadProgress"><br>[[ajax upload progressbar]]</span>
+      </fieldset>
+    </form>  
+
+    <form wicket:id="importProjectContactsFromPimsForm">
+      <fieldset>
+      <legend>Import PIMS Contacts</legend>
+        
+        <label for="upload">PIMS Contacts Export File</label>
+        <input wicket:id="fileInput" id="upload" type="file">
+        <input type="submit" value="Import"/>
+        <span wicket:id="uploadProgress"><br>[[ajax upload progressbar]]</span>
+      </fieldset>
+    </form>  
+      
+  <form wicket:id="importFromOhlohForm">
+    <fieldset>
+    <legend>Import from Ohloh</legend>
+      <p>
+        <label>Ohloh Project ID:</label>
+        <input type="text" wicket:id="projectID" value="" size="50" />
+      </p>
+      <input type="submit" value="Add to repository" />
+    </fieldset>
+  </form>
+  
+</wicket:extend>
+</body>
+</html>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>How to add a command to the CLI</title>
+    <abstract>
+      The command line interface is vital for scripting operations on
+      the repository. It is also very useful for test purposes. This How
+      To describes how to add a new command to the CLI.
+    </abstract>
+  </header>
+  <body>
+    <section>
+      <title>Prerequisites</title>
+      <ul>
+        <li>Have a basic understanding of Java</li>
+        <li>Have a Simal development environment set up</li>
+        <li>
+          Have an understanding of the repository command to be added to
+          the CLI
+        </li>
+        <li>
+          For the required repository functionality to already be
+          implemented in an implementation if ISimalRepository>
+        </li>
+      </ul>
+
+      <p>
+        In this how to we will assume that you are not using an IDE to
+        manage incremental builds, but are instead using Maven from the
+        command line. If you are using an IDE you will be able to skip
+        the Maven steps.
+      </p>
+
+      <note>
+        Normally we would operate a more rigid unit driven test first
+        development methodology, however, at the time of writing there
+        is a problem with the unit tests for the CLI (see
+        <a href="http://code.google.com/p/simal/issues/detail?id=208">
+          ISSUE 208)
+        </a>
+        .
+      </note>
+    </section>
+
+    <section>
+      <title>Planning and Preparation</title>
+      <p>Think about:</p>
+      <ul>
+        <li>The name of the command</li>
+        <li>Any required parameters for the command</li>
+      </ul>
+
+      <p>
+        In this how to we will add a command that will generate a backup
+        file of the whole repository. This command will be called
+        <code>backup</code>
+        and it will require one parameter, the name of the file in which
+        the backup will be saved.
+      </p>
+
+      <p>
+        Having decided what we are going to do it is best to ensure that
+        our first build of the code base will result in a fully clean
+        build. This reduces the chances of artifacts left over from
+        previous builds intefering with the new work. Execute the
+        command
+        <code>mvn clean compile</code>
+        .
+      </p>
+    </section>
+
+    <section>
+      <title>Add documentation</title>
+      <p>
+        The CLI is intended to be self documenting, therefore the first
+        thing that we must do is add the documentation to the CLI class.
+        Open
+        <code>uk.ac.osswatch.simal.Simal</code>
+        and edit the method
+        <code>printHelp</code>
+        to display your help message. For example, add the following
+        lines:
+      </p>
+
+      <source>
+commandSummary.append(CMD_BACKUP + "       FILE          write a backup of the whole repository to FILE.\n");
+      </source>
+
+      <p>
+        You will also need to add the
+        <code>CMD_BACKUP</code>
+        constant to the
+        <code>Simal</code>
+        class as follows:
+      </p>
+
+      <source>
+private static final String CMD_BACKUP = "backup";
+      </source>
+
+      <p>You can test that everything works by running either of:</p>
+
+      <source>
+mvn assembly:assembly -Dmaven.test.skip=true
+simal.bat --help
+      </source>
+
+      <p>or</p>
+
+      <source>
+mvn assembly:assembly -Dmaven.test.skip=true
+simal.sh --help
+      </source>
+
+      <p>
+        If all goes well you will see the help message with your backup
+        command listed.
+      </p>
+
+      <note>
+        From now on we will only show the command options for windows
+        (i.e.
+        <code>simal.bat</code>
+        ) to run the commands on other platforms use
+        <code>simal.sh</code>
+        .
+      </note>
+    </section>
+
+    <section>
+      <title>Implement the command</title>
+
+      <p>
+        In the
+        <code>executeCommands</code>
+        method add the following code to the end of the if statement
+        that selects the commands.
+      </p>
+
+      <source>
+else if (cmd.equals(CMD BACKUP)) {
+  System.out.println("Backup command working");
+} 
+      </source>
+
+      <p>
+        We are now ready to test our command is working. Run the
+        following command:
+      </p>
+
+      <source>
+mvn assembly:assembly -Dmaven.test.skip=true
+simal.bat backup
+      </source>
+
+      <p>You should see the message "Backup command working".</p>
+
+      <section>
+        <title>Implement Error Checking</title>
+
+        <p>
+          Now we need to do some error checking on the command. Earlier,
+          we decided that the command would require a parameter that
+          told us where to write the backup file. So lets check we have
+          that parameter and that it is a valid filename.
+        </p>
+
+        <p>
+          Replace the System.out line above with the following code:
+        </p>
+
+        <source>
+i++;
+if (i == cmds.length) {
+  logger.error("You must provide a filename for the backup file");
+  System.exit(1);
+}
+String file = (String) cmds[i];
+if (file == null || file.equals("")) {
+  logger.error("You must provide a filename for the backup file");
+  System.exit(1);
+}
+File backupFile= new File(file);
+if (backupFile.exists()) {
+  logger.error("The file already exists, you must provide a new filename");
+  System.exit(1);
+}
+try {
+  if (backupFile.createNewFile()) {
+    System.out.println("Backup command working");  
+  }
+} catch (IOException e) {
+  logger.error("Unable to create the backup file: " + e.getMessage(), e);
+  System.exit(1);
+}
+        </source>
+
+        <p>Now test with:</p>
+
+        <source>
+mvn assembly:assembly -Dmaven.test.skip=true
+simal.bat backup
+        </source>
+
+        <p>
+          You should recieve an error message about needing to provide a
+          filename. Assuming that works, lets provide a filename:
+        </p>
+
+        <source>
+simal.bat backup test.bak
+        </source>
+
+        <p>
+          This time you should recieve confirmation that the command is
+          working. This indicates the file has been created. You can
+          confirm this by looking in the directory for a file called
+          <code>test.bak</code>
+          . However, the next test should confirm it as it will fail,
+          reporting that the file already exists:
+        </p>
+
+        <source>
+simal.bat backup test.bak
+        </source>
+
+        <p>In order to proceed we should delete this file.</p>
+      </section>
+
+      <section>
+        <title>Refactor</title>
+
+        <p>
+          That's quite a bit of logic to have in an if...then...else
+          statement. Lets refactor that code out to a new method. Use
+          your favourite IDE or refactoring tool to change the above
+          code to:
+        </p>
+
+        <source>
+else if (cmd.equals(CMD_BACKUP)) {
+  i++;
+  backup(cmds, i);
+}
+
+...
+
+/**
+ * Write a backup of the repository to a file defined in the 
+ * next position of the command string.
+ * 
+ * @param cmds - the array of commands
+ * @param fileIndex - the index of the filename
+ */
+private static void backup(String[] cmds, int fileIndex) {
+  if (fileIndex == cmds.length) {
+    logger.error("You must provide a filename for the backup file");
+    System.exit(1);
+  }
+  String file = (String) cmds[fileIndex];
+  if (file == null || file.equals("")) {
+    logger.error("You must provide a filename for the backup file");
+    System.exit(1);
+  }
+  File backupFile= new File(file);
+  if (backupFile.exists()) {
+    logger.error("The file already exists, you must provide a new filename");
+    System.exit(1);
+  }
+  try {
+    if (backupFile.createNewFile()) {
+      System.out.println("Backup command working");  
+    }
+  } catch (IOException e) {
+    logger.error("Unable to create the backup file: " + e.getMessage(), e);
+    System.exit(1);
+  }
+}
+        </source>
+      </section>
+
+      <section>
+        <title>Write the backup</title>
+
+        <p>
+          The command to get an N3 backup of the repository is
+          <code>ISimalRepository.writeBackup(Writer writer)</code>
+          . Therefore to actually write the backup we need to replace
+          <code>System.out.println("Backup command working");</code>
+          with:
+        </p>
+
+        <source>
+FileWriter writer = new FileWriter(backupFile); 
+getRepository().writeBackup(writer);
+writer.close();
+logger.info("Backup file written to " + backupFile.getAbsolutePath());
+        </source>
+
+        <p>
+          Test this by running the following command and verifying the
+          contents of the test.bak file.
+        </p>
+
+        <source>
+mvn assembly:assembly -Dmaven.test.skip=true
+simal.bat backup test.bak
+        </source>
+
+      </section>
+
+    </section>
+
+    <section>
+      <title>Ensure all tests pass and wrap up</title>
+
+      <p>
+        So far we have been skipping all unit tests when building. We
+        now need to make sure we haven't broken anything. In fact, it is
+        good practice to regularly run all unit tests against your code
+        as you are working. To run the tests run the command
+        <code>mvn clean compile</code>
+        .
+      </p>
+
+      <p>
+        Assuming all tests pass you are now ready to either commit your
+        changes or submit a patch to the issue tracker.
+      </p>
+    </section>
+  </body>
+</document>

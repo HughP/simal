@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_sips.aspx">
+<shortdesc>This project will seamlessly integrate PERMIS and Shibboleth using 4 different methods. Each method has advantages and disadvantages from security, performance, management and privacy perspectives.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>SIPS: Seamlessly Integrating PERMIS and Shibboleth</name>
+<homepage rdf:resource="http://sec.isi.salford.ac.uk/Projects.htm#SIPS"/>
+</Project>

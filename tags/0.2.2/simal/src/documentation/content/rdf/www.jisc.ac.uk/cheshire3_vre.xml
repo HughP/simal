@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/cheshire3_vre.aspx">
+<shortdesc>This project seeks to develop and implement the Kepler/Ptolemy scientific workflow system as an interface to the Cheshire 3 digital library framework. The aim is to enable researchers in both the humanities and scientific disciplines to use the Kepler/Cheshire software to conduct analyses and perform distributed processing in several different software and hardware environments; and to coordinate the export and import of data from one environment to another.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>Implementing the Kepler Workflow Interface into the Cheshire Digital Library</name>
+<homepage rdf:resource="http://www.liv.ac.uk/vre"/>
+</Project>

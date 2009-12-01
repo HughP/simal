@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/elp_sharingtheload.aspx">
+<shortdesc>Sharing the LOAD will synthesise a number of JISC-funded project outputs, tools and other national initiatives in learning content design and reuse to create practitioner-centred templates in order to capture holistic learning designs containing learning activities that support defined learning objectives.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Sharing the Load</name>
+<homepage rdf:resource="http://www.ucel.ac.uk/load/"/>
+</Project>

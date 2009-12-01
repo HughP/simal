@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_shared_services/road.aspx">
+<shortdesc>To investigate the use of current open-source digital repository software to enable the automatic curation of robot-generated experimental data and metadata. To demonstrate the feasibility of using current open-source digital repository software (such as GNU Eprints, DSpace and Fedora) for management of data acquired directly from automatic integrated laboratory equipment, specifically the Robot Scientist created at UWA</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_shared_services.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Robot-generated Open Access Data (ROAD)</name>
+</Project>
