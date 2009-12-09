@@ -76,7 +76,7 @@ public class Simal {
     Options opts = new Options();
 
     Option help = new Option("h", "help", false,
-        "Print help for the Simal command line interface adn exit");
+        "Print help for the Simal command line interface and exit");
     opts.addOption(help);
 
     Option version = new Option("v", "version", false,
