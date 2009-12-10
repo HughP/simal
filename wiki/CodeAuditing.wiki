@@ -14,6 +14,13 @@ To run these tests locally use {{{mvn test}}}
 
 All tests are run by the continuous integration server at least once every night and after a change is detected in SVN.
 
+= Cobertura test coverage reports = 
+
+[http://cobertura.sourceforge.net/ Cobertura] is a tool for generating reports on unit test coverage. It can help you in assessing how well you code is covered by the unit tests and which parts need some more attention.
+It is integrated with a Maven plugin and forms part of the site reports. It can be run on your local machine by executing {{{mvn site}}}.
+After Maven has successfully finished you can view the reports by opening the page {{{target/site/index.html}}} and navigate to {{{Project Reports > Cobertura Test Coverage}}}.
+The Project Reports section also displays the reports of some other useful tools that are discussed below.   
+
 = Find Bugs =
 
 [http://findbugs.sourceforge.net/ FindBugs™] is a program to find bugs in Java programs. It looks for instances of "bug patterns" --- code instances that are likely to be errors.
