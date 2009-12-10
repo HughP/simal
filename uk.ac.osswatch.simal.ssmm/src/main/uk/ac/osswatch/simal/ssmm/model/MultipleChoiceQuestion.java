@@ -1,10 +1,10 @@
 package uk.ac.osswatch.simal.ssmm.model;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 
 public class MultipleChoiceQuestion extends Question {
-	HashMap<String, String> options = new HashMap<String, String>();
+	LinkedHashMap<String, String> options = new LinkedHashMap<String, String>();
 	
 	/**
 	 * Create a multiple choice question.
@@ -14,7 +14,7 @@ public class MultipleChoiceQuestion extends Question {
 	 * @param details descriptive details about the question
 	 * @param options the options available, where the key is used as a short hand for the question and the value is a description of the question.
 	 */
-	public MultipleChoiceQuestion(String label, String text, String details, HashMap<String, String> options) {
+	public MultipleChoiceQuestion(String label, String text, String details, LinkedHashMap<String, String> options) {
 		super(label, text, details);
 		this.options = options;
 	}
@@ -24,21 +24,22 @@ public class MultipleChoiceQuestion extends Question {
 	 * 
 	 * @return a hasmap keyed by the short version of the response. The value is a full description of the response.
 	 */
-	public HashMap<String, String> getOptions() {
+	public LinkedHashMap<String, String> getOptions() {
 		return options;
 	}
 
 	/**
 	 * Set a map of options available to answer this question.
 	 * 
-	 * @param options a hasmap keyed by the short version of the response. The value is a full description of the response.
+	 * @param options a linked hashmap keyed by the short version of the response. The value is a full description of the response.
 	 */
-	public void setOptions(HashMap<String, String> options) {
+	public void setOptions(LinkedHashMap<String, String> options) {
 		this.options = options;
 	}
 
 	/**
 	 * Add an option to the possible answers.
+	 * 
 	 * @param option short version of the option
 	 * @param description a full description of the option
 	 */
@@ -48,10 +49,20 @@ public class MultipleChoiceQuestion extends Question {
 	
 	/**
 	 * Remove an option to the possible answers.
+	 *
 	 * @param option short version of the option
 	 */
 	public void removeOption(String option) {
 		options.remove(option);
+	}
+
+	/**
+	 * Set the recorded answer according to an index pointer into the LinkedhashMap of options.
+	 * 
+	 * @param index 0 base index into the options
+	 */
+	public void setAnswer(int index) {
+		setAnswer((String)getOptions().keySet().toArray()[index]);
 	}
 
 }
