@@ -9,7 +9,7 @@ import org.junit.Test;
  * Test base functions of the Question class.
  *
  */
-public class QuestionTest {
+public class TestQuestion {
 
 	static String QUESTION_LABEL = "Test Label";
 	static String QUESTION_TEXT = "Is this a question?";
