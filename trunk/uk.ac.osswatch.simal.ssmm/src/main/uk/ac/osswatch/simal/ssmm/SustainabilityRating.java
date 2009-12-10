@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
 
+import uk.ac.osswatch.simal.ssmm.model.MultipleChoiceQuestion;
 import uk.ac.osswatch.simal.ssmm.model.Question;
 
 public class SustainabilityRating {
@@ -21,7 +22,8 @@ public class SustainabilityRating {
 		  
 		  askInfoQuestions();
 		  askLegalQuestions();
-		  
+
+		  System.out.println("\nResponse summary\n");  
 		  reportAll(infoQuestions);
 		  reportAll(legalQuestions);
 	  }
@@ -42,7 +44,14 @@ public class SustainabilityRating {
   	    System.out.println("General Information");
 	    System.out.println("===================");
 
-	    Question question = new Question("License type", "Is the licence recognised as a common Free and Open Source licences?", "If the licence has been recognised by either of these bodies, it is more likely to have been assessed and found to be relatively open than a new licence  or one which has not been OSI or FSF approved.");
+		LinkedHashMap<String, String> options = new LinkedHashMap<String, String>();
+		options.put("Don't know", "The licence model is not currently understood.");
+		options.put("Proprietary", "The licence used is a proprietary licence that has not been recognised by either the Free Software Foundation or the Open source Initiative");
+		options.put("OSI", "The licence used has been approved by the Open Source Initiative.");
+		options.put("FSF", "The licence has been recognised by the Free Software Foundation as a Free Software License");
+		options.put("FSF and OSI", "The license is recognised by the FSF and by the OSI.");
+
+	    MultipleChoiceQuestion question = new MultipleChoiceQuestion("License type", "Is the licence recognised as a common Free and Open Source licences?", "If the licence has been recognised by either of these bodies, it is more likely to have been assessed and found to be relatively open than a new licence or one which has not been OSI or FSF approved.", options);
 		legalQuestions.put(question.getLabel(), question);
           
 	    askAll(legalQuestions);
@@ -66,7 +75,6 @@ public class SustainabilityRating {
 	 * @param questions
 	 */
 	private static void reportAll(LinkedHashMap<String, Question> questions) {
-		System.out.println("\nResponse summary\n");
 		Iterator<Question> itr = questions.values().iterator();
 		while (itr.hasNext()) {
 			Question question = itr.next();
@@ -87,14 +95,61 @@ public class SustainabilityRating {
 		System.out.println("\n");
 		printHeading(question);
 		System.out.println(question.getText());
+		String answer;
+		
+		if (question instanceof MultipleChoiceQuestion) {
+			answer = getMultiChoiceResponse((MultipleChoiceQuestion) question);
+		} else {
+		    answer = getFreeFormresponse(question);
+		}
+		return question.getAnswer();
+	}
+
+	/**
+	 * Get the answer to a multichoice question.
+	 * 
+	 * @param question
+	 * @return
+	 */
+	private static String getMultiChoiceResponse(MultipleChoiceQuestion question) {
+		Iterator<String> keys = question.getOptions().keySet().iterator();
+		int idx = 0;
+		while (keys.hasNext()) {
+			String key = keys.next();
+			System.out.print(idx);
+			System.out.print(": ");
+			System.out.print(key);
+			System.out.print(" (");
+			System.out.print(question.getOptions().get(key));
+			System.out.println(")");
+			idx = idx + 1;
+		}
+		
 		Scanner in = new Scanner(System.in);
-		String answer = in.nextLine();
+		String response = in.nextLine();
+		if (response.equals(HELP_COMMAND)) {
+			System.out.println(question.getDetails());
+			return ask(question);
+		}
+		int intAnswer = new Integer(response);
+		if (intAnswer < 1 || intAnswer >= idx) {
+			System.out.println("Please enter a value between 0 and " + (idx - 1));
+			return ask(question);
+		}
+		question.setAnswer(intAnswer);
+		return question.getAnswer();
+	}
+
+	private static String getFreeFormresponse(Question question) {
+		String answer;
+		Scanner in = new Scanner(System.in);
+		answer = in.nextLine();
 		if (answer.equals(HELP_COMMAND)) {
 			System.out.println(question.getDetails());
 			return ask(question);
 		}
 		question.setAnswer(answer);
-		return question.getAnswer();
+		return answer;
 	}
 
 	private static void printHeading(Question question) {
