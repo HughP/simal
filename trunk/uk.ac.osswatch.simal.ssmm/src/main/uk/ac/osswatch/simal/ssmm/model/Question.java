@@ -8,16 +8,19 @@ public class Question {
 	String text;
 	String details;
 	String answer;
+	private String label;
 	
 	/**
 	 * Create a default question that accepts a text response. 
 	 * 
+	 * @param label a human readable label for the question
 	 * @param text - the text of the question
 	 * @param details - a description of the question
 	 * @param answer - a default answer
 	 */
-	public Question(String text, String details,
+	public Question(String label, String text, String details,
 			String answer) {
+		setLabel(label);
 		setText(text);
 		setDetails(details);
 		setAnswer(answer);
@@ -26,10 +29,12 @@ public class Question {
 	/**
 	 * Create a default question that accepts a text response.
 	 * 
+	 * @param label a human readable label for the question
 	 * @param text the text of the question
 	 * @param details a description of the question
 	 */
-	public Question(String text, String details) {
+	public Question(String label, String text, String details) {
+		setLabel(label);
 		setText(text);
 		setDetails(details);
 	}
@@ -77,6 +82,22 @@ public class Question {
 	 */
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+
+	/**
+	 * Get a human readable label for this question.
+	 * @return
+	 */
+	public String getLabel() {
+		return label;
+	}
+
+	/**
+	 * Set a human readable label for this question.
+	 * @return
+	 */
+	public void setLabel(String newLabel) {
+		this.label = newLabel;
 	}
 
 }

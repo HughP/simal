@@ -10,7 +10,8 @@ import org.junit.Test;
  *
  */
 public class QuestionTest {
-	
+
+	static String QUESTION_LABEL = "Test Label";
 	static String QUESTION_TEXT = "Is this a question?";
 	static String QUESTION_DETAILS = "This is just a question for testing.";
 	static String QUESTION_ANSWER = "Yes, of course it's a question.";
@@ -19,14 +20,26 @@ public class QuestionTest {
 	
 	@BeforeClass
 	public static void createQuestion() {
-		question = new Question(QUESTION_TEXT, QUESTION_DETAILS, QUESTION_ANSWER);
+		question = new Question(QUESTION_LABEL, QUESTION_TEXT, QUESTION_DETAILS, QUESTION_ANSWER);
 	}
 	
 	@Test
 	public void testCreateQuestion(){
-		Question test = new Question(QUESTION_TEXT, QUESTION_DETAILS);
+		Question test = new Question(QUESTION_LABEL, QUESTION_TEXT, QUESTION_DETAILS);
 		assertEquals("Question text is incorrect", QUESTION_TEXT, test.getText());
 		assertEquals("Description for question is not being set correctly", QUESTION_DETAILS, test.getDetails());
+	}
+
+	@Test
+	public void testGetLabel() {
+		assertEquals("Question label is incorrect", QUESTION_LABEL, question.getLabel());
+	}
+	
+	@Test
+	public void testSetLabel() {
+		question.setLabel("testing");
+		assertEquals("Question label is not being set correctly", "testing", question.getLabel());
+		question.setLabel(QUESTION_LABEL);
 	}
 	
 	@Test
