@@ -59,6 +59,7 @@ RDFS is used to capture information about a resource.
 
 || *Name* || *Since* || *Description* || *Example* ||
 || rdfs:label || 0.2 || A human readable label for a resource || <rdfs:label>Human Readable Label</rdfs:label> ||
+|| rdfs:seeAlso || 0.2 || A reference to another, related resource || <rdfs:seeAlso rdf:resource="http://jisc.ac.uk/project#17" /> ||
 
 == Simal Namespace ==
 
