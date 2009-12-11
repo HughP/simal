@@ -79,6 +79,8 @@ public class Question {
 	
 	/**
 	 * Set the answer (if any) provided for this question.
+	 * 
+	 * @TODO throw an exception on an illegal option
 	 */
 	public void setAnswer(String answer) {
 		this.answer = answer;
