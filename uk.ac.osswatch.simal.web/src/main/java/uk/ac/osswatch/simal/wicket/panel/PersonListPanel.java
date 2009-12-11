@@ -57,6 +57,7 @@ public class PersonListPanel extends Panel {
   private static final Logger logger = LoggerFactory.getLogger(PersonListPanel.class);
   private Set<IPerson> people;
   private String title;
+  private String filter = "";
   private static PersonFilterInputModel inputModel = new PersonFilterInputModel();
   SortablePersonDataProvider dataProvider;
 
@@ -75,6 +76,27 @@ public class PersonListPanel extends Panel {
     super(id);
     this.title = title;
     this.people = SimalRepositoryFactory.getPersonService().getAll();
+    populatePanel(numberOfPeople);
+  }  
+  
+  /**
+   * Create a panel that lists people filtered with a given filter string.
+   * 
+   * @param id
+   *          the wicket ID for the component
+   * @param title
+   *          the title if this list
+   * @param numberOfPeople the number of people to display per page
+   * @param filter the filter to use 
+   * 
+   * @throws SimalRepositoryException
+   */
+  public PersonListPanel(String id, String title, int numberOfPeople, String filter)
+      throws SimalRepositoryException {
+    super(id);
+    this.title = title;
+    this.people = SimalRepositoryFactory.getPersonService().filterByName(filter);
+    this.filter = filter;
     populatePanel(numberOfPeople);
   }
 
@@ -99,8 +121,8 @@ public class PersonListPanel extends Panel {
 
   private void populatePanel(int numberOfPeople) {
     add(new Label("title", title));
-    add(new PersonFilterForm("personFilterForm"));    
-    addPersonList(people, numberOfPeople);
+    add(new PersonFilterForm("personFilterForm", this.filter));    
+    addPersonList(people, numberOfPeople);   
   }
 
   @SuppressWarnings("unchecked")
@@ -122,6 +144,8 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
 
 		@Override
         public void populateItem(Item cellItem, String componentId, IModel model) {
+			IPerson person = (IPerson)model.getObject();
+			Set<IInternetAddress> emailSet = person.getEmail();
         	Iterator<IInternetAddress> emails = ((IPerson)model.getObject()).getEmail().iterator();
         	if (emails.hasNext()) {
 	        	while (emails.hasNext()) {
@@ -140,7 +164,7 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
         	} else {
         		cellItem.add(new Label(componentId, ""));
         	}
-        }
+		}
     }); 
     
     columns.add(new PropertyColumn(new Model("Project"), "projects", "projects") {
@@ -201,11 +225,11 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     private static final long serialVersionUID = 4350446873545711199L;
     private TextField<String> nameFilter;
     
-    public PersonFilterForm(String name) {
+    public PersonFilterForm(String name, String filter) {
       super(name, new CompoundPropertyModel<PersonFilterInputModel>(inputModel));
       nameFilter = new TextField<String>("nameFilter");
       add(nameFilter);
-      String[] defaultValue = { "" };
+      String[] defaultValue = { filter };
       nameFilter.setModelValue(defaultValue);
     }
 
