@@ -60,6 +60,8 @@ public class MultipleChoiceQuestion extends Question {
 	 * Set the recorded answer according to an index pointer into the LinkedhashMap of options.
 	 * 
 	 * @param index 0 base index into the options
+	 * 
+	 * @TODO throw an exception on an illegal option
 	 */
 	public void setAnswer(int index) {
 		setAnswer((String)getOptions().keySet().toArray()[index]);

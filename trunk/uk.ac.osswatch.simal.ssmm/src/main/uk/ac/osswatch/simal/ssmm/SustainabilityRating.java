@@ -6,12 +6,14 @@ import java.util.Scanner;
 
 import uk.ac.osswatch.simal.ssmm.model.MultipleChoiceQuestion;
 import uk.ac.osswatch.simal.ssmm.model.Question;
+import uk.ac.osswatch.simal.ssmm.model.SelectionQuestion;
 
 public class SustainabilityRating {
 
   private static final Object HELP_COMMAND = "help";
   private static LinkedHashMap<String, Question> infoQuestions = new LinkedHashMap<String, Question>();
   private static LinkedHashMap<String, Question> legalQuestions = new LinkedHashMap<String, Question>();
+  private static LinkedHashMap<String, Question> knowledgeQuestions = new LinkedHashMap<String, Question>();
 	/**
 	   * @param args
 	   */
@@ -22,10 +24,12 @@ public class SustainabilityRating {
 		  
 		  askInfoQuestions();
 		  askLegalQuestions();
+		  askKnowledgeQuestions();
 
 		  System.out.println("\nResponse summary\n");  
 		  reportAll(infoQuestions);
 		  reportAll(legalQuestions);
+		  reportAll(knowledgeQuestions);
 	  }
 
 	private static void askInfoQuestions() {
@@ -40,9 +44,30 @@ public class SustainabilityRating {
 	    askAll(infoQuestions);
 	}
 	
+	private static void askKnowledgeQuestions() {
+  	    System.out.println("Knowledge Information");
+	    System.out.println("=====================");
+
+		LinkedHashMap<String, String> options = new LinkedHashMap<String, String>();
+		options.put("User Docs", "User documentation section on website");
+		options.put("Design Docs", "Design documentation");
+		options.put("Roadmap", "Managed project roadmap");
+		options.put("Metadata", "Machine readable meta-data");
+		options.put("wiki", "Publicly writeable wiki");
+		options.put("Revision control", "Version control system");
+		options.put("Discussion", "Email lists or online forums");
+		options.put("IM", "Instant messaging/IRC");
+		options.put("Issue Tracker", "Issue tracker for bug and feature tracking");
+
+	    SelectionQuestion question = new SelectionQuestion("Communication Channels", "Which publicly available communication or dissemination mechanisms does the project use?", "Multiple documentation and communication components are indicative of at least the opportunity for project knowledge to exist. There are certainly cases where too many avenues of knowledge can hurt a project.", options);
+		knowledgeQuestions.put(question.getLabel(), question);
+          
+	    askAll(knowledgeQuestions);
+	}
+	
 	private static void askLegalQuestions() {
-  	    System.out.println("General Information");
-	    System.out.println("===================");
+  	    System.out.println("Legal Information");
+	    System.out.println("=================");
 
 		LinkedHashMap<String, String> options = new LinkedHashMap<String, String>();
 		options.put("Don't know", "The licence model is not currently understood.");
@@ -97,12 +122,51 @@ public class SustainabilityRating {
 		System.out.println(question.getText());
 		String answer;
 		
-		if (question instanceof MultipleChoiceQuestion) {
+		if (question instanceof SelectionQuestion) {
+			answer = getSelectionResponse((SelectionQuestion) question);
+		} else if (question instanceof MultipleChoiceQuestion) {
 			answer = getMultiChoiceResponse((MultipleChoiceQuestion) question);
 		} else {
 		    answer = getFreeFormresponse(question);
 		}
 		return question.getAnswer();
+	}
+
+	private static String getSelectionResponse(SelectionQuestion question) {
+		System.out.println("Enter a single option at a time, enter 'end' to finish making selections");
+		
+		Iterator<String> keys = question.getOptions().keySet().iterator();
+		int idx = 0;
+		while (keys.hasNext()) {
+			String key = keys.next();
+			if (question.getSelectedOptions().containsKey(key)) {
+				System.out.print("SELECTED ");
+			}
+			System.out.print(idx);
+			System.out.print(": ");
+			System.out.print(key);
+			System.out.print(" (");
+			System.out.print(question.getOptions().get(key));
+			System.out.println(")");
+			idx = idx + 1;
+		}
+		
+		Scanner in = new Scanner(System.in);
+		String response = in.nextLine();
+		if (response.equals("end")) {
+			return question.getAnswer();
+		}
+		if (response.equals(HELP_COMMAND)) {
+			System.out.println(question.getDetails());
+			return ask(question);
+		}
+		int intAnswer = new Integer(response);
+		if (intAnswer < 1 || intAnswer >= idx) {
+			System.out.println("Please enter a value between 0 and " + (idx - 1));
+			return ask(question);
+		}
+		question.setAnswer(intAnswer);
+		return getSelectionResponse(question);
 	}
 
 	/**
