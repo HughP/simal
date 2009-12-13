@@ -21,8 +21,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Collection;
+import java.util.Iterator;
 
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
@@ -30,6 +33,7 @@ import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
@@ -50,6 +54,11 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.tools.OhlohFormInputModel;
+import uk.ac.osswatch.simal.wicket.widgets.Widget;
+import uk.ac.osswatch.simal.wicket.widgets.WookieServerConnection;
+import uk.ac.osswatch.simal.wicket.widgets.WookieWidgetGalleryPanel;
+import uk.ac.osswatch.simal.wicket.widgets.WookieWidgetPanel;
+import uk.ac.osswatch.simal.wicket.widgets.Widget.Instance;
 
 /**
  * The tools page provides access to a number of useful Admin tools.
@@ -163,6 +172,35 @@ public class ToolsPage extends BasePage {
         ExhibitPersonBrowserPage.class));
     add(new BookmarkablePageLink("exhibitProjectLink",
             ExhibitProjectBrowserPage.class));
+    
+    // Widget testing
+    // all widgets in a gallery
+	try {
+		add(new WookieWidgetGalleryPanel("widgetGallery"));
+	} catch (SimalException e) {
+		UserReportableException ure = new UserReportableException("Unable to retrieve widgets from Woookie for Gallery", ToolsPage.class, e);
+        setResponsePage(new ErrorReportPage(ure));
+    }
+	// all instantiated widgets
+	try {
+	    RepeatingView repeating = new RepeatingView("instantiatedWidgets");
+	    Iterator<Widget> itr = UserApplication.getWookieServerConnection().getAvailableWidgets().values().iterator();
+	    Widget widget;
+		while(itr.hasNext()) {
+		  widget = itr.next();
+	      Iterator<Widget.Instance> instances = widget.getInstances().iterator();
+	      while(instances.hasNext()) {
+	    	  Instance instance = instances.next();
+			  WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
+			  repeating.add(item);
+			  item.add(new WookieWidgetPanel("instance", instance));
+	      }
+		}
+		add(repeating);
+	} catch (SimalException e) {
+		UserReportableException ure = new UserReportableException("Unable to retrieve widgets from Woookie for Gallery", ToolsPage.class, e);
+        setResponsePage(new ErrorReportPage(ure));
+    }
   }
 
   /**

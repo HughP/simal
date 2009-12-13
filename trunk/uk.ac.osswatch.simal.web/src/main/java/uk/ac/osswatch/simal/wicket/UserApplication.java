@@ -44,6 +44,7 @@ import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
+import uk.ac.osswatch.simal.wicket.widgets.WookieServerConnection;
 
 /**
  * The UserApp is the main user facing appliation. This application allows users
@@ -58,6 +59,8 @@ public class UserApplication extends WebApplication {
 	private static boolean schedulePTSW;
 
 	private static Timer ptswTimer;
+
+	private static WookieServerConnection wookieServerConnection;
 
 	public UserApplication() {
 		setScheduledPtswStatus(true);
@@ -181,5 +184,16 @@ public class UserApplication extends WebApplication {
 			ptswTimer.cancel();
 			ptswTimer = null;
 		}
+	}
+
+	/**
+	 * Get a connection to the Wookie Server used for gadget rendering.
+	 * @return
+	 */
+	public static WookieServerConnection getWookieServerConnection() {
+		if (wookieServerConnection == null) {
+			wookieServerConnection = new WookieServerConnection();
+		}
+		return wookieServerConnection;
 	}
 }
