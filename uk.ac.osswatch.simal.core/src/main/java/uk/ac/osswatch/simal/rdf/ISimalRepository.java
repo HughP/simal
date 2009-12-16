@@ -331,5 +331,15 @@ public interface ISimalRepository {
      * @return true if the id is a valid Simal ID
      */
     public boolean isValidSimalID(String id);
+    
+
+	/**
+	 * Get a featured project. At the present time this will
+	 * return a single random project from the repository.
+	 * 
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public IProject getFeaturedProject() throws SimalRepositoryException;
 
 }

@@ -32,6 +32,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -307,6 +308,28 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     }
     return projects;
   }
+  
+
+	/**
+	 * Get a featured project. At the present time this will
+	 * return a single random project from the repository.
+	 * 
+	 * @return
+	 * @throws SimalRepositoryException 
+	 */
+	public IProject getFeaturedProject() throws SimalRepositoryException {
+	  IProject project;
+	  Set<IProject> allProjects = getAllProjects();
+      Random rand = new Random();
+      int size = allProjects.size();
+      if (size > 0) {
+        int idx = rand.nextInt(size);
+        project = (IProject) allProjects.toArray()[idx];
+      } else {
+        project = null;
+      }
+      return project;
+	}
 
   /**
    * @refactor should be moved to ProjectService class
