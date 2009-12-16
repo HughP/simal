@@ -308,4 +308,9 @@ public IReviewService getReviewService() {
 	return null;
 }
 
+public IProject getFeaturedProject() throws SimalRepositoryException {
+	// TODO Auto-generated method stub
+	return null;
+}
+
 }
