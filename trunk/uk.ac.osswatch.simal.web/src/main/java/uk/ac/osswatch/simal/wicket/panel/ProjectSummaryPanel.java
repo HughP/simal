@@ -27,9 +27,6 @@ package uk.ac.osswatch.simal.wicket.panel;
  * specific language governing permissions and limitations * under the License. *
  */
 
-import java.util.Random;
-import java.util.Set;
-
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.IPageLink;
@@ -58,16 +55,8 @@ public class ProjectSummaryPanel extends Panel {
     super(panelID);
     IProject project;
     try {
-      Set<IProject> allProjects = UserApplication.getRepository()
-          .getAllProjects();
-      Random rand = new Random();
-      int size = allProjects.size();
-      if (size > 0) {
-        int idx = rand.nextInt(size);
-        project = (IProject) allProjects.toArray()[idx];
-      } else {
-        project = null;
-      }
+      project = UserApplication.getRepository()
+          .getFeaturedProject();
     } catch (SimalRepositoryException e) {
       // If we can't get a random project it is safe to use a null project as
       // this will simply report an error to the user in this panel
