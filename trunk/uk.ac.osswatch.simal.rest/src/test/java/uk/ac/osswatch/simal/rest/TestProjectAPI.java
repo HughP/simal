@@ -86,6 +86,15 @@ public class TestProjectAPI extends AbstractAPITest {
     assertNotNull("No XML Returned by getProject", result);
     assertTrue("XML file does not appear to describe a project", result
         .contains("Project>"));
+    
+    cmd = RESTCommand.createCommand("/project/project-featured/xml");
+    
+    handler = SimalHandlerFactory.createHandler(cmd, getRepo());
+    result = handler.execute();
+    
+    assertNotNull("No XML Returned by getProject", result);
+    assertTrue("XML file does not appear to describe a project", result
+        .contains("Project>"));
   }
   
   @Test
