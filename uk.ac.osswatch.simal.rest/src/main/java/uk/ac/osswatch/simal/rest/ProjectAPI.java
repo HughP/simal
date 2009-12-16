@@ -58,7 +58,7 @@ public class ProjectAPI extends AbstractHandler {
     }
   }
 
-  /**
+/**
    * Get all the projects from the repository.
    * 
    * @param req
@@ -89,31 +89,35 @@ public class ProjectAPI extends AbstractHandler {
    */
   private String getProject(RESTCommand command) throws SimalAPIException {
     String id = command.getProjectID();
-
-    if (command.isXML()) {
-      try {
-        IProject project = SimalRepositoryFactory.getProjectService().getProjectById(
-            getRepository().getUniqueSimalID(id));
-        if (project == null) {
-          throw new SimalAPIException("Project with Simal ID " + id
-              + " does not exist");
-        }
-        return project.toXML();
-      } catch (SimalRepositoryException e) {
-        throw new SimalAPIException(
-            "Unable to get XML representation of project from the repository",
-            e);
-      }
-    } else if (command.isJSON()) {
-      try {
-        return SimalRepositoryFactory.getProjectService().getProjectById(id).toJSON();
-      } catch (SimalRepositoryException e) {
-        throw new SimalAPIException(
-            "Unable to get JSON representation of project from the repository",
-            e);
-      }
-    } else {
-      throw new SimalAPIException("Unkown format requested - " + command);
+    IProject project;
+    
+    try {
+	    if (id.equals("featured")) {
+	      project = getRepository().getFeaturedProject();
+	    } else {
+	      project = SimalRepositoryFactory.getProjectService().getProjectById(
+	        getRepository().getUniqueSimalID(id));
+	    }
+	    if (project == null) {
+	      throw new SimalAPIException("Project with Simal ID " + id
+	          + " does not exist");
+	    }
+    } catch (SimalRepositoryException e) {
+      throw new SimalAPIException(
+        "Unable to get XML representation of project from the repository",
+        e);
+    }
+    
+    try {
+	    if (command.isXML()) {
+	    	return project.toXML();
+	    } else if (command.isJSON()) {
+	    	return project.toJSON();
+	    } else {
+	    	throw new SimalAPIException("Unkown format requested - " + command);
+	    }
+    } catch (SimalRepositoryException e) {
+    	throw new SimalAPIException("Unable to convert project to the chosen format", e);
     }
   }
 

@@ -483,7 +483,7 @@ public final class RESTCommand {
     }
     return false;
   }
-
+  
   /**
    * Return the path info part of the URI that represents this command.
    * 
@@ -588,4 +588,5 @@ public final class RESTCommand {
   public boolean isGet() {
     return !isPost();
   }
+
 }

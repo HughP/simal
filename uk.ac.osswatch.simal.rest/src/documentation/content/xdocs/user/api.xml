@@ -90,6 +90,9 @@
         <p>To retrieve the details of a single project use:</p>
 
         <source>http://foo.com/simal-rest/project/project-ID/FORMAT</source>
+        
+        <p>If you use "featured" as the project-ID you will be given a featured
+        project.</p>
       </section>
 
       <section>
