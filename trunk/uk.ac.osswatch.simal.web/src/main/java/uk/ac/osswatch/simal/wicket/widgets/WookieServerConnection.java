@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.OutputStreamWriter;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -31,6 +32,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -50,6 +53,8 @@ public class WookieServerConnection implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String wookieURL = "http://localhost:8888/wookie";
 	private HashMap<String, Widget> widgets = new HashMap<String, Widget>();
+	private static final Logger logger = LoggerFactory.getLogger(WookieServerConnection.class);
+	
 	
 	/**
 	 * Get the URL of the wookie server.
@@ -144,7 +149,11 @@ public class WookieServerConnection implements Serializable {
 	}
 
 	/**
-	 * Get a set of all the available widgets in the server.
+	 * Get a set of all the available widgets in the server. 
+	 * If there is an error communicating with the server return an empty set, 
+	 * or the set received so far in order to allow
+	 * the application to proceed. The application should display an appropriate message 
+	 * in this case.
 	 * 
 	 * @return
 	 * @throws SimalException 
@@ -187,7 +196,11 @@ public class WookieServerConnection implements Serializable {
 		} catch (MalformedURLException e) {
 		      throw new SimalException("URL for Wookie is malformed", e);
 		} catch (IOException e) {
-		      throw new SimalException("Problem communicating with the Wookie server", e);
+			// return an empty set, or the set received so far in order to allow
+			// the application to proceed. The application should display an 
+			// appropriate message in this case.
+			logger.debug("Error communicating with the widget server.", e);
+			return widgets;
 		} catch (SAXException e) {
 		      throw new SimalException("Unable to parse the response from Wookie", e);
 		}

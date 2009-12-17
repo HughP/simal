@@ -19,7 +19,6 @@ package uk.ac.osswatch.simal.wicket.widgets;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.WebComponent;
@@ -56,24 +55,33 @@ public class WookieWidgetGalleryPanel extends Panel {
   
   /**
    * Populate the panel with data.
-   * @param hashMap 
+   * @param widgets a hashmap of the widgets to display in this panel 
    * 
    */
-  private void populatePanel(HashMap<String, Widget> hashMap) {
+  private void populatePanel(HashMap<String, Widget> widgets) {
     RepeatingView repeating = new RepeatingView("gallery");
-    Iterator<Widget> itr = hashMap.values().iterator();
-    Widget widget;
-	while(itr.hasNext()) {
-	  WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
-	  repeating.add(item);
-	  widget = itr.next();
-	  
-	  item.add(new StaticImage("icon", new Model(widget.getIcon().toExternalForm())));
-	  item.add(new Label("name", widget.getTitle()));
-	  item.add(new Label("description", widget.getDescription()));
-	  
-	  item.add(InstantiateWidgetPage.getLink("instantiate", widget));
-	}
+    if (widgets.size() > 0) {
+	    Iterator<Widget> itr = widgets.values().iterator();
+	    Widget widget;
+		while(itr.hasNext()) {
+		  WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
+		  repeating.add(item);
+		  widget = itr.next();
+		  
+		  item.add(new StaticImage("icon", new Model(widget.getIcon().toExternalForm())));
+		  item.add(new Label("name", widget.getTitle()));
+		  item.add(new Label("description", widget.getDescription()));
+		  
+		  item.add(InstantiateWidgetPage.getLink("instantiate", widget));
+		}
+    } else {
+    	WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
+		repeating.add(item);
+		item.add(new StaticImage("icon", new Model("")));
+		item.add(new Label("name", "Widget Server"));
+		item.add(new Label("description", "There was a problem communicting with the Widget server"));
+		item.add(new Label("instantiate", ""));
+    }
 	add(repeating);
   }
   
