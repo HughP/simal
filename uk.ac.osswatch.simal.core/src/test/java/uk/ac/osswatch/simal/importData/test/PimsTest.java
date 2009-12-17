@@ -145,5 +145,12 @@ public class PimsTest extends BaseRepositoryTest {
 		Set<IDoapHomepage> pages = project.getHomepages();
 		assertEquals("Project A has an incorrect number of homepages", 1, pages.size());
 	}
+	
+	@Test
+	public void testProjectToXMLAfterImport() throws SimalRepositoryException {
+		IProject project = SimalRepositoryFactory.getProjectService().getProject("http://jisc.ac.uk/project#10");
+		String xml = project.toXML();
+		assertTrue("There appears to be no project identifer in the returned XML", xml.contains("http://jisc.ac.uk/project#10"));
+	}
 
 }
