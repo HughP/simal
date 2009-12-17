@@ -316,9 +316,16 @@ public class Pims {
 	        
 	        // foaf:mbox
 	        String email = getNullSafeStringValue(row, 6);
-	        elem = doc.createElementNS(Foaf.getURI(), "mbox");
-	        elem.setAttributeNS(RDF.getURI(), "resource", email);
-	        person.appendChild(elem);
+	        if (email.contains("@")) {
+	          if (!email.startsWith("mailto:")) {
+	        	  email = "mailto:" + email;
+	          }
+	          elem = doc.createElementNS(Foaf.getURI(), "mbox");
+	          elem.setAttributeNS(RDF.getURI(), "resource", email);
+	          person.appendChild(elem);
+	        } else {
+	          logger.info("Contact in PIMS import has a strange looking email: " + email);	
+	        }
 	        
 	        // TODO: record contact telephone detail
 	        //HSSFRichTextString tel = row.getCell(7).getRichStringCellValue();
@@ -383,6 +390,7 @@ public class Pims {
 	 * @return
 	 */
 	private static String getPersonURI(int id) {
+		logger.debug("Creating a person with id; " + id);
 		return "http://jisc.ac.uk/person#" + id;
 	}
 	
