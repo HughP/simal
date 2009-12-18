@@ -39,7 +39,7 @@ import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class PimsTest extends BaseRepositoryTest {
+public class TestPimsImport extends BaseRepositoryTest {
 	
 	private static ISimalRepository repo;
 
