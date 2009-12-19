@@ -19,6 +19,10 @@ package uk.ac.osswatch.simal.importData;
  * 
  */
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -35,6 +39,8 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -53,6 +59,7 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
  * 
  */
 public class Ohloh {
+  private static final Logger logger = LoggerFactory.getLogger(Ohloh.class);
   private static final String OHLOH_BASE_URI = "http://www.ohloh.net";
 
   /**
@@ -273,6 +280,48 @@ public class Ohloh {
     source.append("/projects/");
     source.append(projectID);
     return source.toString();
+  }
+  
+  /**
+   * Import all the projects listed in the supplied file. The file lists
+   * a series of ohloh file identifiers, each on a separate line. Lines
+   * that start with '#' will be ignored. Blank lines will also be
+   * ignored. For example:
+   * 
+   * <pre>
+   * # projects to import from Ohloh
+   * simal
+   * 
+   * # Apache projects
+   * apache
+   * forrest
+   * </pre>
+   * 
+   * @param file the file of projects to import.
+   * @throws IOException if there is a problem reading the file 
+   */
+  public void importProjects(File file) throws IOException {
+	BufferedReader in = null;
+	try {
+	  in = new BufferedReader(new FileReader(file));
+      String ohlohProjectID;
+      while ((ohlohProjectID = in.readLine()) != null) {
+    	  if (ohlohProjectID.trim().length() != 0 && !ohlohProjectID.startsWith("#")) {
+              try {
+				addProjectToSimal(ohlohProjectID);
+			} catch (ImportException e) {
+				logger.warn("Unable to import project from Ohloh: " + ohlohProjectID, e);
+			} catch (SimalException e) {
+				logger.warn("Unable to add project from Ohloh: " + ohlohProjectID, e);
+			}
+    	  }
+      }
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} finally {
+      if (in != null) in.close();
+	}
   }
 
 }
