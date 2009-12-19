@@ -1,0 +1,28 @@
+#summary notes on significant changes between releases
+#labels Featured,Phase-Support
+
+= 0.2.3-SNAPSHOT =
+
+== Core ==
+
+=== Add Multiple Projects from Ohloh.net ===
+
+The Command Line interface can now accept a filename instead of a project ID, e.g.
+
+{{{
+importOhloh -f FILENAME
+}}}
+
+This file contains one Ohloh project ID per line (or a comment if the line starts with '#'). All projects listed in this file will be imported into the database. For example:
+
+{{{
+################################
+# Projects to import from Ohloh
+################################
+
+simal
+
+# Apache projects
+apache
+forrest
+}}}
