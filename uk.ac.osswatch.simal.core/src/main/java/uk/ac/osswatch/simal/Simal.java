@@ -99,6 +99,10 @@ public class Simal {
         "When displaying resource information only display summary details.");
     opts.addOption(summary);
 
+    Option filename = new Option("f", "filename", true,
+        "The filename to use for this command.");
+    opts.addOption(filename);
+
     Option test = new Option(
         "t",
         "test",
@@ -219,14 +223,24 @@ public class Simal {
         }
         i++;
       } else if (cmd.equals("importOhloh")) {
-        try {
-          importOhloh((String) cmds[i + 1]);
-        } catch (SimalException e) {
-          logger.error("Unable to Import from Ohloh: " + e.getMessage() + "\n",
-              e);
-          System.exit(1);
-        }
-        i++;
+    	  try {
+    	    if (cl.hasOption('f')) {
+	            String filename = cl.getOptionValue('f');
+				File file = new File(filename);
+	            importOhloh(file);
+    	    } else {
+    		  importOhloh((String) cmds[i + 1]);
+    	    } 
+            i++;
+    	  } catch (SimalException e) {
+	            logger.error("Unable to Import from Ohloh: " + e.getMessage() + "\n",
+                        e);
+            System.exit(1);
+          } catch (IOException e) {
+            logger.error("Unable to Import from Ohloh: " + e.getMessage() + "\n",
+                    e);
+            System.exit(1);
+		  }
       } else if (cmd.equals(CMD_BACKUP)) {
         i++;
         backup(cmds, i);
@@ -349,6 +363,17 @@ public class Simal {
   private static void importOhloh(String id) throws SimalException {
     Ohloh ohloh = new Ohloh();
     ohloh.addProjectToSimal(id);
+  }
+
+  /**
+   * Import multiple projects from Ohloh. Each project is listed in the file supplied.
+   * 
+   * @param file
+   * @throws IOException 
+   */
+  private static void importOhloh(File file) throws SimalException, IOException {
+    Ohloh ohloh = new Ohloh();
+    ohloh.importProjects(file);
   }
 
   /**
@@ -494,7 +519,7 @@ public class Simal {
     commandSummary
         .append("getProjects                get all projects, or those indicated in the options.\n\n");
     commandSummary
-        .append("importOhloh  ID            import a project from Ohloh with a given ID.\n\n");
+        .append("importOhloh  FILE_OR_ID    import a project from Ohloh with a given ID.\n\n");
     commandSummary
         .append("importPTSW                 Import all recently updated DOAP files from PTSW\n\n");
     commandSummary
