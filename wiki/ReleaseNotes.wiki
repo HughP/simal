@@ -1,5 +1,28 @@
-#summary Notes about the 0.2-rc1 release
+#summary Notes about the 0.2.2 release
 #labels Phase-Support,Featured
+
+= Release 0.2.2 =
+
+Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/964cd179db018f19/17a27dce849077f7?lnk=gst&q=0.2.2#17a27dce849077f7 01/12/2009]
+
+- Functionality added to backup the database from the command-line (Issue 157)
+- Added support for XHTML tags in body text; you now can markup data (Issue 179)
+like the description with HTML tags as long as it's valid XML.
+- PIMS imports now support empty cells in the Excell sheets (Issue 254)
+- Labels for homepages are configurable (Issue 191)
+- Support for blogs using foaf:weblog (Issue 32)
+- Search facility for projects and people (Issue 153)
+- Link project imports via rdf:seeAlso (Issue 201)
+
+
+See also the [http://code.google.com/p/simal/issues/list?can=1&q=Milestone:0.2%20OR%20Milestone:0.3%20Status:Verified%20OR%20Status:Fixed%20modified-after:2008/9/1&sort=modified&colspec=ID%20Type%20Status%20Priority%20Milestone%20Summary%20Modified complete issue list] for this release.
+
+= Previous releases =
+
+== Release 0.2-rc1 ==
+
+Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/7846d35317307437# 25/09/2008]
+
 
 We are pleased to announce the release of Simal v0.2-rc1
 
