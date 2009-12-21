@@ -1,52 +1,68 @@
 #summary Steps to go through for a release
 #labels Phase-QA
 
-= Releases and iterations =
+*Status: Proposed*
+*Note: this page is recently changed to reflect proposed changes to the release management process. See the simal-contributors list for details.*
 
-Currently we use iterations of two weeks. At the end of each iterations a new build is performed and deployed on http://registry.oss-watch.ac.uk. A binary release will only be made every second iteration, i.e. monthly.
+= Releases, iterations and timelines =
 
-This document describes how to build a release.
+Currently we use iterations of two weeks in a cycle of 4 iterations. At the end of each iteration a new build will be deployed on http://registry.oss-watch.ac.uk. 
+We call this a 'soft release'. 
 
-= Timelines and keeping the community informed =
+At the end of every third iteration there will be a code freeze to allow the release manager to create a candidate binary release and create a release branch for it. This means that every third iteration must assign sufficient velocity points to the release process to ensure this process is fully implemented. We cannot cut corners on this as this is where our final quality control checks are performed.
 
-A binary release is made every second iteration. This means that every second iteration must assign sufficient velocity points to the release to ensure this process is fully implemented. We cannot cut corners on this process as this is where our final quality control checks are performs.
+The first week of every fourth iteration will be used to test the candidate binary release and fix critical bugs on the release branch. The second week of every fourth iteration will then be mainly used for creating the final binary release itself, which will be signed by as many developers as possible. At the end of the fourth iteration the binary release will be made available on the Google Code website and the public registry website will be updated. During the fourth iteration it is possible to commit changes to the trunk, but they will not be included in the release at the end of the iteration.
 
-It is likely that every second iteration will focus only on refactoring, testing and bug fixing in order to ensure the release is ready.
+In the figure below, the whole cycle of four iterations is displayed:
 
-The timeline for communicating the release plan to the community is:
-  * Two weeks before release date
-    * Notify simal-contributors@googlegroups.com of the intention to implement a code freeze in X days (3 days before release day)
-  * One week before release date
-    * Notify simal-contributors@googlegroups.com of the intention to implement a code freeze in X days (3 days before release day)
-    * Notify simal-contributors@googlegroups.com and simal-users@googlegroups.com of binary release available for testing
-  * Three days before release day
-    * Notify simal-contributors@googlegroups.com that code freeze has started
-  * Day of release
-    * Notify simal-contributors@googlegroups.com and simal-users@googlegroups.com of binary release available
-    * Notify simal-contributors@googlegroups.com that code freeze has ended
+http://simal.googlecode.com/svn/wiki/ReleaseManagement.attach/releaseProcessTimeline.gif
 
-In a future improvement of this release process we will move the release code into a branch for the period of the release iteration, this will allow people to continue to develop new features for future releases. However, at present the community is small enough to not require such overhead. In the meantime all commits for new features that introduce code quality issues will be rejected during a release iteration.
+This document describes how to build a soft release and a binary release.
 
-= Determine release version number =
+= Keeping the community informed =
 
-The version numbers of Simal releases are of the form {{{x.y.z}}} or {{{<major>.<minor>.<micro>}}}. The {{{<major>}}} version number is only increased when a large amount of new functionality is added. In this case the new release version number will be {{{(x+1).0.0}}}. The {{{<minor>}}} version number is only increased when some functionality is added to the new release, in which case the new release version number will be {{{x.(y+1).0}}}. When only bugfixes are part of the new release there will be a so-called point release. The version number of the new release in this case will be {{{x.y.(z+1)}}}. Currently, all components (core, rest and webapp) get the same version number.
+The following are the minimal communications that have to take place to keep to the community informed:
 
-= Pre-Requisites =
+|| *When* || *What* || *To whom* ||
+|| Two weeks before code freeze || Intention to implement a code freeze in 14 days. || simal-contributors@googlegroups.com ||
+|| Three days before code freeze || Intention to implement a code freeze in 3 days. || simal-contributors@googlegroups.com ||
+|| Day of code freeze || Code freeze has started || simal-contributors@googlegroups.com ||
+|| After release branch created || Code freeze has ended || simal-contributors@googlegroups.com ||
+|| Candidate binary release uploaded || Binary release available for testing || simal-contributors@googlegroups.com 
+simal-users@googlegroups.com ||
+|| Week after candidate binary release availability || Testing period ended; final release to be built || simal-contributors@googlegroups.com 
+simal-users@googlegroups.com ||
+|| Final binary release uploaded || Announce availability of final release || simal-contributors@googlegroups.com 
+simal-users@googlegroups.com ||
 
-Before a release can be made a number of requirements must be met.
+= Soft release (1st and 2nd iteration) =
+
+A soft release is created at the end of every first and second iteration. All that is done for a soft release is an update of the public registry website (http://registry.oss-watch.ac.uk). See UpdatingDemoServer for details on how to do that.
+
+= Candidate binary release (3rd iteration) =
+During the third iteration the focus is on refactoring, testing and bug fixing in order to ensure the candidate release is ready and all pre-requisites are met when the code freeze starts at the end of the third iteration. 
+
+== Pre-Requisites ==
+
+Before a candidate binary release can be made a number of requirements must be met:
 
  * Check all CodeAuditing reports are satisfactory (satisfactory means there are no warnings from the code audit tools)
  * All [http://code.google.com/p/simal/issues/list?can=7&q=&colspec=ID+Type+Status+Priority+Milestone+Summary&x=priority&y=milestone&cells=tiles unverified issues] have been verified by someone other than the owner of that issue
  * All source code has been formatted according to the project's coding standards
  * All documentation has been updated to reflect the new features in this release
 
-= Code Freeze =
+== Determine release version number ==
 
-Send a mail to the developer and user lists stating that the project has entered a state of code freeze, that is no changes will be made other than preparation changes for the next release until the new release has been tagged.
+The version numbers of Simal releases are of the form {{{x.y.z}}} or {{{<major>.<minor>.<micro>}}}. The {{{<major>}}} version number is only increased when a significan amount of new functionality is added. In this case the new release version number will be {{{(x+1).0.0}}}. If this is the case, the scope of the release must be agreed upon by the community using the voting system on the mailing list.
+The {{{<minor>}}} version number is only increased when some functionality is added to the new release, in which case the new release version number will be {{{x.(y+1).0}}}. When only bugfixes are part of the new release there will be a so-called point release. The version number of the new release in this case will be {{{x.y.(z+1)}}}. Currently, all components (core, rest and webapp) get the same version number.
 
-= Change src version numbers to reflect release build =
+== Code Freeze ==
 
-First we must correctly set the version number. This means removing the postfix "-SNAPSHOT" in the pom.xml of all the modules and possibly changing the version number (usually when a point release will be made). 
+Send a mail to the developer list stating that the project has entered a state of code freeze, which means that no changes will be made other than preparation changes for the next release until the new release has been tagged.
+
+== Change version numbers to reflect release build ==
+
+We must first build a release candidate for testing. To do this we need to correctly set the version number. Usually this will mean changing the postfix from "-SNAPSHOT" to "-rc1" in the pom.xml of all the modules and possibly changing the version number (usually when a point release will be made). 
 
  * in {{{pom.xml}}} change {{{<version>x.y.z[-POSTFIX]</version>}}}
  * in {{{src/main/resources/default.simal.properties}}} change {{{simal.version=x.y.z[-POSTFIX]}}}
@@ -58,7 +74,7 @@ At this early stage we will release all Simal modules simultaneously and therefo
 
 Commit these changes to SVN.
 
-= Build the Binaries =
+== Build the Binaries ==
 
 For each of the modules build the binaries as follows:
 
@@ -77,32 +93,27 @@ mvn clean package
 
 Note that the process of building the binaries will run all automated tests against the code.
 
-= Tag the release in SVN =
+== Create a release branch in SVN ==
 
-SVN needs to be tagged with the release information as follows:
+SVN needs to be tagged with the release information. We first make a release candidate for the release x.y.z. and all subsequent changes, including the final release for this version, will be done from this branch: 
 
 {{{
-svn copy https://simal.googlecode.com/svn/trunk https://simal.googlecode.com/svn/tags/x.y.z -m "Tag the x.y.z release"
+svn copy https://simal.googlecode.com/svn/trunk https://simal.googlecode.com/svn/branches/x.y.z -m "Tag the x.y.z release"
 }}}
 
-= Upload to Google Code =
+== Upload to Google Code ==
 
-If the previous release is not uploaded to Google Code, this release will be (see the start of this document).
-Upload the binaries to the downloads section of Google Code, making them a featured download.
+Upload the binaries of the candidate binary release to the downloads section of Google Code, making them a featured download.
 
-If this is a point release previous point releases should be deleted if possible (they use up the storage quota and can be rebuilt from SVN if people need to do so).
-
-Deprecate the previous release and remove the featured downloads lable from it (but do not delete the release).
-
-= Ensure documentation is published =
+== Ensure documentation is published ==
 
 Rebuild and [PublishingSiteDocs publish the docs].
 
-= Ensure the demo server is running the latest release =
+== Ensure the demo server is running the latest release ==
 
 [UpdatingDemoServer Update the version of Simal] on the demo server
 
-= Change src version numbers in the trunk =
+== Change src version numbers in the trunk ==
 
 We must now set up SVN trunk for development of the next release. To do this we need to correctly set the version number. 
 Usually this will mean incrementing the minor version number, setting the micro version number to '0' and adding the postfix "-SNAPSHOT".
@@ -113,17 +124,21 @@ Usually this will mean incrementing the minor version number, setting the micro 
 
 In addition we need to change the dependency entries for other Simal modules in both the rest and webapp modules.
 
-= Update the Release Notes =
+== Update the Release Notes ==
 
 The ReleaseNotes are used to announce a new release. They are held in the wiki and are used in email and blog announcements.
 
-= Lift Code Freeze and Announce the new Release =
+== Lift Code Freeze and Announce the new Release ==
 
 The code freeze on trunk can now be lifted as the release is tagged, so a maintenance branch can be created if any major bug fixes need to be made.
 
 The release should be announced on the user and contributor lists using the ReleaseNotes.
 
-= Test =
+= Steps towards the final binary release (4th iteration)=
+
+During every fourth iteration, the canidate binary will be tested and patched if necessary from the release branch. Changes committed to the trunk during this iteration will not be included in the binary release. Below, the details =
+
+== Test ==
 
 Each of the binaries should be tested by as many people, on as many platforms as possible. For each reported test failure a decision must be made whether the issue will need to be patched in a patch release or if it can wait until the next release.
 
@@ -133,13 +148,28 @@ More details on how to test are included in:
  * TestingRestReleases
  * TestingWebReleases
 
-= Patch the release when necessary =
+== Patch the release when necessary ==
 
-When one or more critical errors are discovered a patch release needs to be created. If no code has been committed to the trunk after the last release this can be done by creating a new release from the trunk by following this document from the start.
-If changes have been committed a patch release needs to be created from the tag of the latest release. To do that, first copy the tag to a new branch:
+When one or more critical errors are discovered a patch release needs to be created from the release branch. Patch the critical errors on the branch and create a release from that branch following the procedure in this document, incrementing the rc number. Merge the changes from the branch to the trunk to assure the trunk includes these patches. 
 
-{{{
-svn copy https://simal.googlecode.com/svn/tags/x.y.z https://simal.googlecode.com/svn/branches/x.y.z -m "Create patch release branch for the x.y.z release"
-}}}
+== Vote ==
 
-Then patch the critical errors on the branch and create a release from that branch following the procedure in this document. Merge the changes from the branch to the trunk to assure the trunk includes these patches. 
+When no (more) critical errors are discovered on the last release candidate during the testing phase we can now proceed with getting approval for the release.
+
+A vote on the release is called on the contributor mailing list.
+
+Assuming that the vote passes we can proceed. If it does not pass the reason(s) for the negative votes must be addressed.
+
+== Create and sign final binary release ==
+The final binary release is created on the release branch. The only difference between the final release and the last release candidate is the version number.
+
+== Upload to Google Code ==
+
+Upload the binaries of the binary release to the downloads section of Google Code, making them a featured download. Remove the release candidate.
+
+If this is a point release previous point releases should be deleted if possible (they use up the storage quota and can be rebuilt from SVN if people need to do so).
+
+Deprecate the previous release and remove the featured downloads lable from it (but do not delete the release).
+
+== Announce availability ==
+Announce the availability of the release on the user and developer mailing lists.
