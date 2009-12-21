@@ -2,11 +2,12 @@
 #labels Phase-QA
 
 *Status: Proposed*
-*Note: this page is recently changed to reflect proposed changes to the release management process. See the simal-contributors list for details.*
+
+*Note: this page is recently changed to reflect proposed changes to the release management process. See the [http://groups.google.com/group/simal-contributors/browse_thread/thread/2a68623b84decde1 simal-contributors list] for details.*
 
 = Releases, iterations and timelines =
 
-Currently we use iterations of two weeks in a cycle of 4 iterations. At the end of each iteration a new build will be deployed on http://registry.oss-watch.ac.uk. 
+We use iterations of two weeks in a cycle of 4 iterations. At the end of each iteration a new build will be deployed on http://registry.oss-watch.ac.uk. 
 We call this a 'soft release'. 
 
 At the end of every third iteration there will be a code freeze to allow the release manager to create a candidate binary release and create a release branch for it. This means that every third iteration must assign sufficient velocity points to the release process to ensure this process is fully implemented. We cannot cut corners on this as this is where our final quality control checks are performed.
@@ -28,12 +29,10 @@ The following are the minimal communications that have to take place to keep to 
 || Three days before code freeze || Intention to implement a code freeze in 3 days. || simal-contributors@googlegroups.com ||
 || Day of code freeze || Code freeze has started || simal-contributors@googlegroups.com ||
 || After release branch created || Code freeze has ended || simal-contributors@googlegroups.com ||
-|| Candidate binary release uploaded || Binary release available for testing || simal-contributors@googlegroups.com 
-simal-users@googlegroups.com ||
-|| Week after candidate binary release availability || Testing period ended; final release to be built || simal-contributors@googlegroups.com 
-simal-users@googlegroups.com ||
-|| Final binary release uploaded || Announce availability of final release || simal-contributors@googlegroups.com 
-simal-users@googlegroups.com ||
+|| Candidate binary release uploaded || Binary release available for testing || simal-contributors@googlegroups.com <br /> simal-users@googlegroups.com ||
+|| Week after candidate binary release availability || Vote for final release to be built || simal-contributors@googlegroups.com  <br /> simal-users@googlegroups.com ||
+|| After voting period || Voting results; final release to be built || simal-contributors@googlegroups.com  <br /> simal-users@googlegroups.com ||
+|| Final binary release uploaded || Announce availability of final release || simal-contributors@googlegroups.com <br /> simal-users@googlegroups.com ||
 
 = Soft release (1st and 2nd iteration) =
 
@@ -108,6 +107,7 @@ Upload the binaries of the candidate binary release to the downloads section of 
 == Ensure documentation is published ==
 
 Rebuild and [PublishingSiteDocs publish the docs].
+*Note:* This step is currently suspended until decisions have been made on the new CMS. See [http://groups.google.com/group/simal-contributors/browse_thread/thread/7bc0d763fcdc56c1 discussion on the mailing list].
 
 == Ensure the demo server is running the latest release ==
 
@@ -130,13 +130,13 @@ The ReleaseNotes are used to announce a new release. They are held in the wiki a
 
 == Lift Code Freeze and Announce the new Release ==
 
-The code freeze on trunk can now be lifted as the release is tagged, so a maintenance branch can be created if any major bug fixes need to be made.
+The code freeze on trunk can now be lifted as the release is tagged in Subversion.
 
 The release should be announced on the user and contributor lists using the ReleaseNotes.
 
 = Steps towards the final binary release (4th iteration)=
 
-During every fourth iteration, the canidate binary will be tested and patched if necessary from the release branch. Changes committed to the trunk during this iteration will not be included in the binary release. Below, the details =
+During every fourth iteration, the candidate binary will be tested and patched if necessary from the release branch. Changes committed to the trunk during this iteration will not be included in the binary release. 
 
 == Test ==
 
@@ -161,7 +161,14 @@ A vote on the release is called on the contributor mailing list.
 Assuming that the vote passes we can proceed. If it does not pass the reason(s) for the negative votes must be addressed.
 
 == Create and sign final binary release ==
+
 The final binary release is created on the release branch. The only difference between the final release and the last release candidate is the version number.
+
+*TODO:* The process on signing the release still has to be worked out. See [http://code.google.com/p/simal/issues/detail?id=262 Issue 262].
+
+== Ensure the demo server is running the latest release ==
+
+[UpdatingDemoServer Update the version of Simal] on the demo server
 
 == Upload to Google Code ==
 
