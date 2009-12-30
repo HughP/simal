@@ -1,4 +1,20 @@
 package uk.ac.osswatch.simal.ssmm;
+/*
+ * Copyright 2008 University of Oxford
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");   *
+ * you may not use this file except in compliance with the License.  *
+ * You may obtain a copy of the License at                           *
+ *                                                                   *
+ *   http://www.apache.org/licenses/LICENSE-2.0                      *
+ *                                                                   *
+ * Unless required by applicable law or agreed to in writing,        *
+ * software distributed under the License is distributed on an       *
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY            *
+ * KIND, either express or implied.  See the License for the         *
+ * specific language governing permissions and limitations           *
+ * under the License.                                                *
+ */
 
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -6,14 +22,15 @@ import java.util.Scanner;
 
 import uk.ac.osswatch.simal.ssmm.model.MultipleChoiceQuestion;
 import uk.ac.osswatch.simal.ssmm.model.Question;
+import uk.ac.osswatch.simal.ssmm.model.QuestionSet;
 import uk.ac.osswatch.simal.ssmm.model.SelectionQuestion;
 
 public class SustainabilityRating {
 
   private static final Object HELP_COMMAND = "help";
-  private static LinkedHashMap<String, Question> infoQuestions = new LinkedHashMap<String, Question>();
-  private static LinkedHashMap<String, Question> legalQuestions = new LinkedHashMap<String, Question>();
-  private static LinkedHashMap<String, Question> knowledgeQuestions = new LinkedHashMap<String, Question>();
+  private static QuestionSet infoQuestions = new QuestionSet();
+  private static QuestionSet legalQuestions = new QuestionSet();
+  private static QuestionSet knowledgeQuestions = new QuestionSet();
 	/**
 	   * @param args
 	   */
@@ -85,10 +102,10 @@ public class SustainabilityRating {
 	/**
 	 * Ask all the questions in a set.
 	 * 
-	 * @param questions the questions to ask
+	 * @param infoQuestions2 the questions to ask
 	 */
-	private static void askAll(LinkedHashMap<String, Question> questions) {
-		Iterator<Question> itr = questions.values().iterator();
+	private static void askAll(QuestionSet infoQuestions2) {
+		Iterator<Question> itr = infoQuestions2.values().iterator();
 		while (itr.hasNext()) {
 			Question question = itr.next();
 			ask(question);
@@ -97,10 +114,10 @@ public class SustainabilityRating {
 	
 	/**
 	 * Report the response to all the questions in a set.
-	 * @param questions
+	 * @param infoQuestions2
 	 */
-	private static void reportAll(LinkedHashMap<String, Question> questions) {
-		Iterator<Question> itr = questions.values().iterator();
+	private static void reportAll(QuestionSet infoQuestions2) {
+		Iterator<Question> itr = infoQuestions2.values().iterator();
 		while (itr.hasNext()) {
 			Question question = itr.next();
 			System.out.print(question.getLabel());
@@ -111,7 +128,7 @@ public class SustainabilityRating {
 
 	/**
 	 * Ask a question and return the answer. The answer is also stored in the question
-	 * object.
+	 * object for later retrieval.
 	 * 
 	 * @param question
 	 * @return
@@ -120,14 +137,13 @@ public class SustainabilityRating {
 		System.out.println("\n");
 		printHeading(question);
 		System.out.println(question.getText());
-		String answer;
 		
 		if (question instanceof SelectionQuestion) {
-			answer = getSelectionResponse((SelectionQuestion) question);
+			getSelectionResponse((SelectionQuestion) question);
 		} else if (question instanceof MultipleChoiceQuestion) {
-			answer = getMultiChoiceResponse((MultipleChoiceQuestion) question);
+			getMultiChoiceResponse((MultipleChoiceQuestion) question);
 		} else {
-		    answer = getFreeFormresponse(question);
+		    getFreeFormresponse(question);
 		}
 		return question.getAnswer();
 	}
