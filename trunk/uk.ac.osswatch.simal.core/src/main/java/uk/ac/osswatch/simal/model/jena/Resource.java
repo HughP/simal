@@ -68,7 +68,7 @@ public class Resource extends AbstractResource {
    */
   private void setJenaResource(com.hp.hpl.jena.rdf.model.Resource resource) {
     jenaResource = resource;
-    uri = resource.getURI();
+    setURI(resource.getURI());
   }
 
   /**
