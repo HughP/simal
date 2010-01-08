@@ -135,7 +135,8 @@ public class ToolsPage extends BasePage {
       }
     });
 
-    add(new BookmarkablePageLink("settingsPageLink", SettingsPage.class));
+    add(new BookmarkablePageLink<SettingsPage>("settingsPageLink", SettingsPage.class));
+    add(new BookmarkablePageLink<SparqlQueryPage>("sparqlQueryPageLink", SparqlQueryPage.class));
     
     add(new ImportFromOhlohForm("importFromOhlohForm"));
     
