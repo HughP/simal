@@ -21,7 +21,7 @@ http://simal.googlecode.com/svn/wiki/ReleaseManagement.attach/releaseProcessTime
 
 = Schedule =
 
-||*#*||*Start Date*||*End Date*||*Release Type*||
+||*#*||*Iteration Focus*||*Start Date*||*End Date*||*Release Type*||
 ||1||Provide SPARQL endpoint||2010-01-04||2010-01-15||Soft Release||
 ||2|| ??? ||2010-01-16||2010-01-29||Soft Release||
 ||3|| ??? ||2010-02-01||2010-02-12||Candidate Release||
