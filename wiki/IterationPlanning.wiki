@@ -31,6 +31,7 @@ http://simal.googlecode.com/svn/wiki/ReleaseManagement.attach/releaseProcessTime
 
 = Useful Links =
 
+ * Issues [http://code.google.com/p/simal/issues/list?can=2&q=label:slotted slotted] for current iteration
  * Issues being [http://code.google.com/p/simal/issues/list?can=2&q=status:Started worked on]
  * Issues marked as [http://code.google.com/p/simal/issues/list?can=7&q=&colspec=ID+Type+Status+Priority+Milestone+Summary&x=priority&y=milestone&cells=tiles fixed] (if verified these will be included in the next binary release)
  * ReleaseManagement process
