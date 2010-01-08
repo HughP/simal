@@ -30,8 +30,10 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -64,6 +66,7 @@ import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.model.jena.Homepage;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
+import uk.ac.osswatch.simal.model.jena.SparqlResult;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.AbstractSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -73,10 +76,18 @@ import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 
 import com.hp.hpl.jena.db.DBConnection;
 import com.hp.hpl.jena.db.IDBConnection;
+import com.hp.hpl.jena.query.Query;
+import com.hp.hpl.jena.query.QueryException;
+import com.hp.hpl.jena.query.QueryExecution;
+import com.hp.hpl.jena.query.QueryExecutionFactory;
+import com.hp.hpl.jena.query.QueryFactory;
+import com.hp.hpl.jena.query.QuerySolution;
+import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.ModelMaker;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
@@ -264,6 +275,51 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 	  } else {
 	      return null;
       }
+  }
+
+  /**
+   * Generic method for querying the RDF backend.
+   * 
+   * @param queryStr
+   *          valid SPARQL query
+   * @return
+   * @throws SimalRepositoryException
+   */
+  @SuppressWarnings("unchecked")
+  public SparqlResult getSparqlQueryResult(String queryStr)
+      throws SimalRepositoryException {
+    SparqlResult sparqlResult = null;
+    QueryExecution qe = null;
+
+    try {
+      Query query = QueryFactory.create(queryStr);
+      qe = QueryExecutionFactory.create(query, model);
+      ResultSet results = qe.execSelect();
+      sparqlResult = new SparqlResult(results.getResultVars());
+
+      while (results.hasNext()) {
+        QuerySolution soln = results.nextSolution();
+        List<RDFNode> result = new ArrayList<RDFNode>();
+        Iterator<Object> varNamesIter = soln.varNames();
+        while (varNamesIter.hasNext()) {
+          String varName = (String) varNamesIter.next();
+          result.add(soln.get(varName));
+        }
+        sparqlResult.addResult(result);
+      }
+
+    } catch (QueryException e) {
+      String message = "QueryException when trying to SPARQLquery with query: "
+          + queryStr;
+      logger.warn(message + "; message: " + e.getMessage());
+      throw new SimalRepositoryException(message, e);
+    } finally {
+      if (qe != null) {
+        qe.close();
+      }
+    }
+
+    return sparqlResult;
   }
 
   /**
