@@ -1,13 +1,13 @@
 #summary Collates information about each iteration plan
 #labels Phase-Implementation,Featured
 
-= Introduction =
-
 This page provides a convenient way of keeping track of the focus of each iteration.
+
+<wiki:toc max_depth="1" />
 
 If you have a specific need that is not currently a part of our planned development cycles please feel free to provide a patch at any time, we will do our best to review it and, where appropriate, include it in the next iteration. If you are a committer you can, of course, add whatever you want into our iteration planning process. The ContributionProcess document has more details.
 
-= Iterations =
+= Iteration Planning =
 
 We use iterations of two weeks in a cycle of 4 iterations. At the end of each iteration a new build will be deployed on http://registry.oss-watch.ac.uk. We call this a 'soft release'. So a soft release is performed every two weeks.
 
@@ -23,8 +23,13 @@ http://simal.googlecode.com/svn/wiki/ReleaseManagement.attach/releaseProcessTime
 
 = Schedule =
 
-||*#*||*Iteration Focus*||*Start Date*||*End Date*||*Release Type*||
+|| *#* || *Iteration Focus* || *Start Date* || *End Date* || *Release Type* ||
 ||1||Provide SPARQL endpoint||2010-01-04||2010-01-15||Soft Release||
 ||2|| ??? ||2010-01-16||2010-01-29||Soft Release||
 ||3|| ??? ||2010-02-01||2010-02-12||Candidate Release||
-||3|| Binary Release ||2010-02-01||2010-02-12||Binary Release||
+||3|| Binary Release ||2010-02-01||2010-02-12|| *Binary Release* ||
+
+= Useful Links =
+
+ * Issues being [http://code.google.com/p/simal/issues/list?can=2&q=status:Started worked on]
+ * ReleaseManagement process
