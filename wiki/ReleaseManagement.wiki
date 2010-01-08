@@ -1,6 +1,8 @@
 #summary Steps to go through for a release
 #labels Phase-QA
 
+This document describes how to build a soft release and a binary release. For a timetable of releases see the IterationPlanning page.
+
 = Releases, iterations and timelines =
 
 We use iterations of two weeks in a cycle of 4 iterations. At the end of each iteration a new build will be deployed on http://registry.oss-watch.ac.uk. We call this a 'soft release'. So a soft release is performed every two weeks.
