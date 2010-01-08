@@ -11,9 +11,11 @@ If you have a specific need that is not currently a part of our planned developm
 
 We use iterations of two weeks in a cycle of 4 iterations. At the end of each iteration a new build will be deployed on http://registry.oss-watch.ac.uk. We call this a 'soft release'. So a soft release is performed every two weeks.
 
-At the end of every third iteration a release branch will be created and a candidate binary release is created from that branch. This means that every third iteration must assign sufficient velocity points to the release process to ensure this process is fully implemented and all pre-requisites that are described below are met. We cannot cut corners on this as this is where our final quality control checks are performed.
+At the end of every third iteration a candidate release is created, this is tested and released during the fourth iteration. 
 
-The first week of every fourth iteration will be used to test the candidate binary release and fix critical bugs on the release branch. The second week of every fourth iteration will then be mainly used for creating the final binary release itself, which will be signed by as many developers as possible. At the end of the fourth iteration the binary release will be made available on the Google Code website and the public registry website will be updated. During the fourth iteration it is possible to commit changes to the trunk, but they will not be included in the release at the end of the iteration.
+The first week of every fourth iteration will be used to test the candidate binary release and fix critical bugs on the release branch. The second week of every fourth iteration will then be mainly used for creating the final binary release itself, which will be signed by as many developers as possible. 
+
+During the fourth iteration it is possible to commit changes to the trunk, but they will not be included in the release at the end of the iteration.
 
 In the figure below, the whole cycle of four iterations is displayed:
 
