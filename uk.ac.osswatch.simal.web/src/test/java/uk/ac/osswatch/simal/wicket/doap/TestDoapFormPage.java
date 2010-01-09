@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNull;
 
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Set;
 
 import org.apache.wicket.util.file.File;
 import org.apache.wicket.util.tester.FormTester;
@@ -48,9 +49,11 @@ public class TestDoapFormPage extends TestBase {
   private static final String TEST_SHORT_DESC = "A project added by filling in the DOAP form";
   private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
   private static final String TEST_RAW_RDF_URI = "simal:99999";
+  private static final String TEST_RAW_RDF_PROJECT_NAME = "Load From RAW RDF Test";
   private static final String TEST_RAW_RDF = "<Project xmlns:simal=\"" + SimalOntology.NS + "\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:foaf=\"http://xmlns.com/foaf/0.1/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns=\"http://usefulinc.com/ns/doap#\" rdf:about=\""
       + TEST_RAW_RDF_URI
-      + "\"> <simal:projectId>99999</simal:projectId> <created>2008-02-22</created> <name>Load From RAW RDF Test</name> </Project>";
+      + "\"> <simal:projectId>99999</simal:projectId> <created>2008-02-22</created> <name>"
+      + TEST_RAW_RDF_PROJECT_NAME + "</name> </Project>";
 
   private static String formInputURI = RDFUtils.PROJECT_NAMESPACE_URI
       + TEST_NAME;
@@ -183,7 +186,10 @@ public class TestDoapFormPage extends TestBase {
 
     tester.assertRenderedPage(UserHomePage.class);
     tester.assertNoErrorMessage();
-
+    
+    Set<IProject> projects = SimalRepositoryFactory.getProjectService().filterByName(TEST_RAW_RDF_PROJECT_NAME);
+    assertEquals("Should only have one project returned with the raw RDF project name", 1, projects.size());
+    
     IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(
         TEST_RAW_RDF_URI);
     assertNotNull(project);
