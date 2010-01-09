@@ -35,7 +35,6 @@ import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.TestBase;
@@ -50,10 +49,35 @@ public class TestDoapFormPage extends TestBase {
   private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
   private static final String TEST_RAW_RDF_URI = "simal:99999";
   private static final String TEST_RAW_RDF_PROJECT_NAME = "Load From RAW RDF Test";
-  private static final String TEST_RAW_RDF = "<Project xmlns:simal=\"" + SimalOntology.NS + "\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\" xmlns:foaf=\"http://xmlns.com/foaf/0.1/\" xmlns:dc=\"http://purl.org/dc/elements/1.1/\" xmlns=\"http://usefulinc.com/ns/doap#\" rdf:about=\""
-      + TEST_RAW_RDF_URI
-      + "\"> <simal:projectId>99999</simal:projectId> <created>2008-02-22</created> <name>"
-      + TEST_RAW_RDF_PROJECT_NAME + "</name> </Project>";
+  private static final String TEST_RAW_RDF = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	  + "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
+	  + " xmlns=\"http://usefulinc.com/ns/doap#\""
+	  + " xmlns:foaf=\"http://xmlns.com/foaf/0.1/\""
+	  + " xmlns:labs=\"http://labs.apache.org/doap-ext/1.0#\""
+      + " xmlns:dc=\"http://purl.org/dc/elements/1.1/\""
+      + " xmlns:projects=\"http://projects.apache.org/ns/asfext#\">"
+	  + "<Project xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\""
+	  + " xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\""
+	  + " xmlns=\"http://usefulinc.com/ns/doap#\""
+	  + " xmlns:foaf=\"http://xmlns.com/foaf/0.1/\""
+	  + " xmlns:admin=\"http://webns.net/mvcb/\">"
+	  + "<name>" + TEST_RAW_RDF_PROJECT_NAME + "</name>"
+      + "<shortname>Issue_245_test</shortname>" 
+      + "<shortdesc>Issue_245_test is an Open Source Web-based Learning Content Management System (LCMS/LMS) and social networking environment designed with accessibility and adaptability in mind.</shortdesc>"
+      + "<description>Issue_245_test is an Open Source Web-based Learning Content Management System (LCMS/LMS) and social networking environment designed with accessibility and adaptability in mind. Administrators can install or update Issue_245_test in minutes, develop custom themes to give Issue_245_test a new look, and easily extend its functionality with feature modules. Educators can quickly assemble, package, and redistribute Web-based instructional content, easily import prepackaged content, and conduct their courses online. Students learn in an adaptive, social learning environment.</description>"
+      + "<homepage rdf:resource=\"http://www.Issue_245_test.ca/\" />"
+      + "<category rdf:resource=\"http://jisc.ac.uk/programme#38\" />"
+      + "<category rdf:resource=\"http://simal.oss-watch.ac.uk/category/coursemanagement\" rdfs:label=\"Course Issue_245_test management\" />"
+      + "<category rdf:resource=\"http://simal.oss-watch.ac.uk/category/learningenvironments\" rdfs:label=\"Learning Issue_245_test Environments\" />"
+      + "<wiki rdf:resource=\"http://wiki.Issue_245_test.ca\" />" 
+      + "<download-page rdf:resource=\"http://www.Issue_245_test.ca/Issue_245_test/download.php\" />" 
+      + "<bug-database rdf:resource=\"http://www.Issue_245_test.ca/development/bugs/\" />"
+      + "<programming-language>Issue_245_test</programming-language>"
+      + "<license rdf:resource=\"http://usefulinc.com/doap/licenses/Issue_245_test\" />"
+      + "<maintainer>  <foaf:Person>     <foaf:name>Greg Issue_245_testsvn</foaf:name>     <foaf:homepage rdf:resource=\"http://wiki.Issue_245_test.ca/display/~admin\"/>     <foaf:mbox_sha1sum>b673333bd79e34cf06334752fe9f792cbfe39736</foaf:mbox_sha1sum>  </foaf:Person> </maintainer> "
+      + "<repository>    <SVNRepository>     <browse rdf:resource='http://Issue_245_testsvn.websvn.atrc.utoronto.ca/' />     <location rdf:resource='http://Issue_245_testsvn.atrc.utoronto.ca/repos/Issue_245_test/trunk' />   </SVNRepository> </repository>"
+      + "</Project>"
+      + "</rdf:RDF>";
 
   private static String formInputURI = RDFUtils.PROJECT_NAMESPACE_URI
       + TEST_NAME;
@@ -190,9 +214,7 @@ public class TestDoapFormPage extends TestBase {
     Set<IProject> projects = SimalRepositoryFactory.getProjectService().filterByName(TEST_RAW_RDF_PROJECT_NAME);
     assertEquals("Should only have one project returned with the raw RDF project name", 1, projects.size());
     
-    IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(
-        TEST_RAW_RDF_URI);
-    assertNotNull(project);
+    IProject project = (IProject) projects.toArray()[0];
 
     project.delete();
     project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(
