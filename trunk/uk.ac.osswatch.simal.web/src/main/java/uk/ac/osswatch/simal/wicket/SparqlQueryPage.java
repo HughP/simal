@@ -106,6 +106,7 @@ public class SparqlQueryPage extends BasePage {
     SparqlResult result = null;
     try {
       ISimalRepository repo = UserApplication.getRepository();
+      // @REFACTOR the UI application should not be aware of the back end implementation.
       if (repo instanceof JenaSimalRepository) {
         result = ((JenaSimalRepository) repo).getSparqlQueryResult(sparqlQuery);
       }
