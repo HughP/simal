@@ -41,7 +41,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 /**
  * A page for querying the RDF backend using SPARQL
  * 
- * @author svanderwaal
+ * @REFACTOR use an existing SPARQL endpoint provider - see ISSUE 116
  * 
  */
 public class SparqlQueryPage extends BasePage {
@@ -103,6 +103,7 @@ public class SparqlQueryPage extends BasePage {
    */
   private SparqlResult getSparqlQueryResults(String queryStr) {
     String sparqlQuery = StringEscapeUtils.unescapeXml(queryStr);
+    // @REFACTOR the UI should not be aware of the back end implementation, we need a generic result interface for queries
     SparqlResult result = null;
     try {
       ISimalRepository repo = UserApplication.getRepository();
