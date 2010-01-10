@@ -80,4 +80,10 @@ public class TestProjectListPanel extends TestBase {
     tester.assertVisible("panel:dataTable:rows:11");
   }
   
+  @Test 
+  public void testLinkClicking() {
+	tester.clickLink("panel:dataTable:rows:1:cells:1:cell:link");
+	tester.assertRenderedPage(ProjectDetailPage.class);
+  }
+  
 }
