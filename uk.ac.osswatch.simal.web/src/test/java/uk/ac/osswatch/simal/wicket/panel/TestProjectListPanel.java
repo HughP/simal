@@ -30,7 +30,7 @@ import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 
 /**
- * Simple test using the WicketTester
+ * Test the features of the Project List Panel.
  */
 public class TestProjectListPanel extends TestBase {
   
@@ -72,6 +72,12 @@ public class TestProjectListPanel extends TestBase {
 
     tester.assertVisible("panel:dataTable");
     tester.assertVisible("panel:dataTable:rows");
-    // TODO: need to test if the rows are filtered
+    
+    // There are four projects with Simal in their name
+    tester.assertVisible("panel:dataTable:rows:8");
+    tester.assertVisible("panel:dataTable:rows:9");
+    tester.assertVisible("panel:dataTable:rows:10");
+    tester.assertVisible("panel:dataTable:rows:11");
   }
+  
 }
