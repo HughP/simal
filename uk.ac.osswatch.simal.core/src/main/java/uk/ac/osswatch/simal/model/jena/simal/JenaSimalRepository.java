@@ -74,8 +74,6 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
 
-import com.hp.hpl.jena.db.DBConnection;
-import com.hp.hpl.jena.db.IDBConnection;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryException;
 import com.hp.hpl.jena.query.QueryExecution;
@@ -85,7 +83,6 @@ import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.ModelMaker;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -100,12 +97,15 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   
   private transient Model model;
 
+  private transient JenaDatabaseSupport jenaDatabaseSupport;
+
   /**
    * Use getInstance instead.
    */
   private JenaSimalRepository() {
     super();
     model = null;
+    jenaDatabaseSupport = new JenaDatabaseSupport();
   }
 
   /**
@@ -123,8 +123,8 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   }
 
   /**
-   * Initialise the repository.
-   * 
+   * Initialise the Jena repository. Will determine type of database
+   * using property SimalProperties.PROPERTY_SIMAL_DB_TYPE.
    * @param directory
    *          the directory for the database if it is a persistent repository
    *          (i.e. not a test repo)
@@ -138,56 +138,24 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
 
     if (isTest) {
       model = ModelFactory.createDefaultModel();
+      initialised = true;
+      initTestData();
     } else {
-      String className = "org.apache.derby.jdbc.EmbeddedDriver"; // path of
-      // driver
-      // class
-      try {
-        Class.forName(className);
-      } catch (ClassNotFoundException e) {
-        throw new SimalRepositoryException("Unable to find derby driver", e);
-      }
-      String DB_URL;
-      if (directory != null) {
-        DB_URL = "jdbc:derby:"
-            + directory
-            + "/"
-            + SimalProperties
-                .getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME)
-            + ";create=true";
-      } else {
-        DB_URL = "jdbc:derby:"
-            + SimalProperties
-                .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR)
-            + "/"
-            + SimalProperties
-                .getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME)
-            + ";create=true";
-      }
-      String DB_USER = "";
-      String DB_PASSWD = "";
-      String DB = "Derby";
-
-      // Create database connection
-      logger.debug("Creating DB with URL " + DB_URL);
-      IDBConnection conn = new DBConnection(DB_URL, DB_USER, DB_PASSWD, DB);
-      ModelMaker maker = ModelFactory.createModelRDBMaker(conn);
-
-      // create or open the default model
-      model = maker.createDefaultModel();
-
-      // Close the database connection
-      // conn.close();
+      String dbType = SimalProperties.getProperty(SimalProperties.PROPERTY_SIMAL_DB_TYPE);
+      model = jenaDatabaseSupport.initialiseDatabase(dbType, directory);
+      initialised = true;
     }
+  }
 
-    initialised = true;
-
-    if (isTest) {
-      try {
-		ModelSupport.addTestData(this);
-	  } catch (Exception e) {
-		throw new SimalRepositoryException("Unable to add test data", e);
-	  }
+  /**
+   * Initialise the test data, used when running in test mode.
+   * @throws SimalRepositoryException 
+   */
+  private void initTestData() throws SimalRepositoryException {
+    try {
+      ModelSupport.addTestData(this);
+    } catch (Exception e) {
+      throw new SimalRepositoryException("Unable to add test data", e);
     }
   }
 
@@ -264,8 +232,11 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   
   public void destroy() throws SimalRepositoryException {
     logger.info("Destorying the SimalRepository");
-    model.close();
-    model = null;
+    if (model != null) {
+      model.close();
+      model = null;
+    }
+
     initialised = false;
   }
   
@@ -285,7 +256,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
    * @return
    * @throws SimalRepositoryException
    */
-  @SuppressWarnings("unchecked")
   public SparqlResult getSparqlQueryResult(String queryStr)
       throws SimalRepositoryException {
     SparqlResult sparqlResult = null;
@@ -300,9 +270,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
       while (results.hasNext()) {
         QuerySolution soln = results.nextSolution();
         List<RDFNode> result = new ArrayList<RDFNode>();
-        Iterator<Object> varNamesIter = soln.varNames();
+        Iterator<String> varNamesIter = soln.varNames();
         while (varNamesIter.hasNext()) {
-          String varName = (String) varNamesIter.next();
+          String varName = varNamesIter.next();
           result.add(soln.get(varName));
         }
         sparqlResult.addResult(result);
@@ -432,7 +402,8 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
   }
 
   public void removeAllData() {
-    model.removeAll();
+    logger.warn("Removing all data from the repository.");
+    model = jenaDatabaseSupport.removeAllData(model);
   }
 
   /**

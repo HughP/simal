@@ -75,7 +75,7 @@ public class TestProjectService extends BaseRepositoryTest {
 		
 		logger.debug("Project RDF is:\n" + project.toXML());
 		
-		String shortID = testProjectID.substring(testProjectID.indexOf("-") + 1);
+		String shortID = testProjectID.substring(testProjectID.lastIndexOf("-") + 1);
 		project = service.getProjectById(shortID);
 		assertEquals("Got incorect project by ID","Simal DOAP Test", project.getName());
 	}

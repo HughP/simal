@@ -97,6 +97,14 @@
       <id>simal</id>
       <url>http://www.16degrees.com.au/maven</url>
     </repository>
+    <repository>
+      <id>jena</id>
+      <url>http://openjena.org/repo/</url>
+    </repository>
+    <repository>
+      <id>joseki</id>
+      <url>http://openjena.org/repo-dev/</url>
+    </repository>
   </repositories>
 
   <dependencies>
@@ -111,7 +119,7 @@
     <dependency>
       <groupId>com.hp.hpl.jena</groupId>
       <artifactId>jena</artifactId>
-      <version>2.5.7</version>
+      <version>2.6.2</version>
       <exclusions>
          <exclusion>
            <groupId>xerces</groupId>
@@ -119,6 +127,18 @@
          </exclusion>
       </exclusions>
     </dependency> 
+    
+    <dependency>
+      <groupId>com.hp.hpl.jena</groupId>
+      <artifactId>sdb</artifactId>
+      <version>1.3.1</version>
+     </dependency>
+     
+    <dependency>
+      <groupId>com.hp.hpl.jena</groupId>
+      <artifactId>tdb</artifactId>
+      <version>0.8.4</version>
+     </dependency>
     
     <dependency>
         <groupId>org.apache.derby</groupId>
@@ -297,7 +317,7 @@
             <exclude>derby.log</exclude>
             <exclude>repository/**/*</exclude>
             <exclude>reports/**/*</exclude>
-            <exclude>simal/**/*</exclude>
+            <exclude>simal*/**/*</exclude>
             <exclude>build/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
             <exclude>simalRepository/**/*</exclude>

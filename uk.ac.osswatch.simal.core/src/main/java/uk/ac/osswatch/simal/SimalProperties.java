@@ -54,6 +54,7 @@ public class SimalProperties {
   public static final String PROPERTY_SIMAL_NEXT_REVIEW_ID = "simal.nextReviewID";
   public static final String PROPERTY_SIMAL_NEXT_RELEASE_ID = "simal.nextReleaseID";
   public static final String PROPERTY_SIMAL_DOAP_FILE_STORE = "simal.doap.filestore";
+  public static final String PROPERTY_SIMAL_DB_TYPE = "simal.db.type";
 
   public static final String PROPERTY_LOCAL_PROPERTIES_LOCATION = "simal.local.properties.path";
 
@@ -103,6 +104,7 @@ public class SimalProperties {
       logger.debug("No local.simal.properties file was found");
       localProps = new Properties();
     }
+    localProps.putAll(System.getProperties());
   }
 
   /**
