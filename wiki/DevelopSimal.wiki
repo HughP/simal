@@ -53,8 +53,7 @@ The following Eclipse plugins are useful when developing Simal.
 
 We use a Subversion repository for our source code, therefore you need
 an SVN plugin like Subclipse for working with the repository. You can install
-the Subclipse plugin in Eclipse using their update site [http://subclipse.tigris.org/update_1.6.x">
-http://subclipse.tigris.org/update_1.6.x] in the Eclipse Update Manager. If you are unfamiliar
+the Subclipse plugin in Eclipse using their update site [http://subclipse.tigris.org/update_1.6.x http://subclipse.tigris.org/update_1.6.x] in the Eclipse Update Manager. If you are unfamiliar
 with the Eclipse update manager you can find a good tutorial [http://www.vogella.de/articles/Eclipse/article.html#plugin_installation here]
 
 
@@ -84,7 +83,7 @@ using the method described above.
 The first thing you need to do is checkout the Simal source code. To do this
 use the [http://simal.googlecode.com/svn/wiki/DevelopSimal.attach/simal.psf simal.psf] team set.
 
- * Save the [http://simal.googlecode.com/svn/wiki/DevelopSimal.attach/simal.psf">simal.psf]
+ * Save the [http://simal.googlecode.com/svn/wiki/DevelopSimal.attach/simal.psf simal.psf]
 file in a convenient location
  
  * In Eclipse select {{{File -> Import}}}
@@ -107,61 +106,40 @@ Assuming everything has compiled OK we are now ready to run
 some tests:
 
 
- * right click on {{{uk.ac.osswatch.simal.core/src/test/java}}}
-and select {{{Run As -> JUnit Test}}}
+ * right click on {{{uk.ac.osswatch.simal.core/src/test/java}}} and select {{{Run As -> JUnit Test}}}
 
- * Wait for the tests to run, you should get a green bar for all 
-tests
+ * Wait for the tests to run, you should get a green bar for all tests
 
- * right click on {{{uk.ac.osswatch.simal.rest/src/test/java}}}
-and select {{{Run As -> JUnit Test}}}
+ * right click on {{{uk.ac.osswatch.simal.rest/src/test/java}}} and select {{{Run As -> JUnit Test}}}
 
- * Wait for the tests to run, you should get a green bar for all 
-tests
+ * Wait for the tests to run, you should get a green bar for all tests
 
- * right click on {{{uk.ac.osswatch.simal.web/src/test/java}}}
-and select {{{Run As -> JUnit Test}}}
+ * right click on {{{uk.ac.osswatch.simal.web/src/test/java}}} and select {{{Run As -> JUnit Test}}}
 
- * Wait for the tests to run, you should get a green bar for all 
-tests
+ * Wait for the tests to run, you should get a green bar for all tests
 
-
-
-
-===Optional Steps===
-
+==Optional Steps==
 
 ===Task Management===
 
-These plugins are useful in tracking and managing
-tasks.
+These plugins are useful in tracking and managing tasks.
 
 
 ===Mylyn Generic Issue Tracker Integration===
-TODO Describe use of the Mylyn generic issue tracker to 
-[http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code integrate] with Google 
-Code
+TODO Describe use of the Mylyn generic issue tracker to [http://www.jroller.com/alexRuiz/entry/using_mylyn_with_google_code integrate] with Google Code
 
 
 
 
 ===Code Quality===
-The plugins are used for managing code quality in Simal.
-They typically generate a number of reports indicating
-potential problems with code quality. It is good practice
-to run these reports on a periodic basis and to fix as many 
-issues they highlight as is possible.
+The plugins are used for managing code quality in Simal. They typically generate a number of reports indicating potential problems with code quality. It is good practice to run these reports on a periodic basis and to fix as many issues they highlight as is possible.
 
-Many of these plugins integrated with our Maven builds
-and our [http://16degrees.com.au/hudson continuous integration]
-server. This allows us to keep an eye on the quality trends within 
-our code.
+Many of these plugins integrated with our Maven builds and our [http://16degrees.com.au/hudson continuous integration] server. This allows us to keep an eye on the quality trends within our code.
 
 
 ===PMD===
 
-[http://pmd.sourceforge.net/ PMD] scans Java source code and looks for 
-potential problems like:
+[http://pmd.sourceforge.net/ PMD] scans Java source code and looks for potential problems like:
 
 
  * Possible bugs - empty try/catch/finally/switch statements
@@ -171,18 +149,14 @@ potential problems like:
  * Duplicate code - copied/pasted code means copied/pasted bugs
 
 
-Use the [http://pmd.sourceforge.net/eclipse/ PMD Eclipse update] 
-site to install this plugin.  
+Use the [http://pmd.sourceforge.net/eclipse/ PMD Eclipse update] site to install this plugin.  
 
 
+===Find bugs===
 
-===FindBugs===
+[http://findbugs.sourceforge.net/ FindBugs] uses static analysis to look for bugs in Java code.
 
-[http://findbugs.sourceforge.net/ FindBugs] uses static analysis to look for 
-bugs in Java code.
-
-Use the [http://findbugs.cs.umd.edu/eclipse/ FindBugs Eclipse update] 
-site to install this plugin.  
+Use the [http://findbugs.cs.umd.edu/eclipse/ FindBugs Eclipse update] site to install this plugin.  
 
 
 
