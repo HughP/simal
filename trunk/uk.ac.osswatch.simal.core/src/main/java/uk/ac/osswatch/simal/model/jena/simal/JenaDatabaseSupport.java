@@ -18,8 +18,6 @@
 
 package uk.ac.osswatch.simal.model.jena.simal;
 
-import java.sql.SQLException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -124,12 +122,7 @@ public class JenaDatabaseSupport {
 
     // create or open the default model
     Model model = maker.createDefaultModel(); 
-    try {
-      conn.close();
-    } catch (SQLException e) {
-      LOGGER.warn("Could not close connection; " + e.getMessage());
-    }
-    
+
     return model;
   }
 
