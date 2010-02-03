@@ -40,6 +40,7 @@ import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
@@ -55,6 +56,10 @@ public class Pims {
   private static final Logger logger = LoggerFactory.getLogger(Pims.class);
 
 	public static final String PIMS_PROJECT_URI = "http://www.jisc.ac.uk/project/pims";
+
+  private static final int MAX_IMPORT_ERRORS = 10;
+
+  private static final String NEW_LINE = System.getProperty("line.separator");
 
 	private Pims() {
 	}
@@ -127,7 +132,7 @@ public class Pims {
 	 * @throws SimalException 
 	 */
 	public static void importProjects(URL url) throws FileNotFoundException, IOException, DuplicateURIException, SimalException {
-		HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
+        HSSFWorkbook wb = new HSSFWorkbook(url.openStream());
         HSSFSheet sheet = wb.getSheetAt(0);
         
         HSSFRow row = sheet.getRow(0);
@@ -136,16 +141,18 @@ public class Pims {
         	throw new SimalException(url + " is not a valid PIMS project export file");
         }
         
+        int errorsOccurred = 0;
+        StringBuffer errorReports = new StringBuffer();
         int lastRow = sheet.getLastRowNum();
         for (int i = 1; i<= lastRow; i++) {
         	Document doc;
         	Element doap;
         	try {
-				doc = createRdfDocument();
-				doap = doc.createElementNS(Doap.getURI(), "Project");
-			} catch (ParserConfigurationException e1) {
-				throw new SimalException("Unable to create XML document for import");
-			}
+            doc = createRdfDocument();
+				    doap = doc.createElementNS(Doap.getURI(), "Project");
+			    } catch (ParserConfigurationException e1) {
+				    throw new SimalException("Unable to create XML document for import");
+			    }
 	        
         	row = sheet.getRow(i);
 	        
@@ -154,13 +161,13 @@ public class Pims {
 	        doap.setAttributeNS(RDF.getURI(), "about", getProjectURI(id));
 	        
 	        // doap:name
-	        String value = getNullSafeStringValue(row, 2);
+	        String name = getNullSafeStringValue(row, 2);
 	        Element elem = doc.createElementNS(Doap.getURI(), "name");
-	        elem.setTextContent(value);
+	        elem.setTextContent(name);
 	        doap.appendChild(elem);
 	        
 	        // doap:description
-	        value = getNullSafeStringValue(row, 4);
+	        String value = getNullSafeStringValue(row, 4);
 	        elem = doc.createElementNS(Doap.getURI(), "description");
 	        elem.setTextContent(value);
 	        doap.appendChild(elem);
@@ -190,7 +197,20 @@ public class Pims {
 	        
 	        doc.getDocumentElement().appendChild(doap);
 	        // serialise(doc);
-	        SimalRepositoryFactory.getInstance().addProject(doc, url, "http://www.jisc.ac.uk");
+	        try {
+	          SimalRepositoryFactory.getInstance().addProject(doc, url, "http://www.jisc.ac.uk");
+	        } catch (SimalRepositoryException e) {
+	          errorReports.append("Error when importing project named '" + name + "': ");
+	          errorReports.append(e.getMessage());
+	          errorReports.append(NEW_LINE);
+	          errorsOccurred ++;
+	          if (errorsOccurred > MAX_IMPORT_ERRORS) { 
+	            throw new SimalException ("Too many errors (" + MAX_IMPORT_ERRORS + ")" + NEW_LINE + errorReports.toString());
+	          }
+	        }
+        }
+        if(errorsOccurred > 0 ) {
+          throw new SimalException("Import resulted in " + errorsOccurred + " errors:" + NEW_LINE + errorReports.toString());
         }
 	}
 	
@@ -281,16 +301,18 @@ public class Pims {
         	throw new SimalException(url + " is not a valid PIMS project contact export file");
         }
         
+        StringBuffer errorReports = new StringBuffer();
+        int errorsOccurred = 0;
         int lastRow = sheet.getLastRowNum();
         for (int i = 1; i<= lastRow; i++) {
         	Document doc;
         	Element project;
         	try {
-				doc = createRdfDocument();
-				project = doc.createElementNS(Doap.getURI(), "Project");
-			} catch (ParserConfigurationException e1) {
-				throw new SimalException("Unable to create XML document for import");
-			}
+            doc = createRdfDocument();
+            project = doc.createElementNS(Doap.getURI(), "Project");
+          } catch (ParserConfigurationException e1) {
+            throw new SimalException("Unable to create XML document for import");
+          }
 			
 	        row = sheet.getRow(i);
 	        
@@ -349,8 +371,23 @@ public class Pims {
 	        
 	        doc.getDocumentElement().appendChild(project);
 	        serialise(doc);
-	        SimalRepositoryFactory.getInstance().addProject(doc, url, getProjectURI(projectId));
-	    }
+
+          try {
+            SimalRepositoryFactory.getInstance().addProject(doc, url, getProjectURI(projectId));
+          } catch (SimalRepositoryException e) {
+            errorReports.append("Error when importing person named '" + name + "': ");
+            errorReports.append(e.getMessage());
+            errorReports.append(NEW_LINE);
+            errorsOccurred ++;
+            if (errorsOccurred > MAX_IMPORT_ERRORS) { 
+              throw new SimalException ("Too many errors (" + MAX_IMPORT_ERRORS + ")" + NEW_LINE + errorReports.toString());
+            }
+          }
+        }
+        if(errorsOccurred > 0 ) {
+          throw new SimalException("Import resulted in " + errorsOccurred + " errors:" + NEW_LINE + errorReports.toString());
+        }
+
 	}
 	
         /**
