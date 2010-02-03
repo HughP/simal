@@ -38,6 +38,46 @@ Copyright 2008 University of Oxford
 	<url-pattern>/*</url-pattern>
  </filter-mapping>
 
+  <!-- The Joseki SPARQL servlet -->
+
+  <servlet>
+    <servlet-name>SPARQL service processor</servlet-name>
+    <servlet-class>org.joseki.http.Servlet</servlet-class>
+
+    <!-- Configuration file -->
+    <init-param>
+      <param-name>org.joseki.rdfserver.config</param-name>
+      <param-value>joseki-config.ttl</param-value>
+    </init-param>
+
+  </servlet>
+
+  <!-- Validator -->
+
+  <servlet>
+    <servlet-name>Validator</servlet-name>
+    <servlet-class>
+      org.joseki.validator.Validator
+    </servlet-class>
+  </servlet>
+
+  <!-- Well-known servlets for testing -->
+
+  <servlet>
+    <servlet-name>Dumper</servlet-name>
+    <servlet-class>
+      org.joseki.servlets.DumpServlet
+    </servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>DumpBody</servlet-name>
+    <servlet-class>
+      org.joseki.servlets.DumpBodyServlet
+    </servlet-class>
+  </servlet>
+
+  <!-- end The Joseki SPARQL servlet -->
 
 
   <!-- Simal REST API -->
@@ -50,5 +90,40 @@ Copyright 2008 University of Oxford
       <servlet-name>Simal REST API</servlet-name>
       <url-pattern>/simal-rest/*</url-pattern>
   </servlet-mapping>
+
+  <!-- Demo service -->
+
+  <servlet-mapping>
+    <servlet-name>SPARQL service processor</servlet-name>
+    <url-pattern>/joseki/sparql/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SPARQL service processor</servlet-name>
+    <url-pattern>/joseki/sparql</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SPARQL service processor</servlet-name>
+    <url-pattern>/joseki/service/*</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>Validator</servlet-name>
+    <url-pattern>/joseki/validator</url-pattern>
+  </servlet-mapping>
+
+  <!-- A few utilities -->
+
+  <servlet-mapping>
+    <servlet-name>Dumper</servlet-name>
+    <url-pattern>/joseki/dump</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>DumpBody</servlet-name>
+    <url-pattern>/joseki/dump-body</url-pattern>
+  </servlet-mapping>
+
 
 </web-app>
