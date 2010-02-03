@@ -20,20 +20,19 @@ import org.apache.wicket.IClusterable;
 
 /**
  * Provide inputs for the SPARQL query page
- * @author svanderwaal
  *
  */
 public class SparqlQueryInputModel implements IClusterable {
 
   private static final long serialVersionUID = -638867731076925909L;
 
-  private String sparqlQueryString;
+  private String query;
 
-  public void setSparqlQueryString(String sparqlQueryString) {
-    this.sparqlQueryString = sparqlQueryString;
+  public void setQuery(String query) {
+    this.query = query;
   }
 
-  public String getSparqlQueryString() {
-    return sparqlQueryString;
+  public String getQuery() {
+    return query;
   }
 }

@@ -195,6 +195,13 @@
       <version>2.5</version>
       <scope>provided</scope>
     </dependency>
+    
+    <dependency>
+      <groupId>org.joseki</groupId>
+      <artifactId>joseki</artifactId>
+      <version>3.4.1</version>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -274,12 +281,13 @@
           <excludes>
             <exclude>.pmd</exclude>
             <exclude>derby.log</exclude>
-            <exclude>simal/**.*</exclude>
+            <exclude>simal*/**.*</exclude>
             <exclude>build/**/*</exclude>
             <exclude>simalDOAPFilestore/**/*</exclude>
             <exclude>simalRepository/**/*</exclude>
             <exclude>local.simal.properties</exclude>
             <exclude>local.simal.test.properties</exclude>
+            <exclude>src/main/webapp/joseki/**/*</exclude>
           </excludes>
         </configuration>
         <executions>

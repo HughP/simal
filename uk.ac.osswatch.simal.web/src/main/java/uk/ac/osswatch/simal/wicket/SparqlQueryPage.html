@@ -15,30 +15,23 @@
 -->
 <html>
 <head>
-  <title>Query the Simal Project Registry</title>
+<title>Query the Simal Project Registry</title>
 </head>
 <body>
 <wicket:extend>
-  <h2>SPARQL Query</h2>
-  
-  <h2>This form allows raw querying of the data</h2>
-  
-  <form wicket:id="sparqlQueryForm">
-    <fieldset>
-    <legend>SPARQLQuery</legend>
-	  <p>
-	    <textarea wicket:id="sparqlQueryString" cols="80" rows="15">Type your query here.</textarea>
-	  </p>
+	<h2>SPARQL Query</h2>
+
+	<h2>This form allows raw querying of the data</h2>
+
+	<form action="joseki/sparql">
+	<fieldset><legend>SPARQLQuery</legend>
+	<p><textarea wicket:id="query" cols="80" rows="15">Type your query here.</textarea>
+	</p>
 	</fieldset>
-	  
-	  <p>
-	      <input type="submit" value="Execute" />
-	  </p>
-  </form>
-  <div wicket:id="queryResults">
-    <span wicket:id="queryResult" >Query results</span>
-  </div>
-  
+	<input type="hidden" name="output" value="text" />
+
+	<p><input type="submit" value="Execute" /></p>
+	</form>
 </wicket:extend>
 </body>
 </html>
