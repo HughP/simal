@@ -574,9 +574,13 @@ public class RDFUtils {
           + File.separator + "simal-uploads");
     } catch (SimalRepositoryException e) {
       throw new SimalRepositoryException(
-          "Unable to create the filesrote for annotated files");
+      "Unable to create the filestore for annotated files");
     }
-    fileStoreDir.mkdirs();
+    if(!fileStoreDir.mkdirs()) {
+      throw new SimalRepositoryException(
+      "Unable to create the filestore for annotated files");
+    }
+
     String path = fileStoreDir.getAbsolutePath();
     if (!(filename.endsWith(".rdf") || filename.endsWith(".xml"))) {
       writefile = filename + ".rdf";
