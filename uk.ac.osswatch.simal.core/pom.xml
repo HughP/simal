@@ -101,10 +101,6 @@
       <id>jena</id>
       <url>http://openjena.org/repo/</url>
     </repository>
-    <repository>
-      <id>joseki</id>
-      <url>http://openjena.org/repo-dev/</url>
-    </repository>
   </repositories>
 
   <dependencies>
