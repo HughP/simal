@@ -97,6 +97,10 @@
     	<name>Maven 2</name>
     	<url>http://repo2.maven.org/maven</url>
     </repository>
+    <repository>
+      <id>joseki</id>
+      <url>http://openjena.org/repo-dev/</url>
+    </repository>
   </repositories>
 
   <distributionManagement>
