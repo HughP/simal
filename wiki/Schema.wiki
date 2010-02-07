@@ -75,8 +75,9 @@ Simal is used to capture details specific to Simal held in the Simal repository.
 
 [http://groups.google.com/group/simal-users/browse_thread/thread/81c6443d4ebb4252 Discussion] of some proposed additions.
 
-|| *Data* || *Description* || *Suggested Implementation* ||
+|| *Data* || *Description* || *Suggested example Implementation* ||
 ||simal:collected||The date a fact was collected||<simal:collected>YYYY-MM-DD</simal:collected>||
+||simal:source||The source of the document ||<simal:source>JISC</simal:source>||
 
 =Relationship between schemas=
 
