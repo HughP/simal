@@ -77,3 +77,11 @@ Simal is used to capture details specific to Simal held in the Simal repository.
 
 || *Data* || *Description* || *Suggested Implementation* ||
 ||simal:collected||The date a fact was collected||<simal:collected>YYYY-MM-DD</simal:collected>||
+
+=Relationship between schemas=
+
+For each project that is newly imported into Simal, a new {{{simal:Project}}} is created and a {{{simal:ProjectId}}} is generated. The DOAP file is kept as is and is referenced from the {{{simal:Project}}} via an {{{rdfs:seeAlso}}}. If the imported project has an {{{rdf:about}}} URI this will be used, for the reference, otherwise one will be generated that is specific to the source of the import. 
+
+Multiple DOAP files can be imported for the same project. See the figure below:
+
+http://simal.googlecode.com/svn/wiki/Schema.attach/simalDoapProjects.png
