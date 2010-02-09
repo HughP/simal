@@ -148,6 +148,7 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	}
 
 	  public IProject getProject(String uri) throws SimalRepositoryException {
+	    // FIXME This needs rework; will sometimes return doap:Project, sometimes simal:Project    
 		if(uri.startsWith(RDFUtils.PROJECT_NAMESPACE_URI)) {
 		    if (containsProject(uri)) {
 		      return new Project(((JenaSimalRepository)getRepository()).getModel().getResource(uri));
@@ -404,10 +405,13 @@ public class JenaProjectService extends JenaService implements IProjectService {
 	  public Set<IProject> filterByName(String filter) throws SimalRepositoryException {
 	    String queryStr = "PREFIX xsd: <" + AbstractSimalRepository.XSD_NAMESPACE_URI
 	        + "> " + "PREFIX doap: <" + RDFUtils.DOAP_NS + "> "
-	        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
-	        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
-	        + "SELECT DISTINCT ?project WHERE { ?project a doap:Project;"
-	        + "  doap:name ?name . "
+          + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + "> "
+          + "PREFIX rdfs: <" + AbstractSimalRepository.RDFS_NAMESPACE_URI + "> "
+	        + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + "> "
+	        + "SELECT DISTINCT ?project WHERE " 
+	        + "{ ?project a simal:Project ."
+	        + "  ?project rdfs:seeAlso ?doapUri ."
+	        + "  ?doapUri doap:name ?name ."
 	        + "  FILTER regex(?name, \"" + convertFilterToRE(filter) + "\", \"i\") }";
 	    Set<IProject> projects = findProjectsBySPARQL(queryStr);
 
