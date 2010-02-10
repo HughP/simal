@@ -28,8 +28,17 @@
 	<p><textarea wicket:id="query" cols="80" rows="15">Type your query here.</textarea>
 	</p>
 	</fieldset>
-	<input type="hidden" name="output" value="text" />
-
+	<fieldset><legend>Output options</legend>
+	<p>
+	  Output XML: <input type="radio" name="output" value="xml"/>
+	  with XSLT style sheet (leave blank for none): 
+	  <input name="stylesheet" size="25" value="/xml-to-html.xsl" /> <br/>
+	  or JSON output: <input type="radio" name="output" value="json"/> <br/>
+	  or text output: <input type="radio" name="output" value="text" checked/> <br/>
+	  Force the accept header to <tt>text/plain</tt> regardless 
+ 	  <input type="checkbox" name="force-accept" value="text/plain"/>
+  </p>
+  </fieldset>
 	<p><input type="submit" value="Execute" /></p>
 	</form>
 </wicket:extend>
