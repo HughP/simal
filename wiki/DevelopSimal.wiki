@@ -48,6 +48,8 @@ Select {{{Import}}} and choose the simal_formatter.xml.
 To import the code templates go to {{{ Window -> Preferences -> Java -> Code Style -> Code Templates }}}.
 Select {{{Import}}} and choose the simal_codetemplates.xml.
 
+Note that you do not need to use the Simal style and templates for all our projects, you can configure templates on a per project basis within Eclipse.
+
 ==Recommended Plugins==
 
 The following Eclipse plugins are useful when developing Simal.
@@ -98,10 +100,7 @@ file in a convenient location
 After following these steps the source code for Simal will be checked out from
 version control, ready for you to start work.
 
-After importing from SVN Maven will download all dependencies, this can take some
-time depending on the speed of your network detection, but it is a one-off step.
-
-
+After importing the files from SVN you will need to tell Eclipse to use Maven to build the source. To do this right click on each of te {{{uk.ac.osswatch.simal.*}}} projects and select {{{Maven -> Enable Dependency Management}}}. Maven will now download all dependencies, this can take some time depending on the speed of your network detection, but it is a one-off step.
 
 ===Test Setup So Far===
 
