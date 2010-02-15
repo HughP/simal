@@ -21,7 +21,7 @@
 <wicket:extend>
 	<h2>SPARQL Query</h2>
 
-	<h2>This form allows raw querying of the data</h2>
+	<p>This form allows raw querying of the data (<a href="#examples">example queries</a>)</p>
 
 	<form action="joseki/sparql">
 	<fieldset><legend>SPARQLQuery</legend>
@@ -41,6 +41,27 @@
   </fieldset>
 	<p><input type="submit" value="Execute" /></p>
 	</form>
+	
+  <h2 id="examples">Example Queries</h2>
+  <table>
+    <tr>
+      <th>Query</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>
+<pre>
+PREFIX  doap: &lt;http://usefulinc.com/ns/doap#&gt;
+SELECT DISTINCT ?name
+WHERE {
+  ?project a doap:Project .
+  ?project doap:name ?name
+}
+</pre>
+      </td>
+      <td>Get the name of all doap:Projects in the repository.</td>
+    </tr>
+  </table>
 </wicket:extend>
 </body>
 </html>
