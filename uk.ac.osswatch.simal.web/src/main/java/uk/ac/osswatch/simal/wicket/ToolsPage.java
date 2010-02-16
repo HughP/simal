@@ -21,7 +21,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadProgressBar;
@@ -55,7 +54,6 @@ import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.tools.OhlohFormInputModel;
 import uk.ac.osswatch.simal.wicket.widgets.Widget;
-import uk.ac.osswatch.simal.wicket.widgets.WookieServerConnection;
 import uk.ac.osswatch.simal.wicket.widgets.WookieWidgetGalleryPanel;
 import uk.ac.osswatch.simal.wicket.widgets.WookieWidgetPanel;
 import uk.ac.osswatch.simal.wicket.widgets.Widget.Instance;
@@ -313,11 +311,9 @@ public class ToolsPage extends BasePage {
 	        if (upload != null) {
 	          File newFile = new File(getUploadFolder(), upload.getClientFileName());
 
-	          if (newFile.exists()) {
-	            if (!Files.remove(newFile)) {
-	              throw new IllegalStateException("Unable to overwrite "
+	          if (newFile.exists() && !Files.remove(newFile)) {
+              throw new IllegalStateException("Unable to overwrite "
 	                  + newFile.getAbsolutePath());
-	            }
 	          }
 
 	          try {

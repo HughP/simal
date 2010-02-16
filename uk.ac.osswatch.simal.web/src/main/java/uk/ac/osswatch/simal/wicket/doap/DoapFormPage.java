@@ -133,11 +133,9 @@ public class DoapFormPage extends BasePage {
         if (upload != null) {
           File newFile = new File(getUploadFolder(), upload.getClientFileName());
 
-          if (newFile.exists()) {
-            if (!Files.remove(newFile)) {
-              throw new IllegalStateException("Unable to overwrite "
-                  + newFile.getAbsolutePath());
-            }
+          if (newFile.exists() && !Files.remove(newFile)) {
+            throw new IllegalStateException("Unable to overwrite "
+                + newFile.getAbsolutePath());
           }
 
           try {

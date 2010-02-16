@@ -77,7 +77,7 @@ public class AddReviewPanel extends Panel {
     this.inputModel = new ReviewFormInputModel(project, reviewer);
     setOutputMarkupId(true);
     add(new NewReviewLink("newLink"));
-    add(new AddReviewForm("reviewForm", project));
+    add(new AddReviewForm("reviewForm"));
   }
 
   /**
@@ -169,7 +169,7 @@ public class AddReviewPanel extends Panel {
   private final class AddReviewForm extends Form<FoafFormInputModel> {
     private static final long serialVersionUID = 2931852197898067993L;
 
-    public AddReviewForm(String id, IProject project) {
+    public AddReviewForm(String id) {
       super(id, new CompoundPropertyModel<FoafFormInputModel>(inputModel));
       setOutputMarkupId(true);
 
