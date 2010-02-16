@@ -261,9 +261,9 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-          <compilerVersion>1.5</compilerVersion>
+          <source>${compile.source}</source>
+          <target>${compile.source}</target>
+          <compilerVersion>${compile.source}</compilerVersion>
           <showDeprecation>true</showDeprecation>
           <showWarnings>true</showWarnings>
         </configuration>
@@ -340,6 +340,9 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <targetJdk>${compile.source}</targetJdk>
+        </configuration>
       </plugin>
 
       <plugin>
@@ -354,6 +357,7 @@
   </reporting>
 
   <properties>
+    <compile.source>1.5</compile.source>
     <wicket.version>1.4.3</wicket.version>
     <jetty.version>6.1.18</jetty.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
