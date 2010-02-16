@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/theses.aspx">
+<shortdesc>This project will deliver a fully operational, easily scaleable and financially viable prototype of an UK e-theses online service that will enable users, via one single web interface, to access the full text of electronically stored theses after selection from a database of UK theses.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
+<name>UK theses digitisation project</name>
+</Project>

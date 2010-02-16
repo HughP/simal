@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa/project_aaa_publication.aspx">
+<shortdesc>The project is intended to address the technical and management issues related to the authentication of dissertations, theses and research papers that have been submitted electronically.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>Authentication for publication</name>
+</Project>

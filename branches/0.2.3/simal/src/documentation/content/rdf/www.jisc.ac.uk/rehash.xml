@@ -1,0 +1,8 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/rehash.aspx">
+<shortdesc>This project will re-purpose the large existing collections of contextual RLOs (Reusable Learning Objects), to provide teachers and students with attractive learning materials to support courses which widen access to nursing, medicine and healthcare at levels NQF 3 and HE 0, and the diploma and undergraduate programmes which follow these access and foundation 
+courses.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>REHASH - Repurposing Existing Healthcare Assets to Share</name>
+<homepage rdf:resource="http://www.etu.sghms.ac.uk/rehash"/>
+</Project>

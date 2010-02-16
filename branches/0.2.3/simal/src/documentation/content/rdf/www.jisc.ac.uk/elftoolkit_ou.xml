@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/elftoolkit_ou.aspx">
+<shortdesc>This project extends the work begun in the previous JISC call, to develop both the CopperCore Learning Design engine and the SLED Learning Design player.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>SLED2</name>
+<homepage rdf:resource="http://sled.open.ac.uk/web/"/>
+</Project>

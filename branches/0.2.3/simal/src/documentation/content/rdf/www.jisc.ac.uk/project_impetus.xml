@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_impetus.aspx">
+<shortdesc>The project involves the implementation and testing of Shibboleth - middleware which has been developed to support inter-institutional sharing of electronic resources in the Multi-Professional Education and Training Centre, a collaborative venture between the University Hospitals of Leicester, the University of Leicester, and De Montfort University.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>IMPETUS</name>
+</Project>

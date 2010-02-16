@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/elfdemo_staffs.aspx">
+<shortdesc>The prime focus of the work is to evaluate the d+ toolkit, to demonstrate that the toolkit is useful to a community of practice, and to make it still more useful by linking it to the COSE VLE.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>d+ toolkit demo</name>
+<homepage rdf:resource="http://www.staffs.ac.uk/COSE/DICE/"/>
+</Project>

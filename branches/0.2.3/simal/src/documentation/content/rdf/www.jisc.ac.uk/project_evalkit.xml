@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/project_evalkit.aspx">
+<shortdesc>JCALT commisioned the development of a web-based Evaluation Toolkit (Evaluation of Learning and Media Toolkit) with which to investigate how ICT learning materials can be evaluated with regards their appropriateness for a particular use.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"/>
+<name>Evaluation toolkits</name>
+</Project>

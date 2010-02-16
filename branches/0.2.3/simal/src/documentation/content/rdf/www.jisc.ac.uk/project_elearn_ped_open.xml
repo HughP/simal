@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation/project_elearn_ped_open.aspx">
+<shortdesc>The overall aim of the project is to produce up to 10 case studies illustrative of innovative approaches in e-learning across the post-16 sector in the UK. The focus of these studies will be on the effective use of wireless and mobile technologies to support and deliver learning and teaching in the post-16 and Higher Education sectors.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_innovation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Open University case study in innovative e-Learning</name>
+</Project>

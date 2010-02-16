@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://www.ntu.ac.uk/irep/">
+
+        <name>An institutional repository for Nottingham Trent University</name>
+
+        <shortdesc xml:lang="en">To develop a repository for the storage of a wide variety of materials</shortdesc>
+
+        <description xml:lang="en">To develop a repository for the storage of a wide variety of materials, teaching and learning, research and institutional in an eclectic variety of formats integrated into a single search mechanism which addresses all the locations we store information. Essentially we want to build a location for anything and everything which will extend the body of knowledge held by the University for the benefit and extension of our members</description>
+
+        <homepage rdf:resource="http://www.ntu.ac.uk/irep/" />
+        <homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres/repositories_sue/ir_nott_trent.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx" />
+	<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx" />
+	<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx" />
+	<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" />
+	<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx" />
+        
+
+        <created>FIXME: date (format 2007-1-16)</created>
+
+        <!--  <wiki rdf:resource="http://www.pligg.com/wiki/index.php?title=Main_Page"/> -->
+
+        <!--  <screenshots rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> -->
+
+        <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />   -->
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+       
+            <maintainer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>David Lonjon</foaf:name>
+            <foaf:mbox rdf:resource="mailto:david.lonjon@ntu.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+
+         
+            <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Lisa Warburton</foaf:name>
+            <foaf:mbox rdf:resource="mailto:lisa.warburton@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Nuala Devlin</foaf:name>
+            <foaf:mbox rdf:resource="mailto:nuala.devlin@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Dorothy Atherton</foaf:name>
+            <foaf:mbox rdf:resource="mailto:dorothy.atherton@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Julie Plumb</foaf:name>
+            <foaf:mbox rdf:resource="mailto:Julie.plumb@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Mike Berrington</foaf:name>
+            <foaf:mbox rdf:resource="mailto:mike.berrington@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Jacqueline Tyler</foaf:name>
+            <foaf:mbox rdf:resource="mailto:Jacqui.tyler@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Judith Mottram</foaf:name>
+            <foaf:mbox rdf:resource="mailto:judith.mottram@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Rob May</foaf:name>
+            <foaf:mbox rdf:resource="mailto:rob.may@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Sue McKnight</foaf:name>
+            <foaf:mbox rdf:resource="mailto:sue.mcknight@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+	
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Vicki Watkin</foaf:name>
+            <foaf:mbox rdf:resource="mailto:Vicki.watkin@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Lisa Warburton</foaf:name>
+            <foaf:mbox rdf:resource="mailto:lisa.warburton@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+	    <developer>
+            <foaf:Person>
+            <foaf:title></foaf:title>
+            <foaf:name>Richard Cross</foaf:name>
+            <foaf:mbox rdf:resource="mailto:Richard.cross@ntu.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+
+
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="FIXME: e.g. http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="FIXME: e.g. http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>

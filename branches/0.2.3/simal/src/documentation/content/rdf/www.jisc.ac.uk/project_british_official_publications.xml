@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/project_british_official_publications.aspx">
+<shortdesc>The 18th century printed British parliamentary papers proposal originated from the community consultation carried out in early 2003.  The aim of the project is to digitise up to 900,000 pages 18th century House of Commons and House of Lords reports and bills, creating a fully-searchable XML database.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
+<name>18th century parliamentary papers</name>
+<homepage rdf:resource="http://www.bopcris.ac.uk/18c"/>
+</Project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/project_r2q2.aspx">
+<shortdesc>At the JISC/CETIS conference it was recommended that the community needed to "kick start" the use of the IMS Question and Test Interoperability version 2.0 specifications.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>R2Q2: Rendering and response processing services for QTIv2 questions</name>
+<homepage rdf:resource="http://www.r2q2.ecs.soton.ac.uk/"/>
+</Project>

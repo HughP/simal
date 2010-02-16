@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project default="build" basedir="." name="simal-installer">
+
+    <property file="local.build.properties" />
+    <property file="build.properties" />
+
+    <taskdef name="izpack" classname="com.izforge.izpack.ant.IzPackTask" />
+
+    <target name="clean" description="Clean the build targets">
+        <delete dir="${dist.dir}" failonerror="false" />
+
+        <mkdir dir="${dist.dir}" />
+    </target>
+
+    <target name="build" description="Build the Simal installer" depends="clean">
+        <izpack input="simal-install.xml" output="${dist.dir}/simal-${simal.version}.jar" installerType="standard" basedir="${simal.dir}" izPackDir="${izpack.dir}/" />
+    </target>
+</project>

@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_walrus.aspx">
+<shortdesc>The project will adopt Shibboleth as the standard external resource access management solution across the institution, supporting current activity as a resource consumer through the use of Shibboleth-Athens gateway functionality.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>WALRUS: Wakefield access to learning resources using shibboleth</name>
+<homepage rdf:resource="http://www.wakefield.ac.uk/projects/walrus/"/>
+</Project>

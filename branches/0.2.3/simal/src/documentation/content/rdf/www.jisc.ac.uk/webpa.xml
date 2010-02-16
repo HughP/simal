@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital/el_xinstit/webpa.aspx">
+<shortdesc>This project will make an open source version of an existing online peer moderated marking system, for the assessment of group work, already in use at Loughborough University since 1998. The new system will be piloted at Loughborough University and the University of Hull and be developed within the context of each institution's VLE and online delivery.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx"/>
+<name>WebPA online peer- and self-assessment application</name>
+<homepage rdf:resource="http://webpaproject.lboro.ac.uk/"/>
+</Project>
