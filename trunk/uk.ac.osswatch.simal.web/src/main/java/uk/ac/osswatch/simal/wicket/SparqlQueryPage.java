@@ -16,7 +16,6 @@
  */
 package uk.ac.osswatch.simal.wicket;
 
-import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.PropertyModel;
 
@@ -41,7 +40,7 @@ public class SparqlQueryPage extends BasePage {
   /**
    * Create default SPARQL query page
    */
-  public SparqlQueryPage(PageParameters parameters) {
+  public SparqlQueryPage() {
     super();
 
     TextArea<SparqlQueryInputModel> sparqlQueryField = new TextArea<SparqlQueryInputModel>(

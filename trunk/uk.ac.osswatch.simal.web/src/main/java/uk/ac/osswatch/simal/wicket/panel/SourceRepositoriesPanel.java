@@ -38,8 +38,6 @@ import uk.ac.osswatch.simal.model.IDoapRepository;
  */
 public class SourceRepositoriesPanel extends Panel {
   private static final long serialVersionUID = -2031486948152653715L;
-  private static final Logger logger = LoggerFactory
-      .getLogger(SourceRepositoriesPanel.class);
 
   public SourceRepositoriesPanel(String panelId,
       Set<IDoapRepository> repositories) {
