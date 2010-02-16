@@ -96,7 +96,7 @@ public class Widget {
 	 * An instance of this widget.
 	 *
 	 */
-	public class Instance {
+	public static class Instance {
 		String url;
 
 		String id;

@@ -39,7 +39,6 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  */
 public class WookieWidgetGalleryPanel extends Panel {
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = LoggerFactory.getLogger(WookieWidgetGalleryPanel.class);
   
   /**
    * Create a default Wookie Widget gallery panel that will display all the
@@ -85,7 +84,9 @@ public class WookieWidgetGalleryPanel extends Panel {
 	add(repeating);
   }
   
-  public class StaticImage extends WebComponent {
+  public static class StaticImage extends WebComponent {
+
+    private static final long serialVersionUID = -8331551149365773888L;
 
       public StaticImage(String id, IModel model) {
           super(id, model);

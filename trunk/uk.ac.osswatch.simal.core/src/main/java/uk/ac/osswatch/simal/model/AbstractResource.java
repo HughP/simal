@@ -104,7 +104,7 @@ public abstract class AbstractResource implements IResource {
     }
     
     protected void setPath(URI uri) {
-    	path = "/" + uri.getHost() + uri.getPath();
+    	// path = "/" + uri.getHost() + uri.getPath();
     	path = "/myFolder";
     }
     

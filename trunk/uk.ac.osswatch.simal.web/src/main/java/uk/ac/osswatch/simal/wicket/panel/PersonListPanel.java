@@ -144,8 +144,6 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
 
 		@Override
         public void populateItem(Item cellItem, String componentId, IModel model) {
-			IPerson person = (IPerson)model.getObject();
-			Set<IInternetAddress> emailSet = person.getEmail();
         	Iterator<IInternetAddress> emails = ((IPerson)model.getObject()).getEmail().iterator();
         	if (emails.hasNext()) {
 	        	while (emails.hasNext()) {
