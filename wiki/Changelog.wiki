@@ -8,14 +8,14 @@
 === Jena backend ===
 
  * Jena is updated to version 2.6.2. to be compatible with Joseki and to allow use of other Jena backend types
- * Added support to SDB and TDB backends. See [http://jena.sourceforge.net/documentation.html Jena documentation] for details
+ * Added support to SDB and TDB backends. See [http://jena.sourceforge.net/documentation.html Jena documentation] for details. The default backend is TDB.
  * Backend used at runtime can be configured using the property {{{ simal.db.type }}}
  * All properties (as defined in the property files) can now be overruled by using a system property (eg. at startup: {{{-Dsimal.db.type=TDB }}})
 
 === SPARQL Endpoint ===
 
- * Add JOSEKI SPARQL server (see http://www.joseki.org/)
- * FIXME: is this endpoint accessible as described in http://joseki.org/protocol.html If not we need an issue to get this done in a future release
+ * Added JOSEKI SPARQL server (see http://www.joseki.org/)
+ * This endpoint is accessible as described in http://joseki.org/protocol.html. The endpoint is on {{{/joseki/sparql}}} and only supports the {{{SPARQL/Query Protocol}}}, not the {{{SPARQL/Update Protocol}}}.
 
 === Add Multiple Projects from Ohloh.net ===
 
