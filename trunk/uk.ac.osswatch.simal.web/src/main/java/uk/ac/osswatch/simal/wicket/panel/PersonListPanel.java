@@ -128,16 +128,7 @@ public class PersonListPanel extends Panel {
   @SuppressWarnings("unchecked")
 private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
-    columns.add(new LinkPropertyColumn(new Model("Name"), "label", "label") {
-		private static final long serialVersionUID = 1L;
-
-	@Override
-      public void onClick(Item item, String componentId, IModel model) {
-        IPerson person = (IPerson) model.getObject();
-        getRequestCycle().setResponsePage(new PersonDetailPage(person));
-      }
-
-    });
+    columns.add(new NameLinkPropertyColumn(new Model("Name"), "label", "label"));
 
     columns.add(new PropertyColumn(new Model("EMail"), "email", "email") {
 		private static final long serialVersionUID = 1L;
@@ -165,28 +156,7 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
 		}
     }); 
     
-    columns.add(new PropertyColumn(new Model("Project"), "projects", "projects") {
-		private static final long serialVersionUID = 1L;
-
-		@Override
-        public void populateItem(Item cellItem, String componentId, IModel model) {
-        	Iterator<IProject> projects;
-			try {
-				projects = ((IPerson)model.getObject()).getProjects().iterator();
-	        	StringBuffer label = new StringBuffer();
-				while (projects.hasNext()) {
-	        		IProject project = projects.next();
-	        		label.append(project.getLabel());
-	        		if (projects.hasNext()) {
-	        			label.append(", ");
-	        		}
-	        	}
-	            cellItem.add(new Label(componentId, label.toString()));
-			} catch (SimalRepositoryException e) {
-				cellItem.add(new Label(componentId, "ERROR"));
-			}
-        }
-    }); 
+    columns.add(new ProjectsPropertyColumn(new Model("Project"), "projects", "projects")); 
     
     dataProvider = new SortablePersonDataProvider(people);
     dataProvider.setSort(SortablePersonDataProvider.SORT_PROPERTY_LABEL, true);
@@ -215,6 +185,65 @@ private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     this.people.add(person);
   }
   
+  /**
+   *
+   */
+  private final class NameLinkPropertyColumn extends LinkPropertyColumn {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @param displayModel
+     * @param sortProperty
+     * @param propertyExpression
+     */
+    private NameLinkPropertyColumn(IModel displayModel, String sortProperty,
+        String propertyExpression) {
+      super(displayModel, sortProperty, propertyExpression);
+    }
+
+    @Override
+    public void onClick(Item item, String componentId, IModel model) {
+      IPerson person = (IPerson) model.getObject();
+      getRequestCycle().setResponsePage(new PersonDetailPage(person));
+    }
+  }
+
+  /**
+   *
+   */
+  private final class ProjectsPropertyColumn extends PropertyColumn {
+    private static final long serialVersionUID = 1L;
+
+    /**
+     * @param displayModel
+     * @param sortProperty
+     * @param propertyExpression
+     */
+    private ProjectsPropertyColumn(IModel displayModel, String sortProperty,
+        String propertyExpression) {
+      super(displayModel, sortProperty, propertyExpression);
+    }
+
+    @Override
+    public void populateItem(Item cellItem, String componentId, IModel model) {
+      Iterator<IProject> projects;
+      try {
+        projects = ((IPerson) model.getObject()).getProjects().iterator();
+        StringBuffer label = new StringBuffer();
+        while (projects.hasNext()) {
+          IProject project = projects.next();
+          label.append(project.getLabel());
+          if (projects.hasNext()) {
+            label.append(", ");
+          }
+        }
+        cellItem.add(new Label(componentId, label.toString()));
+      } catch (SimalRepositoryException e) {
+        cellItem.add(new Label(componentId, "ERROR"));
+      }
+    }
+  }
+
   /**
    * Form for filtering the people returned to a component.
    * 

@@ -20,8 +20,6 @@ package uk.ac.osswatch.simal.wicket.widgets;
 import org.apache.wicket.behavior.SimpleAttributeModifier;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * A panel to display a Wookie Widget. See http://incubator.apache.org/wookie
