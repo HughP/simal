@@ -27,8 +27,6 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapLocation;
 import uk.ac.osswatch.simal.model.IDoapRepository;
