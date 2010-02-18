@@ -18,7 +18,6 @@ package uk.ac.osswatch.simal.wicket.widgets;
  */
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
@@ -35,11 +34,11 @@ import uk.ac.osswatch.simal.wicket.widgets.Widget.Instance;
  */
 public class InstantiateWidgetPage extends BasePage {
 	
-	/**
+  private static final long serialVersionUID = -2075240720179434503L;
+
+  /**
 	 * Attempt to instantiate a widget using a wookie server.
 	 * 
-	 * @param parameters
-	 * @throws UnsupportedEncodingException 
 	 */
 	public InstantiateWidgetPage(Widget widget) {
       Instance instance;
@@ -76,8 +75,10 @@ public class InstantiateWidgetPage extends BasePage {
 	   *          the widget we want to instantiate with this page
 	   * @return
 	   */
-	  public static Link getLink(final String id, final Widget widget) {
+	  public static Link getLink(final String id, final Widget widget) {	    
 	   return new Link(id) {
+	     private static final long serialVersionUID = 4984984523L;
+	     
 		   public void onClick(){
 			   setResponsePage(new InstantiateWidgetPage(widget));
 	      }
