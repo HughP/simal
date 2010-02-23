@@ -39,7 +39,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.rdf.SimalException;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.widgets.Widget.Instance;
 
 /**
@@ -50,7 +52,6 @@ import uk.ac.osswatch.simal.wicket.widgets.Widget.Instance;
  */
 public class WookieServerConnection implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String wookieURL = "http://localhost:8888/wookie";
 	private HashMap<String, Widget> widgets = new HashMap<String, Widget>();
 	private static final Logger logger = LoggerFactory.getLogger(WookieServerConnection.class);
 	
@@ -59,9 +60,10 @@ public class WookieServerConnection implements Serializable {
 	 * Get the URL of the wookie server.
 	 * 
 	 * @return
+	 * @throws SimalRepositoryException 
 	 */
-	public String getURL() {
-		return wookieURL;
+	public String getURL() throws SimalRepositoryException {
+		return SimalProperties.getProperty("simal.wookie.url", "http://localhost:8888");
 	}
 
 	/**
@@ -95,8 +97,9 @@ public class WookieServerConnection implements Serializable {
 	 * @param widget
 	 * @return the ID of the widget instance
 	 * @throws IOException 
+	 * @throws SimalRepositoryException 
 	 */
-	public Widget.Instance getOrCreateInstance(Widget widget) throws IOException {
+	public Widget.Instance getOrCreateInstance(Widget widget) throws IOException, SimalRepositoryException {
 		StringBuffer data = new StringBuffer();
 		  try {
 			  data.append(URLEncoder.encode("api_key", "UTF-8"));
@@ -121,7 +124,7 @@ public class WookieServerConnection implements Serializable {
 	      URL url;
 		  Instance instance;
 		try {
-			url = new URL(getURL() + "/widgetinstances");
+      url = new URL(getURL() + "/widgetinstances");
 			URLConnection conn = url.openConnection();
 	        conn.setDoOutput(true);
 	        OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
