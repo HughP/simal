@@ -22,6 +22,7 @@ import java.io.IOException;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
@@ -49,6 +50,10 @@ public class InstantiateWidgetPage extends BasePage {
     	  UserReportableException error = new UserReportableException(
 		          "Problem communicating with Wookie server", InstantiateWidgetPage.class);
 		  setResponsePage(new ErrorReportPage(error));
+	  } catch (SimalRepositoryException e) {
+        UserReportableException error = new UserReportableException(
+            "Problem communicating with Wookie server", InstantiateWidgetPage.class);
+        setResponsePage(new ErrorReportPage(error));
 	  }
 	}
 
