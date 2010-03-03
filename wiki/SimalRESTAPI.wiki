@@ -12,8 +12,12 @@ This page describes the Simal REST API.
 All REST URLs are of the same form:
 
 {{{http://foo.com/simal-rest/COMMAND/NAME_VALUE_PAIRS/FORMAT}}}
-        
+
 Where COMMAND is the command you wish to execute, NAME_VALUE_PAIRS is zero or more parameter names and value pairs and FORMAT is a format code that specifies the format of the response document.
+
+==Format==
+
+Currently, only {{{json}}} and {{{xml}}} are supported as valid data FORMATs.
 
 ==Project Data==
 
@@ -21,7 +25,8 @@ Where COMMAND is the command you wish to execute, NAME_VALUE_PAIRS is zero or mo
 
 To add a project using a DOAP POST to:
 
-{{{http://foo.com/simal-rest/addProject
+{{{http://foo.com/simal-rest/addProject}}}
+
 The RDF project data should be contained in a parameter called rdf .
 
 ===Retrieve a Single Project===
