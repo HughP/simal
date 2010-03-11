@@ -3,7 +3,7 @@
 
 = Release 0.2.3-rc2 =
 
-Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/220eae477b088179# 11/03/2010]
+Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/2026719cf4579d67# 11/03/2010]
 
 Email addresses are now obfuscated to prevent bot harvesting (Issue 257)
 
