@@ -1,5 +1,17 @@
-#summary Notes about the 0.2.2 release
+#summary Notes about the 0.2.3 release
 #labels Phase-Support,Featured
+
+= Release 0.2.3-rc2 =
+
+Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/220eae477b088179# 11/03/2010]
+
+Email addresses are now obfuscated to prevent bot harvesting (Issue 257)
+
+= Release 0.2.3-rc1 =
+
+Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/220eae477b088179# 18/02/2010]
+
+Jena backend to TDB. See ChangeLog for more details.
 
 = Release 0.2.2 =
 
