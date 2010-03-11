@@ -11,7 +11,7 @@ Email addresses are now obfuscated to prevent bot harvesting (Issue 257)
 
 Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/220eae477b088179# 18/02/2010]
 
-Jena backend to TDB. See ChangeLog for more details.
+Jena backend to TDB. See [Changelog Changelog] for more details.
 
 = Release 0.2.2 =
 
