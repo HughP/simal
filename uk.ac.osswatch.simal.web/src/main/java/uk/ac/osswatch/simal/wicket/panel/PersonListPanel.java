@@ -28,7 +28,6 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -128,36 +127,36 @@ public class PersonListPanel extends Panel {
   @SuppressWarnings("unchecked")
 private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
-    columns.add(new NameLinkPropertyColumn(new Model("Name"), "label", "label"));
+    columns
+        .add(new NameLinkPropertyColumn(new Model("Name"), "label", "label"));
 
-    columns.add(new PropertyColumn(new Model("EMail"), "email", "email") {
-		private static final long serialVersionUID = 1L;
+    columns.add(new PropertyColumn(new Model("Email"), "email",
+        "email") {
+      private static final long serialVersionUID = 1L;
 
-		@Override
-        public void populateItem(Item cellItem, String componentId, IModel model) {
-        	Iterator<IInternetAddress> emails = ((IPerson)model.getObject()).getEmail().iterator();
-        	if (emails.hasNext()) {
-	        	while (emails.hasNext()) {
-	        		IInternetAddress email = emails.next();
-	        		String label = email.getLabel();
-	        		if (label.startsWith("mailto:")) {
-	        			label = label.substring(7);
-	        		}
-	                ExternalLink link = new ExternalLink(componentId,
-	                  email.getAddress(),
-	                  label);
-	
-	                cellItem.add(link);
-	                break;
-	        	}
-        	} else {
-        		cellItem.add(new Label(componentId, ""));
-        	}
-		}
-    }); 
-    
-    columns.add(new ProjectsPropertyColumn(new Model("Project"), "projects", "projects")); 
-    
+      @Override
+      public void populateItem(Item cellItem, String componentId, IModel model) {
+        Iterator<IInternetAddress> emails = ((IPerson) model.getObject())
+            .getEmail().iterator();
+        if (emails.hasNext()) {
+          while (emails.hasNext()) {
+            IInternetAddress email = emails.next();
+            String label = email.getObfuscatedAddress();
+            if (label.startsWith("mailto:")) {
+              label = label.substring(7);
+            }
+            cellItem.add(new Label(componentId, label));
+            break;
+          }
+        } else {
+          cellItem.add(new Label(componentId, ""));
+        }
+      }
+    });
+
+    columns.add(new ProjectsPropertyColumn(new Model("Project"), "projects",
+        "projects"));
+
     dataProvider = new SortablePersonDataProvider(people);
     dataProvider.setSort(SortablePersonDataProvider.SORT_PROPERTY_LABEL, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, numberOfPeople));

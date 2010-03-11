@@ -29,4 +29,11 @@ public interface IInternetAddress extends IResource {
    */
   public String getAddress();
 
+  /**
+   * Get the complete email address in a way that is not.
+   * directly machine-readable.
+   * @return
+   */
+  public String getObfuscatedAddress();
+
 }
