@@ -26,7 +26,7 @@
 
   <groupId>uk.ac.osswatch</groupId>
   <artifactId>simal-core</artifactId>
-  <version>0.2.3-rc1</version>
+  <version>0.2.3-rc2</version>
   <packaging>jar</packaging>
 
   <name>Simal core</name>

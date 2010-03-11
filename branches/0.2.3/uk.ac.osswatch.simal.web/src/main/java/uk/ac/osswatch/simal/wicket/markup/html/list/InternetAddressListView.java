@@ -58,8 +58,8 @@ public class InternetAddressListView extends ListView<IInternetAddress> {
    */
   protected void populateItem(ListItem<IInternetAddress> listItem) {
     final IInternetAddress addr = (IInternetAddress) listItem.getModelObject();
-    ExternalLink externalLink = new ExternalLink("linkURL", addr.getAddress());
-    String href = addr.getLabel();
+    ExternalLink externalLink = new ExternalLink("linkURL", addr.getObfuscatedAddress());
+    String href = addr.getObfuscatedAddress();
     if (href.startsWith("mailto")) {
     	href = href.substring(7);
     }

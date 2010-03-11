@@ -31,6 +31,24 @@ public class InternetAddress extends Resource implements IInternetAddress {
     super(resource);
   }
 
+  public String getObfuscatedAddress() {
+    String address = getURI();
+    if (address != null) {
+      int atPosition = address.indexOf("@");
+      if (atPosition > -1) {
+        StringBuffer obfuscatedAddress = new StringBuffer();
+
+        obfuscatedAddress.append(address.substring(0, atPosition));
+        obfuscatedAddress.append(" [at] ");
+        obfuscatedAddress.append(address.substring(atPosition + 1).replaceAll(
+            "[.]", "..."));
+        address = obfuscatedAddress.toString();
+      }
+    }
+
+    return address;
+  }
+
   public String getAddress() {
     return getURI();
   }
