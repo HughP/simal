@@ -23,7 +23,7 @@ import static junit.framework.Assert.assertTrue;
 
 import org.junit.Test;
 
-import uk.ac.osswatch.simal.model.DoapResourceForTest;
+import uk.ac.osswatch.simal.model.MockDoapResource;
 
 /**
  * Test whether the DoapResourceByNameComparator compares correctly.
@@ -35,9 +35,9 @@ public class IDoapResourceByNameComparatorTest {
   @Test
   public void testIDoapResourcesByName() {
     
-    DoapResourceForTest emptyName = new DoapResourceForTest();
-    DoapResourceForTest t1 = new DoapResourceForTest();
-    DoapResourceForTest t2 = new DoapResourceForTest();
+    MockDoapResource emptyName = new MockDoapResource();
+    MockDoapResource t1 = new MockDoapResource();
+    MockDoapResource t2 = new MockDoapResource();
     t1.setName("aaa");
     t2.setName("zzz");
     
