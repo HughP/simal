@@ -28,7 +28,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * Test class for testing IDoapResources that have nothing to do with the Jena
  * back-end. Expand when needed.
  */
-public class DoapResourceForTest implements IDoapResource {
+public class MockDoapResource implements IDoapResource {
 
   private static final long serialVersionUID = 8162751003605007841L;
   
