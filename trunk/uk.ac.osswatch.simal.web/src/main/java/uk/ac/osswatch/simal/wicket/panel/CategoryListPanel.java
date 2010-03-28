@@ -30,6 +30,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -45,14 +46,19 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
 public class CategoryListPanel extends Panel {
   private static final long serialVersionUID = -7641153470731218965L;
 
+  private Set<IDoapCategory> categories;
+
   public CategoryListPanel(String id) throws SimalRepositoryException {
     super(id);
-    SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider();
+    this.categories = SimalRepositoryFactory.getCategoryService().getAll();
+    SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(
+        this.categories);
     addCategoryList(dataProvider);
   }
 
   public CategoryListPanel(String id, Set<IDoapCategory> categories) {
     super(id);
+    this.categories = categories;
     SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(
         categories);
     addCategoryList(dataProvider);
@@ -79,5 +85,14 @@ public class CategoryListPanel extends Panel {
 
     dataProvider.setSort(SortableCategoryDataProvider.SORT_PROPERTY_NAME, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider, 15));
+  }
+
+  /**
+   * Add a new category to the list. Useful when new categories are added after
+   * the page has loaded. 
+   * @param category
+   */
+  public void addCategory(IDoapCategory category) {
+    this.categories.add(category);
   }
 }

@@ -41,7 +41,6 @@ public class TestProjectDetailPage extends TestBase {
           return new ProjectDetailPage(SimalRepositoryFactory.getProjectService().getProject(projectURI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
-          System.exit(1);
           return null;
         }
       }
@@ -103,6 +102,28 @@ public class TestProjectDetailPage extends TestBase {
   }
   
   /**
+   * Check the add Category form is working OK.
+   * 
+   * @throws SimalRepositoryException
+   */
+  @Test
+  public void testAddCategory() throws SimalRepositoryException {
+    tester.assertVisible("addCategoryPanel");
+    tester.assertVisible("addCategoryPanel:newLink");
+
+    tester.assertInvisible("addCategoryPanel:doapResourceForm");
+    tester.assertVisible("addCategoryPanel:newLink");
+    tester.clickLink("addCategoryPanel:newLink");
+
+    tester.assertVisible("addCategoryPanel:doapResourceForm");
+    tester.assertInvisible("addCategoryPanel:newLink");
+
+    tester.clickLink("addCategoryPanel:doapResourceForm:cancelLink");
+    tester.assertInvisible("addCategoryPanel:doapResourceForm");
+
+  }
+  
+  /**
    * Check the add Maintainer form is working OK.
    * 
    * @throws SimalRepositoryException
@@ -112,26 +133,26 @@ public class TestProjectDetailPage extends TestBase {
     tester.assertVisible("addMaintainerPanel");
     tester.assertVisible("addMaintainerPanel:newLink");
 
-    tester.assertInvisible("addMaintainerPanel:personForm");
+    tester.assertInvisible("addMaintainerPanel:doapResourceForm");
     tester.assertVisible("addMaintainerPanel:newLink");
     tester.clickLink("addMaintainerPanel:newLink");
 
-    tester.assertVisible("addMaintainerPanel:personForm");
+    tester.assertVisible("addMaintainerPanel:doapResourceForm");
     tester.assertInvisible("addMaintainerPanel:newLink");
 
-    tester.clickLink("addMaintainerPanel:personForm:cancelLink");
-    tester.assertInvisible("addMaintainerPanel:personForm");
+    tester.clickLink("addMaintainerPanel:doapResourceForm:cancelLink");
+    tester.assertInvisible("addMaintainerPanel:doapResourceForm");
 
     /**
      * Commented out as the submit does not seem to work with an Ajax form
      * 
      * FormTester formTester = tester
-     *   .newFormTester("addMaintainerPanel:personForm");
+     *   .newFormTester("addMaintainerPanel:doapResourceForm");
      * 
      * tester.clickLink("addMaintainerPanel:newLink"); formTester =
-     * tester.newFormTester("addMaintainerPanel:personForm");
+     * tester.newFormTester("addMaintainerPanel:doapResourceForm");
      * formTester.setValue("name", "New Person"); formTester.submit();
-     * tester.assertInvisible("addMaintainerPanel:personForm");
+     * tester.assertInvisible("addMaintainerPanel:doapResourceForm");
      * 
      * Set<IPerson> peopleAfter =
      * UserApplication.getRepository().getProject(projectURI).getMaintainers();
