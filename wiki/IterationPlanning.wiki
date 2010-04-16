@@ -30,7 +30,8 @@ http://simal.googlecode.com/svn/wiki/ReleaseManagement.attach/releaseProcessTime
 ||4|| Binary Release ||2010-02-15||2010-02-26|| *Binary Release* ||
 ||5|| Patching and signing Release ||2010-03-01||2010-03-12|| *Binary Release* ||
 ||1|| Categorise URLs ||2010-03-15||2010-03-26||Soft Release||
-||2|| CMS and documentation ||2010-03-29||2010-04-09||Soft Release||
+||2|| DOAP form JISC projects ||2010-04-12||2010-04-23||Soft Release||
+||3|| CMS and documentation ||2010-04-26||2010-05-07||Soft Release||
 
 
 = Useful Links =
