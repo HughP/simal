@@ -19,6 +19,7 @@ package uk.ac.osswatch.simal.rest;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -100,6 +101,7 @@ public class RESTServlet extends HttpServlet {
     try {
       cmd = RESTCommand.createCommand(req.getPathInfo(), req.getParameterMap());
     } catch (SimalAPIException e) {
+      logger.warn("Error craeting Simal REST command: " + e.getMessage());
       throw new ServletException("Unable to create Simal REST command", e);
     }
     
@@ -140,8 +142,32 @@ public class RESTServlet extends HttpServlet {
     msg.append(req.getRemoteHost());
     msg.append(" (");
     msg.append(req.getRemoteUser());
-    msg.append(')');
+    msg.append(")\n");
+    msg.append("Contents (length ");
+    msg.append(req.getContentLength());
+    msg.append("):\n");
+    msg.append(getRequestParameters(req));
     logger.trace(msg.toString());
+  }
+
+  /**
+   * Get all parameter names and values from the request.
+   * @return String representation of parameters
+   */
+  @SuppressWarnings("unchecked")
+  private String getRequestParameters(HttpServletRequest req) { 
+    StringBuilder msg = new StringBuilder();
+    Enumeration<String> allParams = req.getParameterNames();
+
+    while (allParams.hasMoreElements()) {
+      String curParam = allParams.nextElement();
+      msg.append(curParam);
+      msg.append("=");
+      msg.append(req.getParameter(curParam));
+      msg.append('\n');
+    }
+
+    return msg.toString();
   }
 
   /**
