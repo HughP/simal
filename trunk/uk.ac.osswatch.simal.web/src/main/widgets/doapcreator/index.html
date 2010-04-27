@@ -1,0 +1,174 @@
+<!--
+ 
+ Copyright 2010 University of Oxford 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+   http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ 
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+  <title>Simal | DOAPizer</title>
+  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" /> 
+  <link rel="stylesheet" type="text/css" href="css/html.css" media="screen, projection, tv " /> 
+  <link rel="stylesheet" type="text/css" href="css/layout.css" media="screen, projection, tv" /> 
+  <link rel="stylesheet" type="text/css" href="css/custom.css" media="screen, projection, tv" /> 
+  <script src="http://www.pajhome.org.uk/crypt/md5/sha1.js" type="text/javascript"></script>  
+  <script src="scripts/doapform.js" type="text/javascript"></script> 
+</head> 
+ 
+<body onload="addPersons(3);"> 
+ 
+<div id="content"> 
+ 
+  <div id="page"> 
+ 
+    <div class="gradient"> 
+ 
+        <h1>DOAPizer</h1> 
+        <h2>A handy tool to create a DOAP descriptor for your project</h2> 
+ 
+          <div class="question">Unique Project tag (CAN *NOT* BE CHANGED):<span class="mandatory">*</span></div><div class="answer"><input type="text" id="shortname" class="short"/><br/>This tag has to be *unique*, please see instruction on creating a unique JISC project tag here: <a href="http://bit.ly/uniqueTag" target="_blank">http://bit.ly/uniqueTag</a></div> 
+          <div class="question">Full name of project:<span class="mandatory">*</span></div><div class="answer"><input type="text" id="name" class="short"/><br />What is the full name of the project?</div> 
+          <div class="question">Short project description (120 character pitch):<span class="mandatory">*</span></div><div class="answer"><input type="text" id="shortdesc" class="long"/><br/>This short description should be simple so that any newcomer to the project can understand what the project is producing.</div> 
+          <div class="question">Long project description (3-5 sentences):<span class="mandatory">*</span></div><div class="answer"><textarea cols="50" rows="5" id="description"></textarea><br />This long description should provide an executive summary or scholarly abstract for the project.</div> 
+          <div class="question">Project blog URL:<span class="mandatory">*</span></div><div class="answer"><input type="text" id="blog" class="long"/><br/>URL of the public blog.</div> 
+          <div class="question">RSS2 or ATOM feed for project blog?:<span class="mandatory">*</span></div><div class="answer"><input type="text" id="blogfeed" class="long"/><br/>Please provide an URL for where your project blog feed is. This should NOT be a basic RSS feed but an RSS2 or ATOM feed which both blogger and wordpress provide. The reason for this is because of the assigned tags we use for project documentation.</div> 
+          <div class="question">Project gmail account for wiki:<span class="mandatory">*</span></div><div class="answer"><input type="text" id="projectemail" class="long"/><br/>You will need a free gmail account to access this form for future updates as well as for the Programme Manager's Notebook at http://code.google.com/p/jisclms/ to leave comments.</div> 
+          <div class="question">Personal homepage:<span class="mandatory">*</span></div><div class="answer"><input type="text" id="homepage" class="long"/><br/>e.g. workplace contact page, twitter or blog homepage.</div> 
+
+          <div class="question">Names, (main) roles and emails of all people working on or associated with project :<span class="mandatory">*</span></div>             	<div class="answer"> 
+			<div class="label_people">Type:</div>
+            <div class="label_people">Name:<span class="mandatory">*</span></div>
+			<div class="label_people">Email:<span class="mandatory">*</span></div>
+			<div class="label_people">Personal homepage (emtpy for none):</div>
+            <div class="label_people">URL link to a picture (see below):<span class="mandatory">*</span></div><br />
+			<div id="people_container_1"></div>
+			<div id="people_container_2"></div>
+			<div id="people_container_2"></div>
+			<div id="people_container_3"></div>
+			<div id="people_container_4"></div>
+			<div id="people_container_5"></div>
+			<div id="people_container_6"></div>
+			<div id="people_container_7"></div>
+			<div id="people_container_8"></div>
+			<div id="people_container_9"></div>
+			<div id="people_container_10"></div>
+			Please provide at least one link to a picture. If there are no individual pictures available please provide a team picture link for the first person entered.<br />
+			<input type="button" class="generate" value="Add person" onclick="addPerson();" />
+          </div> 
+          <div class="question">Name of lead institution:<span class="mandatory">*</span></div><div class="answer"><input type="text" id="lead_institution" class="long"/><br/>Please list the institution that is receiving the grant funding from JISC.</div> 
+          <div class="question">Department where project is primarily located:<span class="mandatory">*</span></div><div class="answer"><input type="text" id="department" class="long"/><br/>Please list the department and/or offices where primary activities and/or meetings of the project take place.</div> 
+          <div class="question">Postcode where the project is primarily based (same as above):<span class="mandatory">*</span></div><div class="answer"><input type="text" id="dept_postcode" class="long"/></div> 
+          <div class="question">Person responsible for JISC project documentation and reporting:</div><div class="answer"> 
+                        <span class="label">Name:</span><span class="mandatory">*</span><input type="text" id="resp_reports_name" class="long"/><br /> 
+						<span class="label">Email:</span><span class="mandatory">*</span><input type="text" id="resp_reports_email" class="long"/><br /> 
+						<span class="label">Phone:</span><span class="mandatory">*</span><input type="text" id="resp_reports_phone" class="long"/><br /> 
+						<span class="label">Skype:</span><span class="mandatory">*</span><input type="text" id="resp_reports_skype" class="long"/><br /> 
+						Please provide at least a phone number OR a valid Skype ID.
+          </div> 
+		  <div class="question">Project partners (commercial, consultants or other HEIs) who will be doing work for the
+project.</div><div class="answer"><input type="text" id="project_partners" class="long"/><br/>Please list the consultancy and names of developers who will be working on the project?</div>
+          <div class="question">Version control system:</div><div class="answer">
+			<span class="label">Type:</span><select id="repo_type">
+									<option value="SVNRepository">Subversion</option>
+									<option value="CVSRepository">CVS</option>
+									<option value="GitRepository">Git Repository</option>
+									<option value="BKRepository">BitKeeper</option>
+									<option value="ArchRepository">GNU Arch</option>
+									<option value="HgRepository">Mercurial</option>
+									<option value="BazaarBranch">Bazaar Branch</option>
+									<option value="DarcsRepository">Darcs Repository</option>
+				</select>
+			<span class="label">URL:</span><input type="text" id="repo" class="long"/><br/>URL of the version control system, eg. when your project is named PPP and is hosted at GoogleCode, this would be 'http://PPP.googlecode.com/svn/trunk/'.</div> 
+          <div class="question">Issue tracker:</div><div class="answer"><input type="text" id="bug_database" class="long"/><br/>URL of the issue tracker or bug database, eg. if you use GoogleCode's issue tracker for project PPP this would be 'http://code.google.com/p/PPP/issues/list'.</div> 
+          <div class="question">OSS license you will you be using for the code generated from project:<span class="mandatory">*</span></div><div class="answer"><select id="licence">
+									<option value="asl20">Apache License v2</option>
+									<option value="gpl">GNU General Public License v2</option>
+									<option value="gplv3">GNU General Public License v3</option>
+									<option value="lgpl">Lesser GPL v3</option>
+									<option value="mit">MIT License</option>
+									<option value="bsd">BSD License</option>
+				</select><br />Please consult <a href="http://www.oss-watch.ac.uk">OSS Watch</a> for guidance on which license to use</div> 
+		<div class="question">Licence used for documentation:<span class="mandatory">*</span></div><div class="answer"><select id="cont_licence">
+									<option value="CC-SA-UK">Creative Commons Attribution-Share Alike UK 2.0: England and Wales</option>
+									<option value="CC-UK">Creative Commons Attribution UK 2.0: England and Wales</option>
+				</select><br />This licence and logo must be displayed on all documents and websites produced by the project.</div> 
+			
+          <div class="question">What is the primary target user group for your software outputs:<span class="mandatory">*</span></div><div class="answer"><select id="primary_audience">
+									<option value="Undergraduate Students">Undergraduate Students</option>
+									<option value="Graduate Students">Graduate Students</option>
+									<option value="Teachers/Lecturers">Teachers/Lecturers</option>
+									<option value="Researchers">Researchers</option>
+									<option value="Research Managers/assistants">Research Managers/assistants</option>
+									<option value="Developers">Developers</option>
+									<option value="Other">Other</option>
+				</select></div> 
+          <div class="question">What is the secondary target user group for your software outputs:</div><div class="answer"><select id="secondary_audience">
+									<option value="none">None</option>
+									<option value="Undergraduate Students">Undergraduate Students</option>
+									<option value="Graduate Students">Graduate Students</option>
+									<option value="Teachers/Lecturers">Teachers/Lecturers</option>
+									<option value="Researchers">Researchers</option>
+									<option value="Research Managers/assistants">Research Managers/assistants</option>
+									<option value="Developers">Developers</option>
+									<option value="Other">Other</option>
+				</select></div> 
+          <div class="question">Primary software product delivered from this project that other HEI community members will want to reuse or even further develop?<span class="mandatory">*</span></div><div class="answer"><select id="primary_product">
+									<option value="none">Please select</option>
+									<option value="Downloadable software">Downloadable software tools for OS, e.g. desktop applications, phone apps, etc.</option>
+									<option value="Web-based tools">Web based tools accessed via HTTP, e.g. widgets, wizards, visualisation, etc.</option>
+									<option value="Extensions">Extensions to systems, e.g. additional code to an established system, framework for accessing a system, etc.</option>
+									<option value="Standards">Standards, e.g. XML schema, metadata application profile, etc.</option>
+									<option value="Other">Other</option>
+				</select><br /></div> 
+          <div class="question">Primary non-software product delivered from this project that other HEI community members will want to read and potentiall reuse?<span class="mandatory">*</span></div><div class="answer"><select id="secondary_product">
+									<option value="none">Please select</option>
+									<option value="Presentation">Presentation / Poster, e.g. presentation at a conference</option>
+									<option value="Report">Report to specific audience, e.g. advice to librarians</option>
+									<option value="Article">Journal Article, e.g. announcement of success in a magazine</option>
+									<option value="Manual">Manual / Instructional Documentation, e.g. instructions on using software</option>
+				</select><br /></div> 
+		  
+          <div class="question">What is the name of your Programme Manager at JISC:<span class="mandatory">*</span></div><div class="answer"><input type="text" id="jiscmanager" class="long"/><br /></div> 
+          <div class="question">Primary programming languages used in the project:</div><div class="answer"><input type="text" id="langs" class="long"/><br />(Comma seperated list)</div> 
+
+        <div style="text-align: center; margin-right: 3em;"><input id="generate" type="button" value="Generate" onclick="generate()"/></div> 
+        
+        <div id="doap">The DOAP descriptor will be generated here, so that you can cut/paste 
+it in your proposal email to the <a href="mailto:simal-contributors@googlegroups.com">simal-contributors</a> mail list.</div> 
+ 
+        <p>You might want to use the <a href="http://www.w3.org/RDF/Validator/">RDF Validator</a> to make sure that your DOAP descriptor is well formed before submitting it.</p> 
+      </div> 
+ 
+    </div> 
+ 
+ 
+</div> 
+ 
+<div id="footer"> 
+ 
+  <div id="width"> 
+    <span class="floatLeft"> 
+          <ul> 
+            <li><a href="http://simal.googlecode.com" title="Simal Project">The Simal Project</a></li> 
+            <li><a href="http://registry.oss-watch.ac.uk" title="The Simal Registry">The Simal Registry</a></li> 
+          </ul> 
+    </span> 
+ 
+  </div> 
+ 
+</div> 
+ 
+</body></html>

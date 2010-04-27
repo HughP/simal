@@ -1,0 +1,343 @@
+/*
+* Copyright 2010 University of Oxford
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+
+/**************************************************************
+   AUTHOR:  Pat Heard (fullahead.org)
+   DATE:    2006.03.19
+   PURPOSE: Controls the layout of the site and styles
+            the menus
+ **************************************************************/
+
+
+
+/**************************************************************
+   #content: Sets the width of the site.  Make changes here
+             to convert to a fixed width site.
+ **************************************************************/
+
+#content {  
+  height: 100%;
+  min-height: 100%;
+  text-align: left;
+}
+
+#content,
+#width {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#content[id],
+#width[id] {
+  width: 100%;
+  height: auto;
+}
+
+#content a:hover img {  
+  /* Fixes IE bug - IE doesn't correctly apply the style on a:hover so need to mask it */
+  border: 2px solid #FFF !important;
+  border: 2px solid #8BE6FA;
+}
+
+
+/**************************************************************
+   #header: Holds the site title and header images
+ **************************************************************/
+
+#header {
+  position: relative;
+  width: 100%;
+  height: 142px;
+}
+
+#header img {
+  border: none;
+}
+
+#header a:hover {
+  border: none;
+}
+
+/* Sets where the header images will go */
+#header img.left {
+  position: absolute;
+  z-index: 1;
+
+  top: 0;
+  left: 0;
+}
+
+#header img.right {
+  position: absolute;
+  z-index: 0;
+
+  top: 0;
+  right: 0;
+}
+
+
+/**************************************************************
+   #mainMenu: The top level site menu
+ **************************************************************/
+
+#mainMenu { 
+  float: left;
+  width: 100%;
+  clear: both;
+  margin: 0em 0em 2em 0em;
+}
+
+#mainMenu ul {
+  margin: 0 1em;
+  padding: 0;
+}
+
+#mainMenu li {
+  display: inline;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#mainMenu li a {
+  float: left;
+  margin: 0 2px;
+  padding: 5px 0.5em;
+
+  font: 400 1.3em "trebuchet ms", serif;
+  text-decoration: none;
+  color: #FFF;
+}
+
+#mainMenu li a.here {
+  font-size: 1.6em;
+}
+
+#mainMenu li a:hover,
+#mainMenu li a.here {
+  color: #65EBFF;
+  border-top: 5px solid #000;
+}
+
+#mainMenu li a.last {
+  margin-right: 0;
+}
+
+
+
+
+/**************************************************************
+   .sideMenu: The side bar menu
+ **************************************************************/
+
+ul.sideMenu {
+  margin: 0;
+  padding: 0;
+}
+
+.sideMenu > li {
+  margin-bottom: 0.5em;
+}
+
+.sideMenu li {
+  display: block;  
+  padding: 0.2em;
+  color: #65EBFF;
+  background: #555;
+  
+  /* Needed since IE fails when you give it list-style: none; */  
+  list-style-image: url(foo.gif);
+  font: 400 1.2em "trebuchet ms", serif;
+}
+
+.sideMenu li ul {
+  margin: 0;
+  padding: 0;
+}
+
+.sideMenu li a {
+  display: block;
+  padding: 3px 5px;    
+  
+  text-decoration: none;
+  color: #FFF;
+} 
+
+.sideMenu li a:hover {
+  color: #65EBFF;
+  background: #5F5F5F;
+}
+
+.sideMenu li ul li a {
+  padding-left: 35px;
+  font: 400 0.65em verdana, arial, sans-serif; 
+  color: #FFF;  
+  background: url(../images/bg/bullet.gif) no-repeat 10px 0px;
+}
+
+.sideMenu li ul li a:hover {
+  color: #9FF3FF;
+  background: #5F5F5F url(../images/bg/bullet.gif) no-repeat 10px 0px;
+}
+
+
+
+/**************************************************************
+   #page: Holds the main page content.
+ **************************************************************/
+
+#page {
+  padding: 0em 2em;
+  clear: both;
+  
+  padding-bottom: 4em;
+}
+
+
+
+
+/**************************************************************
+   #footer: The page footer - will stick to the bottom if not
+            enough content.
+ **************************************************************/
+
+#footer {
+  float: left;
+  width: 100%;
+  clear: both;
+  
+  margin-top: -1em;
+  background: #000 url(../images/bg/footer.jpg) repeat-x top left;
+}
+
+/* Sets the width of the footer content */
+#footer #width {
+  position: relative;
+  z-index: 3;
+  width: 98%;
+  font-size: 0.85em;
+  padding-top: 27px;
+}
+
+
+
+/**************************************************************
+   Width classes used by the site columns
+ **************************************************************/
+
+.width100 {
+  width: 100%;
+}
+
+.width75 {
+  width: 74%;
+}
+
+.width50 {
+  width: 49.7%;
+}
+
+.width33 {
+  width: 32.7%;
+}
+
+.width25 {
+  width: 24.7%;
+}
+
+
+
+/**************************************************************
+   Alignment classes
+ **************************************************************/
+
+.floatLeft {
+  float: left;
+}
+
+.floatRight {
+  float: right;
+}
+
+.alignLeft {
+  text-align: left;
+}
+
+.alignRight {
+  text-align: right;
+}
+
+/**************************************************************
+   Timeline classes
+ **************************************************************/
+
+.timeline-event-bubble-title {
+    color: #000;
+}
+
+.timeline-event-bubble-body {
+    color: #333;
+    text-align: left;
+    line-height: 1em;
+    padding-bottom: 1em;
+}
+
+/**************************************************************
+   Generic display classes
+ **************************************************************/
+
+.clear {
+  clear: both;
+}
+
+.block {
+  display: block;
+}
+
+.small {
+  font-size: 0.8em;
+}
+
+.green {
+  color: #A1FF45;
+}
+
+.red {
+  color: #EA1B00;
+}
+
+.grey {
+  color: #666;
+}
+
+.grey a {
+  color: #999;
+}
+
+.grey a:hover {
+  color: #EEE;
+}
+
+.gradient {
+  margin-bottom: 2em;
+  width: 700px;
+  background: #555 url(../images/bg/gradient.jpg) repeat-x bottom left; 
+}
+
+
+
+
+
