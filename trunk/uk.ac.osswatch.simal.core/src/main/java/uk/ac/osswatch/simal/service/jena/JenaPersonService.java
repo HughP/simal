@@ -134,7 +134,7 @@ public class JenaPersonService extends JenaService implements
 	          + "> " + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
 	          + "PREFIX simal: <" + AbstractSimalRepository.SIMAL_NAMESPACE_URI + ">"
 	          + "SELECT DISTINCT ?person WHERE { " + "?person simal:personId \"" + id
-	          + "\"^^xsd:string }";
+	          + "\" }";
 	      IPerson person = findBySPARQL(queryStr);
 
 	      return person;
