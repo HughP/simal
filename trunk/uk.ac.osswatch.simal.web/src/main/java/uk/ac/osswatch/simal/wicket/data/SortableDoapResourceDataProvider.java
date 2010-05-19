@@ -105,10 +105,10 @@ public class SortableDoapResourceDataProvider extends
     IDoapResource current;
     while (all.hasNext() && idx - (first + count) < 0) {
       current = all.next();
-      if (idx >= first) {
+      if (idx >= first && current.getName() != "") {
         result.add(current);
+        idx++;
       }
-      idx++;
     }
     return result.iterator();
   }
