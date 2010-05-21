@@ -92,8 +92,7 @@ public class JenaOrganisationService extends JenaService implements
 				Foaf.ORGANIZATION);
 		Set<IOrganisation> orgs = new HashSet<IOrganisation>();
 		while (itr.hasNext()) {
-			String uri = itr.nextStatement().getSubject().getURI();
-			orgs.add(new Organisation(model.getResource(uri)));
+			orgs.add(new Organisation(itr.nextStatement().getSubject()));
 		}
 		return orgs;
 	}
