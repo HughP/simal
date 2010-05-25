@@ -86,3 +86,5 @@ For each project that is newly imported into Simal, a new {{{simal:Project}}} is
 Multiple DOAP files can be imported for the same project. See the figure below:
 
 http://simal.googlecode.com/svn/wiki/Schema.attach/simalDoapProjects.png
+
+The same is true for entities of type {{{foaf:Person}}}. A {{{simal:Person}}} is created for a {{{foaf:Person}}} with an {{{rdfs:seeAlso}}} reference to the original {{{foaf:Person}}}. This has no effect on the {{{doap:Project}}} which will still reference to the original {{{foaf:Person}}}.
