@@ -17,82 +17,76 @@ package uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table;
  * under the License.                                                *
  */
 
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.markup.html.link.PopupSettings;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
+import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.wicket.BasePage;
+import uk.ac.osswatch.simal.wicket.doap.CategoryDetailPage;
+import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
+import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
+import uk.ac.osswatch.simal.wicket.panel.LinkPanel;
+
 /**
  * A utility class for creating a ProperyColumn for DataTables that is also a
- * hyperlink.
- * 
- * Your HTML needs:
- * 
- * <![CDATA[
- * 
- * ]]>
+ * bookmarkable hyperlink. It is generic for the IResources of type Category, 
+ * Person and Project. 
  */
-public abstract class LinkPropertyColumn extends PropertyColumn {
-  private static final long serialVersionUID = 1L;
-  PopupSettings popupSettings;
-  IModel labelModel;
+public class LinkPropertyColumn extends PropertyColumn<IResource> {
 
-  public LinkPropertyColumn(IModel displayModel, String sortProperty,
-      String propertyExpression, PopupSettings popupSettings) {
-    this(displayModel, sortProperty, propertyExpression);
-    this.popupSettings = popupSettings;
-  }
+  private static final long serialVersionUID = -8731311921605414490L;
 
-  public LinkPropertyColumn(IModel displayModel, IModel labelModel) {
-    super(displayModel, null);
-    this.labelModel = labelModel;
-  }
-
-  public LinkPropertyColumn(IModel displayModel, String sortProperty,
+  public LinkPropertyColumn(IModel<String> displayModel, String sortProperty,
       String propertyExpression) {
     super(displayModel, sortProperty, propertyExpression);
   }
 
-  public LinkPropertyColumn(IModel displayModel, String propertyExpressions) {
-    super(displayModel, propertyExpressions);
-  }
-
+  /**
+   * Add a link based on the type of resource. 
+   */
   @Override
-  public void populateItem(Item item, String componentId, IModel model) {
-    item.add(new LinkPanel(item, componentId, model));
+  public void populateItem(Item<ICellPopulator<IResource>> item,
+      String componentId, IModel<IResource> model) {
+    IResource targetResource = model.getObject();
+    item
+        .add(new LinkPanel(componentId, targetResource, createLabelModel(model)));
   }
 
-  public abstract void onClick(Item<?> item, String componentId, IModel<?> model);
+  /**
+   * Generate the correct response page based on the type of resource this
+   * model is for.
+   * @param item
+   * @param componentId
+   * @param model
+   */
+  public void onClick(Item<?> item, String componentId, IModel<?> model) {
+    IResource resource = (IResource) model.getObject();
+    item.getRequestCycle().setResponsePage(generateResponsePage(resource));
+  }
 
-  @SuppressWarnings("serial")
-  public class LinkPanel extends Panel {
-    private static final long serialVersionUID = 1L;
+  /**
+   * A somewhat easy fix to generate a subclass of BasePage which is the 
+   * correct type based on the type of the IResource it is for. 
+   * @param targetResource
+   * @return subtype of BasePage for the specific targetResource 
+   */
+  private BasePage generateResponsePage(IResource targetResource) {
+    BasePage targetClass = null;
 
-    public LinkPanel(final Item<?> item, final String componentId,
-        final IModel<?> model) {
-      super(componentId);
-
-      Link<?> link = new Link<String>("link") {
-
-        @Override
-        public void onClick() {
-          LinkPropertyColumn.this.onClick(item, componentId, model);
-        }
-      };
-      link.setPopupSettings(popupSettings);
-
-      add(link);
-
-      IModel<?> tmpLabelModel = labelModel;
-
-      if (labelModel == null) {
-        tmpLabelModel = createLabelModel(model);
-      }
-
-      link.add(new Label("label", tmpLabelModel));
+    if (targetResource instanceof IProject) {
+      targetClass = new ProjectDetailPage((IProject) targetResource);
+    } else if (targetResource instanceof IPerson) {
+      targetClass = new PersonDetailPage((IPerson) targetResource);
+    } else if (targetResource instanceof IDoapCategory) {
+      targetClass = new CategoryDetailPage((IDoapCategory) targetResource);
     }
+
+    return targetClass;
   }
+
 }

@@ -26,8 +26,6 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColu
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.Item;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
@@ -35,7 +33,6 @@ import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableCategoryDataProvider;
-import uk.ac.osswatch.simal.wicket.doap.CategoryDetailPage;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
@@ -68,16 +65,7 @@ public class CategoryListPanel extends Panel {
   private void addCategoryList(SortableDataProvider<IResource> dataProvider) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "name",
-        "name") {
-      private static final long serialVersionUID = 2731613682674835708L;
-
-      @Override
-      public void onClick(Item item, String componentId, IModel model) {
-        IDoapCategory category = (IDoapCategory) model.getObject();
-        getRequestCycle().setResponsePage(new CategoryDetailPage(category));
-      }
-
-    });
+        "name"));
     columns.add(new PropertyColumn(new Model("Projects"), "projects",
         "projects.size"));
     columns
@@ -89,10 +77,12 @@ public class CategoryListPanel extends Panel {
 
   /**
    * Add a new category to the list. Useful when new categories are added after
-   * the page has loaded. 
+   * the page has loaded.
+   * 
    * @param category
    */
   public void addCategory(IDoapCategory category) {
     this.categories.add(category);
   }
+
 }
