@@ -29,7 +29,6 @@ import org.apache.wicket.Session;
 import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadWebRequest;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebRequest;
-import org.apache.wicket.request.target.coding.QueryStringUrlCodingStrategy;
 import org.apache.wicket.util.convert.ConverterLocator;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
@@ -40,6 +39,7 @@ import uk.ac.osswatch.simal.wicket.authentication.SimalAuthorizationStrategy;
 import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 import uk.ac.osswatch.simal.wicket.data.URLConverter;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
+import uk.ac.osswatch.simal.wicket.doap.CategoryDetailPage;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
@@ -73,22 +73,17 @@ public class UserApplication extends WebApplication {
         getSecuritySettings().setUnauthorizedComponentInstantiationListener(authorizationStrategy);
 	       
 		// Project pages
-		mountBookmarkablePage("/project/detail", ProjectDetailPage.class);
-		mount(new QueryStringUrlCodingStrategy("/project/detailencoded",
-				ProjectDetailPage.class));
-
+		mountBookmarkablePage("/project", ProjectDetailPage.class);
 		mountBookmarkablePage("/projectBrowser",
 				ExhibitProjectBrowserPage.class);
 
 		// Person Pages
-		mountBookmarkablePage("/person/detail", PersonDetailPage.class);
-		mount(new QueryStringUrlCodingStrategy("/person/detailencoded",
-				PersonDetailPage.class));
-
+		mountBookmarkablePage("/person", PersonDetailPage.class);
 		mountBookmarkablePage("/personBrowser", ExhibitPersonBrowserPage.class);
 
 		// Category Pages
 		mountBookmarkablePage("/categoryBrowser", CategoryBrowserPage.class);
+    mountBookmarkablePage("/category", CategoryDetailPage.class);
 	}
 
 	@Override

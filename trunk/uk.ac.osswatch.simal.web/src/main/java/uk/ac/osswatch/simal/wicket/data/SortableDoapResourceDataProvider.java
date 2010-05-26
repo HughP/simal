@@ -107,8 +107,8 @@ public class SortableDoapResourceDataProvider extends
       current = all.next();
       if (idx >= first && current.getName() != "") {
         result.add(current);
-        idx++;
       }
+      idx++;
     }
     return result.iterator();
   }

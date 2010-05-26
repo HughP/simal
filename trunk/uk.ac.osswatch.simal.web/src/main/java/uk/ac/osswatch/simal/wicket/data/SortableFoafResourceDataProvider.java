@@ -101,7 +101,7 @@ public class SortableFoafResourceDataProvider extends
     IFoafResource current;
     while (all.hasNext() && idx - (first + count) < 0) {
       current = all.next();
-      if (idx >= first) {
+      if (idx >= first && current != null) {
         result.add(current);
       }
       idx++;

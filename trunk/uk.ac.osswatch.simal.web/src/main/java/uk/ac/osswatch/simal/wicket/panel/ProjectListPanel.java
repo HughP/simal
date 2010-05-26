@@ -27,9 +27,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,7 +35,6 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableProjectDataProvider;
-import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectFilterInputModel;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
@@ -102,16 +99,7 @@ public class ProjectListPanel extends Panel {
     add(new ProjectFilterForm("projectFilterForm"));    
     
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
-    columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name") {
-      private static final long serialVersionUID = -2174061702366979017L;
-
-      @Override
-      public void onClick(Item item, String componentId, IModel model) {
-        IProject project = (IProject) model.getObject();
-        getRequestCycle().setResponsePage(new ProjectDetailPage(project));
-      }
-
-    });
+    columns.add(new LinkPropertyColumn(new Model("Name"), "name", "name"));
     columns.add(new PropertyColumn(new Model("Description"), "shortDesc",
         "shortDesc"));
 
