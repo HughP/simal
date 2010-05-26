@@ -32,7 +32,9 @@ public class SparqlQueryPage extends BasePage {
   private static final String SPARQL_QUERY_STRING_FIELD = "query";
 
   private static final String QUERY_PREFIX = "PREFIX  rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> \n"
+      + "PREFIX  rdfs:  <http://www.w3.org/2000/01/rdf-schema#> \n"
       + "PREFIX  doap: <http://usefulinc.com/ns/doap#> \n"
+      + "PREFIX  foaf: <http://xmlns.com/foaf/0.1/> \n"
       + "PREFIX  simal: <http://oss-watch.ac.uk/ns/0.2/simal#> \n\n";
 
   private final SparqlQueryInputModel inputModel = new SparqlQueryInputModel();
