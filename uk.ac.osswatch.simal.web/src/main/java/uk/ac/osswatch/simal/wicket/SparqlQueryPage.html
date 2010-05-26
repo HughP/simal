@@ -61,6 +61,20 @@ WHERE {
       </td>
       <td>Get the name of all doap:Projects in the repository.</td>
     </tr>
+    <tr>
+      <td>
+<pre>
+SELECT DISTINCT ?s ?p ?o 
+WHERE {
+  { ?s ?p &lt;http://people.apache.org/~rgardler/#me&gt; }
+UNION 
+  { &lt;http://people.apache.org/~rgardler/#me&gt; ?p ?o }
+
+}
+</pre>
+      </td>
+      <td>Show all statements where the URI &lt;http://people.apache.org/~rgardler/#me&gt; is subject or object.</td>
+    </tr>
   </table>
 </wicket:extend>
 </body>
