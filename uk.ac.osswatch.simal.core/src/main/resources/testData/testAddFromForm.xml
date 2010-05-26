@@ -1,0 +1,167 @@
+<!--
+  Copyright 2010 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns="http://usefulinc.com/ns/doap#"
+     xmlns:foaf="http://xmlns.com/foaf/0.1/"
+     xmlns:v="http://www.w3.org/2006/vcard/ns#"
+     xmlns:dc="http://purl.org/dc/core/"
+     xmlns:dcterms="http://purl.org/dc/terms/"
+     xmlns:simal="http://oss-watch.ac.uk/ns/0.2/simal#"
+     xmlns:cerif="http://www.dotac.info/ontology/CERIF2008.owl#"
+>
+<Project rdf:about="http://simal.oss-watch.ac.uk/FromForm">
+ <created>2010-4-23</created>
+ <name>2</name>
+ <shortname>1</shortname>
+ <shortdesc xml:lang="en">3</shortdesc>
+ <description xml:lang="en">4</description>
+ <homepage rdf:resource="http://8p.com"/>
+ <blog rdf:resource="http://5p.com"/>
+ <foaf:seeAlso dc:title="Project blog" rdf:resource="http://6p.com" dc:format="application/rss+xml" />
+ <simal:reporter>
+  <foaf:Person rdf:about="http://registry.oss-watch.ac.uk/people/aa2604078923b0f0e875a0bd31430f3ebe5890ae">
+   <foaf:name>52</foaf:name>
+   <foaf:mbox rdf:resource="mailto:53p.com@gmail.com" />
+   <foaf:mbox_sha1sum>aa2604078923b0f0e875a0bd31430f3ebe5890ae</foaf:mbox_sha1sum>
+   <foaf:phone>54</foaf:phone>
+   <foaf:skypeID>55</foaf:skypeID>
+  </foaf:Person>
+ </simal:reporter>
+ <simal:reporter>
+  <foaf:Person rdfs:label="Project account" rdf:about="http://registry.oss-watch.ac.uk/people/2f9b380a3aac2ac0aa543e2d6d4e75b89de736e2">
+   <foaf:mbox rdf:resource="mailto:7p.com@gmail.com" />
+  </foaf:Person>
+ </simal:reporter>
+ <foaf:fundedBy>
+   <foaf:Organization rdf:about="http://www.jisc.ac.uk">
+     <foaf:name>JISC</foaf:name>
+   </foaf:Organization>
+ </foaf:fundedBy>
+ <simal:fundingManager>59</simal:fundingManager>
+<vendor><foaf:Organization dc:title="Lead institution"><foaf:name>49</foaf:name><foaf:member><foaf:Organization dc:title="Department"><foaf:name>50</foaf:name>
+<foaf:based_near><v:Address><v:postal-code>51</v:postal-code></v:Address></foaf:based_near></foaf:Organization></foaf:member>
+ <simal:projectPartner><foaf:Organization><foaf:name>56</foaf:name></foaf:Organization></simal:projectPartner>
+ <simal:projectPartner><foaf:Organization><foaf:name>64</foaf:name></foaf:Organization></simal:projectPartner>
+</foaf:Organization></vendor>
+ <bug-database rdf:resource="http://58p.com"/>
+ <license rdf:resource="http://usefulinc.com/doap/licenses/lgpl"/>
+ <category rdf:resource="http://registry.oss-watch.ac.uk/categories/standards" rdfs:label="Standards" />
+ <category rdf:resource="http://registry.oss-watch.ac.uk/categories/article" rdfs:label="Article" />
+ <audience>Developers</audience>
+ <audience>Undergraduate Students</audience>
+ <simal:project-director>
+  <foaf:Person rdf:about="http://11p.com">
+   <foaf:name>9</foaf:name>
+   <foaf:homepage rdf:resource="http://11p.com/"/>
+   <foaf:depiction rdf:resource="http://12p.com/"/>
+   <foaf:mbox rdf:resource="mailto:10p.com@gmail.com" />
+   <foaf:mbox_sha1sum>c2caa38b62766454bfe5d2ea498c7c56ec2771c3</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </simal:project-director>
+ <simal:project-manager>
+  <foaf:Person rdf:about="http://15p.com">
+   <foaf:name>13</foaf:name>
+   <foaf:homepage rdf:resource="http://15p.com/"/>
+   <foaf:depiction rdf:resource="http://16p.com/"/>
+   <foaf:mbox rdf:resource="mailto:14p.com@gmail.com" />
+   <foaf:mbox_sha1sum>c5373eecbcff177b8fbe06dc33850e0d604b1c20</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </simal:project-manager>
+ <simal:administrative-assistant>
+  <foaf:Person rdf:about="http://19p.com">
+   <foaf:name>17</foaf:name>
+   <foaf:homepage rdf:resource="http://19p.com/"/>
+   <foaf:depiction rdf:resource="http://20p.com/"/>
+   <foaf:mbox rdf:resource="mailto:18p.com@gmail.com" />
+   <foaf:mbox_sha1sum>57f5f98c7afd407b5f7e534e078cbfc8fdab23be</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </simal:administrative-assistant>
+ <simal:research-officer>
+  <foaf:Person rdf:about="http://23p.com">
+   <foaf:name>21</foaf:name>
+   <foaf:homepage rdf:resource="http://23p.com/"/>
+   <foaf:depiction rdf:resource="http://24p.com/"/>
+   <foaf:mbox rdf:resource="mailto:22p.com@gmail.com" />
+   <foaf:mbox_sha1sum>d9d7531e13d87dd5f3048ee268c7ecdb5b2d6a31</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </simal:research-officer>
+ <maintainer>
+  <foaf:Person rdf:about="http://27p.com">
+   <foaf:name>25</foaf:name>
+   <foaf:homepage rdf:resource="http://27p.com/"/>
+   <foaf:depiction rdf:resource="http://28p.com/"/>
+   <foaf:mbox rdf:resource="mailto:26p.com@gmail.com" />
+   <foaf:mbox_sha1sum>cc0461880ac45b6111c766e50ec369b8d451d707</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </maintainer>
+ <developer>
+  <foaf:Person rdf:about="http://31p.com">
+   <foaf:name>29</foaf:name>
+   <foaf:homepage rdf:resource="http://31p.com/"/>
+   <foaf:depiction rdf:resource="http://32p.com/"/>
+   <foaf:mbox rdf:resource="mailto:30p.com@gmail.com" />
+   <foaf:mbox_sha1sum>d3c9e765c537811c9af69f0d19dad6017c26efbb</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </developer>
+ <documenter>
+  <foaf:Person rdf:about="http://35p.com">
+   <foaf:name>33</foaf:name>
+   <foaf:homepage rdf:resource="http://35p.com/"/>
+   <foaf:depiction rdf:resource="http://36p.com/"/>
+   <foaf:mbox rdf:resource="mailto:34p.com@gmail.com" />
+   <foaf:mbox_sha1sum>6343e61891e42beb6315766812b63bbb309e0973</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </documenter>
+ <tester>
+  <foaf:Person rdf:about="http://39p.com">
+   <foaf:name>37</foaf:name>
+   <foaf:homepage rdf:resource="http://39p.com/"/>
+   <foaf:depiction rdf:resource="http://40p.com/"/>
+   <foaf:mbox rdf:resource="mailto:38p.com@gmail.com" />
+   <foaf:mbox_sha1sum>f96fe5e1586def77982a06396f3f9828af304c4e</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </tester>
+ <helper>
+  <foaf:Person rdf:about="http://43p.com">
+   <foaf:name>41</foaf:name>
+   <foaf:homepage rdf:resource="http://43p.com/"/>
+   <foaf:depiction rdf:resource="http://44p.com/"/>
+   <foaf:mbox rdf:resource="mailto:42p.com@gmail.com" />
+   <foaf:mbox_sha1sum>09360dae46c250ac0e63376e26e2df275fc15abf</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </helper>
+ <translator>
+  <foaf:Person rdf:about="http://47p.com">
+   <foaf:name>45</foaf:name>
+   <foaf:homepage rdf:resource="http://47p.com/"/>
+   <foaf:depiction rdf:resource="http://48p.com/"/>
+   <foaf:mbox rdf:resource="mailto:46p.com@gmail.com" />
+   <foaf:mbox_sha1sum>63d37e6884fbbf4466953e132426b541ac10061d</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </translator>
+ <repository>
+  <HgRepository>
+    <location rdf:resource="http://57p.com"/>
+    <browse rdf:resource="http://57p.com"/>
+  </HgRepository>
+ </repository>
+ <programming-language>60</programming-language>
+ <programming-language>61</programming-language>
+ <programming-language>62</programming-language>
+ <programming-language>63</programming-language>
+</Project>
+</rdf:RDF>
