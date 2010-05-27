@@ -97,4 +97,4 @@ See the documentation for [http://simal.oss-watch.ac.uk/core/developing.html run
 
 = Questions? =
 
-Documentation never answers all your questions. We welcome your suggestions via our [http://groups.google.com/group/simal-contributors mailing list].
+Documentation never answers all your questions. We welcome your questions and suggestions via our [http://groups.google.com/group/simal-contributors mailing list].
