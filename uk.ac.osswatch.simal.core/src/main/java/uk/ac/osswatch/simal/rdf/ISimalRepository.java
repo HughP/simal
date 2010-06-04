@@ -91,6 +91,7 @@ public interface ISimalRepository {
    *          the URL from which this document was generated
    * @param baseURI
    * @throws SimalRepositoryException
+   * @deprecated Use IProjectService.createProject(Document doc) instead 
    */
   public void addProject(Document doc, URL url, String baseURI)
       throws SimalRepositoryException;
@@ -102,6 +103,7 @@ public interface ISimalRepository {
    * @param homepage
    * @return
    * @throws SimalRepositoryException
+   * @deprecated Use IProjectService.findProjectByHomepage instead.
    */
   public IProject findProjectByHomepage(String homepage)
       throws SimalRepositoryException;

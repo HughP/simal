@@ -17,15 +17,27 @@ package uk.ac.osswatch.simal.service.jena;
  * 
  */
 
+import com.hp.hpl.jena.rdf.model.Model;
+
 import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.AbstractService;
 
 public class JenaService extends AbstractService {
 
+	/**
+	 * Create new JenaService but only for ISimalRepository
+	 * objects that are of type JenaSimalRepository
+	 * @param simalRepository
+	 */
 	public JenaService(ISimalRepository simalRepository) {
 		super(simalRepository);
+		
+		if (!(simalRepository instanceof JenaSimalRepository)) {
+		  throw new UnsupportedOperationException();
+		}
 	}
 
 	@Override
@@ -33,4 +45,11 @@ public class JenaService extends AbstractService {
 		// no specific action required
 	}
 
+	/**
+	 * Get the Model for this JenaSimalRepository 
+	 * @return
+	 */
+	protected Model getModel() {
+	  return ((JenaSimalRepository)getRepository()).getModel();
+	}
 }

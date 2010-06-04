@@ -198,7 +198,7 @@ public class Pims {
 	        doc.getDocumentElement().appendChild(doap);
 	        // serialise(doc);
 	        try {
-	          SimalRepositoryFactory.getInstance().addProject(doc, url, "http://www.jisc.ac.uk");
+	          SimalRepositoryFactory.getProjectService().createProject(doc);
 	        } catch (SimalRepositoryException e) {
 	          errorReports.append("Error when importing project named '" + name + "': ");
 	          errorReports.append(e.getMessage());
@@ -373,7 +373,7 @@ public class Pims {
 	        serialise(doc);
 
           try {
-            SimalRepositoryFactory.getInstance().addProject(doc, url, getProjectURI(projectId));
+            SimalRepositoryFactory.getProjectService().createProject(doc);
           } catch (SimalRepositoryException e) {
             errorReports.append("Error when importing person named '" + name + "': ");
             errorReports.append(e.getMessage());
