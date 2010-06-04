@@ -19,6 +19,8 @@ package uk.ac.osswatch.simal.service;
 
 import java.util.Set;
 
+import org.w3c.dom.Document;
+
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -137,6 +139,16 @@ public interface IProjectService extends IService {
 	      throws SimalRepositoryException;
 
 	  /**
+	   * Get a project with a given homepage.
+	   * 
+	   * @param homepage
+	   * @return
+	   * @throws SimalRepositoryException
+	   */
+	  public IProject findProjectByHomepage(String homepage)
+	      throws SimalRepositoryException;
+
+	  /**
 	   * Find all projects that have a review assigned to it.
 	   * 
 	   * @return
@@ -177,6 +189,15 @@ public interface IProjectService extends IService {
 	     */
 	    public IProject createProject(String uri) throws SimalRepositoryException,
 	        DuplicateURIException;
+
+      /**
+       * Create a new project in the repository based on an RDF/XML document.
+       * 
+       * @return the newly created project
+       * @throws SimalRepositoryException
+       *           if an error is thrown whilst communicating with the repository
+       */
+      public IProject createProject(Document sourceXml) throws SimalRepositoryException;
 
 	    /**
 	     * Create a new project ID and save the next value in the properties file.

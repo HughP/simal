@@ -49,7 +49,6 @@ import org.xml.sax.SAXException;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -70,20 +69,13 @@ public class Ohloh {
    * @throws SimalException
    */
   public void addProjectToSimal(String projectID) throws SimalException, ImportException {
-    ISimalRepository repo = SimalRepositoryFactory.getInstance();
-
     try {
       DOMResult domProjectResult = getProjectDataAsDOAP(projectID);
       DOMResult domContributorResult = getContributorDataAsFOAF(projectID);
       Element resultRoot = mergeProjectAndContributorData(domProjectResult,
           domContributorResult).getDocumentElement();
 
-      // Now add the data to the repository
-      StringBuilder source = new StringBuilder(OHLOH_BASE_URI);
-      source.append("/");
-      source.append(projectID);
-      URL sourceURL = new URL(source.toString());
-      repo.addProject(resultRoot.getOwnerDocument(), sourceURL, OHLOH_BASE_URI);
+      SimalRepositoryFactory.getProjectService().createProject(resultRoot.getOwnerDocument());
     } catch (TransformerConfigurationException e) {
       throw new SimalRepositoryException("Unable to create XSL Transformer", e);
     } catch (TransformerException e) {

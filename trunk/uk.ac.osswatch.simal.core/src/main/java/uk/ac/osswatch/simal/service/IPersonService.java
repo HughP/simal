@@ -19,6 +19,8 @@ package uk.ac.osswatch.simal.service;
 
 import java.util.Set;
 
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import uk.ac.osswatch.simal.model.IPerson;
@@ -70,7 +72,22 @@ public interface IPersonService extends IService {
 	  public IPerson create(String uri) throws SimalRepositoryException,
 	      DuplicateURIException;
 	  
+    /**
+     * Create a new person ID and save the next value in the properties file.
+     */
+    public String getNewPersonID() throws SimalRepositoryException;
 
+	  /**
+	   * Add a person to the repository.
+	   * 
+	   * @param simalProjectURI
+	   *          the URI of the simal record representing the project this person beongs to
+	   * @throws DOMException
+	   * @throws SimalRepositoryException
+	   */
+	  public void addPerson(Element sourcePersonRoot, String simalProjectURI)
+	      throws SimalRepositoryException, DOMException;
+	      
 	  /**
 	   * Create a new person ID and save the next local value in the properties
 	   * file.

@@ -206,38 +206,11 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     return uniqueID.substring(uniqueID.lastIndexOf(ID_SEPARATOR) + 1);
   }
 
+  /**
+   * @deprecated use IPersonService.getNewPersonID() instead
+   */
   public String getNewPersonID() throws SimalRepositoryException {
-    String fullID = null;
-    String strEntityID = SimalProperties.getProperty(
-        SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID, "1");
-    long entityID = Long.parseLong(strEntityID);
-
-    /**
-     * If the properties file is lost for any reason the next ID value will be
-     * lost. We therefore need to perform a sanity check that this is unique.
-     */
-    boolean validID = false;
-    while (!validID) {
-      fullID = getUniqueSimalID("per" + Long.toString(entityID));
-      if (SimalRepositoryFactory.getPersonService().findById(fullID) == null) {
-        validID = true;
-      } else {
-        entityID = entityID + 1;
-      }
-    }
-
-    long newId = entityID + 1;
-    SimalProperties.setProperty(SimalProperties.PROPERTY_SIMAL_NEXT_PERSON_ID,
-        Long.toString(newId));
-    try {
-      SimalProperties.save();
-    } catch (Exception e) {
-      logger.warn("Unable to save properties file", e);
-      throw new SimalRepositoryException(
-          "Unable to save properties file when creating the next person ID", e);
-    }
-
-    return fullID;
+    return SimalRepositoryFactory.getPersonService().getNewPersonID();
   }
 
   public void addXMLDirectory(final String dirName)
@@ -279,7 +252,7 @@ public abstract class AbstractSimalRepository implements ISimalRepository {
     try {
       db = dbf.newDocumentBuilder();
       originalDoc = db.parse(url.openStream());
-      addProject(originalDoc, url, baseURI);
+      SimalRepositoryFactory.getProjectService().createProject(originalDoc);
     } catch (SAXException e) {
       throw new SimalRepositoryException("Unable to prepare data from "
           + url.toExternalForm() + " for adding to the repository", e);
