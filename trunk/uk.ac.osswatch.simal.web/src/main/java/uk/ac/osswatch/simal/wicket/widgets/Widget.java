@@ -16,16 +16,21 @@ package uk.ac.osswatch.simal.wicket.widgets;
  * specific language governing permissions and limitations           *
  * under the License.                                                *
  */
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Collection;
 import java.util.HashMap;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 
-public class Widget { 
-	String identifier;
+public class Widget implements Serializable{
+  
+  private static final long serialVersionUID = 2625929235339451020L;
+
+  String identifier;
 	String title;
 	String description;
 	URL icon;
@@ -80,18 +85,30 @@ public class Widget {
 	 */
 	public Instance addInstance(Document xml) {
 		Element rootEl = xml.getDocumentElement();
-		String url = rootEl.getElementsByTagName("url").item(0).getTextContent();
-		String id = rootEl.getElementsByTagName("identifier").item(0).getTextContent();
-		String title = rootEl.getElementsByTagName("title").item(0).getTextContent();
-		String height = rootEl.getElementsByTagName("height").item(0).getTextContent();
-		String width = rootEl.getElementsByTagName("width").item(0).getTextContent();
-		String maximize = rootEl.getElementsByTagName("maximize").item(0).getTextContent();
+		String url = getElementTextContent(rootEl, "url");
+		String id = getElementTextContent(rootEl, "identifier");
+		String title = getElementTextContent(rootEl, "title");
+		String height = getElementTextContent(rootEl, "height");
+		String width = getElementTextContent(rootEl, "width");
+		String maximize = getElementTextContent(rootEl, "maximize");
 		Instance instance = new Instance(url, id, title, height, width, maximize);
 		instances.put(id, instance);
 		
 		return instance;
 	}
 
+
+	private String getElementTextContent(Element rootEl, String tagName) {
+	  String textContent = "";
+	  
+	  NodeList nodeList = rootEl.getElementsByTagName(tagName);
+	  if(nodeList != null && nodeList.getLength() > 0) {
+	    textContent = nodeList.item(0).getTextContent();
+	  }
+	   
+	  return textContent;
+	}
+	
 	/**
 	 * An instance of this widget.
 	 *
