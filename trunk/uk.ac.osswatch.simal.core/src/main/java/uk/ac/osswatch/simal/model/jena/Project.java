@@ -473,7 +473,37 @@ public class Project extends DoapResource implements IProject {
     return feeds;
   }
 
-public int getOpennessRating() throws SimalRepositoryException {
+  /**
+   * Temporary fix to return an accessible url to the project; imitates
+   * construction mechanism of the BookmarkablePageLink in Wicket. 
+   * 
+   * TODO Redesign in line with best practice linked data approach, eg.
+   * make URI of the project an accessible URL.
+   * 
+   * @return URL of a web page where project can be viewed.
+   */
+  public String generateURL() {
+    // http://<host>/project/simalID/<simalID>
+    StringBuffer url = new StringBuffer();
+
+    try {
+      url.append(SimalProperties
+          .getProperty(SimalProperties.PROPERTY_USER_WEBAPP_BASEURL));
+      if (!url.toString().endsWith("/")) {
+        url.append('/');
+      }
+      url.append("project/simalID/");
+      url.append(getSimalID());
+    } catch (SimalRepositoryException e) {
+      logger.info("Could not generate url using property "
+          + SimalProperties.PROPERTY_USER_WEBAPP_BASEURL + "; error:"
+          + e.getMessage(), e);
+    }
+    
+    return url.toString();
+  }
+
+  public int getOpennessRating() throws SimalRepositoryException {
 	IReviewService service = SimalRepositoryFactory.getReviewService();
 	Set<IReview> reviews = service.getReviewsForProject(this);
 	if (reviews.size() == 0) {

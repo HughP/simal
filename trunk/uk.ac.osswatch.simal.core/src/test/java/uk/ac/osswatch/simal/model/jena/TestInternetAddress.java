@@ -18,7 +18,8 @@
 
 package uk.ac.osswatch.simal.model.jena;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,19 +31,13 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
-import uk.ac.osswatch.simal.model.ModelSupport;
-import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * Test the class uk.ac.osswatch.simal.model.jena.InternetAddress, especially
  * the method getObfuscatedAddress()
  */
-public class TestInternetAddress {
-
-  protected static ISimalRepository repository;
-
-  private static final String TEST_OSS_WATCH_DOAP = "testData/ossWatchDOAP.xml";
+public class TestInternetAddress extends AbstractJenaModelTest {
 
   private static final String TEST_DEVELOPER_SEE_ALSO = "http://people.apache.org/~rgardler/foaf.rdf.xml";
 
@@ -50,20 +45,12 @@ public class TestInternetAddress {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
-    repository = SimalRepositoryFactory
-        .getInstance(SimalRepositoryFactory.JENA);
-    if (!repository.isInitialised()) {
-      repository.initialise(null);
-    }
-    
-    repository.addProject(ISimalRepository.class.getClassLoader().getResource(
-        TEST_OSS_WATCH_DOAP), ModelSupport.TEST_FILE_BASE_URL);
     EXPECTED_OBFUSCATED_EMAILS.put("mailto:rgardler@apache.org",
         "mailto:rgardler [at] apache...org");
     EXPECTED_OBFUSCATED_EMAILS.put("mailto:ross.gardler@oucs.ox.ac.uk",
         "mailto:ross.gardler [at] oucs...ox...ac...uk");
   }
-
+  
   @Test
   public void testInternetAddress() {
     try {
