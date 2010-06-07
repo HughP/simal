@@ -19,7 +19,10 @@ package uk.ac.osswatch.simal.rest;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.jena.Project;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFXMLUtils;
 
 /**
  * A class for handling all API calls relating to projects.
@@ -46,16 +49,22 @@ public class ProjectAPI extends AbstractHandler {
    * @throws SimalAPIException
    */
   public String execute() throws SimalAPIException {
+    String execResult = null;
+    
     if (command.isGetAllProjects()) {
-      return getAllProjects(command);
+      execResult = getAllProjects(command);
     } else if (command.isGetProject()) {
-      return getProject(command);
+      execResult = getProject(command);
     } else if (command.isAddProject()) {
-      addProject(command);
-      return null;
+      IProject newProject = addProject(command);
+      if (newProject instanceof Project) {
+        execResult = ((Project) newProject).generateURL();
+      }
     } else {
       throw new SimalAPIException("Unknown command: " + command);
     }
+    
+    return execResult;
   }
 
 /**
@@ -128,11 +137,20 @@ public class ProjectAPI extends AbstractHandler {
    * @throws SimalAPIException
    *           if the project was not added for any reason
    */
-  private void addProject(RESTCommand command) throws SimalAPIException {
+  private IProject addProject(RESTCommand command) throws SimalAPIException {
+    IProject newProject = null;
+    String rdfXml = command.getParameter(RESTCommand.PARAM_RDF);
+    
+    if(rdfXml == null) {
+      throw new SimalAPIException("Did not find RDF/XML data to add project from.");
+    }
+    
     try {
-      getRepository().add(command.getParameter(RESTCommand.PARAM_RDF));
-    } catch (SimalRepositoryException e) {
+      newProject = SimalRepositoryFactory.getProjectService().createProject(RDFXMLUtils.convertXmlStringToDom(rdfXml));
+    } catch (SimalException e) {
       throw new SimalAPIException("Unable to add RDF data", e);
     }
+    
+    return newProject;
   }
 }

@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.rest;
 
 /*
- * Copyright 2008 University of Oxford
+ * Copyright 2008,2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -33,7 +33,7 @@ import org.junit.Test;
 public class TestProjectAPI extends AbstractAPITest {
 
   @Test
-  public void addDOAP() throws SimalAPIException, URISyntaxException,
+  public void addIllegalDOAP() throws SimalAPIException, URISyntaxException,
       IOException {
     RESTCommand command = RESTCommand.createCommand(RESTCommand.PROJECT_ADD);
     command.addParameter("rdf", "illegal RDF data");
@@ -42,7 +42,17 @@ public class TestProjectAPI extends AbstractAPITest {
       handler.execute();
     } catch (SimalAPIException e) {
       // that's good, we don't expect to add invalid data
+      return;
     }
+    fail("Adding illegal RDF data didn't fail.");
+  }
+  
+  @Test
+  public void addDOAP() throws SimalAPIException, URISyntaxException,
+      IOException {
+    RESTCommand command = RESTCommand.createCommand(RESTCommand.PROJECT_ADD);
+    IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
+    String result = null;
 
     InputStream fis = this.getClass().getResourceAsStream("/doapTestFile.xml");
     int x = fis.available();
@@ -53,13 +63,14 @@ public class TestProjectAPI extends AbstractAPITest {
     command.addParameter(RESTCommand.PARAM_RDF, data);
     handler = SimalHandlerFactory.createHandler(command, getRepo());
     try {
-      handler.execute();
+      result = handler.execute();
     } catch (SimalAPIException e) {
       fail("Exception thrown when adding project" + e.getMessage());
     }
 
-    // we don't bother testing to see if the project has been added here
-    // that's the job of the repository tests.
+    if(result == null) {
+      fail("Adding a project did not return a result.");
+    }
   }
 
   @Test
