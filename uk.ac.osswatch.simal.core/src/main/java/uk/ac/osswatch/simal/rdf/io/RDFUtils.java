@@ -22,9 +22,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -54,8 +51,6 @@ public final class RDFUtils {
   public static final String SIMAL_CATEGORY_ID = "categoryId";
   public static final String SIMAL_PERSON_ID = "personId";
   public static final String SIMAL_PROJECT_ID = "projectId";
-
-  static final Logger LOGGER = LoggerFactory.getLogger(RDFUtils.class);
 
   public static final String DOAP_NS = DOAP.NS;
   public static final String DC_NS = DC.NS;
