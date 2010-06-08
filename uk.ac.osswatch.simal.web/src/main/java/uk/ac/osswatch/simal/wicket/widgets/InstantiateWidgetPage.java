@@ -70,7 +70,6 @@ public class InstantiateWidgetPage extends BasePage {
 		add(new Label("url", instance.getUrl()));
 		add(new Label("height", instance.getHeight()));
 		add(new Label("width", instance.getWidth()));
-		add(new Label("maximize", instance.getMaximize()));
 	}
 
 	/**
@@ -80,8 +79,8 @@ public class InstantiateWidgetPage extends BasePage {
 	   *          the widget we want to instantiate with this page
 	   * @return
 	   */
-	  public static Link getLink(final String id, final Widget widget) {	    
-	   return new Link(id) {
+	  public static Link<InstantiateWidgetPage> getLink(final String id, final Widget widget) {	    
+	   return new Link<InstantiateWidgetPage>(id) {
 	     private static final long serialVersionUID = 4984984523L;
 	     
 		   public void onClick(){

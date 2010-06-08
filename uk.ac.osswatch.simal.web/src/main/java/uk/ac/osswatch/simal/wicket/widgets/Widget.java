@@ -90,8 +90,7 @@ public class Widget implements Serializable{
 		String title = getElementTextContent(rootEl, "title");
 		String height = getElementTextContent(rootEl, "height");
 		String width = getElementTextContent(rootEl, "width");
-		String maximize = getElementTextContent(rootEl, "maximize");
-		Instance instance = new Instance(url, id, title, height, width, maximize);
+		Instance instance = new Instance(url, id, title, height, width);
 		instances.put(id, instance);
 		
 		return instance;
@@ -120,16 +119,14 @@ public class Widget implements Serializable{
 		String title;
 		String height;
 		String width;
-		String maximize;
 
 		public Instance(String url, String id, String title, String height,
-				String width, String maximize) {
+				String width) {
 			setId(id);
 			setUrl(url);
 			setTitle(title);
 			setHeight(height);
 			setWidth(width);
-			setMaximize(maximize);
 		}
 		
 		public String getUrl() {
@@ -172,13 +169,6 @@ public class Widget implements Serializable{
 			this.width = width;
 		}
 
-		public String getMaximize() {
-			return maximize;
-		}
-
-		public void setMaximize(String maximize) {
-			this.maximize = maximize;
-		}
 	}
 
 	/**
