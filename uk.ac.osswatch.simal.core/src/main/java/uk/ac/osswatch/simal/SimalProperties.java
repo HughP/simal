@@ -64,6 +64,8 @@ public class SimalProperties {
 
   public static final String PROPERTY_USER_WEBAPP_BASEURL = "simal.user.webapp.baseurl";
 
+  public static final String PROPERTY_ADD_PROJECT_WIDGET_TITLE = "simal.widget.addproject.name";
+  
   public static final String PROPERTY_OHLOH_API_KEY = "ohloh.api.key";
   
   public static final String PROPERTY_GOOGLE_AJAX_FEED_API_KEY = "google.ajax.feed.api.key";
@@ -182,6 +184,8 @@ public class SimalProperties {
    */
   public static String getProperty(String key, String defaultValue)
       throws SimalRepositoryException {
+    // FIXME We shouldn't be throwing Exceptions when the caller can supply
+    // a sensible default value.
     if (defaultProps == null) {
       try {
         initProperties();
