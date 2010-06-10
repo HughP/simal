@@ -53,10 +53,11 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.tools.OhlohFormInputModel;
+import uk.ac.osswatch.simal.wicket.widgets.WidgetInstance;
 import uk.ac.osswatch.simal.wicket.widgets.Widget;
+import uk.ac.osswatch.simal.wicket.widgets.WookieServerConnection;
 import uk.ac.osswatch.simal.wicket.widgets.WookieWidgetGalleryPanel;
 import uk.ac.osswatch.simal.wicket.widgets.WookieWidgetPanel;
-import uk.ac.osswatch.simal.wicket.widgets.Widget.Instance;
 
 /**
  * The tools page provides access to a number of useful Admin tools.
@@ -66,15 +67,20 @@ public class ToolsPage extends BasePage {
   private static final Logger logger = LoggerFactory.getLogger(ToolsPage.class);
   private static OhlohFormInputModel inputModel = new OhlohFormInputModel();
 
+  private static Folder uploadFolder;
+
   public ToolsPage() {
 
     // Repository Stats
     try {
       add(new Label("numOfProjects", Integer.toString(UserApplication
           .getRepository().getAllProjects().size())));
-      add(new Label("numOfPeople", Integer.toString(SimalRepositoryFactory.getPersonService().getAll().size())));
-      add(new Label("numOfCategories", Integer.toString(SimalRepositoryFactory.getCategoryService().getAll().size())));
-      add(new Label("numOfReviews", Integer.toString(SimalRepositoryFactory.getReviewService().getReviews().size())));
+      add(new Label("numOfPeople", Integer.toString(SimalRepositoryFactory
+          .getPersonService().getAll().size())));
+      add(new Label("numOfCategories", Integer.toString(SimalRepositoryFactory
+          .getCategoryService().getAll().size())));
+      add(new Label("numOfReviews", Integer.toString(SimalRepositoryFactory
+          .getReviewService().getReviews().size())));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get repository statistics", ToolsPage.class, e);
@@ -89,17 +95,19 @@ public class ToolsPage extends BasePage {
           .toString()));
       add(new Label("repositoryDir", SimalProperties
           .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR)));
-      if (UserApplication.getScheduledPtswStatus() ) {
+      if (UserApplication.getScheduledPtswStatus()) {
         add(new Label("PTSWUpdaterStatus", "True"));
-      } else  {
+      } else {
         add(new Label("PTSWUpdaterStatus", "False"));
       }
 
+      add(new Link<BasePage>("toggleImportPTSWLink") {
 
-      add(new Link("toggleImportPTSWLink") {
+        private static final long serialVersionUID = -6938957715376331902L;
 
         public void onClick() {
-          UserApplication.setScheduledPtswStatus(!UserApplication.getScheduledPtswStatus());
+          UserApplication.setScheduledPtswStatus(!UserApplication
+              .getScheduledPtswStatus());
           setResponsePage(new ToolsPage());
         }
       });
@@ -109,7 +117,9 @@ public class ToolsPage extends BasePage {
       setResponsePage(new ErrorReportPage(error));
     }
 
-    add(new Link("removeAllData") {
+    add(new Link<BasePage>("removeAllData") {
+
+      private static final long serialVersionUID = 2038272881644442695L;
 
       public void onClick() {
         try {
@@ -121,7 +131,9 @@ public class ToolsPage extends BasePage {
       }
     });
 
-    add(new Link("importTestData") {
+    add(new Link<BasePage>("importTestData") {
+
+      private static final long serialVersionUID = -7068358662054658988L;
 
       public void onClick() {
         try {
@@ -133,27 +145,32 @@ public class ToolsPage extends BasePage {
       }
     });
 
-    add(new BookmarkablePageLink<SettingsPage>("settingsPageLink", SettingsPage.class));
-    add(new BookmarkablePageLink<SparqlQueryPage>("sparqlQueryPageLink", SparqlQueryPage.class));
-    
+    add(new BookmarkablePageLink<SettingsPage>("settingsPageLink",
+        SettingsPage.class));
+    add(new BookmarkablePageLink<SparqlQueryPage>("sparqlQueryPageLink",
+        SparqlQueryPage.class));
+
     add(new ImportFromOhlohForm("importFromOhlohForm"));
-    
-    final PimsUploadForm pimsProgrammesUploadForm = new PimsUploadForm("importProgrammesFromPimsForm", PimsUploadForm.PROGRAMMES);
+
+    final PimsUploadForm pimsProgrammesUploadForm = new PimsUploadForm(
+        "importProgrammesFromPimsForm", PimsUploadForm.PROGRAMMES);
     pimsProgrammesUploadForm.add(new UploadProgressBar("uploadProgress",
         pimsProgrammesUploadForm));
     add(pimsProgrammesUploadForm);
-    
-    final PimsUploadForm pimsProjectsUploadForm = new PimsUploadForm("importProjectsFromPimsForm", PimsUploadForm.PROJECTS);
+
+    final PimsUploadForm pimsProjectsUploadForm = new PimsUploadForm(
+        "importProjectsFromPimsForm", PimsUploadForm.PROJECTS);
     pimsProjectsUploadForm.add(new UploadProgressBar("uploadProgress",
         pimsProjectsUploadForm));
     add(pimsProjectsUploadForm);
-    
-    final PimsUploadForm pimsProjectContactsUploadForm = new PimsUploadForm("importProjectContactsFromPimsForm", PimsUploadForm.PROJECT_CONTACTS);
+
+    final PimsUploadForm pimsProjectContactsUploadForm = new PimsUploadForm(
+        "importProjectContactsFromPimsForm", PimsUploadForm.PROJECT_CONTACTS);
     pimsProjectContactsUploadForm.add(new UploadProgressBar("uploadProgress",
         pimsProjectContactsUploadForm));
     add(pimsProjectContactsUploadForm);
-    
-    add(new Link("importPTSWLink") {
+
+    add(new Link<BasePage>("importPTSWLink") {
       private static final long serialVersionUID = -6938957715376331902L;
 
       public void onClick() {
@@ -165,40 +182,62 @@ public class ToolsPage extends BasePage {
         }
       }
     });
-    
+
     // Browsing Tools
-    add(new BookmarkablePageLink("exhibitPersonLink",
+    add(new BookmarkablePageLink<ExhibitPersonBrowserPage>("exhibitPersonLink",
         ExhibitPersonBrowserPage.class));
-    add(new BookmarkablePageLink("exhibitProjectLink",
-            ExhibitProjectBrowserPage.class));
+    add(new BookmarkablePageLink<ExhibitPersonBrowserPage>(
+        "exhibitProjectLink", ExhibitProjectBrowserPage.class));
+
+    populateWookiePanel();
+  }
+
+  /**
+   * Add Wookie widgets to the page if the server is available. 
+   */
+  private void populateWookiePanel() {
+
+    WookieServerConnection wookieServerConnection = UserApplication
+        .getWookieServerConnection();
     
-    // Widget testing
-    // all widgets in a gallery
-	try {
-		add(new WookieWidgetGalleryPanel("widgetGallery"));
-	} catch (SimalException e) {
-		UserReportableException ure = new UserReportableException("Unable to retrieve widgets from Woookie for Gallery", ToolsPage.class, e);
-        setResponsePage(new ErrorReportPage(ure));
+    // Trick to (re)connect to Wookie server in case it has
+    // been (re)started after Simal's initial connection setup. 
+    if(!wookieServerConnection.isAvailable()) {
+      wookieServerConnection.initialise();
     }
-	// all instantiated widgets
-	try {
-	    RepeatingView repeating = new RepeatingView("instantiatedWidgets");
-	    Iterator<Widget> itr = UserApplication.getWookieServerConnection().getAvailableWidgets().values().iterator();
-	    Widget widget;
-		while(itr.hasNext()) {
-		  widget = itr.next();
-	      Iterator<Widget.Instance> instances = widget.getInstances().iterator();
-	      while(instances.hasNext()) {
-	    	  Instance instance = instances.next();
-			  WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
-			  repeating.add(item);
-			  item.add(new WookieWidgetPanel("instance", instance));
-	      }
-		}
-		add(repeating);
-	} catch (SimalException e) {
-		UserReportableException ure = new UserReportableException("Unable to retrieve widgets from Woookie for Gallery", ToolsPage.class, e);
-        setResponsePage(new ErrorReportPage(ure));
+
+    // Show all widgets in a gallery
+    try {
+      add(new WookieWidgetGalleryPanel("widgetGallery"));
+    } catch (SimalException e) {
+      UserReportableException ure = new UserReportableException(
+          "Unable to retrieve widgets from Woookie for Gallery",
+          ToolsPage.class, e);
+      setResponsePage(new ErrorReportPage(ure));
+    }
+    // all instantiated widgets
+    try {
+      RepeatingView repeating = new RepeatingView("instantiatedWidgets");
+      Iterator<Widget> itr = wookieServerConnection.getAvailableWidgets()
+          .values().iterator();
+      Widget widget;
+      while (itr.hasNext()) {
+        widget = itr.next();
+        Iterator<WidgetInstance> instances = widget.getInstances().iterator();
+        while (instances.hasNext()) {
+          WidgetInstance instance = instances.next();
+          WebMarkupContainer item = new WebMarkupContainer(repeating
+              .newChildId());
+          repeating.add(item);
+          item.add(new WookieWidgetPanel("instance", instance));
+        }
+      }
+      add(repeating);
+    } catch (SimalException e) {
+      UserReportableException ure = new UserReportableException(
+          "Unable to retrieve widgets from Woookie for Gallery",
+          ToolsPage.class, e);
+      setResponsePage(new ErrorReportPage(ure));
     }
   }
 
@@ -227,26 +266,27 @@ public class ToolsPage extends BasePage {
           ToolsPage.class, e);
     }
     try {
-		ModelSupport.addTestData(repo);
-	} catch (Exception e) {
-		throw new UserReportableException("Unable to add test data: " + e.getMessage(), ToolsPage.class);
-	}
+      ModelSupport.addTestData(repo);
+    } catch (Exception e) {
+      throw new UserReportableException("Unable to add test data: "
+          + e.getMessage(), ToolsPage.class);
+    }
   }
-  
+
   private void importPTSW() throws UserReportableException {
     PTSWImport importer = new PTSWImport();
     try {
-		importer.importLatestDOAP();
-	} catch (SimalRepositoryException e) {
-	    throw new UserReportableException("Unable to import data into the repostory",
-		        ToolsPage.class, e);
-	} catch (SimalException e) {
-	    throw new UserReportableException("Unable to import data from PTSW",
-	        ToolsPage.class, e);
-	} catch (IOException e) {
-	    throw new UserReportableException("Unable to retrive data from PTSW",
-	        ToolsPage.class, e);
-	}
+      importer.importLatestDOAP();
+    } catch (SimalRepositoryException e) {
+      throw new UserReportableException(
+          "Unable to import data into the repostory", ToolsPage.class, e);
+    } catch (SimalException e) {
+      throw new UserReportableException("Unable to import data from PTSW",
+          ToolsPage.class, e);
+    } catch (IOException e) {
+      throw new UserReportableException("Unable to retrive data from PTSW",
+          ToolsPage.class, e);
+    }
   }
 
   private static class ImportFromOhlohForm extends Form<OhlohFormInputModel> {
@@ -255,7 +295,7 @@ public class ToolsPage extends BasePage {
     public ImportFromOhlohForm(String name) {
       super(name, new CompoundPropertyModel<OhlohFormInputModel>(inputModel));
       TextField<String> idField = new TextField<String>("projectID");
-	  add(idField);
+      add(idField);
       String[] defaultValue = { "" };
       idField.setModelValue(defaultValue);
     }
@@ -269,7 +309,7 @@ public class ToolsPage extends BasePage {
           Ohloh importer = new Ohloh();
           importer.addProjectToSimal(inputModel.getProjectID());
         } catch (ImportException e) {
-      	  setResponsePage(new SettingsPage(SettingsPage.SET_OHLOH_API));
+          setResponsePage(new SettingsPage(SettingsPage.SET_OHLOH_API));
         } catch (SimalException e) {
           setResponsePage(new ErrorReportPage(new UserReportableException(
               "Unable to import from Ohloh", ToolsPage.class, e)));
@@ -279,104 +319,107 @@ public class ToolsPage extends BasePage {
   }
 
   private static class PimsUploadForm extends Form<FileUploadField> {
-	    private static final long serialVersionUID = 1L;
-		public static final int PROGRAMMES = 10;
-		public static final int PROJECTS = 20;
-		public static final int PROJECT_CONTACTS = 30;
-		private FileUploadField fileUploadField;
-		private int type;
+    private static final long serialVersionUID = 1L;
+    public static final int PROGRAMMES = 10;
+    public static final int PROJECTS = 20;
+    public static final int PROJECT_CONTACTS = 30;
+    private FileUploadField fileUploadField;
+    private int type;
 
-	    /**
-	     * Simple constructor.
-	     * 
-	     * @param name
-	     *          Component name
-	     * @param i 
-	     */
-	    public PimsUploadForm(String name, int type) {
-	      super(name);
-	      setMultiPart(true);
-	      add(fileUploadField = new FileUploadField("fileInput"));
-	      this.type = type;
-	    }
+    /**
+     * Simple constructor.
+     * 
+     * @param name
+     *          Component name
+     * @param i
+     */
+    public PimsUploadForm(String name, int type) {
+      super(name);
+      setMultiPart(true);
+      add(fileUploadField = new FileUploadField("fileInput"));
+      this.type = type;
+    }
 
-	    /**
-	     * @see org.apache.wicket.markup.html.form.Form#onSubmit()
-	     */
-	    protected void onSubmit() {
-	      super.onSubmit();
+    /**
+     * @see org.apache.wicket.markup.html.form.Form#onSubmit()
+     */
+    protected void onSubmit() {
+      super.onSubmit();
 
-	      if (!this.hasError()) {
-	        final FileUpload upload = fileUploadField.getFileUpload();
-	        if (upload != null) {
-	          File newFile = new File(getUploadFolder(), upload.getClientFileName());
+      if (!this.hasError()) {
+        final FileUpload upload = fileUploadField.getFileUpload();
+        if (upload != null) {
+          File newFile = new File(getUploadFolder(), upload.getClientFileName());
 
-	          if (newFile.exists() && !Files.remove(newFile)) {
-              throw new IllegalStateException("Unable to overwrite "
-	                  + newFile.getAbsolutePath());
-	          }
+          if (newFile.exists() && !Files.remove(newFile)) {
+            throw new IllegalStateException("Unable to overwrite "
+                + newFile.getAbsolutePath());
+          }
 
-	          try {
-	            boolean success = newFile.createNewFile();
-	            if (!success) {
-	              logger.warn("Trying ot create a file that already exists: "
-	                  + newFile);
-	            }
-	            upload.writeTo(newFile);
-	            logger.info("Uploaded PIMS export saved to " + upload.getClientFileName());
-	          } catch (IOException e) {
-	            throw new IllegalStateException("Unable to write file");
-	          }
+          try {
+            boolean success = newFile.createNewFile();
+            if (!success) {
+              logger.warn("Trying ot create a file that already exists: "
+                  + newFile);
+            }
+            upload.writeTo(newFile);
+            logger.info("Uploaded PIMS export saved to "
+                + upload.getClientFileName());
+          } catch (IOException e) {
+            throw new IllegalStateException("Unable to write file");
+          }
 
-	          try {
-        	    switch (type) {
-          	      case PROGRAMMES:
-					Pims.importProgrammes(newFile.toURI().toURL());
-	                break;
-        	      case PROJECTS:
-	                Pims.importProjects(newFile.toURI().toURL());
-	                break;
-        	      case PROJECT_CONTACTS:
-	                Pims.importProjectContacts(newFile.toURI().toURL());
-	                break;
-    		      default:
-    			    setResponsePage(new ErrorReportPage(new UserReportableException(
-    		                "Illegal type setting for PIMS uploader", ToolsPage.class)));
-    		    }
-	            setResponsePage(new ToolsPage());
-			  } catch (FileNotFoundException e) {
-		        setResponsePage(new ErrorReportPage(new UserReportableException(
-			                "Cannot find PIMS data file to import", ToolsPage.class, e)));
-			  } catch (MalformedURLException e) {
-			        setResponsePage(new ErrorReportPage(new UserReportableException(
-			                "Cannot find PIMS data file to import", ToolsPage.class, e)));
-			  } catch (IOException e) {
-			        setResponsePage(new ErrorReportPage(new UserReportableException(
-			                "Cannot read PIMS data file to import", ToolsPage.class, e)));
-			  } catch (DuplicateURIException e) {
-			        setResponsePage(new ErrorReportPage(new UserReportableException(
-			                "Cannot import PIMS data file", ToolsPage.class, e)));
-			  } catch (SimalException e) {
-			        setResponsePage(new ErrorReportPage(new UserReportableException(
-			                "Cannot import PIMS data file", ToolsPage.class, e)));
-			  }
-	        } else {
-	            setResponsePage(new ErrorReportPage(new UserReportableException(
-	            		"Must select a file to upload", ToolsPage.class)));
-	        }
-		  }
-	    }
-	  }
+          try {
+            switch (type) {
+            case PROGRAMMES:
+              Pims.importProgrammes(newFile.toURI().toURL());
+              break;
+            case PROJECTS:
+              Pims.importProjects(newFile.toURI().toURL());
+              break;
+            case PROJECT_CONTACTS:
+              Pims.importProjectContacts(newFile.toURI().toURL());
+              break;
+            default:
+              setResponsePage(new ErrorReportPage(new UserReportableException(
+                  "Illegal type setting for PIMS uploader", ToolsPage.class)));
+            }
+            setResponsePage(new ToolsPage());
+          } catch (FileNotFoundException e) {
+            setResponsePage(new ErrorReportPage(new UserReportableException(
+                "Cannot find PIMS data file to import", ToolsPage.class, e)));
+          } catch (MalformedURLException e) {
+            setResponsePage(new ErrorReportPage(new UserReportableException(
+                "Cannot find PIMS data file to import", ToolsPage.class, e)));
+          } catch (IOException e) {
+            setResponsePage(new ErrorReportPage(new UserReportableException(
+                "Cannot read PIMS data file to import", ToolsPage.class, e)));
+          } catch (DuplicateURIException e) {
+            setResponsePage(new ErrorReportPage(new UserReportableException(
+                "Cannot import PIMS data file", ToolsPage.class, e)));
+          } catch (SimalException e) {
+            setResponsePage(new ErrorReportPage(new UserReportableException(
+                "Cannot import PIMS data file", ToolsPage.class, e)));
+          }
+        } else {
+          setResponsePage(new ErrorReportPage(new UserReportableException(
+              "Must select a file to upload", ToolsPage.class)));
+        }
+      }
+    }
+  }
 
-  private static Folder uploadFolder;
   private static Folder getUploadFolder() {
     if (uploadFolder == null) {
       uploadFolder = new Folder(System.getProperty("java.io.tmpdir"),
           "wicket-uploads");
-      uploadFolder.mkdirs();
+      boolean created = uploadFolder.mkdirs();
+      if (!created && !uploadFolder.exists()) {
+        throw new IllegalStateException("Unable to create " + uploadFolder);
+      }
+        
     }
     return uploadFolder;
   }
-
 
 }

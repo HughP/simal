@@ -28,11 +28,13 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IResource;
@@ -45,6 +47,8 @@ import uk.ac.osswatch.simal.wicket.panel.DataSourceSummaryPanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonSummaryPanel;
 import uk.ac.osswatch.simal.wicket.panel.StandardFooter;
 import uk.ac.osswatch.simal.wicket.report.ProjectsSummaryReportPage;
+import uk.ac.osswatch.simal.wicket.widgets.WidgetInstance;
+import uk.ac.osswatch.simal.wicket.widgets.WidgetInstancePage;
 
 /**
  * The base page for a standard simal web page. It contains the standard markup
@@ -61,16 +65,58 @@ public class BasePage extends WebPage {
 
   public BasePage() {
     add(CSSPackageResource.getHeaderContribution(DEFAULT_CSS));
-    add(new BookmarkablePageLink<UserHomePage>("homePageLink", UserHomePage.class));
-    add(new BookmarkablePageLink<PersonBrowserPage>("personBrowserLink", PersonBrowserPage.class));
-    add(new BookmarkablePageLink<CategoryBrowserPage>("categoryBrowserPageLink",
-        CategoryBrowserPage.class));
+    add(new BookmarkablePageLink<UserHomePage>("homePageLink",
+        UserHomePage.class));
+    add(new BookmarkablePageLink<PersonBrowserPage>("personBrowserLink",
+        PersonBrowserPage.class));
+    add(new BookmarkablePageLink<CategoryBrowserPage>(
+        "categoryBrowserPageLink", CategoryBrowserPage.class));
     add(new BookmarkablePageLink<ProjectBrowserPage>("projectBrowserLink",
         ProjectBrowserPage.class));
-    add(new BookmarkablePageLink<DoapFormPage>("addDOAPLink", DoapFormPage.class));
-    add(new BookmarkablePageLink<ProjectsSummaryReportPage>("reportsLink", ProjectsSummaryReportPage.class));
+    add(new BookmarkablePageLink<DoapFormPage>("addDOAPLink",
+        DoapFormPage.class));
+    add(new BookmarkablePageLink<ProjectsSummaryReportPage>("reportsLink",
+        ProjectsSummaryReportPage.class));
     add(new BookmarkablePageLink<ToolsPage>("toolsLink", ToolsPage.class));
+    add(getAddProjectLink());
     add(new StandardFooter("footer"));
+  }
+
+  /**
+   * Generate a link to the 'add project' widget if available, otherwise re-use
+   * the old addDOAPLink.
+   * 
+   * @return
+   */
+  private Link<? extends BasePage> getAddProjectLink() {
+    Link<? extends BasePage> link;
+    WidgetInstance instance = UserApplication.getWookieServerConnection()
+        .getInstance(getAddProjectWidgetName());
+    if (instance != null) {
+      link = WidgetInstancePage.getPageLink("addProjectLink", instance);
+    } else {
+      link = new BookmarkablePageLink<DoapFormPage>("addProjectLink",
+          DoapFormPage.class);
+    }
+    return link;
+  }
+
+  /**
+   * Get the name under which the 'add project' widget is registered.
+   * @return
+   */
+  private String getAddProjectWidgetName() {
+    String defaultWidgetName = "doapcreator";
+    String doapProjectWidgetName;
+
+    try {
+      doapProjectWidgetName = SimalProperties.getProperty(
+          SimalProperties.PROPERTY_ADD_PROJECT_WIDGET_TITLE, defaultWidgetName);
+    } catch (SimalRepositoryException e) {
+      doapProjectWidgetName = defaultWidgetName;
+    }
+
+    return doapProjectWidgetName;
   }
 
   /**

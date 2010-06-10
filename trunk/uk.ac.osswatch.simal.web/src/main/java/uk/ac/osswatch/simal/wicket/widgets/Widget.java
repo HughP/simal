@@ -34,7 +34,7 @@ public class Widget implements Serializable{
 	String title;
 	String description;
 	URL icon;
-	HashMap<String, Instance> instances = new HashMap<String, Instance>();
+	HashMap<String, WidgetInstance> instances = new HashMap<String, WidgetInstance>();
 
 	public Widget(String identifier, String title, String description, URL icon) {
 		this.identifier = identifier;
@@ -83,14 +83,14 @@ public class Widget implements Serializable{
 	 * @param xml description of the instance as returned by the widget server when the widget was instantiated.
 	 * @return the identifier for this instance
 	 */
-	public Instance addInstance(Document xml) {
+	public WidgetInstance addInstance(Document xml) {
 		Element rootEl = xml.getDocumentElement();
 		String url = getElementTextContent(rootEl, "url");
 		String id = getElementTextContent(rootEl, "identifier");
 		String title = getElementTextContent(rootEl, "title");
 		String height = getElementTextContent(rootEl, "height");
 		String width = getElementTextContent(rootEl, "width");
-		Instance instance = new Instance(url, id, title, height, width);
+		WidgetInstance instance = new WidgetInstance(url, id, title, height, width, this);
 		instances.put(id, instance);
 		
 		return instance;
@@ -109,73 +109,10 @@ public class Widget implements Serializable{
 	}
 	
 	/**
-	 * An instance of this widget.
-	 *
-	 */
-	public static class Instance {
-		String url;
-
-		String id;
-		String title;
-		String height;
-		String width;
-
-		public Instance(String url, String id, String title, String height,
-				String width) {
-			setId(id);
-			setUrl(url);
-			setTitle(title);
-			setHeight(height);
-			setWidth(width);
-		}
-		
-		public String getUrl() {
-			return url;
-		}
-
-		public void setUrl(String url) {
-			this.url = url;
-		}
-
-		public String getId() {
-			return id;
-		}
-
-		public void setId(String id) {
-			this.id = id;
-		}
-
-		public String getTitle() {
-			return title;
-		}
-
-		public void setTitle(String title) {
-			this.title = title;
-		}
-
-		public String getHeight() {
-			return height;
-		}
-
-		public void setHeight(String height) {
-			this.height = height;
-		}
-
-		public String getWidth() {
-			return width;
-		}
-
-		public void setWidth(String width) {
-			this.width = width;
-		}
-
-	}
-
-	/**
 	 * Get all instances of a widget available in this server.
 	 * @return
 	 */
-	public Collection<Instance> getInstances() {
+	public Collection<WidgetInstance> getInstances() {
 		return instances.values();
 	}
 }

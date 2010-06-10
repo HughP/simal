@@ -36,8 +36,9 @@ import uk.ac.osswatch.simal.wicket.UserApplication;
  * A panel to display a Wookie Widget. See http://incubator.apache.org/wookie
  */
 public class WookieWidgetGalleryPanel extends Panel {
-  private static final long serialVersionUID = 1L;
   
+  private static final long serialVersionUID = -821027766006556385L;
+
   /**
    * Create a default Wookie Widget gallery panel that will display all the
    * available widgets on a server.
@@ -65,7 +66,7 @@ public class WookieWidgetGalleryPanel extends Panel {
 		  repeating.add(item);
 		  widget = itr.next();
 		  
-		  item.add(new StaticImage("icon", new Model(widget.getIcon().toExternalForm())));
+		  item.add(new StaticImage("icon", new Model<String>(widget.getIcon().toExternalForm())));
 		  item.add(new Label("name", widget.getTitle()));
 		  item.add(new Label("description", widget.getDescription()));
 		  
@@ -74,10 +75,10 @@ public class WookieWidgetGalleryPanel extends Panel {
     } else {
     	WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
 		repeating.add(item);
-		item.add(new StaticImage("icon", new Model("")));
-		item.add(new Label("name", "Widget Server"));
-		item.add(new Label("description", "There was a problem communicting with the Widget server"));
-		item.add(new Label("instantiate", ""));
+		item.add(new Label("icon").setVisible(false));
+		item.add(new Label("name", "").setVisible(false));
+		item.add(new Label("description", WookieServerConnection.UNAVAILABLE_MSG));
+		item.add(new Label("instantiate", "").setVisible(false));
     }
 	add(repeating);
   }
@@ -86,7 +87,7 @@ public class WookieWidgetGalleryPanel extends Panel {
 
     private static final long serialVersionUID = -8331551149365773888L;
 
-      public StaticImage(String id, IModel model) {
+      public StaticImage(String id, IModel<String> model) {
           super(id, model);
       }
 

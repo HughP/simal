@@ -44,6 +44,7 @@ import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
+import uk.ac.osswatch.simal.wicket.widgets.WidgetInstancePage;
 import uk.ac.osswatch.simal.wicket.widgets.WookieServerConnection;
 
 /**
@@ -84,6 +85,8 @@ public class UserApplication extends WebApplication {
 		// Category Pages
 		mountBookmarkablePage("/categoryBrowser", CategoryBrowserPage.class);
     mountBookmarkablePage("/category", CategoryDetailPage.class);
+
+    mountBookmarkablePage("/widgets", WidgetInstancePage.class);
 	}
 
 	@Override

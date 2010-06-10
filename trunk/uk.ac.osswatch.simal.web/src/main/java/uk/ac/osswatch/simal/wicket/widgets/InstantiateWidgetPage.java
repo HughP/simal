@@ -17,17 +17,14 @@ package uk.ac.osswatch.simal.wicket.widgets;
  * under the License.                                                *
  */
 
-import java.io.IOException;
-
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
-import uk.ac.osswatch.simal.wicket.widgets.Widget.Instance;
 
 /**
  * Called when a widget needs to be instantiated. This page will attempt to 
@@ -42,18 +39,14 @@ public class InstantiateWidgetPage extends BasePage {
 	 * 
 	 */
 	public InstantiateWidgetPage(Widget widget) {
-      Instance instance;
+      WidgetInstance instance;
 	  try {
 		  instance = UserApplication.getWookieServerConnection().getOrCreateInstance(widget);
 		  populatePage(instance);
-	  } catch (IOException e) {
+	  } catch (SimalException e) {
     	  UserReportableException error = new UserReportableException(
 		          "Problem communicating with Wookie server", InstantiateWidgetPage.class);
 		  setResponsePage(new ErrorReportPage(error));
-	  } catch (SimalRepositoryException e) {
-        UserReportableException error = new UserReportableException(
-            "Problem communicating with Wookie server", InstantiateWidgetPage.class);
-        setResponsePage(new ErrorReportPage(error));
 	  }
 	}
 
@@ -62,7 +55,7 @@ public class InstantiateWidgetPage extends BasePage {
 	 * 
 	 * @param id
 	 */
-	private void populatePage(Widget.Instance instance) {
+	private void populatePage(WidgetInstance instance) {
 	    add(new WookieWidgetPanel("widget", instance));
 		
 		add(new Label("id", instance.getId()));

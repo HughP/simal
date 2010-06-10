@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!--
-  Copyright 2009 University of Oxford
+  Copyright 2010 University of Oxford
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -15,45 +15,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-  <title>Instantiate Widget</title>
-</head>
-<body>
+<html xmlns:wicket>
 <wicket:extend>
-<h1>Widget Instantiated</h1>
+<h1 wicket:id="description">description</h1>
 
-<h2>Widget Instance</h2>
-<div wicket:id="widget">
-  <p>A wookie widget</p>
-</div>
+<iframe wicket:id="widget"></iframe>
   
-<h2>Widget Details</h2>
-
-<table>
-  <tr>
-    <th>ID</th>
-    <td wicket:id="id">ID</td>
-  </tr>
-  <tr>
-    <th>Title</th>
-    <td wicket:id="title">title</td>
-  </tr>
-  <tr>
-    <th>URL</th>
-    <td wicket:id="url">URL</td>
-  </tr>
-  <tr>
-    <th>Height</th>
-    <td wicket:id="height">height</td>
-  </tr>
-  <tr>
-    <th>Width</th>
-    <td wicket:id="width">Width</td>
-  </tr>
-</table>
-
 </wicket:extend>
-</body>
 </html>
 
