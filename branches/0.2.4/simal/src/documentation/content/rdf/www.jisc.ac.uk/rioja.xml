@@ -1,0 +1,9 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_shared_services/rioja.aspx">
+<shortdesc>RIOJA will deliver a tool to support automated interactions between journals and public repositories. The RIOJA tool will be generic, and the project will deliver an implementation of
+the tool for the arXiv subject repository. A demonstrator journal, using Cornell University's
+open source DPubS software, interfacing with the RIOJA implementation for arXiv, will be
+constructed, populated with test papers in the field of Astrophysics and Cosmology.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_shared_services.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>RIOJA: Repository Interface for Overlaid Journal Archives</name>
+</Project>

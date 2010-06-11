@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ 
+ Copyright 2007 University of Oxford
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+   http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ 
+-->
+
+<response>
+  <status>success</status>
+  <result>
+    <project>
+      <id>734748483</id>
+      <name>Simal/Ohloh Test</name>
+      <created_at>2008-02-02T20:56:41Z</created_at>
+
+      <updated_at>2008-09-05T22:40:49Z</updated_at>
+      <description>A simple test file for unit testing of the Ohloh integration features of Simal.</description>
+      <homepage_url>http://ohlohTest.foo.org/</homepage_url>
+      <download_url>http://ohlohTest.foo.org/mirror.cgi</download_url>
+      <url_name>ohlohtest</url_name>
+      <medium_logo_url>https://s3.amazonaws.com/bits.ohloh.net/attachments/7992/cocoon-logo_med.gif</medium_logo_url>
+
+      <small_logo_url>https://s3.amazonaws.com/bits.ohloh.net/attachments/7992/cocoon-logo_small.gif</small_logo_url>
+      <stack_count>3</stack_count>
+      <average_rating>4.47368421052632</average_rating>
+      <rating_count>2</rating_count>
+      <analysis_id>9393432</analysis_id>
+      <analysis>
+
+        <id>9393432</id>
+        <project_id>734748483</project_id>
+        <updated_at>2008-08-30T08:11:23Z</updated_at>
+        <logged_at>2008-08-30T07:57:25Z</logged_at>
+        <min_month>2003-03-01T00:00:00Z</min_month>
+        <max_month>2008-08-01T00:00:00Z</max_month>
+
+        <twelve_month_contributor_count>21</twelve_month_contributor_count>
+        <total_code_lines>1714701</total_code_lines>
+        <main_language_id>5</main_language_id>
+        <main_language_name>Java</main_language_name>
+      </analysis>
+    </project>
+  </result>
+
+</response>

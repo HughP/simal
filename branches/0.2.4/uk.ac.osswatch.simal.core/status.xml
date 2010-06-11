@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE status PUBLIC "-//APACHE//DTD Status V1.3//EN" "status-v13.dtd">
+<status>
+
+  <developers>
+    <!-- FIFO order -->
+    <person name="Ross Gardler" email="ross.gardler@oucs.ox.ac.uk" id="RDG"/>
+    <person name="We Need You" email="info@oss-watch.ac.uk" id="open"/>
+  </developers>
+
+  <!-- Define here the Title of the Context you want to display in the Changes pages.
+       id = the context value of actions
+       title = Title of the Context
+  -->
+  <contexts>
+    <context id="docs" title="Changes to Documentation"/>
+    <context id="admin" title="Changes to Project Administration"/>
+    <context id="design" title="Changes to Designand/or Implementation"/>
+    <context id="cli" title="Changes to command line interface of Simal"/>
+    <context id="feature" title="Changes to feature set of Simal"/>
+  </contexts>
+
+  <changes>
+    <release version="0.3-dev" date="unreleased">
+      <notes>
+        <section>
+          <title>What is Simal?</title>
+
+          <p>Simal is a framework for building systems for use by organisations that need to inform
+            the communities around a group of related projects. The project is very young at this
+            time, as such we welcome input into the requirements and design of the initial prototype
+            system.</p>
+          <p>This release focuses integrating data from third parties with Simal and on
+          providing data in machine readable formats for third parties.</p>
+        </section>
+      </notes>
+      
+      <action context="features" dev="RDG" type="add" importance="high">
+        <p>Add <code>ImportPTSWTask</code> that can be used to create timed imports from 
+        Ping the Semantic Web as follows.</p>
+        <source>
+        timer = new Timer();
+        timer.schedule(new ImportPTSWTask(),
+                       0,        //initial delay
+                       1000*60*60);  //subsequent rate in milliseconds
+        </source>
+        <p>Note that you should not update more frequently than every 5 minutes since PTSW
+        will block more frequent calls.</p>
+      </action>
+      
+      <action context="features" dev="RDG" type="add" importance="high">
+        <p>Added <code>uk.ac.osswatch.simal.importData.Pims</p> which contains a number of methods
+        for importing Pims data from exported PIMS dumps. Pims is the official source of data about
+        projects funded by the Joint Information Systems Committee (JISC).</p>
+      </action>
+      
+      <action context="features" dev="RDG" type="add" importance="high">
+        <p>Added some reporting functionality to ProjectService, such as getProjectsWithXYZ, where
+        XYZ is the name of a property we want to test for.</p>
+      </action>
+      
+      <action context="cli" dev="RDG" type="add" importance="high">
+        <p>Added <code>getPeople</code> to the command line. This dumps the details of
+        people. Command line options can be used to filter the people
+        returned.</p>
+      </action>
+      
+      <action context="cli" dev="RDG" type="add" importance="high">
+        <p>Added <code>--summary</code> to the command line. This option
+        summarises any output from the command line. For example, when used
+        with <code>getProjects</code> or <code>write</code> the output
+        will be information such as the project title and its URI.</p>
+      </action>
+      
+      <action context="cli" dev="RDG" type="add" importance="high">
+        <p>Added <code>--nameFilter</code> to the command line. This allows commands
+        to use a name filter. For example, the <code>getProjects --nameFilter foo</code> command
+        will only get projects with 'foo' in their name.</p>
+      </action>
+      
+      <action context="cli" dev="RDG" type="add" importance="high">
+        <p>Added <code>getProjects</code> to the command line. This dumps the details of
+        projects. Command line options can be used to filter the projects
+        returned.</p>
+      </action>
+      
+      <action context="design" dev="RDG" type="add" importance="medium">
+        <p>Added method to SimalRepository to get projects with a name matching a given
+        regular expression. See SimalRepository.filterProjectByName(regex).</p>
+      </action>
+      
+      <action context="feature" dev="RDG" type="add" importance="high" fixes-bug="32">
+        <p>Added Handling of weblogs for projects. Use Project.getFeeds() to 
+        get a set of feeds defined for a Project. To define a weblog use:</p>
+        
+        <source>
+        <![CDATA[
+  <foaf:weblog>
+    <foaf:Document rdf:about="http://foo.org/feed.rss">
+      <dc:title>Test Feed</dc:title>
+    </foaf:Document>
+  </foaf:weblog>
+        ]]>
+        </source>
+      </action>
+      
+      <action context="docs" dev="RDG" type="add" importance="low" fixes-bug="157">
+        <p>Added a how to on adding <a href="developer/addCommandToCLI.html">commands to the CLI</a>.</p>
+      </action>
+      
+      <action context="cli" dev="RDG" type="add" importance="low" fixes-bug="157">
+        <p>Added a CLI command <code>backup FILE</code> to write an
+        N3 representation of the complete repository to the supplied
+        filename.</p>
+      </action>
+      
+      <action context="feature" dev="RDG" type="add" importance="high">
+        <p>Added a simal command for easy execution. To use it add
+        the <code>bin</code> directory in the simal project to the
+        environment PATH and simply run <code>simal.bat</code>
+        <code>simal.sh</code>.</p>
+      </action>
+      
+      <action context="feature" dev="RDG" type="add" importance="low">
+        <p>Added <code>writerBackup(Writer writer)</code> method to ISimalRepository.
+        This method writes an N3 representation of the complete repository.</p>
+      </action>
+   </release>
+   
+    <release version="0.2-rc1" date="2008-09-25">
+      <notes>
+        <section>
+          <title>What is Simal Core?</title>
+
+          <p>Simal is the core repository and command line interface of the Simal
+            framework which is used to build project registries. That is a place to
+            register filter and search details about projects. The project is very young at this
+            time, as such we welcome input into the requirements and design of the initial prototype
+            system.</p>
+        </section>
+      </notes>
+      
+      <action context="cli" dev="RDG" type="add" importance="high">
+        <p>Added CLI command <code>importOhloh</code> to import data
+        from Ohloh.net. In order to use this feature you must set the value
+        of <code>ohloh.api.key</code> in local.simal.properties. See the
+        Ohloh site for instructions on obtaining an 
+        <a href="https://www.ohloh.net/api_keys/new">Ohloh API key</a>.
+        Usage:</p>
+        
+        <source>
+        simal importOhloh projectID
+        </source>
+      </action>
+      
+      <action context="admin" dev="RDG" type="add" importance="high">
+        <p>Created separate status file for core.</p>
+      </action>
+    </release>
+  </changes>
+
+  <todo>
+    <!-- 
+         We do not use the TODO facilities of Forrest.
+         Please see our issue tracker at
+         http://code.google.com/p/simal/issues/list
+    -->
+  </todo>
+
+</status>

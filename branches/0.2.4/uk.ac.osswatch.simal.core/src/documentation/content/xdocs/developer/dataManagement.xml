@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Data Management</title>
+    <abstract>
+      Simal uses an RDF repository to manage its data. This document
+      describes how data is handled on ingest and how it can be
+      accessed using the API.
+    </abstract>
+  </header>
+  <body>
+    <warning>This document describes intended functionality in the 0.3 release
+    of Simal. Not all features described within it have been implemented.</warning>
+    <section>
+      <title>Overview</title>
+      <p>Simal allows data about an entity can be collected 
+      from multiple sources and then retrieved according to a
+      hierarchy of preferred data sources. This allows an application
+      to retrieve the most appropriate data available whilst still
+      ensuring that all data known about an entity is available to it.</p>
+    </section>
+    
+    <section>
+      <title>Simal Entities</title>
+      
+      <p>When a project is imported into Simal a local instance of
+      the entity is created. For example, suppose we import an entity
+      with the URI <code>http://foo.org/originalSource</code> t6he
+      following description will be created:</p>
+      
+      <source><![CDATA[
+<?xml version="1.0" encoding="UTF-8"?>
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <simal:Project>
+    <doap:Project rdf:about="http://simal.oss-watch.ac.uk/doap/26#Project"
+             xmlns:doap="http://usefulinc.com/ns/doap#"
+             xmlns:dc="http://purl.org/dc/elements/1.1/"
+             xmlns:foaf="http://xmlns.com/foaf/0.1/"
+             xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+             xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+       <rdf:sameAs rdf:resource="http://foo.org/originalSource"/>
+     </doap:Project>
+     <simal:projectId>a-world-unique-id</simal:projectId>
+   </simal:Project>
+</RDF>
+      ]]></source>
+      
+      <p>Note the <code>rdf:sameAs</code> element, this indicates 
+      an alternative source for information about this entity. At 
+      this stage the internal Simal representation does not contain 
+      any additional data and thus any requests for information about
+      this entity will result in the data held in the original
+      resource description being returned.</p>
+      
+      <p>A similar process is undergone for people in the repository.
+      That is, when a new person is discovered a Simal Entity is created
+      or an <code>rdfs:seeAlso</code> data element is added to the existing
+      person entity.</p> 
+      
+      <p>The above annotation of the resource is handled by
+      the <code>addProject</code> method of <code>ISimalRepository</code>.</p>
+    </section>
+    
+    <section>
+      <title>Augmenting Third Party Data</title>
+      <p>Whenever data about a resources is added us9ing any of the
+      Simal tools rather than imported from an external resource,
+      this data is recorded in the Simal data instance. For example,
+      Adding a local description to an entity would result in the
+      following being added to the local data tuples.</p>
+      
+      <source><![CDATA[
+<description>A local description of this project.</p></description>
+      ]]></source>
+      
+      <p>Under normal circumstances data held in the local instance
+      description of the entity is given priority over other sources.
+      However, this behaviour can be configured as described in the next
+      section.</p>
+    </section>     
+    
+    <section>
+      <title>Selecting the Preferred Data Source</title>
+      
+      <p>When a second data source is imported Simal records the
+      second source, using an <code>rdf:seeAlso</code> element, in
+      the internal Simal entity description.</p>
+      
+      <fixme author="RDG">Design a method for indicating priorities
+      for data sources when retrieving data from multiple locations</fixme>
+    </section>
+  </body>
+</document>

@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_serapis.aspx">
+<shortdesc>The SERAPIS project aims to investigate the integration of Shibboleth into a number of AHDS services, and in particular to implement a Shibboleth-based access management system for restricted collections in the AHDS digital repository.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<name>SERAPIS: Shibboleth-Enabled Repository Access, Preservation and Ingest Study</name>
+<homepage rdf:resource="http://ahds.ac.uk/about/projects/Shibboleth/index.htm"/>
+</Project>

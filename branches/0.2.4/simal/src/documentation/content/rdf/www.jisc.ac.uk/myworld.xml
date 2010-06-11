@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/myworld.aspx">
+<shortdesc>e-Portfolios are a step towards learner-centred, self-directed, peer-to-peer education and personal learning environments (PLEs). The myWORLD project will test e-portfolios software in 10 education, training and development sites, and evaluate these case studies and their impact on learners and institutions.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>myWORLD - Wider Opportunities for Reflection, Learning and Development</name>
+</Project>

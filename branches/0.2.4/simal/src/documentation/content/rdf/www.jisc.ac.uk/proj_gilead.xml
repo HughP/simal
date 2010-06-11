@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_gilead.aspx">
+<shortdesc>This is a joint project between Information Systems Services, the University Library and the Faculty of Biological Sciences at the University of Leeds. The University is engaged in a major initiative to provide simplified or single sign-on capability to a wide range of internal and external information systems.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<name>GILEAD</name>
+<homepage rdf:resource="http://www.leeds.ac.uk/iss/projects/gilead/"/>
+</Project>

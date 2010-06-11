@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_unpupr.aspx">
+<shortdesc>This project will focus on evaluating five different types of public repositories in the UK  i.e., repositories that are intended for use by people outside a hosting institution. Individual mission concerns for the selected repositories will be assessed through an analysis of their user needs, including a comparative evaluation of each type to determine how individual findings can be used to inform the practice of the others.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>User Needs and Potential Users of Public Repositories: An integrated analysis</name>
+<homepage rdf:resource="http://cybermetrics.wlv.ac.uk/DigitalRepositories/"/>
+</Project>

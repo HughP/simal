@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/l4all.aspx">
+<shortdesc>L4All targets the independent lifelong learner by creating a system that records and shares learning pathways and trails. L4All will create a Web Portal that will allow learners to access selected information and resources, plan their own learning pathways, and maintain and reflect upon their individual record of learning throughout their lives.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>L4All - Lifelong Learning in London for All</name>
+<homepage rdf:resource="http://www.lkl.ac.uk/research/l4all.html"/>
+</Project>

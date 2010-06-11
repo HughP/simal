@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2009 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns="http://usefulinc.com/ns/doap#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:admin="http://webns.net/mvcb/"> 
+ <name>Sakai Collaboration and Learning Environment</name> 
+ <shortname>Sakai</shortname> 
+ <shortdesc>The Sakai CLE is a free and open source Courseware Management System. </shortdesc> 
+ <description>The Sakai CLE is a flexible, enterprise application that supports teaching, learning and scholarly collaboration in either fully or partially online environments environments. Sakai also has a robust and full-featured online portfolio system built-in. The Sakai CLE is distributed as free, open-source software, which offers the ultimate in flexibility and avoids the risks of vendor lock-in and escalating license costs.</description> 
+ <homepage rdf:resource="http://sakaiproject.org/" /> 
+
+ <category rdf:resource="http://jisc.ac.uk/programme#38" />
+ <category rdf:resource="http://simal.oss-watch.ac.uk/category/coursemanagement" rdfs:label="Course management" />
+ <category rdf:resource="http://simal.oss-watch.ac.uk/category/learningenvironments" rdfs:label="Learning Environments" />
+
+ <wiki rdf:resource="http://confluence.sakaiproject.org/display/CONF/Welcome" /> 
+ <download-page rdf:resource="http://sakaiproject.org/portal/site/sakai-downloads" /> 
+ <bug-database rdf:resource="http://jira.sakaiproject.org/" /> 
+ <category rdf:resource="CLE" /> 
+ <programming-language>Java</programming-language> 
+ <license rdf:resource="http://usefulinc.com/doap/licenses/ecl" /> 
+ <repository> 
+   <SVNRepository> 
+     <browse rdf:resource='https://source.sakaiproject.org/viewsvn/' /> 
+     <location rdf:resource='https://source.sakaiproject.org/svn/' /> 
+   </SVNRepository> 
+ </repository> 
+</Project>
+</rdf:RDF>

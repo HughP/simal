@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_arches.aspx">
+<shortdesc>This project will repurpose an exciting range of materials on ancient Greece and Rome between three educational contexts (FE, HE and an independent online resource), three subject areas (Theatre Studies, Classics, VR Modelling), and seven modules.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>ARCHES - Antiquity Related Collections Harnessed for Educational Scenarios</name>
+<homepage rdf:resource="http://www.warwick.ac.uk/ETS/ARCHES/"/>
+</Project>

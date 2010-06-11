@@ -1,0 +1,379 @@
+/*
+ * Copyright 2008 University of Oxford * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ * 
+ */
+
+/******************************************************
+ Colour scheme
+ =============
+ 
+ Please restrict the use of colours to the following:
+ 
+ #000000 - Black
+ #008F00 - Dark Green
+ #00CC00
+ #80FF80
+ #BFFFBF - Light Green
+ #FFFFFF - White
+ 
+ See http://www.wellstyled.com/tools/colorscheme2/index-en.html?mono;36;0;180;0.25;1;0.5;1;-1;-1;1;-0.7;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;-1;-1;1;-0.7;0.25;1;0.5;1;0
+********************************************************/
+
+/* Legacy style */
+.title {
+  background: #8BBBFD;
+  color: black;
+  font-weight: bold;
+  font-size: 120%;
+  padding: 5px 10px 10px 5px;
+}
+
+.list {
+  border: solid black 1px;
+  margin: 1em 3em 3em 1em;
+  background: #BFFFBF;
+}
+
+.widget {
+  clear: right;
+  border: solid #2C4AA0 1px;
+  padding: 2px 2px 2px 2px;
+  margin: 1em 0em 1em 0em;
+  background: #F0F5FD;
+}
+
+.widget .content {
+  font-size: 90%;
+  margin: 5px 5px 5px 5px;
+}
+
+pre {
+  padding: 5px 10px 10px 5px;
+  margin-left: 5em;
+  margin-right:5em;
+  background: #BFFFBF;
+}
+
+
+.leftcolumn {
+  float: left;
+  width: 49%;
+  margin-bottom : 1em;
+}
+
+.rightcolumn {
+  float: right;
+  width: 49%;
+  margin-bottom: 1em;
+}
+
+.singlecolumn {
+  clear: both;
+}
+
+.warning {
+    margin: 1em 0em 1em 0em;
+    padding: 2em 2em 2em 2em;
+    border: 2px solid #8BBBFD;
+    background: #FF0011;
+    font-size: 120%;
+}
+
+h2 {
+  background: #8BBBFD;
+  color: black;
+  font-size: 120%;
+  padding: 2px 5px 5px 2px;
+  margin: 5px 10px 10px 0;
+}
+
+thead{
+	background:#8BBBFD;
+	color : black;
+}
+
+tr{
+	font-size:14px;
+}
+
+tr a{
+	text-decoration : underline;
+}
+
+tr a:link, tr a:visited{
+	color: #0000EE;
+}
+
+tr a:hover{
+	background : yellow;
+}
+tr.even {
+  background: #CCE6FF;
+}
+
+tr.odd {
+  background: #99CCFF;
+}
+
+/* ---------------- */
+/* ---------------- */
+/* ---------------- */
+/* ---------------- */
+/* ---------------- */
+/* ---------------- */
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	padding: 0px 0px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	border-left: 1px solid #2C4AA0;
+	border-right : 1px solid #2C4AA0;
+	border-top: 1px solid #2C4AA0;
+}
+
+
+/****************
+   Header
+*****************/
+#header {
+	background-image: url("simal-logo_82x60.png");
+	background-repeat: no-repeat;
+	background-position: top left;
+	margin: 0;
+	padding: 5px 5px 10px 5px;
+}
+
+#header h1 {
+	width: 590px;
+	height: 50px;
+	margin-left: 100px;
+	padding: 20px 10px 0px 10px;
+	color: #2C4AA0;
+	text-align : left;
+	font-size: 16px;
+}
+
+#header #menulinks {
+	/* background-image: url(header_bottom.png); */
+	position: absolute;
+	width: 100%;
+	left: 0px;
+	margin: 0 auto;
+	padding: 0 auto;
+}
+
+#header ul {
+	margin: auto;
+	padding: 10px;
+	height: auto;
+	background-color: #2C4AA0;
+}
+
+#header ul li {
+    display:inline;
+    margin: 0;
+    padding: 0;
+}
+
+#header ul li a {
+	color: white;
+	font-weight : bold;
+	font-size : 12px;
+	margin: 0px;
+	padding: 5px 10px 5px 10px;
+	text-decoration: none;
+}
+
+
+#header ul li a:hover {
+	color: #8BBBFD;
+}
+
+/****************
+   Footer
+*****************/
+#footer {
+	clear: both;
+	background: #2C4AA0;
+	padding: 10px;
+	text-align: center;
+}
+
+#footer a {
+	color: white;
+	margin: 0px;
+	padding: 5px 10px 5px 10px;
+	text-decoration: none;
+}
+
+
+#footer a:hover {
+	color: #8BBBFD;
+	/*background-image: url(themes/images/selected.png);*/
+}
+
+
+/****************
+   Content
+*****************/
+#content {
+	margin: 54px 0px 0px 0px;
+	padding: 0px 20px 10px 20px;
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+	align: center;
+	clear: both;
+}
+
+
+
+div.footnote .content p{clear:right; position:relative; left:2.5em; font-size:80%; font-weight:700; color:#2C4AA0;}
+
+/***********************
+   Widget (right menu)
+***********************/
+/*.widget {
+  width: 250px;
+  float: right;
+  border: solid #008F00 0px;
+}
+
+.widget .content {
+  font-size: 90%;
+  margin: 5px 5px 5px 5px;
+  padding: 2px;
+  background: #BFFFBF;
+}
+
+.widget .title {
+	border-bottom: solid black 1px;
+	color: black;
+	font-weight: bold;
+	font-size: 120%;
+	padding: 5px 10px 0px 0px;
+	margin-bottom: 20px;
+}*/
+
+/***********************
+   Project List
+***********************/
+/*
+.projectList {
+	float: left;
+	width: 640px;
+	margin-bottom: 20px;
+}
+
+.projectList .title {
+	border-bottom: solid black 1px;
+	color: black;
+	font-weight: bold;
+	font-size: 120%;
+	padding: 5px 10px 0px 0px;
+	margin-bottom: 20px;
+}
+*/
+
+/****************
+   Tables
+*****************/
+/*
+table {
+	border-spacing: 0px;
+	border-bottom: 1px solid #800000;
+}
+
+thead th {
+	height: 21px;
+	font-family: Arial;
+	font-weight: bold;
+	padding: 0px 7px;
+	margin: 20px 0px 0px;
+	text-align: left; 
+}
+
+tbody .even{
+	background: #BFFFBF;
+}
+
+tbody tr.odd {
+ 	background: #80FF80;
+}
+
+tbody th, tbody td {
+	font-size: 0.8em;
+	line-height: 1.4em;
+	color: #000000;
+	padding: 10px 7px;
+	border-top: 1px solid #800000;
+	text-align: left;
+}
+
+table a {
+	color: #000000;
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+tbody a:hover {
+	text-decoration: underline;
+}
+
+tbody tr.odd:hover, tr.odd:hover td, tr.odd:hover a, tbody tr.even:hover, tr.even:hover td, tr.even:hover a {
+	background: #008F00;
+	color: white;
+text-decoration: underline;
+}
+*/
+
+/***************
+  Sorted list
+***************/
+/*ol {
+	background: #BFFFBF;
+	padding-top: 5px;
+	padding-right: 10px;
+}
+
+ol li {
+	padding-bottom: 5px;
+}
+
+ol a {
+	color: black; 
+	text-decoration: underline;
+}
+
+ol a:hover {
+	color: black;
+}
+*/
+/***************
+  Sorted list
+***************/
+/*
+.leftcolumn {
+	float: left;
+}
+
+.rightcolumn {
+	float: right;
+}
+
+.singlecolumn {
+	clear: both;
+}
+*/

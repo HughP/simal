@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/polar.aspx">
+<shortdesc>This project will develop a repository of freely available visual and textual resources to support learning, teaching and research into topics relating to the history of Arctic and Antarctic exploration and science. It will provide access to hidden collections for use at all educational levels.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
+<name>Scott Polar Research Institute: Discovering the Poles  Historic polar images</name>
+<homepage rdf:resource="http://www.spri.cam.ac.uk/"/>
+</Project>

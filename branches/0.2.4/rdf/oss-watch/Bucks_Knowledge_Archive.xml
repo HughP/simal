@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://www.bcuc.ac.uk/default.aspx?page=6943">
+
+        <name>Bucks Knowledge Archive</name>
+
+        <shortdesc xml:lang="en">To set up an institutional repository for the staff and students of Buckinghamshire New University and its partner organisations.</shortdesc>
+
+        <description xml:lang="en">The aim of this project is to establish a repository of the outputs of research and advanced scholarship to enable dissemination of this information to as wide an audience as possible.  The objectives of the project include; the development of a process to populate the repository and material collection, the implementation of the necessary hardware and software, modification of institutional culture to establish the principle of open access to research output and, to make institutional research more widely available.</description>
+
+        <homepage rdf:resource="http://www.bcuc.ac.uk/default.aspx?page=6943" />
+        <homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres/repositories_sue/chilternrep.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx" />
+	<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" />
+	<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx" />
+        
+        <created>2008-6-11</created>
+
+        <!--  <wiki rdf:resource="http://www.pligg.com/wiki/index.php?title=Main_Page"/> -->
+
+        <!--  <screenshots rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> -->
+
+        <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />   -->
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+       
+            
+
+            <maintainer>
+            <foaf:Person>            
+            <foaf:name>Elizabeth Chamberlain</foaf:name>
+            <foaf:mbox rdf:resource="mailto:elizabeth.chamberlain@bucks.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+        
+
+            <maintainer>
+            <foaf:Person>            
+            <foaf:name>Helen Fletcher</foaf:name>
+            <foaf:mbox rdf:resource="mailto:helen.fletcher@bucks.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+        
+
+        
+            <developer>
+            <foaf:Person>
+            <foaf:name>Jim Boone</foaf:name>
+            <foaf:mbox rdf:resource="mailto:jboone01@bucks.ac.uk"/>
+            </foaf:Person>
+            </developer>
+        
+
+            <developer>
+            <foaf:Person>
+            <foaf:name>Mike Dickinson</foaf:name>
+            <foaf:mbox rdf:resource="mailto:mdicki01@bucks.ac.uk"/>
+            </foaf:Person>
+            </developer>
+        
+
+            <developer>
+            <foaf:Person>
+            <foaf:name>Mary Kirkness</foaf:name>
+            <foaf:mbox rdf:resource="mailto:mkirkn01@bucks.ac.uk"/>
+            </foaf:Person>
+            </developer>
+        
+ 
+            <developer>
+            <foaf:Person>
+            <foaf:name>Stephen Gange-Moody</foaf:name>
+            <foaf:mbox rdf:resource="mailto:sgange01@bucks.ac.uk"/>
+            </foaf:Person>
+            </developer>
+        
+
+            <developer>
+            <foaf:Person>            
+            <foaf:name>Elik Borrill</foaf:name>
+            </foaf:Person>
+            </developer>
+        
+
+            <developer>
+            <foaf:Person>            
+            <foaf:name>Ann Evans</foaf:name>
+            <foaf:mbox rdf:resource="mailto:aevans01@bucks.ac.uk"/>
+            </foaf:Person>
+            </developer>
+        
+
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="FIXME: e.g. http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="FIXME: e.g. http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>

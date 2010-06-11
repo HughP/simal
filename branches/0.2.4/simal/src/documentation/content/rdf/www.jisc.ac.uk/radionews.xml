@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/radionews.aspx">
+<shortdesc>This project focuses on 4,000 hours of recordings relating to news and current affairs. The archive to be digitised includes invaluable recordings of a wide range of broadcasts including coverage of the Falklands war, the miners' strike, Northern Ireland and the whole of the Thatcher period of government. It includes the first hours of UK commercial radio and the first commercial radio news.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
+<name>Independent Radio News Archive digitisation</name>
+</Project>

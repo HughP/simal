@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_silchester.aspx">
+<shortdesc>The overall aim of the project is to develop a system to facilitate rapidly developing and iterative archaeological research by synchronising the three processes of gathering information, co-ordinating expertise, and managing the resulting body of data.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>Silchester Roman Town: A Virtual Research Environment for Archaeology</name>
+</Project>
