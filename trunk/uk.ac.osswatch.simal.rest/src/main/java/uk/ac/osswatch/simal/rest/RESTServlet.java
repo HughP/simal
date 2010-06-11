@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.httpclient.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -90,6 +91,7 @@ public class RESTServlet extends HttpServlet {
     }
   }
 
+  @SuppressWarnings("unchecked")
   public void doPost(HttpServletRequest req, HttpServletResponse res)
       throws ServletException, IOException {
     if (logger.isTraceEnabled()) {
@@ -119,6 +121,9 @@ public class RESTServlet extends HttpServlet {
       HandlerFactory handlerFactory = new HandlerFactory(repo);
       IAPIHandler handler = handlerFactory.get(cmd);
       response = handler.execute();
+      if(cmd.isAddProject()) {
+        res.setStatus(HttpStatus.SC_CREATED);
+      }
     } catch (SimalAPIException e) {
       response = errorResponse(e);
     } catch (SimalRepositoryException e) {
