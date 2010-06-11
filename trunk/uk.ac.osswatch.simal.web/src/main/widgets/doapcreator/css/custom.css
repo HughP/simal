@@ -14,58 +14,101 @@
 * limitations under the License.
 */
 input.short {
-		margin-left:1px;
-    width: 125px;
+	margin-left: 1px;
+	width: 125px;
 }
+
 input.long {
-    width: 200px;
+	width: 200px;
 }
+
 #generate,.generate {
-    color: #dd0000; 
-    margin: 1em; 
-    font-size: 120%; 
-    width: 10em;
-    cursor: pointer;
+	color: #000;
+	border: 1px solid grey;
+	margin: 1em;
+	font-size: 14px;
+	width: 10em;
+	cursor: pointer;
 }
-#doap { 
-    color: #333;
-    border: 1px solid #333; 
-    margin: 3em 1em 0em 1em; 
-    background-color: #111; 
-    padding: 1em; 
-    font-size: 100%;
-    font-family: Courier, monospace;
-    white-space: pre;
-    line-height: 1.05em;
-    color: #00cc00;
+
+#doap {
+	color: #333;
+	border: 1px solid #333;
+	background-color: #111;
+	
+	font-size: 100%;
+	font-family: Courier, monospace;
+	white-space: pre;
+	line-height: 1.05em;
+	color: #00cc00;
+	float: left;
 }
+
 .label {
-    margin-right: 1em;
+	margin-right: 1em;
 }
+
 .label_people {
-    width: 135px;
-		float:left;
+	width: 122px;
+	margin: 3px;
+	float: left;
 }
-	.people_container { 
-		
-	}
+
+.people_container {
+	
+}
+
 .mandatory {
-    color: #dd0000; 
-    margin: 1em; 
-    font-size: 15px; 
+	color: #dd0000;
+	margin-left: 4px;
+	font-size: 15px;
+}
+
+.q_container {
+	/* border: 1px solid red; */
+	width: 700px;
+	margin: 5px 0px 5px 0px;
+	float: left;
 }
 
 .question {
-    font-size: 20px;
-    margin: 10px; 
-    vertical-align: top; 
-    padding-top: 1em; 
+	/* border: 1px solid blue; */
+	width: 200px;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size : 14px;
+	vertical-align: top;
+	float: left;
 }
+
+.question_wide {
+	/* border: 1px solid blue; */
+	width: 700px;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size : 14px;
+	vertical-align: top;
+	float: left;
+}
+
 .answer {
-    margin: 10px; 
-    vertical-align: top; 
-    padding-bottom: 1em; 
+	/* border: 1px solid green; */ 
+	vertical-align: top;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size : 12px;
+	font-style: italic;
+	width: 490px;
+	float: left;
 }
+
+.answer_wide {
+	/* border: 1px solid green; */
+	vertical-align: top;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size : 12px;
+	font-style: italic;
+	width: 700px;
+	float: left;
+}
+
 select {
 	font-size: 8pt;
 }
