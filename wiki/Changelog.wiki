@@ -1,6 +1,14 @@
 #summary notes on significant changes between releases
 #labels Featured,Phase-Support
 
+= 0.2.4-rc1 =
+
+== Web module ==
+
+=== Add project W3C widget ===
+
+Separate W3C widget named 'doapcreator' included that can generate a DOAP RDF/XML file from a web form and post it to Simal's REST API. See DoapCreatorWidget for more info.
+
 = 0.2.3-SNAPSHOT =
 
 == Core ==
