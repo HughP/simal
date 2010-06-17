@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_redress.aspx">
+<shortdesc>The Awareness and Training Environment for E-Social Science plans to support social science researchers to move beyond the desktop environment and take advantage of e-science infrastructures and the developing research grid.   The project will promote new opportunities and skills available to researchers in order to exploit geographically distributed leading edge data storage, computational and network resources in order to manage and analyse data in a timely and cost effective way.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>REDRESS: An Awareness and Training Environment for e-Social Science in the UK</name>
+<homepage rdf:resource="http://redress.lancs.ac.uk/"/>
+</Project>

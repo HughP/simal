@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_fear.aspx">
+<shortdesc>Reid Kerr College currently employs a diverse range of authentication methods for access to systems and resources, both internal and external. This includes Active Directory, Athens and various custom and application-specific authentication schemes. Increasingly, the lack of sustainability of such an approach is becoming apparent, both from the point of view of the user who is expected to manage up to 6 different accounts, and the administration staff who must create and administer these accounts. There is evidence to suggest that this is hampering the use of Athens-controlled resources, and that staff and students would be more likely to access these resources if they could use their network login.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>FEAR: Further Education Access to Resources</name>
+<homepage rdf:resource="http://www.reidkerr.ac.uk/fear"/>
+</Project>

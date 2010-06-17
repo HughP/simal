@@ -1,0 +1,177 @@
+<!--
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:simal="http://oss-watch.ac.uk/ns/0.2/simal#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns="http://usefulinc.com/ns/doap#"
+  rdf:about="http://simal.oss-watch.ac.uk/simalTest#"
+  xmlns:rss="http://purl.org/rss/1.0/">
+<!-- 
+  <simal:projectId>200</simal:projectId>
+ -->
+  <created>2007-08-08</created>
+
+  <name>Simal DOAP Test</name>
+
+  <shortdesc>
+    A simple DOAP file used during automated testing.
+  </shortdesc>
+
+  <description>
+    This is the full description of this DOAP file that is used during automated testing of Simal. It contains examples of all the DOAP elements that are currently in use within Simal. 
+  </description>
+
+  <homepage rdfs:label="Project Home Page"
+    rdf:resource="http://doapTest.oss-watch.ac.uk" />
+  <homepage rdfs:label="Developer Home Page"
+    rdf:resource="http://code.foo.com/p/simal" />
+  <old-homepage rdfs:label="Original home page at OSS Watch"
+    rdf:resource="http://www.oss-watch.ac.uk/simal" />
+    
+  <foaf:weblog>
+    <foaf:Document rdf:about="http://foo.org/feed.rss">
+      <dc:title>Test Feed</dc:title>
+    </foaf:Document>
+  </foaf:weblog>
+
+  <mailing-list rdf:resource="http://foo.org/mailingList1"
+    rdfs:label="Mailing List 1"
+    rdfs:comment="This is the first mailing list" />
+  <mailing-list rdf:resource="http://foo.org/mailingList2"
+    rdfs:label="Mailing List 2"
+    rdfs:comment="This is the second mailing list" />
+
+  <wiki rdf:resource="http://wiki.foo.org" />
+  <download-page rdf:resource="http://download.foo.org" />
+  <download-mirror rdf:resource="http://download.bar.org" />
+  <bug-database rdf:resource="http://issues.foo.org" />
+
+  <screenshots rdf:resource="http://www.foo.org/screenshots" />
+
+  <programming-language>Java</programming-language>
+  <programming-language>XML</programming-language>
+
+  <os>Cross Platform</os>
+
+  <license rdf:resource="http://usefulinc.com/doap/licenses/asl20" />
+  <license rdf:resource="http://usefulinc.com/doap/licenses/gpl" />
+
+  <release>
+    <Version
+      rdf:about="http://simal.oss-watch.ac.uk/simalTest#simal-0.1">
+      <name>Simal Project Registry</name>
+      <revision>0.1</revision>
+      <created>2007-08-30</created>
+    </Version>
+  </release>
+
+<!-- commented out as it cause problems with ISSUE 107  
+  <release>
+    <Version>
+      <name>A dummy release with no qname</name>
+      <revision>0.1</revision>
+      <created>2007-08-30</created>
+    </Version>
+  </release>
+-->
+
+  <category
+    rdf:resource="http://simal.oss-watch.ac.uk/category/doapTest#" />
+  <category
+    rdf:resource="http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#" />
+
+  <maintainer>
+    <foaf:Person rdf:about="http://foo.org/~joeBlogs/#me">
+      <foaf:name>Joe Blogs Maintainer</foaf:name>
+      <rdfs:seeAlso rdf:resource="http://foo.org/~joeBlogs/foaf.rdf.xml" />
+    </foaf:Person>
+  </maintainer>
+
+  <maintainer>
+    <foaf:Person rdf:about="http://foo.org/~janeBlogs/#me">
+      <foaf:name>Jane Maintainer</foaf:name>
+      <rdfs:seeAlso
+        rdf:resource="http://foo.org/~janeBlogs/foaf.rdf.xml" />
+    </foaf:Person>
+  </maintainer>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:title>Dr.</foaf:title>
+      <foaf:name>Firstname lastname</foaf:name>
+      <foaf:mbox rdf:resource="mailto:someone@foo.org"/>
+      <simal:personId rdf:datatype="http://www.w3.org/2001/XMLSchema#string">1</simal:personId>
+    </foaf:Person>
+  </maintainer>
+
+  <translator>
+    <foaf:Person>
+      <foaf:givenname>Translator</foaf:givenname>
+      <rdfs:seeAlso
+        rdf:resource="http://foo.org/~translator/foaf.rdf.xml" />
+    </foaf:Person>
+  </translator>
+
+  <tester>
+    <foaf:Person>
+      <foaf:givenname>Tester</foaf:givenname>
+      <foaf:mbox rdf:resource="mailto:tester@foo.org"/>
+    </foaf:Person>
+  </tester>
+
+  <helper>
+    <foaf:Person rdf:about="http://foo.org/~helper/#me">
+      <foaf:givenname>helper</foaf:givenname>
+      <rdfs:seeAlso rdf:resource="http://foo.org/~helper/foaf.rdf.xml" />
+    </foaf:Person>
+  </helper>
+
+  <documenter>
+    <foaf:Person rdf:about="http://foo.org/~documentor/#me">
+      <foaf:givenname>documenter</foaf:givenname>
+      <foaf:homepage rdf:resource=""/>
+      <rdfs:seeAlso
+        rdf:resource="http://foo.org/~documentor/foaf.rdf.xml" />
+      <simal:personId>16</simal:personId>
+    </foaf:Person>
+  </documenter>
+
+  <developer>
+    <foaf:Person rdf:about="http://foo.org/~developer/#me">  
+      <foaf:name>developer</foaf:name>
+      <foaf:knows>
+        <foaf:Person rdf:about="http://goo.org/known">
+          <foaf:name>Known Person</foaf:name>
+          <foaf:mbox_sha1sum>
+            241021fb0e8289f92815fc210f9e9137262c252e
+          </foaf:mbox_sha1sum>
+          <rdfs:seeAlso
+            rdf:resource="http://foo.org/people/knownPerson/foaf.rdf" />
+        </foaf:Person>
+      </foaf:knows>
+      <foaf:homepage rdf:resource="http://example.org/person/developer" />
+      <foaf:mbox rdf:resource="mailto:developer@foo.org"/>
+      <rdfs:seeAlso
+        rdf:resource="http://foo.org/~developer/foaf.rdf.xml" />
+    </foaf:Person>
+  </developer>
+  
+  <developer rdf:resource="http://foo.org/~secondDeveloper#me"/>
+  
+  <rdfs:seeAlso rdf:resource="http://foo.org/seeAlso"/>
+</Project>

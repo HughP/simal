@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://chimera70.essex.ac.uk/chimerawiki/index.php/Resource_Browser">
+
+        <name>ResourceBrowser</name>
+
+        <shortdesc xml:lang="en">ResourceBrowser will allow users to browse their online social networks for resources, which will promote the development of online communities to foster a more conducive culture of sharing.</shortdesc>
+
+        <description xml:lang="en">The overall aim of the project is to foster a more conducive culture of sharing of resources amongst practitioners, by allowing users to browse their online social networks for resources, which will promote the development of online communities. By combining resource sharing with social networking tools, we hope to help establish much stronger links between practitioners, whilst continuing to emphasise the ownership and originating sources for these sharable resources.</description>
+
+        <homepage rdf:resource="http://chimera70.essex.ac.uk/chimerawiki/index.php/Resource_Browser" />
+        <homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/demo_resourcebrowser.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx" />
+       
+        <created>2008-9-28</created>
+
+         <wiki rdf:resource="http://chimera70.essex.ac.uk/chimerawiki/index.php/Resource_Browser"/> 
+       
+	  <screenshots rdf:resource="http://chimera70.essex.ac.uk/Projects/1/14/RBScreenshots.pdf" />
+ 
+        <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />   -->
+
+         <bug-database rdf:resource="http://chimera70.essex.ac.uk/chimerawiki/index.php/RB_Issues_and_Bug_Tracking" />  
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+        
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Michael Gardner</foaf:name>
+            <foaf:mbox rdf:resource="mailto:mgardner@essex.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.essex.ac.uk/chimera/team/michaelg.html" />
+            </foaf:Person>
+            </maintainer>
+
+        
+            <developer>
+            <foaf:Person>
+            <foaf:name>John Scott</foaf:name>
+            <foaf:mbox rdf:resource="mailto:jrscott@essex.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.essex.ac.uk/chimera/team/johns.html" />
+            </foaf:Person>
+            </developer>
+
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="FIXME: e.g. http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="FIXME: e.g. http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>

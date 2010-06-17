@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware/project_espgridjuly04.aspx">
+<shortdesc>The ESP-GRID project is investigating how Shibboleth offers solutions to issues of grid authentication, authorisation and security. It will also reappraise the use of PKI within the UK e-Science Grid and grids in general and aims to produce a roadmap for integrating the e-Science Core Programme Production Grid within the JISC information environment (IE).</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_middleware.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>ESP-GRID</name>
+<homepage rdf:resource="http://e-science.ox.ac.uk/oesc/projects/index.xml.ID=body.1_div.20"/>
+</Project>

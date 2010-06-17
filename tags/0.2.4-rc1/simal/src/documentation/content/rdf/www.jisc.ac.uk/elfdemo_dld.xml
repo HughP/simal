@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/elfdemo_dld.aspx">
+<shortdesc>IMS Learning Design is a way to represent courses and activities that has the potential to encourage sharing and reuse of educational approaches alongside the courses themselves. In this project we are focusing on ways to make a player system more accessible to demonstrate a range of learning designs and encourage uptake and development of techniques and software needed to use Learning Design.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Demonstrating learning design</name>
+<homepage rdf:resource="http://ldplayer.sourceforge.net/"/>
+</Project>

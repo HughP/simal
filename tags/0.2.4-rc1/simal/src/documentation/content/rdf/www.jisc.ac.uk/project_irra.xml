@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_irra.aspx">
+<shortdesc>This project aims to to develop practical solutions for integrating DSpace and EPrints repositories and repository workflows into RAE activities (both from institutional and natonal perspectives), and to advise repository managers on how to deploy these solutions in their local contexts.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>IRRA: Institutional Repositories and Research Assessment</name>
+<homepage rdf:resource="http://irra.eprints.org/"/>
+</Project>

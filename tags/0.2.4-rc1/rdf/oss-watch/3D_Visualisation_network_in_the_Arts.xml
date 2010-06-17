@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://usefulinc.com/ns/doap#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:labs="http://labs.apache.org/doap-ext/1.0#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_3dvisa.aspx">
+
+        <name>3D Visualisation Network in the Arts</name>
+
+        <shortdesc xml:lang="en">Promotes, enhances and extends the knowledge, understanding and opportunities enabled by digital 3D visualisation to research and pedagogy in the Arts and Humanities.</shortdesc>
+
+        <description xml:lang="en">The aim of 3DVisA is to enhance and extend 3D visualisation-related knowledge, understanding and opportunities in Arts and Humanities domains, where an increasing number of researchers, educators, and learners are creating and/or using 3D visualisation technologies.</description>
+
+        <homepage rdf:resource="http://www.viznet.ac.uk/3dvisa"/>
+	<homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_3dvisa.aspx"/>
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/aboutus/committees/sub_committees/jsr.aspx"/>
+
+        <created>2008-3-26</created>
+
+         <wiki rdf:resource="https://wiki.viznet.ac.uk/bin/view/"/> 
+
+        <!--  <screenshots rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> -->
+
+        <mailing-list rdf:resource="http://3dvisa.cch.kcl.ac.uk/JISCMail.html"/>  
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+        
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Hugh Denard</foaf:name>
+            <foaf:mbox rdf:resource="mailto:Hugh.Denard@kcl.ac.uk"/>
+            </foaf:Person>
+            </maintainer>
+       
+            <developer>
+            <foaf:Person>
+            <foaf:title>Prof.</foaf:title>
+            <foaf:name>Richard Beacham</foaf:name>
+            <foaf:mbox rdf:resource="mailto:Richard.Beacham@kcl.ac.uk"/>
+            </foaf:Person>
+            </developer>
+       
+            <developer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Anna Bentkowska-Kafel</foaf:name>
+            <foaf:mbox rdf:resource="mailto:Anna.Bentkowska@kcl.ac.uk"/>
+            </foaf:Person>
+            </developer>
+
+            <developer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Julie Tolmie</foaf:name>
+            <foaf:mbox rdf:resource="mailto:Julie.Tolmie@kcl.ac.uk"/>
+            </foaf:Person>
+            </developer>
+      
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>

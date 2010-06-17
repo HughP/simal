@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair/project_nortonradstockfairenough.aspx">
+<shortdesc>The FAIR Enough project will conduct a series of experiments with the embedding of JISC collections and services into a variety of VLE and intranet delivery systems (portals) within the colleges in the consortia. These experiments will also see how well these JISC collections and services can be presented in tandem with assets and services held by the colleges.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>FAIR Enough</name>
+</Project>

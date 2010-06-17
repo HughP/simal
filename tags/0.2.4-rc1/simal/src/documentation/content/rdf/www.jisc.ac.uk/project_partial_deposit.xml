@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair/project_partial_deposit.aspx">
+<shortdesc>The Hybrid Archives project aims to address some of the institutional barriers to depositing collections with data services such as the AHDS and the shortcomings of the OAI harvesting methodology for disclosing metadata for searching at a rich level of granularity, plus the lack of provision for the long-term preservation of disclosed assets.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_fair.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Hybrid Archives</name>
+<homepage rdf:resource="http://ahds.ac.uk/hybrid_archives.htm"/>
+</Project>

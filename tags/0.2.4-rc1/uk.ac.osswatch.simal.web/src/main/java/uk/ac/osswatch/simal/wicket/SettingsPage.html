@@ -1,0 +1,44 @@
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<html>
+<head>
+  <title>Settings: Simal Project Registry</title>
+</head>
+<body>
+<wicket:extend>
+  <h2>Settings</h2>
+  
+  <p class="warning">This form is not implemented yet - that is it does not save data entered into it.</p>
+  
+  <p class="warning" wicket:id="message"></p>
+  
+  
+  <form wicket:id="settingsForm">
+    <fieldset>
+    <legend>Ohloh</legend>
+	  <p>
+	    <label>Ohloh API Key</label>
+	    <input type="text" wicket:id="ohlohApiKey" value="" size="50" />
+	  </p>
+	</fieldset>
+	  
+	  <p>
+	      <input type="submit" value="Save" />
+	  </p>
+  </form>
+</wicket:extend>
+</body>
+</html>

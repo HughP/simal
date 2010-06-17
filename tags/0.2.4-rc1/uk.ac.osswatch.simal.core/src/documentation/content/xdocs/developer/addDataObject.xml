@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>How to add a Data Object</title>
+    <abstract>
+      This document describes how to add a new data object to the Simal system. A data object
+      is a Java representation of an entity in the real world. Using the data object we provide
+      a POJO for accessing and working with a real world data object.
+    </abstract>
+  </header>
+  <body>
+    <section>
+      <title>Introduction</title>
+      <p>Simal is built on an RDF back end. However, working with RDF in Java can be quite difficult.
+      In Simal each entity is represented as a POJO, this simplifies working with entities within the
+      system, however, creating a new POJO can seem quite difficult until you know how it works. That's
+      what this document is for. We will work through an example of creating a new entity to represent
+      an Organisation.</p>
+    </section>
+    
+    <section>
+      <title>Preparation</title>
+      <p>The first stage is to identify the RDF schema that will be used to represent the entity.
+      In this case we will use 
+      <a href="http://xmlns.com/foaf/spec/#term_Organization"><code>foaf:organization</code></a>.</p>
+    </section>
+    
+    <section>
+      <title>Java Interface</title>
+      <p>The first piece of code we need to create is the interface for the data object. In this case
+      we will create <code>uk.ac.osswatch.simal.modelIOrganisation</code> as follows:</p>
+      
+      <source>
+/**
+ * An organisation as represented by a foaf:organisation element.
+ */
+public interface IOrganisation extends IFoafResource {
+	
+	  /**
+	   * Get the default name for this organisation.
+	   */
+	  public String getName();
+}
+      </source>
+
+	  <p>In this first version of the interface we are not worrying about defining all the
+	  data methods that we will need. The idea is just to get things started. In this example
+	  we are extending an existing resource document that gives us some common functionality
+	  for all FOAF resources. Note that there is also a <code>IResource</code> interface
+	  that is a good generic base interface.</p>
+	</section>
+	
+	<section>
+	  <title>A first implementation</title>
+	  <p>Now we have our interface class we will create our first implementation of that interface.
+	  We'll start by implementing a JENA object.</p>
+	  
+	  <source>
+package uk.ac.osswatch.simal.model.jena;
+
+import uk.ac.osswatch.simal.model.IOrganisation;
+
+public class Organisation extends Resource implements IOrganisation {
+
+	public Organisation(com.hp.hpl.jena.rdf.model.Resource resource) {
+		super(resource);
+	}
+
+	private static final long serialVersionUID = 1L;
+
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
+	  </source>
+	  
+	  <p>This class extends <code>uk.ac.osswatch.simal.model.jena.Resource</code> in order
+	  to provide the base methods for the <code>IFoafResource</code> (at the time of 
+	  writing this latter interface does not add any additional methods over the basic 
+	  <code>IResource</code>. If it were to add methods then we would likely extend a
+	  <code>FoafResource</code> class instead.</p>
+	 
+	  <p>This implementation doesn't do anything useful yet. But it is enough for us to build
+	  our first test.</p>
+	</section>
+	
+	<section>
+	  <title>Our first test</title>
+	  
+	  <p>Since we adopt test first development the next stage is to build our test class
+	  as follows:</p>
+	  
+	  <source>
+package uk.ac.osswatch.simal.integrationTest.model.jena;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import uk.ac.osswatch.simal.integrationTest.rdf.BaseRepositoryTest;
+import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
+public class TestOrganisation extends BaseRepositoryTest {
+
+	  @Test
+	  public void testGetName() throws SimalRepositoryException {
+	    assertEquals(TEST_SIMAL_ORGANISATION_NAME, "organisation");
+	  }
+}
+	  </source>
+ 
+ 	<p>Obviously we do not expect this test to pass yet. The idea is to get to a point where we can compile
+ 	and run tests as soon as possible. To compile the code we have so far we need to add the constant
+ 	<code>TEST_SIMAL_ORGANISATION_NAME</code> to <code>BaseRepositoryTest</code>:</p>
+ 	
+    <source>
+  public static final String TEST_SIMAL_ORGANISATION_NAME = "Test Organisation";
+    </source>
+    
+    <p>Once we have done that we can compile and run our new test. As expected it will fail. The
+    next step is to test some real data from the repository.</p>
+  </section>
+  
+  <section>
+    <title>Getting data into the test repository</title>
+    
+    <p>The class <code>uk.ac.osswatch.simal.model</code> adds the repository test data in the method
+    <code>addTestData(ISimalRepository repo</code>. We need to add some test data for our new Organisation
+    class. Following the pattern that we find in this class we will add the following method call:</p>
+    
+    <source>
+      repo.addRDFXML(ISimalRepository.class.getClassLoader().getResource(
+              ORGANISATION_RDF), TEST_FILE_BASE_URL);
+    </source>
+    
+    <p>We also need to add the constant:</p>
+    
+    <source>
+public final static String ORGANISATION_RDF = "testData/organisations.xml";
+    </source>
+
+	<p>The test data file should now be created. At this stage it should look like this:</p>
+	
+	<source><![CDATA[
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  
+
+	 <foaf:Organization rdf:about="http://www.test.com/Organization">
+       <foaf:name>Test Organisation</foaf:name>
+     </foaf:Organization> 
+</rdf:RDF>
+    ]]></source>
+	
+  </section>
+  
+  <section>
+    <title>Making it do something</title>
+    
+    <p>We now have everything in place to run a real test. So lets expand the test:</p>
+    
+    <source>
+	  @Test
+	  public void testGetName() throws SimalRepositoryException {
+		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  assertNotNull(org);
+		  assertEquals(TEST_SIMAL_ORGANISATION_NAME, "Make it fail!");
+	  }
+    </source>
+    
+    <p>Of course this will not compile as we have no <code>getOrganisation</code> method yet.
+    Lets add this to <code>ISimalRepository</code> and <code>SimalRepostitory</code>:</p>
+    
+    <source>
+  
+  /**
+   * Get an organisation from the repository. If the organisation does not exist then
+   * return null.
+   * 
+   * @param uri
+   *          the URI of the organisation to retrieve
+   * @return the organisation, or if no project with the given String exists Null
+   * @throws SimalRepositoryException
+   */  
+  public IOrganisation getOrganisation(String uri)
+  		throws SimalRepositoryException {
+    if (containsOrganisation(uri)) {
+        return new Organisation(model.getResource(uri));
+    } else {
+        return null;
+    }
+  }
+  
+  
+  /**
+   * Test to see if an organisation with the given String exists.
+   * 
+   * @param uri
+   * @return
+   */
+  public boolean containsOrganisation(String uri) {
+	    Property o = model.createProperty(Foaf.NS + "Organization");
+	    com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
+	    Statement foaf = model.createStatement(r, RDF.type, o);
+	    return model.contains(foaf);
+  }
+    </source>
+    
+    <p>We should be able to compile and run the test now. It should still fail as before, but
+    this will indicate that we are writing an organisation to the repostory as well as
+    retrieving it.</p>
+    
+    <p>Now we update the test to make sure we are retrieving the correct organisation
+    by testing the returned name:</p>
+    
+    <source>
+	  @Test
+	  public void testGetName() throws SimalRepositoryException {
+		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  assertNotNull(org);
+		  assertEquals(TEST_SIMAL_ORGANISATION_NAME, org.getName());
+	  }
+    </source>
+    
+    <p>If we run this now the test will fail because the returned name is null. This is because when
+    we implemented the Organisation class we did not implement the <code>getName()</code> method.
+    So, lets implement that method:</p>
+    
+    <source>
+	public String getName() {
+	    String name = getLiteralValue(Foaf.NAME);
+	    
+	    if (name == null) {
+	      name = getLiteralValue(RDFS.label);
+	    }
+	    
+	    if (name == null) {
+	      return getURI();
+	    }
+	    return name;
+	}
+    </source>
+    
+    <p>Running the tests again results in success. Of course it would be useful if we could also add a name to the organisation record.
+    The first step would be to write the test for this:</p>
+    
+    <source>
+	  @Test
+	  public void testAddName() throws SimalRepositoryException {
+		  IOrganisation org = getRepository().getOrganisation("http://www.test.com/Organization");
+		  String name = "Test Name";
+		  org.addName(name);
+		  assertEquals("Name is not as expected after adding new name", name, org.getName());
+	  }
+    </source>
+    
+    <p>Now we add the method to <code>IOrganisation</code> and <code>Organisation</code>.</p>
+    
+    <source>
+	public void addName(String name) {
+	    getJenaResource().addLiteral(Foaf.NAME, name);
+	}
+    </source>
+    
+    <p>Now when we run the test it passes, hurrah!</p>
+    
+    <p>We will need to add more methods for manipulating this data object but we'll stop the
+    tutorial. If you need more help just drop an email to
+    our developer list and we'll be happy to help.</p>
+  </section>
+ 
+  </body>
+  </document>

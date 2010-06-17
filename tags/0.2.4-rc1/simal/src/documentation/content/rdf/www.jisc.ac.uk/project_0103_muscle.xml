@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe/project_0103_muscle.aspx">
+<shortdesc>The project will promote inter-institutional sharing of appropriate resources, and foster good practice in learning and teaching in Schools, FE and HE through improved access to learning resources and materials held in disparately located repositories.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>MUSCLE: Managed University, School, College, Learning Environments</name>
+<homepage rdf:resource="http://muscle-project.blackpool.ac.uk/"/>
+</Project>

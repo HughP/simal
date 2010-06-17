@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure/proj_glass.aspx">
+<shortdesc>The UK academic community is currently in the process of deploying Shibboleth technologies to support local (existing) methods of authentication for remote login to resources. This project will explore a collection of case studies from the education and medical domains including those dependent upon Grid technologies.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_cminfrastructure.aspx"/>
+<name>GLASS:GLASgow Implementation of Shibboleth</name>
+<homepage rdf:resource="http://www.nesc.ac.uk/hub/projects/glass"/>
+</Project>

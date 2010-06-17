@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <Project
+    rdf:about="http://foo.org/testIngest/one#Project"
+  	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+  	xmlns:dc="http://purl.org/dc/elements/1.1/"
+  	xmlns="http://usefulinc.com/ns/doap#">
+  	<shortdesc>
+  		A project to be ingested. This one has a homepage and is used 
+      for testing duplicate detection using the homepage value.
+  	</shortdesc>
+  	<name>Project One</name>
+    <homepage rdf:resource="http://foo.org/ingestTest/one"/>
+  </Project>
+  
+  <Project
+    rdf:about="http://foo.org/testIngest/two#Project"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns="http://usefulinc.com/ns/doap#">
+    <shortdesc>
+      A project to be ingested. This one has an rdfs:seeAlso and is used 
+      for testing duplicate detection using the rdfs:seeAlso value.
+    </shortdesc>
+    <name>Project Two</name>
+    <rdfs:seeAlso rdf:resource="http://foo.org/ingestTest/two"/>
+  </Project>
+</rdf:RDF>

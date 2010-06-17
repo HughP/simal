@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe/project_0103_nottingham.aspx">
+<shortdesc>The project will deliver an outline specification of an e-portfolio to provide the enhanced learner information which will be required by a flexible admissions process and which also support the transition of learners into Higher Education.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Specifying an e-portfolio</name>
+<homepage rdf:resource="http://www.nottingham.ac.uk/e-portfolio"/>
+</Project>

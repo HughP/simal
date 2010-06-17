@@ -1,0 +1,449 @@
+<!--
+ 
+ Copyright 2007 University of Oxford
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+      http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+
+  <groupId>uk.ac.osswatch</groupId>
+  <artifactId>simal-core</artifactId>
+  <version>0.2.4-rc1</version>
+  <packaging>jar</packaging>
+
+  <name>Simal core</name>
+  <url>http://simal.oss-watch.ac.uk/core</url>
+  <description>
+    Simal is a framework and web application for the creation,
+    management and querying of project registries.
+  </description>
+  <inceptionYear>2007</inceptionYear>
+
+  <organization>
+    <name>The University of Oxford</name>
+    <url>http://www.oss-watch.ac.uk</url>
+  </organization>
+
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <issueManagement>
+    <system>Google Code</system>
+    <url>http://code.google.com/p/simal/issues</url>
+  </issueManagement>
+
+  <mailingLists>
+    <mailingList>
+      <name>Contributores</name>
+      <subscribe>
+        http://groups.google.com/group/simal-contributors
+      </subscribe>
+      <unsubscribe>
+        http://groups.google.com/group/simal-contributors
+      </unsubscribe>
+      <post>simal-contributors@googlegroups.com</post>
+      <archive>
+        http://groups.google.com/group/simal-contributors
+      </archive>
+    </mailingList>
+
+    <mailingList>
+      <name>SVN Commits</name>
+      <subscribe>
+        http://groups.google.com/group/simal-commits
+      </subscribe>
+      <unsubscribe>
+        http://groups.google.com/group/simal-commits
+      </unsubscribe>
+      <post>simal-commits@googlegroups.com</post>
+      <archive>http://groups.google.com/group/simal-commits</archive>
+    </mailingList>
+  </mailingLists>
+
+  <scm>
+    <connection>scm:svn:http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/</connection>
+    <developerConnection>
+      scm:svn:https://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/
+    </developerConnection>
+    <url>http://simal.googlecode.com/svn/trunk/uk.ac.osswatch.simal.core/</url>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>simal</id>
+      <url>http://www.16degrees.com.au/maven</url>
+    </repository>
+    <repository>
+      <id>jena</id>
+      <url>http://openjena.org/repo/</url>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.code.p.arat</groupId>
+      <artifactId>rat-lib</artifactId>
+      <version>0.5.1</version>
+      <scope>build</scope>
+    </dependency>
+    
+    <!-- JENA DEPENDENCIES -->
+    <dependency>
+      <groupId>com.hp.hpl.jena</groupId>
+      <artifactId>jena</artifactId>
+      <version>2.6.2</version>
+      <exclusions>
+         <exclusion>
+           <groupId>xerces</groupId>
+           <artifactId>xmlParserAPIs</artifactId>
+         </exclusion>
+      </exclusions>
+    </dependency> 
+    
+    <dependency>
+      <groupId>com.hp.hpl.jena</groupId>
+      <artifactId>sdb</artifactId>
+      <version>1.3.1</version>
+     </dependency>
+     
+    <dependency>
+      <groupId>com.hp.hpl.jena</groupId>
+      <artifactId>tdb</artifactId>
+      <version>0.8.4</version>
+     </dependency>
+    
+    <dependency>
+        <groupId>org.apache.derby</groupId>
+        <artifactId>derby</artifactId>
+        <version>10.4.1.3</version>
+    </dependency> 
+    
+    <!--  JACKRABBIT DEPENDENCIS -->
+    
+    <dependency>
+	    <groupId>org.apache.jackrabbit</groupId>
+	    <artifactId>jackrabbit-core</artifactId>
+	    <version>1.5.5</version>
+	</dependency> 
+	
+	<dependency>
+	    <groupId>javax.jcr</groupId>
+	    <artifactId>jcr</artifactId>
+	    <version>1.0</version>
+	</dependency> 
+	
+	<dependency>
+	    <groupId>org.apache.jackrabbit</groupId>
+	    <artifactId>jackrabbit-ocm</artifactId>
+	    <version>1.5.3</version>
+	    <exclusions>
+		   <exclusion>
+		     <groupId>xml-apis</groupId>
+		     <artifactId>xml-apis</artifactId>
+		   </exclusion>
+	    </exclusions>
+	</dependency> 
+	
+    <!-- LOGGING DEPENDENCIES - LOG4J -->
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.4.3</version>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+      <version>1.2.14</version>
+    </dependency>
+    
+    <!-- MISC DEPENDENCIES -->
+
+    <dependency>
+        <groupId>commons-cli</groupId>
+        <artifactId>commons-cli</artifactId>
+        <version>1.1</version>
+    </dependency>
+
+    <dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>2.4</version>
+    </dependency>
+
+    <!--  JUNIT DEPENDENCY FOR TESTING -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.4</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.0.4</version>
+      <scope>test</scope>
+      <exclusions>
+         <exclusion>
+           <groupId>xml-apis</groupId>
+           <artifactId>xml-apis</artifactId>
+         </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+    	<groupId>org.apache.poi</groupId>
+    	<artifactId>poi</artifactId>
+    	<version>3.1-FINAL</version>
+    	<optional>false</optional>
+    </dependency>
+  </dependencies>
+
+  <distributionManagement>
+    <repository>
+      <id>simal.repo.ftp</id>
+      <url>ftp://16degrees.com.au/maven</url>
+    </repository>
+  </distributionManagement>
+
+  <build>    
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ftp</artifactId>
+         <version>1.0-alpha-6</version>
+      </extension>
+    </extensions>
+    
+    <resources>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/java</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <filtering>false</filtering>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <filtering>false</filtering>
+        <directory>src/test/java</directory>
+        <includes>
+          <include>**</include>
+        </includes>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </testResource>
+    </testResources>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+          <compilerVersion>1.5</compilerVersion>
+          <showDeprecation>true</showDeprecation>
+          <showWarnings>true</showWarnings>
+        </configuration>
+      </plugin>
+
+      <!--  FIXME: this throws a NPE at present (26 Jan 2008)
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-doap-plugin</artifactId>
+        <configuration>
+        <category>build-management</category>
+        <language>Intercal</language>
+        </configuration>
+        </plugin>
+      -->
+            
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>        
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+        </configuration>
+      </plugin>
+      
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>.pmd</exclude>
+            <exclude>derby.log</exclude>
+            <exclude>repository/**/*</exclude>
+            <exclude>reports/**/*</exclude>
+            <exclude>simal*/**/*</exclude>
+            <exclude>build/**/*</exclude>
+            <exclude>simalDOAPFilestore/**/*</exclude>
+            <exclude>simalRepository/**/*</exclude>
+            <exclude>local.simal.properties</exclude>
+            <exclude>local.simal.test.properties</exclude>
+          </excludes>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>rat-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>         
+    
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>index</report>
+              <report>summary</report>
+              <report>dependencies</report>
+              <report>dependency-convergence</report>
+              <report>project-team</report>
+              <report>mailing-list</report>
+              <!--  <report>cim</report>  -->
+              <report>issue-tracking</report>
+              <report>license</report>
+              <report>scm</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+        <configuration>
+          <linkXref>true</linkXref>
+          <sourceEncoding>utf-8</sourceEncoding>
+          <minimumTokens>100</minimumTokens>
+          <targetJdk>1.5</targetJdk>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-clover-plugin</artifactId>
+      </plugin> 
+      
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+
+	<plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>cobertura-maven-plugin</artifactId>
+		<version>2.0</version>
+		<configuration>
+			<formats>
+				<format>xml</format>
+				<format>html</format>
+			</formats>
+		</configuration>
+	</plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>findbugs-maven-plugin</artifactId>
+        <configuration>
+          <xmlOutput>true</xmlOutput>
+          <excludeFilterFile>findbugs-exclude.xml</excludeFilterFile>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>  
+
+  <!-- Developers listed alphabetically -->
+  <developers>
+    <developer>
+      <id>rgardler</id>
+      <name>Ross Gardler</name>
+      <email>rgardler@apache.org</email>
+      <organization>OSS Watch</organization>
+      <organizationUrl>http://www.oss-watch.ac.uk</organizationUrl>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
+    <!-- TODO: Add all developers here (developers should do it themselves) -->
+  </developers>
+</project>

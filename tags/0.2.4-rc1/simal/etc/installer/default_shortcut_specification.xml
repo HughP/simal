@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<shortcuts>
+  <programGroup defaultName="Simal" location="applications"/>
+  
+  <shortcut 
+    name="Simal Documentation"
+    type="Link" 
+    target="http://simal.oss-watch.ac.uk"
+    programGroup="yes" />
+    
+  <shortcut 
+    name="Simal Developer Site"
+    type="Link" 
+    target="http://code.google.com/p/simal"
+    programGroup="yes" />
+    
+    <shortcut
+     name="Uninstall Simal"
+     programGroup="yes"
+     desktop="no"
+     applications="no"
+     startMenu="no"
+     startup="no"
+     target="java"
+     commandLine="-jar &quot;$INSTALL_PATH/Uninstaller/uninstaller.jar&quot;"
+     initialState="noShow"
+     iconFile="trashcan_full"
+     iconIndex="0"
+     workingDirectory=""
+     type="Application"
+     encoding="UTF-8"
+     description="IzPack uninstaller">
+   </shortcut>
+</shortcuts>

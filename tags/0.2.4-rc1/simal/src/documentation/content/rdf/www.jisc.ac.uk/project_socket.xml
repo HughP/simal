@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/project_socket.aspx">
+<shortdesc>The aim of the project is to assemble a toolkit that, given a Web Services Description Language (WSDL) document, will automatically generate consumer software for the associated Web service together with an interface that makes it available as a resource in a VLE.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>SOCKET</name>
+<homepage rdf:resource="http://www.socketelf.org:8080/eldg/socket/home.jsp"/>
+</Project>
