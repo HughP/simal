@@ -1,5 +1,11 @@
-#summary Notes about the 0.2.3 release
+#summary Notes about the 0.2.4 release
 #labels Phase-Support,Featured
+
+= Release 0.2.4-rc1 =
+
+Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/26b469a187ec100d# 17/06/2010]
+
+This release contains a separate widget to [DoapCreatorWidget add a project] to Simal from a separate environment hosted by a [http://incubator.apache.org/wookie Wookie server]. 
 
 = Release 0.2.3-rc2 =
 
