@@ -6,7 +6,7 @@
   <groupId>uk.ac.osswatch</groupId>
   <artifactId>simal-webapp</artifactId>
   <packaging>war</packaging>
-  <version>0.2.4</version>
+  <version>0.2.4-rc1</version>
   <name>Simal Web Application</name>
   <url>http://simal.oss-watch.ac.uk/web</url>
   <description>
@@ -114,13 +114,13 @@
     <dependency>
       <groupId>uk.ac.osswatch</groupId>
       <artifactId>simal-core</artifactId>
-      <version>0.2.4</version>
+      <version>0.2.4-rc1</version>
     </dependency>
     
     <dependency>
       <groupId>uk.ac.osswatch</groupId>
       <artifactId>simal-rest</artifactId>
-      <version>0.2.4</version>
+      <version>0.2.4-rc1</version>
     </dependency>
     
     <dependency>
@@ -222,14 +222,12 @@
         <directory>src/main/resources</directory>
       </resource>
       <resource>
-        <filtering>false</filtering>
-        <directory>src/main/gadgets</directory>
+        <filtering>true</filtering>
+        <directory>src/main/widgets</directory>
+        <targetPath>${project.build.directory}/filteredWidgets</targetPath>
         <includes>
           <include>**</include>
         </includes>
-        <excludes>
-          <exclude>**/*.java</exclude>
-        </excludes>
       </resource>
       <resource>
         <filtering>false</filtering>
@@ -274,12 +272,12 @@
         <version>1.3</version>
         <executions>
           <execution>
-						<phase>package</phase>
+            <phase>package</phase>
             <configuration>
               <tasks>
                 <mkdir dir="${project.build.directory}/widgets"/>
-                <zip basedir="${project.basedir}/src/main/widgets/doapcreator"
-                	destfile="${project.build.directory}/widgets/doapcreator.wgt">
+                <zip basedir="${project.build.directory}/filteredWidgets/doapcreator"
+                	destfile="${project.build.directory}/widgets/doapcreator-${project.version}.wgt">
                 </zip>
               </tasks>
             </configuration>
