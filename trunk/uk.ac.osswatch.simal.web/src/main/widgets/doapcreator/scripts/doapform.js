@@ -449,13 +449,13 @@ function commitDoapFile(doap) {
       if (xml_request.responseText.indexOf("http") == 0) {
         alert('Project successfully saved to the registry.\n' + 'Visit the project here: ' + xml_request.responseText + 'Please keep the contents for your record.');
       } else {
-        alert('It seems that saving the project remotely did not succeed. The message from the remote server is :\n\'' + xml_request.responseText + '\'\nPlease report this message and your file to sander.vanderwaal@oucs.ox.ac.uk.');
+        alert('It seems that saving the project remotely did not succeed. The message from the remote server is :\n\'' + xml_request.responseText + '\'\nPlease report this message and submit DOAP to http://code.google.com/p/simal/issues/list');
       }
     } else if (xml_request.readyState == 4 && xml_request.status == 201) {
       if (xml_request.responseText.indexOf("http") == 0) {
         alert('Project successfully saved to the registry.\n' + 'Visit the project here: ' + xml_request.responseText + 'Please keep the contents for your record.');
       } else {
-        alert('It seems that saving the project remotely did not succeed. The message from the remote server is :\n\'' + xml_request.responseText + '\'\nPlease report this message and your file to sander.vanderwaal@oucs.ox.ac.uk.');
+        alert('It seems that saving the project remotely did not succeed. The message from the remote server is :\n\'' + xml_request.responseText + '\'\nPlease report this message and submit DOAP to http://code.google.com/p/simal/issues/list');
       }
     }
   };
