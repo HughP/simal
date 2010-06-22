@@ -438,7 +438,7 @@ function getJiscFundedFields() {
 }
 
 function commitDoapFile(doap) {
-  var loc = 'http://localhost:8080/simal-rest/addProject';
+  var loc = 'http://localhost:8888/simal-rest/addProject';
   loc = Widget.proxify(loc);
   var xml_request = new XMLHttpRequest();
 
@@ -449,14 +449,16 @@ function commitDoapFile(doap) {
       if (xml_request.responseText.indexOf("http") == 0) {
         alert('Project successfully saved to the registry.\n' + 'Visit the project here: ' + xml_request.responseText + 'Please keep the contents for your record.');
       } else {
-        alert('It seems that saving the project remotely did not succeed. The message from the remote server is :\n\'' + xml_request.responseText + '\'\nPlease report this message and submit DOAP to http://code.google.com/p/simal/issues/list');
+        reportError(xml_request);
       }
     } else if (xml_request.readyState == 4 && xml_request.status == 201) {
       if (xml_request.responseText.indexOf("http") == 0) {
         alert('Project successfully saved to the registry.\n' + 'Visit the project here: ' + xml_request.responseText + 'Please keep the contents for your record.');
       } else {
-        alert('It seems that saving the project remotely did not succeed. The message from the remote server is :\n\'' + xml_request.responseText + '\'\nPlease report this message and submit DOAP to http://code.google.com/p/simal/issues/list');
+          reportError(xml_request);
       }
+    } else if (xml_request.readyState == 4 && xml_request.status == 500) {
+        reportError(xml_request);
     }
   };
   
@@ -466,4 +468,8 @@ function commitDoapFile(doap) {
   xml_request.send('rdf=' + doap);
   alert("Please copy and paste the green code (xml) and paste into a local file.\n"
       + "I.e. copy and paste into a .txt file and then save on the 'about' page of your project blog.\n\n");
+}
+
+function reportError(xml_request) {
+	alert('It seems that saving the project remotely did not succeed. The status code is ' + xml_request.status + ' The message from the remote server is :\n\'' + xml_request.responseText + '\'\nPlease report this message and submit DOAP to http://code.google.com/p/simal/issues/list');
 }
