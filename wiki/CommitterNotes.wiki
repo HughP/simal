@@ -34,13 +34,17 @@ Ensure we check for foo when we do bar. Thanks to Jane Doe. (fixes issue 123)
 
 == Requesting a review ==
 
-We operate a commit then review policy for committers. For all but the simplest of commits you should request a code review. To do this simply include "new review" in the "COMMAND_LINE" of your commit log, for example:
+We operate a commit then review policy for committers. All commits result in a diff email been sent to the list which should be reviewed by other committers.
+
+If you want to explicitly request a code review you can do so by simply include "new review" in the "COMMAND_LINE" of your commit log, for example:
 
 {{{
 Ensure we check for foo when we do bar. (fixes issue 123)
 
 new review
 }}}
+
+This will automatically create a new issue of type 'review'.
 
 == Updating issues ==
 
