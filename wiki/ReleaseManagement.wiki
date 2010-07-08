@@ -27,8 +27,8 @@ The following are the minimal communications that have to take place to keep to 
 || Day before creating release release branch || Intention to create release branch in 1 day || simal-contributors@googlegroups.com ||
 || After release branch created || Release branch created || simal-contributors@googlegroups.com ||
 || Candidate binary release uploaded || Binary release candidate available for testing || simal-contributors@googlegroups.com <br /> simal-users@googlegroups.com ||
-|| Week after candidate binary release availability || Vote for final release to be built || simal-contributors@googlegroups.com  <br /> simal-users@googlegroups.com ||
-|| After voting period || Voting results; final release to be built || simal-contributors@googlegroups.com  <br /> simal-users@googlegroups.com ||
+|| Week after candidate binary release availability || Vote for final release to be built || simal-contributors@googlegroups.com ||
+|| After voting period || Announce voting results; build final release || simal-contributors@googlegroups.com  <br /> simal-users@googlegroups.com ||
 || Final binary release uploaded || Announce availability of final release || simal-contributors@googlegroups.com <br /> simal-users@googlegroups.com ||
 
 = Soft release (1st, 2nd and 4th iteration) =
@@ -156,9 +156,9 @@ When one or more critical errors are discovered a patch release needs to be crea
 
 When no (more) critical errors are discovered on the last release candidate during the testing phase we can now proceed with getting approval for the release.
 
-A vote on the release is called on the contributor and user mailing list.
+A vote on the release is called on the contributor mailing list.
 
-Assuming that the vote passes we can proceed. If it does not pass the reason(s) for the negative votes must be addressed.
+Assuming that the vote passes we can proceed. If it does not pass the reason(s) for the negative votes must be addressed. The result of the voting is announced on the contributor and user mailing lists.
 
 == Create and sign final binary release ==
 
