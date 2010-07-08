@@ -156,7 +156,7 @@ When one or more critical errors are discovered a patch release needs to be crea
 
 When no (more) critical errors are discovered on the last release candidate during the testing phase we can now proceed with getting approval for the release.
 
-A vote on the release is called on the contributor mailing list.
+A vote on the release is called on the contributor and user mailing list.
 
 Assuming that the vote passes we can proceed. If it does not pass the reason(s) for the negative votes must be addressed.
 
@@ -164,7 +164,7 @@ Assuming that the vote passes we can proceed. If it does not pass the reason(s) 
 
 The final binary release is created on the release branch. The only difference between the final release and the last release candidate is the version number.
 
-*TODO:* The process on signing the release still has to be worked out. See [http://code.google.com/p/simal/issues/detail?id=262 Issue 262].
+The process on signing the release is described in SigningReleases.
 
 == Ensure the demo server is running the latest release ==
 
