@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/project_elearn_ped_models_desk_study.aspx">
+<shortdesc>e-Learning Models Desk Study to increase understanding of the e-learning models that inform future effective practice, and to apply that understanding to specify guidance and tools to assist e-learning practitioners, assessor and designers.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>e-Learning Models desk study</name>
+<homepage rdf:resource="http://www.essex.ac.uk/chimera/"/>
+</Project>

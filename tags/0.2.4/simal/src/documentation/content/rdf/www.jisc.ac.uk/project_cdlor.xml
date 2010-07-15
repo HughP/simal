@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories/project_cdlor.aspx">
+<shortdesc>This project aims to identify and analyse the factors that influence practical uptake and implementation of learning object (LO) repositories, with a focus on social and cultural issues.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digital_repositories.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Community Dimensions of Learning Object Repositories</name>
+<homepage rdf:resource="http://academy.gcal.ac.uk/cd-lor/"/>
+</Project>

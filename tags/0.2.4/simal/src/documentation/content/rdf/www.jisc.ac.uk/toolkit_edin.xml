@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/toolkit_edin.aspx">
+<shortdesc>The aim is to develop a software development toolkit (SDK) to mediate the reuse of resource lists created and stored in distributed and heterogeneous systems ranging from e-learning tools, VLEs, portals, dedicated resource list systems and repositories.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>Resource list toolkit</name>
+<homepage rdf:resource="http://tweed.lib.ed.ac.uk/RLI/"/>
+</Project>

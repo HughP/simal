@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe/project_shell.aspx">
+<shortdesc>The SHELL Project aims to develop the integration of technologies across a consortium involving the University and partner colleges.  In particular, the SHELL project will address the increased business need to have a single registration/information up-load for students who move between FE and HE in the region through a student-centred record (SCR).</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_buildmle_hefe.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>SHELL project</name>
+<homepage rdf:resource="http://www.shellproject.net/"/>
+</Project>

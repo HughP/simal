@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc/sfc_cells.aspx">
+<shortdesc>This project will utilise the extensive experience of the various partners to identify a "core" curriculum to cover undergraduate and HN education in the Life Sciences that will be shared and used at the appropriate level by each partner.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_sfc.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>CELLS: Collaborative e-Learning in the Life Sciences</name>
+<homepage rdf:resource="http://www.cellsproject.org/"/>
+</Project>

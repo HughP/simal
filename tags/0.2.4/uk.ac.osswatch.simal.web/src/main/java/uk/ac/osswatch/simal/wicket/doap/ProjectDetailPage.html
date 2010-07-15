@@ -1,0 +1,173 @@
+<!--
+ 
+Copyright 2008 University of Oxford 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+   http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ 
+-->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+<wicket:extend>
+<div class="content">
+
+  <div class="widget">
+    <div class="content">
+      <p>  
+      <input type="button" wicket:id = "deleteProjectActionLink" value="Delete"/>
+      <a wicket:id="doapLink" href="#">RDF</a> 
+      Openness: <span wicket:id="opennessRating">60</span>
+      </p> 
+    </div>
+  </div>
+  
+  <div class="content">
+    <div class="leftcolumn">  
+      <h2 wicket:id="projectName">Project Name</h2>
+      <p wicket:id="shortDesc">Short Description</p>
+      <div id="feed-control">
+        <!--  this is a place holder for the Google AJAX Feed API -->
+      </div>
+      <div wicket:id="homepages">
+        <a wicket:id="homepage" href="#"><span wicket:id="label">A home page</span></a>
+      </div>
+    </div>
+  
+    <div class="rightcolumn">
+      <h2>Details</h2>
+      <p wicket:id="description">This is the full description.</p>
+      <p wicket:id="releases">A list of releases</p>
+    </div>
+  </div>
+  
+  <div class="content">
+    <div class="leftcolumn">
+      <h2>Community Tools</h2>
+      <div wicket:id="issueTrackers">
+        <a wicket:id="issueTracker" href="#"><span wicket:id="label">An Issue Tracker</span></a>
+      </div>
+      
+      <h3>Mailing Lists</h3>
+      <ul wicket:id="mailingLists">
+        <li><a wicket:id="mailingList" href="#"><span wicket:id="label">A mailing list</span></a></li>
+      </ul>
+            
+      <div wicket:id="wikis">
+        <a wicket:id="wiki" href="#"><span wicket:id="label">A wiki</span></a>
+      </div>
+      
+      <h2>Downloads</h2>
+      <div wicket:id="downloadPages">
+        <ul>
+          <li><a wicket:id="downloadPage" href="#"><span wicket:id="label">Download Page</span></a></li>
+        </ul>
+      </div>
+      
+      <div wicket:id="downloadMirrors">
+        <ul>
+          <li><a wicket:id="downloadMirror" href="#"><span wicket:id="label">Download Mirror</span></a></li>
+        </ul>
+      </div>
+      
+      <h2>Source repositories</h2>
+      <div wicket:id="sourceRepositories">
+        <p>Repository details</p>
+      </div>
+      
+      <div wicket:id="screenshots">
+        <a wicket:id="screenshot" href="#"><span wicket:id="label">Screenshots</span></a>
+      </div>
+    </div>
+    
+    <div class="rightcolumn">
+      <h2>Categories</h2>
+      <div wicket:id="addCategoryPanel">Add Category Panel</div>
+      <div wicket:id="categoryList" >Category List Panel</div>
+      
+      <h2>Operating System(s)</h2>
+      <div wicket:id="OSes">
+        <ul>
+          <li wicket:id="OS">Operating System</li>
+        </ul>
+      </div>
+      
+      <h2>Programming Language(s)</h2>
+      <div wicket:id="programmingLanguages">
+        <ul>
+          <li wicket:id="programmingLanguage">Programming Languages</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="content">
+    <div class="singlecolumn">
+      <div wicket:id="addMaintainerPanel">Add Maintainer Panel</div>
+      <div wicket:id="maintainers">
+        A list of maintainers
+      </div>
+      
+      <div wicket:id="addDeveloperPanel">Add Developer Panel</div>
+      <div wicket:id="developers">
+        A list of developers
+      </div>
+      
+      <div wicket:id="addTesterPanel">Add Tester Panel</div>
+      <div wicket:id="testers">
+        A list of testers
+      </div>
+      
+      <div wicket:id="addHelperPanel">Add Helper Panel</div>
+      <div wicket:id="helpers">
+        A list of helpers
+      </div>
+            
+      <div wicket:id="addDocumentorPanel">Add Documentor Panel</div>
+      <div wicket:id="documenters">
+        A list of documenter
+      </div>
+            
+      <div wicket:id="addTranslatorPanel">Add Translator Panel</div>
+      <div wicket:id="translators">
+        A list of translators
+      </div>
+    </div>
+  </div>
+  
+  
+  <div class="content">
+    <div class="singlecolumn">
+      <h3>Reviews</h3>
+      <div wicket:id="addReviewPanel">Add Review Panel</div>
+      <div wicket:id="reviews">
+        A list of reviews for this project
+      </div>
+    </div>
+  </div>
+  
+  <div class="footnote">
+    <div wicket:id="sources">
+      <div wicket:id="seeAlso">A list of seeAlso resources</div>
+    </div>
+    <p>Simal ID: <span wicket:id="simalID">Simal-ID</span></p>
+    <p class="created">Created:  <span wicket:id="created">Created Date</span></p>
+  </div>
+    
+</div>
+</wicket:extend>
+</body>
+</html>
+

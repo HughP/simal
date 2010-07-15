@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa/project_akenti_permis.aspx">
+<shortdesc>This project will evaluate and compare and contrast the AKENTI and PERMIS authorisation infrastructures.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_aaa.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/access_management.aspx"/>
+<name>Comparison of the AKENTI and PERMIS authorization infrastructures</name>
+<homepage rdf:resource="http://sec.isi.salford.ac.uk/"/>
+</Project>

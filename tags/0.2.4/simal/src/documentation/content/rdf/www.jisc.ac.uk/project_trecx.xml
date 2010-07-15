@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework/project_trecx.aspx">
+<shortdesc>Tracking the actions of learners through e-learning tools is important in many situations. If a system is not recording the actions of the users then it is not possible to tell what activities are being undertaken or which resources are being using.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_framework.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>TRECX</name>
+</Project>

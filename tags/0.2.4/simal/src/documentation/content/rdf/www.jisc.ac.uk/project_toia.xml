@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_toia.aspx">
+<shortdesc>The Project aims to develop in conjunction with commercial associates an assessment management system that has technical conformance with the IMS Question and Test Interoperability (QTI) specifications.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>TOIA: Tools for Online Interoperable Assessment</name>
+<homepage rdf:resource="http://www.toia.ac.uk/"/>
+</Project>

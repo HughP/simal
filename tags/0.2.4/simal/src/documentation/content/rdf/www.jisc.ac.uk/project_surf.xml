@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals/project_surf.aspx">
+<shortdesc>Pilot to identify the practical issues that relate to preparing existing electronic (as prepared for print publishing) format resources for use within E-environments with respect to metadata for cross sector  and cross-academic level usage.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_pals.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Surf Metadata Publisher Project</name>
+</Project>

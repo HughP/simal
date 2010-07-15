@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm/project_researchdata.aspx">
+<shortdesc>The aim of this project is to create a retention schedule for primary research data, paper and electronic, created at the London School of Hygiene &amp; Tropical Medicine.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Retention of electronic research data</name>
+<homepage rdf:resource="http://www.lshtm.ac.uk/library/archives/recordsmanagement.html"/>
+</Project>

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://www.co-ode.org">
+
+        <name>Collaborative Open Ontology Development Environment (CO-ODE extension)</name>
+
+        <shortdesc xml:lang="en">The project aims to build authoring tools and infrastructure that make ontology engineering easier.</shortdesc>
+
+        <description xml:lang="en">The project aims to bring to the JISC community a high quality integrated environment for ontology development using the new Web Ontology Language OWL, integrated with alternative frame representations. The project aims to make it easy to develop ontologies and ontology driven software. Existing collaborations are focused on the life sciences, but involvement is welcome from all disciplines from both the research and information environment communities.</description>
+
+        <homepage rdf:resource="http://www.co-ode.org/" />
+        <homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/eresearch/semanticgrid/coode.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/aboutus/committees/sub_committees/jsr.aspx" />
+
+        <created>2008-6-13</created>
+
+
+	  <!--  <wiki rdf:resource="http://www.pligg.com/wiki/index.php?title=Main_Page"/> -->
+
+        <!--  <screenshots rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> -->
+
+        <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />   -->
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+       <maintainer>
+            <foaf:Person>
+            <foaf:title>Prof.</foaf:title>
+            <foaf:name>Alan Rector</foaf:name>
+            <foaf:mbox rdf:resource="mailto:co-ode-admin@cs.man.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.cs.man.ac.uk/~rector/home_page_rector/" />
+            </foaf:Person>
+            </maintainer>
+       
+
+      
+            <developer>
+            <foaf:Person>
+            <foaf:title>Prof.</foaf:title>
+            <foaf:name>Carole Goble</foaf:name>
+            <foaf:mbox rdf:resource="mailto:carole.goble@manchester.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.cs.man.ac.uk/~carole/" />
+            </foaf:Person>
+            </developer>
+      
+ 
+            <developer>
+            <foaf:Person>
+            <foaf:name>Sean Bechhofer</foaf:name>
+            <foaf:mbox rdf:resource="mailto:sean.bechhofer@manchester.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.cs.man.ac.uk/~seanb/index.php" />
+            </foaf:Person>
+            </developer>
+        
+
+
+            <developer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Robert Stevens</foaf:name>
+            <foaf:mbox rdf:resource="mailto:robert.stevens@manchester.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.cs.man.ac.uk/~stevensr/" />
+            </foaf:Person>
+            </developer>
+
+		<developer>
+            <foaf:Person>
+            <foaf:title>Prof.</foaf:title>
+            <foaf:name>Mark Musen</foaf:name>
+            <foaf:mbox rdf:resource="mailto:musen@stanford.edu"/>
+            <foaf:homepage rdf:resource="http://med.stanford.edu/profiles/Mark_Musen/" />
+            </foaf:Person>
+            </developer>
+       
+
+
+            <developer>
+            <foaf:Person>
+            <foaf:name>Nick Drummond</foaf:name>
+            <foaf:mbox rdf:resource="mailto:nick.drummond@cs.manchester.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.cs.man.ac.uk/~drummond/" />
+            </foaf:Person>
+            </developer>
+        
+
+ 
+            <developer>
+            <foaf:Person>
+            <foaf:name>Matthew Horridge</foaf:name>
+            <foaf:mbox rdf:resource="mailto:matthew.horridge@cs.man.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.cs.man.ac.uk/~horridgm/" />
+            </foaf:Person>
+            </developer>
+        
+
+
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="FIXME: e.g. http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="FIXME: e.g. http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>

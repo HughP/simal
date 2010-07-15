@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre/vre_sakai_portal.aspx">
+<shortdesc>In this project we will extend the Sakai open source and open standards portal framework. It will host a number of integrated tools and robust distributed services and become the principal user interface for a fully-functional Virtual Research Environment (VRE).</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_vre.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
+<name>Sakai VRE Portal Demonstrator</name>
+<homepage rdf:resource="http://www.grids.ac.uk/Sakai"/>
+</Project>

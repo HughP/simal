@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://usefulinc.com/ns/doap#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/"
+    xmlns:labs="http://labs.apache.org/doap-ext/1.0#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:projects="http://projects.apache.org/ns/asfext#">
+
+    <Project rdf:about="http://atlantides.org/trac/concordia">
+
+        <name>Concordia</name>
+
+        <shortdesc xml:lang="en">This demonstration project unites an array of separately produced and independently hosted primary source collections with a uniquely comprehensive geographic dataset to provide search and analysis capabilities.</shortdesc>
+
+        <description xml:lang="en">Concordia is a creative and time-critical transatlantic collaboration that advances digitization priorities along two complementary axes: dissemination of key epigraphical, papyrological and geographic resources for Greek and Roman culture in North Africa, and piloting of reusable, standard techniques for web-based cyberinfrastructure.</description>
+
+        <homepage rdf:resource="http://atlantides.org/trac/concordia" />
+        <homepage rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/digitisation/jiscneh/concordia.aspx" />
+
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx" />
+        <category rdf:resource="http://www.jisc.ac.uk/aboutus/committees/sub_committees/jcs.aspx" />
+
+        <created>2008-7-10</created>
+
+         <wiki rdf:resource="http://atlantides.org/trac/concordia/wiki/TitleIndex"/>
+
+        <!--  <screenshots rdf:resource="http://usefulinc.com/software/gnome-bluetooth/#shots" /> -->
+
+        <!-- <mailing-list rdf:resource="FIXME: URL to mailing list page" />   -->
+
+        <!-- <bug-database rdf:resource="http://bugzilla.gnome.org/" />  -->
+
+        <!-- <download-page rdf:resource="http://www.redland.opensource.ac.uk/dist/" /> -->
+
+        <!-- <download-mirror rdf:resource="http://sourceforge.net/projects/librdf/" /> -->
+
+        <!-- <license rdf:resource="http://usefulinc.com/doap/licenses/GPL" /> -->
+
+        <!-- <programming-language xml:lang="en">PHP</programming-language> -->
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Prof.</foaf:title>
+            <foaf:name>Roger Shaler Bagnall</foaf:name>
+            <foaf:mbox rdf:resource="mailto:roger.bagnall@nyu.edu"/>
+            <foaf:homepage rdf:resource="http://www.nyu.edu/isaw/people-bagnall_cv.htm" />
+            </foaf:Person>
+            </maintainer>
+      
+ 
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Prof.</foaf:title>
+            <foaf:name>Charlotte Roueché</foaf:name>
+	    	<foaf:mbox rdf:resource="mailto:charlotte.roueche@kcl.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.kcl.ac.uk/schools/humanities/depts/bmgs/staff/rouecon.html" />
+            </foaf:Person>
+            </maintainer>
+        
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Tom Elliott</foaf:name>
+            <foaf:mbox rdf:resource="mailto:tom.elliott@nyu.edu"/>
+            <foaf:homepage rdf:resource="http://homepages.nyu.edu/~te20/" />
+            </foaf:Person>
+            </maintainer>
+       
+     
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Gabriel Bodard</foaf:name>
+            <foaf:mbox rdf:resource="mailto:gabriel.bodard@kcl.ac.uk"/>
+            <foaf:homepage rdf:resource="http://www.blogger.com/profile/16894233240118343826" />
+            </foaf:Person>
+            </maintainer>
+        
+
+
+            <maintainer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>Sean Gillies</foaf:name>
+            <foaf:mbox rdf:resource="mailto:sgillies@frii.com"/>
+            <foaf:homepage rdf:resource="http://zcologia.com/sgillies/" />
+            </foaf:Person>
+            </maintainer>
+        <!-- 
+            <developer>
+            <foaf:Person>
+            <foaf:title>Dr.</foaf:title>
+            <foaf:name>FIXME: John Doe</foaf:name>
+            <foaf:mbox rdf:resource="FIXME: mailto:email@foo.org"/>
+            <foaf:homepage rdf:resource="http://john.doe.org" />
+            </foaf:Person>
+            </developer>
+        -->
+
+        <!-- 
+            <release>
+            <Version>
+            <name>Pligg beta</name>
+            <created>2007-04-29</created>
+            <revision>9.5</revision>
+            </Version>
+            </release>
+        -->
+
+        <!-- 
+            <repository>
+            <SVNRepository>
+            <location rdf:resource="FIXME: e.g. http://svn.usefulinc.com/svn/repos/trunk/doap/" />
+            <browse rdf:resource="FIXME: e.g. http://svn.usefulinc.com/cgi-bin/viewcvs.cgi/trunk/doap/" />
+            </SVNRepository>
+            </repository>
+           
+            <repository>
+            <CVSRepository>
+            <anon-root>FIXME: 
+            pserver:anonymous@newscloud.cvs.sourceforge.net/cvsroot
+            </anon-root>
+            <module>FIXME: newscloud</module>
+            <browse
+            rdf:resource="http://newscloud.cvs.sourceforge.net/newscloud" />
+            </CVSRepository>
+            </repository>
+        -->
+
+    </Project>
+</rdf:RDF>

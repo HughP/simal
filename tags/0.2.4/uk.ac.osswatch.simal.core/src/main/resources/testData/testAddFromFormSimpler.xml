@@ -1,0 +1,111 @@
+<!--
+  Copyright 2010 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns="http://usefulinc.com/ns/doap#"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:v="http://www.w3.org/2006/vcard/ns#"
+	xmlns:dc="http://purl.org/dc/core/" xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:simal="http://oss-watch.ac.uk/ns/0.2/simal#" xmlns:cerif="http://www.dotac.info/ontology/CERIF2008.owl#">
+	<Project rdf:about="http://simal.oss-watch.ac.uk/FromFormSimpler">
+		<created>2010-4-27</created>
+		<name>Full name of project</name>
+		<shortname>Unique</shortname>
+		<shortdesc xml:lang="en">Short project description (120 c
+		</shortdesc>
+		<description xml:lang="en">Long project description (3-5
+			sentences):</description>
+		<homepage rdf:resource="http://homepage.com" />
+		<blog rdf:resource="http://Project.xom" />
+		<foaf:seeAlso dc:title="Project blog" rdf:resource="http://ATOM.com"
+			dc:format="application/rss+xml" />
+		<simal:reporter>
+			<foaf:Person
+				rdf:about="http://registry.oss-watch.ac.uk/people/c3280d032e60566faacf872360b2295dfe276a21">
+				<foaf:name>Perons responsible</foaf:name>
+				<foaf:mbox rdf:resource="mailto:jisc.project@docs.com" />
+				<foaf:mbox_sha1sum>c3280d032e60566faacf872360b2295dfe276a21
+				</foaf:mbox_sha1sum>
+				<foaf:phone>26541</foaf:phone>
+				<foaf:skypeID>dkyupw</foaf:skypeID>
+			</foaf:Person>
+		</simal:reporter>
+		<simal:reporter>
+			<foaf:Person rdfs:label="Project account"
+				rdf:about="http://registry.oss-watch.ac.uk/people/e6bb677cd7d7292d64932befba888ab4ab0c1fe8">
+				<foaf:mbox rdf:resource="mailto:project@gmail.com" />
+			</foaf:Person>
+		</simal:reporter>
+		<foaf:fundedBy>
+			<foaf:Organization rdf:about="http://www.jisc.ac.uk">
+				<foaf:name>JISC</foaf:name>
+			</foaf:Organization>
+		</foaf:fundedBy>
+		<simal:fundingManager>programme manager</simal:fundingManager>
+		<vendor>
+			<foaf:Organization dc:title="Lead institution">
+				<foaf:name>Name of lead institution</foaf:name>
+				<foaf:member>
+					<foaf:Organization dc:title="Department">
+						<foaf:name>Department where project is primarily located
+						</foaf:name>
+						<foaf:based_near>
+							<v:Address>
+								<v:postal-code>Postcode </v:postal-code>
+							</v:Address>
+						</foaf:based_near>
+					</foaf:Organization>
+				</foaf:member>
+				<simal:projectPartner>
+					<foaf:Organization>
+						<foaf:name>project</foaf:name>
+					</foaf:Organization>
+				</simal:projectPartner>
+				<simal:projectPartner>
+					<foaf:Organization>
+						<foaf:name>partners</foaf:name>
+					</foaf:Organization>
+				</simal:projectPartner>
+			</foaf:Organization>
+		</vendor>
+		<bug-database rdf:resource="http://issue.tracker.com" />
+		<license rdf:resource="http://usefulinc.com/doap/licenses/gplv3" />
+		<license rdf:resource="http://usefulinc.com/doap/licenses/CC-UK" />
+		<category rdf:resource="http://registry.oss-watch.ac.uk/categories/web-basedtools"
+			rdfs:label="Web-based tools" />
+		<category rdf:resource="http://registry.oss-watch.ac.uk/categories/report"
+			rdfs:label="Report" />
+		<audience>Teachers/Lecturers</audience>
+		<audience>Graduate Students</audience>
+		<simal:project-director>
+			<foaf:Person
+				rdf:about="http://registry.oss-watch.ac.uk/people/8b65345235bade6821c087cfe9d487c5be194ce6">
+				<foaf:name>project director</foaf:name>
+				<foaf:depiction rdf:resource="http://pic.com/pic.jpg/" />
+				<foaf:mbox rdf:resource="mailto:project@director.com" />
+				<foaf:mbox_sha1sum>8b65345235bade6821c087cfe9d487c5be194ce6
+				</foaf:mbox_sha1sum>
+			</foaf:Person>
+		</simal:project-director>
+		<repository>
+			<BKRepository>
+				<location rdf:resource="http://bit.keeper.com" />
+				<browse rdf:resource="http://bit.keeper.com" />
+			</BKRepository>
+		</repository>
+		<programming-language>primay</programming-language>
+		<programming-language>programming</programming-language>
+		<programming-language>languages</programming-language>
+	</Project>
+</rdf:RDF> 

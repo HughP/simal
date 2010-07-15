@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE faqs PUBLIC "-//APACHE//DTD FAQ V2.0//EN" "http://forrest.apache.org/dtd/faq-v20.dtd">
+<faqs>
+  <title>Frequently Asked Questions (Web Users)</title>
+  
+  <faqsection id="data">
+    <title>Working with data in general</title>
+    <faq id="exportData">
+      <question>
+        How do I export data for use in my own application?
+      </question>
+      <answer>
+        <p>There are two main ways of exporting data from
+        Simal. One is to use the 
+        <a href="http://simal.oss-watch.ac.uk/rest">REST API</a> ,
+        the other is to use one of the web based browsers to 
+        filter the information to the set of data you want and then
+        export it using one of the export tools.</p>
+        
+        <p>To do this click the orange scissors icon in the
+        browsers once you have filtered the data accordingly.
+        You will be presented with a number of export formats,
+        select one and you will be presented with the data you
+        require. Simply copy and paste it into your 
+        chosen application.</p> 
+      </answer>
+    </faq>
+<!-- More faqs or parts here -->
+  </faqsection>
+  
+  <faqsection id="people">
+    <title>Working with people</title>
+    <faq id="findingPeople">
+      <question>
+        How can I find people I may be interested in?
+      </question>
+      <answer>
+        <p>Perhaps the easiest way to find people is to use the
+        people browser.</p>
+        
+        <p>To illustrate this let us assume we want to discover
+        people who are engaged with "access management" 
+        projects. To do this using the people browser we need 
+        to:</p> 
+        
+        <p class="instruction">Click on "People Browser" in the
+        main menu. We are initially presented with all the
+        people in the registry.</p>
+
+        <p class="instruction">Click "Access Management" in 
+        the category facet selector (on the right).</p>
+
+        <p>The results displayed now include only those 
+        people who work on projects related to
+        access management. Note that the project facet 
+        browser has also been filtered to only those projects 
+        that are active in the access management field.</p>
+      </answer>
+    </faq>
+  </faqsection>
+</faqs>

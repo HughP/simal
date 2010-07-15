@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm/project_mapfe.aspx">
+<shortdesc>This project looked at the range of issues surrounding compliance with the Model Action Plan by analysing the MAP and examining the degree to which it could realistically be applied to a typical FE college.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_supporting_irm.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Model action plan in a FE context</name>
+<homepage rdf:resource="http://www.loucoll.ac.uk/projects"/>
+</Project>

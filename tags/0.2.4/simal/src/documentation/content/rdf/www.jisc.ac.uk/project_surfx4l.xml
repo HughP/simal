@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_surfx4l.aspx">
+<shortdesc>A prime goal of this project is to educate FE and HE staff in practical issues that relate to repurposing of content and to show how this can lead to reuse of content across FE and HE sectors.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>SURF X4L</name>
+<homepage rdf:resource="http://www.staffs.ac.uk/COSE/X4L/"/>
+</Project>

@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/apuregional.aspx">
+<shortdesc>The aims of the project focus on the creation of a repository of Reusable Learning Objects comprising of existing HE and FE teaching materials and the HE Progress File, together with guidance on students Personal Development Planning.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>APU Regional Collaboration for e-Learning</name>
+</Project>

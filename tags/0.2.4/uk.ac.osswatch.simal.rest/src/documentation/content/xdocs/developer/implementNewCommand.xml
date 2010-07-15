@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2007 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<!DOCTYPE document PUBLIC "-//APACHE//DTD Documentation V2.0//EN" "http://forrest.apache.org/dtd/document-v20.dtd">
+<document>
+  <header>
+    <title>Implementing a new REST command</title>
+  </header>
+  <body>
+    <p>This document is designed to guide you in the implementation
+    of a new REST command in Simal. To illustrate the process
+    we will document the creation of the command to get all
+    people from the repository.</p>
+    
+    <section>
+      <title>Test First Development</title>
+      <p>Simal does not accept new features without test code.
+      Therefore it makes sense to follow the test first development
+      model. In this model the first thing we do is create a test 
+      that fails.</p>
+      
+      <p>Since this command is about people it will be implemented
+      in the ParsonAPI class, therefore our test should go into the
+      TestPersonAPI class. Our first test code will be:</p>
+      
+      <source>
+package uk.ac.osswatch.simal.rest;
+
+...
+
+public class TestPersonAPI extends AbstractAPITest {
+
+...
+
+  @Test
+  public void testGetAllPeopleAsJSON() throws SimalAPIException {
+    RESTCommand command = RESTCommand.createCommand(RESTCommand.ALL_PEOPLE
+        + RESTCommand.FORMAT_JSON);
+    IAPIHandler handler = SimalHandlerFactory.createHandler(command, getRepo());
+    String result = handler.execute();
+    assertNotNull("No JSON Returned by getAllPeoplen", result);
+  }
+}
+      </source>
+      
+      <p>This code will not compile until we add <code>RESTCommand.ALL_PEOPLE</code>.
+      So lets do that now:</p>
+      
+      <source>
+package uk.ac.osswatch.simal.rest;
+
+...
+
+public final class RESTCommand {
+
+...
+
+  public static final String ALL_PEOPLE = "/allPeople";
+  
+...
+  
+}
+      </source>
+      
+      <p>We've now added a new command that will be recognised in
+      a REST URI, therefore we need to add this to the documentation
+      as follows:</p>
+      
+      <source>
+<![CDATA[
+<section>
+  <title>Retrieve all People</title>
+
+  <p>To retrieve the details of all people use:</p>
+
+  <source>http://foo.com/simal-rest/allPeople/FORMAT</source>
+</section>
+]]>
+      </source>
+      
+      <p>Now our tests will compile and we can check that 
+      it fails as expected when run. We love test driven 
+      development, even a failure is a success!</p>
+    </section>
+    
+    <section>
+      <title>Making something return</title>
+      
+      <p>The next stage is to make something return so that the above 
+      test passes. To do this you need to make sure the Simal REST
+      module knows how to handle requests using your new command.
+      Since this is a command provided by the PersonAPI you need 
+      to make sure that a call to <code>RESTCommand.isPersonCommand()</code>
+      will return true.</p>
+      
+      <p>Examining this method shows that we will need an 
+      <code>RESTCommand.isGetAllPeople()</code> method. So add 
+      the following code to the <code>RESTCommand</code> class:</p>
+      
+      <source>
+/**
+ * Test to see if this command is a getAllPEople command.
+ * 
+ * @return
+ */
+public boolean isGetAllPeople() {
+  if (params.get(PARAM_METHOD).equals(ALL_PEOPLE)) {
+    return true;
+  }
+  return false;
+}
+      </source>
+      
+      <p>Now add this test to the tests made in the 
+      <code>isPersonCommand</code> method.</p>
+      
+      <p>Now, for sanities sake, we'll run our test again. Of course,
+      it still fails, but now the reason for failure has changed.
+      We've made a difference and the new error "Unknown Command"
+      gives us a clue as to what to do next - implement the command.</p>
+      
+      <p>This error is thrown in the <code>PersonAPI.execute()</code> 
+      method. A quick glance at that method makes it clear what we need
+      to do. Add the following method to the <code>PersonAPI</code> class and
+      call it, when appropriate, from the <code>execute()</code> method.</p>
+      
+      <source>  
+/**
+ * Get all the people in the repository.
+ * @param cmd
+ * @return
+ * @throws SimalAPIException
+ */
+public String getAllPeople(final RESTCommand cmd)
+throws SimalAPIException {
+  return "It's working";
+}
+      </source>
+      
+      <p>Clearly this isn't going to actually get the people from
+      the repository, but should be enough to pass our test, which
+      is the objective right now. Run the test to satisfy yourself
+      everything is going well.</p>
+    
+      <section>
+        <title>Is this a POST or a GET command?</title>
+        
+        <p>Simal REST assumes that a new command is intended to be handled
+        by an HTTP Get request. If this is not the case then you need to
+        tell the API that it is actually a POST command. To do this
+        simply add to the tests in the <code>isPost()</code> method of
+        RESTCommnd.</p>
+        
+        <note>At the time of writing DELETE and PUT are not supported</note> 
+        
+      </section>
+      
+    </section>
+    
+    <section>
+      <title>Implement the method</title>
+      
+      <p>Now we'll actually get the people from the repository.
+      Starting with the JSON format since that is what the test
+      requests.</p>
+      
+      <p>First of all, we need a test to tell us when it's 
+      working. Add the following code to the test you wrote 
+      earlier.</p>
+      
+      <source>
+    assertTrue("JSON does not include person name: JSON = " + result, result
+        .contains("\"label\":\"Joe Blogs Maintainer\""));
+      </source>
+      
+      <p>Run your test and... HURRAH!!!! it fails!</p>
+      
+      <p>Now to make it pass. Replace the skeleton code in your
+      <code>getAllPeople()</code> method with:</p>
+      
+      <source>
+<![CDATA[
+/**
+ * Get all the people in the repository.
+ * @param cmd
+ * @return
+ * @throws SimalAPIException
+ */
+public String getAllPeople(final RESTCommand cmd)
+  throws SimalAPIException {
+  final String id = cmd.getPersonID();
+  
+  String response;
+  try {
+    Iterator<IPerson> itr = getRepository().getAllPeople().iterator();
+    if (cmd.isJSON()) {
+      response = getRepository().getAllPeopleAsJSON();
+    } else {
+      throw new SimalAPIException("Unknown data format: " + cmd.getFormat());
+    }
+  } catch (SimalRepositoryException e) {
+    throw new SimalAPIException("Unable to get a person with id " + id, e);
+  }
+  return response;
+}
+]]>
+      </source>
+      
+      <p>Run your test and... HURRAH!!!! it passes!</p>
+    </section>
+    
+    <section>
+      <title>Finishing off</title>
+      
+      <p>You should really implement more tests now and you should
+      also implement the other data formats available via the REST
+      API. However, I'm sure you get the idea by now.</p>
+    </section>
+    
+      
+  </body>
+</document>

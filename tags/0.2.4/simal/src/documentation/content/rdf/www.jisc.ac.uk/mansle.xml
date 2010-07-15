@@ -1,0 +1,7 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/mansle.aspx">
+<shortdesc>MANSLE sets out to implement, demonstrate and evaluate the educational use of technical e-portfolio, personal development planning and mentoring tools within a range of foundation degrees across the Greater Manchester Region.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
+<name>MANSLE: Manchester Self-directed Learning and ePortfolios</name>
+<homepage rdf:resource="http://www.bolton.ac.uk/elab/mansle/index.htm"/>
+</Project>

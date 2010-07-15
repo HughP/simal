@@ -1,0 +1,6 @@
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_portals/project_image_portal.aspx">
+<shortdesc>The Pixus project will deliver a fully functional image portal demonstrator, enabling cross-searching across eight image collections.</shortdesc>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_portals.aspx"/>
+<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
+<name>Pixus Image Portal Demonstrator</name>
+</Project>
