@@ -1,11 +1,18 @@
 #summary Notes about the 0.2.4 release
 #labels Phase-Support,Featured
 
+
+= Release 0.2.4 =
+
+Released on [http://groups.google.com/group/simal-contributors/browse_thread/thread/2d0aece2852e7bfc# 16/07/2010] and based on 0.2.4-rc1.
+
+
 = Release 0.2.4-rc1 =
 
 Released for test: [http://groups.google.com/group/simal-contributors/browse_thread/thread/26b469a187ec100d# 17/06/2010]
 
 This release contains a separate widget to [DoapCreatorWidget add a project] to Simal from a separate environment hosted by a [http://incubator.apache.org/wookie Wookie server]. 
+Also, this is the first release in which the URLs are stable where possible making it possible to deep link to a project, person or category page.
 
 = Release 0.2.3-rc2 =
 
