@@ -1,5 +1,5 @@
 #summary The Table of contents for the developer section of the wiki
-#labels Featured,Phase-Requirements,Phase-Implementation,Phase-Design,Phase-Support
+#labels Phase-Requirements,Phase-Implementation,Phase-Design,Phase-Support
 
   * Developers
     * GettingStarted
