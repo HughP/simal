@@ -4,5 +4,5 @@
 =Simal Documentation=
 
  * AboutSimal
- * DeveloperDocs
- * UserDocs
+ * [DeveloperTOC Developer Documentation]
+ * [UserTOC User Documentation]
