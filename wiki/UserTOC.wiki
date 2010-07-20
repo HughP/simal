@@ -2,6 +2,7 @@
 #labels Phase-QA,Phase-Support
 
   * Status
+    * ReleaseNotes
     * [Changelog]
   * Components
     * DoapCreatorWidget
