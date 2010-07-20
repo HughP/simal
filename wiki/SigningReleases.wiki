@@ -1,5 +1,6 @@
 #summary How to use signing when creating a release
 #labels Phase-QA
+#sidebar DeveloperTOC
 
 = Release management and signing =
 
