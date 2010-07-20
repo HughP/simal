@@ -1,5 +1,6 @@
 #summary A checklist to use when making a contribution to Simal
 #labels Featured,Phase-QA
+#sidebar DeveloperTOC
 
 Simal is an open development project. This means that we accept contrbitutions from anyone. However, this does not mean that we will automatically include any contribution in our releases. This document provides a checklist to allow people to maximise the chances of their contribution being accepted by the project. 
 
