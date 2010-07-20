@@ -1,5 +1,6 @@
 #summary Use case descriptions
 #labels Phase-Design
+#sidebar DeveloperTOC
 
 == Introduction ==
 
@@ -25,4 +26,3 @@ Technical details:
  # Simal processes the RDF/XML. If the operation is successful, ie. a new project is created, a stable URL to the detail page of the added project is returned. If the operation is unsuccessful, an error message is returned stating the nature of the error.
  # The result from Simal is displayed to the user 
  # The same RDF/XML document that is sent to Simal is displayed to the user.
-
