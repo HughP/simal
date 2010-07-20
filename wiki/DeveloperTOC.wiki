@@ -1,0 +1,30 @@
+#summary The Table of contents for the developer section of the wiki
+#labels Phase-Support
+
+  * Developers
+    * GettingStarted
+    * DevelopSimal
+    * CreatePatch
+    * ContributionProcess
+  * Design
+    * [Schema]
+    * [SimalRESTAPI]
+    * UseCases
+    * [WhyDOAP]
+  * Committers
+    * CodeAuditing
+    * CommitterNotes
+    * PatchReviewProcess
+  * Project Management
+    * IterationPlanning
+    * TestingRestReleases
+    * TestingWebReleases
+    * TestingCoreReleases
+    * IndividualContributorLIcenceAgrement
+  * Release Management
+    * ReleaseNotes
+    * ReleaseManagement
+    * SigningReleases
+  * Infrastructure
+    * MaintainingHudson 
+    * UpdatingDemoServer
