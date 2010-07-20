@@ -1,8 +1,9 @@
 #summary A default TOC to use as the sidebar for all wiki pages (unless they specificy their own)
 #labels Phase-Support
 
-=Simal Documentation=
+=Documentation=
 
  * AboutSimal
  * [DeveloperTOC Developer Documentation]
+   * [GettingStarted Getting Started]
  * [UserTOC User Documentation]
