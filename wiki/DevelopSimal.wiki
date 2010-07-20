@@ -1,5 +1,6 @@
 #summary Getting started content for developers
 #labels Featured,Phase-Support
+#sidebar DeveloperTOC
 
 =How to develop Simal=
 
