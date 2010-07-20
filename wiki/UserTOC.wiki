@@ -1,10 +1,7 @@
 #summary User documentation table of contents
 #labels Phase-QA,Phase-Support,Featured
 
-=Status=
-
- * [Changelog]
-
-=Components=
-
- * DoapCreatorWidget
+  * Status
+    * [Changelog]
+  * Components
+    * DoapCreatorWidget
