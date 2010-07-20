@@ -1,5 +1,6 @@
 #summary An outline of the schema Simal uses
 #labels Phase-Design
+#sidebar DeveloperTOC
 
 This document describes the Schema currently in use within Simal as well as outlining some proposals for future data requirements.
 
