@@ -1,5 +1,6 @@
 #summary Instructions for updating code on the demo server.
 #labels Phase-Deploy,Phase-QA
+#sidebar DeveloperTOC
 
 The demo server at http://registry.oss-watch.ac.uk can be updated by anyone with the necessary priveledges (e.g. a sudo user) on the demo machine with the following steps.
 
