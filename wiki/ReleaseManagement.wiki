@@ -1,5 +1,6 @@
 #summary Steps to go through for a release
 #labels Phase-QA
+#sidebar DeveloperTOC
 
 This document describes how to build a soft release and a binary release. For a timetable of releases see the IterationPlanning page.
 
