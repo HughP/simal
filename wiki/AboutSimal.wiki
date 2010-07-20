@@ -1,8 +1,6 @@
 #summary What is Simal
 #labels Featured,Phase-Support
 
-=What is Simal=
-
 Simal is a set of open source tools for building project catalogues from RDF/XML files.
 
 Simal also provides a web application for the creation and management of RDF/XML project descriptors and catalogues built from them. 
