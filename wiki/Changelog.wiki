@@ -1,5 +1,6 @@
 #summary notes on significant changes between releases
 #labels Featured,Phase-Support
+#sidebar UserTOC
 
 = 0.2.4-rc1 =
 
