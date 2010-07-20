@@ -1,5 +1,6 @@
 #summary A strategy for testing the core module before release
 #labels Phase-QA
+#sidebar DeveloperTOC
 
 = Introduction =
 
