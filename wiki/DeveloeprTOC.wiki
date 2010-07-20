@@ -3,39 +3,39 @@
 
 =Developers=
 
-* GettingStarted
-* DevelopSimal
-* CreatePatch
-* ContributionProcess
+ * GettingStarted
+ * DevelopSimal
+ * CreatePatch
+ * ContributionProcess
 
 =Design=
 
-* [Schema]
-* [SimalRestAPI]
-* UseCases
-* Why DOAP
+ * [Schema]
+ * [SimalRESTAPI]
+ * UseCases
+ * Why DOAP
 
 =Committers=
 
-* CodeAuditing
-* CommitterNotes
-* PatchReviewProcess
+ * CodeAuditing
+ * CommitterNotes
+ * PatchReviewProcess
 
 =Project Management=
 
-* IterationPlanning
-* TestingRestReleases
-* TestingWebReleases
-* TestingCoreReleases
-* IndividualContributorLicenseAgreement
+ * IterationPlanning
+ * TestingRestReleases
+ * TestingWebReleases
+ * TestingCoreReleases
+ * IndividualContributorLicenceAgreement
 
 =Release Management=
 
-* ReleaseNotes
-* ReleaseManagement
-* SigningReleases
+ * ReleaseNotes
+ * ReleaseManagement
+ * SigningReleases
 
 =Infrastructure=
 
-* MaintainingHudson
-* Updating Demo Server
+ * MaintainingHudson
+ * Updating Demo Server
