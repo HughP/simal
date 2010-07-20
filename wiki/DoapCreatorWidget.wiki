@@ -1,5 +1,6 @@
 #summary Usage of the doapcreator widget with Simal
 #labels Featured,Phase-Deploy
+#sidebar UserTOC
 
 = Introduction =
 
