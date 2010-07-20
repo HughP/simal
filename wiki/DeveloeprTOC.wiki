@@ -27,7 +27,7 @@
  * TestingRestReleases
  * TestingWebReleases
  * TestingCoreReleases
- * IndividualContributorLIcenceAgreement
+ * IndividualContributorLIcenceAgrement
 
 =Release Management=
 
