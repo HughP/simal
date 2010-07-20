@@ -1,7 +1,7 @@
 #summary The Table of contents for the developer section of the wiki
 #labels Phase-Support
 
-  * Developers
+  * GettingStarted
     * GettingStarted
     * DevelopSimal
     * CreatePatch
