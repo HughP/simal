@@ -1,0 +1,6 @@
+#summary A default TOC to use as the sidebar for all wiki pages (unless they specificy their own)
+#labels Phase-Support
+
+ * AboutSimal
+ * DeveloperDocs
+ * UserDocs
