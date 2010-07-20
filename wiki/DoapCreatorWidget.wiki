@@ -7,7 +7,7 @@ In version 0.2.4. the first W3C widget 'doapcreator' is introduced. The sources 
 
 = Details =
 
-The doapcreator widget is a W3C widget to be used with [http://incubator.apache.org/wookie Apache Wookie (Incubating)]. The widget is built as part of the regular Maven2 build cycle and the resulting wgt archive can then be found in the {{{target/widgets}}} folder.
+The doapcreator widget is a W3C widget to be used with [http://incubator.apache.org/wookie Apache Wookie (Incubating)] or any other W3C Widget server. The widget is built as part of the regular Maven2 build cycle and the resulting wgt archive can then be found in the {{{target/widgets}}} folder.
 
 The widget needs to be deployed in a separately running Wookie server. Some configuration is necessary to make sure the widget can be used in Simal.
 
