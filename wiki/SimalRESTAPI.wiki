@@ -1,5 +1,6 @@
 #summary The Simal REST API
 #labels Phase-Design
+#sidebar DeveloperTOC
 
 = Introduction =
 
