@@ -1,5 +1,6 @@
 #summary A discussion of why Simal chose DOAP as its data format
 #labels Phase-Design
+#sidebar DeveloperTOC
 
 [http://www.oss-watch.ac.uk/resources/doap.xml Description of a Project (DOAP)] was originally created for describing an open source software project and the people involved in it. However, it is not limited to this, it could be used to describe a great many projects. Being an RDF data schema it is possible to extend DOAP where necessary (it uses FOAF to describe contributors for example).
 
