@@ -1,5 +1,6 @@
 #summary Collates information about each iteration plan
 #labels Phase-Implementation,Featured
+#sidebar DeveloperTOC
 
 This page provides a convenient way of keeping track of the focus of each iteration.
 
