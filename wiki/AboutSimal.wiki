@@ -1,0 +1,25 @@
+#summary What is Simal
+#labels Featured,Phase-Support
+
+=What is Simal=
+
+Simal is a set of open source tools for building project catalogues from RDF/XML files.
+
+Simal also provides a web application for the creation and management of RDF/XML project descriptors and catalogues built from them. 
+
+_The project is very young at this time. As such, we welcome input into the requirements and design of the initial prototype system._
+
+Why not have a play with our demo of the [http://registry.oss-watch.ac.uk early alpha release] and provide feedback on how you think we can [http://groups.google.com/group/simal-users improve it] (or even [http://groups.google.com/group/simal-contributors help us improve] it).
+
+We have a [GettingStarted getting started document] for those looking to install the software locally and another for those wanting to work [http://simal.oss-watch.ac.uk/userQuickstart.html install] the binaries. Please ask your questions on our [http://groups.google.com/group/simal-contributors mail list].
+
+If you are unfamiliar with RDF and DOAP in particular, there is an [http://www.oss-watch.ac.uk/resources/doap.xml OSS Watch briefing note] on them. There is a demo of the current state of simal at http://simal.oss-watch.ac.uk/
+
+== Recent Activity ==
+
+=== Recent Issue Activity ===
+
+<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/build/prod/issueupdates/gcIssueUpdates.xml" up_projectName="simal" border="0"/>
+
+=== Recent Commit Activity ===
+<wiki:gadget url="http://google-code-project-hosting-gadgets.googlecode.com/svn/build/prod/changes/gcChanges.xml" up_projectName="simal" border="0"/>
