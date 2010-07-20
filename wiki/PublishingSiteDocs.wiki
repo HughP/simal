@@ -1,5 +1,5 @@
 #summary Details various ways of publishing the site documentation.
-#labels Phase-Deploy
+#labels Phase-Deploy,Deprecated
 
 = Introduction =
 
