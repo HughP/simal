@@ -34,8 +34,9 @@ http://simal.googlecode.com/svn/wiki/ReleaseManagement.attach/releaseProcessTime
 ||3|| Finalise Use Case 1 ||2010-05-10||2010-05-21||Soft Release||
 ||4|| Finalise Use Case 1 (2) ||2010-05-25||2010-06-04||Candidate Release||
 ||5|| Binary Release ||2010-06-07||2010-06-18|| *Binary Release* ||
-||1|| Review data design ||2010-06-21||2010-07-02||Soft Release||
-||2|| CMS and documentation ||2010-07-05||2010-07-16||Soft Release||
+||1|| Improve DOAP form & add data scripts ||2010-07-19||2010-08-01||Soft Release||
+||2|| Review data design ||2010-08-02||2010-08-15||Soft Release||
+||3|| CMS and documentation ||2010-08-16||2010-08-29||Soft Release||
 
 
 = Useful Links =
