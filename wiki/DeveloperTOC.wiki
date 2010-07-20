@@ -22,7 +22,6 @@
     * TestingCoreReleases
     * IndividualContributorLIcenceAgrement
   * Release Management
-    * ReleaseNotes
     * ReleaseManagement
     * SigningReleases
   * Infrastructure
