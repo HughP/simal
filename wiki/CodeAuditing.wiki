@@ -1,5 +1,7 @@
 #summary A description of code auditing in Simal
 #labels Phase-QA
+#sidebar DeveloperTOC
+
 = Introduction =
 
 Simal uses a number of tools to check source code for common issues. This document describes the audit tools in use and what they tell us.
