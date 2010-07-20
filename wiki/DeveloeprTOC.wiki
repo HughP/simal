@@ -13,7 +13,7 @@
  * [Schema]
  * [SimalRESTAPI]
  * UseCases
- * Why DOAP
+ * [WhyDOAP]
 
 =Committers=
 
@@ -27,7 +27,7 @@
  * TestingRestReleases
  * TestingWebReleases
  * TestingCoreReleases
- * IndividualContributorLicenceAgreement
+ * IndividualContributorLIcenceAgreement
 
 =Release Management=
 
@@ -38,4 +38,4 @@
 =Infrastructure=
 
  * MaintainingHudson
- * Updating Demo Server
+ * UpdatingDemoServer
