@@ -1,5 +1,6 @@
 #summary How to create a patch and submit it to Simal
 #labels Phase-Support
+#sidebar DeveloperTOC
 
 A patch is a record of changes made to the source of a project. Patches (also known as diffs) are how contributions are made to open source projects. For a full discussion of patches see the OSS Watch brifing note on [http://www.oss-watch.ac.uk/resources/softwarepatch.xml Software Patches].
 
