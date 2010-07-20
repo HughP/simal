@@ -1,5 +1,6 @@
 #summary Records useful information for committers
 #labels Phase-QA
+#sidebar DeveloperTOC
 
 = Commit log =
 
