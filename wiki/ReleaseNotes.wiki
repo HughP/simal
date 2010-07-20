@@ -1,6 +1,6 @@
 #summary Notes about the 0.2.4 release
 #labels Phase-Support,Featured
-#sidebar DeveloperTOC
+#sidebar UserTOC
 
 = Release 0.2.4 =
 
