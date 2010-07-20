@@ -1,5 +1,6 @@
 #summary A description of the process we go through when reviewing patches
 #labels Phase-QA
+#sidebar DeveloperTOC
 
 When a patch is submitted to the project it enters our patch review process. This process is designed to ensure that we maintain quality within the Simal code project and, where necessary, give useful feedback to the contributor about their contribution.
 
