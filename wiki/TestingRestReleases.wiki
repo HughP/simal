@@ -1,5 +1,6 @@
 #summary A strategy for testing the REST module before release
 #labels Phase-QA
+#sidebar DeveloperTOC
 
 = Introduction =
 
