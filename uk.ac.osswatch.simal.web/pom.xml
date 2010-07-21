@@ -222,7 +222,7 @@
         <directory>src/main/resources</directory>
       </resource>
       <resource>
-        <filtering>true</filtering>
+        <filtering>false</filtering>
         <directory>src/main/widgets</directory>
         <targetPath>target/filteredWidgets</targetPath>
         <includes>
