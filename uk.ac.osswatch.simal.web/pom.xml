@@ -224,7 +224,7 @@
       <resource>
         <filtering>true</filtering>
         <directory>src/main/widgets</directory>
-        <targetPath>${project.build.directory}/filteredWidgets</targetPath>
+        <targetPath>target/filteredWidgets</targetPath>
         <includes>
           <include>**/*.*</include>
         </includes>
