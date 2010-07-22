@@ -214,6 +214,11 @@ function checkEmail(fieldName) {
   return fieldValue;
 }
 
+function escapeXML(oldValue) {
+  var re = new RegExp("&+(?!amp;)", "g");
+  return oldValue.replace(re, "&amp;");
+}
+
 function checkUrl(fieldName) {
   fieldValue = document.getElementById(fieldName).value;
 
@@ -232,7 +237,7 @@ function checkUrl(fieldName) {
     }
 
   }
-  return fieldValue;
+  return escapeXML(fieldValue);
 }
 
 function generate() {
