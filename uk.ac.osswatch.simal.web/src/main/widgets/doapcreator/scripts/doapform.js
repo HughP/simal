@@ -462,7 +462,7 @@ function commitDoapFile(doap) {
       } else {
           reportError(xml_request);
       }
-    } else if (xml_request.readyState == 4 && xml_request.status == 500) {
+    } else if (xml_request.readyState == 4) {
         reportError(xml_request);
     }
   };
