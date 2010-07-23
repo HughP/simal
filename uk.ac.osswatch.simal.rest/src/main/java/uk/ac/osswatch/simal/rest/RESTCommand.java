@@ -17,10 +17,17 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -30,6 +37,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * in the API and provides convenience methods for extracting parameters.
  */
 public final class RESTCommand {
+
+  private static final Logger LOGGER = LoggerFactory
+      .getLogger(RESTCommand.class);
 
   public static final String ALL_PROJECTS = "/allProjects";
   public static final String GET_PROJECT = "/project";
@@ -50,6 +60,8 @@ public final class RESTCommand {
   public static final String TYPE_SIMAL = "simal";
   public static final String TYPE_MYEXPERIMENT = "myExperiment";
 
+  public static final String CONTENT_TYPE_TEXT_XML = "text/xml";
+  
   private static String PARAM_METHOD = "method";
   private static String PARAM_FORMAT = "format";
 
@@ -264,8 +276,12 @@ public final class RESTCommand {
    * @return
    * @throws SimalAPIException 
    */
-  public static RESTCommand createCommand(String cmdString, Map<String, String[]> paramMap) throws SimalAPIException {
+  @SuppressWarnings("unchecked")
+  public static RESTCommand createCommand(HttpServletRequest req) throws SimalAPIException {
+    String cmdString = req.getPathInfo();
+    Map<String, String[]> paramMap = req.getParameterMap();
     RESTCommand cmd = createCommand(cmdString);
+    
     Iterator<Entry<String, String[]>> entries = paramMap.entrySet().iterator();
     while (entries.hasNext()) {
       Entry<String, String[]> entry = entries.next();
@@ -275,7 +291,31 @@ public final class RESTCommand {
         cmd.addParameter(key, values[i]);
       }
     }
+
+    if(cmd.isAddProject() && req.getContentType().equals(CONTENT_TYPE_TEXT_XML)) {
+      cmd.addParameter(PARAM_RDF, readRequestBody(req));
+    }
+    
     return cmd;
+  }
+  
+  /**
+   * Extract the body of the HttpServletRequest
+   * @param req
+   * @return
+   */
+  private static String readRequestBody(HttpServletRequest req) {
+    StringBuffer requestBody = new StringBuffer();
+    try {
+      BufferedReader reader = req.getReader();
+      String currentLine = null;
+      while((currentLine = reader.readLine()) != null) {
+        requestBody.append(currentLine);
+      }
+    } catch (IOException e) {
+      LOGGER.warn("Could not read request body of http req: " + e.getMessage(),e);
+    }
+    return requestBody.toString();
   }
   
   /**

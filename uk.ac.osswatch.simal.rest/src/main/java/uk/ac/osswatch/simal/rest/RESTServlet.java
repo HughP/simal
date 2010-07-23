@@ -91,7 +91,6 @@ public class RESTServlet extends HttpServlet {
     }
   }
 
-  @SuppressWarnings("unchecked")
   public void doPost(HttpServletRequest req, HttpServletResponse res)
       throws ServletException, IOException {
     if (logger.isTraceEnabled()) {
@@ -101,7 +100,7 @@ public class RESTServlet extends HttpServlet {
 
     RESTCommand cmd;
     try {
-      cmd = RESTCommand.createCommand(req.getPathInfo(), req.getParameterMap());
+      cmd = RESTCommand.createCommand(req);
     } catch (SimalAPIException e) {
       logger.warn("Error craeting Simal REST command: " + e.getMessage());
       throw new ServletException("Unable to create Simal REST command", e);
