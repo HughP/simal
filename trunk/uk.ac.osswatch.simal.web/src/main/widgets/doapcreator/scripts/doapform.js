@@ -135,7 +135,7 @@ function processPeople() {
 
 function allMandatoryFieldsOK() {
   var allMandatoryFieldIds = [ "shortname", "name", "shortdesc", "description",
-      "homepage", "person_email_1", "person_name_1", "licence" ];
+      "homepage", "person_email_1", "person_name_1" ];
   var allMandatoryJiscFieldIds = [ "name", "shortname", "shortdesc", "description",
                                "blog", "homepage", "blogfeed", "projectemail", "person_email_1",
                                "person_name_1", "person_pic_1", "lead_institution", "department",
@@ -443,7 +443,7 @@ function getJiscFundedFields() {
 }
 
 function commitDoapFile(doap) {
-  var loc = 'http://localhost:8888/simal-rest/addProject';
+  var loc = 'http://localhost:8080/simal-rest/addProject';
   loc = Widget.proxify(loc);
   var xml_request = new XMLHttpRequest();
 
