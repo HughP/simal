@@ -133,6 +133,7 @@
             <div class="question">OSS license you will you be using for the
             code generated from project:<span class="mandatory">*</span></div>
             <div class="answer"><select id="licence">
+	            <option value="">Please choose</option>
 	            <option value="asl20">Apache License 2.0</option>
 	            <option value="agpl">Affero GNU Public License</option>
 	            <option value="epl">Eclipse Public License</option>
@@ -142,6 +143,7 @@
 	            <option value="mpl">Mozilla Public License 1.1</option>
 	            <option value="mit">MIT License</option>
 	            <option value="bsd">BSD License</option>
+	            <option value="eupl">European Union Public License</option>
             </select><br />
             Please consult <a target="_blank" href="http://www.oss-watch.ac.uk">OSS
             Watch</a> for guidance on which license to use</div>
@@ -218,12 +220,15 @@
             <div class="q_container">
               <div class="question">Licence used for documentation:<span class="mandatory">*</span>
               </div>
-              <div class="answer"><select id="cont_licence">
-	              <option value="CC-SA-UK">Creative Commons Attribution-Share
-	                Alike UK 2.0: England and Wales</option>
-	              <option value="CC-UK">Creative Commons Attribution UK 2.0:
-	                England and Wales</option></select><br />
-                This licence and logo must be displayed on all documents and websites
+              <div class="answer">
+                <select id="cont_licence">
+                  <option value="">No different licence for documentation</option>
+	                <option value="CC-SA-UK">Creative Commons Attribution-Share
+	                  Alike UK 2.0: England and Wales</option>
+	                <option value="CC-UK">Creative Commons Attribution UK 2.0:
+	                  England and Wales</option>
+	              </select><br />
+                If you use a separate licence it must be displayed on all documents and websites
                 produced by the project.
               </div>
             </div>
