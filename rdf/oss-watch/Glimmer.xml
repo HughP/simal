@@ -61,6 +61,20 @@
    <foaf:mbox rdf:resource="mailto:jesse.johnson@mso.umt.edu"/>
   </foaf:Person>
  </developer>
+ <developer>
+  <foaf:Person>
+   <foaf:name>William Lipscomb</foaf:name>
+   <foaf:name>Bill Lipscomb</foaf:name>
+   <foaf:mbox rdf:resource="mailto:lipscomb@lanl.gov"/>
+  </foaf:Person>
+ </developer>
+ <developer>
+  <foaf:Person rdf:about="http://public.lanl.gov/sprice/">
+   <foaf:name>Stephen Price</foaf:name>
+   <foaf:homepage rdf:resource="http://public.lanl.gov/sprice/"/>
+   <foaf:mbox rdf:resource="mailto:sprice@lanl.gov"/>
+  </foaf:Person>
+ </developer>
  <repository>
   <SVNRepository>
     <location rdf:resource="http://svn.berlios.de/svnroot/repos/glimmer-cism"/>
