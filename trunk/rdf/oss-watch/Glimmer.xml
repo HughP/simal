@@ -18,6 +18,8 @@
  <blog rdf:resource="http://glimmer-cism.berlios.de/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=1&amp;Itemid=50"/>
  <foaf:seeAlso dc:title="Project blog" rdf:resource="http://glimmer-cism.berlios.de/index.php?option=com_content&amp;view=category&amp;layout=blog&amp;id=1&amp;Itemid=50&amp;format=feed&amp;type=rss" dc:format="application/rss+xml" />
  <programming-language>Fortran 95</programming-language>
+ <programming-language>C</programming-language>
+ <programming-language>Python</programming-language>
  <maintainer>
   <foaf:Person rdf:about="http://www.geos.ed.ac.uk/homes/mhagdorn/">
    <foaf:name>Magnus Hagdorn</foaf:name>
@@ -27,12 +29,36 @@
    <foaf:mbox_sha1sum>fe31c20f28032ef4c49d67ca7201feb8ed2773b7</foaf:mbox_sha1sum>
   </foaf:Person>
  </maintainer>
+ <maintainer>
+  <foaf:Person rdf:about="http://geography.swan.ac.uk/glaciology/people/irutt">
+   <foaf:name>Ian Rutt</foaf:name>
+   <foaf:homepage rdf:resource="http://geography.swan.ac.uk/glaciology/people/irutt"/>
+   <foaf:depiction rdf:resource="http://geography.swan.ac.uk/glaciology/people/irutt/myphoto.jpg"/>
+   <foaf:mbox rdf:resource="mailto:i.c.rutt@swansea.ac.uk" />
+  </foaf:Person>
+ </maintainer>
+ <maintainer>
+  <foaf:Person rdf:about="http://www.bris.ac.uk/geography/staff/?PersonKey=Q9heAkwy22DiOTwjSFpPlkQSZKiNK3">
+   <foaf:name>Tony Payne</foaf:name>
+   <foaf:homepage rdf:resource="http://www.bris.ac.uk/geography/staff/?PersonKey=Q9heAkwy22DiOTwjSFpPlkQSZKiNK3"/>
+   <foaf:depiction rdf:resource="http://www.bris.ac.uk/geography/staff/photos/payne.jpg"/>
+   <foaf:mbox rdf:resource="mailto:a.j.payne@bristol.ac.uk" />
+  </foaf:Person>
+ </maintainer>
  <developer>
   <foaf:Person rdf:about="https://widget.ucsd.edu/users/pworcester">
    <foaf:name>Sasha Carter</foaf:name>
    <foaf:homepage rdf:resource="https://widget.ucsd.edu/users/pworcester/"/>
    <foaf:mbox rdf:resource="mailto:spcarter@ucsd.edu" />
    <foaf:mbox_sha1sum>8d12c79ebbbbbe238dbd520ce9e509a9e717a6fe</foaf:mbox_sha1sum>
+  </foaf:Person>
+ </developer>
+ <developer>
+  <foaf:Person rdf:about="http://www.cas.umt.edu/casweb/for_faculty/FacultyDetails.cfm?id=540">
+   <foaf:name>Jesse Johnson</foaf:name>
+   <foaf:homepage rdf:resource="http://www.cas.umt.edu/casweb/for_faculty/FacultyDetails.cfm?id=540"/>
+   <foaf:depiction rdf:resource="http://www.cas.umt.edu/facultydatabase/Files_Faculty_images/MyPicture.jpg"/>
+   <foaf:mbox rdf:resource="mailto:jesse.johnson@mso.umt.edu"/>
   </foaf:Person>
  </developer>
  <repository>
