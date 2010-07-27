@@ -19,7 +19,10 @@ String.prototype.trim = function() {
   return a.replace(/\s+$/, '');
 };
 
-var personCount = 1;
+var DOAPPersonCount = 1;
+var JISCPersonCount = 1;
+
+var MAX_NR_PERSONS = 10;
 var BASE_NAMESPACE_URL = "http://registry.oss-watch.ac.uk/";
 var PEOPLE_NAMESPACE_URL = BASE_NAMESPACE_URL + "people/";
 var CATEGORY_NAMESPACE_URL = BASE_NAMESPACE_URL + "categories/";
@@ -43,19 +46,35 @@ function initJiscFunded() {
   document.getElementById("jisc_questions").innerHTML = "";
 }
 
-function generatePersonHtml(personIndex) {
+function generateDOAPPersonOptions() {
+  personHtml  = "         <option value=\"maintainer\">Maintainer</option>\n";
+  personHtml += "         <option value=\"developer\">Developer</option>\n";
+  personHtml += "         <option value=\"documenter\">Documenter</option>\n";
+  personHtml += "         <option value=\"tester\">Tester</option>\n";
+  personHtml += "         <option value=\"helper\">Helper</option>\n";
+  personHtml += "         <option value=\"translator\">Translator</option>\n";
+  
+  return personHtml;
+}
+
+function generateJISCPersonOptions() {
+  personHtml  = "         <option value=\"simal:project-director\">Project director</option>\n";
+  personHtml += "         <option value=\"simal:project-manager\">Project manager</option>\n";
+  personHtml += "         <option value=\"simal:administrative-assistant\">Administrative</option>\n";
+  personHtml += "         <option value=\"simal:research-officer\">Research officer</option>\n";
+  
+  return personHtml;
+}
+
+function generatePersonHtml(personIndex, DOAPpersons) {
   personHtml = "";
   personHtml += "				<select id=\"person_type_" + personIndex + "\">\n";
-  personHtml += "					<option value=\"simal:project-director\">Project director</option>\n";
-  personHtml += "					<option value=\"simal:project-manager\">Project manager</option>\n";
-  personHtml += "					<option value=\"simal:administrative-assistant\">Administrative</option>\n";
-  personHtml += "					<option value=\"simal:research-officer\">Research officer</option>\n";
-  personHtml += "					<option value=\"maintainer\">Maintainer</option>\n";
-  personHtml += "					<option value=\"developer\">Developer</option>\n";
-  personHtml += "					<option value=\"documenter\">Documenter</option>\n";
-  personHtml += "					<option value=\"tester\">Tester</option>\n";
-  personHtml += "					<option value=\"helper\">Helper</option>\n";
-  personHtml += "					<option value=\"translator\">Translator</option>\n";
+  
+  if(DOAPpersons) {
+    personHtml += generateDOAPPersonOptions();
+  } else {
+    personHtml += generateJISCPersonOptions();
+  }
   personHtml += "				</select>\n";
   personHtml += "			<input type=\"text\" id=\"person_name_" + personIndex
       + "\" class=\"short\"/>\n";
@@ -68,17 +87,35 @@ function generatePersonHtml(personIndex) {
   return personHtml;
 }
 
-function addPerson() {
-  if (personCount > 10) {
-    alert("You can add a maximum of 10 people.");
-    return;
+function checkMaxpersonCount(personCount) {
+  if (personCount > MAX_NR_PERSONS) {
+    alert("You can add a maximum of " + MAX_NR_PERSONS + " people.");
+    throw new Error("You can add a maximum of " + MAX_NR_PERSONS + " people.");
   }
-  document.getElementById("people_container_" + personCount).innerHTML = generatePersonHtml(personCount++);
+}
+
+function addJISCPerson() {
+  checkMaxpersonCount(JISCPersonCount);
+  document.getElementById("people_container_"
+      + (JISCPersonCount + MAX_NR_PERSONS)).innerHTML = 
+        addPerson((JISCPersonCount++ + MAX_NR_PERSONS), false);
+}
+
+function addDOAPPerson() {
+  checkMaxpersonCount(DOAPPersonCount);
+  document.getElementById("people_container_" + DOAPPersonCount).innerHTML = 
+    addPerson(DOAPPersonCount++, true);
+} 
+
+
+function addPerson(personCount, DOAPPersons) {
+  return generatePersonHtml(personCount, DOAPPersons);
 }
 
 function addPersons(count) {
   for (i = 1; i <= count; i++) {
-    addPerson();
+    addJISCPerson();
+    addDOAPPerson();
   }
 }
 
@@ -253,7 +290,10 @@ function generate() {
     var blog = checkUrl("blog");
     var blogfeed = checkUrl("blogfeed");
     var bug_database = checkUrl("bug_database");
+    var mailing_list_1 = checkUrl("mailing_list_1");
+    var mailing_list_2 = checkUrl("mailing_list_2");
     var repo = checkUrl("repo");
+    var repo_browse = checkUrl("repo_browse");
 
   } catch (e) {
     return;
@@ -308,13 +348,23 @@ function generate() {
     doap += " <repository>\n";
     doap += "  <" + repo_type + ">\n";
     doap += "    <location rdf:resource=\"" + repo + "\"/>\n";
-    doap += "    <browse rdf:resource=\"" + repo + "\"/>\n";
+    if (repo_browse != "") {
+      doap += "    <browse rdf:resource=\"" + repo_browse + "\"/>\n";
+    }
     doap += "  </" + repo_type + ">\n";
     doap += " </repository>\n";
   }
 
   if (bug_database != "") {
     doap += " <bug-database rdf:resource=\"" + bug_database + "\"/>\n";
+  }
+
+  if (mailing_list_1 != "") {
+    doap += " <mailing_list rdf:resource=\"" + mailing_list_1 + "\"/>\n";
+  }
+
+  if (mailing_list_2 != "") {
+    doap += " <mailing_list rdf:resource=\"" + mailing_list_2 + "\"/>\n";
   }
 
   if (licence != "") {
@@ -462,15 +512,14 @@ function commitDoapFile(doap) {
       } else {
           reportError(xml_request);
       }
-    } else if (xml_request.readyState == 4) {
+    } else if (xml_request.readyState == 4 && (xml_request.status == 500 || xml_request.status == 403)) {
         reportError(xml_request);
     }
   };
   
   xml_request.setRequestHeader("Cache-Control", "no-cache");
-  xml_request.setRequestHeader("Content-Type",
-      "application/x-www-form-urlencoded");
-  xml_request.send('rdf=' + doap);
+  xml_request.setRequestHeader("Content-Type", "text/xml");
+  xml_request.send(doap);
   alert("Please copy and paste the green code (xml) and paste into a local file.\n"
       + "I.e. copy and paste into a .txt file and then save on the 'about' page of your project blog.\n\n");
 }
