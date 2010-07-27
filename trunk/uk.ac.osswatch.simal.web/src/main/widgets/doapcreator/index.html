@@ -39,8 +39,8 @@
           </div>
           <div class="q_container">
             <div class="question">Full name of project:<span class="mandatory">*</span></div>
-            <div class="answer"><input type="text" id="name" class="short" /><br />
-            What is the full name of the project?</div>
+            <div class="answer"><input type="text" id="name" class="short" />
+          </div>
           </div>
           <div class="q_container">
             <div class="question">Short project description (120 character pitch):
@@ -65,8 +65,7 @@
           </div>
           <div class="q_container">
             <div class="question">Project blog URL:</div>
-            <div class="answer"><input type="text" id="blog" class="long" /><br />
-                        URL of the public blog.</div>
+            <div class="answer"><input type="text" id="blog" class="long" /></div>
           </div>
           <div class="q_container">
             <div class="question">RSS2 or ATOM feed for project blog:</div>
@@ -101,25 +100,32 @@
             <div id="people_container_9"></div>
             <div id="people_container_10"></div>
             <input type="button" class="generate" value="Add person"
-	            onclick="addPerson();" /></div>
+	            onclick="addDOAPPerson();" /></div>
           </div>
           <div class="q_container">
             <div class="question">Version control system:</div>
-            <div class="answer"><span class="label">Type:</span><select
-	            id="repo_type">
-	            <option value="SVNRepository">Subversion</option>
-	            <option value="CVSRepository">CVS</option>
-	            <option value="GitRepository">Git Repository</option>
-	            <option value="BKRepository">BitKeeper</option>
-	            <option value="ArchRepository">GNU Arch</option>
-	            <option value="HgRepository">Mercurial</option>
-	            <option value="BazaarBranch">Bazaar Branch</option>
-	            <option value="DarcsRepository">Darcs Repository</option>
-            </select> <span class="label">URL:</span><input type="text" id="repo"
-	            class="long" /><br />
-            URL of the version control system, eg. when your project is named PPP
-            and is hosted at GoogleCode, this would be
-            'http://PPP.googlecode.com/svn/trunk/'.</div>
+            <div class="answer"><span class="label">Type:</span>
+              <select id="repo_type">
+	              <option value="SVNRepository">Subversion</option>
+	              <option value="CVSRepository">CVS</option>
+	              <option value="GitRepository">Git Repository</option>
+	              <option value="BKRepository">BitKeeper</option>
+	              <option value="ArchRepository">GNU Arch</option>
+	              <option value="HgRepository">Mercurial</option>
+	              <option value="BazaarBranch">Bazaar Branch</option>
+	              <option value="DarcsRepository">Darcs Repository</option>
+              </select><br />
+              <span class="label">URL:</span>
+              <input type="text" id="repo" class="long" /><br />
+              URL of the version control system, eg. when your project is 
+              named PPP and is hosted at GoogleCode, this would be
+              'http://PPP.googlecode.com/svn/trunk/'.<br />
+	            <span class="label">Browse URL:</span>
+	            <input type="text" id="repo_browse" class="long" /><br />
+	            Many hosting providers provide a web interface to the version
+	            control system, eg. if your project 'PPP' is hosted at GoogleCode
+	            the URL would be 'http://code.google.com/p/PPP/source/browse/'. 
+	          </div>
           </div>
           <div class="q_container">
             <div class="question">Issue tracker:</div>
@@ -128,6 +134,14 @@
             URL of the issue tracker or bug database, eg. if you use GoogleCode's
             issue tracker for project PPP this would be
             'http://code.google.com/p/PPP/issues/list'.</div>
+          </div>
+          <div class="q_container">
+            <div class="question">Mailing list(s):</div>
+            <div class="answer">
+              <input type="text" id="mailing_list_1" class="long" /><br />
+	            <input type="text" id="mailing_list_2" class="long" /><br />
+              URL to mailing list page(s) where people can register and view the public archive(s).
+            </div>
           </div>
           <div class="q_container">
             <div class="question">OSS license you will you be using for the
@@ -159,6 +173,29 @@
               <option value="false">Never heard of JISC</option>
             </select></div>
           </div>
+          <div class="q_container">
+            <div class="question_wide">Names, (main) roles and emails of 
+            people working on or associated with project :<span class="mandatory">*</span></div>
+            <div class="answer_wide">
+            <div class="label_people">Type:</div>
+            <div class="label_people">Name:<span class="mandatory">*</span></div>
+            <div class="label_people">Email:<span class="mandatory">*</span></div>
+            <div class="label_people">Personal homepage (emtpy for none):</div>
+            <div class="label_people">URL link to a picture (emtpy for none):</div>
+            <div id="people_container_11"></div>
+            <div id="people_container_12"></div>
+            <div id="people_container_12"></div>
+            <div id="people_container_13"></div>
+            <div id="people_container_14"></div>
+            <div id="people_container_15"></div>
+            <div id="people_container_16"></div>
+            <div id="people_container_17"></div>
+            <div id="people_container_18"></div>
+            <div id="people_container_19"></div>
+            <div id="people_container_20"></div>
+            <input type="button" class="generate" value="Add person"
+	            onclick="addJISCPerson();" /></div>
+          </div>
           <div id="jisc_questions">
             <div class="q_container">
               <div class="question">Person responsible for JISC project
@@ -181,8 +218,7 @@
               </div>
               <div class="answer">
                 <input type="text" id="projectemail" class="long" /><br />
-                You will need a free gmail account to access this form for future
-                updates as well as for the <a href="http://code.google.com/p/jisclms/"
+                You will need a free gmail account to access the <a href="http://code.google.com/p/jisclms/"
     	            target="_blank">Programme Manager's Notebook</a> to leave comments.
     	        </div>
             </div>
