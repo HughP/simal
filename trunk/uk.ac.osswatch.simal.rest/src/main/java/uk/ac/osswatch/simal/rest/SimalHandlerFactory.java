@@ -45,6 +45,8 @@ public class SimalHandlerFactory {
         handler = new ProjectAPI(command);
       } else if (command.isPersonCommand()) {
         handler = new PersonAPI(command);
+      } else if (command.isCategoryCommand()) {
+        handler = new CategoryAPIHandler(command);
       }
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException("Unable to create handler", e);
