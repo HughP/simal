@@ -15,10 +15,10 @@
  */
 package uk.ac.osswatch.simal.integrationTest.model.repository;
 
+import static junit.framework.Assert.fail;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -27,9 +27,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-
-import static junit.framework.Assert.fail;
+import uk.ac.osswatch.simal.rdf.io.RDFXMLUtils;
 
 /**
  * test common activities relating to Projects.
@@ -47,8 +45,26 @@ public class TestAddFileToRepository extends BaseRepositoryTest {
       "testData/testAddFromForm.xml", "testData/testAddFromFormSimpler.xml" };
 
   @Test
-  public void testAdd() throws SimalRepositoryException, URISyntaxException,
-      IOException {
+  public void testAddGeneric() {
+    try {
+      performAdd(true);
+    } catch (Exception e) {
+      LOGGER.warn("Exception adding test data via generic mechanism: " + e.getMessage(), e);
+      fail();
+    }
+  }
+
+  @Test
+  public void testAddProject() {
+    try {
+      performAdd(false);
+    } catch (Exception e) {
+      LOGGER.warn("Exception adding test data via project API: " + e.getMessage(), e);
+      fail();
+    }
+  }
+
+  private void performAdd(boolean generic) throws Exception {
     int i = 0;
     for (String testFileName : ADD_FROM_FORM_FILE) {
       File testFile = new File(ISimalRepository.class.getClassLoader()
@@ -60,14 +76,17 @@ public class TestAddFileToRepository extends BaseRepositoryTest {
         byte b[] = new byte[x];
         fis.read(b);
         String data = new String(b);
-        getRepository().add(data);
-      } catch (Exception e) {
-        LOGGER.warn("Exception adding test data: " + e.getMessage(), e);
-        fail();
+        if (generic) {
+          getRepository().add(data);
+        } else {
+          SimalRepositoryFactory.getProjectService().createProject(
+              RDFXMLUtils.convertXmlStringToDom(data));
+        }
       } finally {
         fis.close();
-        IProject project1 = SimalRepositoryFactory.getProjectService().getProject(PROJECT_URIS[i]);
-        if(project1 != null) {
+        IProject project1 = SimalRepositoryFactory.getProjectService()
+            .getProject(PROJECT_URIS[i]);
+        if (project1 != null) {
           project1.delete();
         }
         i++;

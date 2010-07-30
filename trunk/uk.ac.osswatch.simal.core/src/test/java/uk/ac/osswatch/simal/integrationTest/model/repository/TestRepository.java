@@ -126,15 +126,23 @@ public class TestRepository extends BaseRepositoryTest {
     int peopleBefore = SimalRepositoryFactory.getPersonService().getAll().size();
     File testFile = new File(ISimalRepository.class.getClassLoader()
         .getResource(ModelSupport.TEST_FILE_URI_WITH_QNAME).toURI());
-    FileInputStream fis = new FileInputStream(testFile);
-    int x = fis.available();
-    byte b[] = new byte[x];
-    fis.read(b);
-    String data = new String(b);
-    getRepository().add(data);
+    
+    FileInputStream fis = null;
+    
+    try {
+      fis = new FileInputStream(testFile);
+      int x = fis.available();
+      byte b[] = new byte[x];
+      fis.read(b);
+      String data = new String(b);
+      getRepository().add(data);
+    } finally {
+      if(fis != null) {
+        fis.close();
+      }
+    }
+    
     int peopleAfter = SimalRepositoryFactory.getPersonService().getAll().size();
-    
-    
     Iterator<IPerson> people = SimalRepositoryFactory.getPersonService().getAll().iterator();
     while (people.hasNext()) {
       IPerson person = people.next();
