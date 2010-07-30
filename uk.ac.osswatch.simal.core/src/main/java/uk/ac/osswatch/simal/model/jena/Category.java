@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -121,4 +122,15 @@ public class Category extends DoapResource implements IDoapCategory {
     }
     return new HashSet<IPerson>(allPeople.values());
   }
+
+  public String toJSONRecord() throws SimalRepositoryException {
+    StringBuffer json = new StringBuffer();
+    json.append("{");
+    json.append("\"id\":\"" + getURI() + "\",");
+    json.append("\"label\":\""
+        + StringEscapeUtils.escapeJavaScript(getLabel().trim()) + "\"");
+    json.append("}");
+    return json.toString();
+  }
+
 }

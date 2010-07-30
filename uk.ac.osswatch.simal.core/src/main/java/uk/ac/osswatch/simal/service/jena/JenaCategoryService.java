@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.service.jena;
  */
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -174,5 +175,22 @@ public class JenaCategoryService extends JenaService implements
 			}
 		}
 	}
+
+  /**
+   * @see uk.ac.osswatch.simal.service.ICategoryService#getAllCategoriesAsJSON()
+   */
+  public String getAllCategoriesAsJSON() throws SimalRepositoryException {
+    StringBuffer json = new StringBuffer("{ \"items\": [");
+    Iterator<IDoapCategory> categories = getAll().iterator();
+    IDoapCategory category;
+    while (categories.hasNext()) {
+      category = categories.next();
+      json.append(category.toJSONRecord());
+      if (categories.hasNext()) {
+        json.append(",");
+      }
+    }
+    json.append("]}");
+    return json.toString();  }
 
 }
