@@ -27,7 +27,33 @@ var BASE_NAMESPACE_URL = "http://registry.oss-watch.ac.uk/";
 var PEOPLE_NAMESPACE_URL = BASE_NAMESPACE_URL + "people/";
 var CATEGORY_NAMESPACE_URL = BASE_NAMESPACE_URL + "categories/";
 
+// settings - should be set as preferences
+var SIMAL_REST_BASE_URL = "http://localhost:8080/simal-rest"; 
+
 var jiscQuestions;
+
+function initForm() {
+  fetchAllCategories();
+  addPersons(3);
+  initJiscFunded();
+}
+
+function processCategories(allCategories) {
+  document.getElementById("categories_container").innerHTML = generateCategoriesHtml(allCategories.items);
+}
+
+function generateCategoriesHtml(categoriesItems) {
+  categoriesHtml = "       <select id=\"categories\" multiple=\"multiple\">\n";
+
+  for(i=0;i<categoriesItems.length;i++) {
+    categoriesHtml += "         <option value=\"" + categoriesItems[i].id + "\">" + categoriesItems[i].label + "</option>\n";
+  }
+
+  categoriesHtml += "       </select><br />\n";
+  categoriesHtml += "Use the 'Control' or 'Shift' key to select multiple categories.";
+
+  return categoriesHtml;
+}
 
 function isJiscFunded() {
   return eval(document.getElementById("jisc_funded").value);
@@ -163,7 +189,11 @@ function processPerson(personIndex) {
 function processPeople() {
   var peopleDoap = "";
 
-  for (i = 1; i < personCount; i++) {
+  for (i = 1; i < DOAPPersonCount; i++) {
+    peopleDoap += processPerson(i);
+  }
+
+  for (i = 1; i < JISCPersonCount; i++) {
     peopleDoap += processPerson(i);
   }
 
@@ -304,6 +334,7 @@ function generate() {
   var description = document.getElementById("description").value;
   
   var langs = document.getElementById("langs").value;
+  var categoriesOptions = document.getElementById("categories").options;
 
   var doap = "<rdf:RDF xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"\n";
   doap += "     xmlns:rdfs=\"http://www.w3.org/2000/01/rdf-schema#\"\n";
@@ -313,7 +344,6 @@ function generate() {
   doap += "     xmlns:dc=\"http://purl.org/dc/core/\"\n";
   doap += "     xmlns:dcterms=\"http://purl.org/dc/terms/\"\n";
   doap += "     xmlns:simal=\"http://oss-watch.ac.uk/ns/0.2/simal#\"\n";
-  doap += "     xmlns:cerif=\"http://www.dotac.info/ontology/CERIF2008.owl#\"\n";
   doap += ">\n";
   doap += "<Project rdf:about=\"" + BASE_NAMESPACE_URL + "projects/" + id
       + "\">\n";
@@ -332,6 +362,12 @@ function generate() {
   if (blogfeed != "") {
     doap += " <foaf:seeAlso dc:title=\"Project blog\" rdf:resource=\""
         + blogfeed + "\" dc:format=\"application/rss+xml\" />\n";
+  }
+
+  for (i=0;i<categoriesOptions.length; i++) {
+    if(categoriesOptions[i].selected) {
+      doap += " <category rdf:resource=\"" + categoriesOptions[i].value + "\"/>\n";
+    }
   }
 
   if (langs != "") {
@@ -492,8 +528,29 @@ function getJiscFundedFields() {
   return jiscdoap;
 }
 
+function fetchAllCategories() {
+  var loc = SIMAL_REST_BASE_URL + "/allCategories/json";
+  loc = Widget.proxify(loc);
+  var xml_request = new XMLHttpRequest();
+
+  xml_request.open("GET", loc, true);
+  xml_request.setRequestHeader("Cache-Control", "no-cache");
+  
+  xml_request.onreadystatechange = function() {
+    if (xml_request.readyState == 4) {
+      if(xml_request.status == 200) {
+        processCategories(JSON.parse(xml_request.responseText));
+      } else {
+        reportError(xml_request);
+      }
+    }
+  };
+  
+  xml_request.send("");
+}
+
 function commitDoapFile(doap) {
-  var loc = 'http://localhost:8080/simal-rest/addProject';
+  var loc = SIMAL_REST_BASE_URL + "/addProject";
   loc = Widget.proxify(loc);
   var xml_request = new XMLHttpRequest();
 
