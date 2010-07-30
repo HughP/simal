@@ -41,9 +41,12 @@ public final class RESTCommand {
   private static final Logger LOGGER = LoggerFactory
       .getLogger(RESTCommand.class);
 
+  public static final String ALL_CATEGORIES = "/allCategories";
+  
   public static final String ALL_PROJECTS = "/allProjects";
   public static final String GET_PROJECT = "/project";
   public static final String PROJECT_ADD = "/addProject";
+  
   public static final String ALL_PEOPLE = "/allPeople";
   public static final String PERSON = "/person";
   public static final String ALL_COLLEAGUES = "/allColleagues";
@@ -489,6 +492,15 @@ public final class RESTCommand {
   }
 
   /**
+   * Return true if this command is a get all categories command.
+   * 
+   * @return
+   */
+  public boolean isGetAllCategories() {
+    return (params.get(PARAM_METHOD).equals(ALL_CATEGORIES));
+  }
+
+  /**
    * Return true if this command is a get all projects command.
    * 
    * @return
@@ -627,6 +639,13 @@ public final class RESTCommand {
    */
   public boolean isGet() {
     return !isPost();
+  }
+
+  /**
+   * @return
+   */
+  public boolean isCategoryCommand() {
+    return (isGetAllCategories());
   }
 
 }
