@@ -70,6 +70,15 @@ public class TestCategoryService extends BaseRepositoryTest {
 	    assertTrue("Got too few categories", 50 < cats.size());
 	  }
 
+    @Test
+    public void testGetAllCategoriesAsJSON() throws SimalRepositoryException,
+        IOException {
+      String catsJSON = SimalRepositoryFactory.getCategoryService().getAllCategoriesAsJSON();
+
+      int nrCategories = catsJSON.split("\"id\"").length;
+      assertEquals("Got wrong number of categories", 56, nrCategories);
+    }
+
 	  @Test
 	  public void testFindCategoryById() throws SimalRepositoryException {
 	    IDoapCategory cat = SimalRepositoryFactory.getCategoryService().findById("1");

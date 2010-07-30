@@ -47,6 +47,14 @@ public interface ICategoryService extends IService {
 	 */
 	public IDoapCategory get(String uri) throws SimalRepositoryException;
 
+	
+	/**
+	 * Return all categories in JSON format.
+	 * @return
+	 * @throws SimalRepositoryException
+	 */
+	public String getAllCategoriesAsJSON() throws SimalRepositoryException;
+	
 	/**
 	 * Get a project from the repository. If the project does not yet exist it
 	 * will be created.
