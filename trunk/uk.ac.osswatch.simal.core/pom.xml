@@ -444,6 +444,17 @@
       </roles>
       <timezone>0</timezone>
     </developer>
+    <developer>
+      <id>svanderwaal</id>
+      <name>Sander van der Waal</name>
+      <email>sander.vanderwaal@oucs.ox.ac.uk</email>
+      <organization>OSS Watch</organization>
+      <organizationUrl>http://www.oss-watch.ac.uk</organizationUrl>
+      <roles>
+        <role>PMC Member</role>
+      </roles>
+      <timezone>0</timezone>
+    </developer>
     <!-- TODO: Add all developers here (developers should do it themselves) -->
   </developers>
 </project>
