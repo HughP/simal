@@ -444,6 +444,7 @@ function getJiscFundedFields() {
   var resp_reports_phone = document.getElementById("resp_reports_phone").value;
   var resp_reports_skype = document.getElementById("resp_reports_skype").value;
   var cont_licence = document.getElementById("cont_licence").value;
+  var cont_licence_juris = document.getElementById("cont_licence_juris").value;
   var lead_institution = document.getElementById("lead_institution").value;
   var department = document.getElementById("department").value;
   var dept_postcode = document.getElementById("dept_postcode").value;
@@ -505,6 +506,9 @@ function getJiscFundedFields() {
   }
 
   if (cont_licence != "") {
+    if (cont_licence.indexOf("CC") == 0 && cont_licence_juris != "") {
+      cont_licence += "-" + cont_licence_juris;
+    }
     jiscdoap += " <license rdf:resource=\"http://usefulinc.com/doap/licenses/"
         + cont_licence + "\"/>\n";
   }
