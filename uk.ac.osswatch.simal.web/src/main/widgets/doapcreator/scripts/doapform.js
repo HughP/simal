@@ -46,7 +46,9 @@ function generateCategoriesHtml(categoriesItems) {
   categoriesHtml = "       <select id=\"categories\" multiple=\"multiple\">\n";
 
   for(i=0;i<categoriesItems.length;i++) {
-    categoriesHtml += "         <option value=\"" + categoriesItems[i].id + "\">" + categoriesItems[i].label + "</option>\n";
+    if(categoriesItems[i].label.indexOf("http://") != 0) {
+      categoriesHtml += "         <option value=\"" + categoriesItems[i].id + "\">" + categoriesItems[i].label + "</option>\n";
+    }
   }
 
   categoriesHtml += "       </select><br />\n";
@@ -342,7 +344,6 @@ function generate() {
   doap += "     xmlns:foaf=\"http://xmlns.com/foaf/0.1/\"\n";
   doap += "     xmlns:v=\"http://www.w3.org/2006/vcard/ns#\"\n";
   doap += "     xmlns:dc=\"http://purl.org/dc/core/\"\n";
-  doap += "     xmlns:dcterms=\"http://purl.org/dc/terms/\"\n";
   doap += "     xmlns:simal=\"http://oss-watch.ac.uk/ns/0.2/simal#\"\n";
   doap += ">\n";
   doap += "<Project rdf:about=\"" + BASE_NAMESPACE_URL + "projects/" + id
@@ -353,15 +354,23 @@ function generate() {
   doap += " <shortname>" + id + "</shortname>\n";
   doap += " <shortdesc xml:lang=\"en\">" + shortdesc + "</shortdesc>\n";
   doap += " <description xml:lang=\"en\">" + description + "</description>\n";
+  
   if (homepage != "") {
     doap += " <homepage rdf:resource=\"" + homepage + "\"/>\n";
   }
+
   if (blog != "") {
-    doap += " <blog rdf:resource=\"" + blog + "\"/>\n";
+    doap += " <blog>\n";
+    doap += "  <foaf:Document rdf:about=\"" + blog + "\"/>\n";
+    doap += " </blog>\n";
   }
+
   if (blogfeed != "") {
-    doap += " <foaf:seeAlso dc:title=\"Project blog\" rdf:resource=\""
-        + blogfeed + "\" dc:format=\"application/rss+xml\" />\n";
+    doap += " <blog>\n";
+    doap += "  <foaf:Document rdf:about=\"" + blogfeed + "\">\n";
+    doap += "   <dc:format>application/rss+xml</dc:format>\n";
+    doap += "  </foaf:Document>\n";
+    doap += " </blog>\n";
   }
 
   for (i=0;i<categoriesOptions.length; i++) {
