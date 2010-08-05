@@ -20,7 +20,11 @@ import java.net.URL;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
+import com.hp.hpl.jena.rdf.model.RDFWriter;
+import com.hp.hpl.jena.xmloutput.impl.BaseXMLWriter;
+
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 public abstract class AbstractResource implements IResource {
 	private static final long serialVersionUID = 1L;
@@ -110,6 +114,22 @@ public abstract class AbstractResource implements IResource {
     
     public void setPath(String path) {
     	this.path = path;
+    }
+
+    /**
+     * Set namespace prefixes for more readable XML output.
+     * @param writer
+     * @return same writer with prefixes set.
+     */
+    protected RDFWriter setNsPrefixes(BaseXMLWriter writer) {
+      writer.setNsPrefix("", RDFUtils.DOAP_NS);
+      writer.setNsPrefix(RDFUtils.SIMAL_PREFIX, RDFUtils.SIMAL_NS);
+      writer.setNsPrefix(RDFUtils.FOAF_PREFIX, RDFUtils.FOAF_NS);
+      writer.setNsPrefix(RDFUtils.DC_PREFIX, RDFUtils.DC_NS);
+      writer.setNsPrefix(RDFUtils.RDF_PREFIX, RDFUtils.RDF_NS);
+      writer.setNsPrefix(RDFUtils.RDFS_PREFIX, RDFUtils.RDFS_NS);
+
+      return writer;
     }
 
 }

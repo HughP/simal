@@ -46,6 +46,8 @@ public final class RDFUtils {
   public static final String CATEGORY_NAMESPACE_URI = "http://simal.oss-watch.ac.uk/defaultCategoryNS#";
     
   public static final String SIMAL_NS = "http://oss-watch.ac.uk/ns/0.2/simal#";
+  public static final String SIMAL_PREFIX = "simal";
+
   public static final String SIMAL_PERSON = SIMAL_NS + "Person";
   public static final String SIMAL_PROJECT = SIMAL_NS + "Project";
   public static final String SIMAL_CATEGORY_ID = "categoryId";
@@ -53,10 +55,19 @@ public final class RDFUtils {
   public static final String SIMAL_PROJECT_ID = "projectId";
 
   public static final String DOAP_NS = DOAP.NS;
+  // TODO Change to public static final String DC_NS = DCTerms.NS;
   public static final String DC_NS = DC.NS;
   public static final String FOAF_NS = FOAF.NS;
   public static final String RDF_NS = RDF.getURI();
   public static final String RDFS_NS = RDFS.getURI();
+  public static final String VCARD_NS = "http://www.w3.org/2006/vcard/ns#";
+
+  public static final String DOAP_PREFIX = "doap";
+  public static final String DC_PREFIX = "dc";
+  public static final String FOAF_PREFIX = "foaf";
+  public static final String RDF_PREFIX = "rdf";
+  public static final String RDFS_PREFIX = "rdfs";
+  public static final String VCARD_PREFIX = "v";
 
   private RDFUtils() {
   }
