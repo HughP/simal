@@ -15,9 +15,7 @@
  */
 package uk.ac.osswatch.simal.integrationTest.model;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,6 +56,11 @@ public class TestResource extends BaseRepositoryTest {
   public void testToXML() throws SimalRepositoryException {
     String xml = project1.toXML();
     assertNotNull(xml);
+    // Testing wither namespace prefixes have been set correctly: 
+    assertTrue("Namespace simal not set correctly.", xml.indexOf("xmlns:simal") > -1);
+    assertTrue("Namespace doap not set correctly.", xml.indexOf("xmlns=\"http://usefulinc.com/ns/doap#\"") > -1);
+    assertTrue("Namespace foaf not set correctly.", xml.indexOf("xmlns:foaf") > -1);
+    assertTrue("Namespace dc not set correctly.", xml.indexOf("xmlns:dc") > -1);
   }
 
   @Test

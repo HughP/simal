@@ -41,6 +41,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.ResourceUtils;
 import com.hp.hpl.jena.vocabulary.DC;
 import com.hp.hpl.jena.vocabulary.RDFS;
+import com.hp.hpl.jena.xmloutput.impl.BaseXMLWriter;
 
 public class Resource extends AbstractResource {
   private static final long serialVersionUID = -10828811166985970L;
@@ -204,8 +205,12 @@ public class Resource extends AbstractResource {
   public String toXML() throws SimalRepositoryException {
     Model model = ResourceUtils.reachableClosure(getJenaResource());
     RDFWriter writer = model.getWriter("RDF/XML-ABBREV");
+    if(writer instanceof BaseXMLWriter) {
+      writer = setNsPrefixes((BaseXMLWriter) writer);
+    }
     StringWriter sw = new StringWriter();
     writer.write(model, sw, null);
+
     return sw.toString();
   }
 
@@ -216,7 +221,6 @@ public class Resource extends AbstractResource {
    * @param property
    * @return
    */
-  @SuppressWarnings("unchecked")
   protected List<Statement> listProperties(Property property) {
     List<Statement> props = getJenaResource().listProperties(property).toList();
     
