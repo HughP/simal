@@ -70,10 +70,6 @@ Binary releases: http://simal.oss-watch.ac.uk/userQuickstart.html
 
 Source: http://simal.oss-watch.ac.uk/devQuickstart.html
 
-= Demo =
-
-A live demo of the latest developments can be found at http://simal.16degrees.com.au
-
 = Questions and Feedback =
 
 Assistance is available on our mailing lists, which can be found at 
