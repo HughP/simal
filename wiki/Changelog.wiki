@@ -2,7 +2,20 @@
 #labels Featured,Phase-Support
 #sidebar UserTOC
 
-= 0.2.4-rc1 =
+= 0.2.5-SNAPSHOT =
+
+== Core module ==
+
+== REST module ==
+
+ * Added name space prefixes to RDF/XML of {{{/project}}} call
+ * Added support for 'get all categories' on REST call {{{/allCategories}}}
+
+== Web Module ==
+
+Added Python script to backup all projects based on their RDF/XML representation.
+
+= 0.2.4 =
 
 == Web module ==
 
