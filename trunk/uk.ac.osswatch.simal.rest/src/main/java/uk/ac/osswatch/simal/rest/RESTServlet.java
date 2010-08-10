@@ -76,10 +76,12 @@ public class RESTServlet extends HttpServlet {
       IAPIHandler handler = handlerFactory.get(cmd);
       response = handler.execute();
     } catch (SimalAPIException e) {
-      response = errorResponse(e);
+      response = errorResponse(response, e);
     } catch (SimalRepositoryException e) {
-      response = errorResponse(new SimalAPIException(
+      response = errorResponse(response, new SimalAPIException(
           "Unable to connect to repository", e));
+    } catch (Exception e) {
+      response = errorResponse(response, e);
     } finally {
       if (cmd.isXML()) {
         res.setContentType("text/xml; charset=UTF-8");
@@ -124,10 +126,12 @@ public class RESTServlet extends HttpServlet {
         res.setStatus(HttpStatus.SC_CREATED);
       }
     } catch (SimalAPIException e) {
-      response = errorResponse(e);
+      response = errorResponse(response, e);
     } catch (SimalRepositoryException e) {
-      response = errorResponse(new SimalAPIException(
+      response = errorResponse(response, new SimalAPIException(
           "Unable to connect to repository", e));
+    } catch (Exception e) {
+      response = errorResponse(response, e);
     } finally {
       if (cmd.isXML()) {
         res.setContentType("text/xml; charset=UTF-8");
@@ -180,9 +184,9 @@ public class RESTServlet extends HttpServlet {
    * @param e
    * @return
    */
-  private String errorResponse(SimalAPIException e) {
-    String response;
-    response = "ERROR: " + e.getMessage();
+  private String errorResponse(String response, Exception e) {
+    response += " - ERROR: " + e.getMessage();
+    logger.warn(response);
     return response;
   }
 }
