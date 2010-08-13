@@ -1,6 +1,6 @@
 <!--
  
-Copyright 2008 University of Oxford 
+Copyright 2008, 2010 University of Oxford 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
@@ -31,16 +31,29 @@ Copyright 2008 University of Oxford
       your own copy of your DOAP file.
     </div>
   
-    <form wicket:id="addByURLForm">
-      <fieldset>
+    <div id="feedbackPanel">
+      <span class="warning" wicket:id="feedback">Feedback</span>
+    </div>
+    <fieldset>
       <legend>Load hosted DOAP</legend>
+      <form wicket:id="addByURLForm">
         <p>
           <label>Source URL:</label>
           <input type="text" wicket:id="sourceURL" value="" size="50" />
+          <input type="submit" value="Add to repository" /><br />
+          <span class="instruction">Enter the full URL to the project's DOAP file.</span>
         </p>
-        <input type="submit" value="Add to repository" />
-      </fieldset>
-    </form>
+      </form>
+      <form wicket:id="addBySourceForgeIdForm">
+        <p>
+          <label>SourceForge project:</label>
+          <input type="text" wicket:id="sourceForgeId" value="" size="50" />
+          <input type="submit" value="Add to repository" /><br />
+          <span class="instruction">Enter the short name of a project that is hosted on SourceForge.<br />
+          For example: enter 'foo' if the project is hosted at http://sourceforge.net/projects/foo</span>
+        </p>
+      </form>
+    </fieldset>
     
     <form wicket:id="uploadForm">
       <fieldset>
@@ -65,34 +78,6 @@ Copyright 2008 University of Oxford
       </fieldset>
     </form>
     
-    <hr/>
-    
-    <form wicket:id="doapForm">
-      <fieldset>
-      <legend>DOAP Generator</legend>
-        <table>
-          <tr>
-            <td><label for="name">Name</label></td>
-            <td><input type="text" id="name" wicket:id="name" value="" size="80" /></td>
-          </tr>
-          <tr>
-            <td><label for="shortDesc">Short Description</label></td>
-            <td><input type="text" id="shortDesc" wicket:id="shortDesc" value="" size="80" /></td>
-          </tr>
-          <tr>
-            <td><label for="description">Description</label></td>
-            <td><textarea id="description" wicket:id="description" cols="80" rows="10"></textarea></td>
-          </tr>
-          <tr>
-            <td colspan="2"><input type="submit" value="Add to repository" /></td>
-          </tr>
-        </table>
-      </fieldset>
-    </form>
-  </div>
-  
-  <div id="feedbackPanel">
-    <span wicket:id="feedback">Feedback</span>
   </div>
 </wicket:extend>
 </body>

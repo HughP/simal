@@ -21,6 +21,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,9 +36,10 @@ public abstract class TestBase {
   protected static final int NUMBER_OF_TEST_CATEGORIES = 55;
   protected static final int NUMBER_OF_TEST_PROJECTS = 9;
   protected static final int NUMBER_OF_TEST_PEOPLE = 22;
-  protected static WicketTester tester;
   protected static String projectURI;
   protected static String developerURI;
+
+  protected WicketTester tester;
 
   private static final Logger logger = LoggerFactory.getLogger(TestBase.class);
 
@@ -52,8 +54,12 @@ public abstract class TestBase {
     IPerson developer = SimalRepositoryFactory.getPersonService().findBySeeAlso("http://foo.org/~developer/#me");
     developerURI = developer.getURI();
 
-    tester = new WicketTester();
     logProjectData("before");
+  }
+
+  @Before
+  public void setUp() {
+    tester = new WicketTester();
   }
 
   public static void logProjectData(String beforeOrAfter)

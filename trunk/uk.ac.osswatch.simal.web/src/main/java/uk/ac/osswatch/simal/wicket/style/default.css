@@ -91,6 +91,11 @@ pre {
     font-size: 120%;
 }
 
+.feedbackPanelERROR {
+	  color: #F00;
+	  list-style-type: none;
+}
+	
 h2 {
   background: #8BBBFD;
   color: black;
@@ -143,6 +148,13 @@ body {
 	border-top: 1px solid #2C4AA0;
 }
 
+label {
+    width: 200px;
+}
+
+.instruction {
+	font-style: italic;
+}
 
 /****************
    Header

@@ -17,9 +17,7 @@ package uk.ac.osswatch.simal.wicket.doap;
  * under the License.                                                *
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -39,14 +37,17 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.UserApplication;
-import uk.ac.osswatch.simal.wicket.UserHomePage;
 
 public class TestDoapFormPage extends TestBase {
+  private final static String INVALID_SF_PROJECT = "qqqq111qqqqq";
+  private final static String VALID_SF_PROJECT = "jena";
+  private final static String SF_FORM_ID = "addBySourceForgeIdForm";
+  private final static String SF_FIELD_ID = "sourceForgeId";
+  
+  
   private final static String INVALID_URL = "this is not a valid URL";
   private static final String DOAP_FORM_FILE = "doapFormFile.xml";
   private static final String TEST_NAME = "Form Project";
-  private static final String TEST_SHORT_DESC = "A project added by filling in the DOAP form";
-  private static final String TEST_DESCRIPTION = "The long description og a project added by filling in the DOAP form";
   private static final String TEST_RAW_RDF_URI = "simal:99999";
   private static final String TEST_RAW_RDF_PROJECT_NAME = "Load From RAW RDF Test";
   private static final String TEST_RAW_RDF = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
@@ -156,12 +157,38 @@ public class TestDoapFormPage extends TestBase {
 
     // FIXME: since adding the URLConverter the onSubmit method does not work. I
     // (RG) think that this is because the URLConverter is not being loaded.
-    //int numProjectsBefore = UserApplication.getRepository().getAllProjects().size();
+    // int numProjectsBefore = UserApplication.getRepository().getAllProjects().size();
     formTester.submit();
-    //int numProjectsAfter = UserApplication.getRepository().getAllProjects().size();
+    // int numProjectsAfter = UserApplication.getRepository().getAllProjects().size();
 
-    // assertTrue("Loading data by URL does not appear to have added any
-    // projects", numProjectsAfter > numProjectsBefore);
+    // assertTrue("Loading data by URL does not appear to have added any projects", numProjectsAfter > numProjectsBefore);
+  }
+
+  /**
+   * Test adding a project by a both a valid and invalid URL.
+   * 
+   * @throws SimalRepositoryException
+   */
+  @Test
+  public void testAddProjectBySourceForgeURLForm() throws SimalRepositoryException {
+    tester.assertVisible(SF_FORM_ID + ":" + SF_FIELD_ID);
+
+    FormTester formTester = tester.newFormTester(SF_FORM_ID);
+    formTester.setValue(SF_FIELD_ID, INVALID_SF_PROJECT);
+    formTester.submit();
+    tester.assertRenderedPage(DoapFormPage.class);
+    String[] errors = { "Could not get DOAP from SourceForge for the project named " + INVALID_SF_PROJECT };
+    tester.assertErrorMessages(errors);
+
+    initTester();
+    formTester = tester.newFormTester(SF_FORM_ID);
+    formTester.setValue(SF_FIELD_ID, VALID_SF_PROJECT);
+
+    int numProjectsBefore = UserApplication.getRepository().getAllProjects().size();
+    formTester.submit();
+    int numProjectsAfter = UserApplication.getRepository().getAllProjects().size();
+
+     assertTrue("Loading data by URL does not appear to have added any projects", numProjectsAfter > numProjectsBefore);
   }
 
   /**
@@ -177,29 +204,7 @@ public class TestDoapFormPage extends TestBase {
     tester.assertVisible("uploadForm:fileInput");
 
     uploadFile();
-    tester.assertRenderedPage(UserHomePage.class);
-  }
-
-  @Test
-  public void testProjectForm() throws SimalRepositoryException {
-    tester.assertVisible("doapForm");
-    tester.assertVisible("doapForm:name");
-    tester.assertVisible("doapForm:shortDesc");
-    tester.assertVisible("doapForm:description");
-  }
-
-  @Test
-  public void testProjectFormRequiredFields() throws SimalRepositoryException {
-    FormTester formTester = tester.newFormTester("doapForm");
-
-    formTester.setValue("name", "");
-    formTester.setValue("shortDesc", "");
-    formTester.submit();
-
-    tester.assertRenderedPage(DoapFormPage.class);
-    String[] errors = { "Field 'name' is required.",
-        "Field 'shortDesc' is required." };
-    tester.assertErrorMessages(errors);
+    tester.assertRenderedPage(ProjectDetailPage.class);
   }
 
   @Test
@@ -208,7 +213,7 @@ public class TestDoapFormPage extends TestBase {
     formTester.setValue("rawRDF", TEST_RAW_RDF);
     formTester.submit();
 
-    tester.assertRenderedPage(UserHomePage.class);
+    tester.assertRenderedPage(ProjectDetailPage.class);
     tester.assertNoErrorMessage();
     
     Set<IProject> projects = SimalRepositoryFactory.getProjectService().filterByName(TEST_RAW_RDF_PROJECT_NAME);
@@ -220,28 +225,6 @@ public class TestDoapFormPage extends TestBase {
     project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(
         TEST_RAW_RDF_URI);
     assertNull(project);
-  }
-
-  @Test
-  public void testAddProjectByForm() throws SimalRepositoryException {
-    FormTester formTester = tester.newFormTester("doapForm");
-
-    formTester = tester.newFormTester("doapForm");
-    formTester.setValue("name", TEST_NAME);
-    formTester.setValue("shortDesc", TEST_SHORT_DESC);
-    formTester.setValue("description", TEST_DESCRIPTION);
-    formTester.submit();
-
-    tester.assertRenderedPage(UserHomePage.class);
-    tester.assertNoErrorMessage();
-
-    IProject project = SimalRepositoryFactory.getProjectService().getProject(formInputURI);
-    assertNotNull(project);
-    assertEquals("Name is not correct", TEST_NAME, project.getName());
-    assertEquals("Short descritpion is not correct", TEST_SHORT_DESC, project
-        .getShortDesc());
-    assertEquals("Description is not correct", TEST_DESCRIPTION, project
-        .getDescription());
   }
 
   private void uploadFile() throws SimalRepositoryException, URISyntaxException {

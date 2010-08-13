@@ -38,7 +38,6 @@ public class TestPersonDetailsPage extends TestBase {
           return new PersonDetailPage(SimalRepositoryFactory.getPersonService().get(developerURI));
         } catch (SimalRepositoryException e) {
           System.err.println("Can't find the test project");
-          System.exit(1);
           return null;
         }
       }
