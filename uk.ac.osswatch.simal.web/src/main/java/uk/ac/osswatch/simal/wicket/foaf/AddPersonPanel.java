@@ -46,7 +46,7 @@ public class AddPersonPanel extends AbstractAddDoapResourcePanel {
   public static final int TESTER = 16;
   public static final int TRANSLATOR = 32;
 
-  private FoafFormInputModel inputModel = new FoafFormInputModel();
+  private FoafFormInputModel inputModel;
   TextField<String> nameField;
   TextField<String> emailField;
 
@@ -97,6 +97,9 @@ public class AddPersonPanel extends AbstractAddDoapResourcePanel {
    */
   @Override
   public Object getInputModel() {
+    if (inputModel == null) {
+      inputModel = new FoafFormInputModel();
+    }
     return inputModel;
   }
 
