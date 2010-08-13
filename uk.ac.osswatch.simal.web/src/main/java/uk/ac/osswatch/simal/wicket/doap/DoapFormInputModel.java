@@ -28,10 +28,11 @@ import org.apache.wicket.IClusterable;
 public class DoapFormInputModel implements IClusterable {
   private static final long serialVersionUID = -9089647575258232806L;
   private URL sourceURL;
-  private String name;
-  private String shortDesc;
-  private String description;
   private String rawRDF;
+  private String sourceForgeId;
+
+  public DoapFormInputModel() {
+  }
 
   /**
    * If the form contains raw RDF get that RDF content.
@@ -52,43 +53,6 @@ public class DoapFormInputModel implements IClusterable {
   }
 
   /**
-   * Get the full description for this project.
-   * 
-   * @return
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * Set the full description for this project.
-   * 
-   * @param description
-   */
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public DoapFormInputModel() {
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getShortDesc() {
-    return shortDesc;
-  }
-
-  public void setShortDesc(String shortDesc) {
-    this.shortDesc = shortDesc;
-  }
-
-  /**
    * Get the source URL for the data in this DOAP form.
    */
   public URL getSourceURL() {
@@ -100,6 +64,14 @@ public class DoapFormInputModel implements IClusterable {
    */
   public void setSourceURL(URL sourceURL) {
     this.sourceURL = sourceURL;
+  }
+
+  public void setSourceForgeId(String sourceForgeId) {
+    this.sourceForgeId = sourceForgeId;
+  }
+
+  public String getSourceForgeId() {
+    return sourceForgeId;
   }
 
 }

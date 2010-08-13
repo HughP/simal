@@ -109,12 +109,8 @@ public class BasePage extends WebPage {
     String defaultWidgetName = "doapcreator";
     String doapProjectWidgetName;
 
-    try {
-      doapProjectWidgetName = SimalProperties.getProperty(
-          SimalProperties.PROPERTY_ADD_PROJECT_WIDGET_TITLE, defaultWidgetName);
-    } catch (SimalRepositoryException e) {
-      doapProjectWidgetName = defaultWidgetName;
-    }
+    doapProjectWidgetName = SimalProperties.getProperty(
+        SimalProperties.PROPERTY_ADD_PROJECT_WIDGET_TITLE, defaultWidgetName);
 
     return doapProjectWidgetName;
   }
