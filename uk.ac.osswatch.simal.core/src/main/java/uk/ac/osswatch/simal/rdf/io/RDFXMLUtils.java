@@ -79,11 +79,13 @@ public final class RDFXMLUtils {
         domResult = builder.parse(new InputSource(new StringReader(xmlSource)));
       } catch (ParserConfigurationException e) {
         LOGGER.warn("Unexpected ParserConfigurationException: " + e.getMessage(),e);
+        throw new SimalException("Invalid configuration", e);
       } catch (SAXException e) {
         LOGGER.warn("Unexpected SAXException: " + e.getMessage(),e);
         throw new SimalException("Tried to create DOM Document from invalid XML", e);
       } catch (IOException e) {
         LOGGER.warn("Unexpected IOException: " + e.getMessage(),e);
+        throw new SimalException("IOException when trying to parse xml source.", e);
       }
     }
     return domResult;

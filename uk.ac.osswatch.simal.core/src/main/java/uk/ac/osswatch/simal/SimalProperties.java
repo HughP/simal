@@ -40,6 +40,7 @@ public class SimalProperties {
   private static final String DEFAULT_PROPERTIES_FILE = "default.simal.properties";
 
   public static final String PROPERTY_RDF_DATA_DIR = "simal.repository.dir";
+  public static final String PROPERTY_RDF_BACKUP_DIR = "simal.repository.backup.dir";
   public static final String PROPERTY_RDF_DATA_FILENAME = "simal.repository.filename";
   public static final String PROPERTY_TEST = "simal.test";
   public static final String PROPERTY_SIMAL_INSTANCE_ID = "simal.instance.id";
@@ -179,23 +180,13 @@ public class SimalProperties {
    * @param key
    * @param default
    * @return
-   * @throws SimalRepositoryException
-   *           if the properties cannot be initialised
    */
-  public static String getProperty(String key, String defaultValue)
-      throws SimalRepositoryException {
-    // FIXME We shouldn't be throwing Exceptions when the caller can supply
-    // a sensible default value.
+  public static String getProperty(String key, String defaultValue) {
     if (defaultProps == null) {
       try {
         initProperties();
       } catch (SimalRepositoryException e) {
-        if (defaultValue != null) {
-          return defaultValue;
-        } else {
-          throw new SimalRepositoryException(
-              "Unable to load configuration file", e);
-        }
+        return defaultValue;
       }
     }
 
@@ -210,14 +201,24 @@ public class SimalProperties {
     
     if (value == null) {
       if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
-        if (SimalRepositoryFactory.getInstance().isTest()) {
-          value = "simal:test";
-        } else {
+        try {
+          if (SimalRepositoryFactory.getInstance().isTest()) {
+            value = "simal:test";
+          } else {
+            value = UUID.randomUUID().toString();
+          }
+        } catch (SimalRepositoryException e) {
           value = UUID.randomUUID().toString();
         }
         setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
       } else if (key.equals(PROPERTY_RDF_DATA_DIR)) {
         value = System.getProperty("user.dir");
+      } else if (key.equals(PROPERTY_RDF_BACKUP_DIR)) {
+        value = System.getProperty("user.dir");
+        if(!value.endsWith(File.separator)) {
+          value += File.separator;
+        }
+        value += "backup";
       } else {
         StringBuilder sb = new StringBuilder("The property '");
         sb.append(key);
