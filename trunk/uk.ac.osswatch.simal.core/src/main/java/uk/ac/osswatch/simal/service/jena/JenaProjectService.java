@@ -436,6 +436,10 @@ public class JenaProjectService extends JenaService implements IProjectService {
         throws SimalRepositoryException {
       // Strip any extra XML, such as Atom feed data or web services response
       // data
+      if (sourceXml == null) {
+        throw new SimalRepositoryException("Supplied RDF/XML document is null.");
+      }
+      
       IProject newProject = null;
       NodeList projects = sourceXml.getElementsByTagNameNS(RDFUtils.DOAP_NS,
           "Project");
