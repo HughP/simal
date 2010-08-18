@@ -53,6 +53,7 @@ import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReviewListPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
+import uk.ac.osswatch.simal.wicket.panel.homepage.HomepageListPanel;
 import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
 
 public class ProjectDetailPage extends BasePage {
@@ -194,9 +195,11 @@ public class ProjectDetailPage extends BasePage {
           ProjectDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
-    add(getRepeatingLinks("homepages", "homepage",
-        new SortableDoapResourceDataProvider(project.getHomepages()), true));
-
+    
+    HomepageListPanel homepageList = new HomepageListPanel("homepageList", "Web Pages", project.getHomepages(), 10);
+    add(homepageList);
+    homepageList.setOutputMarkupId(true);
+    
     // Community tools
     add(getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker",
         new SortableDoapResourceDataProvider(project.getIssueTrackers()), false));
