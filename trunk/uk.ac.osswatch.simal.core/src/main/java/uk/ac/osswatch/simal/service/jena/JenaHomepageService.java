@@ -103,7 +103,7 @@ public class JenaHomepageService extends JenaService implements IHomepageService
 	    return fullID;
 	}
 
-	public IHomepageService getOrCreate(String url)
+	public IDoapHomepage getOrCreate(String url)
 			throws SimalRepositoryException {
 		// TODO Auto-generated method stub
 		return null;
