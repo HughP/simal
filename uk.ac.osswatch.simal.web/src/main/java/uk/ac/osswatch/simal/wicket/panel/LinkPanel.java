@@ -21,6 +21,7 @@ package uk.ac.osswatch.simal.wicket.panel;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
@@ -90,6 +91,20 @@ public class LinkPanel extends Panel {
     } else {
       add(new Label(componentId, ""));
     }
+  }
+
+  /**
+   * Constructor to create a link to an external page.
+   * 
+   * @param componentId - the component ID for the link component
+   * @param href - the href for the link
+   * @param label - the label for the link
+   */
+  public LinkPanel(String componentId, String href, String label) {
+    super(componentId);
+    ExternalLink link = new ExternalLink("link", href);
+    link.add(new Label("label", label));
+    add(link);
   }
 
   /**
