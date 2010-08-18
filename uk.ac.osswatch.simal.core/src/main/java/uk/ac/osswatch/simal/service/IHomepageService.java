@@ -17,6 +17,8 @@ package uk.ac.osswatch.simal.service;
  * 
  */
 
+import java.util.Set;
+
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -56,4 +58,21 @@ public interface IHomepageService extends IService {
 	     * 
 	     */
 	    public String getNewID() throws SimalRepositoryException;
+
+	    /**
+	     * Get an existing DoapHomepage resource from the repository. If no homepage with
+	     * this URL exists then return null.
+	     * 
+	     * @param url the URL of the homepage
+	     * @return the homapge resource or null
+	     * @throws SimalRepositoryException
+	     */
+      public IDoapHomepage get(String uri) throws SimalRepositoryException;
+
+      /**
+       * Get all the homepage resources in the repository.
+       * 
+       * @return
+       */
+      public Set<IDoapHomepage> getAll();
 }

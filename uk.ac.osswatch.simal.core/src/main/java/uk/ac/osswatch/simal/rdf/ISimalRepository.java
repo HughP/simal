@@ -46,6 +46,8 @@ public interface ISimalRepository {
 
   public static final String DOAP_CATEGORY_URI = RDFUtils.DOAP_NS
       + "category";
+  public static final String DOAP_HOMEPAGE_URI = RDFUtils.DOAP_NS
+      + "homepage";
   public static final String DOAP_MAINTAINER_URI = RDFUtils.DOAP_NS
       + "maintainer";
   public static final String DOAP_DEVELOPER_URI = RDFUtils.DOAP_NS

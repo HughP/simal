@@ -205,6 +205,9 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     initialised = false;
   }
   
+  /**
+   * @deprecated use HomepageService.getOrCreate(url) instead
+   */
   public IDoapHomepage getHomepage(String uri) {
 	  if (containsResource(uri)) {
 	      return new Homepage(model.getResource(uri));

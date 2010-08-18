@@ -17,6 +17,9 @@ package uk.ac.osswatch.simal.service.jena;
  * 
  */
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,7 +35,9 @@ import uk.ac.osswatch.simal.service.IHomepageService;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 public class JenaHomepageService extends JenaService implements IHomepageService {
@@ -103,10 +108,35 @@ public class JenaHomepageService extends JenaService implements IHomepageService
 	    return fullID;
 	}
 
+  public IDoapHomepage get(String uri) throws SimalRepositoryException {
+    if (getRepository().containsResource(uri)) {
+      Model model = ((JenaSimalRepository) getRepository()).getModel();
+      return new Homepage(model.getResource(uri));
+    } else {
+      return null;
+    }
+  }
+
 	public IDoapHomepage getOrCreate(String url)
 			throws SimalRepositoryException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    if (getRepository().containsResource(url)) {
+      return get(url);
+    } else {
+      Model model = ((JenaSimalRepository)getRepository()).getModel();
+      return new Homepage(model.getResource(url));
+    }
+  }
 
+
+  public Set<IDoapHomepage> getAll() {
+    Model model = ((JenaSimalRepository)getRepository()).getModel();
+    Property homepage = model.createProperty(JenaSimalRepository.DOAP_HOMEPAGE_URI);
+    StmtIterator itr = model.listStatements(null, homepage, (String)null);
+    Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
+    while (itr.hasNext()) {
+      String uri = ((Resource)itr.nextStatement().getObject()).getURI();
+      pages.add(new Homepage(model.getResource(uri)));
+    }
+    return pages;
+  }
 }
