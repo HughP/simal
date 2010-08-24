@@ -75,8 +75,7 @@ need the a Maven plugin described in the next section.
 
 If you are using Eclipse we also recommend the m2eclipse plugin that allows
 you to work with Maven projects within Eclipse. M2eclipse is available from the
-m2eclipse [http://m2eclipse.sonatype.org/update/ update site] 
-and is installed as described for the Subclipse plugin above.
+m2eclipse [http://m2eclipse.sonatype.org/sites/m2e update site].  This Core update site contains a single component: "Maven Integration for Eclipse (Required)". When you install this component (in the same way as above) you will be installing all of the core Wizards, the POM Editor, Maven Repository integration, and Maven integration.
 
 ===Wicket Bench===
 
