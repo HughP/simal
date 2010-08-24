@@ -78,6 +78,14 @@ public class SimalProperties {
 
   private static File propsFile;
 
+  static {
+    try {
+      initProperties();
+    } catch (SimalRepositoryException e) {
+      logger.error(e.getMessage());
+    }
+  }
+  
   public SimalProperties() throws SimalRepositoryException {
     initProperties();
   }
@@ -162,30 +170,85 @@ public class SimalProperties {
   }
 
   /**
-   * Get a property value
+   * Get the default property value for the supplied key if there is 
+   * a mechanism for the specified key to determine one. 
+   * @param key
+   * @return default value for key or null if no default is registered. 
+   */
+  private static String getDefaultPropertyValue(String key) {
+    String value = null;
+    
+    if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
+      try {
+        if (SimalRepositoryFactory.getInstance().isTest()) {
+          value = "simal:test";
+        } else {
+          value = UUID.randomUUID().toString();
+        }
+      } catch (SimalRepositoryException e) {
+        value = UUID.randomUUID().toString();
+      }
+      setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
+    } else if (key.equals(PROPERTY_RDF_DATA_DIR)) {
+      value = System.getProperty("user.dir");
+    } else if (key.equals(PROPERTY_RDF_BACKUP_DIR)) {
+      value = System.getProperty("user.dir");
+      if(!value.endsWith(File.separator)) {
+        value += File.separator;
+      }
+      value += "backup";
+    } 
+    
+    return value;
+  }
+
+  /**
+   * Get a property value. Will check for an internally registered default 
+   * value if now value can be found.
    * 
    * @param key
    *          the name of the property value to retrieve
    * @throws SimalRepositoryException
-   *           if the properties cannot be initialised
+   *           if the properties cannot be initialised or no value can be found.
    */
   public static String getProperty(String key) throws SimalRepositoryException {
-    return getProperty(key, null);
+    String value = getProperty(key, null);
+    
+    if(value == null) {
+      value = getDefaultPropertyValue(key);
+      
+      if(value == null) {
+        StringBuilder sb = new StringBuilder("The property '");
+        sb.append(key);
+        sb.append("' has not been set in either local.simal.properties, ");
+        sb.append("default.simal.properties files or the SimalProperties class");
+        
+        String msg = sb.toString();
+        logger.warn(msg);
+        
+        throw new SimalRepositoryException(msg);
+      }
+    } 
+
+    return value;
   }
 
   /**
-   * Get a property value. If no value is available then return the supplied
-   * default.
+   * Get a property value from the local properties file. If there is no
+   * value from the local properties it will get it from the default properties 
+   * file. If there is no value from the default properties file it will return 
+   * the supplied default.
    * 
    * @param key
-   * @param default
-   * @return
+   * @param defaultValue
+   * @return 
    */
   public static String getProperty(String key, String defaultValue) {
     if (defaultProps == null) {
       try {
         initProperties();
       } catch (SimalRepositoryException e) {
+        logger.error(e.getMessage());
         return defaultValue;
       }
     }
@@ -199,36 +262,7 @@ public class SimalProperties {
       value = defaultProps.getProperty(key, defaultValue);
     }
     
-    if (value == null) {
-      if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
-        try {
-          if (SimalRepositoryFactory.getInstance().isTest()) {
-            value = "simal:test";
-          } else {
-            value = UUID.randomUUID().toString();
-          }
-        } catch (SimalRepositoryException e) {
-          value = UUID.randomUUID().toString();
-        }
-        setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
-      } else if (key.equals(PROPERTY_RDF_DATA_DIR)) {
-        value = System.getProperty("user.dir");
-      } else if (key.equals(PROPERTY_RDF_BACKUP_DIR)) {
-        value = System.getProperty("user.dir");
-        if(!value.endsWith(File.separator)) {
-          value += File.separator;
-        }
-        value += "backup";
-      } else {
-        StringBuilder sb = new StringBuilder("The property '");
-        sb.append(key);
-        sb
-            .append("' has not been set in either local.simal.properties, default.simal.properties files or the SimalProperties class");
-        value = sb.toString();
-        logger.warn(value);
-      }
-    }
-    return value;
+    return (value != null) ? value : defaultValue;
   }
 
   /**

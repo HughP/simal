@@ -2,7 +2,7 @@ package uk.ac.osswatch.simal.unitTest;
 
 /*
  * 
- * Copyright 2007 University of Oxford
+ * Copyright 2007,2010 University of Oxford
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,8 +19,7 @@ package uk.ac.osswatch.simal.unitTest;
  * 
  */
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -36,6 +35,23 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestSimalProperties extends BaseRepositoryTest {
 
+  private static final String NON_EXISTENT_PROPERTY = "qoielcawqq";
+  private static final String DEFAULT_VALUE = "qwoeruqwersad";
+
+  @Test
+  public void testNonExistentProperties() {
+    assertEquals("Requesting non-existent property should return given default value.", DEFAULT_VALUE, SimalProperties
+        .getProperty(NON_EXISTENT_PROPERTY, DEFAULT_VALUE));
+
+    try {
+      String value = SimalProperties.getProperty(NON_EXISTENT_PROPERTY);
+      fail("Requesting non-existent property should result in exception but returned '" + value + "'.");
+    } catch (SimalRepositoryException e) {
+      assertTrue("Resulting exception should be about non-existent property.", (e.getMessage().indexOf(
+          NON_EXISTENT_PROPERTY) > -1));
+    }
+  }
+
   @Test
   public void testDefaults() throws SimalRepositoryException {
     assertEquals("false", SimalProperties
@@ -47,9 +63,9 @@ public class TestSimalProperties extends BaseRepositoryTest {
   
   @Test
   public void testSimalID() throws SimalRepositoryException {
-	    String instanceID = SimalProperties
-	        .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID);
-	    assertEquals("Got the wrong simal instance ID", "simal:test", instanceID);
+            String instanceID = SimalProperties
+                .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID);
+            assertEquals("Got the wrong simal instance ID", "simal:test", instanceID);
   }
 
   @Test
