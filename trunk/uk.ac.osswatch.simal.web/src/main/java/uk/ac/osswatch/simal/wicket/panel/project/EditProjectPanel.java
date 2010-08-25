@@ -40,8 +40,6 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.ErrorReportPage;
-import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.panel.AddCategoryPanel;
 import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
@@ -193,15 +191,7 @@ public class EditProjectPanel extends Panel {
       };
       cancelButton.setDefaultFormProcessing(false);
       add(cancelButton);
-
-      try {
-        add(new ReleasesPanel("releases", project.getReleases()));
-      } catch (SimalRepositoryException e) {
-        UserReportableException error = new UserReportableException(
-            "Unable to get project releases from the repository",
-            ProjectDetailPage.class, e);
-        setResponsePage(new ErrorReportPage(error));
-      }
+      add(new ReleasesPanel("releases", project.getReleases()));
 
       CategoryListPanel categoryList = new CategoryListPanel("categoryList",
           project.getCategories());

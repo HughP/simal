@@ -26,7 +26,6 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
 import uk.ac.osswatch.simal.model.IDoapRelease;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * A simple panel providing details of a set of releases.
@@ -34,14 +33,12 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 public class ReleasesPanel extends Panel {
   private static final long serialVersionUID = 3993329475348185480L;
 
-  public ReleasesPanel(String panelId, Set<IDoapRelease> releases)
-      throws SimalRepositoryException {
+  public ReleasesPanel(String panelId, Set<IDoapRelease> releases) {
     super(panelId);
     populatePage(releases);
   }
 
-  private void populatePage(Set<IDoapRelease> releases)
-      throws SimalRepositoryException {
+  private void populatePage(Set<IDoapRelease> releases) {
     Iterator<IDoapRelease> itr = releases.iterator();
     RepeatingView repeating = new RepeatingView("releases");
     WebMarkupContainer item;

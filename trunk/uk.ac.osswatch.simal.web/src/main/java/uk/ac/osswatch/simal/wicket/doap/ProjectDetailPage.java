@@ -64,7 +64,7 @@ public class ProjectDetailPage extends BasePage {
   private IProject project;
   
   // FIXME Logged in for editing this page.
-  private boolean isLoggedIn = false;
+  private boolean isLoggedIn = true;
   
 
   public ProjectDetailPage(PageParameters parameters) {
