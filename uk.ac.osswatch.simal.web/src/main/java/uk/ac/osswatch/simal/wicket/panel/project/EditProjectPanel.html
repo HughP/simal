@@ -1,0 +1,40 @@
+<!--
+ 
+ Copyright 2010 University of Oxford 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+   http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ 
+-->
+
+<html xmlns:wicket>
+<wicket:panel>
+  <form wicket:id="editProjectForm">
+      <input type="button" wicket:id="editProjectActionLink"/>
+      <input type="button" wicket:id="cancelProjectActionLink"/>
+      <h2>Details</h2>
+      <textarea wicket:id="description">This is the full description.</textarea>
+      <p wicket:id="releases">A list of releases</p>
+      <!-- div wicket:id="feedback">[[ feedback ]]</div-->
+
+      <h2>Categories</h2>
+      <div wicket:id="addCategoryPanel">Add Category Panel</div>
+      <div wicket:id="categoryList" >Category List Panel</div>
+      
+      <h2>Operating System(s)</h2>
+      <input wicket:id="OS">Operating System</input><br />
+      
+      <h2>Programming Language(s)</h2>
+      <input wicket:id="programmingLanguage" /><br />
+  </form>    
+</wicket:panel> 
+</html>

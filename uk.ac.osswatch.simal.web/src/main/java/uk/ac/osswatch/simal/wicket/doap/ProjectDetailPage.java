@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.doap;
 
 /*
- * Copyright 2008 University of Oxford
+ * Copyright 2008,2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -47,14 +47,13 @@ import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
-import uk.ac.osswatch.simal.wicket.panel.AddCategoryPanel;
-import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
-import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReviewListPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 import uk.ac.osswatch.simal.wicket.panel.homepage.HomepageListPanel;
+import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel;
 import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
+import uk.ac.osswatch.simal.wicket.utils.MarkupUtils;
 
 public class ProjectDetailPage extends BasePage {
   private static final long serialVersionUID = 8719708525508677833L;
@@ -63,6 +62,10 @@ public class ProjectDetailPage extends BasePage {
   private static final CompressedResourceReference FEED_API_CSS = new CompressedResourceReference(
       UserApplication.class, "style/googleFeedAPI.css");
   private IProject project;
+  
+  // FIXME Logged in for editing this page.
+  private boolean isLoggedIn = false;
+  
 
   public ProjectDetailPage(PageParameters parameters) {
     String id = null;
@@ -72,9 +75,9 @@ public class ProjectDetailPage extends BasePage {
       try {
         String uniqueSimalID = UserApplication.getRepository()
             .getUniqueSimalID(id);
-        project = SimalRepositoryFactory.getProjectService()
+        this.project = SimalRepositoryFactory.getProjectService()
             .getProjectById(uniqueSimalID);
-        populatePage(project);
+        populatePage();
       } catch (SimalRepositoryException e) {
         UserReportableException error = new UserReportableException(
             "Unable to get project from the repository",
@@ -89,7 +92,8 @@ public class ProjectDetailPage extends BasePage {
   }
 
   public ProjectDetailPage(IProject project) {
-    populatePage(project);
+    this.project = project;
+    populatePage();
   }
   
   /**
@@ -142,9 +146,7 @@ public class ProjectDetailPage extends BasePage {
     }
   }
 
-
-  private void populatePage(final IProject project) {
-    this.project = project;
+  private void populatePage() {
     if (project == null) {
     	UserReportableException error = new UserReportableException(
           "Null project supplied.", ProjectDetailPage.class);
@@ -183,29 +185,18 @@ public class ProjectDetailPage extends BasePage {
     shortDesc.setEscapeModelStrings(false);
     add(shortDesc);
 
-    // details
-    Label desc = new Label("description", project.getDescription());
-    desc.setEscapeModelStrings(false);
-    add(desc);
-    try {
-      add(new ReleasesPanel("releases", project.getReleases()));
-    } catch (SimalRepositoryException e) {
-      UserReportableException error = new UserReportableException(
-          "Unable to get project releases from the repository",
-          ProjectDetailPage.class, e);
-      setResponsePage(new ErrorReportPage(error));
-    }
+    add(new EditProjectPanel("editProjectPanel", project, isLoggedIn));
     
     HomepageListPanel homepageList = new HomepageListPanel("homepageList", "Web Pages", project.getHomepages(), 10);
     add(homepageList);
     homepageList.setOutputMarkupId(true);
     
     // Community tools
-    add(getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker",
+    add(MarkupUtils.getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker",
         new SortableDoapResourceDataProvider(project.getIssueTrackers()), false));
-    add(getRepeatingLinks("mailingLists", "mailingList",
+    add(MarkupUtils.getRepeatingLinks("mailingLists", "mailingList",
         new SortableDoapResourceDataProvider(project.getMailingLists()), false));
-    add(getRepeatingLinks("wikis", "wiki", "Wiki",
+    add(MarkupUtils.getRepeatingLinks("wikis", "wiki", "Wiki",
         new SortableDoapResourceDataProvider(project.getWikis()), false));
     try {
 		add(new SourceRepositoriesPanel("sourceRepositories", project
@@ -216,18 +207,8 @@ public class ProjectDetailPage extends BasePage {
 	          ExhibitProjectBrowserPage.class, e);
 	      setResponsePage(new ErrorReportPage(error));
 	    }
-    add(getRepeatingLinks("screenshots", "screenshot", "Screenshot",
+    add(MarkupUtils.getRepeatingLinks("screenshots", "screenshot", "Screenshot",
         new SortableDoapResourceDataProvider(project.getScreenshots()), false));
-
-    // facets
-    CategoryListPanel categoryList = new CategoryListPanel("categoryList", project.getCategories());
-    categoryList.setOutputMarkupId(true);
-    add(categoryList);
-    add(new AddCategoryPanel("addCategoryPanel", project, categoryList));
-
-    add(getRepeatingLabels("OSes", "OS", project.getOSes()));
-    add(getRepeatingLabels("programmingLanguages", "programmingLanguage",
-        project.getProgrammingLanguages()));
 
     // contributors
     PersonListPanel maintainerList = new PersonListPanel("maintainers",
@@ -273,9 +254,9 @@ public class ProjectDetailPage extends BasePage {
         AddPersonPanel.TRANSLATOR, translatorList));
 
     // downlaod
-    add(getRepeatingLinks("downloadPages", "downloadPage", "Downloads",
+    add(MarkupUtils.getRepeatingLinks("downloadPages", "downloadPage", "Downloads",
         new SortableDoapResourceDataProvider(project.getDownloadPages()), false));
-    add(getRepeatingLinks("downloadMirrors", "downloadMirror",
+    add(MarkupUtils.getRepeatingLinks("downloadMirrors", "downloadMirror",
         "Download Mirror", new SortableDoapResourceDataProvider(project
             .getDownloadMirrors()), false));
 

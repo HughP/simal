@@ -27,7 +27,8 @@ Copyright 2008 University of Oxford
   <div class="widget">
     <div class="content">
       <p>  
-      <input type="button" wicket:id = "deleteProjectActionLink" value="Delete"/>
+      <input type="button" wicket:id="deleteProjectActionLink" value="Delete"/>
+      
       <a wicket:id="doapLink" href="#">RDF</a> 
       Openness: <span wicket:id="opennessRating">60</span>
       </p> 
@@ -35,6 +36,7 @@ Copyright 2008 University of Oxford
   </div>
   
   <div class="content">
+
     <div class="leftcolumn">  
       <h2 wicket:id="projectName">Project Name</h2>
       <p wicket:id="shortDesc">Short Description</p>
@@ -42,17 +44,7 @@ Copyright 2008 University of Oxford
         <!--  this is a place holder for the Google AJAX Feed API -->
       </div>
       <div wicket:id="homepageList">Web Page list</div>
-    </div>
-  
-    <div class="rightcolumn">
-      <h2>Details</h2>
-      <p wicket:id="description">This is the full description.</p>
-      <p wicket:id="releases">A list of releases</p>
-    </div>
-  </div>
-  
-  <div class="content">
-    <div class="leftcolumn">
+
       <h2>Community Tools</h2>
       <div wicket:id="issueTrackers">
         <a wicket:id="issueTracker" href="#"><span wicket:id="label">An Issue Tracker</span></a>
@@ -89,25 +81,9 @@ Copyright 2008 University of Oxford
         <a wicket:id="screenshot" href="#"><span wicket:id="label">Screenshots</span></a>
       </div>
     </div>
-    
+  
     <div class="rightcolumn">
-      <h2>Categories</h2>
-      <div wicket:id="addCategoryPanel">Add Category Panel</div>
-      <div wicket:id="categoryList" >Category List Panel</div>
-      
-      <h2>Operating System(s)</h2>
-      <div wicket:id="OSes">
-        <ul>
-          <li wicket:id="OS">Operating System</li>
-        </ul>
-      </div>
-      
-      <h2>Programming Language(s)</h2>
-      <div wicket:id="programmingLanguages">
-        <ul>
-          <li wicket:id="programmingLanguage">Programming Languages</li>
-        </ul>
-      </div>
+      <div wicket:id="editProjectPanel">Edit Project Panel</div>
     </div>
   </div>
   
