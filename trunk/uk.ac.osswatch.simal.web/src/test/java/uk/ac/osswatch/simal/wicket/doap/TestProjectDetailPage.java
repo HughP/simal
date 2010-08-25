@@ -53,13 +53,13 @@ public class TestProjectDetailPage extends TestBase {
     tester.assertVisible("projectName");
     tester.assertVisible("shortDesc");
     tester.assertVisible("created");
-    tester.assertVisible("description");
+    tester.assertVisible("editProjectPanel:editProjectForm:description");
+    tester.assertVisible("editProjectPanel:editProjectForm:categoryList");
 
     tester.assertVisible("mailingLists");
 
     tester.assertVisible("developers");
 
-    tester.assertVisible("categoryList");
 
     tester.assertVisible("footer");
   }
@@ -108,18 +108,19 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testAddCategory() throws SimalRepositoryException {
-    tester.assertVisible("addCategoryPanel");
-    tester.assertVisible("addCategoryPanel:newLink");
+    String addCategoryPanel = "editProjectPanel:editProjectForm:addCategoryPanel";
+    tester.assertVisible(addCategoryPanel);
+    tester.assertVisible(addCategoryPanel + ":newLink");
 
-    tester.assertInvisible("addCategoryPanel:doapResourceForm");
-    tester.assertVisible("addCategoryPanel:newLink");
-    tester.clickLink("addCategoryPanel:newLink");
+    tester.assertInvisible(addCategoryPanel + ":doapResourceForm");
+    tester.assertVisible(addCategoryPanel + ":newLink");
+    tester.clickLink(addCategoryPanel + ":newLink");
 
-    tester.assertVisible("addCategoryPanel:doapResourceForm");
-    tester.assertInvisible("addCategoryPanel:newLink");
+    tester.assertVisible(addCategoryPanel + ":doapResourceForm");
+    tester.assertInvisible(addCategoryPanel + ":newLink");
 
-    tester.clickLink("addCategoryPanel:doapResourceForm:cancelLink");
-    tester.assertInvisible("addCategoryPanel:doapResourceForm");
+    tester.clickLink(addCategoryPanel + ":doapResourceForm:cancelLink");
+    tester.assertInvisible(addCategoryPanel + ":doapResourceForm");
 
   }
   
