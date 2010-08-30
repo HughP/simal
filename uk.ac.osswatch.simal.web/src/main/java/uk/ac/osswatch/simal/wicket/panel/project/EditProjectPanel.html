@@ -25,7 +25,7 @@
       <textarea wicket:id="description">This is the full description.</textarea>
 
       <h2>Releases</h2>
-      <p wicket:id="releases">A list of releases</p>
+      <p wicket:id="releasepanel">A list of releases</p>
       <!-- div wicket:id="feedback">[[ feedback ]]</div-->
 
       <h2>Categories</h2>
@@ -33,10 +33,15 @@
       <div wicket:id="categoryList" >Category List Panel</div>
       
       <h2>Operating System(s)</h2>
-      <input wicket:id="OS" /><br />
+      <div wicket:id="OSes">
+        <input wicket:id="setItemValue" /><br />
+      </div>
       
       <h2>Programming Language(s)</h2>
-      <input wicket:id="programmingLanguage" /><br />
+      <div wicket:id="programmingLanguages">
+        <input wicket:id="setItemValue" /><br />
+      </div>
+      
   </form>    
 </wicket:panel> 
 </html>
