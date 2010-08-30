@@ -193,6 +193,13 @@ public class Project extends DoapResource implements IProject {
     return langs;
   }
 
+  public void setOSes(Set<String> oses) {
+    getJenaResource().removeAll(Doap.OS);  
+    for(String os : oses) {
+      getJenaResource().addLiteral(Doap.OS, os);
+    }
+  }
+  
   public Set<IDoapHomepage> getOldHomepages() {
     Iterator<Statement> itr = listProperties(Doap.OLD_HOMEPAGE).iterator();
     Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
@@ -210,6 +217,13 @@ public class Project extends DoapResource implements IProject {
       langs.add(itr.next().getString());
     }
     return langs;
+  }
+
+  public void setProgrammingLanguages(Set<String> langs) {
+    getJenaResource().removeAll(Doap.PROGRAMMING_LANGUAGE);  
+    for(String lang : langs) {
+      getJenaResource().addLiteral(Doap.PROGRAMMING_LANGUAGE, lang);
+    }
   }
 
   public Set<IDoapRelease> getReleases() {

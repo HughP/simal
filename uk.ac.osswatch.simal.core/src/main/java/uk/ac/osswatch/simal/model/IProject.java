@@ -200,10 +200,24 @@ public interface IProject extends IDoapResource {
   public Set<String> getOSes();
 
   /**
+   * Set all operating systems this project can be associated with.
+   * 
+   * @param Set<String> OSes
+   */
+  public void setOSes(Set<String> oses);
+  
+  /**
    * Get all programming languages this project can be associated with.
    * 
    */
   public Set<String> getProgrammingLanguages();
+
+  /**
+   * Set all programming languages this project can be associated with.
+   * 
+   * @param Set<String> programming languages
+   */
+  public void setProgrammingLanguages(Set<String> programmingLanguages);
 
   /**
    * Get all wikis associated with this project.
