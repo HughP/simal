@@ -17,7 +17,9 @@ package uk.ac.osswatch.simal.wicket.panel.project;
  * under the License.                                                *
  */
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.wicket.Component;
@@ -30,11 +32,13 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.list.ListItem;
+import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -91,38 +95,17 @@ public class EditProjectPanel extends Panel {
 
   }
 
-  /**
-   * Get a simple repeating view. Each resource in the supplied set will be
-   * represented in the list using the supplied string as a label.
-   * 
-   * @param labelWicketID
-   *          the wicket:id of the label within each list item
-   * @param resources
-   *          the resources to be added to the list
-   * @return
-   */
-  private RepeatingView getRepeatingInputs(String labelWicketID,
-      Set<String> labels) {
-    Iterator<String> itr = labels.iterator();
-    RepeatingView repeating = new RepeatingView(labelWicketID);
-    TextField<String> item;
-    while (itr.hasNext()) {
-      item = new TextField<String>(repeating.newChildId(), new Model<String>(
-          itr.next()));
-      item.add(new ReadOnlyStyleBehavior());
-      repeating.add(item);
-    }
-    return repeating;
-  }
-
   private class EditProjectForm extends Form<IProject> {
     private static final long serialVersionUID = 5903165424353929310L;
     private TextArea<String> description;
     private AjaxFallbackButton submitButton;
 
+    private Set<String> oses;
+    private Set<String> langs;
+
     public EditProjectForm(String id, IModel<IProject> model) {
       super(id, model);
-      addFormFields();
+      addFormFields(model);
       setOutputMarkupId(true);
     }
 
@@ -130,6 +113,8 @@ public class EditProjectPanel extends Panel {
       isReadOnly = !isReadOnly;
       if (isReadOnly) {
         submitButton.getModel().setObject("Edit");
+        project.setOSes(this.oses);
+        project.setProgrammingLanguages(this.langs);
       } else {
         submitButton.getModel().setObject("Save");
       }
@@ -141,7 +126,7 @@ public class EditProjectPanel extends Panel {
      * @see uk.ac.osswatch.simal.wicket.panel.AbstractAddPanel#addFormFields(uk.ac.
      *      osswatch.simal.wicket.panel.AbstractAddPanel.AddDoapResourceForm)
      */
-    private void addFormFields() {
+    private void addFormFields(IModel<IProject> model) {
       description = new TextArea<String>("description");
       add(description);
       description.setOutputMarkupId(true);
@@ -191,19 +176,56 @@ public class EditProjectPanel extends Panel {
       };
       cancelButton.setDefaultFormProcessing(false);
       add(cancelButton);
-      add(new ReleasesPanel("releases", project.getReleases()));
+      add(new ReleasesPanel("releasepanel", project.getReleases()));
 
       CategoryListPanel categoryList = new CategoryListPanel("categoryList",
           project.getCategories());
       categoryList.setOutputMarkupId(true);
       add(categoryList);
       add(new AddCategoryPanel("addCategoryPanel", project, categoryList));
-      add(getRepeatingInputs("OS", project.getOSes()));
-      RepeatingView allLanguages = getRepeatingInputs("programmingLanguage",
-          project.getProgrammingLanguages());
-      allLanguages.add(new ReadOnlyStyleBehavior());
-      add(allLanguages);
 
+      this.oses = project.getOSes();
+      addRepeatingInputs("OSes", this.oses);
+
+      this.langs = project.getProgrammingLanguages();
+      addRepeatingInputs("programmingLanguages", this.langs);
+    }
+
+    /**
+     * Get a simple repeating view. Each resource in the supplied set will be
+     * represented in the list using the supplied string as a label.
+     * 
+     * @param labelWicketID
+     *          the wicket:id of the label within each list item
+     * @param resources
+     *          the resources to be added to the list
+     * @return
+     */
+    private void addRepeatingInputs(String labelWicketID, Set<String> labels) {
+      Iterator<String> itr = labels.iterator();
+      List<GenericSetWrapper<String>> data = new ArrayList<GenericSetWrapper<String>>();
+
+      while (itr.hasNext()) {
+        GenericSetWrapper<String> gsw = new GenericSetWrapper<String>(labels,
+            itr.next());
+        data.add(gsw);
+      }
+
+      ListView<GenericSetWrapper<String>> listView = new ListView<GenericSetWrapper<String>>(
+          labelWicketID, data) {
+        private static final long serialVersionUID = 154815894763179933L;
+
+        protected void populateItem(ListItem<GenericSetWrapper<String>> item) {
+          GenericSetWrapper<String> wrapper = (GenericSetWrapper<String>) item
+              .getModelObject();
+          TextField<String> setItemValue = new TextField<String>(
+              "setItemValue", new PropertyModel<String>(wrapper, "value"));
+          setItemValue.add(new ReadOnlyStyleBehavior());
+          item.add(setItemValue);
+        }
+      };
+      listView.setReuseItems(true);
+      add(listView);
     }
 
   }
