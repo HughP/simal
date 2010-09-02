@@ -278,17 +278,37 @@ textarea.editable {
 
 input.readonly {
 	font-family: Arial, Helvetica, sans-serif;
-	width: 95%; 
-	overflow:auto;
+	width: 90%; 
+	height:2em;
+	margin: 5px 5px 5px 5px;
+	float:left;
 	border: 0px solid white;
 }
 
 input.editable {
 	font-family: Arial, Helvetica, sans-serif;
-	width: 95%; 
-	overflow:auto;
+	width: 90%; 
+	height:2em;
+	margin: 5px 5px 5px 5px;
+	float:left;
 	border: 1px solid black;
 	background-color:lightGreen;
+}
+
+
+input.readonly[type=button] {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 5%; 
+	overflow:auto;
+	display:none;
+}
+
+input.editable[type=button] {
+	font-family: Arial, Helvetica, sans-serif;
+	width: 5%; 
+	overflow:auto;
+	display:block;
+	background-color:grey;
 }
 
 /***********************

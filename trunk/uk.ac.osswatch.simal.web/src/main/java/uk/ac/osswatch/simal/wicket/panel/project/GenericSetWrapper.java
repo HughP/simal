@@ -55,7 +55,9 @@ public class GenericSetWrapper<T> implements Serializable {
    */
   public void setValue(T value) {
     parentSet.remove(this.localValue);
-    parentSet.add(value);
+    if (value != null) {
+      parentSet.add(value);
+    }
     this.localValue = value;
   }
 
