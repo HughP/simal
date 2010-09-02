@@ -22,6 +22,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.wicket.Component;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -97,6 +98,7 @@ public class EditProjectPanel extends Panel {
 
   private class EditProjectForm extends Form<IProject> {
     private static final long serialVersionUID = 5903165424353929310L;
+    private static final String NEW_ITEM = "<<new>>";
     private TextArea<String> description;
     private AjaxFallbackButton submitButton;
 
@@ -210,11 +212,15 @@ public class EditProjectPanel extends Panel {
             itr.next());
         data.add(gsw);
       }
+      
+      // Add empty one for new 
+      data.add(new GenericSetWrapper<String>(labels, NEW_ITEM));
 
       ListView<GenericSetWrapper<String>> listView = new ListView<GenericSetWrapper<String>>(
           labelWicketID, data) {
         private static final long serialVersionUID = 154815894763179933L;
 
+        
         protected void populateItem(ListItem<GenericSetWrapper<String>> item) {
           GenericSetWrapper<String> wrapper = (GenericSetWrapper<String>) item
               .getModelObject();
@@ -222,12 +228,49 @@ public class EditProjectPanel extends Panel {
               "setItemValue", new PropertyModel<String>(wrapper, "value"));
           setItemValue.add(new ReadOnlyStyleBehavior());
           item.add(setItemValue);
+          item.add(generateDeleteItemButton(!NEW_ITEM.equals(wrapper.getValue()), item));
         }
       };
       listView.setReuseItems(true);
       add(listView);
     }
 
+    private AjaxFallbackButton generateDeleteItemButton(boolean visibilityAllowed, ListItem<GenericSetWrapper<String>> item) {
+      AjaxFallbackButton deleteItemButton = new AjaxFallbackDeleteItemButton("deleteItem",
+          new Model<String>("X"), this, item);
+      
+      deleteItemButton.setVisibilityAllowed(visibilityAllowed);
+      deleteItemButton.add(new ReadOnlyStyleBehavior());
+      return deleteItemButton;
+      
+    }
+    
+  }
+  
+  private class AjaxFallbackDeleteItemButton extends AjaxFallbackButton {
+
+    private static final long serialVersionUID = -6395239712922873605L;
+
+    private ListItem<GenericSetWrapper<String>> item;
+
+    /**
+     * @param id
+     * @param model
+     * @param form
+     */
+    public AjaxFallbackDeleteItemButton(String id, IModel<String> model,
+        Form<?> form, ListItem<GenericSetWrapper<String>> item) {
+      super(id, model, form);
+      this.item = item;
+    }
+
+    @Override
+    protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+      item.getModel().getObject().setValue(null);
+      item.setVisible(false);
+      setVisible(false);
+      target.addComponent(form);
+    }
   }
 
   private class ReadOnlyStyleBehavior extends AbstractBehavior {
@@ -239,10 +282,17 @@ public class EditProjectPanel extends Panel {
       if (isReadOnly) {
         tag.getAttributes().put("readonly", "readonly");
         tag.getAttributes().put("class", "readonly");
+        if(StringEscapeUtils.escapeXml(EditProjectForm.NEW_ITEM).equals(tag.getAttribute("value"))) {
+          tag.getAttributes().put("style", "display:none");
+        }
       } else {
         tag.getAttributes().remove("readonly");
         tag.getAttributes().put("class", "editable");
+        if(StringEscapeUtils.escapeXml(EditProjectForm.NEW_ITEM).equals(tag.getAttribute("value"))) {
+          tag.getAttributes().put("style", "display:block");
+        }
       }
+
     }
   }
 }
