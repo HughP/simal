@@ -30,6 +30,8 @@ import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadWebReques
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.util.convert.ConverterLocator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -52,6 +54,9 @@ import uk.ac.osswatch.simal.wicket.widgets.WookieServerConnection;
  * to view Simal registries.
  */
 public class UserApplication extends WebApplication {
+
+  private static final Logger LOGGER = LoggerFactory
+      .getLogger(UserApplication.class);
 
 	private static ISimalRepository repository;
 
@@ -155,6 +160,16 @@ public class UserApplication extends WebApplication {
 	protected WebRequest newWebRequest(HttpServletRequest servletRequest) {
 		return new UploadWebRequest(servletRequest);
 	}
+
+  protected void onDestroy()
+  {
+    LOGGER.info("Trying to gracefully shut down the repository.");
+    try {
+      UserApplication.destroyRepository();
+    } catch (SimalRepositoryException e) {
+      LOGGER.info("Did not manage to go down gracefully.",e);
+    }
+  }
 
 	/**
 	 * Indicates if this application instance should attempt to perform
