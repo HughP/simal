@@ -43,6 +43,7 @@ import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.Doap;
@@ -50,6 +51,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IReviewService;
 
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
@@ -347,36 +349,20 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void removeDeveloper(IPerson person) throws SimalRepositoryException {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource) person
-            .getRepositoryResource());
-    model.remove(statement);
+    removeResource(Doap.DEVELOPER, person);
   }
 
   public void addDeveloper(IPerson person) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.DEVELOPER, (com.hp.hpl.jena.rdf.model.Resource) person
-            .getRepositoryResource());
-    model.add(statement);
+    addResource(Doap.DEVELOPER, person);
     addCurrentProject(person);
   }
 
   public void removeHomepage(IDoapHomepage page) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.HOMEPAGE, (com.hp.hpl.jena.rdf.model.Resource) page
-            .getRepositoryResource());
-    model.remove(statement);
+    removeResource(Doap.HOMEPAGE, page);
   }
 
   public void addHomepage(IDoapHomepage page) {
-	Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.HOMEPAGE, (com.hp.hpl.jena.rdf.model.Resource) page
-            .getRepositoryResource());
-    model.add(statement);
+    addResource(Doap.HOMEPAGE, page);
   }
 
   /**
@@ -394,82 +380,62 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void addDocumenter(IPerson person) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.DOCUMENTER, (com.hp.hpl.jena.rdf.model.Resource) person
-            .getRepositoryResource());
-    model.add(statement);
+    addResource(Doap.DOCUMENTER, person);
     addCurrentProject(person);
   }
 
   public void addHelper(IPerson person) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(), Doap.HELPER,
-        (com.hp.hpl.jena.rdf.model.Resource) person.getRepositoryResource());
-    model.add(statement);
+    addResource(Doap.HELPER, person);
     addCurrentProject(person);
   }
 
   public void addMaintainer(IPerson person) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.MAINTAINER, (com.hp.hpl.jena.rdf.model.Resource) person
-            .getRepositoryResource());
-    model.add(statement);
+    addResource(Doap.MAINTAINER, person);
     addCurrentProject(person);
   }
   
   public void addTester(IPerson person) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(), Doap.TESTER,
-        (com.hp.hpl.jena.rdf.model.Resource) person.getRepositoryResource());
-    model.add(statement);
+    addResource(Doap.TESTER, person);
     addCurrentProject(person);
   }
 
   public void addTranslator(IPerson person) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.TRANSLATOR, (com.hp.hpl.jena.rdf.model.Resource) person
-            .getRepositoryResource());
-    model.add(statement);
+    addResource(Doap.TRANSLATOR, person);
     addCurrentProject(person);
   }
 
-  public void removeDocumenter(IPerson person) throws SimalRepositoryException {
+  private void addResource(Property property, IResource resource) {
     Model model = getJenaResource().getModel();
     Statement statement = model.createStatement(getJenaResource(),
-        Doap.DOCUMENTER, (com.hp.hpl.jena.rdf.model.Resource) person
+        property, (com.hp.hpl.jena.rdf.model.Resource) resource
             .getRepositoryResource());
-    model.remove(statement);
+    model.add(statement);
+  }
+  
+  public void removeDocumenter(IPerson person) throws SimalRepositoryException {
+    removeResource(Doap.DOCUMENTER, person);
   }
 
   public void removeHelper(IPerson person) throws SimalRepositoryException {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(), Doap.HELPER,
-        (com.hp.hpl.jena.rdf.model.Resource) person.getRepositoryResource());
-    model.remove(statement);
+    removeResource(Doap.HELPER, person);
   }
 
   public void removeMaintainer(IPerson person) throws SimalRepositoryException {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.MAINTAINER, (com.hp.hpl.jena.rdf.model.Resource) person
-            .getRepositoryResource());
-    model.remove(statement);
+    removeResource(Doap.MAINTAINER, person);
   }
 
   public void removeTester(IPerson person) throws SimalRepositoryException {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(), Doap.TESTER,
-        (com.hp.hpl.jena.rdf.model.Resource) person.getRepositoryResource());
-    model.remove(statement);
+    removeResource(Doap.TESTER, person);
   }
 
   public void removeTranslator(IPerson person) throws SimalRepositoryException {
+    removeResource(Doap.TRANSLATOR, person);
+  }
+  
+  private void removeResource(Property property, IResource resource) {
     Model model = getJenaResource().getModel();
     Statement statement = model.createStatement(getJenaResource(),
-        Doap.TRANSLATOR, (com.hp.hpl.jena.rdf.model.Resource) person
+        property, (com.hp.hpl.jena.rdf.model.Resource) resource
             .getRepositoryResource());
     model.remove(statement);
   }
@@ -550,11 +516,7 @@ public class Project extends DoapResource implements IProject {
 }
 
 public void addRepository(IDoapRepository rcs) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        Doap.REPOSITORY, (com.hp.hpl.jena.rdf.model.Resource) rcs
-            .getRepositoryResource());
-    model.add(statement);
+    addResource(Doap.REPOSITORY, rcs);
 }
 
 public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryException {
