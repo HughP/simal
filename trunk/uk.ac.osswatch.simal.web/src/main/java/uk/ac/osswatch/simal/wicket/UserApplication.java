@@ -133,8 +133,10 @@ public class UserApplication extends WebApplication {
 	 * @throws SimalRepositoryException
 	 */
 	public static void destroyRepository() throws SimalRepositoryException {
-		repository.destroy();
-		repository = null;
+	  if (repository != null) {
+	    repository.destroy();
+	    repository = null;
+	  }
 	}
 
 	/**
