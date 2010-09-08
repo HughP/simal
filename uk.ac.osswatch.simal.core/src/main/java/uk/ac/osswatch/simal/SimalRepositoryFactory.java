@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal;
 
 /*
- * Copyright 2007 University of Oxford 
+ * Copyright 2007, 2010 University of Oxford 
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.ICategoryService;
+import uk.ac.osswatch.simal.service.IDoapResourceService;
 import uk.ac.osswatch.simal.service.IHomepageService;
 import uk.ac.osswatch.simal.service.IOrganisationService;
 import uk.ac.osswatch.simal.service.IPersonService;
@@ -32,6 +33,7 @@ import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IRepositoryService;
 import uk.ac.osswatch.simal.service.IReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaCategoryService;
+import uk.ac.osswatch.simal.service.jena.JenaDoapResourceService;
 import uk.ac.osswatch.simal.service.jena.JenaHomepageService;
 import uk.ac.osswatch.simal.service.jena.JenaOrganisationService;
 import uk.ac.osswatch.simal.service.jena.JenaPersonService;
@@ -206,6 +208,22 @@ public class SimalRepositoryFactory {
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
 	}
+
+  /**
+   * @return
+   * @throws SimalRepositoryException 
+   */
+  public static IDoapResourceService getDoapResourceService() throws SimalRepositoryException {
+    switch (repoType) {
+    case JENA:
+      return new JenaDoapResourceService(getInstance());
+    case JCR:
+      throw new UnsupportedOperationException("JCR is currently not supported.");
+    default:
+      throw new SimalRepositoryException(
+          "Attempt to create an unknown repository type");
+    }
+  }
 
 	/**
 	 * Get an instance of the bug database service.
