@@ -19,6 +19,33 @@
 <html xmlns:wicket>
 <wicket:panel>
   <form wicket:id="editProjectForm">
+    <div class="leftcolumn">  
+      <h2 wicket:id="projectName">Project Name</h2>
+      <p wicket:id="shortDesc">Short Description</p>
+      <div id="feed-control">
+     	   <!--  this is a place holder for the Google AJAX Feed API -->
+      </div>
+      <div wicket:id="homepageList">Web Page list</div>
+
+      <div wicket:id="issueTrackerList"></div>
+      
+      <div wicket:id="mailingLists"></div>
+            
+      <div wicket:id="wikiLists"></div>
+      
+      <div wicket:id="downloadPagesList"></div>
+      
+      <div wicket:id="downloadMirrorsList"></div>
+      
+      <h2>Source repositories</h2>
+      <div wicket:id="sourceRepositories">
+        <p>Repository details</p>
+      </div>
+      
+      <div wicket:id="screenshotsList"></div>
+    </div>
+  
+    <div class="rightcolumn">
       <input type="button" wicket:id="editProjectActionLink"/>
       <input type="button" wicket:id="cancelProjectActionLink"/>
       <h2>Details</h2>
@@ -42,6 +69,7 @@
       <div wicket:id="programmingLanguages">
         <input wicket:id="setItemValue" /><input type="button" wicket:id="deleteItem"/><br />
       </div>
+    </div>
       
   </form>    
 </wicket:panel> 

@@ -29,6 +29,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxFallbackButton;
 import org.apache.wicket.behavior.AbstractBehavior;
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -43,12 +44,24 @@ import org.apache.wicket.model.PropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IDoapBugDatabase;
+import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
+import uk.ac.osswatch.simal.model.IDoapDownloadPage;
+import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDoapMailingList;
+import uk.ac.osswatch.simal.model.IDoapScreenshot;
+import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.wicket.ErrorReportPage;
+import uk.ac.osswatch.simal.wicket.UserReportableException;
+import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.panel.AddCategoryPanel;
 import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
+import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
 /**
  * Container for adding a new category. This is an AJAX enabled container that
@@ -104,6 +117,13 @@ public class EditProjectPanel extends Panel {
 
     private Set<String> oses;
     private Set<String> langs;
+    private Set<IDoapHomepage> homepages;
+    private Set<IDoapMailingList> mailingLists;
+    private Set<IDoapBugDatabase> issueTrackers;
+    private Set<IDoapWiki> wikis;
+    private Set<IDoapDownloadPage> downloads;
+    private Set<IDoapDownloadMirror> downloadMirrors;
+    private Set<IDoapScreenshot> screenshots;
 
     public EditProjectForm(String id, IModel<IProject> model) {
       super(id, model);
@@ -115,8 +135,6 @@ public class EditProjectPanel extends Panel {
       isReadOnly = !isReadOnly;
       if (isReadOnly) {
         submitButton.getModel().setObject("Edit");
-        project.setOSes(this.oses);
-        project.setProgrammingLanguages(this.langs);
       } else {
         submitButton.getModel().setObject("Save");
       }
@@ -129,6 +147,7 @@ public class EditProjectPanel extends Panel {
      *      osswatch.simal.wicket.panel.AbstractAddPanel.AddDoapResourceForm)
      */
     private void addFormFields(IModel<IProject> model) {
+      addLeftColumn(model);
       description = new TextArea<String>("description");
       add(description);
       description.setOutputMarkupId(true);
@@ -194,6 +213,79 @@ public class EditProjectPanel extends Panel {
     }
 
     /**
+     * @param model
+     */
+    private void addLeftColumn(IModel<IProject> model) {
+      add(new Label("projectName", project.getName()));
+
+      Label shortDesc = new Label("shortDesc", project.getShortDesc());
+      shortDesc.setEscapeModelStrings(false);
+      add(shortDesc);
+
+      this.homepages = project.getHomepages();
+      GenericIResourceSetPanel homepageList = new GenericIResourceSetPanel(
+          "homepageList", "Web Pages", homepages, 10, project) {
+        private static final long serialVersionUID = -6849401011037784163L;
+
+        public void processAdd(IDoapResourceFormInputModel inputModel)
+            throws SimalRepositoryException {
+          IDoapHomepage homepage = SimalRepositoryFactory.getHomepageService()
+              .getOrCreate(inputModel.getUrl());
+          homepage.addName(inputModel.getName());
+
+          add(homepage);
+          getProject().addHomepage(homepage);
+        }
+      };
+      add(homepageList);
+
+      // Community tools
+      this.issueTrackers = project.getIssueTrackers();
+      GenericIResourceSetPanel issueTrackerList = new GenericIResourceSetPanel("issueTrackerList",
+          "Issue Trackers", issueTrackers, 10);
+      add(issueTrackerList);
+
+      this.mailingLists = project.getMailingLists();
+      GenericIResourceSetPanel mailingListsPanel = new GenericIResourceSetPanel(
+          "mailingLists", "Mailing lists", mailingLists, 10);
+
+      add(mailingListsPanel);
+      
+      this.wikis = project.getWikis();
+      GenericIResourceSetPanel wikiListPanel = new GenericIResourceSetPanel("wikiLists",
+          "Wikis", wikis, 10);
+      add(wikiListPanel);
+
+      // download
+      this.downloads = project.getDownloadPages();
+      GenericIResourceSetPanel downloadsListPanel = new GenericIResourceSetPanel("downloadPagesList",
+          "Downloads", downloads , 10);
+      add(downloadsListPanel);
+      
+      this.downloadMirrors = project.getDownloadMirrors();
+      GenericIResourceSetPanel downloadMirrorsListPanel = new GenericIResourceSetPanel("downloadMirrorsList",
+          "Download Mirrors", downloadMirrors , 10);
+      add(downloadMirrorsListPanel);
+      
+      try {
+        add(new SourceRepositoriesPanel("sourceRepositories", project
+            .getRepositories()));
+      } catch (SimalRepositoryException e) {
+        UserReportableException error = new UserReportableException(
+            "Unable to get project releases from the repository",
+            ExhibitProjectBrowserPage.class, e);
+        setResponsePage(new ErrorReportPage(error));
+      }
+      
+      
+      this.screenshots = project.getScreenshots();
+      GenericIResourceSetPanel screenshotsListPanel = new GenericIResourceSetPanel("screenshotsList",
+          "Screenshots", screenshots, 10);
+      add(screenshotsListPanel);
+
+    }
+
+    /**
      * Get a simple repeating view. Each resource in the supplied set will be
      * represented in the list using the supplied string as a label.
      * 
@@ -212,15 +304,14 @@ public class EditProjectPanel extends Panel {
             itr.next());
         data.add(gsw);
       }
-      
-      // Add empty one for new 
+
+      // Add empty one for new
       data.add(new GenericSetWrapper<String>(labels, NEW_ITEM));
 
       ListView<GenericSetWrapper<String>> listView = new ListView<GenericSetWrapper<String>>(
           labelWicketID, data) {
         private static final long serialVersionUID = 154815894763179933L;
 
-        
         protected void populateItem(ListItem<GenericSetWrapper<String>> item) {
           GenericSetWrapper<String> wrapper = (GenericSetWrapper<String>) item
               .getModelObject();
@@ -228,25 +319,27 @@ public class EditProjectPanel extends Panel {
               "setItemValue", new PropertyModel<String>(wrapper, "value"));
           setItemValue.add(new ReadOnlyStyleBehavior());
           item.add(setItemValue);
-          item.add(generateDeleteItemButton(!NEW_ITEM.equals(wrapper.getValue()), item));
+          item.add(generateDeleteItemButton(!NEW_ITEM
+              .equals(wrapper.getValue()), item));
         }
       };
       listView.setReuseItems(true);
       add(listView);
     }
 
-    private AjaxFallbackButton generateDeleteItemButton(boolean visibilityAllowed, ListItem<GenericSetWrapper<String>> item) {
-      AjaxFallbackButton deleteItemButton = new AjaxFallbackDeleteItemButton("deleteItem",
-          new Model<String>("X"), this, item);
-      
+    private AjaxFallbackButton generateDeleteItemButton(
+        boolean visibilityAllowed, ListItem<GenericSetWrapper<String>> item) {
+      AjaxFallbackButton deleteItemButton = new AjaxFallbackDeleteItemButton(
+          "deleteItem", new Model<String>("X"), this, item);
+
       deleteItemButton.setVisibilityAllowed(visibilityAllowed);
       deleteItemButton.add(new ReadOnlyStyleBehavior());
       return deleteItemButton;
-      
+
     }
-    
+
   }
-  
+
   private class AjaxFallbackDeleteItemButton extends AjaxFallbackButton {
 
     private static final long serialVersionUID = -6395239712922873605L;
@@ -282,13 +375,15 @@ public class EditProjectPanel extends Panel {
       if (isReadOnly) {
         tag.getAttributes().put("readonly", "readonly");
         tag.getAttributes().put("class", "readonly");
-        if(StringEscapeUtils.escapeXml(EditProjectForm.NEW_ITEM).equals(tag.getAttribute("value"))) {
+        if (StringEscapeUtils.escapeXml(EditProjectForm.NEW_ITEM).equals(
+            tag.getAttribute("value"))) {
           tag.getAttributes().put("style", "display:none");
         }
       } else {
         tag.getAttributes().remove("readonly");
         tag.getAttributes().put("class", "editable");
-        if(StringEscapeUtils.escapeXml(EditProjectForm.NEW_ITEM).equals(tag.getAttribute("value"))) {
+        if (StringEscapeUtils.escapeXml(EditProjectForm.NEW_ITEM).equals(
+            tag.getAttribute("value"))) {
           tag.getAttributes().put("style", "display:block");
         }
       }

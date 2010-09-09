@@ -45,15 +45,11 @@ import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
-import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReviewListPanel;
-import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
-import uk.ac.osswatch.simal.wicket.panel.homepage.HomepageListPanel;
 import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel;
 import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
-import uk.ac.osswatch.simal.wicket.utils.MarkupUtils;
 
 public class ProjectDetailPage extends BasePage {
   private static final long serialVersionUID = 8719708525508677833L;
@@ -179,37 +175,8 @@ public class ProjectDetailPage extends BasePage {
     } catch (SimalRepositoryException e) {
         add(new Label("opennessRating", "Not reviewed"));
     }
-    add(new Label("projectName", project.getName()));
-
-    Label shortDesc = new Label("shortDesc", project.getShortDesc());
-    shortDesc.setEscapeModelStrings(false);
-    add(shortDesc);
-
     add(new EditProjectPanel("editProjectPanel", project, isLoggedIn));
     
-    HomepageListPanel homepageList = new HomepageListPanel("homepageList", "Web Pages", project.getHomepages(), 10);
-    add(homepageList);
-    homepageList.setOutputMarkupId(true);
-    
-    // Community tools
-    add(MarkupUtils.getRepeatingLinks("issueTrackers", "issueTracker", "Issue Tracker",
-        new SortableDoapResourceDataProvider(project.getIssueTrackers()), false));
-    add(MarkupUtils.getRepeatingLinks("mailingLists", "mailingList",
-        new SortableDoapResourceDataProvider(project.getMailingLists()), false));
-    add(MarkupUtils.getRepeatingLinks("wikis", "wiki", "Wiki",
-        new SortableDoapResourceDataProvider(project.getWikis()), false));
-    try {
-		add(new SourceRepositoriesPanel("sourceRepositories", project
-		    .getRepositories()));
-	} catch (SimalRepositoryException e) {
-		UserReportableException error = new UserReportableException(
-	          "Unable to get project releases from the repository",
-	          ExhibitProjectBrowserPage.class, e);
-	      setResponsePage(new ErrorReportPage(error));
-	    }
-    add(MarkupUtils.getRepeatingLinks("screenshots", "screenshot", "Screenshot",
-        new SortableDoapResourceDataProvider(project.getScreenshots()), false));
-
     // contributors
     PersonListPanel maintainerList = new PersonListPanel("maintainers",
         "Maintainers", project.getMaintainers(), 4);
@@ -252,13 +219,6 @@ public class ProjectDetailPage extends BasePage {
     add(translatorList);
     add(new AddPersonPanel("addTranslatorPanel", getProject(),
         AddPersonPanel.TRANSLATOR, translatorList));
-
-    // downlaod
-    add(MarkupUtils.getRepeatingLinks("downloadPages", "downloadPage", "Downloads",
-        new SortableDoapResourceDataProvider(project.getDownloadPages()), false));
-    add(MarkupUtils.getRepeatingLinks("downloadMirrors", "downloadMirror",
-        "Download Mirror", new SortableDoapResourceDataProvider(project
-            .getDownloadMirrors()), false));
 
     // sources
     add(getRepeatingDataSourcePanel("sources", "seeAlso", project.getSources()));
