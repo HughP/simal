@@ -79,23 +79,22 @@ public class Project extends DoapResource implements IProject {
     Set<IDoapCategory> cats = new HashSet<IDoapCategory>();
     while (itr.hasNext()) {
       Statement stmt = itr.next();
-	  cats.add(new Category(stmt.getResource()));
+      cats.add(new Category(stmt.getResource()));
     }
     return cats;
   }
   
   public void addCategory(IDoapCategory category) {
-	  com.hp.hpl.jena.rdf.model.Resource jenaCat = (com.hp.hpl.jena.rdf.model.Resource)category.getRepositoryResource();
-	  getJenaResource().addProperty(Doap.CATEGORY, jenaCat);
+	  addResourceStatement(Doap.CATEGORY, category);
   }
 
 
   public Set<IPerson> getDevelopers() {
-    return getUniquePeople(listProperties(Doap.DEVELOPER));
+    return getUniquePeople(Doap.DEVELOPER);
   }
 
   public Set<IPerson> getDocumenters() {
-    return getUniquePeople(listProperties(Doap.DOCUMENTER));
+    return getUniquePeople(Doap.DOCUMENTER);
   }
 
   public Set<IDoapDownloadMirror> getDownloadMirrors() {
@@ -117,12 +116,12 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IPerson> getHelpers() {
-    return getUniquePeople(listProperties(Doap.HELPER));
+    return getUniquePeople(Doap.HELPER);
   }
 
   public Set<IDoapHomepage> getHomepages() {
     List<Statement> props = listProperties(Doap.HOMEPAGE);
-	Iterator<Statement> itr = props.iterator();
+    Iterator<Statement> itr = props.iterator();
     Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
     while (itr.hasNext()) {
       Statement stmnt = itr.next();
@@ -151,16 +150,17 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IPerson> getMaintainers() {
-    return getUniquePeople(listProperties(Doap.MAINTAINER));
+    return getUniquePeople(Doap.MAINTAINER);
   }
 
   /**
    * Given a list of statements representing people extract all the unique people within that set.
    * 
-   * @param personList
+   * @param property 
    * @return A set containing only unique people as identified by their Simal ID
    */
-  private HashSet<IPerson> getUniquePeople(List<Statement> personList) {
+  private HashSet<IPerson> getUniquePeople(Property property) {
+    List<Statement> personList = listProperties(property);
     HashSet<IPerson> people = new HashSet<IPerson>();
     HashSet<String> peopleIDs = new HashSet<String>();
     Iterator<Statement> itr = personList.iterator();
@@ -196,10 +196,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void setOSes(Set<String> oses) {
-    getJenaResource().removeAll(Doap.OS);  
-    for(String os : oses) {
-      getJenaResource().addLiteral(Doap.OS, os);
-    }
+    replaceLiteralStatements(Doap.OS, oses);
   }
   
   public Set<IDoapHomepage> getOldHomepages() {
@@ -222,10 +219,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void setProgrammingLanguages(Set<String> langs) {
-    getJenaResource().removeAll(Doap.PROGRAMMING_LANGUAGE);  
-    for(String lang : langs) {
-      getJenaResource().addLiteral(Doap.PROGRAMMING_LANGUAGE, lang);
-    }
+    replaceLiteralStatements(Doap.PROGRAMMING_LANGUAGE, langs);
   }
 
   public Set<IDoapRelease> getReleases() {
@@ -285,11 +279,11 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IPerson> getTesters() {
-    return getUniquePeople(listProperties(Doap.TESTER));
+    return getUniquePeople(Doap.TESTER);
   }
 
   public Set<IPerson> getTranslators() {
-    return getUniquePeople(listProperties(Doap.TRANSLATOR));
+    return getUniquePeople(Doap.TRANSLATOR);
   }
 
   public Set<IDoapWiki> getWikis() {
@@ -349,20 +343,21 @@ public class Project extends DoapResource implements IProject {
   }
 
   public void removeDeveloper(IPerson person) throws SimalRepositoryException {
-    removeResource(Doap.DEVELOPER, person);
+    removeCurrentProject(person);
+    removeResourceStatement(Doap.DEVELOPER, person);
   }
 
   public void addDeveloper(IPerson person) {
-    addResource(Doap.DEVELOPER, person);
+    addResourceStatement(Doap.DEVELOPER, person);
     addCurrentProject(person);
   }
 
   public void removeHomepage(IDoapHomepage page) {
-    removeResource(Doap.HOMEPAGE, page);
+    removeResourceStatement(Doap.HOMEPAGE, page);
   }
 
   public void addHomepage(IDoapHomepage page) {
-    addResource(Doap.HOMEPAGE, page);
+    addResourceStatement(Doap.HOMEPAGE, page);
   }
 
   /**
@@ -379,32 +374,40 @@ public class Project extends DoapResource implements IProject {
     model.add(statement);
   }
 
+  private void removeCurrentProject(IPerson person) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(
+        (com.hp.hpl.jena.rdf.model.Resource) person.getRepositoryResource(),
+        FOAF.currentProject, getJenaResource());
+    model.remove(statement);
+  }
+
   public void addDocumenter(IPerson person) {
-    addResource(Doap.DOCUMENTER, person);
+    addResourceStatement(Doap.DOCUMENTER, person);
     addCurrentProject(person);
   }
 
   public void addHelper(IPerson person) {
-    addResource(Doap.HELPER, person);
+    addResourceStatement(Doap.HELPER, person);
     addCurrentProject(person);
   }
 
   public void addMaintainer(IPerson person) {
-    addResource(Doap.MAINTAINER, person);
+    addResourceStatement(Doap.MAINTAINER, person);
     addCurrentProject(person);
   }
   
   public void addTester(IPerson person) {
-    addResource(Doap.TESTER, person);
+    addResourceStatement(Doap.TESTER, person);
     addCurrentProject(person);
   }
 
   public void addTranslator(IPerson person) {
-    addResource(Doap.TRANSLATOR, person);
+    addResourceStatement(Doap.TRANSLATOR, person);
     addCurrentProject(person);
   }
 
-  private void addResource(Property property, IResource resource) {
+  private void addResourceStatement(Property property, IResource resource) {
     Model model = getJenaResource().getModel();
     Statement statement = model.createStatement(getJenaResource(),
         property, (com.hp.hpl.jena.rdf.model.Resource) resource
@@ -412,27 +415,63 @@ public class Project extends DoapResource implements IProject {
     model.add(statement);
   }
   
+  private void addLiteralStatement(Property property, String literal) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(),
+        property, literal);
+    model.add(statement);
+  }
+  
+  private void replaceLiteralStatements(Property property, Set<String> literals) {
+    getJenaResource().removeAll(property);
+    for(String literal : literals) {
+      addLiteralStatement(property, literal);
+    }
+  }
+
+  private void replacePropertyStatements(Property property,
+      Set<? extends IResource> resources) {
+    getJenaResource().removeAll(property);
+    for (IResource resource : resources) {
+      addResourceStatement(property, resource);
+    }
+  }
+
+  private void replacePersonPropertyStatements(Property property,
+      Set<IPerson> persons) {
+    getJenaResource().removeAll(property);
+    for (IPerson person : persons) {
+      addResourceStatement(property, person);
+      addCurrentProject(person);
+    }
+  }
+
   public void removeDocumenter(IPerson person) throws SimalRepositoryException {
-    removeResource(Doap.DOCUMENTER, person);
+    removeCurrentProject(person);
+    removeResourceStatement(Doap.DOCUMENTER, person);
   }
 
   public void removeHelper(IPerson person) throws SimalRepositoryException {
-    removeResource(Doap.HELPER, person);
+    removeCurrentProject(person);
+    removeResourceStatement(Doap.HELPER, person);
   }
 
   public void removeMaintainer(IPerson person) throws SimalRepositoryException {
-    removeResource(Doap.MAINTAINER, person);
+    removeCurrentProject(person);
+    removeResourceStatement(Doap.MAINTAINER, person);
   }
 
   public void removeTester(IPerson person) throws SimalRepositoryException {
-    removeResource(Doap.TESTER, person);
+    removeCurrentProject(person);
+    removeResourceStatement(Doap.TESTER, person);
   }
 
   public void removeTranslator(IPerson person) throws SimalRepositoryException {
-    removeResource(Doap.TRANSLATOR, person);
+    removeCurrentProject(person);
+    removeResourceStatement(Doap.TRANSLATOR, person);
   }
   
-  private void removeResource(Property property, IResource resource) {
+  private void removeResourceStatement(Property property, IResource resource) {
     Model model = getJenaResource().getModel();
     Statement statement = model.createStatement(getJenaResource(),
         property, (com.hp.hpl.jena.rdf.model.Resource) resource
@@ -513,41 +552,46 @@ public class Project extends DoapResource implements IProject {
 		
 	int rating = (int)(Math.round((score/6.0) * 100));
 	return rating;
-}
+  }
 
-public void addRepository(IDoapRepository rcs) {
-    addResource(Doap.REPOSITORY, rcs);
-}
+  public void addRepository(IDoapRepository rcs) {
+    addResourceStatement(Doap.REPOSITORY, rcs);
+  }
 
-public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryException {
-}
+  public void setRepositories(Set<IDoapRepository> repos) {
+    replacePropertyStatements(Doap.REPOSITORY, repos);
+  }
 
-public void setHomepages(Set<IDoapHomepage> homepages) {
-}
+  public void setHomepages(Set<IDoapHomepage> homepages) {
+    replacePropertyStatements(Doap.HOMEPAGE, homepages);
+  }
 
-public void setIssueTrackers(Set<IDoapBugDatabase> trackers) {
-}
+  public void setIssueTrackers(Set<IDoapBugDatabase> trackers) {
+    replacePropertyStatements(Doap.BUG_DATABASE, trackers);
+  }
 
-public void addIssueTracker(IDoapBugDatabase tracker) {
-	
-}
+  public void addIssueTracker(IDoapBugDatabase tracker) {
+    addResourceStatement(Doap.BUG_DATABASE, tracker);
+  }
 
-public void setMailingLists(Set<IDoapMailingList> lists) {
-	
-}
+  public void setMailingLists(Set<IDoapMailingList> lists) {
+    replacePropertyStatements(Doap.MAILING_LIST, lists);
+  }
 
-public void addMailingList(IDoapMailingList list) {
-	
-}
+  public void addMailingList(IDoapMailingList list) {
+    addResourceStatement(Doap.MAILING_LIST, list);
+  }
 
-public void setMaintainers(Set<IPerson> maintainers) {
-	
-}
+  public void setMaintainers(Set<IPerson> maintainers) {
+    replacePersonPropertyStatements(Doap.MAINTAINER, maintainers);
+  }
 
-public void setReleases(Set<IDoapRelease> releases) {
-}
+  public void setReleases(Set<IDoapRelease> releases) {
+    replacePropertyStatements(Doap.RELEASE, releases);
+  }
 
-public void addRelease(IDoapRelease release) {
-}
+  public void addRelease(IDoapRelease release) {
+    addResourceStatement(Doap.RELEASE, release);
+  }
 
 }
