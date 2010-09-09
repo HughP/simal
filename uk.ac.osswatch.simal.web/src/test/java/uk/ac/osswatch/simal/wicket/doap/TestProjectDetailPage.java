@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.doap;
 
 /*
- * Copyright 2008 University of Oxford
+ * Copyright 2008,2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -50,16 +50,15 @@ public class TestProjectDetailPage extends TestBase {
   
   @Test
   public void testRenderPage() {
-    tester.assertVisible("projectName");
-    tester.assertVisible("shortDesc");
-    tester.assertVisible("created");
+    tester.assertVisible("editProjectPanel:editProjectForm:projectName");
+    tester.assertVisible("editProjectPanel:editProjectForm:shortDesc");
     tester.assertVisible("editProjectPanel:editProjectForm:description");
+    tester.assertVisible("editProjectPanel:editProjectForm:mailingLists");
     tester.assertVisible("editProjectPanel:editProjectForm:categoryList");
-
-    tester.assertVisible("mailingLists");
 
     tester.assertVisible("developers");
 
+    tester.assertVisible("created");
 
     tester.assertVisible("footer");
   }

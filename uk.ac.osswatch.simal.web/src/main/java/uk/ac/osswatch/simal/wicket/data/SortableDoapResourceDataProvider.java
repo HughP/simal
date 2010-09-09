@@ -41,7 +41,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * A DOAP resource data provider that allows the DOAP Resources to be sorted.
  * 
  */
-public class SortableDoapResourceDataProvider extends
+public class SortableDoapResourceDataProvider<T extends IResource> extends
     SortableDataProvider<IResource> {
   private static final long serialVersionUID = -6674850425804180338L;
   private static final Logger logger = LoggerFactory
@@ -137,9 +137,11 @@ public class SortableDoapResourceDataProvider extends
 	          return new DetachableCategoryModel((IDoapCategory) object);
 	        } else if (object instanceof IDoapHomepage) {
 	          return new DetachableHomepageModel((IDoapHomepage) object);
+          } else if (object instanceof IDoapResource) {
+            return new DetachableDoapResourceModel((IDoapResource) object);
 	        } else {
 	          throw new IllegalArgumentException(
-	              "sortableDoapResourceDataProvider only works for Project, Homepage an Category models - should it work for more? Your help appreciated.");
+	              "sortableDoapResourceDataProvider only works for Project, Homepage, Category and IDoapResource models - should it work for more? Your help appreciated.");
 	        }
 	      } catch (SimalRepositoryException e) {
 	        logger.warn("Error reading from repository", e);
