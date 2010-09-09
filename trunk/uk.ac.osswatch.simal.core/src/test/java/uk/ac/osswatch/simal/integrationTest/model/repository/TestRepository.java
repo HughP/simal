@@ -42,7 +42,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.ModelSupport;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
 /**
  * test common activities relating to Projects.
@@ -153,9 +152,6 @@ public class TestRepository extends BaseRepositoryTest {
     project1 = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
     assertNotNull("We don't seem to have added the test data as expected",
         project1);
-    testProjectID = project1.getUniqueSimalID();
-    testProjectURI = RDFUtils.getDefaultProjectURI(testProjectID);
-    testDeveloperURI = RDFUtils.getDefaultPersonURI(testDeveloperID);
     logger.debug("Ending testAdd(data)");
   }
 

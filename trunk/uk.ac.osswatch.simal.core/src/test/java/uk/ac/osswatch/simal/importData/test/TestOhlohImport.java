@@ -33,7 +33,6 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.importData.Ohloh;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -71,7 +70,7 @@ public class TestOhlohImport extends BaseRepositoryTest {
 		while (projects.hasNext()) {
 			project = projects.next();
 			String name = project.getName();
-			Set<IDoapHomepage> homepages = project.getHomepages();
+			//Set<IDoapHomepage> homepages = project.getHomepages();
 			if (name.equals("Apache HTTP Server")) {
 				projectAIsValid = true;
 			}
