@@ -16,7 +16,6 @@
 package uk.ac.osswatch.simal.model.jena.simal;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNull;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.fail;
 
@@ -80,12 +79,11 @@ public class TestJenaSimalRepository extends BaseRepositoryTest {
 
   @Test
   public void testInvalidSparqlQuery() {
-    SparqlResult projects = null;
     try {
-      projects = getJenaSimalRepository().getSparqlQueryResult(QUERY_INVALID);
+      getJenaSimalRepository().getSparqlQueryResult(QUERY_INVALID);
       fail("Query was invalid so should fail without results.");
     } catch (SimalRepositoryException e) {
-      assertNull("Query was invalid so should fail without results.", projects);
+      // Everything ok
     }
   }
 
