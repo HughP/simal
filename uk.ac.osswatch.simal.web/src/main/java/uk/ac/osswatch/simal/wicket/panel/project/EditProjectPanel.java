@@ -50,6 +50,7 @@ import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
 import uk.ac.osswatch.simal.model.IDoapDownloadPage;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
+import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IDoapScreenshot;
 import uk.ac.osswatch.simal.model.IDoapWiki;
 import uk.ac.osswatch.simal.model.IProject;
@@ -235,6 +236,12 @@ public class EditProjectPanel extends Panel {
 
           add(homepage);
           getProject().addHomepage(homepage);
+        }
+
+        public void processDelete(IDoapResource iDoapResource)
+            throws SimalRepositoryException {
+          delete(iDoapResource);
+          getProject().removeHomepage((IDoapHomepage) iDoapResource);
         }
       };
       add(homepageList);

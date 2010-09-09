@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.wicket.panel.project;
  * under the License.                                                *
  */
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.validation.validator.StringValidator;
@@ -83,6 +84,31 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
       inputModel = new IDoapResourceFormInputModel();
     }
     return inputModel;
+  }
+
+  /**
+   * Called when the new DOAP resource link is clicked. Shows the form, and hides the
+   * link.
+   * 
+   * @param target
+   *          the request target.
+   */
+  protected void onShowForm(AjaxRequestTarget target) {
+    super.onShowForm(target);
+    updatePanel.setEditMode(true);
+    target.addComponent(updatePanel);
+  }
+
+  /**
+   * Called when the cancel link is clicked. Hides the form, and shows the link.
+   * 
+   * @param target
+   *          the request target.
+   */
+  protected void onHideForm(AjaxRequestTarget target) {
+    super.onHideForm(target);
+    updatePanel.setEditMode(false);
+    target.addComponent(updatePanel);
   }
 
   /* (non-Javadoc)
