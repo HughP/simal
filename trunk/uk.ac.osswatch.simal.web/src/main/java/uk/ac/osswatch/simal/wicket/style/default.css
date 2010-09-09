@@ -311,6 +311,14 @@ input.editable[type=button] {
 	background-color:grey;
 }
 
+.invisiblecell {
+	display:none;
+}
+
+.visiblecell {
+	display:table-cell;
+}
+
 /***********************
    Widget (right menu)
 ***********************/

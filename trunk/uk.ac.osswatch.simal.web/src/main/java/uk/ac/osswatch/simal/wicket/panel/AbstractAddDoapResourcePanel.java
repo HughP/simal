@@ -89,7 +89,7 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
    * @param target
    *          the request target.
    */
-  void onShowForm(AjaxRequestTarget target) {
+  protected void onShowForm(AjaxRequestTarget target) {
     formVisible = true;
     target.addComponent(this);
   }
@@ -100,7 +100,7 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
    * @param target
    *          the request target.
    */
-  void onHideForm(AjaxRequestTarget target) {
+  protected void onHideForm(AjaxRequestTarget target) {
     formVisible = false;
     target.addComponent(this);
   }

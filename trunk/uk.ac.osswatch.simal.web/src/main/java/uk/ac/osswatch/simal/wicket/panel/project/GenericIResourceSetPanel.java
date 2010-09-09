@@ -21,15 +21,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxFallbackLink;
 import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFallbackDefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IProject;
@@ -41,11 +47,15 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
  * A simple panel for listing a set of any IDoapResources. 
  */
 public class GenericIResourceSetPanel extends Panel {
+  public static final Logger LOGGER = LoggerFactory
+      .getLogger(GenericIResourceSetPanel.class);
+
   private static final long serialVersionUID = -932080365392667144L;
   private Set<IDoapResource> resources;
   private String title;
   private SortableDoapResourceDataProvider<IDoapResource> dataProvider;
   private IProject project;
+  private boolean editMode;
 
   /**
    * Create a panel that lists all homepages in the repository.
@@ -63,6 +73,7 @@ public class GenericIResourceSetPanel extends Panel {
       IProject project) {
     this(id, title, resources, numberOfPages);
     this.project = project;
+    this.editMode = false;
   }
 
   /**
@@ -100,7 +111,8 @@ public class GenericIResourceSetPanel extends Panel {
     List<IColumn<?>> columns = new ArrayList<IColumn<?>>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "label",
         "label"));
-    columns.add(new PropertyColumn<IDoapResource>(new Model<String>("URL"),
+    
+    PropertyColumn<IDoapResource> urlColumn = new PropertyColumn<IDoapResource>(new Model<String>("URL"),
         "url", "url") {
       private static final long serialVersionUID = -3063052337733586041L;
 
@@ -114,8 +126,45 @@ public class GenericIResourceSetPanel extends Panel {
         }
         cellItem.add(new Label(componentId, label));
       }
-    });
+      
+      public String getCssClass() {
+        return "visiblecell";
+      }
+      
+    };
+      
+    columns.add(urlColumn);
 
+    PropertyColumn<IDoapResource> deleteColumn = new PropertyColumn<IDoapResource>(new Model<String>("Delete"), "name", "name") {
+      private static final long serialVersionUID = -3063052337733586041L;
+
+      public void populateItem(Item<ICellPopulator<IDoapResource>> cellItem,
+          String componentId, IModel<IDoapResource> model) {
+
+        AjaxFallbackLink<IDoapResource> deleteLink = new AjaxFallbackLink<IDoapResource>(componentId, model) {
+          private static final long serialVersionUID = 876069018792653905L;
+
+          @Override
+          public void onClick(AjaxRequestTarget target) {
+            processDeleteOnClick(target, getModel().getObject());
+          }
+
+          public void onComponentTagBody(MarkupStream markupStream,
+              ComponentTag openTag) {
+            String linkText = "<a href=\"#\">Delete</a>";
+            replaceComponentTagBody(markupStream, openTag, linkText);
+          }
+        };
+        cellItem.add(deleteLink);
+      }
+      
+      public String getCssClass() {
+        return (editMode) ? "visiblecell" : "invisiblecell";
+      }
+      
+    };
+    columns.add(deleteColumn);
+      
     dataProvider = new SortableDoapResourceDataProvider<IDoapResource>(pages);
     dataProvider.setSort(SortableDoapResourceDataProvider.SORT_PROPERTY_NAME,
         true);
@@ -134,7 +183,34 @@ public class GenericIResourceSetPanel extends Panel {
     this.resources.add(iDoapResource);
   }
 
+  private void processDeleteOnClick(AjaxRequestTarget target, IDoapResource iDoapResource) {
+    try {
+      processDelete(iDoapResource);
+    } catch (SimalRepositoryException e) {
+      LOGGER.warn("Failed to delete resource " + iDoapResource);
+    }
+    target.addComponent(this);
+    
+  }
+
   public void processAdd(IDoapResourceFormInputModel inputModel)
+      throws SimalRepositoryException {
+    // Subclasses that wish to use it should implement it.
+    // TODO To be made abstract to force subclassing and implementation of
+    // method
+  }
+
+  /**
+   * Remove a resource from the list being displayed. This method does not delete 
+   * the resource from the underlying data storage mechanism, but only from the GUI.
+   * 
+   * @param iDoapResource
+   */
+  public void delete(IDoapResource iDoapResource) {
+    this.resources.remove(iDoapResource);
+  }
+
+  public void processDelete(IDoapResource inputModel)
       throws SimalRepositoryException {
     // Subclasses that wish to use it should implement it.
     // TODO To be made abstract to force subclassing and implementation of
@@ -143,5 +219,12 @@ public class GenericIResourceSetPanel extends Panel {
 
   protected IProject getProject() {
     return this.project;
+  }
+
+  /**
+   * @param editMode
+   */
+  public void setEditMode(boolean editMode) {
+    this.editMode = editMode;
   }
 }
