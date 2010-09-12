@@ -52,17 +52,17 @@ DOAP is used to capture key details about a project.
 ||doap:os||Operating system that a project is limited to. Omit this property if the project is not OS-specific.|| Literal ||0.2||String||||
 
 
-|| *Domain* || *Property* || *Description* || *Range* ||*Since* || *Current<br/>Implementation*|| *Example* ||
+|| *Domain* || *Property* || *Description* || *Range* || *Since* || *Current<br/>Implementation*|| *Example* ||
+||doap:Repository||doap:browse||Web browser interface to repository. || Unspecified || 0.2 || IDoapLocation ||||
+||doap:Repository||doap:location||Location of a repository. || Unspecified || 0.2 || IDoapLocation ||||
+|| doap:Repository || doap:anon-root|| Repository for anonymous access. || Literal|| 0.2 || String ||||
+|| doap:CVSRepository <br /> doap:ArchRepository <br /> doap:BKRepository || doap:module || Module name of a repository. ||  Unspecified || 0.2 || String ||||
 ||doap:Version||doap:revision||Revision identifier of an output|| Literal ||0.2||String||||
 
 
 
 ===Not yet supported ===
 || *Property* || *Description* || *Domain* || *Range* ||
-|| doap:anon-root|| Repository for anonymous access. || doap:Repository || Literal ||
-|| doap:browse || Web browser interface to repository. || doap:Repository || Unspecified ||
-|| doap:module || Module name of a repository. || doap:CVSRepository <br /> doap:ArchRepository <br /> doap:BKRepository || Unspecified ||
-|| doap:module || Module name of a repository. || doap:Repository || Unspecified ||
 || doap:file-release || URI of download associated with this release. || doap:Version || Unspecified ||
 || doap:implements || Implements specification || doap:Project || doap:Specification ||
 || doap:serivce-endpoint || The URI of a web service endpoint where software as a service may be accessed. || doap:Project || rdfs:Resource ||
