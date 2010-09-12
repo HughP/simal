@@ -25,35 +25,35 @@ DOAP is used to capture key details about a project.
 ||doap:Project||A project.||0.2||<doap:Project rdf:about="http://foo.org/projectX#">...<doap:Project>||
 
 
-|| *Property* || *Description* || *Range* || *Since* || *Example* ||
-||doap:name||A name of something.|| Literal ||0.2||<doap:name>Project X</doap:name>||
-||doap:homepage||URL of a project's homepage, associated with exactly one project. (subProperty of foaf:homepage) || foaf:Document <br> (inherited) ||0.2||<doap:homepage rdf:resource="http://www.foo.org"/>||
-||doap:old-homepage||URL of a project's past homepage, associated with exactly one project. (subProperty of foaf:homepage) || foaf:Document <br> (inherited) ||0.2||<doap:old-homepage rdf:resource="http://www.bar.org/foo"/>||
-||doap:created||Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05|| Literal ||0.2||<doap:created>2004-04-05</doap:created>||
-||doap:shortdesc||Short plain text description of a project.|| Literal ||0.2||<doap:shortdesc>A short description</doap:shortdesc>||
-||doap:description||Plain text description of a project.|| Literal ||0.2||<doap:description>A complete description with all the words you could hope to see.</doap:description>||
-||doap:release||A project release.|| doap:Version ||0.2||<doap:release rdf:about="http://foo.org/project/release/0.1>...</doap:release>||
-||doap:mailing-list||Mailing list home page or email address.|| Unspecified||0.2||||
-||doap:category||A category of project.|| Unspecified ||0.2||||
-||doap:license||The URI of an RDF description of the license outputs are distributed under.|| Unspecified ||0.2||||
-||doap:repository||Data repository.|| doap:Repository ||0.2||||
-||doap:download-page||Web page from which the project outputs can be downloaded.|| Unspecified||0.2||||
-||doap:download-mirror||Mirror of download web page.|| Unspecified ||0.2||||
-||doap:wiki||URL of Wiki for collaborative discussion of project.|| Unspecified ||0.2||||
-||doap:bug-database||issue tracker for a project.|| Unspecified ||0.2||||
-||doap:screenshots||Web page with screenshots of project.|| Unspecified ||0.2||||
-||doap:maintainer||Maintainer of a project, a project leader.|| foaf:Person ||0.2||||
-||doap:developer||Developer of software for the project.|| foaf:Person ||0.2||||
-||doap:documenter||Contributor of documentation to the project.|| foaf:Person ||0.2||||
-||doap:translator||Contributor of translations to the project.|| foaf:Person ||0.2||||
-||doap:tester||A tester or other quality control contributor.|| foaf:Person ||0.2||||
-||doap:helper||Project contributor.|| foaf:Person ||0.2||||
-||doap:programming-language||Programming language a project is implemented in or intended for use with.|| Literal ||0.2||||
-||doap:os||Operating system that a project is limited to. Omit this property if the project is not OS-specific.|| Literal ||0.2||||
+|| *Property* || *Description* || *Range* || *Since* || *Current implementation* || *Example* ||
+||doap:name||A name of something.|| Literal ||0.2|| String || <doap:name>Project X</doap:name>||
+||doap:homepage||URL of a project's homepage, associated with exactly one project. (subProperty of foaf:homepage) || foaf:Document <br> (inherited) ||0.2||IDoapHomepage||<doap:homepage rdf:resource="http://www.foo.org"/>||
+||doap:old-homepage||URL of a project's past homepage, associated with exactly one project. (subProperty of foaf:homepage) || foaf:Document <br> (inherited) ||0.2||IDoapHomepage||<doap:old-homepage rdf:resource="http://www.bar.org/foo"/>||
+||doap:created||Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05|| Literal ||0.2||String||<doap:created>2004-04-05</doap:created>||
+||doap:shortdesc||Short plain text description of a project.|| Literal  ||0.2|| String||<doap:shortdesc>A short description</doap:shortdesc>||
+||doap:description||Plain text description of a project.|| Literal ||0.2|| String||<doap:description>A complete description with all the words you could hope to see.</doap:description>||
+||doap:release||A project release.|| doap:Version ||0.2||IDoapRelease||<doap:release rdf:about="http://foo.org/project/release/0.1>...</doap:release>||
+||doap:mailing-list||Mailing list home page or email address.|| Unspecified||0.2||IDoapMailingList||
+||doap:category||A category of project.|| Unspecified ||0.2||IDoapCategory||||
+||doap:license||The URI of an RDF description of the license outputs are distributed under.|| Unspecified ||0.2||IDoapLicence||||
+||doap:repository||Data repository.|| doap:Repository ||0.2||IDoapRepository||||
+||doap:download-page||Web page from which the project outputs can be downloaded.|| Unspecified||0.2||IDoapDownloadPage||||
+||doap:download-mirror||Mirror of download web page.|| Unspecified ||0.2||IDoapDownloadPage||||
+||doap:wiki||URL of Wiki for collaborative discussion of project.|| Unspecified ||0.2||IDoapWiki||||
+||doap:bug-database||issue tracker for a project.|| Unspecified ||0.2||IDoapBugDatabase||||
+||doap:screenshots||Web page with screenshots of project.|| Unspecified ||0.2||IDoapScreenshot||||
+||doap:maintainer||Maintainer of a project, a project leader.|| foaf:Person ||0.2||IPerson||||
+||doap:developer||Developer of software for the project.|| foaf:Person ||0.2||IPerson||||
+||doap:documenter||Contributor of documentation to the project.|| foaf:Person ||0.2||IPerson||||
+||doap:translator||Contributor of translations to the project.|| foaf:Person ||0.2||IPerson||||
+||doap:tester||A tester or other quality control contributor.|| foaf:Person ||0.2||IPerson||||
+||doap:helper||Project contributor.|| foaf:Person ||0.2||IPerson||||
+||doap:programming-language||Programming language a project is implemented in or intended for use with.|| Literal ||0.2||String||||
+||doap:os||Operating system that a project is limited to. Omit this property if the project is not OS-specific.|| Literal ||0.2||String||||
 
 
-|| *Domain* || *Property* || *Description* || *Range* ||*Since* || *Example* ||
-||doap:Version||doap:revision||Revision identifier of an output|| Literal ||0.2||||
+|| *Domain* || *Property* || *Description* || *Range* ||*Since* || *Current<br/>Implementation*|| *Example* ||
+||doap:Version||doap:revision||Revision identifier of an output|| Literal ||0.2||String||||
 
 
 
