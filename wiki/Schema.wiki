@@ -38,7 +38,7 @@ DOAP is used to capture key details about a project.
 ||doap:license||The URI of an RDF description of the license outputs are distributed under.|| Unspecified ||0.2||IDoapLicence||||
 ||doap:repository||Data repository.|| doap:Repository ||0.2||IDoapRepository||||
 ||doap:download-page||Web page from which the project outputs can be downloaded.|| Unspecified||0.2||IDoapDownloadPage||||
-||doap:download-mirror||Mirror of download web page.|| Unspecified ||0.2||IDoapDownloadPage||||
+||doap:download-mirror||Mirror of download web page.|| Unspecified ||0.2||IDoapDownloadMirror||||
 ||doap:wiki||URL of Wiki for collaborative discussion of project.|| Unspecified ||0.2||IDoapWiki||||
 ||doap:bug-database||issue tracker for a project.|| Unspecified ||0.2||IDoapBugDatabase||||
 ||doap:screenshots||Web page with screenshots of project.|| Unspecified ||0.2||IDoapScreenshot||||
