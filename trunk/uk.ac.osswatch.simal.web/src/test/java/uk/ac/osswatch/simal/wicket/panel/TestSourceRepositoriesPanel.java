@@ -24,8 +24,11 @@ import org.apache.wicket.util.tester.TestPanelSource;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
+import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel;
+import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel.ReadOnlyStyleBehavior;
 
 /**
  * Simple test using the WicketTester
@@ -38,7 +41,9 @@ public class TestSourceRepositoriesPanel extends TestBase {
     tester.startPanel(new TestPanelSource() {
       public Panel getTestPanel(String panelId) {
         try {
-          return new SourceRepositoriesPanel(panelId, SimalRepositoryFactory.getProjectService().getProject(projectURI).getRepositories());
+          IProject project =  SimalRepositoryFactory.getProjectService().getProject(projectURI);
+          ReadOnlyStyleBehavior rosb = new EditProjectPanel(panelId, project, true).new ReadOnlyStyleBehavior();
+          return new SourceRepositoriesPanel(panelId, project.getRepositories(), rosb);
         } catch (SimalRepositoryException e) {
           fail(e.getMessage());
           return null;

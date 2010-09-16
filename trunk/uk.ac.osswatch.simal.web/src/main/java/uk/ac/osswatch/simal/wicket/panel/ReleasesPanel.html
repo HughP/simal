@@ -19,7 +19,27 @@ Copyright 2008 University of Oxford
 <html xmlns:wicket>
 <wicket:panel>
     <div wicket:id="releases">
-      <p><span wicket:id="name">Release name</span> <span wicket:id="revisions"><span wicket:id="revision">Revision</span> </span> Released: <span wicket:id="created">created</span></p>
+        <fieldset>
+          <legend wicket:id="releaseHeader">Name</legend>
+          <div>
+            <div class="fieldHeader">Release name:</div>
+            <div class="fieldContainer">
+              <input wicket:id="name" />
+            </div>
+          </div>
+          <div>
+            <div class="fieldHeader">Release created:</div>
+            <div class="fieldContainer">
+              <input wicket:id="created" />
+            </div>
+          </div>
+          <div wicket:id="revisions">
+            <div class="fieldHeader">Revisions:</div>
+            <div class="fieldContainer">
+              <input wicket:id="revision" />
+            </div>
+          </div>
+      </fieldset>
     </div>
 </wicket:panel>
 </html>

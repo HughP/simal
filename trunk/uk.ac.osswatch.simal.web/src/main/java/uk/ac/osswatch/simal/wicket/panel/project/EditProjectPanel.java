@@ -76,7 +76,10 @@ public class EditProjectPanel extends Panel {
   public static final Logger LOGGER = LoggerFactory
       .getLogger(EditProjectPanel.class);
 
+  public static final String NEW_ITEM = "<<new>>";
+
   private IProject project;
+  private ReadOnlyStyleBehavior rosb;
 
   private boolean loggedIn;
   private boolean isReadOnly;
@@ -96,6 +99,7 @@ public class EditProjectPanel extends Panel {
     this.project = project;
     this.loggedIn = loggedIn;
     this.isReadOnly = true;
+    this.rosb = new ReadOnlyStyleBehavior();
 
     add(new EditProjectForm("editProjectForm",
         new CompoundPropertyModel<IProject>(project)));
@@ -112,7 +116,6 @@ public class EditProjectPanel extends Panel {
 
   private class EditProjectForm extends Form<IProject> {
     private static final long serialVersionUID = 5903165424353929310L;
-    private static final String NEW_ITEM = "<<new>>";
     private TextArea<String> description;
     private AjaxFallbackButton submitButton;
 
@@ -198,7 +201,7 @@ public class EditProjectPanel extends Panel {
       };
       cancelButton.setDefaultFormProcessing(false);
       add(cancelButton);
-      add(new ReleasesPanel("releasepanel", project.getReleases()));
+      add(new ReleasesPanel("releasepanel", project.getReleases(), rosb));
 
       CategoryListPanel categoryList = new CategoryListPanel("categoryList",
           project.getCategories());
@@ -225,7 +228,7 @@ public class EditProjectPanel extends Panel {
 
       this.homepages = project.getHomepages();
       GenericIResourceSetPanel homepageList = new GenericIResourceSetPanel(
-          "homepageList", "Web Pages", homepages, 10, project) {
+          "homepageList", "Web Pages", homepages, loggedIn, project) {
         private static final long serialVersionUID = -6849401011037784163L;
 
         public void processAdd(IDoapResourceFormInputModel inputModel)
@@ -249,34 +252,34 @@ public class EditProjectPanel extends Panel {
       // Community tools
       this.issueTrackers = project.getIssueTrackers();
       GenericIResourceSetPanel issueTrackerList = new GenericIResourceSetPanel("issueTrackerList",
-          "Issue Trackers", issueTrackers, 10);
+          "Issue Trackers", issueTrackers);
       add(issueTrackerList);
 
       this.mailingLists = project.getMailingLists();
       GenericIResourceSetPanel mailingListsPanel = new GenericIResourceSetPanel(
-          "mailingLists", "Mailing lists", mailingLists, 10);
+          "mailingLists", "Mailing lists", mailingLists);
 
       add(mailingListsPanel);
       
       this.wikis = project.getWikis();
       GenericIResourceSetPanel wikiListPanel = new GenericIResourceSetPanel("wikiLists",
-          "Wikis", wikis, 10);
+          "Wikis", wikis);
       add(wikiListPanel);
 
       // download
       this.downloads = project.getDownloadPages();
       GenericIResourceSetPanel downloadsListPanel = new GenericIResourceSetPanel("downloadPagesList",
-          "Downloads", downloads , 10);
+          "Downloads", downloads);
       add(downloadsListPanel);
       
       this.downloadMirrors = project.getDownloadMirrors();
       GenericIResourceSetPanel downloadMirrorsListPanel = new GenericIResourceSetPanel("downloadMirrorsList",
-          "Download Mirrors", downloadMirrors , 10);
+          "Download Mirrors", downloadMirrors);
       add(downloadMirrorsListPanel);
       
       try {
         add(new SourceRepositoriesPanel("sourceRepositories", project
-            .getRepositories()));
+            .getRepositories(), rosb));
       } catch (SimalRepositoryException e) {
         UserReportableException error = new UserReportableException(
             "Unable to get project releases from the repository",
@@ -287,7 +290,7 @@ public class EditProjectPanel extends Panel {
       
       this.screenshots = project.getScreenshots();
       GenericIResourceSetPanel screenshotsListPanel = new GenericIResourceSetPanel("screenshotsList",
-          "Screenshots", screenshots, 10);
+          "Screenshots", screenshots);
       add(screenshotsListPanel);
 
     }
@@ -347,7 +350,7 @@ public class EditProjectPanel extends Panel {
 
   }
 
-  private class AjaxFallbackDeleteItemButton extends AjaxFallbackButton {
+  private static class AjaxFallbackDeleteItemButton extends AjaxFallbackButton {
 
     private static final long serialVersionUID = -6395239712922873605L;
 
@@ -373,7 +376,7 @@ public class EditProjectPanel extends Panel {
     }
   }
 
-  private class ReadOnlyStyleBehavior extends AbstractBehavior {
+  public class ReadOnlyStyleBehavior extends AbstractBehavior {
 
     private static final long serialVersionUID = 9109967060661070046L;
 
@@ -382,14 +385,14 @@ public class EditProjectPanel extends Panel {
       if (isReadOnly) {
         tag.getAttributes().put("readonly", "readonly");
         tag.getAttributes().put("class", "readonly");
-        if (StringEscapeUtils.escapeXml(EditProjectForm.NEW_ITEM).equals(
+        if (StringEscapeUtils.escapeXml(NEW_ITEM).equals(
             tag.getAttribute("value"))) {
           tag.getAttributes().put("style", "display:none");
         }
       } else {
         tag.getAttributes().remove("readonly");
         tag.getAttributes().put("class", "editable");
-        if (StringEscapeUtils.escapeXml(EditProjectForm.NEW_ITEM).equals(
+        if (StringEscapeUtils.escapeXml(NEW_ITEM).equals(
             tag.getAttribute("value"))) {
           tag.getAttributes().put("style", "display:block");
         }

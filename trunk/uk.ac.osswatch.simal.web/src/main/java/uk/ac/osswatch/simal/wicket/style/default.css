@@ -37,7 +37,8 @@
   color: black;
   font-weight: bold;
   font-size: 120%;
-  padding: 5px 10px 10px 5px;
+  padding: 2px 5px 5px 2px;
+  margin: 50px 10px 10px 0;
 }
 
 .list {
@@ -101,16 +102,12 @@ h2 {
   color: black;
   font-size: 120%;
   padding: 2px 5px 5px 2px;
-  margin: 5px 10px 10px 0;
+  margin: 50px 10px 10px 0;
 }
 
 thead{
 	background:#8BBBFD;
 	color : black;
-}
-
-tr{
-	font-size:14px;
 }
 
 tr a{
@@ -141,11 +138,18 @@ tr.odd {
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
 	padding: 0px 0px 0px 0px;
 	margin: 0px 0px 0px 0px;
 	border-left: 1px solid #2C4AA0;
 	border-right : 1px solid #2C4AA0;
 	border-top: 1px solid #2C4AA0;
+}
+
+
+textarea {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;	
 }
 
 label {
@@ -254,11 +258,27 @@ label {
 
 div.footnote .content p{clear:right; position:relative; left:2.5em; font-size:80%; font-weight:700; color:#2C4AA0;}
 
+a input { 
+	cursor:pointer;
+}
+
+.fieldHeader {
+	width: 30%; 
+	height:2em;
+	margin: 5px;
+	float: left;
+}
+
+.fieldContainer {
+	width: 60%; 
+	height:2em;
+	margin: 5px;
+	float: left;
+}
 
 textarea.readonly {
 	padding: 2px 5px 5px 2px;
 	margin: 5px 10px 10px 0px;
-	font-family: Arial, Helvetica, sans-serif;
 	height: 120px;
 	width: 95%; 
 	overflow:auto;
@@ -268,47 +288,42 @@ textarea.readonly {
 textarea.editable {
 	padding: 2px 5px 5px 2px;
 	margin: 5px 10px 10px 0px;
-	font-family: Arial, Helvetica, sans-serif;
 	height: 120px;
 	width: 95%; 
 	overflow:auto;
-	border: 1px solid black;
+	border: 1px solid grey;
 	background-color:lightGreen;
 }
 
 input.readonly {
-	font-family: Arial, Helvetica, sans-serif;
-	width: 90%; 
+	width: 100%; 
 	height:2em;
-	margin: 5px 5px 5px 5px;
-	float:left;
+	margin: 5px;
 	border: 0px solid white;
 }
 
 input.editable {
-	font-family: Arial, Helvetica, sans-serif;
-	width: 90%; 
+	width: 100%; 
 	height:2em;
-	margin: 5px 5px 5px 5px;
-	float:left;
-	border: 1px solid black;
+	margin: 5px;
+	border: 1px solid grey;
 	background-color:lightGreen;
 }
 
 
 input.readonly[type=button] {
-	font-family: Arial, Helvetica, sans-serif;
 	width: 5%; 
 	overflow:auto;
+	float:left;
 	display:none;
 }
 
 input.editable[type=button] {
-	font-family: Arial, Helvetica, sans-serif;
 	width: 5%; 
 	overflow:auto;
+	float:left;
 	display:block;
-	background-color:grey;
+	background-color:lightGrey;
 }
 
 .invisiblecell {
