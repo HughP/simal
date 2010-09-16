@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy/project_elearn_ped_ltri.aspx">
-<shortdesc>The overall aim of the project is to validate the instruments developed be the e-learning models desk study  through producing four formative case studies, and produce an additional six case studies aimed at supporting practitioners in realising innovative e-learning practice.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/elearning_pedagogy.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Case study of Innovative Practice in e-Learning: LTRI</name>
-</Project>

@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/programme_semantic_grid/project_km_roadmap.aspx">
-<shortdesc>Knowledge management is a major UK strength; however, the landscape is often fragmented in its capture and description of current and novel practices, particularly arising from the eScience and digital library communities. Consequently, JISC has funded a roadmap analysis of UK stakeholders and projects.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>Knowledge Management Roadmap</name>
-</Project>

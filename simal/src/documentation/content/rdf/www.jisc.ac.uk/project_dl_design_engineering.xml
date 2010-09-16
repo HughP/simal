@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlitc/project_dl_design_engineering.aspx">
-<shortdesc>This project aims to develop and implement a testbed to improve the teaching and learning of students partaking in global team-based design projects. The project combines the ues of digital libraries with virtual design studios.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_dlitc.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>DIDET - Digital Libraries for Global Distributed Innovative Design</name>
-<homepage rdf:resource="http://www.didet.ac.uk/"/>
-</Project>

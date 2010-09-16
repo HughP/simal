@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/theatre.aspx">
-<shortdesc>By creating around 15,000 digital objects, taken from East London theatres, the project will preserve unique endangered collections and make them accessible to an academic audience.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>The East London theatre archive</name>
-</Project>

@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed/kentplpp.aspx">
-<shortdesc>This project will deliver a pilot version of a personal learning portal that can be used from multiple institutions and which will provide access to a range of services including induction and support services, personal development planning and e-portfolios across institutions.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_edistributed.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Personal Learning Portal Pilot</name>
-<homepage rdf:resource="http://www.kent.ac.uk/is/plpp/"/>
-</Project>

@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/cabinet.aspx">
-<shortdesc>Over half a million images to be digitised from microfilms to create an online resource with access to the full-text Cabinet papers from 1914-1975, plus a contextualisation package.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>British Governance in the 20th century: Cabinet papers, 1914-1975</name>
-<homepage rdf:resource="http://www.nationalarchives.gov.uk/documentsonline/"/>
-</Project>

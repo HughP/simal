@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital/el_xinstit/SURFWBLWAY.aspx">
-<shortdesc>This project is developing the work done in previous projects including, SURF WBL and SUNIWE, to create a gateway for use by Work-based Learners, Tutors, employers and Work-based mentors. It will provide access to information relating to the development, management and support of the courses provided by the institutions involved.  In addition the gateway will provide information and resources specifically targeted at employer engagement and facilitating the progression of those who have undertaken work-based learning at an FE level in making an effective transition into HE courses delivered in FE institutions.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_elearning_capital.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>SURF WBL-Way</name>
-<homepage rdf:resource="http://www.staffs.ac.uk/COSE/WBLWAY/"/>
-</Project>

@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres/ebank3.aspx">
-<shortdesc>e-Bank Phase 3 will progress the establishment of a global Federation of data repositories for crystallography: the eCrystals Federation, through a comprehensive feasibility scoping study. The Federation approach is presented as an innovative domain model to promote Open Access to data more widely and to facilitate take-up. In Phase 3, partners will assess organisational issues and promote advocacy, examine interoperability associated with research workflow, and data deposit, harmonise the metadata application profiles from repositories operating on different platforms, investigate aggregation issues and scope Federation relationships with an international subject archive (IUCr) and the Crystals Structure Database at CCDC.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>eBank Phase 3: Transitioning to the eCrystals Federation</name>
-<homepage rdf:resource="http://www.ukoln.ac.uk/projects/ebank-uk/"/>
-</Project>

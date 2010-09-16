@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres/reps_support.aspx">
-<shortdesc>2.5 year project to co-ordinate and deliver good practice and practical advice to English and Welsh HEIs to enable the implementation, management and development of digital institutional repositories.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_rep_pres.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/information_environment.aspx"/>
-<name>Repository Support project</name>
-<homepage rdf:resource="http://www.sherpa.ac.uk/projects/rsp.html"/>
-</Project>

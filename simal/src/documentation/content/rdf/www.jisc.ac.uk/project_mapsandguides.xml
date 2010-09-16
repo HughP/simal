@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l/project_mapsandguides.aspx">
-<shortdesc>The major goal of this project is to develop a tool that maps online learning resources already available freely on the Internet to the Scottish Qualifications Network.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_x4l.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/elearning.aspx"/>
-<name>Maps and Learner Guides</name>
-<homepage rdf:resource="http://www.sfeu.ac.uk/mapsandlearnerguides.asp"/>
-</Project>

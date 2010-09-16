@@ -1,6 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos/project_mereview.aspx">
-<shortdesc>Monitoring and evaluation activities of JISC have taken place over a period of time in response to the emerging needs of the education and research communities, particularly to support new applications and technologies.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_jos.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eadministration.aspx"/>
-<name>Monitoring and Evaluation Review</name>
-</Project>

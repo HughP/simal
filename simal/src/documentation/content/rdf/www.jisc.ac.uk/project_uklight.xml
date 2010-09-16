@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch/project_uklight.aspx">
-<shortdesc>UKLight is a national facility to support projects working on developments towards optical networks and the applications that will use them. It will provide a "Point of Access" (PoA) in London with network connections to peer facilities in the US (StarLight) and the Netherlands (NetherLight) to enable international collaboration, and UK research groups will gain access to the facility via extensions to the SuperJANET development network or other means as appropriate.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_eresearch.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresearch.aspx"/>
-<name>UK Light</name>
-<homepage rdf:resource="http://www.uklight.ac.uk/"/>
-</Project>

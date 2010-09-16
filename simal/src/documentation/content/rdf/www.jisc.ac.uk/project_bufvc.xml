@@ -1,7 +1,0 @@
-<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns="http://usefulinc.com/ns/doap#" rdf:about="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation/project_bufvc.aspx">
-<shortdesc>The aim of the project is to encode 60,000 items totalling 3,000 hours of ITN content (1955 to date) and Reuters content (1896 to date). This represents 1% of the 300,000 hours of content currently held by ITN. A further 52,571 bulletin scripts totalling 893,707 pages will be digitised.</shortdesc>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/programmes/programme_digitisation.aspx"/>
-<category rdf:resource="http://www.jisc.ac.uk/whatwedo/themes/eresources.aspx"/>
-<name>NewsFilm online</name>
-<homepage rdf:resource="http://www.bufvc.ac.uk/newsfilmonline"/>
-</Project>
