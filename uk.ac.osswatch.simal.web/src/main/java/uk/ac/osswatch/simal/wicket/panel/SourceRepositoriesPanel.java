@@ -24,22 +24,28 @@ import java.util.Set;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.ExternalLink;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 
 import uk.ac.osswatch.simal.model.IDoapLocation;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel.ReadOnlyStyleBehavior;
 
 /**
  * A panel to display one or more Source Repository details.
  */
 public class SourceRepositoriesPanel extends Panel {
   private static final long serialVersionUID = -2031486948152653715L;
+  private ReadOnlyStyleBehavior rosb;
 
   public SourceRepositoriesPanel(String panelId,
-      Set<IDoapRepository> repositories) {
+      Set<IDoapRepository> repositories, ReadOnlyStyleBehavior rosb) {
     super(panelId);
+    this.rosb = rosb;
     populatePage(repositories);
   }
 
@@ -76,6 +82,7 @@ public class SourceRepositoriesPanel extends Panel {
       repository = itr.next();
 
       Set<String> anonRoots = repository.getAnonRoots();
+      item.add(new Label("name", repository.getName()));
       item.add(getRepeatingLinks("anonRoots", "anonLink", anonRoots));
       item.add(getRepeatingLinks("devLocations", "devLink", repository
           .getLocations()));
@@ -103,19 +110,21 @@ public class SourceRepositoriesPanel extends Panel {
     if (locations == null) {
       locations = new HashSet<IDoapLocation>();
     }
-    Iterator<IDoapLocation> itr = locations.iterator();
     RepeatingView repeating = new RepeatingView(repeaterWicketID);
     WebMarkupContainer item;
-    IDoapLocation location;
     ExternalLink link;
-    while (itr.hasNext()) {
+    for (IDoapLocation location : locations) {
       item = new WebMarkupContainer(repeating.newChildId());
       repeating.add(item);
-      location = itr.next();
       link = new ExternalLink(linkWicketID, location.getURI());
-      link.add(new Label("label", location.getURI()));
       item.add(link);
+
+      TextField<String> nameInput = new TextField<String>(
+          "label", new PropertyModel<String>(location,"URI"));
+      nameInput.add(this.rosb);
+      item.add(nameInput);
     }
+    
     return repeating;
   }
 
@@ -146,9 +155,17 @@ public class SourceRepositoriesPanel extends Panel {
       item = new WebMarkupContainer(repeating.newChildId());
       repeating.add(item);
       url = itr.next();
+
       link = new ExternalLink(linkWicketID, url);
-      link.add(new Label("label", url));
       item.add(link);
+      
+      TextField<String> nameInput = new TextField<String>(
+          "label", new Model<String>(url));
+      nameInput.add(this.rosb);
+      item.add(nameInput);
+    }
+    if(repeating.size() == 0) {
+      //item.add(new Label(repeating.newChildId(),""));
     }
     return repeating;
   }

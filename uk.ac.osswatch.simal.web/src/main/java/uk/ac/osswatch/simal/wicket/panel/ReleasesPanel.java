@@ -17,43 +17,55 @@ package uk.ac.osswatch.simal.wicket.panel;
  * under the License.                                                *
  */
 
-import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 
 import uk.ac.osswatch.simal.model.IDoapRelease;
+import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel.ReadOnlyStyleBehavior;
 
 /**
  * A simple panel providing details of a set of releases.
+ * @param <ReadOnlyStyleBehavior>
  */
 public class ReleasesPanel extends Panel {
   private static final long serialVersionUID = 3993329475348185480L;
+  private ReadOnlyStyleBehavior rosb;
 
-  public ReleasesPanel(String panelId, Set<IDoapRelease> releases) {
+  public ReleasesPanel(String panelId, Set<IDoapRelease> releases, ReadOnlyStyleBehavior rosb) {
     super(panelId);
+    this.rosb = rosb;
     populatePage(releases);
   }
 
   private void populatePage(Set<IDoapRelease> releases) {
-    Iterator<IDoapRelease> itr = releases.iterator();
     RepeatingView repeating = new RepeatingView("releases");
     WebMarkupContainer item;
-    IDoapRelease release;
-    Label label;
-    while (itr.hasNext()) {
+
+    for (IDoapRelease release : releases) {
       item = new WebMarkupContainer(repeating.newChildId());
       repeating.add(item);
-      release = itr.next();
-      label = new Label("name", release.getName());
-      item.add(label);
+      
+      item.add(new Label("releaseHeader", release.getURI()));
+      
+      TextField<String> nameInput = new TextField<String>(
+          "name", new PropertyModel<String>(release, "name"));
+      nameInput.add(this.rosb);
+      item.add(nameInput);
+
+      TextField<String> createdInput = new TextField<String>(
+          "created", new PropertyModel<String>(release, "created"));
+      createdInput.add(this.rosb);
+      item.add(createdInput);
+
       item.add(getRepeatingLabels("revisions", "revision", release
           .getRevisions()));
-      label = new Label("created", release.getCreated());
-      item.add(label);
     }
     add(repeating);
   }
@@ -72,15 +84,19 @@ public class ReleasesPanel extends Panel {
    */
   protected RepeatingView getRepeatingLabels(String repeaterWicketID,
       String labelWicketID, Set<String> labels) {
-    Iterator<String> itr = labels.iterator();
     RepeatingView repeating = new RepeatingView(repeaterWicketID);
     WebMarkupContainer item;
-    String label;
-    while (itr.hasNext()) {
+    
+    for (String label : labels) {
       item = new WebMarkupContainer(repeating.newChildId());
       repeating.add(item);
-      label = itr.next();
-      item.add(new Label(labelWicketID, label));
+
+      TextField<String> nameInput = new TextField<String>(
+          labelWicketID, new Model<String>(label));
+      nameInput.add(this.rosb);
+
+      item.add(nameInput);
+      //item.add(new Label(labelWicketID, label));
     }
     return repeating;
   }

@@ -51,11 +51,15 @@ public class GenericIResourceSetPanel extends Panel {
       .getLogger(GenericIResourceSetPanel.class);
 
   private static final long serialVersionUID = -932080365392667144L;
+
+  private static final int MAX_ROWS_PER_PAGE = 10;
+  
   private Set<IDoapResource> resources;
   private String title;
   private SortableDoapResourceDataProvider<IDoapResource> dataProvider;
   private IProject project;
   private boolean editMode;
+  private boolean editingAllowed;
 
   /**
    * Create a panel that lists all homepages in the repository.
@@ -68,12 +72,17 @@ public class GenericIResourceSetPanel extends Panel {
    *          the number of homepages to display per page
    * @throws SimalRepositoryException
    */
+  @SuppressWarnings("unchecked")
   public GenericIResourceSetPanel(String id, String title,
-      Set<? extends IDoapResource> resources, int numberOfPages,
-      IProject project) {
-    this(id, title, resources, numberOfPages);
+      Set<? extends IDoapResource> resources, boolean editingAllowed, IProject project) {
+    super(id);
+    this.title = title;
     this.project = project;
+    this.editingAllowed = editingAllowed;
+    this.resources = (Set<IDoapResource>) resources;
+
     this.editMode = false;
+    populatePanel();
   }
 
   /**
@@ -89,25 +98,21 @@ public class GenericIResourceSetPanel extends Panel {
    *          the number of homepages to display per page
    * @throws SimalRepositoryException
    */
-  @SuppressWarnings("unchecked")
   public GenericIResourceSetPanel(String id, String title,
-      Set<? extends IDoapResource> resources, int numberOfPages) {
-    super(id);
-    this.title = title;
-    this.resources = (Set<IDoapResource>) resources;
-    populatePanel(numberOfPages);
+      Set<? extends IDoapResource> resources) {
+    // TODO By default no editing allowed
+    this(id, title, resources, false, null);
   }
 
-  private void populatePanel(int numberOfPages) {
+  private void populatePanel() {
     add(new Label("title", title));
-    addResourcesList(resources, numberOfPages);
-    add(new AddIResourcePanel("addWebsitePanel", this));
+    addResourcesList(resources);
+    add(new AddIResourcePanel("addWebsitePanel", this, editingAllowed));
     setOutputMarkupId(true);
   }
 
   @SuppressWarnings("unchecked")
-  private void addResourcesList(Set<? extends IDoapResource> pages,
-      int numberOfPages) {
+  private void addResourcesList(Set<? extends IDoapResource> pages) {
     List<IColumn<?>> columns = new ArrayList<IColumn<?>>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "label",
         "label"));
@@ -169,7 +174,7 @@ public class GenericIResourceSetPanel extends Panel {
     dataProvider.setSort(SortableDoapResourceDataProvider.SORT_PROPERTY_NAME,
         true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider,
-        numberOfPages));
+        MAX_ROWS_PER_PAGE));
   }
 
   /**

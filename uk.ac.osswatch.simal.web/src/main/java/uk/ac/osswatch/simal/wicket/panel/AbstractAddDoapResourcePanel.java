@@ -56,12 +56,19 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
    * @param updatePanel
    *          the panel that should be updated when the DOAP resource has been
    *          added (must have setOutputMarkupId(true)
+   * @param editingAllowed 
    */
   public AbstractAddDoapResourcePanel(String wicketid, Panel updatePanel) {
+    this(wicketid, updatePanel,true);
+  }
+    
+  public AbstractAddDoapResourcePanel(String wicketid, Panel updatePanel, boolean editingAllowed) {
     super(wicketid);
     this.updatePanel = updatePanel;
     setOutputMarkupId(true);
-    add(new NewDoapResourceLink("newLink"));
+    NewDoapResourceLink newLink = new NewDoapResourceLink("newLink");
+    newLink.setVisibilityAllowed(editingAllowed);
+    add(newLink);
     add(new AddDoapResourceForm("doapResourceForm"));
   }
   
@@ -182,7 +189,6 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
     public boolean isVisible() {
       return !formVisible;
     }
-
   }
 
   /**
