@@ -1,0 +1,81 @@
+<!--
+  Copyright 2010 University of Oxford
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<html>
+<head>
+<title>Query the Simal Project Registry</title>
+</head>
+<body>
+<wicket:extend>
+	<h2>SPARQL Query</h2>
+
+	<p>This form allows raw querying of the data (<a href="#examples">example queries</a>)</p>
+
+	<form action="joseki/sparql">
+	<fieldset><legend>SPARQLQuery</legend>
+	<p><textarea wicket:id="query" cols="80" rows="15">Type your query here.</textarea>
+	</p>
+	</fieldset>
+	<fieldset><legend>Output options</legend>
+	<p>
+	  Output XML: <input type="radio" name="output" value="xml"/>
+	  with XSLT style sheet (leave blank for none): 
+	  <input name="stylesheet" size="25" value="/xml-to-html.xsl" /> <br/>
+	  or JSON output: <input type="radio" name="output" value="json"/> <br/>
+	  or text output: <input type="radio" name="output" value="text" checked/> <br/>
+	  Force the accept header to <tt>text/plain</tt> regardless 
+ 	  <input type="checkbox" name="force-accept" value="text/plain"/>
+  </p>
+  </fieldset>
+	<p><input type="submit" value="Execute" /></p>
+	</form>
+	
+  <h2 id="examples">Example Queries</h2>
+  <table>
+    <tr>
+      <th>Query</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>
+<pre>
+PREFIX  doap: &lt;http://usefulinc.com/ns/doap#&gt;
+SELECT DISTINCT ?name
+WHERE {
+  ?project a doap:Project .
+  ?project doap:name ?name
+}
+</pre>
+      </td>
+      <td>Get the name of all doap:Projects in the repository.</td>
+    </tr>
+    <tr>
+      <td>
+<pre>
+SELECT DISTINCT ?s ?p ?o 
+WHERE {
+  { ?s ?p &lt;http://people.apache.org/~rgardler/#me&gt; }
+UNION 
+  { &lt;http://people.apache.org/~rgardler/#me&gt; ?p ?o }
+
+}
+</pre>
+      </td>
+      <td>Show all statements where the URI &lt;http://people.apache.org/~rgardler/#me&gt; is subject or object.</td>
+    </tr>
+  </table>
+</wicket:extend>
+</body>
+</html>

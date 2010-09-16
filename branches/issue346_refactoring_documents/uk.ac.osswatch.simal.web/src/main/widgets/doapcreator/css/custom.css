@@ -1,0 +1,114 @@
+/*
+* Copyright 2010 University of Oxford
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*     http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+*/
+input.short {
+	margin-left: 1px;
+	width: 125px;
+}
+
+input.long {
+	width: 200px;
+}
+
+#generate,.generate {
+	color: #000;
+	border: 1px solid grey;
+	margin: 1em;
+	font-size: 14px;
+	width: 10em;
+	cursor: pointer;
+}
+
+#doap {
+	color: #333;
+	border: 1px solid #333;
+	background-color: #111;
+	
+	font-size: 100%;
+	font-family: Courier, monospace;
+	white-space: pre;
+	line-height: 1.05em;
+	color: #00cc00;
+	float: left;
+}
+
+.label {
+	margin-right: 1em;
+}
+
+.label_people {
+	width: 122px;
+	margin: 3px;
+	float: left;
+}
+
+.people_container {
+	
+}
+
+.mandatory {
+	color: #dd0000;
+	margin-left: 4px;
+	font-size: 15px;
+}
+
+.q_container {
+	/* border: 1px solid red; */
+	width: 700px;
+	margin: 5px 0px 5px 0px;
+	float: left;
+}
+
+.question {
+	/* border: 1px solid blue; */
+	width: 200px;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size : 14px;
+	vertical-align: top;
+	float: left;
+}
+
+.question_wide {
+	/* border: 1px solid blue; */
+	width: 700px;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size : 14px;
+	vertical-align: top;
+	float: left;
+}
+
+.answer {
+	/* border: 1px solid green; */ 
+	vertical-align: top;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size : 12px;
+	font-style: italic;
+	width: 490px;
+	float: left;
+}
+
+.answer_wide {
+	/* border: 1px solid green; */
+	vertical-align: top;
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size : 12px;
+	font-style: italic;
+	width: 700px;
+	float: left;
+}
+
+select {
+	font-size: 8pt;
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+ 
+Copyright 2008-9 University of Oxford 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+   http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ 
+-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<body>
+  <wicket:extend>
+    <h2>Project summary</h2>
+    <table>
+      <tr>
+        <td class="title">Number of projects in repository</td>
+        <td colspan='3'><span wicket:id="numOfProjects">20</span></td>
+      </tr>
+      
+      <tr class="title">
+        <td/>
+        <td>Yes</td>
+        <td>No</td>
+        <td>% With</td>
+        <td>Reviewed % With</td>
+      </tr>
+      <tr>
+        <td class="title">Reviewed</td>
+        <td><a wicket:id="reviewedProjectsLink" href="#"><span wicket:id="numOfProjectsWithReview">5</span></a></td>
+        <td><a wicket:id="projectsToReviewLink" href="#"><span wicket:id="numOfProjectsWithoutReview">15</span></a></td>
+        <td><span wicket:id="percentProjectsWithReview">25%</span></td>
+        <td>N/A</td>
+      </tr>
+      
+      <tr>
+        <td class="title">Revision Control Systems</td>
+        <td><a wicket:id="projectsWithRCSLink" href="#"><span wicket:id="numOfProjectsWithRCS">5</span></a></td>
+        <td><a wicket:id="projectsWithoutRCSLink" href="#"><span wicket:id="numOfProjectsWithoutRCS">15</span></a></td>
+        <td><span wicket:id="percentProjectsWithRCS">25%</span></td>
+        <td><span wicket:id="reviewedPercentProjectsWithRCS">100%</span></td>
+      </tr>
+      
+      <tr>
+        <td class="title">Homepage</td>
+        <td><a wicket:id="projectsWithHomepageLink" href="#"><span wicket:id="numOfProjectsWithHomepage">5</span></a></td>
+        <td><a wicket:id="projectsWithoutHomepageLink" href="#"><span wicket:id="numOfProjectsWithoutHomepage">15</span></a></td>
+        <td><span wicket:id="percentProjectsWithHomepage">25%</span></td>
+        <td><span wicket:id="reviewedPercentProjectsWithHomepage">100%</span></td>
+      </tr>
+      
+      <tr>
+        <td class="title">MailingList</td>
+        <td><a wicket:id="projectsWithMailingListLink" href="#"><span wicket:id="numOfProjectsWithMailingList">5</span></a></td>
+        <td><a wicket:id="projectsWithoutMailingListLink" href="#"><span wicket:id="numOfProjectsWithoutMailingList">15</span></a></td>
+        <td><span wicket:id="percentProjectsWithMailingList">25%</span></td>
+        <td><span wicket:id="reviewedPercentProjectsWithMailingList">100%</span></td>
+      </tr>
+      
+      <tr>
+        <td class="title">BugDatabase</td>
+        <td><a wicket:id="projectsWithBugDatabaseLink" href="#"><span wicket:id="numOfProjectsWithBugDatabase">5</span></a></td>
+        <td><a wicket:id="projectsWithoutBugDatabaseLink" href="#"><span wicket:id="numOfProjectsWithoutBugDatabase">15</span></a></td>
+        <td><span wicket:id="percentProjectsWithBugDatabase">25%</span></td>
+        <td><span wicket:id="reviewedPercentProjectsWithBugDatabase">100%</span></td>
+      </tr>
+      
+      <tr>
+        <td class="title">Release</td>
+        <td><a wicket:id="projectsWithReleasesLink" href="#"><span wicket:id="numOfProjectsWithRelease">5</span></a></td>
+        <td><a wicket:id="projectsWithoutReleasesLink" href="#"><span wicket:id="numOfProjectsWithoutRelease">15</span></a></td>
+        <td><span wicket:id="percentProjectsWithRelease">25%</span></td>
+        <td><span wicket:id="reviewedPercentProjectsWithRelease">100%</span></td>
+      </tr>
+      
+      <tr>
+        <td class="title">Maintainer</td>
+        <td><a wicket:id="projectsWithMaintainerLink" href="#"><span wicket:id="numOfProjectsWithMaintainer">5</span></a></td>
+        <td><a wicket:id="projectsWithoutMaintainerLink" href="#"><span wicket:id="numOfProjectsWithoutMaintainer">15</span></a></td>
+        <td><span wicket:id="percentProjectsWithMaintainer">25%</span></td>
+        <td><span wicket:id="reviewedPercentProjectsWithMaintainer">100%</span></td>
+      </tr>
+    </table>
+    
+  </wicket:extend>
+</body>
+</html>
+
