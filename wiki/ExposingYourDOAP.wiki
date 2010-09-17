@@ -60,4 +60,4 @@ Most complete sample (i.e. uses tricky combinations of elements)
 http://code.google.com/p/simal/source/browse/trunk/uk.ac.osswatch.simal.core/src/main/resources/testData/testDOAP.xml
 
 You can test DOAP outputs by pasting them into the "raw doap" field at
-at http://simal.16degrees.com.au/?wicket:bookmarkablePage=:uk.ac.osswatch.simal.wicket.doap.DoapFormPage
+at http://registry.oss-watch.ac.uk/?wicket:bookmarkablePage=:uk.ac.osswatch.simal.wicket.doap.DoapFormPage
