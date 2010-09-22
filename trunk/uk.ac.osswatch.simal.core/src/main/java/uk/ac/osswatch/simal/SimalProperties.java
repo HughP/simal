@@ -157,7 +157,7 @@ public class SimalProperties {
    * @return
    * @throws SimalRepositoryException
    */
-  private static File getLocalPropertiesFile() throws SimalRepositoryException {
+  public static File getLocalPropertiesFile() throws SimalRepositoryException {
     if (propsFile == null) {
       String workingDir = getDefaultFileLocation();
       propsFile = new File(workingDir + File.separator
