@@ -61,7 +61,7 @@ public class DoapHomepageFormInputModel implements IClusterable {
    */
   public IDoapHomepage getHomepage() throws SimalRepositoryException {
     IDoapHomepage homepage = SimalRepositoryFactory.getHomepageService().getOrCreate(getUrl());
-    homepage.addName(getName());
+    // FIXME homepage.addName(getName());
     return homepage;
   }
 
