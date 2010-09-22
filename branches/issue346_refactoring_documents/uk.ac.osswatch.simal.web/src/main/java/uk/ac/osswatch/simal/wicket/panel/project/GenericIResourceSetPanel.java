@@ -38,6 +38,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.model.IDocument;
+import uk.ac.osswatch.simal.model.IFoafResource;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
@@ -54,9 +56,9 @@ public class GenericIResourceSetPanel extends Panel {
 
   private static final int MAX_ROWS_PER_PAGE = 10;
   
-  private Set<IDoapResource> resources;
+  private Set<IDocument> resources;
   private String title;
-  private SortableDoapResourceDataProvider<IDoapResource> dataProvider;
+  private SortableDoapResourceDataProvider<IDocument> dataProvider;
   private IProject project;
   private boolean editMode;
   private boolean editingAllowed;
@@ -74,12 +76,12 @@ public class GenericIResourceSetPanel extends Panel {
    */
   @SuppressWarnings("unchecked")
   public GenericIResourceSetPanel(String id, String title,
-      Set<? extends IDoapResource> resources, boolean editingAllowed, IProject project) {
+      Set<IDocument> resources, boolean editingAllowed, IProject project) {
     super(id);
     this.title = title;
     this.project = project;
     this.editingAllowed = editingAllowed;
-    this.resources = (Set<IDoapResource>) resources;
+    this.resources = (Set<IDocument>) resources;
 
     this.editMode = false;
     populatePanel();
@@ -99,7 +101,7 @@ public class GenericIResourceSetPanel extends Panel {
    * @throws SimalRepositoryException
    */
   public GenericIResourceSetPanel(String id, String title,
-      Set<? extends IDoapResource> resources) {
+      Set<IDocument> resources) {
     // TODO By default no editing allowed
     this(id, title, resources, false, null);
   }
@@ -112,18 +114,18 @@ public class GenericIResourceSetPanel extends Panel {
   }
 
   @SuppressWarnings("unchecked")
-  private void addResourcesList(Set<? extends IDoapResource> pages) {
+  private void addResourcesList(Set<IDocument> pages) {
     List<IColumn<?>> columns = new ArrayList<IColumn<?>>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "label",
         "label"));
     
-    PropertyColumn<IDoapResource> urlColumn = new PropertyColumn<IDoapResource>(new Model<String>("URL"),
+    PropertyColumn<IDocument> urlColumn = new PropertyColumn<IDocument>(new Model<String>("URL"),
         "url", "url") {
       private static final long serialVersionUID = -3063052337733586041L;
 
       @Override
-      public void populateItem(Item<ICellPopulator<IDoapResource>> cellItem,
-          String componentId, IModel<IDoapResource> model) {
+      public void populateItem(Item<ICellPopulator<IDocument>> cellItem,
+          String componentId, IModel<IDocument> model) {
         String label = "";
 
         if (model != null) {
@@ -140,13 +142,13 @@ public class GenericIResourceSetPanel extends Panel {
       
     columns.add(urlColumn);
 
-    PropertyColumn<IDoapResource> deleteColumn = new PropertyColumn<IDoapResource>(new Model<String>("Delete"), "name", "name") {
+    PropertyColumn<IDocument> deleteColumn = new PropertyColumn<IDocument>(new Model<String>("Delete"), "name", "name") {
       private static final long serialVersionUID = -3063052337733586041L;
 
-      public void populateItem(Item<ICellPopulator<IDoapResource>> cellItem,
-          String componentId, IModel<IDoapResource> model) {
+      public void populateItem(Item<ICellPopulator<IDocument>> cellItem,
+          String componentId, IModel<IDocument> model) {
 
-        AjaxFallbackLink<IDoapResource> deleteLink = new AjaxFallbackLink<IDoapResource>(componentId, model) {
+        AjaxFallbackLink<IDocument> deleteLink = new AjaxFallbackLink<IDocument>(componentId, model) {
           private static final long serialVersionUID = 876069018792653905L;
 
           @Override
@@ -170,7 +172,7 @@ public class GenericIResourceSetPanel extends Panel {
     };
     columns.add(deleteColumn);
       
-    dataProvider = new SortableDoapResourceDataProvider<IDoapResource>(pages);
+    // FIXME dataProvider = new SortableDoapResourceDataProvider<IDocument>(pages);
     dataProvider.setSort(SortableDoapResourceDataProvider.SORT_PROPERTY_NAME,
         true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider,
@@ -182,13 +184,13 @@ public class GenericIResourceSetPanel extends Panel {
    * resource to the underlying data storage mechanism, it only adds it to the
    * GUI.
    * 
-   * @param iDoapResource
+   * @param iFoafResource
    */
-  public void add(IDoapResource iDoapResource) {
-    this.resources.add(iDoapResource);
+  public void add(IDocument iFoafResource) {
+    this.resources.add(iFoafResource);
   }
 
-  private void processDeleteOnClick(AjaxRequestTarget target, IDoapResource iDoapResource) {
+  private void processDeleteOnClick(AjaxRequestTarget target, IDocument iDoapResource) {
     try {
       processDelete(iDoapResource);
     } catch (SimalRepositoryException e) {
@@ -211,11 +213,11 @@ public class GenericIResourceSetPanel extends Panel {
    * 
    * @param iDoapResource
    */
-  public void delete(IDoapResource iDoapResource) {
+  public void delete(IDocument iDoapResource) {
     this.resources.remove(iDoapResource);
   }
 
-  public void processDelete(IDoapResource inputModel)
+  public void processDelete(IDocument inputModel)
       throws SimalRepositoryException {
     // Subclasses that wish to use it should implement it.
     // TODO To be made abstract to force subclassing and implementation of

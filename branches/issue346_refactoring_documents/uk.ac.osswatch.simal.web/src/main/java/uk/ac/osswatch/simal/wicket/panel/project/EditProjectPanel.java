@@ -45,14 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapBugDatabase;
-import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
-import uk.ac.osswatch.simal.model.IDoapDownloadPage;
 import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
-import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.IDoapScreenshot;
-import uk.ac.osswatch.simal.model.IDoapWiki;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
@@ -121,13 +116,13 @@ public class EditProjectPanel extends Panel {
 
     private Set<String> oses;
     private Set<String> langs;
-    private Set<IDoapHomepage> homepages;
-    private Set<IDoapMailingList> mailingLists;
-    private Set<IDoapBugDatabase> issueTrackers;
-    private Set<IDoapWiki> wikis;
-    private Set<IDoapDownloadPage> downloads;
-    private Set<IDoapDownloadMirror> downloadMirrors;
-    private Set<IDoapScreenshot> screenshots;
+    private Set<IDocument> homepages;
+    //private Set<IDoapMailingList> mailingLists;
+    private Set<IDocument> issueTrackers;
+    private Set<IDocument> wikis;
+    private Set<IDocument> downloads;
+    private Set<IDocument> downloadMirrors;
+    private Set<IDocument> screenshots;
 
     public EditProjectForm(String id, IModel<IProject> model) {
       super(id, model);
@@ -233,15 +228,15 @@ public class EditProjectPanel extends Panel {
 
         public void processAdd(IDoapResourceFormInputModel inputModel)
             throws SimalRepositoryException {
-          IDoapHomepage homepage = SimalRepositoryFactory.getHomepageService()
+          IDocument homepage = SimalRepositoryFactory.getHomepageService()
               .getOrCreate(inputModel.getUrl());
-          homepage.addName(inputModel.getName());
+          homepage.setLabel(inputModel.getName());
 
           add(homepage);
           getProject().addHomepage(homepage);
         }
 
-        public void processDelete(IDoapResource iDoapResource)
+        public void processDelete(IDocument iDoapResource)
             throws SimalRepositoryException {
           delete(iDoapResource);
           getProject().removeHomepage((IDoapHomepage) iDoapResource);
@@ -255,11 +250,14 @@ public class EditProjectPanel extends Panel {
           "Issue Trackers", issueTrackers);
       add(issueTrackerList);
 
-      this.mailingLists = project.getMailingLists();
-      GenericIResourceSetPanel mailingListsPanel = new GenericIResourceSetPanel(
-          "mailingLists", "Mailing lists", mailingLists);
 
-      add(mailingListsPanel);
+      // FIXME Add mailing list panel
+      // this.mailingLists = project.getMailingLists();
+      // GenericIResourceSetPanel mailingListsPanel = new
+      // GenericIResourceSetPanel(
+      // "mailingLists", "Mailing lists", mailingLists);
+      //
+      // add(mailingListsPanel);
       
       this.wikis = project.getWikis();
       GenericIResourceSetPanel wikiListPanel = new GenericIResourceSetPanel("wikiLists",

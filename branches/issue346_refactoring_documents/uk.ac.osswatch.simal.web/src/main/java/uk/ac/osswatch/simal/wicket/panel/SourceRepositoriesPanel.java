@@ -31,7 +31,7 @@ import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
-import uk.ac.osswatch.simal.model.IDoapLocation;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel.ReadOnlyStyleBehavior;
 
@@ -106,14 +106,14 @@ public class SourceRepositoriesPanel extends Panel {
    * @return
    */
   private Component getRepeatingLinks(String repeaterWicketID,
-      String linkWicketID, Set<IDoapLocation> locations) {
+      String linkWicketID, Set<IDocument> locations) {
     if (locations == null) {
-      locations = new HashSet<IDoapLocation>();
+      locations = new HashSet<IDocument>();
     }
     RepeatingView repeating = new RepeatingView(repeaterWicketID);
     WebMarkupContainer item;
     ExternalLink link;
-    for (IDoapLocation location : locations) {
+    for (IDocument location : locations) {
       item = new WebMarkupContainer(repeating.newChildId());
       repeating.add(item);
       link = new ExternalLink(linkWicketID, location.getURI());
