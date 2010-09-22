@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 University of Oxford
+ * Copyright 2007-2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,13 +66,15 @@ public class SimalProperties {
   public static final String PROPERTY_USER_WEBAPP_BASEURL = "simal.user.webapp.baseurl";
 
   public static final String PROPERTY_ADD_PROJECT_WIDGET_TITLE = "simal.widget.addproject.name";
-  
+
   public static final String PROPERTY_OHLOH_API_KEY = "ohloh.api.key";
-  
+
   public static final String PROPERTY_GOOGLE_AJAX_FEED_API_KEY = "google.ajax.feed.api.key";
 
   public static final String PROPERTY_SIMAL_HOMEPAGELABELS_PATH = "simal.homepagelabels.filename";
-  
+
+  protected static final String SIMAL_HOME = "SIMAL_HOME";
+
   private static Properties defaultProps;
   private static Properties localProps;
 
@@ -85,9 +87,40 @@ public class SimalProperties {
       logger.error(e.getMessage());
     }
   }
-  
+
   public SimalProperties() throws SimalRepositoryException {
     initProperties();
+  }
+
+  private static String getDefaultFileLocation() {
+    String fileLocation = System.getenv(SIMAL_HOME);
+
+    if (fileLocation != null && !"".equals(fileLocation)) {
+      File testFile = new File(fileLocation);
+      if (!testFile.isDirectory() || testFile.listFiles() == null) {
+        String msg = "Default directory " + fileLocation
+            + " from environment variable " + SIMAL_HOME + " is not writable.";
+        logger.warn(msg);
+        fileLocation = null;
+      }
+    }
+
+    if (fileLocation == null || "".equals(fileLocation)) {
+      fileLocation = System.getProperty("user.home");
+      logger.info("Generated default file location " + fileLocation + " from system property user.home");
+    }
+
+    if (fileLocation != null && !"".equals(fileLocation)) {
+      File testFile = new File(fileLocation);
+      if (!testFile.isDirectory() || testFile.listFiles() == null) {
+        String msg = "Generated default directory " + fileLocation
+            + " is not writable.";
+        logger.warn(msg);
+        fileLocation = null;
+      }
+    }
+
+    return fileLocation;
   }
 
   /**
@@ -95,7 +128,7 @@ public class SimalProperties {
    * 
    * @throws SimalRepositoryException
    */
-  public static void initProperties() throws SimalRepositoryException {
+  protected static void initProperties() throws SimalRepositoryException {
     URL defaultsLocation = null;
     try {
       defaultsLocation = SimalProperties.class.getClassLoader().getResource(
@@ -124,9 +157,9 @@ public class SimalProperties {
    * @return
    * @throws SimalRepositoryException
    */
-  public static File getLocalPropertiesFile() throws SimalRepositoryException {
+  private static File getLocalPropertiesFile() throws SimalRepositoryException {
     if (propsFile == null) {
-      String workingDir = System.getProperty("user.dir");
+      String workingDir = getDefaultFileLocation();
       propsFile = new File(workingDir + File.separator
           + getProperty(PROPERTY_LOCAL_PROPERTIES_LOCATION));
     }
@@ -170,14 +203,15 @@ public class SimalProperties {
   }
 
   /**
-   * Get the default property value for the supplied key if there is 
-   * a mechanism for the specified key to determine one. 
+   * Get the default property value for the supplied key if there is a mechanism
+   * for the specified key to determine one.
+   * 
    * @param key
-   * @return default value for key or null if no default is registered. 
+   * @return default value for key or null if no default is registered.
    */
   private static String getDefaultPropertyValue(String key) {
     String value = null;
-    
+
     if (key.equals(PROPERTY_SIMAL_INSTANCE_ID)) {
       try {
         if (SimalRepositoryFactory.getInstance().isTest()) {
@@ -190,21 +224,21 @@ public class SimalProperties {
       }
       setProperty(PROPERTY_SIMAL_INSTANCE_ID, value);
     } else if (key.equals(PROPERTY_RDF_DATA_DIR)) {
-      value = System.getProperty("user.dir");
+      value = getDefaultFileLocation();
     } else if (key.equals(PROPERTY_RDF_BACKUP_DIR)) {
-      value = System.getProperty("user.dir");
-      if(!value.endsWith(File.separator)) {
+      value = getDefaultFileLocation();
+      if (!value.endsWith(File.separator)) {
         value += File.separator;
       }
       value += "backup";
-    } 
-    
+    }
+
     return value;
   }
 
   /**
-   * Get a property value. Will check for an internally registered default 
-   * value if now value can be found.
+   * Get a property value. Will check for an internally registered default value
+   * if now value can be found.
    * 
    * @param key
    *          the name of the property value to retrieve
@@ -213,35 +247,36 @@ public class SimalProperties {
    */
   public static String getProperty(String key) throws SimalRepositoryException {
     String value = getProperty(key, null);
-    
-    if(value == null) {
+
+    if (value == null) {
       value = getDefaultPropertyValue(key);
-      
-      if(value == null) {
+
+      if (value == null) {
         StringBuilder sb = new StringBuilder("The property '");
         sb.append(key);
         sb.append("' has not been set in either local.simal.properties, ");
-        sb.append("default.simal.properties files or the SimalProperties class");
-        
+        sb
+            .append("default.simal.properties files or the SimalProperties class");
+
         String msg = sb.toString();
         logger.warn(msg);
-        
+
         throw new SimalRepositoryException(msg);
       }
-    } 
+    }
 
     return value;
   }
 
   /**
-   * Get a property value from the local properties file. If there is no
-   * value from the local properties it will get it from the default properties 
-   * file. If there is no value from the default properties file it will return 
-   * the supplied default.
+   * Get a property value from the local properties file. If there is no value
+   * from the local properties it will get it from the default properties file.
+   * If there is no value from the default properties file it will return the
+   * supplied default.
    * 
    * @param key
    * @param defaultValue
-   * @return 
+   * @return
    */
   public static String getProperty(String key, String defaultValue) {
     if (defaultProps == null) {
@@ -257,11 +292,11 @@ public class SimalProperties {
     if (localProps != null) {
       value = localProps.getProperty(key);
     }
-    
+
     if (value == null) {
       value = defaultProps.getProperty(key, defaultValue);
     }
-    
+
     return (value != null) ? value : defaultValue;
   }
 
