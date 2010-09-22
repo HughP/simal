@@ -19,4 +19,5 @@ package uk.ac.osswatch.simal.model;
  * A definition for a FOAF Resource
  */
 public interface IFoafResource extends IResource {
+  
 }

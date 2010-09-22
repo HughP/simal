@@ -33,9 +33,9 @@ public interface IDoapRepository extends IDoapResource {
 
   Set<String> getModule();
 
-  Set<IDoapLocation> getLocations();
+  Set<IDocument> getLocations();
 
-  Set<IDoapLocation> getBrowse();
+  Set<IDocument> getBrowse();
 
   boolean isARCH();
 

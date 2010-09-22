@@ -30,7 +30,7 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -63,7 +63,7 @@ public class TestPimsImport extends BaseRepositoryTest {
 		while (projects.hasNext()) {
 			project = projects.next();
 			String name = project.getName();
-			Set<IDoapHomepage> homepages = project.getHomepages();
+			Set<IDocument> homepages = project.getHomepages();
 			if (name.equals("Project A")) {
 				if (!homepages.toString().contains("Homepage")) {
 					break;
@@ -142,7 +142,7 @@ public class TestPimsImport extends BaseRepositoryTest {
 	@Test
 	public void testProjectHomepages() throws SimalRepositoryException {
 		IProject project = SimalRepositoryFactory.getProjectService().getProject("http://jisc.ac.uk/project#10");
-		Set<IDoapHomepage> pages = project.getHomepages();
+		Set<IDocument> pages = project.getHomepages();
 		assertEquals("Project A has an incorrect number of homepages", 1, pages.size());
 	}
 	
