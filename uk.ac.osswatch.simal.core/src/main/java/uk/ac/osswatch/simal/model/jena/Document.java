@@ -18,12 +18,12 @@ package uk.ac.osswatch.simal.model.jena;
  * 
  */
 
-import uk.ac.osswatch.simal.model.IDoapLocation;
+import uk.ac.osswatch.simal.model.IDocument;
 
-public class Location extends DoapResource implements IDoapLocation {
+public class Document extends Resource implements IDocument {
   private static final long serialVersionUID = 1L;
 
-  public Location(com.hp.hpl.jena.rdf.model.Resource resource) {
+  public Document(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
   }
 }

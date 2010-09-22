@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 University of Oxford
+ * Copyright 2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,6 @@ package uk.ac.osswatch.simal.model;
  * used to define the doap:category entries of a doap:Project.
  * 
  */
-public interface IDoapLocation extends IDoapResource {
+public interface IDocument extends IFoafResource {
 
 }

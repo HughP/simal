@@ -38,6 +38,7 @@ import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -218,13 +219,13 @@ public class TestProject extends BaseRepositoryTest {
   
   @Test
   public void testAddandRemoveHomepage() throws SimalRepositoryException, DuplicateURIException {
-	    Set<IDoapHomepage> prePages = project1.getHomepages();
+	    Set<IDocument> prePages = project1.getHomepages();
 
 	    String uri = "http://www.foo.org/homepageTest";
 	    IDoapHomepage page = SimalRepositoryFactory.getHomepageService().create(uri);
 
 	    project1.addHomepage(page);
-	    Set<IDoapHomepage> postPages = project1.getHomepages();
+	    Set<IDocument> postPages = project1.getHomepages();
 	    assertTrue("Failed to add a homepage to the project",
 	        prePages.size() < postPages.size());
 
@@ -238,7 +239,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetHomepages() {
-    Set<IDoapHomepage> homepages = project1.getHomepages();
+    Set<IDocument> homepages = project1.getHomepages();
 
     assertEquals("Incorrect number of home pages",
         TEST_SIMAL_PROJECT_NUMBER_OF_HOMEPAGES, homepages.size());

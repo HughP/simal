@@ -95,11 +95,6 @@ public interface IPerson extends IFoafResource {
   public Set<String> getNames();
 
   /**
-   * @deprecated use addName(name) instead (scheduled for removal in 0.3)
-   */
-  public void setName(String name);
-
-  /**
    * Add a name to the set of names for this person.
    */
   public void addName(String name);
