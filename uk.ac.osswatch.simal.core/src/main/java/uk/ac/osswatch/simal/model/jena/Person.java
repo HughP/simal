@@ -2,7 +2,7 @@ package uk.ac.osswatch.simal.model.jena;
 
 /*
  * 
- Copyright 2007 University of Oxford * 
+ Copyright 2007,2010 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,7 +31,7 @@ import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -46,7 +46,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
-public class Person extends Resource implements IPerson {
+public class Person extends FoafResource implements IPerson {
   private static final long serialVersionUID = -6510798839142810644L;
   private static final Logger logger = LoggerFactory.getLogger(Person.class);
 
@@ -110,11 +110,11 @@ public class Person extends Resource implements IPerson {
     return names;
   }
 
-  public Set<IDoapHomepage> getHomepages() {
+  public Set<IDocument> getHomepages() {
     Iterator<Statement> itr = listProperties(Foaf.HOMEPAGE).iterator();
-    Set<IDoapHomepage> homepages = new HashSet<IDoapHomepage>();
+    Set<IDocument> homepages = new HashSet<IDocument>();
     while (itr.hasNext()) {
-      homepages.add(new Homepage(itr.next().getResource()));
+      homepages.add(new Document(itr.next().getResource()));
     }
     return homepages;
   }
@@ -248,17 +248,6 @@ public class Person extends Resource implements IPerson {
     }
     values.append(']');
     return values.toString();
-  }
-
-  /**
-   * @deprecated use addName(name) (scheduled for removal in 0.3)
-   */
-  public void setName(String name) {
-    addName(name);
-  }
-
-  public void addName(String name) {
-    getJenaResource().addProperty(FOAF.name, name);
   }
 
   public Set<String> getSHA1Sums() {

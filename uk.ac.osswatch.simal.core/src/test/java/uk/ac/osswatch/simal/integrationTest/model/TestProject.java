@@ -34,7 +34,6 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
@@ -222,7 +221,7 @@ public class TestProject extends BaseRepositoryTest {
 	    Set<IDocument> prePages = project1.getHomepages();
 
 	    String uri = "http://www.foo.org/homepageTest";
-	    IDoapHomepage page = SimalRepositoryFactory.getHomepageService().create(uri);
+	    IDocument page = SimalRepositoryFactory.getHomepageService().create(uri);
 
 	    project1.addHomepage(page);
 	    Set<IDocument> postPages = project1.getHomepages();
