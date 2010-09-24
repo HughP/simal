@@ -31,8 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -53,14 +52,14 @@ public class SortableDoapResourceDataProvider<T extends IResource> extends
   /**
    * The set of DoapResources we are providing access to.
    */
-  private Set<IDoapResource> resources;
+  private Set<IResource> resources;
 
   /**
    * Create a data provider for the supplied resources.
    */
   @SuppressWarnings("unchecked")
-  public SortableDoapResourceDataProvider(Set<? extends IDoapResource> resources) {
-    this.resources = (Set<IDoapResource>) resources;
+  public SortableDoapResourceDataProvider(Set<? extends IResource> resources) {
+    this.resources = (Set<IResource>) resources;
   }
 
   @Override
@@ -94,18 +93,19 @@ public class SortableDoapResourceDataProvider<T extends IResource> extends
         || property.equals(SORT_PROPERTY_SHORTDESC);
   }
 
-  public Iterator<IDoapResource> iterator(int first, int count) {
+  public Iterator<IResource> iterator(int first, int count) {
 	// FIXME: Do we really need to test for duplicates here now that we have proper duplicate handling?
-    Comparator<IDoapResource> comparator = getComparator();
-    TreeSet<IDoapResource> treeSet = new TreeSet<IDoapResource>(comparator);
+    Comparator<IResource> comparator = getComparator();
+    TreeSet<IResource> treeSet = new TreeSet<IResource>(comparator);
     treeSet.addAll(resources);
-    TreeSet<IDoapResource> result = new TreeSet<IDoapResource>(comparator);
+    TreeSet<IResource> result = new TreeSet<IResource>(comparator);
     int idx = 0;
-    Iterator<IDoapResource> all = treeSet.iterator();
-    IDoapResource current;
+    Iterator<IResource> all = treeSet.iterator();
+    IResource current;
     while (all.hasNext() && idx - (first + count) < 0) {
       current = all.next();
-      if (idx >= first && current.getName() != "") {
+      // FIXME
+      if (idx >= first && current.getURI() != "") {
         result.add(current);
       }
       idx++;
@@ -113,7 +113,7 @@ public class SortableDoapResourceDataProvider<T extends IResource> extends
     return result.iterator();
   }
 
-  protected Comparator<IDoapResource> getComparator() {
+  protected Comparator<IResource> getComparator() {
     DoapResourceBehaviourComparator comparator = new DoapResourceBehaviourComparator();
     return comparator;
   }
@@ -124,7 +124,7 @@ public class SortableDoapResourceDataProvider<T extends IResource> extends
    * 
    * @return
    */
-  public Iterator<IDoapResource> iterator() {
+  public Iterator<IResource> iterator() {
     return iterator(0, resources.size());
   }
 
@@ -135,8 +135,8 @@ public class SortableDoapResourceDataProvider<T extends IResource> extends
 	          return new DetachableProjectModel((IProject) object);
 	        } else if (object instanceof IDoapCategory) {
 	          return new DetachableCategoryModel((IDoapCategory) object);
-	        } else if (object instanceof IDoapHomepage) {
-	          return new DetachableDocumentModel((IDoapHomepage) object);
+	        } else if (object instanceof IDocument) {
+	          return new DetachableDocumentModel((IDocument) object);
 	        } else {
 	          throw new IllegalArgumentException(
 	              "sortableDoapResourceDataProvider only works for Project, Homepage and Category models - should it work for more? Your help appreciated.");
@@ -151,11 +151,11 @@ public class SortableDoapResourceDataProvider<T extends IResource> extends
     return resources.size();
   }
 
-  class DoapResourceBehaviourComparator implements Comparator<IDoapResource>,
+  class DoapResourceBehaviourComparator implements Comparator<IResource>,
       Serializable {
     private static final long serialVersionUID = 1044456562070022248L;
 
-    public int compare(IDoapResource resource1, IDoapResource resource2) {
+    public int compare(IResource resource1, IResource resource2) {
       if (resource1.equals(resource2)) {
         return 0;
       }
@@ -169,19 +169,19 @@ public class SortableDoapResourceDataProvider<T extends IResource> extends
         sortField = getSort().getProperty();
       }
       if (sortField.equals(SORT_PROPERTY_NAME)) {
-        String name1 = (String) resource1.getName();
-        String name2 = (String) resource2.getName();
+        String name1 = (String) resource1.getURI();
+        String name2 = (String) resource2.getURI();
         result = name1.compareTo(name2);
-      } else if (sortField.equals(SORT_PROPERTY_SHORTDESC)) {
-        String desc1 = resource1.getShortDesc();
-        String desc2 = resource2.getShortDesc();
-        if (desc1 == null) {
-          result = 1;
-        } else if (desc2 == null) {
-          result = -1;
-        } else {
-          result = desc1.compareTo(desc2);
-        }
+//      } else if (sortField.equals(SORT_PROPERTY_SHORTDESC)) {
+//        String desc1 = resource1.getShortDesc();
+//        String desc2 = resource2.getShortDesc();
+//        if (desc1 == null) {
+//          result = 1;
+//        } else if (desc2 == null) {
+//          result = -1;
+//        } else {
+//          result = desc1.compareTo(desc2);
+//        }
       }
       if (result == 0) {
         result = 1;
@@ -196,7 +196,7 @@ public class SortableDoapResourceDataProvider<T extends IResource> extends
    * @param resources
    */
   @SuppressWarnings("unchecked")
-  public void resetData(Set<? extends IDoapResource> resources) {
-    this.resources = (Set<IDoapResource>) resources;
+  public void resetData(Set<? extends IResource> resources) {
+    this.resources = (Set<IResource>) resources;
   }
 }

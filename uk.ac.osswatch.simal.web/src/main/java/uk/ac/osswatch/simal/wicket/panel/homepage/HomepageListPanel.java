@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
@@ -47,7 +47,7 @@ public class HomepageListPanel extends Panel {
   private static final long serialVersionUID = 1L;
   private static final Logger logger = LoggerFactory
       .getLogger(HomepageListPanel.class);
-  private Set<IDoapHomepage> pages;
+  private Set<IDocument> pages;
   private String title;
   SortableDoapResourceDataProvider dataProvider;
 
@@ -83,7 +83,7 @@ public class HomepageListPanel extends Panel {
    *          the number of homepages to display per page
    * @throws SimalRepositoryException
    */
-  public HomepageListPanel(String id, String title, Set<IDoapHomepage> pages,
+  public HomepageListPanel(String id, String title, Set<IDocument> pages,
       int numberOfPages) {
     super(id);
     this.title = title;
@@ -98,20 +98,20 @@ public class HomepageListPanel extends Panel {
     
   }
 
-  private void addPagesList(Set<IDoapHomepage> pages, int numberOfPages) {
+  private void addPagesList(Set<IDocument> pages, int numberOfPages) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "label", "label"));
 
-    columns.add(new PropertyColumn<IDoapHomepage>(new Model<String>("URL"), "url", "url") {
+    columns.add(new PropertyColumn<IDocument>(new Model<String>("URL"), "url", "url") {
       private static final long serialVersionUID = 1L;
 
       @Override
-      public void populateItem(Item<ICellPopulator<IDoapHomepage>> cellItem, String componentId, IModel<IDoapHomepage> model) {
-        IDoapHomepage page = model.getObject();
+      public void populateItem(Item<ICellPopulator<IDocument>> cellItem, String componentId, IModel<IDocument> model) {
+        IDocument page = model.getObject();
         String label = "";
         
         if (model != null) {
-          label = ((IDoapHomepage) model.getObject()).getURI();
+          label = model.getObject().getURI();
         }
         cellItem.add(new Label(componentId, label));
       }
@@ -130,7 +130,7 @@ public class HomepageListPanel extends Panel {
    * 
    * @param person
    */
-  public void add(IDoapHomepage page) {
+  public void add(IDocument page) {
     this.pages.add(page);
   }
 }
