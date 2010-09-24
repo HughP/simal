@@ -45,8 +45,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -239,7 +237,7 @@ public class EditProjectPanel extends Panel {
         public void processDelete(IDocument iDoapResource)
             throws SimalRepositoryException {
           delete(iDoapResource);
-          getProject().removeHomepage((IDoapHomepage) iDoapResource);
+          getProject().removeHomepage((IDocument) iDoapResource);
         }
       };
       add(homepageList);

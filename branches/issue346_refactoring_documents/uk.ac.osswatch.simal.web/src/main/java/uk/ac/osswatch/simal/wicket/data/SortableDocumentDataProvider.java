@@ -26,16 +26,10 @@ import java.util.TreeSet;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
  * A DOAP resource data provider that allows the DOAP Resources to be sorted.

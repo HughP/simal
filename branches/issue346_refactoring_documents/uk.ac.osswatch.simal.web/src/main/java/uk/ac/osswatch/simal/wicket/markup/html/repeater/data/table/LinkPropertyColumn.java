@@ -23,7 +23,7 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
@@ -56,7 +56,7 @@ public class LinkPropertyColumn extends PropertyColumn<IResource> {
       String componentId, IModel<IResource> model) {
     IResource targetResource;
     if (model instanceof DetachableDocumentModel) {
-      IDoapHomepage page = (IDoapHomepage)model.getObject();
+      IDocument page = (IDocument)model.getObject();
       item.add(new LinkPanel(componentId, page.getURI(), page.getLabel()));
     } else {
       targetResource = model.getObject();

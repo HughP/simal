@@ -20,7 +20,7 @@ package uk.ac.osswatch.simal.wicket.panel.homepage;
 import org.apache.wicket.IClusterable;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -59,8 +59,8 @@ public class DoapHomepageFormInputModel implements IClusterable {
    * @return
    * @throws SimalRepositoryException
    */
-  public IDoapHomepage getHomepage() throws SimalRepositoryException {
-    IDoapHomepage homepage = SimalRepositoryFactory.getHomepageService().getOrCreate(getUrl());
+  public IDocument getHomepage() throws SimalRepositoryException {
+    IDocument homepage = SimalRepositoryFactory.getHomepageService().getOrCreate(getUrl());
     // FIXME homepage.addName(getName());
     return homepage;
   }

@@ -19,10 +19,10 @@ package uk.ac.osswatch.simal.wicket.panel.homepage;
 
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.validation.validator.UrlValidator;
 import org.apache.wicket.validation.validator.StringValidator;
+import org.apache.wicket.validation.validator.UrlValidator;
 
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
@@ -98,7 +98,7 @@ public class AddWebsitePanel extends AbstractAddDoapResourcePanel {
     inputModel.setName(nameField.getValue());
     inputModel.setUrl(urlField.getValue());
     try {
-      IDoapHomepage website = inputModel.getHomepage();
+      IDocument website = inputModel.getHomepage();
       if (project != null) {
         project.addHomepage(website);
       }

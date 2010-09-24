@@ -83,7 +83,7 @@ public class SourceRepositoriesPanel extends Panel {
 
       Set<String> anonRoots = repository.getAnonRoots();
       item.add(new Label("name", repository.getName()));
-      item.add(getRepeatingLinks("anonRoots", "anonLink", anonRoots));
+      item.add(getRepeatingLinks("anonRoots", anonRoots, "anonLink"));
       item.add(getRepeatingLinks("devLocations", "devLink", repository
           .getLocations()));
       item.add(getRepeatingLinks("browseRoots", "browseLink", repository
@@ -142,7 +142,7 @@ public class SourceRepositoriesPanel extends Panel {
    * @return
    */
   protected RepeatingView getRepeatingLinks(String repeaterWicketID,
-      String linkWicketID, Set<String> urls) {
+      Set<String> urls, String linkWicketID) {
     if (urls == null) {
       urls = new HashSet<String>();
     }

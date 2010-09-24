@@ -37,9 +37,7 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.model.IDocument;
-import uk.ac.osswatch.simal.model.IFoafResource;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
@@ -172,7 +170,8 @@ public class GenericIResourceSetPanel extends Panel {
     };
     columns.add(deleteColumn);
       
-    // FIXME dataProvider = new SortableDoapResourceDataProvider<IDocument>(pages);
+    // FIXME
+    dataProvider = new SortableDoapResourceDataProvider<IDocument>(pages);
     dataProvider.setSort(SortableDoapResourceDataProvider.SORT_PROPERTY_NAME,
         true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider,
