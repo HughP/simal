@@ -32,7 +32,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -161,7 +161,7 @@ public class TestPerson extends BaseRepositoryTest {
 
   @Test
   public void testEmptyResources() throws SimalRepositoryException {
-    Set<IDoapHomepage> homepages = documentor.getHomepages();
+    Set<IDocument> homepages = documentor.getHomepages();
     assertEquals(
         "Documentor homepage should not contain any resources as it has an empty resource attribute",
         0, homepages.size());

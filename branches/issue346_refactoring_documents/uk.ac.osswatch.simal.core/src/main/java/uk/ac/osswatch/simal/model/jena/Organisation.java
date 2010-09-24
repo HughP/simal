@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.model.jena;
 /*
  * 
- Copyright 2007 University of Oxford * 
+ Copyright 2007,2010 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -30,7 +30,7 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
-public class Organisation extends Resource implements IOrganisation {
+public class Organisation extends FoafResource implements IOrganisation {
 
 	public Organisation(com.hp.hpl.jena.rdf.model.Resource resource) {
 		super(resource);

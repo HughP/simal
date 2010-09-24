@@ -25,8 +25,8 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.jena.Homepage;
+import uk.ac.osswatch.simal.model.IDocument;
+import uk.ac.osswatch.simal.model.jena.Document;
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
@@ -49,7 +49,7 @@ public class JenaHomepageService extends JenaService implements IHomepageService
 	}
 
 
-  public IDoapHomepage create(String uri) throws SimalRepositoryException,
+  public IDocument create(String uri) throws SimalRepositoryException,
       DuplicateURIException {
 	if (uri == null || uri.length() == 0) {
 		throw new SimalRepositoryException("URI cannot be blank or null");
@@ -65,7 +65,7 @@ public class JenaHomepageService extends JenaService implements IHomepageService
     Statement s = model.createStatement(r, RDF.type, o);
     model.add(s);
 
-    IDoapHomepage page = new Homepage(r);
+    IDocument page = new Document(r);
     page.setSimalID(getNewID());
     return page;
   }
@@ -108,34 +108,34 @@ public class JenaHomepageService extends JenaService implements IHomepageService
 	    return fullID;
 	}
 
-  public IDoapHomepage get(String uri) throws SimalRepositoryException {
+  public IDocument get(String uri) throws SimalRepositoryException {
     if (getRepository().containsResource(uri)) {
       Model model = ((JenaSimalRepository) getRepository()).getModel();
-      return new Homepage(model.getResource(uri));
+      return new Document(model.getResource(uri));
     } else {
       return null;
     }
   }
 
-	public IDoapHomepage getOrCreate(String url)
+	public IDocument getOrCreate(String url)
 			throws SimalRepositoryException {
     if (getRepository().containsResource(url)) {
       return get(url);
     } else {
       Model model = ((JenaSimalRepository)getRepository()).getModel();
-      return new Homepage(model.getResource(url));
+      return new Document(model.getResource(url));
     }
   }
 
 
-  public Set<IDoapHomepage> getAll() {
+  public Set<IDocument> getAll() {
     Model model = ((JenaSimalRepository)getRepository()).getModel();
     Property homepage = model.createProperty(JenaSimalRepository.DOAP_HOMEPAGE_URI);
     StmtIterator itr = model.listStatements(null, homepage, (String)null);
-    Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
+    Set<IDocument> pages = new HashSet<IDocument>();
     while (itr.hasNext()) {
       String uri = ((Resource)itr.nextStatement().getObject()).getURI();
-      pages.add(new Homepage(model.getResource(uri)));
+      pages.add(new Document(model.getResource(uri)));
     }
     return pages;
   }

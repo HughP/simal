@@ -2,7 +2,7 @@ package uk.ac.osswatch.simal.model.jena;
 
 /*
  * 
- Copyright 2007 University of Oxford * 
+ Copyright 2007,2010 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,7 +20,7 @@ package uk.ac.osswatch.simal.model.jena;
 
 import uk.ac.osswatch.simal.model.IDocument;
 
-public class Document extends Resource implements IDocument {
+public class Document extends FoafResource implements IDocument {
   private static final long serialVersionUID = 1L;
 
   public Document(com.hp.hpl.jena.rdf.model.Resource resource) {

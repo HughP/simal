@@ -22,7 +22,6 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -56,7 +55,7 @@ public class TestHomepage extends BaseRepositoryTest {
     Iterator<IDocument> homepages = project1.getHomepages().iterator();
     String label;
     while (homepages.hasNext()) {
-      IDocument homepage = (IDoapHomepage) homepages.next();
+      IDocument homepage = homepages.next();
       label = homepage.getLabel();
       if (label.equals(TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE)) {
         hasHomepageOne = true;
