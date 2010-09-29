@@ -27,7 +27,9 @@ public interface IFoafResource extends IResource {
   /**
    * Get the default name for this organisation.
    */
-  public String getName();
+  public String getDefaultName();
+
+  public void setDefaultName(String name);
 
   /**
    * Add a name to the organisation. Each organisation may have more than one

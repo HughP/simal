@@ -79,28 +79,6 @@ public class Person extends FoafResource implements IPerson {
     return names;
   }
 
-  public Set<String> getNames() {
-    Iterator<Statement> itr = listProperties(Foaf.NAME).iterator();
-    Set<String> names = new HashSet<String>();
-    while (itr.hasNext()) {
-      names.add(itr.next().getString());
-    }
-
-    if (names.size() == 0) {
-      names = getGivennames();
-    }
-
-    if (names.size() == 0) {
-      names.add("No Name Supplied");
-      try {
-        logger.warn("There is a person with no name attached to projects " + getProjects().toString());
-      } catch (SimalRepositoryException e) {
-        e.printStackTrace();
-      }
-    }
-    return names;
-  }
-
   public Set<String> getFirstnames() {
     StmtIterator itr = getJenaResource().listProperties(Foaf.FIRST_NAME);
     Set<String> names = new HashSet<String>();
@@ -280,14 +258,5 @@ public class Person extends FoafResource implements IPerson {
         FOAF.mbox_sha1sum, sha1);
     model.add(statement);
   }
-
-	public void removeName(String name) throws SimalRepositoryException {
-	    Model model = getJenaResource().getModel();
-	    StmtIterator statements = model.listStatements(getJenaResource(), Foaf.NAME, name);
-	    if (statements == null) {
-	    	throw new SimalRepositoryException("Name does not exist in resource, cannot remove: " + name);
-	    }
-	    model.remove(statements);
-	}
 
 }

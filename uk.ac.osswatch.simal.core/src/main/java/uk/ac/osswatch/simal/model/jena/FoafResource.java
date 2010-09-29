@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.model.jena;
+
 /*
  * Copyright 2010 University of Oxford
  *
@@ -15,12 +16,16 @@ package uk.ac.osswatch.simal.model.jena;
  * limitations under the License.
  */
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
-
-import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 
 import uk.ac.osswatch.simal.model.IFoafResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class FoafResource extends Resource implements IFoafResource {
 
@@ -30,32 +35,50 @@ public class FoafResource extends Resource implements IFoafResource {
     super(resource);
   }
 
-  @Override
-  public String getName() {
-    // TODO Auto-generated method stub
-    return null;
+  public void setDefaultName(String name) {
+    addLiteralStatement(FOAF.name, name);
+    addLiteralStatement(RDFS.label, name);
+  }
+
+  public String getDefaultName() {
+    String name = getLiteralValue(RDFS.label);
+
+    if (name == null) {
+      name = getLiteralValue(FOAF.name);
+    }
+
+    if (name == null) {
+      name = getURI();
+    }
+    
+    return name;
   }
 
   public void addName(String name) {
-    getJenaResource().addProperty(FOAF.name, name);
+    addLiteralStatement(FOAF.name, name);
   }
 
-  @Override
   public Set<String> getNames() {
-    // TODO Auto-generated method stub
-    return null;
+    Iterator<Statement> itr = listProperties(FOAF.name).iterator();
+    Set<String> names = new HashSet<String>();
+    while (itr.hasNext()) {
+      names.add(itr.next().getString());
+    }
+
+    if (names.size() == 0) {
+      names.add(getURI());
+    }
+    
+    return names;
   }
 
-  @Override
   public void setNames(Set<String> names) {
-    // TODO Auto-generated method stub
-
+    replaceLiteralStatements(FOAF.name, names);
   }
 
-  @Override
   public void removeName(String name) throws SimalRepositoryException {
-    // TODO Auto-generated method stub
-
+    removeLiteralStatement(FOAF.name, name);
+    removeLiteralStatement(RDFS.label, name);
   }
 
 }
