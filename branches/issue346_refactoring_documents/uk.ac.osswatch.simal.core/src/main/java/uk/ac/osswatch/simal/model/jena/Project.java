@@ -38,7 +38,6 @@ import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.Doap;
@@ -402,36 +401,6 @@ public class Project extends DoapResource implements IProject {
     addCurrentProject(person);
   }
 
-  private void addResourceStatement(Property property, IResource resource) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        property, (com.hp.hpl.jena.rdf.model.Resource) resource
-            .getRepositoryResource());
-    model.add(statement);
-  }
-  
-  private void addLiteralStatement(Property property, String literal) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        property, literal);
-    model.add(statement);
-  }
-  
-  private void replaceLiteralStatements(Property property, Set<String> literals) {
-    getJenaResource().removeAll(property);
-    for(String literal : literals) {
-      addLiteralStatement(property, literal);
-    }
-  }
-
-  private void replacePropertyStatements(Property property,
-      Set<? extends IResource> resources) {
-    getJenaResource().removeAll(property);
-    for (IResource resource : resources) {
-      addResourceStatement(property, resource);
-    }
-  }
-
   private void replacePersonPropertyStatements(Property property,
       Set<IPerson> persons) {
     getJenaResource().removeAll(property);
@@ -466,14 +435,6 @@ public class Project extends DoapResource implements IProject {
     removeResourceStatement(Doap.TRANSLATOR, person);
   }
   
-  private void removeResourceStatement(Property property, IResource resource) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        property, (com.hp.hpl.jena.rdf.model.Resource) resource
-            .getRepositoryResource());
-    model.remove(statement);
-  }
-
   public String toString() {
     return getNames().toString();
   }

@@ -28,7 +28,6 @@ import uk.ac.osswatch.simal.model.IProject;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.sparql.vocabulary.FOAF;
-import com.hp.hpl.jena.vocabulary.RDFS;
 
 public class Organisation extends FoafResource implements IOrganisation {
 
@@ -37,23 +36,6 @@ public class Organisation extends FoafResource implements IOrganisation {
 	}
 
 	private static final long serialVersionUID = 1L;
-
-	public String getName() {
-	    String name = getLiteralValue(Foaf.NAME);
-	    
-	    if (name == null) {
-	      name = getLiteralValue(RDFS.label);
-	    }
-	    
-	    if (name == null) {
-	      return getURI();
-	    }
-	    return name;
-	}
-
-	public void addName(String name) {
-	    getJenaResource().addLiteral(Foaf.NAME, name);
-	}
 
 	public void addCurrentProject(String uri) {
 	    Model model = getJenaResource().getModel();

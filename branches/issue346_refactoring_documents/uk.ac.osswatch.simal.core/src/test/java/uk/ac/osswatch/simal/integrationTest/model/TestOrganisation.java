@@ -34,7 +34,7 @@ public class TestOrganisation extends BaseRepositoryTest {
 	  public void testGetName() throws SimalRepositoryException {
 		  IOrganisation org = SimalRepositoryFactory.getOrganisationService().get("http://www.test.com/Organization");
 		  assertNotNull(org);
-		  assertEquals("Name is not as expected", TEST_SIMAL_ORGANISATION_NAME, org.getName());
+		  assertEquals("Name is not as expected", TEST_SIMAL_ORGANISATION_NAME, org.getDefaultName());
 	  }
 	  
 	  @Test
@@ -42,7 +42,7 @@ public class TestOrganisation extends BaseRepositoryTest {
 		  IOrganisation org = SimalRepositoryFactory.getOrganisationService().get("http://www.test.com/Organization");
 		  String name = "Test Name";
 		  org.addName(name);
-		  assertEquals("Name is not as expected after adding new name", name, org.getName());
+		  assertEquals("Name is not as expected after adding new name", name, org.getDefaultName());
 	  }
 	
 	  @Test 

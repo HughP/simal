@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.AbstractResource;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -233,6 +234,51 @@ public class Resource extends AbstractResource {
     }
     
     return props;
+  }
+
+  protected void addLiteralStatement(Property property, String literal) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(),
+        property, literal);
+    model.add(statement);
+  }
+  
+  protected void replaceLiteralStatements(Property property, Set<String> literals) {
+    getJenaResource().removeAll(property);
+    for(String literal : literals) {
+      addLiteralStatement(property, literal);
+    }
+  }
+
+  protected void addResourceStatement(Property property, IResource resource) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(),
+        property, (com.hp.hpl.jena.rdf.model.Resource) resource
+            .getRepositoryResource());
+    model.add(statement);
+  }
+  
+  protected void removeLiteralStatement(Property property, String literal) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(
+        getJenaResource(), property, literal);
+    model.remove(statement);  
+  }
+
+  protected void removeResourceStatement(Property property, IResource resource) {
+    Model model = getJenaResource().getModel();
+    Statement statement = model.createStatement(getJenaResource(),
+        property, (com.hp.hpl.jena.rdf.model.Resource) resource
+            .getRepositoryResource());
+    model.remove(statement);
+  }
+
+  protected void replacePropertyStatements(Property property,
+      Set<? extends IResource> resources) {
+    getJenaResource().removeAll(property);
+    for (IResource resource : resources) {
+      addResourceStatement(property, resource);
+    }
   }
 
 public void addSeeAlso(URI uri) {

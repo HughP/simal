@@ -80,7 +80,7 @@ public class TestPimsImport extends BaseRepositoryTest {
 		boolean orgIsValid = false;
 		while (orgs.hasNext()) {
 			IOrganisation org = orgs.next();
-			if (org.getName().equals("Institution A")) {
+			if (org.getDefaultName().equals("Institution A")) {
 				Set<IProject> currentProjects = org.getCurrentProjects();
 				assertEquals("Don't have the right number of current projects for Institution A", 2, currentProjects.size());
 				orgIsValid = true;
