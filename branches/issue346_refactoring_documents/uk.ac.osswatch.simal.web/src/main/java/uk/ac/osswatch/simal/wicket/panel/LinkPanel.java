@@ -71,10 +71,10 @@ public class LinkPanel extends Panel {
    * a label will be added.
    * @param componentId
    * @param targetResource
-   * @param labelModel
+   * @param iModel
    */
   public LinkPanel(final String componentId, IResource targetResource,
-      IModel<?> labelModel) {
+      IModel<?> iModel) {
     super(componentId);
     if (targetResource != null) {
       PageParameters parameters = new PageParameters();
@@ -87,7 +87,7 @@ public class LinkPanel extends Panel {
       BookmarkablePageLink<BasePage> link = new BookmarkablePageLink<BasePage>(
           "link", getTargetPageClass(targetResource), parameters);
       add(link);
-      link.add(new Label("label", labelModel));
+      link.add(new Label("label", iModel));
     } else {
       add(new Label(componentId, ""));
     }

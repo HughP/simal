@@ -18,29 +18,38 @@ package uk.ac.osswatch.simal.wicket.data;
  */
 
 import org.apache.wicket.model.LoadableDetachableModel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDocument;
-import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
+@SuppressWarnings("hiding")
 public class DetachableDocumentModel<IDocument> extends LoadableDetachableModel<IDocument> {
-  private static final long serialVersionUID = -9017519516676203598L;
-  String uri;
+  public static final Logger LOGGER = LoggerFactory
+      .getLogger(DetachableDocumentModel.class);
 
-  public DetachableDocumentModel(IDocument homepage)  {
-    this.uri = ((IResource) homepage).getURI();
+  private static final long serialVersionUID = -9017519516676203598L;
+
+  private String uri;
+
+  public DetachableDocumentModel(IDocument object) {
+    this.uri = ((uk.ac.osswatch.simal.model.IDocument) object).getURI();
   }
 
   public DetachableDocumentModel(String uri) {
     this.uri = uri;
   }
 
-  @Override
+  @SuppressWarnings("unchecked") // type erasure
   protected IDocument load() {
-    IDocument homepage;
-      homepage = null;
-      // FIXME SimalRepositoryFactory.getHomepageService().getOrCreate(uri);
+    IDocument homepage = null;
+    try {
+      homepage = (IDocument) SimalRepositoryFactory.getHomepageService().getOrCreate(uri);
+    } catch (SimalRepositoryException e) {
+      LOGGER.warn("");
+    }
     return homepage;
   }
 

@@ -28,7 +28,6 @@ import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.wicket.BasePage;
-import uk.ac.osswatch.simal.wicket.data.DetachableDocumentModel;
 import uk.ac.osswatch.simal.wicket.doap.CategoryDetailPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
@@ -54,12 +53,11 @@ public class LinkPropertyColumn extends PropertyColumn<IResource> {
   @Override
   public void populateItem(Item<ICellPopulator<IResource>> item,
       String componentId, IModel<IResource> model) {
-    IResource targetResource;
-    if (model instanceof DetachableDocumentModel) {
-      IDocument page = (IDocument)model.getObject();
+    IResource targetResource = model.getObject();
+    if (targetResource instanceof IDocument) {
+      IDocument page = (IDocument)targetResource;
       item.add(new LinkPanel(componentId, page.getURI(), page.getLabel()));
     } else {
-      targetResource = model.getObject();
       item.add(new LinkPanel(componentId, targetResource, createLabelModel(model)));
     }
   }
