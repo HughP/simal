@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
+import uk.ac.osswatch.simal.wicket.data.SortableDocumentDataProvider;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
@@ -56,7 +56,7 @@ public class GenericIResourceSetPanel extends Panel {
   
   private Set<IDocument> resources;
   private String title;
-  private SortableDoapResourceDataProvider<IDocument> dataProvider;
+  private SortableDocumentDataProvider<IDocument> dataProvider;
   private IProject project;
   private boolean editMode;
   private boolean editingAllowed;
@@ -170,9 +170,8 @@ public class GenericIResourceSetPanel extends Panel {
     };
     columns.add(deleteColumn);
       
-    // FIXME
-    dataProvider = new SortableDoapResourceDataProvider<IDocument>(pages);
-    dataProvider.setSort(SortableDoapResourceDataProvider.SORT_PROPERTY_NAME,
+    dataProvider = new SortableDocumentDataProvider<IDocument>(pages);
+    dataProvider.setSort(SortableDocumentDataProvider.SORT_PROPERTY_NAME,
         true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider,
         MAX_ROWS_PER_PAGE));

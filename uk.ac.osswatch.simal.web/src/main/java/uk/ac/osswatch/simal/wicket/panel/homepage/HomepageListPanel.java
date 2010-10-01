@@ -30,13 +30,11 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
+import uk.ac.osswatch.simal.wicket.data.SortableDocumentDataProvider;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
@@ -45,11 +43,10 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
  */
 public class HomepageListPanel extends Panel {
   private static final long serialVersionUID = 1L;
-  private static final Logger logger = LoggerFactory
-      .getLogger(HomepageListPanel.class);
+//  private static final Logger logger = LoggerFactory
+//      .getLogger(HomepageListPanel.class);
   private Set<IDocument> pages;
   private String title;
-  SortableDoapResourceDataProvider dataProvider;
 
   /**
    * Create a panel that lists all homepages in the repository.
@@ -107,7 +104,6 @@ public class HomepageListPanel extends Panel {
 
       @Override
       public void populateItem(Item<ICellPopulator<IDocument>> cellItem, String componentId, IModel<IDocument> model) {
-        IDocument page = model.getObject();
         String label = "";
         
         if (model != null) {
@@ -117,8 +113,8 @@ public class HomepageListPanel extends Panel {
       }
     });
 
-    dataProvider = new SortableDoapResourceDataProvider(pages);
-    dataProvider.setSort(SortableDoapResourceDataProvider.SORT_PROPERTY_NAME, true);
+    SortableDocumentDataProvider<IDocument> dataProvider = new SortableDocumentDataProvider<IDocument>(pages);
+    dataProvider.setSort(SortableDocumentDataProvider.SORT_PROPERTY_NAME, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider,
         numberOfPages));
   }

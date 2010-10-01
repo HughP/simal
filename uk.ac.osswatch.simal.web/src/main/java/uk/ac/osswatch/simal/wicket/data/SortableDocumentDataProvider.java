@@ -24,10 +24,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
-import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.model.IModel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IResource;
 
@@ -36,13 +33,13 @@ import uk.ac.osswatch.simal.model.IResource;
  * 
  */
 public class SortableDocumentDataProvider<IDocument> extends
-    SortableDataProvider<IDocument> {
+    SortableFoafResourceDataProvider<IDocument> {
   private static final long serialVersionUID = -6674850425804180338L;
-  private static final Logger logger = LoggerFactory
-      .getLogger(SortableDocumentDataProvider.class);
+//  private static final Logger logger = LoggerFactory
+//      .getLogger(SortableDocumentDataProvider.class);
 
   public static final String SORT_PROPERTY_NAME = "name";
-  public static final String SORT_PROPERTY_SHORTDESC = "shortDesc";
+  public static final String SORT_PROPERTY_LABEL = "label";
 
   /**
    * The set of DoapResources we are providing access to.
@@ -52,9 +49,8 @@ public class SortableDocumentDataProvider<IDocument> extends
   /**
    * Create a data provider for the supplied resources.
    */
-  @SuppressWarnings("unchecked")
-  public SortableDocumentDataProvider(Set<? extends IDocument> resources) {
-    this.resources = (Set<IDocument>) resources;
+  public SortableDocumentDataProvider(Set<IDocument> resources) {
+    this.resources = resources;
   }
 
   @Override
@@ -85,7 +81,7 @@ public class SortableDocumentDataProvider<IDocument> extends
    */
   protected boolean validateSortProperty(String property) {
     return property.equals(SORT_PROPERTY_NAME)
-        || property.equals(SORT_PROPERTY_SHORTDESC);
+        || property.equals(SORT_PROPERTY_LABEL);
   }
 
   public Iterator<IDocument> iterator(int first, int count) {
@@ -108,34 +104,29 @@ public class SortableDocumentDataProvider<IDocument> extends
   }
 
   protected Comparator<IDocument> getComparator() {
-    DoapResourceBehaviourComparator comparator = new DoapResourceBehaviourComparator();
+    IDocumentBehaviourComparator comparator = new IDocumentBehaviourComparator();
     return comparator;
   }
 
-  /**
-   * Get an iterator over all resources. The resources will be sorted
-   * accordingly.
-   * 
-   * @return
-   */
-  private Iterator<IDocument> iterator() {
-    return iterator(0, resources.size());
-  }
-
   public IModel<IDocument> model(IDocument object) {
-    return new DetachableDocumentModel(object);
+    return (IModel<IDocument>) new DetachableDocumentModel<IDocument>(object);
   }
 
   public int size() {
     return resources.size();
   }
 
-  class DoapResourceBehaviourComparator implements Comparator<IDocument>,
+  class IDocumentBehaviourComparator implements Comparator<IDocument>,
       Serializable {
     private static final long serialVersionUID = 1044456562070022248L;
 
     public int compare(IDocument resource1, IDocument resource2) {
-      if (resource1.equals(resource2)) {
+      
+      // cast needed because of type erasure
+      uk.ac.osswatch.simal.model.IDocument doc1 = (uk.ac.osswatch.simal.model.IDocument) resource1;
+      uk.ac.osswatch.simal.model.IDocument doc2 = (uk.ac.osswatch.simal.model.IDocument) resource2;
+
+      if (doc1.equals(doc2)) {
         return 0;
       }
 
@@ -147,21 +138,20 @@ public class SortableDocumentDataProvider<IDocument> extends
       } else {
         sortField = getSort().getProperty();
       }
-      if (sortField.equals(SORT_PROPERTY_NAME)) {
-//        String name1 = (String) resource1.getLabel();
-//        String name2 = (String) resource2.getLabel();
-//        result = name1.compareTo(name2);
-      } else if (sortField.equals(SORT_PROPERTY_SHORTDESC)) {
-        // FIXME Fix comparing IDocuments
-//        String desc1 = resource1.getShortDesc();
-//        String desc2 = resource2.getShortDesc();
-//        if (desc1 == null) {
-//          result = 1;
-//        } else if (desc2 == null) {
-//          result = -1;
-//        } else {
-//          result = desc1.compareTo(desc2);
-//        }
+      if (sortField.equals(SORT_PROPERTY_LABEL)) {
+        String name1 = doc1.getLabel();
+        String name2 = doc2.getLabel();
+        result = name1.compareTo(name2);
+      } else if (sortField.equals(SORT_PROPERTY_NAME)) {
+        String desc1 = doc1.getDefaultName();
+        String desc2 = doc2.getDefaultName();
+        if (desc1 == null) {
+          result = 1;
+        } else if (desc2 == null) {
+          result = -1;
+        } else {
+          result = desc1.compareTo(desc2);
+        }
       }
       if (result == 0) {
         result = 1;
@@ -175,8 +165,8 @@ public class SortableDocumentDataProvider<IDocument> extends
    * 
    * @param resources
    */
-  @SuppressWarnings("unchecked")
   public void resetData(Set<IDocument> resources) {
     this.resources = resources;
   }
+
 }
