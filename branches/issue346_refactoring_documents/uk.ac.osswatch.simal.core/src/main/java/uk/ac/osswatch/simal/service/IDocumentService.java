@@ -30,7 +30,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * @refactor appropriate methods in SimalRepository into this class
  *
  */
-public interface IHomepageService extends IService {
+public interface IDocumentService extends IService {
 	   /**
 	    * Get a homepage from the repository. If the homepage does not yet exist it is created.
 	    * 

@@ -31,7 +31,7 @@ import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.service.IHomepageService;
+import uk.ac.osswatch.simal.service.IDocumentService;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -40,11 +40,11 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.vocabulary.RDF;
 
-public class JenaHomepageService extends JenaService implements IHomepageService {
+public class JenaDocumentService extends JenaService implements IDocumentService {
   public static final Logger logger = LoggerFactory
-      .getLogger(JenaHomepageService.class);
+      .getLogger(JenaDocumentService.class);
 
-	public JenaHomepageService(ISimalRepository repo) {
+	public JenaDocumentService(ISimalRepository repo) {
 		super(repo);
 	}
 
