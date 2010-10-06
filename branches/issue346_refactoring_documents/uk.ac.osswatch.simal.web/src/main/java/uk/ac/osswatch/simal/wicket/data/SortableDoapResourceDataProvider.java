@@ -94,7 +94,8 @@ public class SortableDoapResourceDataProvider<T extends IDoapResource> extends
   }
 
   public Iterator<IDoapResource> iterator(int first, int count) {
-	// FIXME: Do we really need to test for duplicates here now that we have proper duplicate handling?
+    // FIXME: Do we really need to test for duplicates here now that we have
+    // proper duplicate handling?
     Comparator<IDoapResource> comparator = getComparator();
     TreeSet<IDoapResource> treeSet = new TreeSet<IDoapResource>(comparator);
     treeSet.addAll(resources);
@@ -128,22 +129,22 @@ public class SortableDoapResourceDataProvider<T extends IDoapResource> extends
     return iterator(0, resources.size());
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   public IModel<IResource> model(IResource object) {
-	    try {
-	        if (object instanceof IProject) {
-	          return new DetachableProjectModel((IProject) object);
-	        } else if (object instanceof IDoapCategory) {
-	          return new DetachableCategoryModel((IDoapCategory) object);
-	        } else {
-	          throw new IllegalArgumentException(
-	              "sortableDoapResourceDataProvider only works for Project " +
-	              "and Category models - should it work for more? Your help appreciated.");
-	        }
-	      } catch (SimalRepositoryException e) {
-	        logger.warn("Error reading from repository", e);
-	        return new Model("Error");
-	      }
+    try {
+      if (object instanceof IProject) {
+        return new DetachableProjectModel((IProject) object);
+      } else if (object instanceof IDoapCategory) {
+        return new DetachableCategoryModel((IDoapCategory) object);
+      } else {
+        throw new IllegalArgumentException(
+            "sortableDoapResourceDataProvider only works for Project "
+                + "and Category models - should it work for more? Your help appreciated.");
+      }
+    } catch (SimalRepositoryException e) {
+      logger.warn("Error reading from repository", e);
+      return new Model("Error");
+    }
   }
 
   public int size() {
@@ -171,16 +172,16 @@ public class SortableDoapResourceDataProvider<T extends IDoapResource> extends
         String name1 = (String) resource1.getName();
         String name2 = (String) resource2.getName();
         result = name1.compareTo(name2);
-// FIXME      } else if (sortField.equals(SORT_PROPERTY_SHORTDESC)) {
-//        String desc1 = resource1.getShortDesc();
-//        String desc2 = resource2.getShortDesc(); 
-//        if (desc1 == null) {
-//          result = 1;
-//        } else if (desc2 == null) {
-//          result = -1;
-//        } else {
-//          result = desc1.compareTo(desc2);
-//        }
+      } else if (sortField.equals(SORT_PROPERTY_SHORTDESC)) {
+        String desc1 = resource1.getShortDesc();
+        String desc2 = resource2.getShortDesc();
+        if (desc1 == null) {
+          result = 1;
+        } else if (desc2 == null) {
+          result = -1;
+        } else {
+          result = desc1.compareTo(desc2);
+        }
       }
       if (result == 0) {
         result = 1;
