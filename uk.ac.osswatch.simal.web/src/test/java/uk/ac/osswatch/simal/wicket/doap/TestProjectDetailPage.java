@@ -53,7 +53,7 @@ public class TestProjectDetailPage extends TestBase {
     tester.assertVisible("editProjectPanel:editProjectForm:projectName");
     tester.assertVisible("editProjectPanel:editProjectForm:shortDesc");
     tester.assertVisible("editProjectPanel:editProjectForm:description");
-    tester.assertVisible("editProjectPanel:editProjectForm:mailingLists");
+    tester.assertVisible("editProjectPanel:editProjectForm:homepageList");
     tester.assertVisible("editProjectPanel:editProjectForm:categoryList");
 
     tester.assertVisible("developers");
