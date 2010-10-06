@@ -46,19 +46,19 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
 /**
  * A simple panel for listing a set of any IDoapResources. 
  */
-public class GenericIResourceSetPanel extends Panel {
+public class DocumentSetPanel extends Panel {
   public static final Logger LOGGER = LoggerFactory
-      .getLogger(GenericIResourceSetPanel.class);
+      .getLogger(DocumentSetPanel.class);
 
   private static final long serialVersionUID = -932080365392667144L;
 
   private static final int MAX_ROWS_PER_PAGE = 10;
   
-  private Set<IDocument> resources;
+  private Set<IDocument> documents;
   private String title;
-  private SortableDocumentDataProvider<IDocument> dataProvider;
+  private AddIResourcePanel addDocumentPanel;
   private IProject project;
-  private boolean editMode;
+  private boolean editingOn;
   private boolean editingAllowed;
 
   /**
@@ -72,16 +72,15 @@ public class GenericIResourceSetPanel extends Panel {
    *          the number of homepages to display per page
    * @throws SimalRepositoryException
    */
-  @SuppressWarnings("unchecked")
-  public GenericIResourceSetPanel(String id, String title,
+  public DocumentSetPanel(String id, String title,
       Set<IDocument> resources, boolean editingAllowed, IProject project) {
     super(id);
     this.title = title;
     this.project = project;
     this.editingAllowed = editingAllowed;
-    this.resources = (Set<IDocument>) resources;
+    this.documents = (Set<IDocument>) resources;
 
-    this.editMode = false;
+    this.editingOn = false;
     populatePanel();
   }
 
@@ -98,7 +97,7 @@ public class GenericIResourceSetPanel extends Panel {
    *          the number of homepages to display per page
    * @throws SimalRepositoryException
    */
-  public GenericIResourceSetPanel(String id, String title,
+  public DocumentSetPanel(String id, String title,
       Set<IDocument> resources) {
     // TODO By default no editing allowed
     this(id, title, resources, false, null);
@@ -106,13 +105,15 @@ public class GenericIResourceSetPanel extends Panel {
 
   private void populatePanel() {
     add(new Label("title", title));
-    addResourcesList(resources);
-    add(new AddIResourcePanel("addWebsitePanel", this, editingAllowed));
+    addDocumentsList();
+    this.addDocumentPanel = new AddIResourcePanel("addWebsitePanel", this, editingAllowed);
+    this.addDocumentPanel.setVisible(this.editingOn);
+    add(this.addDocumentPanel);
     setOutputMarkupId(true);
   }
 
-  @SuppressWarnings("unchecked")
-  private void addResourcesList(Set<IDocument> pages) {
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  private void addDocumentsList() {
     List<IColumn<?>> columns = new ArrayList<IColumn<?>>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "label",
         "label"));
@@ -164,13 +165,13 @@ public class GenericIResourceSetPanel extends Panel {
       }
       
       public String getCssClass() {
-        return (editMode) ? "visiblecell" : "invisiblecell";
+        return (editingOn) ? "visiblecell" : "invisiblecell";
       }
       
     };
     columns.add(deleteColumn);
       
-    dataProvider = new SortableDocumentDataProvider<IDocument>(pages);
+    SortableDocumentDataProvider<IDocument> dataProvider = new SortableDocumentDataProvider<IDocument>(documents);
     dataProvider.setSort(SortableDocumentDataProvider.SORT_PROPERTY_NAME,
         true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider,
@@ -184,8 +185,8 @@ public class GenericIResourceSetPanel extends Panel {
    * 
    * @param iFoafResource
    */
-  public void add(IDocument iFoafResource) {
-    this.resources.add(iFoafResource);
+  protected void addToList(IDocument iFoafResource) {
+    this.documents.add(iFoafResource);
   }
 
   private void processDeleteOnClick(AjaxRequestTarget target, IDocument iDoapResource) {
@@ -212,7 +213,7 @@ public class GenericIResourceSetPanel extends Panel {
    * @param iDoapResource
    */
   public void delete(IDocument iDoapResource) {
-    this.resources.remove(iDoapResource);
+    this.documents.remove(iDoapResource);
   }
 
   public void processDelete(IDocument inputModel)
@@ -229,7 +230,8 @@ public class GenericIResourceSetPanel extends Panel {
   /**
    * @param editMode
    */
-  public void setEditMode(boolean editMode) {
-    this.editMode = editMode;
+  public void setEditingOn(boolean editMode) {
+    this.editingOn = (editMode && this.editingAllowed);
+    this.addDocumentPanel.setVisible(this.editingOn);
   }
 }

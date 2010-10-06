@@ -109,7 +109,9 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
    */
   protected void onHideForm(AjaxRequestTarget target) {
     formVisible = false;
-    target.addComponent(this);
+    if (target != null) {
+      target.addComponent(this);
+    }
   }
 
   /**
@@ -134,7 +136,9 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
     public void onSubmit(AjaxRequestTarget target, Form<?> form) {
       processAddSubmit();
       onHideForm(target);
-      target.addComponent(updatePanel);
+      if (target != null) {
+        target.addComponent(updatePanel);
+      }
     }
 
     protected void onError(AjaxRequestTarget target, Form<?> form) {
@@ -143,7 +147,7 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
   }
 
   /** Link for cancelling a new DOAP resource action. */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings("rawtypes")
   private final class CancelLink extends AjaxFallbackLink {
 
     private static final long serialVersionUID = -1058382750336408613L;
@@ -166,7 +170,7 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
   }
 
   /** Link for displaying the AddDoapResourceForm. */
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings("rawtypes")
   private final class NewDoapResourceLink extends AjaxFallbackLink {
     private static final long serialVersionUID = 8333095362462779919L;
 

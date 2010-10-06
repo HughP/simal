@@ -43,8 +43,8 @@ public class IDoapResourceFormInputModel implements IClusterable {
    * 
    * @return
    */
-  public void setName(String name) {
-    this.name = name;
+  public void setName(String defaultName) {
+    this.name = defaultName;
   }
 
   /**

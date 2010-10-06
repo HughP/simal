@@ -41,7 +41,7 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
   TextField<String> nameField;
   TextField<String> urlField;
 
-  private GenericIResourceSetPanel updatePanel;
+  private DocumentSetPanel updatePanel;
 
   /**
    * Create a new container that will initially display the command link to show
@@ -55,7 +55,7 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
    *          the container that should be updated when the website has been
    *          added (must have setOutputMarkupId(true)
    */
-  public AddIResourcePanel(String wicketid, GenericIResourceSetPanel updatePanel, boolean editingAllowed) {
+  public AddIResourcePanel(String wicketid, DocumentSetPanel updatePanel, boolean editingAllowed) {
     super(wicketid, updatePanel, editingAllowed);
     this.updatePanel = updatePanel;
     setOutputMarkupId(true);
@@ -95,7 +95,7 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
    */
   protected void onShowForm(AjaxRequestTarget target) {
     super.onShowForm(target);
-    updatePanel.setEditMode(true);
+    updatePanel.setEditingOn(true);
     target.addComponent(updatePanel);
   }
 
@@ -107,8 +107,10 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
    */
   protected void onHideForm(AjaxRequestTarget target) {
     super.onHideForm(target);
-    updatePanel.setEditMode(false);
-    target.addComponent(updatePanel);
+    updatePanel.setEditingOn(false);
+    if (target != null) {
+      target.addComponent(updatePanel);
+    }
   }
 
   /* (non-Javadoc)
