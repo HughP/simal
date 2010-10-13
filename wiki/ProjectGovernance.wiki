@@ -1,5 +1,6 @@
 #summary Governance model of the Simal Project
 #labels Featured,Phase-Support
+#sidebar DeveloperTOC
 
 Simal is a consensus-based community project. Our governance model is inspired by that used within [http://www.apache.org/ The Apache Software Foundation] projects. Anyone with an interest in Simal can contribute to the project's design, documentation and strategy. Anyone can join the project community and participate in the decision-making process.
 
