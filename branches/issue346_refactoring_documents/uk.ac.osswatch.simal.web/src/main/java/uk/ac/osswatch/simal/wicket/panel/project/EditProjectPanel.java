@@ -48,6 +48,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
@@ -232,7 +233,7 @@ public class EditProjectPanel extends Panel {
         private static final long serialVersionUID = -6849401011037784163L;
 
         public void processAdd(IDoapResourceFormInputModel inputModel)
-            throws SimalRepositoryException {
+            throws SimalException {
           IDocument homepage = SimalRepositoryFactory.getHomepageService()
               .getOrCreate(inputModel.getUrl());
           homepage.setDefaultName(inputModel.getName());

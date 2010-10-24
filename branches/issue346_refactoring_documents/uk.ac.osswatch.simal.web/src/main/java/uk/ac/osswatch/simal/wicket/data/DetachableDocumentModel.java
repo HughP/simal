@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDocument;
+import uk.ac.osswatch.simal.model.IncompatibleTypeException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 @SuppressWarnings("hiding")
@@ -48,7 +49,9 @@ public class DetachableDocumentModel<IDocument> extends LoadableDetachableModel<
     try {
       homepage = (IDocument) SimalRepositoryFactory.getHomepageService().getOrCreate(uri);
     } catch (SimalRepositoryException e) {
-      LOGGER.warn("");
+      LOGGER.warn("Could not load document: " + e.getMessage(), e);
+    } catch (IncompatibleTypeException e) {
+      LOGGER.warn("Document appears to be of a different type: " + e.getMessage(), e);
     }
     return homepage;
   }
