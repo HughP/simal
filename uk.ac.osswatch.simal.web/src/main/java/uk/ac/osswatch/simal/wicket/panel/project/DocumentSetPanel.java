@@ -39,6 +39,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableDocumentDataProvider;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
@@ -200,7 +201,7 @@ public class DocumentSetPanel extends Panel {
   }
 
   public void processAdd(IDoapResourceFormInputModel inputModel)
-      throws SimalRepositoryException {
+      throws SimalException {
     // Subclasses that wish to use it should implement it.
     // TODO To be made abstract to force subclassing and implementation of
     // method
