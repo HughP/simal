@@ -36,8 +36,10 @@ public class FoafResource extends Resource implements IFoafResource {
   }
 
   public void setDefaultName(String name) {
-    addLiteralStatement(FOAF.name, name);
-    addLiteralStatement(RDFS.label, name);
+    if (name != null && name.length() > 0) {
+      addLiteralStatement(FOAF.name, name);
+      addLiteralStatement(RDFS.label, name);
+    }
   }
 
   public String getDefaultName() {

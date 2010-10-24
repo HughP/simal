@@ -1,3 +1,5 @@
+package uk.ac.osswatch.simal.model;
+
 /*
  * Copyright 2010 University of Oxford
  *
@@ -13,23 +15,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package uk.ac.osswatch.simal.model;
+import uk.ac.osswatch.simal.rdf.SimalException;
 
 /**
- * An IDocument is the representation of a foaf:Document.
- * It can be used for all types of websites, eg. URLs that 
- * refer to a doap:homepage or a doap:wiki.
- * 
+ * Exception used when a resource is of a different type than required or
+ * supported and this other type is incompatible with the required type.
  */
-public interface IDocument extends IFoafResource {
+public class IncompatibleTypeException extends SimalException {
+
+  private static final long serialVersionUID = -5354081098162235388L;
 
   /**
-   * Make sure the Document is of the right type foaf:Document. If the Resource
-   * is of another type throw a WrongTypeException.
-   * 
-   * @return this to allow chaining.
-   * @throws IncompatibleTypeException
-   *           If the Resource of this Document is of another type.
+   * @param message
+   * @param cause
    */
-  public IDocument ensureDocumentType() throws IncompatibleTypeException;
+  public IncompatibleTypeException(String message, Throwable cause) {
+    super(message, cause);
+  }
+
+  public IncompatibleTypeException(String message) {
+    super(message);
+  }
+
 }

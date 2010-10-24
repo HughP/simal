@@ -47,9 +47,9 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
-public class TestProject extends BaseRepositoryTest {
+public class TestModelProject extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory
-      .getLogger(TestProject.class);
+      .getLogger(TestModelProject.class);
 
   private static Set<IPerson> maintainers;
   private static Set<IPerson> developers;
@@ -487,7 +487,7 @@ public class TestProject extends BaseRepositoryTest {
   @Test
   public void testOpennessRating() throws SimalRepositoryException {
 	  int rating = project1.getOpennessRating();
-	  assertEquals("Got an incorrect openness rating for the test project", 100, rating);
+	  assertEquals("Got an incorrect openness rating for test project " + project1.getLabel(), 100, rating);
   }
   
   @Test

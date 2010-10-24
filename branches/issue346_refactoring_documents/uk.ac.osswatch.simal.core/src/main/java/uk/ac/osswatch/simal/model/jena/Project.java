@@ -92,21 +92,11 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDocument> getDownloadMirrors() {
-    Iterator<Statement> itr = listProperties(Doap.DOWNLOAD_MIRROR).iterator();
-    Set<IDocument> mirrors = new HashSet<IDocument>();
-    while (itr.hasNext()) {
-      mirrors.add(new Document(itr.next().getResource()));
-    }
-    return mirrors;
+    return getDocuments(Doap.DOWNLOAD_MIRROR);
   }
 
   public Set<IDocument> getDownloadPages() {
-    Iterator<Statement> itr = listProperties(Doap.DOWNLOAD_PAGE).iterator();
-    Set<IDocument> pages = new HashSet<IDocument>();
-    while (itr.hasNext()) {
-      pages.add(new Document(itr.next().getResource()));
-    }
-    return pages;
+    return getDocuments(Doap.DOWNLOAD_PAGE);
   }
 
   public Set<IPerson> getHelpers() {
@@ -114,23 +104,11 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDocument> getHomepages() {
-    List<Statement> props = listProperties(Doap.HOMEPAGE);
-    Iterator<Statement> itr = props.iterator();
-    Set<IDocument> pages = new HashSet<IDocument>();
-    while (itr.hasNext()) {
-      Statement stmnt = itr.next();
-      pages.add(new Document(stmnt.getResource()));
-    }
-    return pages;
+    return getDocuments(Doap.HOMEPAGE);
   }
 
   public Set<IDocument> getIssueTrackers() {
-    Iterator<Statement> itr = listProperties(Doap.BUG_DATABASE).iterator();
-    Set<IDocument> trackers = new HashSet<IDocument>();
-    while (itr.hasNext()) {
-      trackers.add(new Document(itr.next().getResource()));
-    }
-    return trackers;
+    return getDocuments(Doap.BUG_DATABASE);
   }
 
   public Set<IDoapMailingList> getMailingLists() {
@@ -194,12 +172,7 @@ public class Project extends DoapResource implements IProject {
   }
   
   public Set<IDocument> getOldHomepages() {
-    Iterator<Statement> itr = listProperties(Doap.OLD_HOMEPAGE).iterator();
-    Set<IDocument> pages = new HashSet<IDocument>();
-    while (itr.hasNext()) {
-      pages.add(new Document(itr.next().getResource()));
-    }
-    return pages;
+    return getDocuments(Doap.OLD_HOMEPAGE);
   }
 
   public Set<String> getProgrammingLanguages() {
@@ -235,12 +208,7 @@ public class Project extends DoapResource implements IProject {
   }
 
   public Set<IDocument> getScreenshots() {
-    Iterator<Statement> itr = listProperties(Doap.SCREENSHOTS).iterator();
-    Set<IDocument> langs = new HashSet<IDocument>();
-    while (itr.hasNext()) {
-      langs.add(new Document(itr.next().getResource()));
-    }
-    return langs;
+    return getDocuments(Doap.SCREENSHOTS);
   }
 
   public String getSimalID() throws SimalRepositoryException {
@@ -280,13 +248,21 @@ public class Project extends DoapResource implements IProject {
     return getUniquePeople(Doap.TRANSLATOR);
   }
 
-  public Set<IDocument> getWikis() {
-    Iterator<Statement> itr = listProperties(Doap.WIKI).iterator();
-    Set<IDocument> pages = new HashSet<IDocument>();
+  private Set<IDocument> getDocuments(Property property) {
+    Iterator<Statement> itr = listProperties(property).iterator();
+    Set<IDocument> docs = new HashSet<IDocument>();
     while (itr.hasNext()) {
-      pages.add(new Document(itr.next().getResource()));
+      docs.add(new Document(itr.next().getResource()));
     }
-    return pages;
+    return docs;
+  }
+  
+  public Set<IDocument> getWikis() {
+    return getDocuments(Doap.WIKI);
+  }
+
+  public Set<IDocument> getBlogs() {
+    return getDocuments(Doap.BLOG);
   }
 
   protected String toJSONRecordContent() throws SimalRepositoryException {
@@ -488,21 +464,27 @@ public class Project extends DoapResource implements IProject {
 	
 	double score = 0;
 	if (getDownloadPages().size() > 0) {
+	  logger.error("GOT downloadpages");
 		score = score + 1;
 	}
 	if (getFeeds().size() > 0) {
+    logger.error("GOT feeds");
 		score = score + 1;
 	}
 	if (getHomepages().size() > 0) {
+    logger.error("GOT homepages");
 		score = score + 1;
 	}
 	if (getIssueTrackers().size() > 0) {
+    logger.error("GOT issuetrackers");
 		score = score + 1;
 	}
 	if (getMailingLists().size() > 0) {
+    logger.error("GOT mailing lists");
 		score = score + 1;
 	}
 	if (getRepositories().size() > 0) {
+    logger.error("GOT repos");
 		score = score + 1;
 	}
 		
@@ -550,4 +532,21 @@ public class Project extends DoapResource implements IProject {
     addResourceStatement(Doap.RELEASE, release);
   }
 
+  public void delete() throws SimalRepositoryException {
+    Set<IDocument> allDocuments = getHomepages();
+    allDocuments.addAll(getOldHomepages());
+    allDocuments.addAll(getIssueTrackers());
+    allDocuments.addAll(getScreenshots());
+    allDocuments.addAll(getDownloadPages());
+    allDocuments.addAll(getDownloadMirrors());
+    allDocuments.addAll(getWikis());
+    allDocuments.addAll(getBlogs());
+
+    delete(true);
+
+    for (IDocument doc : allDocuments) { 
+      doc.delete();
+    }
+  }
+  
 }
