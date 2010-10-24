@@ -464,27 +464,21 @@ public class Project extends DoapResource implements IProject {
 	
 	double score = 0;
 	if (getDownloadPages().size() > 0) {
-	  logger.error("GOT downloadpages");
 		score = score + 1;
 	}
 	if (getFeeds().size() > 0) {
-    logger.error("GOT feeds");
 		score = score + 1;
 	}
 	if (getHomepages().size() > 0) {
-    logger.error("GOT homepages");
-		score = score + 1;
+	  score = score + 1;
 	}
 	if (getIssueTrackers().size() > 0) {
-    logger.error("GOT issuetrackers");
 		score = score + 1;
 	}
 	if (getMailingLists().size() > 0) {
-    logger.error("GOT mailing lists");
 		score = score + 1;
 	}
 	if (getRepositories().size() > 0) {
-    logger.error("GOT repos");
 		score = score + 1;
 	}
 		
