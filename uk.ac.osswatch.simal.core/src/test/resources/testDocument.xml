@@ -1,0 +1,54 @@
+<!--
+  Copyright 2010 University of Oxford
+  
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+  http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns="http://usefulinc.com/ns/doap#"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:v="http://www.w3.org/2006/vcard/ns#"
+	xmlns:dc="http://purl.org/dc/core/" xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:simal="http://oss-watch.ac.uk/ns/0.2/simal#" xmlns:cerif="http://www.dotac.info/ontology/CERIF2008.owl#">
+	<Project rdf:about="http://simal.oss-watch.ac.uk/testDocument">
+		<created>2010-10-12</created>
+		<name>Full name of testDocument</name>
+		<shortname>testDocument</shortname>
+		<shortdesc xml:lang="en">Short project description (120 c)</shortdesc>
+		<description xml:lang="en">Long project description (3-5 sentences)</description>
+		<old-homepage rdf:resource="http://www.old-testdocument.com" />
+		<homepage>
+		  <foaf:Document rdf:about="http://www.testdocument.com">
+		  	<foaf:name>Main website</foaf:name>
+		  	<rdfs:label>Main website</rdfs:label>
+		  </foaf:Document>
+		</homepage>
+		<homepage>
+		  <foaf:Document rdf:about="http://www.sf.net/testdocument" />
+		</homepage>
+		<blog rdf:resource="http://blog.testdocument.com" />
+		<foaf:seeAlso dc:title="Project blog" rdf:resource="http://atomfeed.testdocument.com"
+			dc:format="application/rss+xml" />
+		<bug-database rdf:resource="http://issue.tracker.testdocument.com" />
+		<license rdf:resource="http://usefulinc.com/doap/licenses/gplv3" />
+		<license rdf:resource="http://usefulinc.com/doap/licenses/CC-UK" />
+		<category rdf:resource="http://registry.oss-watch.ac.uk/categories/web-basedtools"
+			rdfs:label="Web-based tools" />
+		<category rdf:resource="http://registry.oss-watch.ac.uk/categories/report"
+			rdfs:label="Report" />
+		<repository>
+			<BKRepository>
+				<location rdf:resource="http://bit.keeper.testdocument.com" />
+				<browse rdf:resource="http://bit.keeper.testdocument.com/browse" />
+			</BKRepository>
+		</repository>
+	</Project>
+</rdf:RDF> 

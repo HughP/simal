@@ -145,10 +145,24 @@ public class Resource extends AbstractResource {
   }
 
   public void delete() throws SimalRepositoryException {
-    getJenaResource().removeProperties();
+    delete(false);
+  }
+
+  protected void delete(boolean cascading) {
     Model model = getJenaResource().getModel();
-    model.removeAll(jenaResource, null, null);
     
+    if (cascading) {
+      StmtIterator seeAlsos = getJenaResource().listProperties(RDFS.seeAlso);
+      while (seeAlsos.hasNext()) {
+        String seeAlso = seeAlsos.nextStatement().getObject().toString();
+        com.hp.hpl.jena.rdf.model.Resource resource = model.getResource(seeAlso);
+        resource.removeProperties();
+        model.removeAll(resource, null, null);
+      }
+    }
+    
+    getJenaResource().removeProperties();
+    model.removeAll(getJenaResource(), null, null);
   }
   
   public Object getRepositoryResource() {
@@ -223,14 +237,20 @@ public class Resource extends AbstractResource {
    * @return
    */
   protected List<Statement> listProperties(Property property) {
+    return listProperties(property, true);
+  }
+  
+  protected List<Statement> listProperties(Property property, boolean cascading) {
     List<Statement> props = getJenaResource().listProperties(property).toList();
     
-    StmtIterator seeAlsos = getJenaResource().listProperties(RDFS.seeAlso);
-    while (seeAlsos.hasNext()) {
-      String seeAlso = seeAlsos.nextStatement().getObject().toString();
-      com.hp.hpl.jena.rdf.model.Resource resource = getJenaResource().getModel().getResource(seeAlso);
-      List<Statement> seeAlsoProps = resource.listProperties(property).toList();
-      props.addAll(seeAlsoProps);
+    if (cascading) {
+      StmtIterator seeAlsos = getJenaResource().listProperties(RDFS.seeAlso);
+      while (seeAlsos.hasNext()) {
+        String seeAlso = seeAlsos.nextStatement().getObject().toString();
+        com.hp.hpl.jena.rdf.model.Resource resource = getJenaResource().getModel().getResource(seeAlso);
+        List<Statement> seeAlsoProps = resource.listProperties(property).toList();
+        props.addAll(seeAlsoProps);
+      }
     }
     
     return props;

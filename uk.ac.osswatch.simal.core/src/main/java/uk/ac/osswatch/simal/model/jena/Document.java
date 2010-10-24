@@ -18,12 +18,40 @@ package uk.ac.osswatch.simal.model.jena;
  * 
  */
 
+import java.util.Set;
+
 import uk.ac.osswatch.simal.model.IDocument;
+import uk.ac.osswatch.simal.model.IncompatibleTypeException;
+
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
+import com.hp.hpl.jena.vocabulary.RDF;
 
 public class Document extends FoafResource implements IDocument {
-  private static final long serialVersionUID = 1L;
+
+  private static final long serialVersionUID = 1908107004236890792L;
 
   public Document(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
+  }
+
+  public IDocument ensureDocumentType() throws IncompatibleTypeException {
+    Resource r = getJenaResource();
+    Model model = r.getModel();
+    Set<Statement> set = r.listProperties(RDF.type).toSet();
+
+    if (set.size() > 0) {
+      Resource type = set.iterator().next().getResource();
+      if (!type.equals(FOAF.Document)) {
+        throw new IncompatibleTypeException("Expected resource " + r
+            + " to be of type " + FOAF.Document + " but is of type " + type);
+      }
+    } else {
+      Statement s = model.createStatement(r, RDF.type, FOAF.Document);
+      model.add(s);
+    }
+    return this;
   }
 }

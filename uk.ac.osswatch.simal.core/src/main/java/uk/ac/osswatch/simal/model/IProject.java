@@ -225,6 +225,11 @@ public interface IProject extends IDoapResource {
   public Set<IDocument> getWikis();
 
   /**
+   * Get all blogs associated with this project.
+   */
+  public Set<IDocument> getBlogs();
+
+  /**
    * Get all download pages associated with this project.
    */
   public Set<IDocument> getDownloadPages();
