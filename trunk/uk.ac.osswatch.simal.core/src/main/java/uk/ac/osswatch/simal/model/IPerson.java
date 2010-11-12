@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 University of Oxford
+ * Copyright 2007,2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -57,15 +57,6 @@ public interface IPerson extends IFoafResource {
   public Set<IPerson> getKnows();
 
   /**
-   * Get the label for this person. The label for a person is derived from their
-   * known names. If the person does not have any defined names then the
-   * toString() method is used..
-   * 
-   * @return
-   */
-  public String getLabel();
-
-  /**
    * Get the default email address for this person.
    * 
    * @return
@@ -80,36 +71,11 @@ public interface IPerson extends IFoafResource {
   public Set<String> getGivennames();
 
   /**
-   * Get all names for this person. If there is no name defined then return the
-   * givennames. If there are no given names either then return an empty set.
-   * 
-   * Note that this can sometimes give some confusing behaviour as getNames()
-   * when there is no name will return a result, then after an addName(name)
-   * call this method will return a different result without the original
-   * givennames.
-   * 
-   * @TODO: consider changing this behaviour and having the client decide what
-   *        to do when there is no name.
-   * @return
-   */
-  public Set<String> getNames();
-
-  /**
-   * @deprecated use addName(name) instead (scheduled for removal in 0.3)
-   */
-  public void setName(String name);
-
-  /**
-   * Add a name to the set of names for this person.
-   */
-  public void addName(String name);
-
-  /**
    * Get all the homepages for this person.
    * 
    * @return
    */
-  public Set<IDoapHomepage> getHomepages();
+  public Set<IDocument> getHomepages();
 
   /**
    * Get all the projects that involve this person.
@@ -149,14 +115,5 @@ public interface IPerson extends IFoafResource {
    *          the hash to add
    */
   public void addSHA1Sum(String sha1);
-
-  /**
-   * Remove a given name from this person.
-   * 
-   * @throws SimalRepositoryException if the name does not exist
-   * 
-   * @param name
-   */
-  public void removeName(String name) throws SimalRepositoryException;
 
 }

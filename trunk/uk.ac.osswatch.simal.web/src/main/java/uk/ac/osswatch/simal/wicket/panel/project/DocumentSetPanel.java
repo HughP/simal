@@ -37,28 +37,29 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.model.IDoapResource;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
-import uk.ac.osswatch.simal.wicket.data.SortableDoapResourceDataProvider;
+import uk.ac.osswatch.simal.wicket.data.SortableDocumentDataProvider;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 
 /**
  * A simple panel for listing a set of any IDoapResources. 
  */
-public class GenericIResourceSetPanel extends Panel {
+public class DocumentSetPanel extends Panel {
   public static final Logger LOGGER = LoggerFactory
-      .getLogger(GenericIResourceSetPanel.class);
+      .getLogger(DocumentSetPanel.class);
 
   private static final long serialVersionUID = -932080365392667144L;
 
   private static final int MAX_ROWS_PER_PAGE = 10;
   
-  private Set<IDoapResource> resources;
+  private Set<IDocument> documents;
   private String title;
-  private SortableDoapResourceDataProvider<IDoapResource> dataProvider;
+  private AddIResourcePanel addDocumentPanel;
   private IProject project;
-  private boolean editMode;
+  private boolean editingOn;
   private boolean editingAllowed;
 
   /**
@@ -72,16 +73,15 @@ public class GenericIResourceSetPanel extends Panel {
    *          the number of homepages to display per page
    * @throws SimalRepositoryException
    */
-  @SuppressWarnings("unchecked")
-  public GenericIResourceSetPanel(String id, String title,
-      Set<? extends IDoapResource> resources, boolean editingAllowed, IProject project) {
+  public DocumentSetPanel(String id, String title,
+      Set<IDocument> resources, boolean editingAllowed, IProject project) {
     super(id);
     this.title = title;
     this.project = project;
     this.editingAllowed = editingAllowed;
-    this.resources = (Set<IDoapResource>) resources;
+    this.documents = (Set<IDocument>) resources;
 
-    this.editMode = false;
+    this.editingOn = false;
     populatePanel();
   }
 
@@ -98,32 +98,34 @@ public class GenericIResourceSetPanel extends Panel {
    *          the number of homepages to display per page
    * @throws SimalRepositoryException
    */
-  public GenericIResourceSetPanel(String id, String title,
-      Set<? extends IDoapResource> resources) {
+  public DocumentSetPanel(String id, String title,
+      Set<IDocument> resources) {
     // TODO By default no editing allowed
     this(id, title, resources, false, null);
   }
 
   private void populatePanel() {
     add(new Label("title", title));
-    addResourcesList(resources);
-    add(new AddIResourcePanel("addWebsitePanel", this, editingAllowed));
+    addDocumentsList();
+    this.addDocumentPanel = new AddIResourcePanel("addWebsitePanel", this, editingAllowed);
+    this.addDocumentPanel.setVisible(this.editingOn);
+    add(this.addDocumentPanel);
     setOutputMarkupId(true);
   }
 
-  @SuppressWarnings("unchecked")
-  private void addResourcesList(Set<? extends IDoapResource> pages) {
+  @SuppressWarnings({ "unchecked", "rawtypes" })
+  private void addDocumentsList() {
     List<IColumn<?>> columns = new ArrayList<IColumn<?>>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "label",
         "label"));
     
-    PropertyColumn<IDoapResource> urlColumn = new PropertyColumn<IDoapResource>(new Model<String>("URL"),
+    PropertyColumn<IDocument> urlColumn = new PropertyColumn<IDocument>(new Model<String>("URL"),
         "url", "url") {
       private static final long serialVersionUID = -3063052337733586041L;
 
       @Override
-      public void populateItem(Item<ICellPopulator<IDoapResource>> cellItem,
-          String componentId, IModel<IDoapResource> model) {
+      public void populateItem(Item<ICellPopulator<IDocument>> cellItem,
+          String componentId, IModel<IDocument> model) {
         String label = "";
 
         if (model != null) {
@@ -140,13 +142,13 @@ public class GenericIResourceSetPanel extends Panel {
       
     columns.add(urlColumn);
 
-    PropertyColumn<IDoapResource> deleteColumn = new PropertyColumn<IDoapResource>(new Model<String>("Delete"), "name", "name") {
+    PropertyColumn<IDocument> deleteColumn = new PropertyColumn<IDocument>(new Model<String>("Delete"), "name", "name") {
       private static final long serialVersionUID = -3063052337733586041L;
 
-      public void populateItem(Item<ICellPopulator<IDoapResource>> cellItem,
-          String componentId, IModel<IDoapResource> model) {
+      public void populateItem(Item<ICellPopulator<IDocument>> cellItem,
+          String componentId, IModel<IDocument> model) {
 
-        AjaxFallbackLink<IDoapResource> deleteLink = new AjaxFallbackLink<IDoapResource>(componentId, model) {
+        AjaxFallbackLink<IDocument> deleteLink = new AjaxFallbackLink<IDocument>(componentId, model) {
           private static final long serialVersionUID = 876069018792653905L;
 
           @Override
@@ -164,14 +166,14 @@ public class GenericIResourceSetPanel extends Panel {
       }
       
       public String getCssClass() {
-        return (editMode) ? "visiblecell" : "invisiblecell";
+        return (editingOn) ? "visiblecell" : "invisiblecell";
       }
       
     };
     columns.add(deleteColumn);
       
-    dataProvider = new SortableDoapResourceDataProvider<IDoapResource>(pages);
-    dataProvider.setSort(SortableDoapResourceDataProvider.SORT_PROPERTY_NAME,
+    SortableDocumentDataProvider<IDocument> dataProvider = new SortableDocumentDataProvider<IDocument>(documents);
+    dataProvider.setSort(SortableDocumentDataProvider.SORT_PROPERTY_NAME,
         true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider,
         MAX_ROWS_PER_PAGE));
@@ -182,13 +184,13 @@ public class GenericIResourceSetPanel extends Panel {
    * resource to the underlying data storage mechanism, it only adds it to the
    * GUI.
    * 
-   * @param iDoapResource
+   * @param iFoafResource
    */
-  public void add(IDoapResource iDoapResource) {
-    this.resources.add(iDoapResource);
+  protected void addToList(IDocument iFoafResource) {
+    this.documents.add(iFoafResource);
   }
 
-  private void processDeleteOnClick(AjaxRequestTarget target, IDoapResource iDoapResource) {
+  private void processDeleteOnClick(AjaxRequestTarget target, IDocument iDoapResource) {
     try {
       processDelete(iDoapResource);
     } catch (SimalRepositoryException e) {
@@ -199,7 +201,7 @@ public class GenericIResourceSetPanel extends Panel {
   }
 
   public void processAdd(IDoapResourceFormInputModel inputModel)
-      throws SimalRepositoryException {
+      throws SimalException {
     // Subclasses that wish to use it should implement it.
     // TODO To be made abstract to force subclassing and implementation of
     // method
@@ -211,11 +213,11 @@ public class GenericIResourceSetPanel extends Panel {
    * 
    * @param iDoapResource
    */
-  public void delete(IDoapResource iDoapResource) {
-    this.resources.remove(iDoapResource);
+  public void delete(IDocument iDoapResource) {
+    this.documents.remove(iDoapResource);
   }
 
-  public void processDelete(IDoapResource inputModel)
+  public void processDelete(IDocument inputModel)
       throws SimalRepositoryException {
     // Subclasses that wish to use it should implement it.
     // TODO To be made abstract to force subclassing and implementation of
@@ -229,7 +231,8 @@ public class GenericIResourceSetPanel extends Panel {
   /**
    * @param editMode
    */
-  public void setEditMode(boolean editMode) {
-    this.editMode = editMode;
+  public void setEditingOn(boolean editMode) {
+    this.editingOn = (editMode && this.editingAllowed);
+    this.addDocumentPanel.setVisible(this.editingOn);
   }
 }

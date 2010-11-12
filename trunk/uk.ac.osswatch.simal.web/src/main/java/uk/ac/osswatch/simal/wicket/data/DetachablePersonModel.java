@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.data;
 
 /*
- * Copyright 2008 University of Oxford
+ * Copyright 2008, 2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -19,11 +19,9 @@ package uk.ac.osswatch.simal.wicket.data;
 
 import org.apache.wicket.model.LoadableDetachableModel;
 
-import uk.ac.osswatch.simal.model.IFoafResource;
-import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
-public class DetachablePersonModel extends LoadableDetachableModel<IFoafResource> {
+public class DetachablePersonModel<IPerson> extends LoadableDetachableModel {
   private static final long serialVersionUID = -9017519516676203598L;
 
   private IPerson person;
@@ -33,8 +31,7 @@ public class DetachablePersonModel extends LoadableDetachableModel<IFoafResource
     
   }
 
-  @Override
-  protected IFoafResource load() {
+  protected IPerson load() {
     return person;
   }
 

@@ -29,21 +29,15 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapBugDatabase;
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
-import uk.ac.osswatch.simal.model.IDoapDownloadPage;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.IDoapScreenshot;
-import uk.ac.osswatch.simal.model.IDoapWiki;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.Doap;
@@ -97,46 +91,24 @@ public class Project extends DoapResource implements IProject {
     return getUniquePeople(Doap.DOCUMENTER);
   }
 
-  public Set<IDoapDownloadMirror> getDownloadMirrors() {
-    Iterator<Statement> itr = listProperties(Doap.DOWNLOAD_MIRROR).iterator();
-    Set<IDoapDownloadMirror> mirrors = new HashSet<IDoapDownloadMirror>();
-    while (itr.hasNext()) {
-      mirrors.add(new DownloadMirror(itr.next().getResource()));
-    }
-    return mirrors;
+  public Set<IDocument> getDownloadMirrors() {
+    return getDocuments(Doap.DOWNLOAD_MIRROR);
   }
 
-  public Set<IDoapDownloadPage> getDownloadPages() {
-    Iterator<Statement> itr = listProperties(Doap.DOWNLOAD_PAGE).iterator();
-    Set<IDoapDownloadPage> pages = new HashSet<IDoapDownloadPage>();
-    while (itr.hasNext()) {
-      pages.add(new DownloadPage(itr.next().getResource()));
-    }
-    return pages;
+  public Set<IDocument> getDownloadPages() {
+    return getDocuments(Doap.DOWNLOAD_PAGE);
   }
 
   public Set<IPerson> getHelpers() {
     return getUniquePeople(Doap.HELPER);
   }
 
-  public Set<IDoapHomepage> getHomepages() {
-    List<Statement> props = listProperties(Doap.HOMEPAGE);
-    Iterator<Statement> itr = props.iterator();
-    Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
-    while (itr.hasNext()) {
-      Statement stmnt = itr.next();
-      pages.add(new Homepage(stmnt.getResource()));
-    }
-    return pages;
+  public Set<IDocument> getHomepages() {
+    return getDocuments(Doap.HOMEPAGE);
   }
 
-  public Set<IDoapBugDatabase> getIssueTrackers() {
-    Iterator<Statement> itr = listProperties(Doap.BUG_DATABASE).iterator();
-    Set<IDoapBugDatabase> trackers = new HashSet<IDoapBugDatabase>();
-    while (itr.hasNext()) {
-      trackers.add(new BugDatabase(itr.next().getResource()));
-    }
-    return trackers;
+  public Set<IDocument> getIssueTrackers() {
+    return getDocuments(Doap.BUG_DATABASE);
   }
 
   public Set<IDoapMailingList> getMailingLists() {
@@ -199,13 +171,8 @@ public class Project extends DoapResource implements IProject {
     replaceLiteralStatements(Doap.OS, oses);
   }
   
-  public Set<IDoapHomepage> getOldHomepages() {
-    Iterator<Statement> itr = listProperties(Doap.OLD_HOMEPAGE).iterator();
-    Set<IDoapHomepage> pages = new HashSet<IDoapHomepage>();
-    while (itr.hasNext()) {
-      pages.add(new Homepage(itr.next().getResource()));
-    }
-    return pages;
+  public Set<IDocument> getOldHomepages() {
+    return getDocuments(Doap.OLD_HOMEPAGE);
   }
 
   public Set<String> getProgrammingLanguages() {
@@ -240,13 +207,8 @@ public class Project extends DoapResource implements IProject {
     return repos;
   }
 
-  public Set<IDoapScreenshot> getScreenshots() {
-    Iterator<Statement> itr = listProperties(Doap.SCREENSHOTS).iterator();
-    Set<IDoapScreenshot> langs = new HashSet<IDoapScreenshot>();
-    while (itr.hasNext()) {
-      langs.add(new Screenshot(itr.next().getResource()));
-    }
-    return langs;
+  public Set<IDocument> getScreenshots() {
+    return getDocuments(Doap.SCREENSHOTS);
   }
 
   public String getSimalID() throws SimalRepositoryException {
@@ -286,13 +248,21 @@ public class Project extends DoapResource implements IProject {
     return getUniquePeople(Doap.TRANSLATOR);
   }
 
-  public Set<IDoapWiki> getWikis() {
-    Iterator<Statement> itr = listProperties(Doap.WIKI).iterator();
-    Set<IDoapWiki> pages = new HashSet<IDoapWiki>();
+  private Set<IDocument> getDocuments(Property property) {
+    Iterator<Statement> itr = listProperties(property).iterator();
+    Set<IDocument> docs = new HashSet<IDocument>();
     while (itr.hasNext()) {
-      pages.add(new Wiki(itr.next().getResource()));
+      docs.add(new Document(itr.next().getResource()));
     }
-    return pages;
+    return docs;
+  }
+  
+  public Set<IDocument> getWikis() {
+    return getDocuments(Doap.WIKI);
+  }
+
+  public Set<IDocument> getBlogs() {
+    return getDocuments(Doap.BLOG);
   }
 
   protected String toJSONRecordContent() throws SimalRepositoryException {
@@ -352,11 +322,11 @@ public class Project extends DoapResource implements IProject {
     addCurrentProject(person);
   }
 
-  public void removeHomepage(IDoapHomepage page) {
+  public void removeHomepage(IDocument page) {
     removeResourceStatement(Doap.HOMEPAGE, page);
   }
 
-  public void addHomepage(IDoapHomepage page) {
+  public void addHomepage(IDocument page) {
     addResourceStatement(Doap.HOMEPAGE, page);
   }
 
@@ -407,36 +377,6 @@ public class Project extends DoapResource implements IProject {
     addCurrentProject(person);
   }
 
-  private void addResourceStatement(Property property, IResource resource) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        property, (com.hp.hpl.jena.rdf.model.Resource) resource
-            .getRepositoryResource());
-    model.add(statement);
-  }
-  
-  private void addLiteralStatement(Property property, String literal) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        property, literal);
-    model.add(statement);
-  }
-  
-  private void replaceLiteralStatements(Property property, Set<String> literals) {
-    getJenaResource().removeAll(property);
-    for(String literal : literals) {
-      addLiteralStatement(property, literal);
-    }
-  }
-
-  private void replacePropertyStatements(Property property,
-      Set<? extends IResource> resources) {
-    getJenaResource().removeAll(property);
-    for (IResource resource : resources) {
-      addResourceStatement(property, resource);
-    }
-  }
-
   private void replacePersonPropertyStatements(Property property,
       Set<IPerson> persons) {
     getJenaResource().removeAll(property);
@@ -471,14 +411,6 @@ public class Project extends DoapResource implements IProject {
     removeResourceStatement(Doap.TRANSLATOR, person);
   }
   
-  private void removeResourceStatement(Property property, IResource resource) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        property, (com.hp.hpl.jena.rdf.model.Resource) resource
-            .getRepositoryResource());
-    model.remove(statement);
-  }
-
   public String toString() {
     return getNames().toString();
   }
@@ -538,7 +470,7 @@ public class Project extends DoapResource implements IProject {
 		score = score + 1;
 	}
 	if (getHomepages().size() > 0) {
-		score = score + 1;
+	  score = score + 1;
 	}
 	if (getIssueTrackers().size() > 0) {
 		score = score + 1;
@@ -562,15 +494,15 @@ public class Project extends DoapResource implements IProject {
     replacePropertyStatements(Doap.REPOSITORY, repos);
   }
 
-  public void setHomepages(Set<IDoapHomepage> homepages) {
+  public void setHomepages(Set<IDocument> homepages) {
     replacePropertyStatements(Doap.HOMEPAGE, homepages);
   }
 
-  public void setIssueTrackers(Set<IDoapBugDatabase> trackers) {
+  public void setIssueTrackers(Set<IDocument> trackers) {
     replacePropertyStatements(Doap.BUG_DATABASE, trackers);
   }
 
-  public void addIssueTracker(IDoapBugDatabase tracker) {
+  public void addIssueTracker(IDocument tracker) {
     addResourceStatement(Doap.BUG_DATABASE, tracker);
   }
 
@@ -594,4 +526,21 @@ public class Project extends DoapResource implements IProject {
     addResourceStatement(Doap.RELEASE, release);
   }
 
+  public void delete() throws SimalRepositoryException {
+    Set<IDocument> allDocuments = getHomepages();
+    allDocuments.addAll(getOldHomepages());
+    allDocuments.addAll(getIssueTrackers());
+    allDocuments.addAll(getScreenshots());
+    allDocuments.addAll(getDownloadPages());
+    allDocuments.addAll(getDownloadMirrors());
+    allDocuments.addAll(getWikis());
+    allDocuments.addAll(getBlogs());
+
+    delete(true);
+
+    for (IDocument doc : allDocuments) { 
+      doc.delete();
+    }
+  }
+  
 }

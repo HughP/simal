@@ -25,16 +25,14 @@ import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.ICategoryService;
-import uk.ac.osswatch.simal.service.IDoapResourceService;
-import uk.ac.osswatch.simal.service.IHomepageService;
+import uk.ac.osswatch.simal.service.IDocumentService;
 import uk.ac.osswatch.simal.service.IOrganisationService;
 import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.service.IProjectService;
 import uk.ac.osswatch.simal.service.IRepositoryService;
 import uk.ac.osswatch.simal.service.IReviewService;
 import uk.ac.osswatch.simal.service.jena.JenaCategoryService;
-import uk.ac.osswatch.simal.service.jena.JenaDoapResourceService;
-import uk.ac.osswatch.simal.service.jena.JenaHomepageService;
+import uk.ac.osswatch.simal.service.jena.JenaDocumentService;
 import uk.ac.osswatch.simal.service.jena.JenaOrganisationService;
 import uk.ac.osswatch.simal.service.jena.JenaPersonService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
@@ -86,10 +84,10 @@ public class SimalRepositoryFactory {
 	 * @throws SimalRepositoryException 
 	 * 
 	 */
-	public static IHomepageService getHomepageService() throws SimalRepositoryException {
+	public static IDocumentService getHomepageService() throws SimalRepositoryException {
 		 switch (repoType) {
 		    case JENA:
-		      return new JenaHomepageService(getInstance());
+		      return new JenaDocumentService(getInstance());
 		    case JCR:  
 		    	// commented out as this code moved to a branch - do we need to remove it yet?
 			    // return new JcrHomepageService(getInstance());
@@ -208,22 +206,6 @@ public class SimalRepositoryFactory {
 		      throw new SimalRepositoryException("Attempt to create an unknown repository type");
 		  }
 	}
-
-  /**
-   * @return
-   * @throws SimalRepositoryException 
-   */
-  public static IDoapResourceService getDoapResourceService() throws SimalRepositoryException {
-    switch (repoType) {
-    case JENA:
-      return new JenaDoapResourceService(getInstance());
-    case JCR:
-      throw new UnsupportedOperationException("JCR is currently not supported.");
-    default:
-      throw new SimalRepositoryException(
-          "Attempt to create an unknown repository type");
-    }
-  }
 
 	/**
 	 * Get an instance of the bug database service.

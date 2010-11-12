@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 University of Oxford
+ * Copyright 2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,10 +16,20 @@
 package uk.ac.osswatch.simal.model;
 
 /**
- * A download page associated with a project. It is a resource used to define
- * the doap:download-page entries of a doap:Project.
+ * An IDocument is the representation of a foaf:Document.
+ * It can be used for all types of websites, eg. URLs that 
+ * refer to a doap:homepage or a doap:wiki.
  * 
  */
-public interface IDoapDownloadPage extends IDoapResource {
+public interface IDocument extends IFoafResource {
 
+  /**
+   * Make sure the Document is of the right type foaf:Document. If the Resource
+   * is of another type throw a WrongTypeException.
+   * 
+   * @return this to allow chaining.
+   * @throws IncompatibleTypeException
+   *           If the Resource of this Document is of another type.
+   */
+  public IDocument ensureDocumentType() throws IncompatibleTypeException;
 }

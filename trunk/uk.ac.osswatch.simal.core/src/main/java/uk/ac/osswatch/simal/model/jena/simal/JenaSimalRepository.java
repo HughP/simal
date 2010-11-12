@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.model.jena.simal;
 
 /*
- * Copyright 2007 University of Oxford 
+ * Copyright 2007,2010 University of Oxford 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,11 +39,9 @@ import org.w3c.dom.Document;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
-import uk.ac.osswatch.simal.model.jena.Homepage;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
 import uk.ac.osswatch.simal.model.jena.SparqlResult;
@@ -205,17 +203,6 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     initialised = false;
   }
   
-  /**
-   * @deprecated use HomepageService.getOrCreate(url) instead
-   */
-  public IDoapHomepage getHomepage(String uri) {
-	  if (containsResource(uri)) {
-	      return new Homepage(model.getResource(uri));
-	  } else {
-	      return null;
-      }
-  }
-
   /**
    * Generic method for querying the RDF backend.
    * 

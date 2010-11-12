@@ -84,7 +84,7 @@ public interface IProject extends IDoapResource {
    * 
    * @return
    */
-  public Set<IDoapHomepage> getHomepages();
+  public Set<IDocument> getHomepages();
 
   /**
    * Add a homepages for this project.
@@ -92,7 +92,7 @@ public interface IProject extends IDoapResource {
    * @param homepage - the homepage to add
    * @return
    */
-  public void addHomepage(IDoapHomepage homepage);
+  public void addHomepage(IDocument homepage);
 
   /**
    * Remove a homepages for this project.
@@ -100,14 +100,14 @@ public interface IProject extends IDoapResource {
    * @param homepage - the homepage to remove
    * @return
    */
-  public void removeHomepage(IDoapHomepage homepage);
+  public void removeHomepage(IDocument homepage);
 
   /**
    * Get a set of old homepages for this project.
    * 
    * @return
    */
-  public Set<IDoapHomepage> getOldHomepages();
+  public Set<IDocument> getOldHomepages();
 
   /**
    * Get all developers who work on this project.
@@ -148,7 +148,7 @@ public interface IProject extends IDoapResource {
   /**
    * Get all Issue Trackers registered for this project.
    */
-  public Set<IDoapBugDatabase> getIssueTrackers();
+  public Set<IDocument> getIssueTrackers();
 
   /**
    * Get all releases associated with this project.
@@ -191,7 +191,7 @@ public interface IProject extends IDoapResource {
   /**
    * Get all screen shots associated with this project.
    */
-  public Set<IDoapScreenshot> getScreenshots();
+  public Set<IDocument> getScreenshots();
 
   /**
    * Get all operating systems this project can be associated with.
@@ -222,17 +222,22 @@ public interface IProject extends IDoapResource {
   /**
    * Get all wikis associated with this project.
    */
-  public Set<IDoapWiki> getWikis();
+  public Set<IDocument> getWikis();
+
+  /**
+   * Get all blogs associated with this project.
+   */
+  public Set<IDocument> getBlogs();
 
   /**
    * Get all download pages associated with this project.
    */
-  public Set<IDoapDownloadPage> getDownloadPages();
+  public Set<IDocument> getDownloadPages();
 
   /**
    * Get all download mirrors associated with this project.
    */
-  public Set<IDoapDownloadMirror> getDownloadMirrors();
+  public Set<IDocument> getDownloadMirrors();
 
   /**
    * Remove a person as a developer on this project. If the person is assigned
@@ -371,19 +376,19 @@ public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryEx
  * Set the homepages associated with this project.
  * @param homepages
  */
-public void setHomepages(Set<IDoapHomepage> homepages);
+public void setHomepages(Set<IDocument> homepages);
 
 /**
  * Set the issue trackers associated with this project.
  * @param homepages
  */
-public void setIssueTrackers(Set<IDoapBugDatabase> trackers);
+public void setIssueTrackers(Set<IDocument> trackers);
 
 /**
  * Add an issue tracker for this project
  * @param tracker
  */
-public void addIssueTracker(IDoapBugDatabase tracker);
+public void addIssueTracker(IDocument tracker);
 
 /**
  * Set the collection of releases.
