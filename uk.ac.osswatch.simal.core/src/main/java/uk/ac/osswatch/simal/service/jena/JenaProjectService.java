@@ -34,9 +34,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import uk.ac.osswatch.simal.HomepageLabelGenerator;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IncompatibleTypeException;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
@@ -60,6 +63,8 @@ import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.sparql.vocabulary.DOAP;
+import com.hp.hpl.jena.sparql.vocabulary.FOAF;
 import com.hp.hpl.jena.vocabulary.RDF;
 import com.hp.hpl.jena.vocabulary.RDFS;
 
@@ -459,143 +464,189 @@ public class JenaProjectService extends JenaService implements IProjectService {
       return newProject;
     }
 
+  /**
+   * Add a single DOAP project document. The root of the project must be a
+   * "doap:Project" element otherwise an IllegalArgumentException is thrown. If
+   * your document is an RDF document with multiple doap:Projects in it (i.e.
+   * the root is rdf:RDF) then use addProject(Document originalDoc, URL
+   * sourceURL, String baseURI) instead.
+   * 
+   * @param sourceProejctRoot
+   *          the doap:Project RDF node
+   * @throws DOMException
+   * @throws SimalRepositoryException
+   * @throws IllegalArgumentException
+   *           if the element supplied is no a "doap:Project" element
+   * @seeAlso addProject(Document originalDoc, URL sourceURL, String baseURI)
+   * 
+   * @refactor should be moved to ProjectService class
+   */
+  private IProject addProject(Element sourceProjectRoot)
+      throws SimalRepositoryException, DOMException {
+    if (!sourceProjectRoot.getLocalName().equals("Project")) {
+      throw new IllegalArgumentException(
+          "Supplied element is not a doap:Project element it is a "
+              + sourceProjectRoot.getNodeName());
+    }
+
+    try {
+      cleanProjectXml(sourceProjectRoot);
+    } catch (UnsupportedEncodingException e) {
+      throw new SimalRepositoryException(
+          "Unable to encode URIs for blank nodes", e);
+    }
+
+    String uri = sourceProjectRoot.getAttributeNS(RDFUtils.RDF_NS, "about");
+    IProject project = findOrCreateProject(sourceProjectRoot, uri);
+
+    generateRelatedEntities(sourceProjectRoot, project);
+
     /**
-     * Add a single DOAP project document. The root of the project must be a "doap:Project" element
-     * otherwise an IllegalArgumentException is thrown. If your document is an RDF document with
-     * multiple doap:Projects in it (i.e. the root is rdf:RDF) then use 
-     * addProject(Document originalDoc, URL sourceURL, String baseURI) instead.
-     * 
-     * @param sourceProejctRoot
-     *          the doap:Project RDF node
-     * @throws DOMException
-     * @throws SimalRepositoryException
-     * @throws IllegalArgumentException if the element supplied is no a "doap:Project" element
-     * @seeAlso addProject(Document originalDoc, URL sourceURL, String baseURI)
-     *
-     * @refactor should be moved to ProjectService class
+     * record any new seeAlsos against the project
      */
-    private IProject addProject(Element sourceProjectRoot)
-        throws SimalRepositoryException, DOMException {
-      if (!sourceProjectRoot.getLocalName().equals("Project")) {
-        throw new IllegalArgumentException(
-            "Supplied element is not a doap:Project element it is a "
-                + sourceProjectRoot.getNodeName());
+    NodeList seeAlsos = sourceProjectRoot.getElementsByTagNameNS(
+        RDFUtils.RDFS_NS, RDFS.seeAlso.getLocalName());
+    for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
+      Element seeAlso = (Element) seeAlsos.item(i);
+      if (seeAlso.getParentNode().equals(sourceProjectRoot)) {
+        String seeAlsoUri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource")
+            .trim();
+        try {
+          project.addSeeAlso(new URI(seeAlsoUri));
+        } catch (URISyntaxException e) {
+          throw new SimalRepositoryException(
+              "Unable to add see also to simal:Project", e);
+        }
       }
-      
+    }
+
+    // add the source RDF
+    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+    dbf.setNamespaceAware(true);
+    DocumentBuilder db;
+    try {
+      db = dbf.newDocumentBuilder();
+    } catch (ParserConfigurationException e) {
+      throw new SimalRepositoryException("Unable to create document builder", e);
+    }
+    Document sourceDoc = db.newDocument();
+    Node root = sourceDoc.createElementNS(RDFUtils.RDF_NS, "RDF");
+    root.appendChild(sourceDoc.importNode(sourceProjectRoot, true));
+    sourceDoc.appendChild(root);
+
+    RDFXMLUtils.addRDFXMLToModel(sourceDoc, getModel());
+    return project;
+  }
+
+  private IProject findOrCreateProject(Element sourceProjectRoot, String uri)
+      throws SimalRepositoryException {
+    IProject project = SimalRepositoryFactory.getProjectService()
+        .findProjectBySeeAlso(uri);
+    if (project == null) {
+      // simal:Project entity for doap:Project does not currently exist
+      // look to see if we have data about the same entity but with a different
+      // URI
+      project = findExistingProjectByHomepage(sourceProjectRoot);
+    }
+    
+    if (project == null) {
+      project = findExistingProjectBySeeAlso(sourceProjectRoot);
+    }
+
+    if (project == null) {
+      if (uri == null || uri.equals("")) {
+        // we don't allow blank project nodes
+        uri = RDFUtils.getDefaultProjectURI(getNewProjectID());
+        sourceProjectRoot.setAttributeNS(RDFUtils.RDF_NS, "about", uri);
+      }
+      project = createSimalProject(uri);
+    } else {
+      LOGGER.debug("Updating an existing simal:Project instance with URI "
+          + project.getURI());
       try {
-        cleanProject(sourceProjectRoot);
-      } catch (UnsupportedEncodingException e) {
-        throw new SimalRepositoryException(
-            "Unable to encode URIs for blank nodes", e);
-      }
-      
-      String uri = sourceProjectRoot.getAttributeNS(RDFUtils.RDF_NS, "about");
-      IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(uri);
-      if (project == null) {
-        // simal:Project entity for doap:Project does not currently exist
-        // look to see if we have data about the same entity but with a different URI
-        
-        // look for an existing simap:Project identified by a common homepage
-        NodeList homepages = sourceProjectRoot.getElementsByTagNameNS(
-            RDFUtils.DOAP_NS, "homepage");
-        Element homepage;
-        for (int i = 0; i < homepages.getLength(); i = i + 1) {
-          homepage = (Element) homepages.item(i);
-          if (homepage.getParentNode().equals(sourceProjectRoot)) {
-              String url = homepage.getAttributeNS(RDFUtils.RDF_NS, "resource")
-                  .trim();
-              project = findProjectByHomepage(url);
-              if (project != null) {
-                LOGGER
-                    .debug("Simal already has a Project record with the homepage "
-                        + url + " with URI " + project.getURI());
-              }
-          }
-        }
-    
-        // find existing simal:Project identified by a common rdf:seeAlso
-        NodeList seeAlsos = sourceProjectRoot.getElementsByTagNameNS(
-            RDFUtils.RDFS_NS, "seeAlso");
-        Element seeAlso;
-        for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
-          seeAlso = (Element) seeAlsos.item(i);
-          if (seeAlso.getParentNode().equals(sourceProjectRoot)) {
-            String seeAlsoUri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource").trim();
-            project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(seeAlsoUri);
-            if (project != null) {
-              LOGGER
-                  .debug("Simal already has a Project record with the rdfs:seeAlso "
-                      + seeAlsoUri);
-            }
-          }
-        }
-    
-        if (project == null) {
-        if (uri == null || uri.equals("")) {
-            // we don't allow blank project nodes
-            uri = RDFUtils.getDefaultProjectURI(getNewProjectID());
-            sourceProjectRoot.setAttributeNS(RDFUtils.RDF_NS, "about", uri);
-        }
-        project = createSimalProject(uri);
-        } else {
-          LOGGER.debug("Updating an existing simal:Project instance with URI "
-            + project.getURI());
-          try {
         project.addSeeAlso(new URI(uri));
       } catch (URISyntaxException e) {
-        throw new SimalRepositoryException("Unable to add a seeAlso attribute to an existing object", e);
+        throw new SimalRepositoryException(
+            "Unable to add a seeAlso attribute to an existing object", e);
       }
-        }
-      }
-      
-      // Handle all people
-      addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
-          "maintainer"), project.getURI());
-      addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
-          "developer"), project.getURI());
-      addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
-          "documenter"), project.getURI());
-      addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
-          "translator"), project.getURI());
-      addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
-          "tester"), project.getURI());
-      addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
-          "helper"), project.getURI());
-
-      /**
-       * record any new seeAlsos against the project
-       */
-      NodeList seeAlsos = sourceProjectRoot.getElementsByTagNameNS(
-          RDFUtils.RDFS_NS, "seeAlso");
-      Element seeAlso;
-      for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
-        seeAlso = (Element) seeAlsos.item(i);
-        if (seeAlso.getParentNode().equals(sourceProjectRoot)) {
-          String seeAlsoUri = seeAlso.getAttributeNS(RDFUtils.RDF_NS, "resource").trim();
-          try {
-        project.addSeeAlso(new URI(seeAlsoUri));
-      } catch (URISyntaxException e) {
-        throw new SimalRepositoryException("Unable to add see also to simal:Project", e);
-      }
-        }
-      }
-      
-      // add the source RDF
-      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-      dbf.setNamespaceAware(true);    DocumentBuilder db;
-      try {
-        db = dbf.newDocumentBuilder();
-      } catch (ParserConfigurationException e) {
-        throw new SimalRepositoryException("Unable to create document builder", e);
-      }
-      Document sourceDoc = db.newDocument();
-      Node root = sourceDoc.createElementNS(RDFUtils.RDF_NS, "RDF");
-      root.appendChild(sourceDoc.importNode(sourceProjectRoot, true));
-      sourceDoc.appendChild(root);
-      
-      RDFXMLUtils.addRDFXMLToModel(sourceDoc, getModel());
-      return project;
     }
+    return project;
+  }
+
+  private IProject findExistingProjectBySeeAlso(Element sourceProjectRoot) throws SimalRepositoryException {
+    // find existing simal:Project identified by a common rdf:seeAlso
+    IProject project = null;
+    NodeList seeAlsos = sourceProjectRoot.getElementsByTagNameNS(
+        RDFUtils.RDFS_NS, RDFS.seeAlso.getLocalName());
+    Element seeAlso;
+    for (int i = 0; i < seeAlsos.getLength(); i = i + 1) {
+      seeAlso = (Element) seeAlsos.item(i);
+      if (seeAlso.getParentNode().equals(sourceProjectRoot)) {
+        String seeAlsoUri = seeAlso.getAttributeNS(RDFUtils.RDF_NS,
+            "resource").trim();
+        project = SimalRepositoryFactory.getProjectService()
+            .findProjectBySeeAlso(seeAlsoUri);
+        if (project != null) {
+          LOGGER
+              .debug("Simal already has a Project record with the rdfs:seeAlso "
+                  + seeAlsoUri);
+        }
+      }
+    }
+    return project;
+  }
+
+  private IProject findExistingProjectByHomepage(Element sourceProjectRoot)
+      throws SimalRepositoryException {
+    // look for an existing simap:Project identified by a common homepage
+    IProject project = null;
+    NodeList homepages = sourceProjectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, "homepage");
+    Element homepage;
+    for (int i = 0; i < homepages.getLength(); i = i + 1) {
+      homepage = (Element) homepages.item(i);
+      if (homepage.getParentNode().equals(sourceProjectRoot)) {
+        String url = homepage.getAttributeNS(RDFUtils.RDF_NS, "resource")
+            .trim();
+        project = findProjectByHomepage(url);
+        if (project != null) {
+          LOGGER.debug("Simal already has a Project record with the homepage "
+              + url + " with URI " + project.getURI());
+          break;
+        }
+      }
+    }
+    return project;
+  }
+
+  private void generateRelatedEntities(Element sourceProjectRoot,
+      IProject project) throws SimalRepositoryException {
+    // Handle all people
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "maintainer"), project.getURI());
+    addDoapPeople(
+        sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS, "developer"),
+        project.getURI());
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "documenter"), project.getURI());
+    addDoapPeople(sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS,
+        "translator"), project.getURI());
+    addDoapPeople(
+        sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS, "tester"),
+        project.getURI());
+    addDoapPeople(
+        sourceProjectRoot.getElementsByTagNameNS(RDFUtils.DOAP_NS, "helper"),
+        project.getURI());
+
+    generateFoafDocuments(sourceProjectRoot, DOAP.old_homepage.getLocalName(), true);
+    generateFoafDocuments(sourceProjectRoot, DOAP.homepage.getLocalName(), true);
+    generateFoafDocuments(sourceProjectRoot, "blog");
+    generateFoafDocuments(sourceProjectRoot, DOAP.wiki.getLocalName());
+    generateFoafDocuments(sourceProjectRoot, DOAP.bug_database.getLocalName());
+    generateFoafDocuments(sourceProjectRoot, DOAP.download_page.getLocalName());
+    generateFoafDocuments(sourceProjectRoot,
+        DOAP.download_mirror.getLocalName());
+  }
 
     /**
      * Look for and fix common mistakes in RDF/XML DOAP records.
@@ -605,7 +656,7 @@ public class JenaProjectService extends JenaService implements IProjectService {
      * @throws DOMException
      * @throws SimalRepositoryException
      */
-    private void cleanProject(Element projectRoot) throws DOMException,
+    private void cleanProjectXml(Element projectRoot) throws DOMException,
         UnsupportedEncodingException, SimalRepositoryException {
       RDFXMLUtils.validateResourceDefinition(projectRoot.getElementsByTagNameNS(
           RDFUtils.DOAP_NS, "bug-database"));
@@ -624,7 +675,7 @@ public class JenaProjectService extends JenaService implements IProjectService {
       RDFXMLUtils.removeBNodes(doc);
 
       RDFXMLUtils.checkCategoryIDs(doc);
-      RDFXMLUtils.checkHomePageNodes(doc);
+      //RDFXMLUtils.checkHomePageNodes(doc);
       RDFXMLUtils.checkCDataSections(doc);
       RDFXMLUtils.checkResources(doc);
       RDFXMLUtils.checkPersonIDs(doc);
@@ -669,7 +720,7 @@ public class JenaProjectService extends JenaService implements IProjectService {
         simalProjectElement.appendChild(simalID);
 
       
-      Element seeAlso = simalProjectDoc.createElementNS(RDFUtils.RDFS_NS, "seeAlso");
+      Element seeAlso = simalProjectDoc.createElementNS(RDFUtils.RDFS_NS, RDFS.seeAlso.getLocalName());
       seeAlso.setAttributeNS(RDFUtils.RDF_NS, "resource", seeAlsoUri);
       simalProjectElement.appendChild(seeAlso);
 
@@ -681,9 +732,6 @@ public class JenaProjectService extends JenaService implements IProjectService {
       return getProject(uri);
     }
 
-    /**
-     * @refactor should be moved to ProjectService class
-     */ 
     public IProject findProjectByHomepage(String homepage)
         throws SimalRepositoryException {
       String queryStr = "PREFIX simal: <" + RDFUtils.SIMAL_NS + "> "
@@ -741,5 +789,52 @@ public class JenaProjectService extends JenaService implements IProjectService {
         }
       }
     }
+
+
+  private void generateFoafDocuments(Element documentElements,
+      String propertyName) throws SimalRepositoryException {
+    generateFoafDocuments(documentElements, propertyName, false);
+  }
+    
+  private void generateFoafDocuments(Element sourceProjectRoot,
+      String propertyName, boolean generateLabel)
+      throws SimalRepositoryException {
+    NodeList documentElements = sourceProjectRoot.getElementsByTagNameNS(
+        RDFUtils.DOAP_NS, propertyName);
+
+    for (int i = 0; i < documentElements.getLength(); i = i + 1) {
+      Element document = (Element) documentElements.item(i);
+      String uri = document.getAttributeNS(RDFUtils.RDF_NS, "resource");
+      if (uri == null || uri.equals("")) {
+        NodeList childNodes = document.getChildNodes();
+        for (int j=0; j<childNodes.getLength(); j++) {
+          Node item = childNodes.item(j);
+          if(item instanceof Element) {
+            Element elem = (Element) item;
+            if (elem.getLocalName().equals(FOAF.Document.getLocalName())) {
+              uri = elem.getAttributeNS(RDFUtils.RDF_NS, "about");
+            }
+          }
+        }
+      }
+      if (uri != null && !uri.equals("")) {
+        try {
+          IDocument doc = SimalRepositoryFactory.getHomepageService()
+              .getOrCreate(uri);
+          String label = document.getAttributeNS(RDFUtils.RDFS_NS, RDFS.label.getLocalName());
+          if (label.length() == 0 && generateLabel) {
+            label = HomepageLabelGenerator.getHomepageLabel(uri);
+          } else {
+            document.removeAttributeNS(RDFUtils.RDFS_NS, RDFS.label.getLocalName());
+          }
+          doc.setDefaultName(label);
+        } catch (IncompatibleTypeException e) {
+          LOGGER.warn("URI " + uri
+              + " already known as another type, removing from project.");
+          document.removeAttributeNS(RDFUtils.RDF_NS, "resource");
+        }
+      }
+    }
+  }
 
 }

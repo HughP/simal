@@ -31,7 +31,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -146,7 +146,7 @@ public class PersonSummaryPanel extends Panel {
   }
 
   private static class LoadableDetachableHomePageModel extends
-      LoadableDetachableModel<List<IDoapHomepage>> {
+      LoadableDetachableModel<List<IDocument>> {
     private static final long serialVersionUID = 1L;
     private IPerson person;
 
@@ -154,8 +154,8 @@ public class PersonSummaryPanel extends Panel {
       this.person = person;
     }
 
-    protected List<IDoapHomepage> load() {
-      return new Vector<IDoapHomepage>(person.getHomepages());
+    protected List<IDocument> load() {
+      return new Vector<IDocument>(person.getHomepages());
     }
   }
 

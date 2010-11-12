@@ -25,7 +25,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -150,7 +149,7 @@ public interface ISimalRepository {
    * 
    * @throws SimalRepositoryException
    * 
-   * @throws RepositoryException
+   * @throws SimalRepositoryException
    */
   public void destroy() throws SimalRepositoryException;
 
@@ -316,14 +315,6 @@ public interface ISimalRepository {
    */
   public void addRDFXML(Document doc) throws SimalRepositoryException;
   
-  /**
-   * Get an homepage resources. If the resource does not yet exist return null.
-   * 
-   * @param uri URI of the homepage resource
-   * @return
-   */
-  public IDoapHomepage getHomepage(String uri);
-
     /**
      * Ensure an ID is a valid Simal ID. Being valid does not mean that it is
      * necessarily an ID for this instance of Simal, but that it is a valid ID for

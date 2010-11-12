@@ -22,19 +22,19 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestHomepage extends BaseRepositoryTest {
 
   @Test
   public void testURL() throws SimalRepositoryException {
-    Iterator<IDoapHomepage> homepages = project1.getHomepages().iterator();
+    Iterator<IDocument> homepages = project1.getHomepages().iterator();
     boolean hasHomepageOne = false;
     boolean hasHomepageTwo = false;
 
     while (homepages.hasNext()) {
-      IDoapHomepage homepage = homepages.next();
+      IDocument homepage = homepages.next();
       if (homepage.getURI().toString().equals(
           TEST_SIMAL_PROJECT_HOMEPAGE_URL_ONE)) {
         hasHomepageOne = true;
@@ -52,10 +52,10 @@ public class TestHomepage extends BaseRepositoryTest {
   public void testNames() {
     boolean hasHomepageOne = false;
     boolean hasHomepageTwo = false;
-    Iterator<IDoapHomepage> homepages = project1.getHomepages().iterator();
+    Iterator<IDocument> homepages = project1.getHomepages().iterator();
     String label;
     while (homepages.hasNext()) {
-      IDoapHomepage homepage = (IDoapHomepage) homepages.next();
+      IDocument homepage = homepages.next();
       label = homepage.getLabel();
       if (label.equals(TEST_SIMAL_PROJECT_HOMEPAGE_NAME_ONE)) {
         hasHomepageOne = true;

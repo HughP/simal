@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.wicket.panel.project;
  */
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -45,15 +46,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDoapBugDatabase;
-import uk.ac.osswatch.simal.model.IDoapDownloadMirror;
-import uk.ac.osswatch.simal.model.IDoapDownloadPage;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
-import uk.ac.osswatch.simal.model.IDoapMailingList;
-import uk.ac.osswatch.simal.model.IDoapResource;
-import uk.ac.osswatch.simal.model.IDoapScreenshot;
-import uk.ac.osswatch.simal.model.IDoapWiki;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
@@ -82,8 +77,8 @@ public class EditProjectPanel extends Panel {
   private ReadOnlyStyleBehavior rosb;
 
   private boolean loggedIn;
-  private boolean isReadOnly;
-
+  private boolean readOnly;
+  
   /**
    * Create a new container that will initially display the command link to show
    * the form.
@@ -98,7 +93,7 @@ public class EditProjectPanel extends Panel {
     super(id);
     this.project = project;
     this.loggedIn = loggedIn;
-    this.isReadOnly = true;
+    this.readOnly = true;
     this.rosb = new ReadOnlyStyleBehavior();
 
     add(new EditProjectForm("editProjectForm",
@@ -116,18 +111,21 @@ public class EditProjectPanel extends Panel {
 
   private class EditProjectForm extends Form<IProject> {
     private static final long serialVersionUID = 5903165424353929310L;
+
+    private Set<DocumentSetPanel> editablePanels = new HashSet<DocumentSetPanel>();
+
     private TextArea<String> description;
     private AjaxFallbackButton submitButton;
 
     private Set<String> oses;
     private Set<String> langs;
-    private Set<IDoapHomepage> homepages;
-    private Set<IDoapMailingList> mailingLists;
-    private Set<IDoapBugDatabase> issueTrackers;
-    private Set<IDoapWiki> wikis;
-    private Set<IDoapDownloadPage> downloads;
-    private Set<IDoapDownloadMirror> downloadMirrors;
-    private Set<IDoapScreenshot> screenshots;
+//    private Set<IDocument> homepages;
+    //private Set<IDoapMailingList> mailingLists;
+    private Set<IDocument> issueTrackers;
+    private Set<IDocument> wikis;
+    private Set<IDocument> downloads;
+    private Set<IDocument> downloadMirrors;
+    private Set<IDocument> screenshots;
 
     public EditProjectForm(String id, IModel<IProject> model) {
       super(id, model);
@@ -136,11 +134,14 @@ public class EditProjectPanel extends Panel {
     }
 
     private void toggleEditMode() {
-      isReadOnly = !isReadOnly;
-      if (isReadOnly) {
+      readOnly = !readOnly;
+      if (readOnly) {
         submitButton.getModel().setObject("Edit");
       } else {
         submitButton.getModel().setObject("Save");
+      }
+      for (DocumentSetPanel panel : editablePanels) {
+        panel.setEditingOn(!readOnly);
       }
     }
 
@@ -195,7 +196,7 @@ public class EditProjectPanel extends Panel {
 
         @Override
         public boolean isVisible() {
-          return (loggedIn && !isReadOnly);
+          return (loggedIn && !readOnly);
         }
 
       };
@@ -226,54 +227,58 @@ public class EditProjectPanel extends Panel {
       shortDesc.setEscapeModelStrings(false);
       add(shortDesc);
 
-      this.homepages = project.getHomepages();
-      GenericIResourceSetPanel homepageList = new GenericIResourceSetPanel(
-          "homepageList", "Web Pages", homepages, loggedIn, project) {
+      //this.homepages = project.getHomepages();
+      DocumentSetPanel homepageList = new DocumentSetPanel(
+          "homepageList", "Web Pages", project.getHomepages(), loggedIn, project) {
         private static final long serialVersionUID = -6849401011037784163L;
 
         public void processAdd(IDoapResourceFormInputModel inputModel)
-            throws SimalRepositoryException {
-          IDoapHomepage homepage = SimalRepositoryFactory.getHomepageService()
+            throws SimalException {
+          IDocument homepage = SimalRepositoryFactory.getHomepageService()
               .getOrCreate(inputModel.getUrl());
-          homepage.addName(inputModel.getName());
+          homepage.setDefaultName(inputModel.getName());
 
-          add(homepage);
+          addToList(homepage);
           getProject().addHomepage(homepage);
         }
 
-        public void processDelete(IDoapResource iDoapResource)
+        public void processDelete(IDocument iDoapResource)
             throws SimalRepositoryException {
           delete(iDoapResource);
-          getProject().removeHomepage((IDoapHomepage) iDoapResource);
+          getProject().removeHomepage((IDocument) iDoapResource);
         }
       };
+      editablePanels.add(homepageList);
       add(homepageList);
 
       // Community tools
       this.issueTrackers = project.getIssueTrackers();
-      GenericIResourceSetPanel issueTrackerList = new GenericIResourceSetPanel("issueTrackerList",
+      DocumentSetPanel issueTrackerList = new DocumentSetPanel("issueTrackerList",
           "Issue Trackers", issueTrackers);
       add(issueTrackerList);
 
-      this.mailingLists = project.getMailingLists();
-      GenericIResourceSetPanel mailingListsPanel = new GenericIResourceSetPanel(
-          "mailingLists", "Mailing lists", mailingLists);
 
-      add(mailingListsPanel);
+      // FIXME Add mailing list panel
+      // this.mailingLists = project.getMailingLists();
+      // GenericIResourceSetPanel mailingListsPanel = new
+      // GenericIResourceSetPanel(
+      // "mailingLists", "Mailing lists", mailingLists);
+      //
+      // add(mailingListsPanel);
       
       this.wikis = project.getWikis();
-      GenericIResourceSetPanel wikiListPanel = new GenericIResourceSetPanel("wikiLists",
+      DocumentSetPanel wikiListPanel = new DocumentSetPanel("wikiLists",
           "Wikis", wikis);
       add(wikiListPanel);
 
       // download
       this.downloads = project.getDownloadPages();
-      GenericIResourceSetPanel downloadsListPanel = new GenericIResourceSetPanel("downloadPagesList",
+      DocumentSetPanel downloadsListPanel = new DocumentSetPanel("downloadPagesList",
           "Downloads", downloads);
       add(downloadsListPanel);
       
       this.downloadMirrors = project.getDownloadMirrors();
-      GenericIResourceSetPanel downloadMirrorsListPanel = new GenericIResourceSetPanel("downloadMirrorsList",
+      DocumentSetPanel downloadMirrorsListPanel = new DocumentSetPanel("downloadMirrorsList",
           "Download Mirrors", downloadMirrors);
       add(downloadMirrorsListPanel);
       
@@ -289,7 +294,7 @@ public class EditProjectPanel extends Panel {
       
       
       this.screenshots = project.getScreenshots();
-      GenericIResourceSetPanel screenshotsListPanel = new GenericIResourceSetPanel("screenshotsList",
+      DocumentSetPanel screenshotsListPanel = new DocumentSetPanel("screenshotsList",
           "Screenshots", screenshots);
       add(screenshotsListPanel);
 
@@ -382,7 +387,7 @@ public class EditProjectPanel extends Panel {
 
     public void onComponentTag(final Component component, final ComponentTag tag) {
 
-      if (isReadOnly) {
+      if (readOnly) {
         tag.getAttributes().put("readonly", "readonly");
         tag.getAttributes().put("class", "readonly");
         if (StringEscapeUtils.escapeXml(NEW_ITEM).equals(

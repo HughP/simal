@@ -95,6 +95,14 @@ public class Doap {
 
   /**
    * <p>
+   * URI of a blog related to a project.
+   * </p>
+   */
+  public static final Property BLOG = m_model
+      .createProperty("http://usefulinc.com/ns/doap#blog");
+  
+  /**
+   * <p>
    * Date when something was created, in YYYY-MM-DD form. e.g. 2004-04-05
    * </p>
    */

@@ -2,7 +2,7 @@ package uk.ac.osswatch.simal.wicket.markup.html.list;
 
 /*
  * 
- * Copyright 2007 University of Oxford
+ * Copyright 2007,2010 University of Oxford
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
 
-import uk.ac.osswatch.simal.model.IDoapHomepage;
+import uk.ac.osswatch.simal.model.IDocument;
 
 /**
  * ListView for web pages. Each address will be rendered as a clickable link.
@@ -37,7 +37,7 @@ import uk.ac.osswatch.simal.model.IDoapHomepage;
  * wicket:id="linkText">Link Text</span> </a> </span> ]]>
  * 
  */
-public class WebPageListView extends ListView<IDoapHomepage> {
+public class WebPageListView extends ListView<IDocument> {
   private static final long serialVersionUID = 1L;
 
   /**
@@ -48,15 +48,15 @@ public class WebPageListView extends ListView<IDoapHomepage> {
    * @param urls
    *          The url list model
    */
-  public WebPageListView(String name, final IModel<List<IDoapHomepage>> urls) {
+  public WebPageListView(String name, final IModel<List<IDocument>> urls) {
     super(name, urls);
   }
 
   /**
    * @see ListView#populateItem(ListItem)
    */
-  protected void populateItem(ListItem<IDoapHomepage> listItem) {
-    final IDoapHomepage page = (IDoapHomepage) listItem.getModelObject();
+  protected void populateItem(ListItem<IDocument> listItem) {
+    final IDocument page = listItem.getModelObject();
     ExternalLink externalLink = new ExternalLink("linkURL", page.getURI());
     externalLink.add(new Label("linkText", page.getLabel()));
     listItem.add(externalLink);

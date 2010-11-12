@@ -1,4 +1,4 @@
-package uk.ac.osswatch.simal.wicket.panel.homepage;
+package uk.ac.osswatch.simal.wicket.panel;
 
 /*
  * Copyright 2008-2010 University of Oxford
@@ -19,53 +19,78 @@ package uk.ac.osswatch.simal.wicket.panel.homepage;
 
 import static org.junit.Assert.fail;
 
+import java.util.Set;
+
 import org.apache.wicket.WicketRuntimeException;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.TestPanelSource;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IDocument;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
+import uk.ac.osswatch.simal.wicket.panel.project.DocumentSetPanel;
 
 /**
  * Simple test using the WicketTester
  */
-public class TestHomepageListPanel extends TestBase {
+public class TestDocumentSetPanel extends TestBase {
 
+  private DocumentSetPanel testPanel;
+  
   @Before
   @SuppressWarnings("serial")
   public void setUpPanel() {
-    tester.startPanel(new TestPanelSource() {
+    Panel panel = tester.startPanel(new TestPanelSource() {
       public Panel getTestPanel(String panelId) {
+        // FIXME Add proper testing code.
         try {
-          return new HomepageListPanel(panelId, "Homepage List", 20);
+          IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
+          Set<IDocument> homepages = project.getHomepages();
+          return new DocumentSetPanel(panelId, "Homepage List", homepages, true, project);
         } catch (SimalRepositoryException e) {
-          fail(e.getMessage());
+          fail();
           return null;
         }
       }
     });
+
+    if (panel instanceof DocumentSetPanel) {
+      this.testPanel = (DocumentSetPanel) panel;
+    } else {
+      fail("Panel returned is of wrong type.");
+    }
   }
-  
+
   @Test
   public void testHomepageListPanel() {
     tester.assertVisible("panel:dataTable:rows:1");
     tester.assertVisible("panel:dataTable:rows:2");
-    tester.assertVisible("panel:dataTable:rows:7");
     tester.assertLabel("panel:dataTable:rows:1:cells:1:cell:link:label",
         "Developer Home Page");
   }
   
   @Test
   public void testAddHomepage() {
+    tester.assertInvisible("panel:addWebsitePanel:newLink");
+    tester.assertInvisible("panel:addWebsitePanel");
+    testPanel.setEditingOn(true);
     tester.assertVisible("panel:addWebsitePanel");
+    tester.assertVisible("panel:addWebsitePanel:newLink");
+    tester.assertVisible("panel:dataTable:rows:1");
+    tester.assertVisible("panel:dataTable:rows:2");
     tester.clickLink("panel:addWebsitePanel:newLink", true);
+    // Rows repopulated with new ids
+    tester.assertVisible("panel:dataTable:rows:3");
+    tester.assertVisible("panel:dataTable:rows:4");
+
     try {
-      tester.assertVisible("panel:dataTable:rows:10");
-      fail("Should not have ten rows in the homepages table");
+      tester.assertVisible("panel:dataTable:rows:5");
+      fail("Should not have three rows in the homepages table");
     } catch (WicketRuntimeException e) {
       // ignore as we expect this exception
     }
@@ -73,11 +98,20 @@ public class TestHomepageListPanel extends TestBase {
     FormTester formTester = tester.newFormTester("panel:addWebsitePanel:doapResourceForm");
     formTester.setValue("name", "Test Webpage");
     formTester.setValue("url", "http://test.foo.org");
-    formTester.submit();
+    // submit should work but nothing is actually added
+    formTester.submit("addDoapResourceButton");
+    
 
-    tester = new WicketTester();
-    setUpPanel();
-    // FIXME: formTester.submit() appears to not be working.
-    // tester.assertVisible("panel:dataTable:rows:10");
+    // Rows repopulated with new ids
+    tester.assertVisible("panel:dataTable:rows:5");
+    tester.assertVisible("panel:dataTable:rows:6");
+    
+    // Still only 2 items 
+    try {
+      tester.assertVisible("panel:dataTable:rows:7");
+      fail("Should not have three rows in the homepages table");
+    } catch (WicketRuntimeException e) {
+      // ignore as we expect this exception
+    }
   }
 }

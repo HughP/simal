@@ -23,7 +23,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
@@ -41,7 +41,7 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
   TextField<String> nameField;
   TextField<String> urlField;
 
-  private GenericIResourceSetPanel updatePanel;
+  private DocumentSetPanel updatePanel;
 
   /**
    * Create a new container that will initially display the command link to show
@@ -55,7 +55,7 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
    *          the container that should be updated when the website has been
    *          added (must have setOutputMarkupId(true)
    */
-  public AddIResourcePanel(String wicketid, GenericIResourceSetPanel updatePanel, boolean editingAllowed) {
+  public AddIResourcePanel(String wicketid, DocumentSetPanel updatePanel, boolean editingAllowed) {
     super(wicketid, updatePanel, editingAllowed);
     this.updatePanel = updatePanel;
     setOutputMarkupId(true);
@@ -95,7 +95,7 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
    */
   protected void onShowForm(AjaxRequestTarget target) {
     super.onShowForm(target);
-    updatePanel.setEditMode(true);
+    updatePanel.setEditingOn(true);
     target.addComponent(updatePanel);
   }
 
@@ -107,8 +107,10 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
    */
   protected void onHideForm(AjaxRequestTarget target) {
     super.onHideForm(target);
-    updatePanel.setEditMode(false);
-    target.addComponent(updatePanel);
+    updatePanel.setEditingOn(false);
+    if (target != null) {
+      target.addComponent(updatePanel);
+    }
   }
 
   /* (non-Javadoc)
@@ -120,7 +122,7 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
     inputModel.setUrl(urlField.getValue());
     try {
       updatePanel.processAdd(inputModel);
-    } catch (SimalRepositoryException e) {
+    } catch (SimalException e) {
       UserReportableException error = new UserReportableException(
           "Unable to generate a website from the given form data",
           ProjectDetailPage.class, e);

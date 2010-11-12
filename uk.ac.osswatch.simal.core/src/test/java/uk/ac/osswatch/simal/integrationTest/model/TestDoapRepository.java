@@ -25,7 +25,7 @@ import java.util.Set;
 import org.junit.Test;
 
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
-import uk.ac.osswatch.simal.model.IDoapLocation;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
@@ -67,10 +67,10 @@ public class TestDoapRepository extends BaseRepositoryTest {
     while (itr.hasNext()) {
       IDoapRepository repo = itr.next();
       if (repo.isSVN()) {
-        Set<IDoapLocation> location = repo.getLocations();
+        Set<IDocument> location = repo.getLocations();
         assertNotNull(repo.toString() + " does not have a location", location);
 
-        Set<IDoapLocation> browse = repo.getBrowse();
+        Set<IDocument> browse = repo.getBrowse();
         assertNotNull(repo.toString() + " does not have a browse", browse);
       }
     }
@@ -86,7 +86,7 @@ public class TestDoapRepository extends BaseRepositoryTest {
         Set<String> anonRoot = repo.getAnonRoots();
         assertNotNull(repo.toString() + " does not have an anon root", anonRoot);
 
-        Set<IDoapLocation> browse = repo.getBrowse();
+        Set<IDocument> browse = repo.getBrowse();
         assertNotNull(repo.toString() + " does not have a browse", browse);
 
         Set<String> module = repo.getModule();

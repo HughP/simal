@@ -22,7 +22,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import uk.ac.osswatch.simal.model.IDoapLocation;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.rdf.Doap;
 
@@ -64,11 +64,11 @@ public class Repository extends DoapResource implements IDoapRepository {
     return locations;
   }
 
-  public Set<IDoapLocation> getLocations() {
-    HashSet<IDoapLocation> locations = new HashSet<IDoapLocation>();
+  public Set<IDocument> getLocations() {
+    HashSet<IDocument> locations = new HashSet<IDocument>();
     Iterator<Statement> itr = listProperties(Doap.LOCATION).iterator();
     while (itr.hasNext()) {
-      locations.add(new Location(itr.next().getResource()));
+      locations.add(new Document(itr.next().getResource()));
     }
     return locations;
   }
@@ -98,11 +98,11 @@ public class Repository extends DoapResource implements IDoapRepository {
     return modules;
   }
 
-  public Set<IDoapLocation> getBrowse() {
-    HashSet<IDoapLocation> locations = new HashSet<IDoapLocation>();
+  public Set<IDocument> getBrowse() {
+    HashSet<IDocument> locations = new HashSet<IDocument>();
     Iterator<Statement> itr = listProperties(Doap.BROWSE).iterator();
     while (itr.hasNext()) {
-      locations.add(new Location(itr.next().getResource()));
+      locations.add(new Document(itr.next().getResource()));
     }
     return locations;
   }

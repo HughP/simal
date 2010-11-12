@@ -34,10 +34,10 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IDoapHomepage;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
@@ -47,9 +47,9 @@ import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 
-public class TestProject extends BaseRepositoryTest {
+public class TestModelProject extends BaseRepositoryTest {
   private static final Logger logger = LoggerFactory
-      .getLogger(TestProject.class);
+      .getLogger(TestModelProject.class);
 
   private static Set<IPerson> maintainers;
   private static Set<IPerson> developers;
@@ -218,13 +218,13 @@ public class TestProject extends BaseRepositoryTest {
   
   @Test
   public void testAddandRemoveHomepage() throws SimalRepositoryException, DuplicateURIException {
-	    Set<IDoapHomepage> prePages = project1.getHomepages();
+	    Set<IDocument> prePages = project1.getHomepages();
 
 	    String uri = "http://www.foo.org/homepageTest";
-	    IDoapHomepage page = SimalRepositoryFactory.getHomepageService().create(uri);
+	    IDocument page = SimalRepositoryFactory.getHomepageService().create(uri);
 
 	    project1.addHomepage(page);
-	    Set<IDoapHomepage> postPages = project1.getHomepages();
+	    Set<IDocument> postPages = project1.getHomepages();
 	    assertTrue("Failed to add a homepage to the project",
 	        prePages.size() < postPages.size());
 
@@ -238,7 +238,7 @@ public class TestProject extends BaseRepositoryTest {
 
   @Test
   public void testGetHomepages() {
-    Set<IDoapHomepage> homepages = project1.getHomepages();
+    Set<IDocument> homepages = project1.getHomepages();
 
     assertEquals("Incorrect number of home pages",
         TEST_SIMAL_PROJECT_NUMBER_OF_HOMEPAGES, homepages.size());
@@ -487,7 +487,7 @@ public class TestProject extends BaseRepositoryTest {
   @Test
   public void testOpennessRating() throws SimalRepositoryException {
 	  int rating = project1.getOpennessRating();
-	  assertEquals("Got an incorrect openness rating for the test project", 100, rating);
+	  assertEquals("Got an incorrect openness rating for test project " + project1.getLabel(), 100, rating);
   }
   
   @Test
