@@ -22,7 +22,7 @@
     * TestingRestReleases
     * TestingWebReleases
     * TestingCoreReleases
-    * IndividualContributorLicenceAgrement
+    * IndividualContributorLicenceAggrement
   * Release Management
     * ReleaseManagement
     * SigningReleases
