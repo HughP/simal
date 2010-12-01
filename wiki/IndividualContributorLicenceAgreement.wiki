@@ -1,4 +1,5 @@
 #summary An Individual Contributor LIcence Agreement
+#sidebar DeveloperTOC
 
 Individual Contributor License Agreement ("Agreement") V1.0
 
