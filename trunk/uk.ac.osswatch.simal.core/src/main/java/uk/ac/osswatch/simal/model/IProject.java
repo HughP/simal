@@ -194,6 +194,20 @@ public interface IProject extends IDoapResource {
   public Set<IDocument> getScreenshots();
 
   /**
+   * Add a screenshot to the collection of screenshots.
+   * 
+   * @param screenshot
+   */
+  public void addScreenshot(IDocument screenshot);
+
+  /**
+   * Remove a screenshot from the collection of screenshots.
+   * 
+   * @param screenshot
+   */
+  public void removeScreenshot(IDocument screenshot);
+
+  /**
    * Get all operating systems this project can be associated with.
    * 
    */
@@ -225,6 +239,20 @@ public interface IProject extends IDoapResource {
   public Set<IDocument> getWikis();
 
   /**
+   * Add a wiki to the collection of wikis.
+   * 
+   * @param wiki
+   */
+  public void addWiki(IDocument wiki);
+
+  /**
+   * Remove a wiki from the collection of wikis.
+   * 
+   * @param wiki
+   */
+  public void removeWiki(IDocument wiki);
+
+  /**
    * Get all blogs associated with this project.
    */
   public Set<IDocument> getBlogs();
@@ -235,9 +263,37 @@ public interface IProject extends IDoapResource {
   public Set<IDocument> getDownloadPages();
 
   /**
+   * Add a download page to the collection of download pages.
+   * 
+   * @param downloadPage
+   */
+  public void addDownloadPage(IDocument downloadPage);
+
+  /**
+   * Remove a download page from the collection of download pages.
+   * 
+   * @param downloadPage
+   */
+  public void removeDownloadPage(IDocument downloadPage);
+
+  /**
    * Get all download mirrors associated with this project.
    */
   public Set<IDocument> getDownloadMirrors();
+
+  /**
+   * Add a download mirror to the collection of download mirrors.
+   * 
+   * @param downloadMirror
+   */
+  public void addDownloadMirror(IDocument downloadMirror);
+
+  /**
+   * Remove a download mirror from the collection of download mirrors.
+   * 
+   * @param downloadMirror
+   */
+  public void removeDownloadMirror(IDocument downloadMirror);
 
   /**
    * Remove a person as a developer on this project. If the person is assigned
@@ -365,43 +421,55 @@ public interface IProject extends IDoapResource {
    */
  public int getOpennessRating() throws SimalRepositoryException;
 
- /**
-  * Set the revision control repositories that are attached to the project.
-  * @param repos
-  * @throws SimalRepositoryException
-  */
-public void setRepositories(Set<IDoapRepository> repos) throws SimalRepositoryException;
+  /**
+   * Set the revision control repositories that are attached to the project.
+   * 
+   * @param repos
+   * @throws SimalRepositoryException
+   */
+  public void setRepositories(Set<IDoapRepository> repos)
+      throws SimalRepositoryException;
 
-/**
- * Set the homepages associated with this project.
- * @param homepages
- */
-public void setHomepages(Set<IDocument> homepages);
+  /**
+   * Set the homepages associated with this project.
+   * 
+   * @param homepages
+   */
+  public void setHomepages(Set<IDocument> homepages);
 
-/**
- * Set the issue trackers associated with this project.
- * @param homepages
- */
-public void setIssueTrackers(Set<IDocument> trackers);
+  /**
+   * Set the issue trackers associated with this project.
+   * 
+   * @param homepages
+   */
+  public void setIssueTrackers(Set<IDocument> trackers);
 
-/**
- * Add an issue tracker for this project
- * @param tracker
- */
-public void addIssueTracker(IDocument tracker);
+  /**
+   * Add an issue tracker for this project
+   * 
+   * @param tracker
+   */
+  public void addIssueTracker(IDocument tracker);
 
-/**
- * Set the collection of releases.
- * 
- * @param releases
- */
-public void setReleases(Set<IDoapRelease> releases);
+  /**
+   * Remove an issue tracker from this project
+   * 
+   * @param tracker
+   */
+  public void removeIssueTracker(IDocument tracker);
 
-/**
- * Add a release to the collection of releases.
- * 
- * @param release
- */
-public void addRelease(IDoapRelease release);
+  /**
+   * Set the collection of releases.
+   * 
+   * @param releases
+   */
+  public void setReleases(Set<IDoapRelease> releases);
+
+  /**
+   * Add a release to the collection of releases.
+   * 
+   * @param release
+   */
+  public void addRelease(IDoapRelease release);
 
 }
