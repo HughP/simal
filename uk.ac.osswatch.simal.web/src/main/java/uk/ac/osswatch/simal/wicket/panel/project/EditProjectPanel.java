@@ -45,7 +45,6 @@ import org.apache.wicket.model.PropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalException;
@@ -232,20 +231,14 @@ public class EditProjectPanel extends Panel {
           "homepageList", "Web Pages", project.getHomepages(), loggedIn, project) {
         private static final long serialVersionUID = -6849401011037784163L;
 
-        public void processAdd(IDoapResourceFormInputModel inputModel)
+        public void addToModel(IDocument document)
             throws SimalException {
-          IDocument homepage = SimalRepositoryFactory.getHomepageService()
-              .getOrCreate(inputModel.getUrl());
-          homepage.setDefaultName(inputModel.getName());
-
-          addToList(homepage);
-          getProject().addHomepage(homepage);
+          getProject().addHomepage(document);
         }
 
-        public void processDelete(IDocument iDoapResource)
+        public void removeFromModel(IDocument document)
             throws SimalRepositoryException {
-          delete(iDoapResource);
-          getProject().removeHomepage((IDocument) iDoapResource);
+          getProject().removeHomepage(document);
         }
       };
       editablePanels.add(homepageList);
@@ -253,8 +246,20 @@ public class EditProjectPanel extends Panel {
 
       // Community tools
       this.issueTrackers = project.getIssueTrackers();
-      DocumentSetPanel issueTrackerList = new DocumentSetPanel("issueTrackerList",
-          "Issue Trackers", issueTrackers);
+      DocumentSetPanel issueTrackerList = new DocumentSetPanel(
+          "issueTrackerList", "Issue Trackers", issueTrackers, loggedIn, project) {
+        private static final long serialVersionUID = -1120710361889351081L;
+
+        public void addToModel(IDocument document) throws SimalException {
+          getProject().addIssueTracker(document);
+        }
+
+        public void removeFromModel(IDocument document)
+            throws SimalRepositoryException {
+          getProject().removeIssueTracker(document);
+        }
+      };
+      editablePanels.add(issueTrackerList);
       add(issueTrackerList);
 
 
@@ -268,18 +273,54 @@ public class EditProjectPanel extends Panel {
       
       this.wikis = project.getWikis();
       DocumentSetPanel wikiListPanel = new DocumentSetPanel("wikiLists",
-          "Wikis", wikis);
+          "Wikis", wikis, loggedIn, project) {
+        private static final long serialVersionUID = 4574870021749081067L;
+
+        public void addToModel(IDocument document) throws SimalException {
+          getProject().addWiki(document);
+        }
+
+        public void removeFromModel(IDocument document)
+            throws SimalRepositoryException {
+          getProject().removeWiki(document);
+        }
+      };
+      editablePanels.add(wikiListPanel);
       add(wikiListPanel);
 
       // download
       this.downloads = project.getDownloadPages();
       DocumentSetPanel downloadsListPanel = new DocumentSetPanel("downloadPagesList",
-          "Downloads", downloads);
+          "Downloads", downloads, loggedIn, project) {
+        private static final long serialVersionUID = -7922957837006958358L;
+
+        public void addToModel(IDocument document) throws SimalException {
+          getProject().addDownloadPage(document);
+        }
+
+        public void removeFromModel(IDocument document)
+            throws SimalRepositoryException {
+          getProject().removeDownloadPage(document);
+        }
+      };
+      editablePanels.add(downloadsListPanel);
       add(downloadsListPanel);
       
       this.downloadMirrors = project.getDownloadMirrors();
       DocumentSetPanel downloadMirrorsListPanel = new DocumentSetPanel("downloadMirrorsList",
-          "Download Mirrors", downloadMirrors);
+          "Download Mirrors", downloadMirrors, loggedIn, project) {
+        private static final long serialVersionUID = -6222494226582096467L;
+
+        public void addToModel(IDocument document) throws SimalException {
+          getProject().addDownloadMirror(document);
+        }
+
+        public void removeFromModel(IDocument document)
+            throws SimalRepositoryException {
+          getProject().removeDownloadMirror(document);
+        }
+      };
+      editablePanels.add(downloadMirrorsListPanel);
       add(downloadMirrorsListPanel);
       
       try {
@@ -295,7 +336,19 @@ public class EditProjectPanel extends Panel {
       
       this.screenshots = project.getScreenshots();
       DocumentSetPanel screenshotsListPanel = new DocumentSetPanel("screenshotsList",
-          "Screenshots", screenshots);
+          "Screenshots", screenshots, loggedIn, project) {
+        private static final long serialVersionUID = -7837486995158569663L;
+
+        public void addToModel(IDocument document) throws SimalException {
+          getProject().addScreenshot(document);
+        }
+
+        public void removeFromModel(IDocument document)
+            throws SimalRepositoryException {
+          getProject().removeScreenshot(document);
+        }
+      };
+      editablePanels.add(screenshotsListPanel);
       add(screenshotsListPanel);
 
     }

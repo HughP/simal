@@ -31,6 +31,7 @@ import org.junit.Test;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.TestBase;
 import uk.ac.osswatch.simal.wicket.panel.project.DocumentSetPanel;
@@ -51,7 +52,17 @@ public class TestDocumentSetPanel extends TestBase {
         try {
           IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
           Set<IDocument> homepages = project.getHomepages();
-          return new DocumentSetPanel(panelId, "Homepage List", homepages, true, project);
+          return new DocumentSetPanel(panelId, "Homepage List", homepages, true, project) {
+
+            public void addToModel(IDocument document) throws SimalException {
+              getProject().addHomepage(document);
+            }
+
+            public void removeFromModel(IDocument document)
+                throws SimalRepositoryException {
+              getProject().removeHomepage(document);
+            }
+          };
         } catch (SimalRepositoryException e) {
           fail();
           return null;
@@ -106,10 +117,11 @@ public class TestDocumentSetPanel extends TestBase {
     tester.assertVisible("panel:dataTable:rows:5");
     tester.assertVisible("panel:dataTable:rows:6");
     
-    // Still only 2 items 
+    // Third item added 
+    tester.assertVisible("panel:dataTable:rows:7");
     try {
-      tester.assertVisible("panel:dataTable:rows:7");
-      fail("Should not have three rows in the homepages table");
+      tester.assertVisible("panel:dataTable:rows:8");
+      fail("Should not have more than three rows in the homepages table");
     } catch (WicketRuntimeException e) {
       // ignore as we expect this exception
     }

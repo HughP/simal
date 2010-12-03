@@ -37,6 +37,7 @@ import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalException;
@@ -47,7 +48,7 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
 /**
  * A simple panel for listing a set of any IDoapResources. 
  */
-public class DocumentSetPanel extends Panel {
+public abstract class DocumentSetPanel extends Panel {
   public static final Logger LOGGER = LoggerFactory
       .getLogger(DocumentSetPanel.class);
 
@@ -190,21 +191,14 @@ public class DocumentSetPanel extends Panel {
     this.documents.add(iFoafResource);
   }
 
-  private void processDeleteOnClick(AjaxRequestTarget target, IDocument iDoapResource) {
+  private void processDeleteOnClick(AjaxRequestTarget target, IDocument document) {
     try {
-      processDelete(iDoapResource);
-    } catch (SimalRepositoryException e) {
-      LOGGER.warn("Failed to delete resource " + iDoapResource);
+      processDelete(document);
+    } catch (SimalException e) {
+      LOGGER.warn("Failed to delete resource " + document);
     }
     target.addComponent(this);
     
-  }
-
-  public void processAdd(IDoapResourceFormInputModel inputModel)
-      throws SimalException {
-    // Subclasses that wish to use it should implement it.
-    // TODO To be made abstract to force subclassing and implementation of
-    // method
   }
 
   /**
@@ -217,11 +211,24 @@ public class DocumentSetPanel extends Panel {
     this.documents.remove(iDoapResource);
   }
 
-  public void processDelete(IDocument inputModel)
-      throws SimalRepositoryException {
-    // Subclasses that wish to use it should implement it.
-    // TODO To be made abstract to force subclassing and implementation of
-    // method
+  public void processAdd(IDoapResourceFormInputModel inputModel)
+      throws SimalException {
+    IDocument homepage = SimalRepositoryFactory.getHomepageService()
+        .getOrCreate(inputModel.getUrl());
+    homepage.setDefaultName(inputModel.getName());
+
+    addToList(homepage);
+    addToModel(homepage);
+  }
+
+  public abstract void addToModel(IDocument document) throws SimalException;
+  
+  public abstract void removeFromModel(IDocument document) throws SimalException;
+  
+  public void processDelete(IDocument document)
+      throws SimalException {
+    delete(document);
+    removeFromModel(document);
   }
 
   protected IProject getProject() {
