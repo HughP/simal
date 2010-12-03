@@ -506,6 +506,10 @@ public class Project extends DoapResource implements IProject {
     addResourceStatement(Doap.BUG_DATABASE, tracker);
   }
 
+  public void removeIssueTracker(IDocument document) {
+    removeResourceStatement(Doap.BUG_DATABASE, document);
+  }
+  
   public void setMailingLists(Set<IDoapMailingList> lists) {
     replacePropertyStatements(Doap.MAILING_LIST, lists);
   }
@@ -541,6 +545,38 @@ public class Project extends DoapResource implements IProject {
     for (IDocument doc : allDocuments) { 
       doc.delete();
     }
+  }
+
+  public void addWiki(IDocument document) {
+    addResourceStatement(Doap.WIKI, document);
+  }
+
+  public void removeWiki(IDocument document) {
+    removeResourceStatement(Doap.WIKI, document);
+  }
+
+  public void removeDownloadPage(IDocument document) {
+    removeResourceStatement(Doap.DOWNLOAD_PAGE, document);
+  }
+
+  public void addDownloadPage(IDocument document) {
+    addResourceStatement(Doap.DOWNLOAD_PAGE, document);
+  }
+
+  public void addDownloadMirror(IDocument document) {
+    addResourceStatement(Doap.DOWNLOAD_MIRROR, document);
+  }
+
+  public void removeDownloadMirror(IDocument document) {
+    removeResourceStatement(Doap.DOWNLOAD_MIRROR, document);
+  }
+
+  public void addScreenshot(IDocument document) {
+    addResourceStatement(Doap.SCREENSHOTS, document);
+  }
+
+  public void removeScreenshot(IDocument document) {
+    removeResourceStatement(Doap.SCREENSHOTS, document);
   }
   
 }
