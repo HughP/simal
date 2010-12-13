@@ -19,6 +19,8 @@ package uk.ac.osswatch.simal.service;
 
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
+import uk.ac.osswatch.simal.rdf.InvalidURIException;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 /**
@@ -34,9 +36,19 @@ public interface IRepositoryService extends IService {
 	 * @return
 	 * @throws SimalRepositoryException
 	 * @throws DuplicateURIException
+	 * @throws InvalidURIException 
 	 */
 	public IDoapRepository create(String uri) throws SimalRepositoryException,
-			DuplicateURIException;
+			DuplicateURIException, InvalidURIException;
+
+	/**
+	 * Generate a new IDoapRepository based on a generated URI.
+	 *  
+	 * @return newly created IDoapRepository
+	 * @throws SimalRepositoryException
+	 * @throws SimalException 
+	 */
+	public IDoapRepository create() throws SimalRepositoryException, SimalException;
 
 	/**
 	 * Get a new ID for a Revision Control repository.
