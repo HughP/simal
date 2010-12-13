@@ -96,6 +96,14 @@ public final class RDFUtils {
     return uri;
   }
 
+  public static String getDefaultRepositoryURI(String id) {
+    String uri = REPOSITORY_NAMESPACE_URI;
+    uri = uri + id;
+    uri = uri + "#Repository";
+    uri = encode(uri);
+    return uri;
+  }
+
   /**
    * Encode the given string so that it can be used to create a valid URI. FOr
    * example, encode ' ' as %20

@@ -1,6 +1,6 @@
 package uk.ac.osswatch.simal.service.jena;
 /*
- * Copyright 2007 University of Oxford 
+ * Copyright 2007,2010 University of Oxford 
  *  
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,24 @@ package uk.ac.osswatch.simal.service.jena;
  * 
  */
 
-import com.hp.hpl.jena.rdf.model.Model;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.AbstractService;
 
+import com.hp.hpl.jena.rdf.model.Model;
+
 public class JenaService extends AbstractService {
 
-	/**
+  public static final Logger LOGGER = LoggerFactory
+  .getLogger(JenaService.class);
+
+  /**
 	 * Create new JenaService but only for ISimalRepository
 	 * objects that are of type JenaSimalRepository
 	 * @param simalRepository
@@ -52,4 +59,52 @@ public class JenaService extends AbstractService {
 	protected Model getModel() {
 	  return ((JenaSimalRepository)getRepository()).getModel();
 	}
+	
+  protected String getNewID(String propertyName, String defaultIdPrefix) throws SimalRepositoryException {
+    String fullID = null;
+    String strEntityID = SimalProperties.getProperty(
+        propertyName, "1");
+    long entityID = Long.parseLong(strEntityID);
+
+    /**
+     * If the properties file is lost for any reason the next ID value will
+     * be lost. We therefore need to perform a sanity check that this is
+     * unique.
+     */
+    boolean validID = false;
+    int attempts = 0;
+    while (!validID && ++attempts < 10) {
+      fullID = getRepository().getUniqueSimalID(
+          defaultIdPrefix + Long.toString(entityID));
+      if (idAvailable(fullID)) {
+        validID = true;
+      } else {
+        entityID = entityID + 1;
+      }
+    }
+    
+    if(!validID) {
+      throw new SimalRepositoryException("Could not find available ID for property " + propertyName);
+    }
+
+    long newId = entityID + 1;
+    SimalProperties.setProperty(propertyName, Long
+            .toString(newId));
+    try {
+      SimalProperties.save();
+    } catch (Exception e) {
+      LOGGER.warn("Unable to save properties file", e);
+      throw new SimalRepositoryException(
+          "Unable to save properties file when creating the next category ID",
+          e);
+    }
+    return fullID;
+  }
+
+  private boolean idAvailable(String id) {
+  // FIXME Check on ID 
+  return true;
+  }
+
+	
 }
