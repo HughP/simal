@@ -2,6 +2,7 @@
 #labels Phase-Support
 
   * [GettingStarted Getting Started]
+    * UserQuickStart
     * GettingStarted
     * DevelopSimal
     * CreatePatch
