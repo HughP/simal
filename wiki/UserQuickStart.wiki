@@ -1,5 +1,6 @@
+#summary How to get started with using Simal working with the binaries.
 #labels Featured,Phase-Support
-#How to get started with using Simal working with the binaries.
+#sidebar DeveloperTOC
 
 = Introduction =
 
