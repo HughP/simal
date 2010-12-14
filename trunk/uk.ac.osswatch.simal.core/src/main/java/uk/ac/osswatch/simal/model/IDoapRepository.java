@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 University of Oxford
+ * Copyright 2007, 2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@ package uk.ac.osswatch.simal.model;
 import java.util.Set;
 
 /**
- * A repository that is known to apply be used by a project It is a resource
+ * A repository that is known to be used by a project. It is a resource
  * used to define the doap:repository entries of doap:Project.
  * 
  */
@@ -37,17 +37,66 @@ public interface IDoapRepository extends IDoapResource {
 
   Set<IDocument> getBrowse();
 
+  /**
+   * If this repository is an GNU Arch repository return true, else return
+   * false.
+   * 
+   * @return
+   */
   boolean isARCH();
 
+  /**
+   * If this repository is a Bazaar Branch return true, else return false.
+   * 
+   * @return
+   */
+  boolean isBazaar();
+
+  /**
+   * If this repository is a BitKeeper repository return true, else return
+   * false.
+   * 
+   * @return
+   */
   boolean isBK();
 
   /**
-   * If this repository is a CVS repository return true.
+   * If this repository is a CVS repository return true, else return false.
    * 
    * @return
    */
   boolean isCVS();
 
+  /**
+   * If this repository is a darcs source code repository return true, else
+   * return false.
+   * 
+   * @return
+   */
+  boolean isDarcs();
+
+  /**
+   * If this repository is a Git source code repository return true, else return
+   * false.
+   * 
+   * @return
+   */
+  boolean isGit();
+
+  /**
+   * If this repository is a Mercurial source code repository return true, else
+   * return false.
+   * 
+   * @return
+   */
+  boolean isMercurial();
+
+  /**
+   * If this repository is a Subversion source code repository return true, else
+   * return false.
+   * 
+   * @return
+   */
   boolean isSVN();
 
 }

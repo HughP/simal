@@ -1,8 +1,7 @@
 package uk.ac.osswatch.simal.model.jena;
 
 /*
- * 
- Copyright 2007 University of Oxford * 
+ * Copyright 2007, 2010 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -31,28 +30,20 @@ import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 public class Repository extends DoapResource implements IDoapRepository {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2181691886103506908L;
+  
+  private DoapRepositoryType repoType;
 
-  private boolean isARCH = false;
-  private boolean isBK = false;
-  private boolean isCVS = false;
-  private boolean isSVN = false;
+  public static enum DoapRepositoryType {
+    ArchRepository, BKRepository, BazaarBranch, CVSRepository, 
+    DarcsRepository, GitRepository, HgRepository, SVNRepository;
+  };
 
   public Repository(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
     Resource type = getJenaResource().getProperty(RDF.type).getResource();
-    if (type.equals(Doap.ARCH_REPOSITORY)) {
-      isARCH = true;
-    }
-    if (type.equals(Doap.BKREPOSITORY)) {
-      isBK = true;
-    }
-    if (type.equals(Doap.CVSREPOSITORY)) {
-      isCVS = true;
-    }
-    if (type.equals(Doap.SVNREPOSITORY)) {
-      isSVN = true;
-    }
+    
+    repoType = DoapRepositoryType.valueOf(type.getLocalName()); 
   }
 
   public Set<String> getAnonRoots() {
@@ -74,19 +65,35 @@ public class Repository extends DoapResource implements IDoapRepository {
   }
 
   public boolean isARCH() {
-    return isARCH;
+    return (repoType == DoapRepositoryType.ArchRepository);
+  }
+
+  public boolean isBazaar() {
+    return (repoType == DoapRepositoryType.BazaarBranch);
   }
 
   public boolean isBK() {
-    return isBK;
+    return (repoType == DoapRepositoryType.BKRepository);
   }
 
   public boolean isCVS() {
-    return isCVS;
+    return (repoType == DoapRepositoryType.CVSRepository);
+  }
+
+  public boolean isDarcs() {
+    return (repoType == DoapRepositoryType.DarcsRepository);
+  }
+
+  public boolean isGit() {
+    return (repoType == DoapRepositoryType.GitRepository);
+  }
+
+  public boolean isMercurial() {
+    return (repoType == DoapRepositoryType.HgRepository);
   }
 
   public boolean isSVN() {
-    return isSVN;
+    return (repoType == DoapRepositoryType.SVNRepository);
   }
 
   public Set<String> getModule() {

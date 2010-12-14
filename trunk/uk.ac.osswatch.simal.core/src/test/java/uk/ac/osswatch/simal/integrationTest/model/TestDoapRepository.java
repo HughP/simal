@@ -16,8 +16,10 @@
 package uk.ac.osswatch.simal.integrationTest.model;
 
 import static junit.framework.Assert.assertEquals;
+
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -47,13 +49,21 @@ public class TestDoapRepository extends BaseRepositoryTest {
       IDoapRepository repo = itr.next();
       if (repo.getURI().contains("cvs")) {
         assertTrue("CVS repo is identified as ARCH", !repo.isARCH());
+        assertTrue("CVS repo is identified as Bazaar", !repo.isBazaar());
         assertTrue("CVS repo is identified as BK", !repo.isBK());
         assertTrue("CVS repo is not identified as CVS", repo.isCVS());
+        assertTrue("CVS repo is identified as Darcs", !repo.isDarcs());
+        assertTrue("CVS repo is identified as Mercurial", !repo.isMercurial());
+        assertTrue("SVN repo is identified as Git", !repo.isGit());
         assertTrue("CVS repo is identified as SVN", !repo.isSVN());
       } else if (repo.getURI().contains("svn")) {
         assertTrue("SVN repo is identified as ARCH", !repo.isARCH());
+        assertTrue("CVS repo is identified as Bazaar", !repo.isBazaar());
         assertTrue("SVN repo is identified as BK", !repo.isBK());
         assertTrue("SVN repo is identified as CVS", !repo.isCVS());
+        assertTrue("CVS repo is identified as Darcs", !repo.isDarcs());
+        assertTrue("SVN repo is identified as Git", !repo.isGit());
+        assertTrue("CVS repo is identified as Mercurial", !repo.isMercurial());
         assertTrue("SVN repo is not identified as SVN", repo.isSVN());
       }
 
@@ -61,37 +71,39 @@ public class TestDoapRepository extends BaseRepositoryTest {
   }
 
   @Test
-  public void testSVNRepo() throws SimalRepositoryException {
+  public void testProjectRepos() throws SimalRepositoryException {
     Set<IDoapRepository> repos = project1.getRepositories();
     Iterator<IDoapRepository> itr = repos.iterator();
     while (itr.hasNext()) {
       IDoapRepository repo = itr.next();
       if (repo.isSVN()) {
-        Set<IDocument> location = repo.getLocations();
-        assertNotNull(repo.toString() + " does not have a location", location);
-
-        Set<IDocument> browse = repo.getBrowse();
-        assertNotNull(repo.toString() + " does not have a browse", browse);
+        performSVNRepoTest(repo);
+      } else if (repo.isCVS()) {
+        performCVSRepoTest(repo);
+      } else {
+        fail("Repository not recognised as CVS or SVN.");
       }
     }
   }
 
-  @Test
-  public void testCVSRepo() throws SimalRepositoryException {
-    Set<IDoapRepository> repos = project1.getRepositories();
-    Iterator<IDoapRepository> itr = repos.iterator();
-    while (itr.hasNext()) {
-      IDoapRepository repo = itr.next();
-      if (repo.isCVS()) {
-        Set<String> anonRoot = repo.getAnonRoots();
-        assertNotNull(repo.toString() + " does not have an anon root", anonRoot);
+  public void performSVNRepoTest(IDoapRepository repo)
+      throws SimalRepositoryException {
+    Set<IDocument> location = repo.getLocations();
+    assertNotNull(repo.toString() + " does not have a location", location);
 
-        Set<IDocument> browse = repo.getBrowse();
-        assertNotNull(repo.toString() + " does not have a browse", browse);
+    Set<IDocument> browse = repo.getBrowse();
+    assertNotNull(repo.toString() + " does not have a browse", browse);
+  }
 
-        Set<String> module = repo.getModule();
-        assertNotNull(repo.toString() + " does not have a browse", module);
-      }
-    }
+  private void performCVSRepoTest(IDoapRepository repo)
+      throws SimalRepositoryException {
+    Set<String> anonRoot = repo.getAnonRoots();
+    assertNotNull(repo.toString() + " does not have an anon root", anonRoot);
+
+    Set<IDocument> browse = repo.getBrowse();
+    assertNotNull(repo.toString() + " does not have a browse", browse);
+
+    Set<String> module = repo.getModule();
+    assertNotNull(repo.toString() + " does not have a browse", module);
   }
 }
