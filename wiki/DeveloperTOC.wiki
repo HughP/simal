@@ -1,14 +1,16 @@
 #summary The Table of contents for the developer section of the wiki
 #labels Phase-Support
 
-  * [GettingStarted Getting Started]
+  * [User Documentation UserQuickStart]
     * UserQuickStart
+    * IssueTracking
+    * AboutSimal
+  * [Developer Documentation GettingStarted]
     * GettingStarted
     * DevelopSimal
     * CreatePatch
     * ContributionProcess
-    * FAQ
-    * AboutSimal
+    * [FAQ]
   * Design
     * [Schema]
     * [SimalRESTAPI]
