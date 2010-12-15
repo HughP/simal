@@ -4,7 +4,9 @@
   * [UserQuickStart User Documentation]
     * UserQuickStart
     * [IssueTracker]
-    * ExposingYourDOAP
+    * [ExposingYourDOAP]
+    * [ReleaseNotes]
+    * [Changelog]
     * AboutSimal
   * [GettingStarted Developer Documentation]
     * GettingStarted
