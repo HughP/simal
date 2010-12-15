@@ -13,6 +13,26 @@ We have a [GettingStarted getting started document] for those looking to install
 
 If you are unfamiliar with RDF and DOAP in particular, there is an [http://www.oss-watch.ac.uk/resources/doap.xml OSS Watch briefing note] on them. There is a demo of the current state of simal at http://simal.oss-watch.ac.uk/
 
+== Why Simal? ==
+
+A Simal is an East Indian silk cotton tree of the Bombax genus. These trees have extremely large root and branch systems and strong, but short trunks.
+
+We felt that Simal, the software project, was somewhat like the trunk of these trees. That is, Simal channels the goodness available in fertile planting grounds to the projects that bear fruit up in the branches of the tree.
+
+We also felt that as Simal (the project) matures it is likely to develop a number of strong supporting branches for specific community types.
+
+For more information (and a picture) see the wikipedia entry on [http://en.wikipedia.org/wiki/Simal Bombax].
+
+== Credits ==
+
+Simal is made possible as a result of contributions from a large number of people and organisations. This page identifies some of the most important contributors (in alphabetic order), we thank them all.
+
+|| Contributor || Notes ||
+|| [http://16degrees.com.au 16 Degrees] ||  CI Hudson Server provided by 16 Degrees omplete Web Solutions. || 
+|| [http://www.famfamfam.com/lab/icons/silk/ FamFamFam] ||  Icons used in Simal are provided by Mark James of FamFamFam. || 
+|| [http://www.ohloh.net Ohloh] ||  Simal catalogues can (and our demos do) include content from OhLoh. || 
+|| [http://www.oucs.ox.ac.uk Oxford University Computing Services] ||  The initial use cases for Simal were provided by [http://www.oss-watch.ac.uk OSS Watch]. As a result the initial resources for creating Simal came from there. OSS Watch is a [http://www.jisc.ac.uk JISC] funded project within Oxford University Computing Services. || 
+
 == Recent Activity ==
 
 === Recent Issue Activity ===
