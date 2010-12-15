@@ -1,5 +1,6 @@
 #summary How to use the issue tracker
 #labels Phase-Support
+#sidebar DeveloperTOC
 
 = Introduction =
 

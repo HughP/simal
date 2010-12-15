@@ -1,17 +1,20 @@
 #summary What is Simal
 #labels Featured,Phase-Support
+#sidebar DeveloperTOC
 
 Simal is a set of open source tools for building project catalogues from RDF/XML files.
 
 Simal also provides a web application for the creation and management of RDF/XML project descriptors and catalogues built from them. 
 
-_The project is very young at this time. As such, we welcome input into the requirements and design of the initial prototype system._
+The mission of the Simal project is to create a software framework for the collection and management of essential details about open development projects. Using this data it will be possible to create a picture of development projects and communities, that allows for all increased awareness of existing projects and experts to be found within.
+
+*_The project is very young at this time. As such, we welcome input into the requirements and design of the initial prototype system._*
 
 Why not have a play with our demo of the [http://registry.oss-watch.ac.uk early alpha release] and provide feedback on how you think we can [http://groups.google.com/group/simal-users improve it] (or even [http://groups.google.com/group/simal-contributors help us improve] it).
 
-We have a [GettingStarted getting started document] for those looking to install the software locally and another for those wanting to work [http://simal.oss-watch.ac.uk/userQuickstart.html install] the binaries. Please ask your questions on our [http://groups.google.com/group/simal-contributors mail list].
+We have a [UserQuickStart getting started document] for those looking to install the software locally using the binaries and [GettingStarted another] for those wanting to work directly from the latest source code. Feel free to ask all your questions on our [http://groups.google.com/group/simal-contributors mailing list].
 
-If you are unfamiliar with RDF and DOAP in particular, there is an [http://www.oss-watch.ac.uk/resources/doap.xml OSS Watch briefing note] on them. There is a demo of the current state of simal at http://simal.oss-watch.ac.uk/
+If you are unfamiliar with RDF and DOAP in particular, there is an [http://www.oss-watch.ac.uk/resources/doap.xml OSS Watch briefing note] on them. There is a demo of the current state of simal at http://registry.oss-watch.ac.uk/
 
 == Why Simal? ==
 

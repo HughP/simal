@@ -66,9 +66,9 @@ Key features include:
 
 = Installing =
 
-Binary releases: http://simal.oss-watch.ac.uk/userQuickstart.html
+Binary releases: [UserQuickStart]
 
-Source: http://simal.oss-watch.ac.uk/devQuickstart.html
+Source: [GettingStarted]
 
 = Questions and Feedback =
 

@@ -1,6 +1,6 @@
 #summary notes on significant changes between releases
 #labels Featured,Phase-Support
-#sidebar UserTOC
+#sidebar DeveloperTOC
 
 = 0.2.5-SNAPSHOT =
 

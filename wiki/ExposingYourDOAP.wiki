@@ -1,5 +1,6 @@
 #summary This is an overview of how to share your project descriptions with us and the rest of the world via DOAP
 #labels Phase-Support,Featured
+#sidebar DeveloperTOC
 
 = Introduction =
 

@@ -4,9 +4,11 @@
   * [UserQuickStart User Documentation]
     * UserQuickStart
     * [IssueTracker]
+    * ExposingYourDOAP
     * AboutSimal
   * [GettingStarted Developer Documentation]
     * GettingStarted
+    * DoapCreatorWidget
     * DevelopSimal
     * CreatePatch
     * ContributionProcess
