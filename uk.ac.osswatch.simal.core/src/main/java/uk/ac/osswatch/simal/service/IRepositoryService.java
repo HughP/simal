@@ -1,6 +1,6 @@
 package uk.ac.osswatch.simal.service;
 /*
- * Copyright 2007 University of Oxford 
+ * Copyright 2007,2010 University of Oxford 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.service;
  * 
  */
 
+import uk.ac.osswatch.simal.model.DoapRepositoryType;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.InvalidURIException;
@@ -33,22 +34,24 @@ public interface IRepositoryService extends IService {
 	 * Create a new Revision Control Repository.
 	 * 
 	 * @param uri
+   * @param type
 	 * @return
-	 * @throws SimalRepositoryException
+	 * @throws SimalException
 	 * @throws DuplicateURIException
 	 * @throws InvalidURIException 
 	 */
-	public IDoapRepository create(String uri) throws SimalRepositoryException,
+	public IDoapRepository create(String uri, DoapRepositoryType type) throws SimalException,
 			DuplicateURIException, InvalidURIException;
 
 	/**
 	 * Generate a new IDoapRepository based on a generated URI.
 	 *  
+   * @param type
 	 * @return newly created IDoapRepository
 	 * @throws SimalRepositoryException
 	 * @throws SimalException 
 	 */
-	public IDoapRepository create() throws SimalRepositoryException, SimalException;
+	public IDoapRepository create(DoapRepositoryType type) throws SimalRepositoryException, SimalException;
 
 	/**
 	 * Get a new ID for a Revision Control repository.
@@ -56,13 +59,5 @@ public interface IRepositoryService extends IService {
 	 * @throws SimalRepositoryException
 	 */
 	public String getNewID() throws SimalRepositoryException;
-
-	/**
-	 * Get a revision control repository by Simal ID
-	 *
-	 * @param fullID
-	 * @return
-	 */
-	public IDoapRepository getById(String fullID);
 
 }

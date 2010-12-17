@@ -18,9 +18,6 @@ package uk.ac.osswatch.simal;
  * 
  */
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -36,11 +33,10 @@ import uk.ac.osswatch.simal.service.jena.JenaDocumentService;
 import uk.ac.osswatch.simal.service.jena.JenaOrganisationService;
 import uk.ac.osswatch.simal.service.jena.JenaPersonService;
 import uk.ac.osswatch.simal.service.jena.JenaProjectService;
+import uk.ac.osswatch.simal.service.jena.JenaRepositoryService;
 import uk.ac.osswatch.simal.service.jena.JenaReviewService;
 
 public class SimalRepositoryFactory {
-  private static final Logger logger = LoggerFactory
-      .getLogger(SimalRepositoryFactory.class);
   public static final int JENA = 1;
   public static final int JCR = 2;
   private static int repoType = JENA;
@@ -196,9 +192,7 @@ public class SimalRepositoryFactory {
 	public static IRepositoryService getRepositoryService() throws SimalRepositoryException {
 		 switch (repoType) {
 		    case JENA:
-		      // return new JenaRepositoryService(getInstance());
-		      logger.error("Not implemented JenaRepositoryService");
-		      throw new RuntimeException("No RepositoryService has been implemented for the JENA repository yet.");
+		      return new JenaRepositoryService(getInstance());
 		    case JCR: 
 		    	// commented out as this code moved to a branch - do we need to remove it yet?
 			      // return new JcrRepositoryService(getInstance());

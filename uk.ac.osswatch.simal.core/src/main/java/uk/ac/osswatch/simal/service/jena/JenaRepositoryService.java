@@ -1,4 +1,5 @@
 package uk.ac.osswatch.simal.service.jena;
+
 /*
  * Copyright 2010 University of Oxford
  *
@@ -23,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.DoapRepositoryType;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.model.jena.Repository;
 import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
@@ -36,7 +38,6 @@ import uk.ac.osswatch.simal.service.IRepositoryService;
 
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.sparql.vocabulary.DOAP;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 public class JenaRepositoryService extends JenaService implements
@@ -49,25 +50,25 @@ public class JenaRepositoryService extends JenaService implements
     super(simalRepository);
   }
 
-  public IDoapRepository create(String uri) throws SimalRepositoryException,
+  public IDoapRepository create(String uri, DoapRepositoryType type) throws SimalException,
       DuplicateURIException, InvalidURIException {
     ensureValidURI(uri);
 
     Model model = ((JenaSimalRepository) getRepository()).getModel();
 
     com.hp.hpl.jena.rdf.model.Resource r = model.createResource(uri);
-    Statement s = model.createStatement(r, RDF.type, DOAP.Repository);
+    Statement s = model.createStatement(r, RDF.type, type.getResource());
     model.add(s);
-
+    
     return new Repository(r);
   }
   
 
-  public IDoapRepository create() throws SimalException {
+  public IDoapRepository create(DoapRepositoryType type) throws SimalException {
     String uri = RDFUtils.getDefaultRepositoryURI(getNewID());
     IDoapRepository repo = null;
     try {
-      repo = create(uri);
+      repo = create(uri, type);
     } catch (DuplicateURIException e) {
       String msg = "Generated URI unexpectedly duplicate : " + uri;
       LOGGER.warn(msg);
@@ -98,13 +99,7 @@ public class JenaRepositoryService extends JenaService implements
   }
 
   public String getNewID() throws SimalRepositoryException {
-    // TODO Auto-generated method stub
     return getNewID(SimalProperties.PROPERTY_SIMAL_NEXT_RCS_ID, "rcs");
-  }
-
-  public IDoapRepository getById(String fullID) {
-    // TODO Auto-generated method stub
-    return null;
   }
 
 }
