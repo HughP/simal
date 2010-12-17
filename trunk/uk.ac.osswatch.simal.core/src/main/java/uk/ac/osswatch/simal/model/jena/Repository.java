@@ -21,9 +21,11 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import uk.ac.osswatch.simal.model.DoapRepositoryType;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IDoapRepository;
 import uk.ac.osswatch.simal.rdf.Doap;
+import uk.ac.osswatch.simal.rdf.SimalException;
 
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
@@ -34,16 +36,13 @@ public class Repository extends DoapResource implements IDoapRepository {
   
   private DoapRepositoryType repoType;
 
-  public static enum DoapRepositoryType {
-    ArchRepository, BKRepository, BazaarBranch, CVSRepository, 
-    DarcsRepository, GitRepository, HgRepository, SVNRepository;
-  };
-
-  public Repository(com.hp.hpl.jena.rdf.model.Resource resource) {
+  public Repository(com.hp.hpl.jena.rdf.model.Resource resource) throws SimalException {
     super(resource);
     Resource type = getJenaResource().getProperty(RDF.type).getResource();
-    
-    repoType = DoapRepositoryType.valueOf(type.getLocalName()); 
+    repoType = DoapRepositoryType.getMatchingDoapRepositoryType(type);
+    if(repoType == null) {
+      throw new SimalException("Attempt to create Repository of invalid type: " + type.getURI());
+    }
   }
 
   public Set<String> getAnonRoots() {
@@ -65,35 +64,35 @@ public class Repository extends DoapResource implements IDoapRepository {
   }
 
   public boolean isARCH() {
-    return (repoType == DoapRepositoryType.ArchRepository);
+    return (repoType == DoapRepositoryType.ARCH_REPOSITORY);
   }
 
   public boolean isBazaar() {
-    return (repoType == DoapRepositoryType.BazaarBranch);
+    return (repoType == DoapRepositoryType.BAZAAR_REPOSITORY);
   }
 
   public boolean isBK() {
-    return (repoType == DoapRepositoryType.BKRepository);
+    return (repoType == DoapRepositoryType.BK_REPOSITORY);
   }
 
   public boolean isCVS() {
-    return (repoType == DoapRepositoryType.CVSRepository);
+    return (repoType == DoapRepositoryType.CVS_REPOSITORY);
   }
 
   public boolean isDarcs() {
-    return (repoType == DoapRepositoryType.DarcsRepository);
+    return (repoType == DoapRepositoryType.DARCS_REPOSITORY);
   }
 
   public boolean isGit() {
-    return (repoType == DoapRepositoryType.GitRepository);
+    return (repoType == DoapRepositoryType.GIT_REPOSITORY);
   }
 
   public boolean isMercurial() {
-    return (repoType == DoapRepositoryType.HgRepository);
+    return (repoType == DoapRepositoryType.HG_REPOSITORY);
   }
 
   public boolean isSVN() {
-    return (repoType == DoapRepositoryType.SVNRepository);
+    return (repoType == DoapRepositoryType.SVN_REPOSITORY);
   }
 
   public Set<String> getModule() {
@@ -112,5 +111,25 @@ public class Repository extends DoapResource implements IDoapRepository {
       locations.add(new Document(itr.next().getResource()));
     }
     return locations;
+  }
+
+  @Override
+  public void setBrowse(Set<IDocument> browseAccesses) {
+    replacePropertyStatements(Doap.BROWSE, browseAccesses);
+  }
+
+  @Override
+  public void setAnonRoots(Set<String> anonRoots) {
+    replaceLiteralStatements(Doap.ANON_ROOT, anonRoots);
+  }
+
+  @Override
+  public void setModule(Set<String> modules) {
+    replaceLiteralStatements(Doap.MODULE, modules);
+  }
+
+  @Override
+  public void setLocations(Set<IDocument> locations) {
+    replacePropertyStatements(Doap.LOCATION, locations);
   }
 }

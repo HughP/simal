@@ -31,11 +31,51 @@ public interface IDoapRepository extends IDoapResource {
    */
   Set<String> getAnonRoots();
 
+  /**
+   * Return the anonymous roots for his repository.
+   * 
+   * @return
+   */
   Set<String> getModule();
 
+  /**
+   * Return the anonymous roots for his repository.
+   * 
+   * @return
+   */
   Set<IDocument> getLocations();
 
+  /**
+   * Return the anonymous roots for his repository.
+   * 
+   * @return
+   */
   Set<IDocument> getBrowse();
+
+  /**
+   * 
+   * @param browseAccesses
+   */
+  void setBrowse(Set<IDocument> browseAccesses);
+
+  /**
+   * 
+   * @param anonRoots
+   */
+  void setAnonRoots(Set<String> anonRoots);
+
+  /**
+   * 
+   * @param modules
+   */
+  void setModule(Set<String> modules);
+
+  /**
+   * 
+   * @param locations
+   */
+  void setLocations(Set<IDocument> locations);
+
 
   /**
    * If this repository is an GNU Arch repository return true, else return

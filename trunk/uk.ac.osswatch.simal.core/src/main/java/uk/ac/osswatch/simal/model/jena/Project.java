@@ -41,6 +41,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.simal.IReview;
 import uk.ac.osswatch.simal.model.simal.SimalOntology;
 import uk.ac.osswatch.simal.rdf.Doap;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.service.IReviewService;
 
@@ -202,7 +203,11 @@ public class Project extends DoapResource implements IProject {
     HashSet<IDoapRepository> repos = new HashSet<IDoapRepository>();
     Iterator<Statement> statements = listProperties(Doap.REPOSITORY).iterator();
     while (statements.hasNext()) {
-      repos.add(new Repository(statements.next().getResource()));
+      try {
+        repos.add(new Repository(statements.next().getResource()));
+      } catch (SimalException e) {
+        logger.warn("Unexpected unknown type of repository : " + e.getMessage());
+      }
     }
     return repos;
   }
