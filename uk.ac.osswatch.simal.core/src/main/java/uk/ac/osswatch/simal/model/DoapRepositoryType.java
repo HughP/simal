@@ -62,7 +62,7 @@ public enum DoapRepositoryType {
     DoapRepositoryType matchingType = null;
 
     for (DoapRepositoryType type : values()) {
-      if (jenaResource.equals(type.getResource())) {
+      if (type.getResource().equals(jenaResource)) {
         matchingType = type;
         break;
       }
