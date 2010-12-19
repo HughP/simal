@@ -37,7 +37,7 @@ public class TestCategoryListPanel extends TestBase {
     tester.startPanel(new TestPanelSource() {
       public Panel getTestPanel(String panelId) {
         try {
-          return new CategoryListPanel(panelId);
+          return new CategoryListPanel(panelId, "Categories");
         } catch (SimalRepositoryException e) {
           fail(e.getMessage());
           return null;

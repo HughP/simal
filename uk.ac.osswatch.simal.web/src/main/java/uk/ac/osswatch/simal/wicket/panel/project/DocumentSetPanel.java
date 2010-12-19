@@ -30,14 +30,12 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.MarkupStream;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalException;
@@ -48,20 +46,16 @@ import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyC
 /**
  * A simple panel for listing a set of any IDoapResources. 
  */
-public abstract class DocumentSetPanel extends Panel {
+public abstract class DocumentSetPanel extends AbstractEditableResourcesPanel<IDocument> {
   public static final Logger LOGGER = LoggerFactory
       .getLogger(DocumentSetPanel.class);
 
   private static final long serialVersionUID = -932080365392667144L;
 
   private static final int MAX_ROWS_PER_PAGE = 10;
-  
-  private Set<IDocument> documents;
-  private String title;
-  private AddIResourcePanel addDocumentPanel;
+
   private IProject project;
-  private boolean editingOn;
-  private boolean editingAllowed;
+  private Set<IDocument> documents;
 
   /**
    * Create a panel that lists all homepages in the repository.
@@ -76,14 +70,12 @@ public abstract class DocumentSetPanel extends Panel {
    */
   public DocumentSetPanel(String id, String title,
       Set<IDocument> resources, boolean editingAllowed, IProject project) {
-    super(id);
-    this.title = title;
+    super(id, title, editingAllowed);
     this.project = project;
-    this.editingAllowed = editingAllowed;
     this.documents = (Set<IDocument>) resources;
 
-    this.editingOn = false;
-    populatePanel();
+    addAddDoapResourcePanel(new AddIResourcePanel("addWebsitePanel", this, isEditingAllowed()));
+    addDocumentsList();
   }
 
   /**
@@ -103,15 +95,6 @@ public abstract class DocumentSetPanel extends Panel {
       Set<IDocument> resources) {
     // TODO By default no editing allowed
     this(id, title, resources, false, null);
-  }
-
-  private void populatePanel() {
-    add(new Label("title", title));
-    addDocumentsList();
-    this.addDocumentPanel = new AddIResourcePanel("addWebsitePanel", this, editingAllowed);
-    this.addDocumentPanel.setVisible(this.editingOn);
-    add(this.addDocumentPanel);
-    setOutputMarkupId(true);
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -167,7 +150,7 @@ public abstract class DocumentSetPanel extends Panel {
       }
       
       public String getCssClass() {
-        return (editingOn) ? "visiblecell" : "invisiblecell";
+        return (isEditingOn()) ? "visiblecell" : "invisiblecell";
       }
       
     };
@@ -187,8 +170,12 @@ public abstract class DocumentSetPanel extends Panel {
    * 
    * @param iFoafResource
    */
-  protected void addToList(IDocument iFoafResource) {
+  public void addToDisplayList(IDocument iFoafResource) {
     this.documents.add(iFoafResource);
+  }
+
+  protected IProject getProject() {
+    return this.project;
   }
 
   private void processDeleteOnClick(AjaxRequestTarget target, IDocument document) {
@@ -211,15 +198,19 @@ public abstract class DocumentSetPanel extends Panel {
     this.documents.remove(iDoapResource);
   }
 
-  public void processAdd(IDoapResourceFormInputModel inputModel)
-      throws SimalException {
-    IDocument homepage = SimalRepositoryFactory.getHomepageService()
-        .getOrCreate(inputModel.getUrl());
-    homepage.setDefaultName(inputModel.getName());
-
-    addToList(homepage);
-    addToModel(homepage);
-  }
+//  protected void processAdd(Object inputModelObject)
+//      throws SimalException {
+//    if(!(inputModelObject instanceof IDoapResourceFormInputModel)) {
+//      throw new SimalException("Unexpected input model object type.");
+//    }
+//    IDoapResourceFormInputModel inputModel = (IDoapResourceFormInputModel) inputModelObject;
+//    IDocument homepage = SimalRepositoryFactory.getHomepageService()
+//        .getOrCreate(inputModel.getUrl());
+//    homepage.setDefaultName(inputModel.getName());
+//
+//    addToDisplayList(homepage);
+//    addToModel(homepage);
+//  }
 
   public abstract void addToModel(IDocument document) throws SimalException;
   
@@ -231,15 +222,4 @@ public abstract class DocumentSetPanel extends Panel {
     removeFromModel(document);
   }
 
-  protected IProject getProject() {
-    return this.project;
-  }
-
-  /**
-   * @param editMode
-   */
-  public void setEditingOn(boolean editMode) {
-    this.editingOn = (editMode && this.editingAllowed);
-    this.addDocumentPanel.setVisible(this.editingOn);
-  }
 }

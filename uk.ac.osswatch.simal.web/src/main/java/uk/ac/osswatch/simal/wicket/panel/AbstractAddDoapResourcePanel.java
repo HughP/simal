@@ -29,12 +29,15 @@ import org.apache.wicket.util.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.wicket.panel.project.AbstractEditableResourcesPanel;
+
 /**
  * Abstract container for adding a new DOAP resource. This is an AJAX enabled 
  * container that either shows the form in the subclass or a command link to
  * display the form.
  */
-public abstract class AbstractAddDoapResourcePanel extends Panel {
+public abstract class AbstractAddDoapResourcePanel<T extends IResource> extends Panel {
   private static final long serialVersionUID = -4529601431958052094L;
 
   public static final Logger LOGGER = LoggerFactory
@@ -45,7 +48,7 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
 
   FeedbackPanel feedback;
 
-  private Panel updatePanel;
+  private AbstractEditableResourcesPanel<T> updatePanel;
 
   /**
    * Create a new container that will initially display the command link to show
@@ -58,11 +61,11 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
    *          added (must have setOutputMarkupId(true)
    * @param editingAllowed 
    */
-  public AbstractAddDoapResourcePanel(String wicketid, Panel updatePanel) {
+  public AbstractAddDoapResourcePanel(String wicketid, AbstractEditableResourcesPanel<T> updatePanel) {
     this(wicketid, updatePanel,true);
   }
     
-  public AbstractAddDoapResourcePanel(String wicketid, Panel updatePanel, boolean editingAllowed) {
+  public AbstractAddDoapResourcePanel(String wicketid, AbstractEditableResourcesPanel<T> updatePanel, boolean editingAllowed) {
     super(wicketid);
     this.updatePanel = updatePanel;
     setOutputMarkupId(true);
@@ -89,6 +92,9 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
    */
   public abstract Object getInputModel();
 
+  public AbstractEditableResourcesPanel<T> getUpdatePanel() {
+    return this.updatePanel;
+  }
   /**
    * Called when the new DOAP resource link is clicked. Shows the form, and hides the
    * link.
@@ -97,8 +103,10 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
    *          the request target.
    */
   protected void onShowForm(AjaxRequestTarget target) {
-    formVisible = true;
+    this.formVisible = true;
     target.addComponent(this);
+    this.updatePanel.setEditingOn(true);
+    target.addComponent(this.updatePanel);
   }
 
   /**
@@ -109,10 +117,13 @@ public abstract class AbstractAddDoapResourcePanel extends Panel {
    */
   protected void onHideForm(AjaxRequestTarget target) {
     formVisible = false;
+    updatePanel.setEditingOn(false);
     if (target != null) {
       target.addComponent(this);
+      target.addComponent(updatePanel);
     }
   }
+
 
   /**
    * Link for adding the DOAP resource described in the form to the repository.
