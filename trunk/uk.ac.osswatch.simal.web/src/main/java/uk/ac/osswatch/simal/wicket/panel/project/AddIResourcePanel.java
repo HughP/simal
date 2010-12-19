@@ -17,12 +17,13 @@ package uk.ac.osswatch.simal.wicket.panel.project;
  * under the License.                                                *
  */
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.validation.validator.StringValidator;
 import org.apache.wicket.validation.validator.UrlValidator;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
@@ -34,14 +35,14 @@ import uk.ac.osswatch.simal.wicket.panel.AbstractAddDoapResourcePanel;
  * is an AJAX enabled container that either shows the form for entering data 
  * about the resource or a command link to display the form.
  */
-public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
+public class AddIResourcePanel extends AbstractAddDoapResourcePanel<IDocument> {
   
   private static final long serialVersionUID = 2783698121394400166L;
   private IDoapResourceFormInputModel inputModel;
   TextField<String> nameField;
   TextField<String> urlField;
 
-  private DocumentSetPanel updatePanel;
+  //private DocumentSetPanel updatePanel;
 
   /**
    * Create a new container that will initially display the command link to show
@@ -57,7 +58,6 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
    */
   public AddIResourcePanel(String wicketid, DocumentSetPanel updatePanel, boolean editingAllowed) {
     super(wicketid, updatePanel, editingAllowed);
-    this.updatePanel = updatePanel;
     setOutputMarkupId(true);
   }
 
@@ -86,33 +86,6 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
     return inputModel;
   }
 
-  /**
-   * Called when the new DOAP resource link is clicked. Shows the form, and hides the
-   * link.
-   * 
-   * @param target
-   *          the request target.
-   */
-  protected void onShowForm(AjaxRequestTarget target) {
-    super.onShowForm(target);
-    updatePanel.setEditingOn(true);
-    target.addComponent(updatePanel);
-  }
-
-  /**
-   * Called when the cancel link is clicked. Hides the form, and shows the link.
-   * 
-   * @param target
-   *          the request target.
-   */
-  protected void onHideForm(AjaxRequestTarget target) {
-    super.onHideForm(target);
-    updatePanel.setEditingOn(false);
-    if (target != null) {
-      target.addComponent(updatePanel);
-    }
-  }
-
   /* (non-Javadoc)
    * @see uk.ac.osswatch.simal.wicket.panel.AbstractAddDoapResourcePanel#processAddSubmit()
    */
@@ -121,7 +94,12 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel {
     inputModel.setName(nameField.getValue());
     inputModel.setUrl(urlField.getValue());
     try {
-      updatePanel.processAdd(inputModel);
+      IDocument homepage = SimalRepositoryFactory.getHomepageService()
+      .getOrCreate(inputModel.getUrl());
+      homepage.setDefaultName(inputModel.getName());
+      
+      getUpdatePanel().addToDisplayList(homepage);
+      getUpdatePanel().addToModel(homepage);
     } catch (SimalException e) {
       UserReportableException error = new UserReportableException(
           "Unable to generate a website from the given form data",

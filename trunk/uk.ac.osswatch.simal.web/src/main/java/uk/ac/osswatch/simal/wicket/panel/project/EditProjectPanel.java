@@ -47,6 +47,7 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
@@ -111,7 +112,7 @@ public class EditProjectPanel extends Panel {
   private class EditProjectForm extends Form<IProject> {
     private static final long serialVersionUID = 5903165424353929310L;
 
-    private Set<DocumentSetPanel> editablePanels = new HashSet<DocumentSetPanel>();
+    private Set<AbstractEditableResourcesPanel<? extends IResource>> editablePanels = new HashSet<AbstractEditableResourcesPanel<? extends IResource>>();
 
     private TextArea<String> description;
     private AjaxFallbackButton submitButton;
@@ -139,7 +140,7 @@ public class EditProjectPanel extends Panel {
       } else {
         submitButton.getModel().setObject("Save");
       }
-      for (DocumentSetPanel panel : editablePanels) {
+      for (AbstractEditableResourcesPanel<? extends IResource> panel : editablePanels) {
         panel.setEditingOn(!readOnly);
       }
     }
@@ -204,7 +205,7 @@ public class EditProjectPanel extends Panel {
       add(new ReleasesPanel("releasepanel", project.getReleases(), rosb));
 
       CategoryListPanel categoryList = new CategoryListPanel("categoryList",
-          project.getCategories());
+          "Categories", loggedIn, project.getCategories());
       categoryList.setOutputMarkupId(true);
       add(categoryList);
       add(new AddCategoryPanel("addCategoryPanel", project, categoryList));
@@ -324,8 +325,10 @@ public class EditProjectPanel extends Panel {
       add(downloadMirrorsListPanel);
       
       try {
-        add(new SourceRepositoriesPanel("sourceRepositories", project
-            .getRepositories(), rosb));
+        SourceRepositoriesPanel sourceRepositoriesPanel = new SourceRepositoriesPanel("sourceRepositories", 
+            "Source Repositories", project.getRepositories(), rosb, loggedIn, project); 
+        editablePanels.add(sourceRepositoriesPanel);
+        add(sourceRepositoriesPanel);
       } catch (SimalRepositoryException e) {
         UserReportableException error = new UserReportableException(
             "Unable to get project releases from the repository",

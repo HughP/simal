@@ -31,7 +31,7 @@ public class CategoryBrowserPage extends BasePage {
 
   public CategoryBrowserPage() {
     try {
-      add(new CategoryListPanel("categoryList"));
+      add(new CategoryListPanel("categoryList", "Categories"));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get categories from the repository",

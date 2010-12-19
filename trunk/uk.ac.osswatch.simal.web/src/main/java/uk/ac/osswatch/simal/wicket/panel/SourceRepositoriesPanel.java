@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.panel;
 
 /*
- * Copyright 2008 University of Oxford
+ * Copyright 2008, 2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -26,31 +26,44 @@ import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.ExternalLink;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
-import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IDoapRepository;
+import uk.ac.osswatch.simal.model.IDocument;
+import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalException;
+import uk.ac.osswatch.simal.wicket.panel.project.AbstractEditableResourcesPanel;
+import uk.ac.osswatch.simal.wicket.panel.project.AddSourceRepositoryPanel;
 import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel.ReadOnlyStyleBehavior;
 
 /**
  * A panel to display one or more Source Repository details.
  */
-public class SourceRepositoriesPanel extends Panel {
+public class SourceRepositoriesPanel extends AbstractEditableResourcesPanel<IDoapRepository> {
   private static final long serialVersionUID = -2031486948152653715L;
   private ReadOnlyStyleBehavior rosb;
-
-  public SourceRepositoriesPanel(String panelId,
-      Set<IDoapRepository> repositories, ReadOnlyStyleBehavior rosb) {
-    super(panelId);
+  private AddSourceRepositoryPanel addSourceRepositoryPanel;
+  private RepeatingView repeating;
+  
+  public SourceRepositoriesPanel(String panelId, String title,
+      Set<IDoapRepository> repositories, ReadOnlyStyleBehavior rosb, boolean loggedIn, IProject project) {
+    super(panelId, title, loggedIn);
     this.rosb = rosb;
+    populateRepeatingLinks(repositories);
     populatePage(repositories);
   }
 
   private void populatePage(Set<IDoapRepository> repositories) {
-    add(getRepeatingLinks(repositories));
+    
+    add(repeating);
+    
+    this.addSourceRepositoryPanel = new AddSourceRepositoryPanel("addRepositoryPanel", this, true);
+    this.addSourceRepositoryPanel.setVisible(true);
+    add(this.addSourceRepositoryPanel);
+    setOutputMarkupId(true);
+    
   }
 
   /**
@@ -71,27 +84,28 @@ public class SourceRepositoriesPanel extends Panel {
    *          the resources to be added to the list
    * @return
    */
-  protected RepeatingView getRepeatingLinks(Set<IDoapRepository> repositories) {
+  protected void populateRepeatingLinks(Set<IDoapRepository> repositories) {
     Iterator<IDoapRepository> itr = repositories.iterator();
-    RepeatingView repeating = new RepeatingView("sourceRepositories");
-    WebMarkupContainer item;
-    IDoapRepository repository;
-    while (itr.hasNext()) {
-      item = new WebMarkupContainer(repeating.newChildId());
-      repeating.add(item);
-      repository = itr.next();
+    repeating = new RepeatingView("sourceRepositories");
 
-      Set<String> anonRoots = repository.getAnonRoots();
-      item.add(new Label("name", repository.getName()));
-      item.add(getRepeatingLinks("anonRoots", anonRoots, "anonLink"));
-      item.add(getRepeatingLinks("devLocations", "devLink", repository
-          .getLocations()));
-      item.add(getRepeatingLinks("browseRoots", "browseLink", repository
-          .getBrowse()));
+    while (itr.hasNext()) {
+      addToRepeatingView(itr.next());
     }
-    return repeating;
   }
 
+  public void addToRepeatingView(IDoapRepository repository) {
+    WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
+    Set<String> anonRoots = repository.getAnonRoots();
+    item.add(new Label("name", repository.getType().getLabel()));
+    item.add(getRepeatingLinks("anonRoots", anonRoots, "anonLink"));
+    item.add(getRepeatingLinks("devLocations", "devLink", repository
+        .getLocations()));
+    item.add(getRepeatingLinks("browseRoots", "browseLink", repository
+        .getBrowse()));
+    
+    repeating.add(item);
+  }
+  
   /**
    * Get a simple repeating view. Each resource is represented by a link to the
    * URLs for the locations provided. The label for the link is either defined
@@ -169,4 +183,17 @@ public class SourceRepositoriesPanel extends Panel {
     }
     return repeating;
   }
+
+  @Override
+  public void addToDisplayList(IDoapRepository doapResource) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void addToModel(IDoapRepository doapResource) throws SimalException {
+    // TODO Auto-generated method stub
+    
+  }
+
 }

@@ -25,36 +25,37 @@ import org.apache.wicket.extensions.ajax.markup.html.repeater.data.table.AjaxFal
 import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.Model;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
 import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortableCategoryDataProvider;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
+import uk.ac.osswatch.simal.wicket.panel.project.AbstractEditableResourcesPanel;
 
 /**
  * A panel for listing categories. This panel allows the user to navigate the
  * people the Simal repository and, optionally, allows some manipulation of
  * those records.
  */
-public class CategoryListPanel extends Panel {
+public class CategoryListPanel extends AbstractEditableResourcesPanel<IDoapCategory> {
   private static final long serialVersionUID = -7641153470731218965L;
 
   private Set<IDoapCategory> categories;
 
-  public CategoryListPanel(String id) throws SimalRepositoryException {
-    super(id);
+  public CategoryListPanel(String id, String title) throws SimalRepositoryException {
+    super(id, title);
     this.categories = SimalRepositoryFactory.getCategoryService().getAll();
     SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(
         this.categories);
     addCategoryList(dataProvider);
   }
 
-  public CategoryListPanel(String id, Set<IDoapCategory> categories) {
-    super(id);
+  public CategoryListPanel(String id, String title, boolean editingAllowed, Set<IDoapCategory> categories) {
+    super(id, title, editingAllowed);
     this.categories = categories;
     SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(
         categories);
@@ -83,6 +84,18 @@ public class CategoryListPanel extends Panel {
    */
   public void addCategory(IDoapCategory category) {
     this.categories.add(category);
+  }
+
+  @Override
+  public void addToDisplayList(IDoapCategory doapResource) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void addToModel(IDoapCategory doapResource) throws SimalException {
+    // TODO Auto-generated method stub
+    
   }
 
 }

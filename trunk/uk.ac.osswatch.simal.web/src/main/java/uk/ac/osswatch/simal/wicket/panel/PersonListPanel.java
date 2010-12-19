@@ -41,22 +41,23 @@ import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IInternetAddress;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortablePersonDataProvider;
 import uk.ac.osswatch.simal.wicket.doap.PersonFilterInputModel;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
+import uk.ac.osswatch.simal.wicket.panel.project.AbstractEditableResourcesPanel;
 
 /**
  * A panel for listing people. This panel allows the user to navigate the people
  * the Simal repository and, optionally, allows some manipulation of those
  * records.
  */
-public class PersonListPanel extends Panel {
+public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
   private static final long serialVersionUID = 1L;
   private static final Logger logger = LoggerFactory
       .getLogger(PersonListPanel.class);
   private Set<IPerson> people;
-  private String title;
   private String filter = "";
   private static PersonFilterInputModel inputModel = new PersonFilterInputModel();
   SortablePersonDataProvider dataProvider;
@@ -74,8 +75,7 @@ public class PersonListPanel extends Panel {
    */
   public PersonListPanel(String id, String title, int numberOfPeople)
       throws SimalRepositoryException {
-    super(id);
-    this.title = title;
+    super(id, title);
     this.people = SimalRepositoryFactory.getPersonService().getAll();
     populatePanel(numberOfPeople);
   }
@@ -96,8 +96,7 @@ public class PersonListPanel extends Panel {
    */
   public PersonListPanel(String id, String title, int numberOfPeople,
       String filter) throws SimalRepositoryException {
-    super(id);
-    this.title = title;
+    super(id, title);
     this.people = SimalRepositoryFactory.getPersonService()
         .filterByName(filter);
     this.filter = filter;
@@ -119,14 +118,12 @@ public class PersonListPanel extends Panel {
    */
   public PersonListPanel(String id, String title, Set<IPerson> people,
       int numberOfPeople) {
-    super(id);
-    this.title = title;
+    super(id, title);
     this.people = people;
     populatePanel(numberOfPeople);
   }
 
   private void populatePanel(int numberOfPeople) {
-    add(new Label("title", title));
     add(new PersonFilterForm("personFilterForm", this.filter));
     addPersonList(people, numberOfPeople);
   }
@@ -259,5 +256,17 @@ public class PersonListPanel extends Panel {
         nameFilter.setModel(new Model<String>("ERROR: contact support"));
       }
     }
+  }
+
+  @Override
+  public void addToDisplayList(IPerson doapResource) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  @Override
+  public void addToModel(IPerson doapResource) throws SimalException {
+    // TODO Auto-generated method stub
+    
   }
 }
