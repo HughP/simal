@@ -54,7 +54,6 @@ import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
-import uk.ac.osswatch.simal.wicket.panel.AddCategoryPanel;
 import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
@@ -205,10 +204,9 @@ public class EditProjectPanel extends Panel {
       add(new ReleasesPanel("releasepanel", project.getReleases(), rosb));
 
       CategoryListPanel categoryList = new CategoryListPanel("categoryList",
-          "Categories", loggedIn, project.getCategories());
-      categoryList.setOutputMarkupId(true);
+          "Categories", project.getCategories(), loggedIn, project);
+      editablePanels.add(categoryList);
       add(categoryList);
-      add(new AddCategoryPanel("addCategoryPanel", project, categoryList));
 
       this.oses = project.getOSes();
       addRepeatingInputs("OSes", this.oses);

@@ -32,7 +32,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  * 
  */
 public class SortableCategoryDataProvider extends
-    SortableDoapResourceDataProvider {
+    SortableDoapResourceDataProvider<IDoapCategory> {
   private static final long serialVersionUID = -7078982000589847543L;
   public static final String SORT_PROPERTY_PROJECTS = "projects";
   public static final String SORT_PROPERTY_PEOPLE = "people";

@@ -44,26 +44,21 @@ import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel.ReadOnlyStyleB
 public class SourceRepositoriesPanel extends AbstractEditableResourcesPanel<IDoapRepository> {
   private static final long serialVersionUID = -2031486948152653715L;
   private ReadOnlyStyleBehavior rosb;
-  private AddSourceRepositoryPanel addSourceRepositoryPanel;
   private RepeatingView repeating;
+  private IProject project;
   
   public SourceRepositoriesPanel(String panelId, String title,
       Set<IDoapRepository> repositories, ReadOnlyStyleBehavior rosb, boolean loggedIn, IProject project) {
     super(panelId, title, loggedIn);
     this.rosb = rosb;
+    this.project = project;
     populateRepeatingLinks(repositories);
     populatePage(repositories);
   }
 
   private void populatePage(Set<IDoapRepository> repositories) {
-    
     add(repeating);
-    
-    this.addSourceRepositoryPanel = new AddSourceRepositoryPanel("addRepositoryPanel", this, true);
-    this.addSourceRepositoryPanel.setVisible(true);
-    add(this.addSourceRepositoryPanel);
-    setOutputMarkupId(true);
-    
+    addAddDoapResourcePanel(new AddSourceRepositoryPanel("addRepositoryPanel", this, true));
   }
 
   /**
@@ -89,23 +84,10 @@ public class SourceRepositoriesPanel extends AbstractEditableResourcesPanel<IDoa
     repeating = new RepeatingView("sourceRepositories");
 
     while (itr.hasNext()) {
-      addToRepeatingView(itr.next());
+      addToDisplayList(itr.next());
     }
   }
 
-  public void addToRepeatingView(IDoapRepository repository) {
-    WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
-    Set<String> anonRoots = repository.getAnonRoots();
-    item.add(new Label("name", repository.getType().getLabel()));
-    item.add(getRepeatingLinks("anonRoots", anonRoots, "anonLink"));
-    item.add(getRepeatingLinks("devLocations", "devLink", repository
-        .getLocations()));
-    item.add(getRepeatingLinks("browseRoots", "browseLink", repository
-        .getBrowse()));
-    
-    repeating.add(item);
-  }
-  
   /**
    * Get a simple repeating view. Each resource is represented by a link to the
    * URLs for the locations provided. The label for the link is either defined
@@ -185,15 +167,22 @@ public class SourceRepositoriesPanel extends AbstractEditableResourcesPanel<IDoa
   }
 
   @Override
-  public void addToDisplayList(IDoapRepository doapResource) {
-    // TODO Auto-generated method stub
+  public void addToDisplayList(IDoapRepository repository) {
+    WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
+    Set<String> anonRoots = repository.getAnonRoots();
+    item.add(new Label("name", repository.getType().getLabel()));
+    item.add(getRepeatingLinks("anonRoots", anonRoots, "anonLink"));
+    item.add(getRepeatingLinks("devLocations", "devLink", repository
+        .getLocations()));
+    item.add(getRepeatingLinks("browseRoots", "browseLink", repository
+        .getBrowse()));
     
+    repeating.add(item);
   }
 
   @Override
-  public void addToModel(IDoapRepository doapResource) throws SimalException {
-    // TODO Auto-generated method stub
-    
+  public void addToModel(IDoapRepository repository) throws SimalException {
+    this.project.addRepository(repository);
   }
 
 }

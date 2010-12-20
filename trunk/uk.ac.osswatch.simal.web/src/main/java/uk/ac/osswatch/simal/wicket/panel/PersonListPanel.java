@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.panel;
 
 /*
- * Copyright 2008 University of Oxford
+ * Copyright 2008,2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -29,7 +29,6 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColu
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
@@ -60,7 +59,7 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
   private Set<IPerson> people;
   private String filter = "";
   private static PersonFilterInputModel inputModel = new PersonFilterInputModel();
-  SortablePersonDataProvider dataProvider;
+  SortablePersonDataProvider<IPerson> dataProvider;
 
   /**
    * Create a panel that lists all people in the repository.
@@ -128,7 +127,7 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
     addPersonList(people, numberOfPeople);
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings("rawtypes")
   private void addPersonList(Set<IPerson> people, int numberOfPeople) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "label", "label"));
@@ -159,7 +158,7 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
     columns.add(new ProjectsPropertyColumn(new Model<String>("Project"), "projects",
         "projects"));
 
-    dataProvider = new SortablePersonDataProvider(people);
+    dataProvider = new SortablePersonDataProvider<IPerson>(people);
     dataProvider.setSort(SortablePersonDataProvider.SORT_PROPERTY_LABEL, true);
     add(new AjaxFallbackDefaultDataTable("dataTable", columns, dataProvider,
         numberOfPeople));

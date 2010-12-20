@@ -45,13 +45,11 @@ public class AddSourceRepositoryPanel extends AbstractAddDoapResourcePanel<IDoap
 
   private static final long serialVersionUID = -7535911641335687669L;
 
-  private SourceRepositoriesPanel updatePanel;
   private SourceRepositoryInputModel inputModel;
 
   public AddSourceRepositoryPanel(String wicketid,
       SourceRepositoriesPanel updatePanel, boolean editingAllowed) {
     super(wicketid, updatePanel, editingAllowed);
-    this.updatePanel = updatePanel;
     setOutputMarkupId(true);
   }
 
@@ -79,7 +77,8 @@ public class AddSourceRepositoryPanel extends AbstractAddDoapResourcePanel<IDoap
           repo.setLocations(allDevAccesses);
         }
 
-        updatePanel.addToRepeatingView(repo);
+        getUpdatePanel().addToDisplayList(repo);
+        getUpdatePanel().addToModel(repo);
       } catch (SimalRepositoryException e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
