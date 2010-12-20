@@ -36,7 +36,7 @@ import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
  * either shows the form for entering data about a person or a command link to
  * display the form.
  */
-public class AddPersonPanel extends AbstractAddDoapResourcePanel {
+public class AddPersonPanel extends AbstractAddDoapResourcePanel<IPerson> {
   private static final long serialVersionUID = 8348295085251890400L;
 
   public static final int HELPER = 1;

@@ -31,8 +31,8 @@ import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.utils.DoapResourceByNameComparator;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
@@ -43,7 +43,7 @@ import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
  * either shows the form for selecting a category or a command link to display
  * the form.
  */
-public class AddCategoryPanel extends AbstractAddDoapResourcePanel {
+public class AddCategoryPanel extends AbstractAddDoapResourcePanel<IDoapCategory> {
 
   private static final long serialVersionUID = -7126291323723696950L;
 
@@ -52,10 +52,6 @@ public class AddCategoryPanel extends AbstractAddDoapResourcePanel {
 
   private SelectCategoryInputModel inputModel;
   DropDownChoice<IDoapCategory> categoryField;
-
-  private CategoryListPanel updatePanel;
-
-  private IProject project;
 
   /**
    * Create a new container that will initially display the command link to show
@@ -67,10 +63,8 @@ public class AddCategoryPanel extends AbstractAddDoapResourcePanel {
    *          the panel that should be updated when the category has been added
    *          (must have setOutputMarkupId(true)
    */
-  public AddCategoryPanel(String wicketid, IProject project, CategoryListPanel updatePanel) {
-    super(wicketid, updatePanel);
-    this.project = project;
-    this.updatePanel = updatePanel;
+  public AddCategoryPanel(String wicketid, CategoryListPanel updatePanel, boolean editingAllowed) {
+    super(wicketid, updatePanel, editingAllowed);
   }
 
   /*
@@ -125,20 +119,24 @@ public class AddCategoryPanel extends AbstractAddDoapResourcePanel {
   }
 
   /**
-   * Add category to the project and to the existing list. 
+   * Add category to the project and to the existing list.
    * 
    * @see uk.ac.osswatch.simal.wicket.panel.AbstractAddPanel#processAddSubmit()
    */
   @Override
   protected void processAddSubmit() {
     IDoapCategory selectedCategory = inputModel.getcomboChoice();
-    if (selectedCategory != null) {
-      project.addCategory(selectedCategory);
-      updatePanel.addCategory(selectedCategory);
-    } else {
+    try {
+      if (selectedCategory != null) {
+        getUpdatePanel().addToDisplayList(selectedCategory);
+        getUpdatePanel().addToModel(selectedCategory);
+      } else {
+        throw new SimalException("No valid selected category.");
+      }
+    } catch (SimalException e) {
       UserReportableException error = new UserReportableException(
           "Unable to generate a category from the given form data",
-          ProjectDetailPage.class);
+          ProjectDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
     }
   }

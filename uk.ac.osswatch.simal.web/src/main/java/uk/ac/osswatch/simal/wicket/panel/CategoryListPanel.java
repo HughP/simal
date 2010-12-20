@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.panel;
 
 /*
- * Copyright 2008 University of Oxford
+ * Copyright 2008,2010 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -29,6 +29,7 @@ import org.apache.wicket.model.Model;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -45,6 +46,8 @@ public class CategoryListPanel extends AbstractEditableResourcesPanel<IDoapCateg
   private static final long serialVersionUID = -7641153470731218965L;
 
   private Set<IDoapCategory> categories;
+  
+  private IProject project;
 
   public CategoryListPanel(String id, String title) throws SimalRepositoryException {
     super(id, title);
@@ -52,17 +55,24 @@ public class CategoryListPanel extends AbstractEditableResourcesPanel<IDoapCateg
     SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(
         this.categories);
     addCategoryList(dataProvider);
+    // TODO Here we need a (hidden) addCategoryPanel to satisfy the markup. The context
+    // of the page however is not a project so the panel makes no real sense.
+    // For generic pages like the CategoryBrowsePage I imagine a different generic 
+    // AddCategoryPanel that will allow the addition of Categories to the system.
+    addAddDoapResourcePanel(new AddCategoryPanel("addCategoryPanel", this, false));
   }
 
-  public CategoryListPanel(String id, String title, boolean editingAllowed, Set<IDoapCategory> categories) {
+  public CategoryListPanel(String id, String title, Set<IDoapCategory> categories, boolean editingAllowed, IProject project) {
     super(id, title, editingAllowed);
     this.categories = categories;
+    this.project = project;
     SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(
         categories);
     addCategoryList(dataProvider);
+    addAddDoapResourcePanel(new AddCategoryPanel("addCategoryPanel", this, editingAllowed));
   }
 
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   private void addCategoryList(SortableDataProvider<IResource> dataProvider) {
     List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
     columns.add(new LinkPropertyColumn(new Model<String>("Name"), "name",
@@ -82,20 +92,16 @@ public class CategoryListPanel extends AbstractEditableResourcesPanel<IDoapCateg
    * 
    * @param category
    */
-  public void addCategory(IDoapCategory category) {
+  @Override
+  public void addToDisplayList(IDoapCategory category) {
     this.categories.add(category);
   }
 
   @Override
-  public void addToDisplayList(IDoapCategory doapResource) {
-    // TODO Auto-generated method stub
-    
-  }
-
-  @Override
-  public void addToModel(IDoapCategory doapResource) throws SimalException {
-    // TODO Auto-generated method stub
-    
+  public void addToModel(IDoapCategory category) throws SimalException {
+    if (this.project != null) {
+      this.project.addCategory(category);
+    }
   }
 
 }
