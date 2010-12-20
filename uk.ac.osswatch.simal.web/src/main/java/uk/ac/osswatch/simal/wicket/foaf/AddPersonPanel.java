@@ -53,8 +53,6 @@ public class AddPersonPanel extends AbstractAddDoapResourcePanel<IPerson> {
   private int personRole;
   private IProject project;
 
-  private PersonListPanel updatePanel;
-
   /**
    * Create a new container that will initially display the command link to show
    * the form.
@@ -74,7 +72,6 @@ public class AddPersonPanel extends AbstractAddDoapResourcePanel<IPerson> {
     super(wicketid, updatePanel);
     this.personRole = role;
     this.project = project;
-    this.updatePanel = updatePanel;
     setOutputMarkupId(true);
   }
 
@@ -134,7 +131,7 @@ public class AddPersonPanel extends AbstractAddDoapResourcePanel<IPerson> {
           break;
         }
       }
-      updatePanel.addPerson(person);
+      getUpdatePanel().addToDisplayList(person);
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to generate a person from the given form data",

@@ -45,8 +45,6 @@ import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
-import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
-import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReviewListPanel;
 import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel;
 import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
@@ -177,49 +175,6 @@ public class ProjectDetailPage extends BasePage {
     }
     add(new EditProjectPanel("editProjectPanel", project, isLoggedIn));
     
-    // contributors
-    PersonListPanel maintainerList = new PersonListPanel("maintainers",
-        "Maintainers", project.getMaintainers(), 4);
-    maintainerList.setOutputMarkupId(true);
-    add(maintainerList);
-    add(new AddPersonPanel("addMaintainerPanel", getProject(),
-        AddPersonPanel.MAINTAINER, maintainerList));
-
-    PersonListPanel developerList = new PersonListPanel("developers",
-        "Developers", project.getDevelopers(), 7);
-    developerList.setOutputMarkupId(true);
-    add(developerList);
-    add(new AddPersonPanel("addDeveloperPanel", getProject(),
-        AddPersonPanel.DEVELOPER, developerList));
-
-    PersonListPanel testerList = new PersonListPanel("testers", "Testers",
-        project.getTesters(), 4);
-    testerList.setOutputMarkupId(true);
-    add(testerList);
-    add(new AddPersonPanel("addTesterPanel", getProject(),
-        AddPersonPanel.TESTER, testerList));
-
-    PersonListPanel helperList = new PersonListPanel("helpers", "Helpers",
-        project.getHelpers(), 4);
-    helperList.setOutputMarkupId(true);
-    add(helperList);
-    add(new AddPersonPanel("addHelperPanel", getProject(),
-        AddPersonPanel.HELPER, helperList));
-
-    PersonListPanel documentorList = new PersonListPanel("documenters",
-        "Documentors", project.getDocumenters(), 4);
-    documentorList.setOutputMarkupId(true);
-    add(documentorList);
-    add(new AddPersonPanel("addDocumentorPanel", getProject(),
-        AddPersonPanel.DOCUMENTOR, documentorList));
-
-    PersonListPanel translatorList = new PersonListPanel("translators",
-        "Translators", project.getTranslators(), 4);
-    translatorList.setOutputMarkupId(true);
-    add(translatorList);
-    add(new AddPersonPanel("addTranslatorPanel", getProject(),
-        AddPersonPanel.TRANSLATOR, translatorList));
-
     // sources
     add(getRepeatingDataSourcePanel("sources", "seeAlso", project.getSources()));
     try {
