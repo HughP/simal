@@ -44,6 +44,7 @@ import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.data.SortablePersonDataProvider;
 import uk.ac.osswatch.simal.wicket.doap.PersonFilterInputModel;
+import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
 import uk.ac.osswatch.simal.wicket.markup.html.repeater.data.table.LinkPropertyColumn;
 import uk.ac.osswatch.simal.wicket.panel.project.AbstractEditableResourcesPanel;
 
@@ -77,6 +78,7 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
     super(id, title);
     this.people = SimalRepositoryFactory.getPersonService().getAll();
     populatePanel(numberOfPeople);
+    add(new Label("addPersonPanel", ""));
   }
 
   /**
@@ -100,6 +102,7 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
         .filterByName(filter);
     this.filter = filter;
     populatePanel(numberOfPeople);
+    add(new Label("addPersonPanel", ""));
   }
 
   /**
@@ -120,6 +123,17 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
     super(id, title);
     this.people = people;
     populatePanel(numberOfPeople);
+    add(new Label("addPersonPanel", ""));
+  }
+
+  public PersonListPanel(String id, String title,
+      Set<IPerson> people, int numberOfPeople, IProject project, int role,
+      boolean isLoggedIn) {
+    super(id, title, isLoggedIn);
+    this.people = people;
+    populatePanel(numberOfPeople);
+    addAddDoapResourcePanel(new AddPersonPanel("addPersonPanel", project,
+        role, this));
   }
 
   private void populatePanel(int numberOfPeople) {
@@ -183,7 +197,7 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
    * 
    * @param person
    */
-  public void addPerson(IPerson person) {
+  public void addToDisplayList(IPerson person) {
     this.people.add(person);
   }
 
@@ -255,12 +269,6 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
         nameFilter.setModel(new Model<String>("ERROR: contact support"));
       }
     }
-  }
-
-  @Override
-  public void addToDisplayList(IPerson doapResource) {
-    // TODO Auto-generated method stub
-    
   }
 
   @Override
