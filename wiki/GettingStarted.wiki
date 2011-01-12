@@ -104,9 +104,10 @@ Simal core is the back end systems. It contains the data model, data services an
 
 Simal provides a command line interface (CLI) for working with core, other interfaces are possible, such as the separate web application found in the module uk.ac.osswatch.simal.web. It is outside the scope of this document to discuss these other interfaces. However, a very brief introduction to the CLI is useful at this point since it means you can can start playing immediately.
 
-To use the CLI you must first build a distribution with the following command.
+To use the CLI you must first build a distribution:
 
 {{{
+cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.core
 mvn assembly:assembly
 }}}
 
