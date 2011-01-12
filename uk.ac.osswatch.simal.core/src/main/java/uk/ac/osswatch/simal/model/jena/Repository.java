@@ -113,22 +113,18 @@ public class Repository extends DoapResource implements IDoapRepository {
     return locations;
   }
 
-  @Override
   public void setBrowse(Set<IDocument> browseAccesses) {
     replacePropertyStatements(Doap.BROWSE, browseAccesses);
   }
 
-  @Override
   public void setAnonRoots(Set<String> anonRoots) {
     replaceLiteralStatements(Doap.ANON_ROOT, anonRoots);
   }
 
-  @Override
   public void setModule(Set<String> modules) {
     replaceLiteralStatements(Doap.MODULE, modules);
   }
 
-  @Override
   public void setLocations(Set<IDocument> locations) {
     replacePropertyStatements(Doap.LOCATION, locations);
   }
