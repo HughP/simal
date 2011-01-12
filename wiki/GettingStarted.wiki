@@ -74,7 +74,8 @@ cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web
 mvn jetty:run
 }}}
 
-It is also possible to run the server on a different port using the property "jetty.port". For example:
+If you want to run the server on a different port than the default 8080 you will have to 
+make changes in two places. You will have to create a custom properties file as defined above, but you will also have to use the property {{{jetty.port}}} when starting Jetty from the command line. For example:
 
 {{{
 mvn -Djetty.port=9999 jetty:run
