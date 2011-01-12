@@ -99,7 +99,7 @@
     </repository>
     <repository>
       <id>joseki</id>
-      <url>http://openjena.org/repo-dev/</url>
+      <url>http://openjena.org/repo/</url>
     </repository>
   </repositories>
 
