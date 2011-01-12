@@ -25,30 +25,32 @@ where $PROJECT_HOME is your chosen project directory
 
 NOTE: Use https rather than http if you are a committer
 
-=== Installing ===
+== Install the artifacts ==
 
 The installation process is not as streamlined as it should be right now. However, we are working on it and welcome your help.
 
-==== Core ====
+First you will have to create the artifacts for the three components _core_, _rest_ and _web_ : 
+
 {{{
 cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.core
 mvn install
-}}}
 
-==== REST ====
-
-{{{
 cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.rest
+mvn install
+
+cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web
 mvn install
 }}}
 
-==== Web Application ====
+== Configuration ==
+Next, you can configure the webapp for your server by creating a local properties file. This is not required as there is a default configuration provided that should work out-of-the-box (defined in  {{{$PROJECT_HOME/uk.ac.osswatch.simal.core/src/main/resources/default.simal.properties}}}).
 
-Now you need to configure the webapp for your server. 
+If you do wish to use custom settings you will have to create a file called {{{local.simal.properties}}}. There are two main approaches for using this file: 
 
-Create a file called {{{local.simal.properties}}} in {{{$PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web}}} and open it in your favourite editor. This file contains the local configuation for your web application.
+  # You can create the file in any directory you want. In this case you will also have to specify an environment variable {{{SIMAL_HOME}}} and have this point to the directory you have chosen for your property file. This setting will then also be used as a default location for the database files.
+  # If you have not specified the environment variable {{{SIMAL_HOME}}} Simal will search for the {{{local.simal.properties}}} file in your home directory (as specified by the Java system property {{{user.home}}}).
 
-As a minimum you must set the following properties:
+Typical properties you may want to add in your local configuration are for example: 
 
 {{{
 simal.user.webapp.baseurl=http://localhost:8080
