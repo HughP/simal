@@ -67,9 +67,12 @@ Note, in all these cases the documentation is currently held in SVN, we've not g
 
 === Simal Web Application ===
 
-The Simal web module provides a web application that provides a GUI interface to a Simal repostory. 
-The easiest way to run the web application is to type {{{mvn jetty:run}}} after installing the core and rest modules in your Maven repository.
-It will run the application on the light-weight Jetty servlet container.
+The Simal web module provides a web application that provides a GUI interface to a Simal repository. The easiest way to run the web application is by using the light-weight Jetty servlet container from Maven after installing the core, rest and web modules in your local repository (as described above) : 
+
+{{{
+cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web
+mvn jetty:run
+}}}
 
 It is also possible to run the server on a different port using the property "jetty.port". For example:
 
@@ -77,12 +80,11 @@ It is also possible to run the server on a different port using the property "je
 mvn -Djetty.port=9999 jetty:run
 }}}
 
-
-The default admin username and password is {{{simal}}}, you can change this in the local.simal.properties file.
+The default admin username and password is {{{simal}}}, you can change this in your local.simal.properties file.
 
 ==== Debug Mode ====
 
-To run the web application in debug mode using JDPA run the command:
+To run the web application in debug mode using JDPA run the command (in a Linux environment):
 
 {{{
 export MAVEN_OPTS='-Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n'
