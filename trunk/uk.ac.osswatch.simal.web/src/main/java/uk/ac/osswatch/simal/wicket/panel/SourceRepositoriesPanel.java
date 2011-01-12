@@ -170,7 +170,7 @@ public class SourceRepositoriesPanel extends AbstractEditableResourcesPanel<IDoa
   public void addToDisplayList(IDoapRepository repository) {
     WebMarkupContainer item = new WebMarkupContainer(repeating.newChildId());
     Set<String> anonRoots = repository.getAnonRoots();
-    item.add(new Label("name", repository.getType().getLabel()));
+    item.add(new Label("name", repository.getLabel()));
     item.add(getRepeatingLinks("anonRoots", anonRoots, "anonLink"));
     item.add(getRepeatingLinks("devLocations", "devLink", repository
         .getLocations()));

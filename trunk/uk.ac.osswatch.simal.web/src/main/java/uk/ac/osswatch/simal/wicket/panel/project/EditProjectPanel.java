@@ -118,15 +118,15 @@ public class EditProjectPanel extends Panel {
     private TextArea<String> description;
     private AjaxFallbackButton submitButton;
 
-    private Set<String> oses;
-    private Set<String> langs;
+//    private Set<String> oses;
+//    private Set<String> langs;
 //    private Set<IDocument> homepages;
-    //private Set<IDoapMailingList> mailingLists;
-    private Set<IDocument> issueTrackers;
-    private Set<IDocument> wikis;
-    private Set<IDocument> downloads;
-    private Set<IDocument> downloadMirrors;
-    private Set<IDocument> screenshots;
+//    private Set<IDoapMailingList> mailingLists;
+//    private Set<IDocument> issueTrackers;
+//    private Set<IDocument> wikis;
+//    private Set<IDocument> downloads;
+//    private Set<IDocument> downloadMirrors;
+//    private Set<IDocument> screenshots;
 
     public EditProjectForm(String id, IModel<IProject> model) {
       super(id, model);
@@ -158,19 +158,18 @@ public class EditProjectPanel extends Panel {
      *      osswatch.simal.wicket.panel.AbstractAddPanel.AddDoapResourceForm)
      */
     private void addFormFields(IModel<IProject> model) {
-      addLeftColumn(model);
+      addLeftColumn();
       addRightColumn();
       addPersonsColumn();
     }
     
-    /**
-     * @param model
-     */
-    private void addLeftColumn(IModel<IProject> model) {
+    private void addLeftColumn() {
       add(new Label("projectName", project.getName()));
 
       Label shortDesc = new Label("shortDesc", project.getShortDesc());
       shortDesc.setEscapeModelStrings(false);
+      shortDesc.add(rosb);
+      shortDesc.setOutputMarkupId(true);
       add(shortDesc);
 
       //this.homepages = project.getHomepages();
@@ -191,9 +190,9 @@ public class EditProjectPanel extends Panel {
       addEditablePanel(homepageList);
 
       // Community tools
-      this.issueTrackers = project.getIssueTrackers();
+      //this.issueTrackers = project.getIssueTrackers();
       DocumentSetPanel issueTrackerList = new DocumentSetPanel(
-          "issueTrackerList", "Issue Trackers", issueTrackers, loggedIn, project) {
+          "issueTrackerList", "Issue Trackers", project.getIssueTrackers(), loggedIn, project) {
         private static final long serialVersionUID = -1120710361889351081L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -208,17 +207,32 @@ public class EditProjectPanel extends Panel {
       addEditablePanel(issueTrackerList);
 
 
-      // FIXME Add mailing list panel
-      // this.mailingLists = project.getMailingLists();
-      // GenericIResourceSetPanel mailingListsPanel = new
-      // GenericIResourceSetPanel(
-      // "mailingLists", "Mailing lists", mailingLists);
-      //
-      // add(mailingListsPanel);
+      // FIXME Add mailing list panel project.getMailingLists()
+//      DocumentSetPanel mailingListsPanel = new DocumentSetPanel(
+//      "mailingLists", "Mailing lists", project.getWikis(), loggedIn, project) {
+//        
+//        private static final long serialVersionUID = 7634775797786719275L;
+//
+//        public void addToModel(IDocument document) throws SimalException {
+//          if (document != null && document instanceof Document)  {
+//            Object resource = ((Document)document).getRepositoryResource();
+//            if (resource instanceof Resource) {
+//              IDoapMailingList newList = new MailingList((Resource)resource);
+//              getProject().addMailingList(newList);
+//            }
+//          }
+//        }
+//
+//        public void removeFromModel(IDocument document)
+//            throws SimalRepositoryException {
+//          getProject().removeWiki(document);
+//        }
+//      };
+//       add(mailingListsPanel);
       
-      this.wikis = project.getWikis();
+      // this.wikis = project.getWikis();
       DocumentSetPanel wikiListPanel = new DocumentSetPanel("wikiLists",
-          "Wikis", wikis, loggedIn, project) {
+          "Wikis", project.getWikis(), loggedIn, project) {
         private static final long serialVersionUID = 4574870021749081067L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -233,9 +247,9 @@ public class EditProjectPanel extends Panel {
       addEditablePanel(wikiListPanel);
 
       // download
-      this.downloads = project.getDownloadPages();
+      //this.downloads = project.getDownloadPages();
       DocumentSetPanel downloadsListPanel = new DocumentSetPanel("downloadPagesList",
-          "Downloads", downloads, loggedIn, project) {
+          "Downloads", project.getDownloadPages(), loggedIn, project) {
         private static final long serialVersionUID = -7922957837006958358L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -249,9 +263,9 @@ public class EditProjectPanel extends Panel {
       };
       addEditablePanel(downloadsListPanel);
       
-      this.downloadMirrors = project.getDownloadMirrors();
+      //this.downloadMirrors = project.getDownloadMirrors();
       DocumentSetPanel downloadMirrorsListPanel = new DocumentSetPanel("downloadMirrorsList",
-          "Download Mirrors", downloadMirrors, loggedIn, project) {
+          "Download Mirrors", project.getDownloadMirrors(), loggedIn, project) {
         private static final long serialVersionUID = -6222494226582096467L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -277,9 +291,9 @@ public class EditProjectPanel extends Panel {
       }
       
       
-      this.screenshots = project.getScreenshots();
+//      this.screenshots = project.getScreenshots();
       DocumentSetPanel screenshotsListPanel = new DocumentSetPanel("screenshotsList",
-          "Screenshots", screenshots, loggedIn, project) {
+          "Screenshots", project.getScreenshots(), loggedIn, project) {
         private static final long serialVersionUID = -7837486995158569663L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -299,7 +313,7 @@ public class EditProjectPanel extends Panel {
       description = new TextArea<String>("description");
       add(description);
       description.setOutputMarkupId(true);
-      description.add(new ReadOnlyStyleBehavior());
+      description.add(rosb);
 
       String[] defaultValue = { project.getDescription() };
       description.setModelValue(defaultValue);
@@ -351,11 +365,11 @@ public class EditProjectPanel extends Panel {
           "Categories", project.getCategories(), loggedIn, project);
       addEditablePanel(categoryList);
 
-      this.oses = project.getOSes();
-      addRepeatingInputs("OSes", this.oses);
+      //this.oses = project.getOSes();
+      addRepeatingInputs("OSes", project.getOSes());
 
-      this.langs = project.getProgrammingLanguages();
-      addRepeatingInputs("programmingLanguages", this.langs);
+      //this.langs = project.getProgrammingLanguages();
+      addRepeatingInputs("programmingLanguages", project.getProgrammingLanguages());
       
     }
     

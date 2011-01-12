@@ -56,7 +56,7 @@ public class TestProjectDetailPage extends TestBase {
     tester.assertVisible("editProjectPanel:editProjectForm:homepageList");
     tester.assertVisible("editProjectPanel:editProjectForm:categoryList");
 
-    tester.assertVisible("developers");
+    tester.assertVisible("editProjectPanel:editProjectForm:developers");
 
     tester.assertVisible("created");
 
@@ -107,7 +107,9 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testAddCategory() throws SimalRepositoryException {
-    String addCategoryPanel = "editProjectPanel:editProjectForm:addCategoryPanel";
+    String addCategoryPanel = "editProjectPanel:editProjectForm:categoryList:addCategoryPanel";
+    tester.assertInvisible(addCategoryPanel);
+    turnEditingOn();
     tester.assertVisible(addCategoryPanel);
     tester.assertVisible(addCategoryPanel + ":newLink");
 
@@ -130,18 +132,22 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testAddMaintainer() throws SimalRepositoryException {
-    tester.assertVisible("addMaintainerPanel");
-    tester.assertVisible("addMaintainerPanel:newLink");
+    String addMaintainerPanel = "editProjectPanel:editProjectForm:maintainers:addPersonPanel";
+    tester.assertInvisible(addMaintainerPanel);
+    turnEditingOn();
+    tester.assertVisible(addMaintainerPanel);
+    
+    tester.assertVisible(addMaintainerPanel + ":newLink");
 
-    tester.assertInvisible("addMaintainerPanel:doapResourceForm");
-    tester.assertVisible("addMaintainerPanel:newLink");
-    tester.clickLink("addMaintainerPanel:newLink");
+    tester.assertInvisible(addMaintainerPanel + ":doapResourceForm");
+    tester.assertVisible(addMaintainerPanel + ":newLink");
+    tester.clickLink(addMaintainerPanel + ":newLink");
 
-    tester.assertVisible("addMaintainerPanel:doapResourceForm");
-    tester.assertInvisible("addMaintainerPanel:newLink");
+    tester.assertVisible(addMaintainerPanel + ":doapResourceForm");
+    tester.assertInvisible(addMaintainerPanel + ":newLink");
 
-    tester.clickLink("addMaintainerPanel:doapResourceForm:cancelLink");
-    tester.assertInvisible("addMaintainerPanel:doapResourceForm");
+    tester.clickLink(addMaintainerPanel + ":doapResourceForm:cancelLink");
+    tester.assertInvisible(addMaintainerPanel + ":doapResourceForm");
 
     /**
      * Commented out as the submit does not seem to work with an Ajax form
@@ -172,12 +178,17 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testMaintainers() {
-    tester.assertVisible("maintainers");
+    tester.assertVisible("editProjectPanel:editProjectForm:maintainers");
   }
 
   @Test
   public void testOpennessRating() {
     tester.assertVisible("opennessRating");
     tester.assertLabel("opennessRating", "100%");
+  }
+  
+  private void turnEditingOn() {
+    tester.assertVisible("editProjectPanel:editProjectForm:editProjectActionLink");
+    tester.executeAjaxEvent("editProjectPanel:editProjectForm:editProjectActionLink", "onclick");
   }
 }
