@@ -303,7 +303,7 @@ input.readonly {
 }
 
 input.editable {
-	width: 100%; 
+	width: 90%; 
 	height:2em;
 	margin: 5px;
 	border: 1px solid grey;
