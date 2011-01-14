@@ -3,6 +3,7 @@
 
   * [UserQuickStart User Documentation]
     * UserQuickStart
+    * AddingCategories
     * [IssueTracker]
     * [ExposingYourDOAP]
     * [ReleaseNotes]
