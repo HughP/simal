@@ -16,13 +16,13 @@ The description above tells you how to add an existing category to an project, t
 Categories are added to the system automatically whenever a DOAP file is added that includes category definitions. So, to add a category using DOAP simply ensure your file has entries such as:
 
 {{{
-<category rdf:resource="http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#" />
+<doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/supplementaryDOAPTest#" />
 }}}
 
 You can add an {{{rdfs:label}} is you so desire, e.g.
 
 {{{
-<doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/simalCategoryTest#" rdfs:label="Category Test" 
+<doap:category rdf:resource="http://simal.oss-watch.ac.uk/category/simalCategoryTest#" rdfs:label="Category Test">
 }}}
 
 ==Adding Categtories Via the CLI==
