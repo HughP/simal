@@ -12,6 +12,7 @@
     * GettingStarted
     * DoapCreatorWidget
     * DevelopSimal
+    * JavaDocs
     * CreatePatch
     * ContributionProcess
     * [FAQ]
