@@ -1,5 +1,6 @@
 #summary How to generate JavaDocs
 #labels Phase-Implementation
+#sidebar DeveloperTOC
 
 At present we don't publish JavaDocs but you can easily create them once you have checked out the source using:
 
