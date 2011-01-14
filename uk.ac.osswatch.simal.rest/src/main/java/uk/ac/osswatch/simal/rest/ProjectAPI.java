@@ -17,6 +17,9 @@ package uk.ac.osswatch.simal.rest;
  * under the License.                                                *
  */
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.jena.Project;
@@ -30,6 +33,9 @@ import uk.ac.osswatch.simal.rdf.io.RDFXMLUtils;
  */
 public class ProjectAPI extends AbstractHandler {
 
+  private static final Logger LOGGER = LoggerFactory
+  .getLogger(ProjectAPI.class);
+  
   /**
    * Create a new project API object to operate on projects in a given Simal
    * repository. Handlers should not be instantiated directly, use
@@ -103,9 +109,13 @@ public class ProjectAPI extends AbstractHandler {
     try {
 	    if (id.equals("featured")) {
 	      project = getRepository().getFeaturedProject();
-	    } else {
-	      project = SimalRepositoryFactory.getProjectService().getProjectById(
-	        getRepository().getUniqueSimalID(id));
+      } else if (id.startsWith("prj")){
+        project = SimalRepositoryFactory.getProjectService().getProjectById(
+            getRepository().getUniqueSimalID(id));
+      } else {
+        String uri = "http://jisc.ac.uk/project#" + id;
+        LOGGER.info("Requesting JISC project with URI" + uri);
+	      project = SimalRepositoryFactory.getProjectService().getProject(uri);
 	    }
 	    if (project == null) {
 	      throw new SimalAPIException("Project with Simal ID " + id
