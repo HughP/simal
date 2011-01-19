@@ -24,7 +24,6 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapResource;
 import uk.ac.osswatch.simal.rdf.Doap;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -62,15 +61,6 @@ public class DoapResource extends Resource implements IDoapResource {
     }
     
     return desc;
-  }
-
-  public Set<IDoapLicence> getLicences() {
-    Iterator<Statement> props = listProperties(Doap.LICENSE).iterator();
-    Set<IDoapLicence> results = new HashSet<IDoapLicence>();
-    while (props.hasNext()) {
-      results.add(new Licence(props.next().getResource()));
-    }
-    return results;
   }
 
   public String getName() {

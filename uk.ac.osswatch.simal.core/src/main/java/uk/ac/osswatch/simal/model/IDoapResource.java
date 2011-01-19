@@ -73,7 +73,6 @@ public interface IDoapResource extends IResource {
 
   public abstract void setDescription(String newDescription);
 
-  public abstract Set<IDoapLicence> getLicences();
   /**
    * Get a JSON representation of this resource.
    * 

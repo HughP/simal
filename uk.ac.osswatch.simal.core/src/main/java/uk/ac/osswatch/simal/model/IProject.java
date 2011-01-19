@@ -66,7 +66,12 @@ public interface IProject extends IDoapResource {
    * Set the default description name for this project.
    */
   public void setDescription(String desc);
-  
+
+  /**
+   * Set the software licences for this project.
+   */
+  public void setLicences(Set<IDoapLicence> licences);
+
   /**
    * Add a category to this project.
    * 

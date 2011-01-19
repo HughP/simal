@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
@@ -583,5 +584,18 @@ public class Project extends DoapResource implements IProject {
   public void removeScreenshot(IDocument document) {
     removeResourceStatement(Doap.SCREENSHOTS, document);
   }
-  
+
+  public Set<IDoapLicence> getLicences() {
+    Iterator<Statement> props = listProperties(Doap.LICENSE).iterator();
+    Set<IDoapLicence> results = new HashSet<IDoapLicence>();
+    while (props.hasNext()) {
+      results.add(new Licence(props.next().getResource()));
+    }
+    return results;
+  }
+
+  public void setLicences(Set<IDoapLicence> licenses) {
+    replacePropertyStatements(Doap.LICENSE, licenses);
+  }
+
 }
