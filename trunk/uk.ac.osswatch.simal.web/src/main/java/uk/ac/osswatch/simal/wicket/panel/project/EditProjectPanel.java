@@ -166,7 +166,8 @@ public class EditProjectPanel extends Panel {
     private void addLeftColumn() {
       add(new Label("projectName", project.getName()));
 
-      Label shortDesc = new Label("shortDesc", project.getShortDesc());
+      TextField<String> shortDesc = new TextField<String>(
+          "shortDesc", new PropertyModel<String>(project, "shortDesc"));
       shortDesc.setEscapeModelStrings(false);
       shortDesc.add(rosb);
       shortDesc.setOutputMarkupId(true);
