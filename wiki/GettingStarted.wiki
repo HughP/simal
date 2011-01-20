@@ -42,6 +42,12 @@ cd $PROJECT_HOME/simal-trunk/uk.ac.osswatch.simal.web
 mvn install
 }}}
 
+=== Release Audit Tool (RAT) ===
+
+Whenever you build Simal we run a tool called RAT (Release Audit Tool) over the code. This tool does a number of things to check the legal status of the code. If it finds a problem, such as files that do not have a valid licence header, it will fail the build with a message such as {{{too many unapproved licenses}}}.
+
+See the CodeAuditing page for information about how to resolve these problems.
+
 == Configuration ==
 Next, you can configure the webapp for your server by creating a local properties file. This is not required as there is a default configuration provided that should work out-of-the-box (defined in  {{{$PROJECT_HOME/uk.ac.osswatch.simal.core/src/main/resources/default.simal.properties}}}).
 
