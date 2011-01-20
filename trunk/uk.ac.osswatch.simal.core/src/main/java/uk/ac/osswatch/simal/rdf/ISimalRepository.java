@@ -25,6 +25,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
+import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
@@ -109,6 +110,13 @@ public interface ISimalRepository {
   public IProject findProjectByHomepage(String homepage)
       throws SimalRepositoryException;
 
+  /**
+   * Get all the licences known in this repository.
+   * 
+   * @return
+   */
+  public Set<IDoapLicence> getAllLicences();
+  
   /**
    * Get all the projects known in this repository.
    * 

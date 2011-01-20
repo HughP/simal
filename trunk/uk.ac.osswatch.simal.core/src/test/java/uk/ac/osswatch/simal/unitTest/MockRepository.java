@@ -30,6 +30,7 @@ import org.w3c.dom.Node;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IOrganisation;
 import uk.ac.osswatch.simal.model.IPerson;
@@ -154,6 +155,11 @@ public class MockRepository extends AbstractSimalRepository {
   }
 
   public String getAllPeopleAsJSON() throws SimalRepositoryException {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  public Set<IDoapLicence> getAllLicences() {
     // TODO Auto-generated method stub
     return null;
   }

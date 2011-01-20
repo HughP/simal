@@ -16,7 +16,6 @@
 package uk.ac.osswatch.simal.integrationTest.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -72,12 +71,4 @@ public class TestDoapResource extends BaseRepositoryTest {
     project1.setDescription(newDesc);
     assertEquals(newDesc, project1.getDescription());
   }
-
-  @Test
-  public void testGetLicences() {
-    String licences = project1.getLicences().toString();
-    assertTrue(licences.contains(TEST_SIMAL_PROJECT_LICENCE_ONE));
-    assertTrue(licences.contains(TEST_SIMAL_PROJECT_LICENCE_TWO));
-  }
-
 }

@@ -39,9 +39,11 @@ import org.w3c.dom.Document;
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.Foaf;
+import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.model.jena.Licence;
 import uk.ac.osswatch.simal.model.jena.Project;
 import uk.ac.osswatch.simal.model.jena.Resource;
 import uk.ac.osswatch.simal.model.jena.SparqlResult;
@@ -64,6 +66,7 @@ import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
+import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.vocabulary.RDF;
 
 public final class JenaSimalRepository extends AbstractSimalRepository {
@@ -122,6 +125,20 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
       model = jenaDatabaseSupport.initialiseDatabase(dbType, directory);
       initialised = true;
     }
+    
+    initReferenceData();
+  }
+
+  /**
+   * Initialise reference data for this repository. Currently licences only.
+   * 
+   * @throws SimalRepositoryException
+   */
+  private void initReferenceData() throws SimalRepositoryException {
+    // FIXME Make this configurable.
+    String fileName = "softwarelicences.n3";
+    FileManager.get().readModel(model, fileName);
+    LOGGER.info("Initialised reference data from file " + fileName);
   }
 
   /**
@@ -269,7 +286,19 @@ public final class JenaSimalRepository extends AbstractSimalRepository {
     return projects;
   }
   
+  public Set<IDoapLicence> getAllLicences() {
+    String CC_LICENCE = "http://creativecommons.org/ns#License";
+    Property o = model.createProperty(CC_LICENCE);
+    StmtIterator itr = model.listStatements(null, RDF.type, o);
+    Set<IDoapLicence> licences = new HashSet<IDoapLicence>();
+    while (itr.hasNext()) {
+      String uri = itr.nextStatement().getSubject().getURI();
+      licences.add(new Licence(model.getResource(uri)));
+    }
+    return licences;
+  }
 
+  
 	/**
 	 * Get a featured project. At the present time this will
 	 * return a single random project from the repository.
