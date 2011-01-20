@@ -21,32 +21,30 @@ import java.util.List;
 
 import org.apache.wicket.IClusterable;
 
-import uk.ac.osswatch.simal.model.IDoapCategory;
-
 /**
  * A Java bean usable as input model for managing a selection of Categories.
  */
-public class SelectCategoryInputModel implements IClusterable {
+public class SelectCategoryInputModel<T> implements IClusterable {
 
   private static final long serialVersionUID = -6143804114236894073L;
 
-  private List<IDoapCategory> listedCategories;
+  private List<T> listedCategories;
   
-  private IDoapCategory comboChoice;
+  private T comboChoice;
 
-  public IDoapCategory getcomboChoice() {
+  public T getcomboChoice() {
       return comboChoice;
   }
 
-  public void setComboChoice(IDoapCategory comboChoice) {
+  public void setComboChoice(T comboChoice) {
       this.comboChoice = comboChoice;
   }
 
-  public void setListedCategories(List<IDoapCategory> listedCategories) {
+  public void setListedCategories(List<T> listedCategories) {
     this.listedCategories = listedCategories;
   }
 
-  public List<IDoapCategory> getListedCategories() {
+  public List<T> getListedCategories() {
     return listedCategories;
   }
 }

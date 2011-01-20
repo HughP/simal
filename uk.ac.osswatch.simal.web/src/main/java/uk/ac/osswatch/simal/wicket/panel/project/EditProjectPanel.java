@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.wicket.panel.project;
  */
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -32,6 +33,8 @@ import org.apache.wicket.behavior.AbstractBehavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.ChoiceRenderer;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
@@ -45,9 +48,12 @@ import org.apache.wicket.model.PropertyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.IResource;
+import uk.ac.osswatch.simal.model.utils.DoapResourceByNameComparator;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
@@ -58,6 +64,7 @@ import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
 import uk.ac.osswatch.simal.wicket.panel.CategoryListPanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 import uk.ac.osswatch.simal.wicket.panel.ReleasesPanel;
+import uk.ac.osswatch.simal.wicket.panel.SelectCategoryInputModel;
 import uk.ac.osswatch.simal.wicket.panel.SourceRepositoriesPanel;
 
 /**
@@ -371,7 +378,12 @@ public class EditProjectPanel extends Panel {
 
       //this.langs = project.getProgrammingLanguages();
       addRepeatingInputs("programmingLanguages", project.getProgrammingLanguages());
-      
+
+      try {
+        addLicences(project.getLicences());
+      } catch (SimalRepositoryException e) {
+        LOGGER.warn("Could not get licences from repository. ",e);
+      }
     }
     
     private void addPersonsColumn() {
@@ -404,6 +416,49 @@ public class EditProjectPanel extends Panel {
           "Translators", project.getTranslators(), 4, project,
           AddPersonPanel.TRANSLATOR, loggedIn);
       addEditablePanel(translatorList);
+    }
+
+    private void addLicences(Set<IDoapLicence> licences) throws SimalRepositoryException {
+      
+      List<SelectCategoryInputModel<IDoapLicence>> data = new ArrayList<SelectCategoryInputModel<IDoapLicence>>();
+
+      final List<IDoapLicence> allDoapLicences = new ArrayList<IDoapLicence>(SimalRepositoryFactory
+            .getInstance().getAllLicences());
+      Collections.sort(allDoapLicences, new DoapResourceByNameComparator());
+      
+      for(IDoapLicence licence : licences) {
+        SelectCategoryInputModel<IDoapLicence> inputModel = new SelectCategoryInputModel<IDoapLicence>();
+        inputModel.setComboChoice(licence);
+        data.add(inputModel);
+      }
+
+      // Wrap all licence fields in a list:
+      ListView<SelectCategoryInputModel<IDoapLicence>> listView = new ListView<SelectCategoryInputModel<IDoapLicence>>(
+          "licences", data) {
+
+        private static final long serialVersionUID = 8106669931357952797L;
+
+        protected void populateItem(ListItem<SelectCategoryInputModel<IDoapLicence>> item) {
+          SelectCategoryInputModel<IDoapLicence> inputModel = (SelectCategoryInputModel<IDoapLicence>) item
+              .getModelObject();
+          DropDownChoice<IDoapLicence> licencesField;
+          licencesField = new DropDownChoice<IDoapLicence>("licence",
+              new PropertyModel<IDoapLicence>(inputModel, "comboChoice"),
+              allDoapLicences, new ChoiceRenderer<IDoapLicence>("name", "uri")) {
+
+            private static final long serialVersionUID = -3911050158593221477L;
+
+            protected boolean wantOnSelectionChangedNotifications() {
+              return false;
+            }
+          };
+          
+          item.add(licencesField);
+        }
+      };
+      listView.setReuseItems(true);
+      add(listView);
+      
     }
 
     /**
@@ -447,6 +502,7 @@ public class EditProjectPanel extends Panel {
       listView.setReuseItems(true);
       add(listView);
     }
+
 
     private AjaxFallbackButton generateDeleteItemButton(
         boolean visibilityAllowed, ListItem<GenericSetWrapper<String>> item) {
