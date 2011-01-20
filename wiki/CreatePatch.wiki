@@ -10,6 +10,14 @@ For the purposes of this document lets assume that you have made a change to the
 
 Since our code evolves at a reasonable pace it therefore makes sense to submit your patches often and early. Don't worry if they are not feature complete, it's best to submit you patch as soon as it does something useful.
 
+= The easy way: edit online =
+If the change you want to make is small and contained within one file, you can use Google Code's online editor:
+ # [http://code.google.com/p/simal/source/browse/ Navigate to] the page 
+ # Click "Edit File"
+ # Depending on your level of access, you'll either modify the file directly or submit a patch to the developers.
+ 
+You can also edit the wiki this way. [http://code.google.com/p/simal/source/browse/#svn%2Fwiki Navigate to the "wiki" directory], then proceed as above.
+
 = A Note command line and GUI tools =
 
 This document will describe how to create a patch using command line tools on Windows. There are a number of graphical tools available for SVN (the version control system we use), it is therefore not possible for us to describe how to use them all. However, understanding how to do things with the command line should enable you to work with any graphical tool.
