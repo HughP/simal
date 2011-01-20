@@ -155,6 +155,16 @@ Use the [http://pmd.sourceforge.net/eclipse/ PMD Eclipse update] site to install
 
 Use the [http://findbugs.cs.umd.edu/eclipse/ FindBugs Eclipse update] site to install this plugin.
 
+=Building and Running from within Eclipse=
+
+At this point you will have three projects in Eclipse, one for the {{{core}}}, the {{{rest}}} and the {{{web}}} project. You can run Maven2 commands for each project from the {{{Run as}}} context menu. For exmaple: right-click the core project's root folder and choose {{{Run As -> Maven install}}} to install the core module in the local repository. 
+
+To deploy the webapp from within Eclipse you can also use the m2eclipse run configuration.
+For example, choose from the menu {{{Run -> Run Configurations...}}}. In the Run Configurations screen there 
+is a {{{Maven Build}}}, right-click that and choose {{{New}}}. Fill in the root directory of your web project as {{{Base directory}}} and choose {{{jetty:run}}} under {{{Goals:}}}. Using this allows you to debug the webapp from within Eclipse.
+
+Note however that there is an issue with persistencing the data when you're running from within. The shutdown hook in Simal that ensures that the project data is persisted on disk is not called when shutting down the JVM in Eclipse. This is a bug/feature of Eclipse. See [http://code.google.com/p/simal/issues/detail?id=344 Issue 344] for more info.
+
 =Start developing=
 
 Assuming all tests past you are now ready to start developing.
