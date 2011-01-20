@@ -31,9 +31,12 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.hp.hpl.jena.rdf.model.Resource;
+
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
 import uk.ac.osswatch.simal.model.IDoapCategory;
+import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDoapMailingList;
 import uk.ac.osswatch.simal.model.IDoapRelease;
 import uk.ac.osswatch.simal.model.IDoapRepository;
@@ -42,6 +45,8 @@ import uk.ac.osswatch.simal.model.IFeed;
 import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.model.jena.Licence;
+import uk.ac.osswatch.simal.model.jena.simal.JenaSimalRepository;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -498,5 +503,17 @@ public class TestModelProject extends BaseRepositoryTest {
       int postCount = project1.getHomepages().size();
       
       assertEquals("When adding an existing project we should not get extra homepages", preCount, postCount);
+  }
+
+  @Test
+  public void testGetLicences() {
+    Set<IDoapLicence> licences = project1.getLicences();
+    assertTrue(licences.contains(getLicence(TEST_SIMAL_PROJECT_LICENCE_ONE)));
+    assertTrue(licences.contains(getLicence(TEST_SIMAL_PROJECT_LICENCE_TWO)));
+  }
+  
+  private IDoapLicence getLicence(String uri) {
+    Resource resource = ((JenaSimalRepository)repository).getModel().createResource(TEST_SIMAL_PROJECT_LICENCE_ONE);
+    return new Licence(resource);   
   }
 }

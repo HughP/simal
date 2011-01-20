@@ -1,0 +1,50 @@
+# Copyright 2011 University of Oxford
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix cc: <http://creativecommons.org/ns#> .
+
+<http://usefulinc.com/doap/licenses/agpl> rdf:type cc:License; 
+    rdfs:label "Affero GNU Public License" .
+<http://usefulinc.com/doap/licenses/asl20> rdf:type cc:License; 
+    rdfs:label "Apache License 2.0" .
+<http://usefulinc.com/doap/licenses/bsd> rdf:type cc:License; 
+    rdfs:label "BSD License" .
+<http://usefulinc.com/doap/licenses/cddl> rdf:type cc:License; 
+    rdfs:label "Common Development and Distribution License" .
+<http://usefulinc.com/doap/licenses/epl> rdf:type cc:License; 
+    rdfs:label "Eclipse Public License" .
+<http://usefulinc.com/doap/licenses/eupl> rdf:type cc:License; 
+    rdfs:label "European Union Public License" .
+<http://usefulinc.com/doap/licenses/gplv2> rdf:type cc:License; 
+    rdfs:label "GNU General Public License v2" .
+<http://usefulinc.com/doap/licenses/gpl> rdf:type cc:License; 
+    rdfs:label "GNU General Public License v3" .
+<http://usefulinc.com/doap/licenses/lgpl> rdf:type cc:License; 
+    rdfs:label "Lesser GPL v3" .
+<http://usefulinc.com/doap/licenses/mit> rdf:type cc:License; 
+    rdfs:label "MIT License" .
+<http://usefulinc.com/doap/licenses/mpl> rdf:type cc:License; 
+    rdfs:label "Mozilla Public License 1.1" .
+<http://usefulinc.com/doap/licenses/afl3> rdf:type cc:License; 
+    rdfs:label "Academic Free License 3.0" .
+<http://usefulinc.com/doap/licenses/other_osi_fsf> rdf:type cc:License; 
+    rdfs:label "Other OSI and FSF approved" .
+<http://usefulinc.com/doap/licenses/other_osi> rdf:type cc:License; 
+    rdfs:label "Other OSI (only) approved" .
+<http://usefulinc.com/doap/licenses/other_fsf> rdf:type cc:License; 
+    rdfs:label "Other FSF (only) approved" .
+<http://usefulinc.com/doap/licenses/proprietary> rdf:type cc:License; 
+    rdfs:label "Proprietary" .
