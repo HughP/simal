@@ -11,32 +11,97 @@ environment (although this is not a requirement, it just makes your life
 easier). This how-to therefore focuses on configuring Eclipse for working
 on Simal.
 
+If you just want to build and run Simal, without doing any development, then see GettingStarted instead.
+
 ==Intended Audience==
 
 People wishing to participate in the development of Simal.
 
 ==Purpose==
 
-To identify the ideal development environment for working with Simal.
+To set up an Eclipse development environment that can build Simal.
 
 ==Prerequisites==
 
 Readers should
 
  * Have at least a basic understanding of RDF, HTML and Java
- * Have at least a basic understanding of Java development in Eclipse
 
-=Install and Configure Eclipse=
+==1. Install Eclipse==
 
-==Eclipse 3.5 + Web Tools Project 3.1==
+===Eclipse 3.5 + Web Tools Project 3.1===
 
 If you do not currently have eclipse installed we recommend that you download and unpack the [http://www.eclipse.org/downloads/ Eclipse IDE for Java EE Developers] package.
- 
+
 If you already have eclipse then you will need to ensure that you also
-have the Web Standards Tools (WST) plugin installed (use the WTP 
-[http://download.eclipse.org/webtools/updates/ update site]). 
-	  
-==Codestyle and code formatting==
+have the Web Standards Tools (WST) plugin installed (use the WTP
+[http://download.eclipse.org/webtools/updates/ update site]).
+    
+==2. Get Eclipse Plugins==
+The easiest way to get the Simal code into Eclipse is as follows.
+==Subclipse==
+We use a Subversion repository for our source code, therefore you need
+an SVN plugin like Subclipse for working with the repository. Install it as follows:
+
+ # Help | Install New Software...
+ # Click "Add..." and enter a name, with the following location: http://subclipse.tigris.org/update_1.6.x
+ # In the "Work with:" box, enter: http://subclipse.tigris.org/update_1.6.x
+ # Wait a few moments, then select the Subclipse plugin, and press Finish.
+
+For more information about Eclipse plugins, try [http://www.vogella.de/articles/Eclipse/article.html#plugin_installation this tutorial].
+
+===m2eclipse===
+Simal is built with Maven. Therefore, you should install the m2eclipse plugin. Follow the above procedure, with this repository: http://m2eclipse.sonatype.org/sites/m2e
+
+This Core update site contains a single component: "Maven Integration for Eclipse (Required)". When you install this component (in the same way as above) you will be installing all of the core Wizards, the POM Editor, Maven Repository integration, and Maven integration.
+
+===Wicket Bench===
+
+[http://www.laughingpanda.org/mediawiki/index.php/Wicket_Bench Wicket Bench] is
+a plugin that makes working with Wicket files easier. It can be installed
+from the [http://www.laughingpanda.org/svn/wicket-bench/trunk/wicket-bench-site update site]
+using the method described above.
+
+==3. Get Simal Sources==
+The first thing you need to do is checkout the Simal source code. To do this
+use the [http://simal.googlecode.com/svn/wiki/DevelopSimal.attach/simal.psf simal.psf] team set.
+
+ * Save the [http://simal.googlecode.com/svn/wiki/DevelopSimal.attach/simal.psf simal.psf]
+file in a convenient location
+
+ * In Eclipse select {{{File -> Import}}}
+
+ * In the dialog select {{{Team -> Team Project Set}}} and click {{{Next}}}
+
+ * Select the {{{simal.psf}}} file you saved earlier and click {{{Finish}}}
+
+After following these steps the source code for Simal will be checked out from
+version control, ready for you to start work.
+
+==4. Get Maven dependencies==
+After importing the files from SVN you will need to tell Eclipse to use Maven to build the source. To do this right click on each of the {{{uk.ac.osswatch.simal.*}}} projects and select {{{Maven -> Enable Dependency Management}}}. Maven will now download all dependencies; this can take some time depending on the speed of your network detection, but it is a one-off step.
+
+==5. Test Setup So Far==
+
+Assuming everything has compiled OK we are now ready to run
+some tests:
+
+ * Right click on {{{uk.ac.osswatch.simal.core/src/test/java}}} and select {{{Run As -> JUnit Test}}}
+
+ * Wait for the tests to run, you should get a green bar for all tests
+
+ * Right click on {{{uk.ac.osswatch.simal.rest/src/test/java}}} and select {{{Run As -> JUnit Test}}}
+
+ * Wait for the tests to run, you should get a green bar for all tests
+
+ * Right click on {{{uk.ac.osswatch.simal.web/src/test/java}}} and select {{{Run As -> JUnit Test}}}
+
+ * Wait for the tests to run, you should get a green bar for all tests
+
+==6. Optional Steps==
+
+
+===Codestyle and code formatting===
 
 We have defined a custom Simal formatter and code templates for Eclipse.
 To install these first download the following files:
@@ -51,76 +116,6 @@ Select {{{Import}}} and choose the simal_codetemplates.xml.
 
 Note that you do not need to use the Simal style and templates for all our projects, you can configure templates on a per project basis within Eclipse.
 
-==Recommended Plugins==
-
-The following Eclipse plugins are useful when developing Simal.
-
-===Subclipse===
-
-We use a Subversion repository for our source code, therefore you need
-an SVN plugin like Subclipse for working with the repository. You can install
-the Subclipse plugin in Eclipse using their update site [http://subclipse.tigris.org/update_1.6.x http://subclipse.tigris.org/update_1.6.x] in the Eclipse Update Manager. If you are unfamiliar
-with the Eclipse update manager you can find a good tutorial [http://www.vogella.de/articles/Eclipse/article.html#plugin_installation here]
-
-
-===Maven===
-
-We use Maven to build simal. If you want to use maven from the command line
-you need to [http://maven.apache.org/download.html download and install] Maven 2 on your machine. However, if
-you only intend to use maven from within Eclipse then you just
-need the a Maven plugin described in the next section. 
-
-
-===m2eclipse===
-
-If you are using Eclipse we also recommend the m2eclipse plugin that allows
-you to work with Maven projects within Eclipse. M2eclipse is available from the
-m2eclipse [http://m2eclipse.sonatype.org/sites/m2e update site].  This Core update site contains a single component: "Maven Integration for Eclipse (Required)". When you install this component (in the same way as above) you will be installing all of the core Wizards, the POM Editor, Maven Repository integration, and Maven integration.
-
-===Wicket Bench===
-
-[http://www.laughingpanda.org/mediawiki/index.php/Wicket_Bench Wicket Bench] is
-a plugin that makes working with Wicket files easier. It can be installed
-from the [http://www.laughingpanda.org/svn/wicket-bench/trunk/wicket-bench-site update site]
-using the method described above.
-
-===Get Simal Sources===
-The first thing you need to do is checkout the Simal source code. To do this
-use the [http://simal.googlecode.com/svn/wiki/DevelopSimal.attach/simal.psf simal.psf] team set.
-
- * Save the [http://simal.googlecode.com/svn/wiki/DevelopSimal.attach/simal.psf simal.psf]
-file in a convenient location
- 
- * In Eclipse select {{{File -> Import}}}
-
- * In the dialog select {{{Team -> Team Project Set}}} and click {{{Next}}}
-
- * Select the {{{simal.psf}}} file you saved earlier and click {{{Finish}}}
-
-After following these steps the source code for Simal will be checked out from
-version control, ready for you to start work.
-
-After importing the files from SVN you will need to tell Eclipse to use Maven to build the source. To do this right click on each of te {{{uk.ac.osswatch.simal.*}}} projects and select {{{Maven -> Enable Dependency Management}}}. Maven will now download all dependencies, this can take some time depending on the speed of your network detection, but it is a one-off step.
-
-===Test Setup So Far===
-
-Assuming everything has compiled OK we are now ready to run 
-some tests:
-
-
- * right click on {{{uk.ac.osswatch.simal.core/src/test/java}}} and select {{{Run As -> JUnit Test}}}
-
- * Wait for the tests to run, you should get a green bar for all tests
-
- * right click on {{{uk.ac.osswatch.simal.rest/src/test/java}}} and select {{{Run As -> JUnit Test}}}
-
- * Wait for the tests to run, you should get a green bar for all tests
-
- * right click on {{{uk.ac.osswatch.simal.web/src/test/java}}} and select {{{Run As -> JUnit Test}}}
-
- * Wait for the tests to run, you should get a green bar for all tests
-
-==Optional Steps==
 
 ===Task Management===
 
@@ -151,22 +146,24 @@ Many of these plugins integrated with our Maven builds and our [http://16degrees
  * Duplicate code - copied/pasted code means copied/pasted bugs
 
 
-Use the [http://pmd.sourceforge.net/eclipse/ PMD Eclipse update] site to install this plugin.  
+Use the [http://pmd.sourceforge.net/eclipse/ PMD Eclipse update] site to install this plugin.
 
 
 ===Find bugs===
 
 [http://findbugs.sourceforge.net/ FindBugs] uses static analysis to look for bugs in Java code.
 
-Use the [http://findbugs.cs.umd.edu/eclipse/ FindBugs Eclipse update] site to install this plugin.  
+Use the [http://findbugs.cs.umd.edu/eclipse/ FindBugs Eclipse update] site to install this plugin.
 
-
-
-
-
-
-===Start developing===
+=Start developing=
 
 Assuming all tests past you are now ready to start developing.
 Further assistance is available in the relevant sections of the Simal
-documentation.
+documentation and in the JavaDocs.
+
+For information about how to contribute patches to the Simal team, see:
+ * CreatePatch
+ * ContributionProcess
+
+For more information:
+http://code.google.com/p/simal/wiki/GettingStarted
