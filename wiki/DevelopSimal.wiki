@@ -99,7 +99,7 @@ some tests:
  * Wait for the tests to run, you should get a green bar for all tests
 
 
-=6. Building and Running from within Eclipse=
+==6. Building and Running from within Eclipse==
 
 At this point you will have three projects in Eclipse, one for the {{{core}}}, the {{{rest}}} and the {{{web}}} project. You can run Maven2 commands for each project from the {{{Run as}}} context menu. For exmaple: right-click the core project's root folder and choose {{{Run As -> Maven install}}} to install the core module in the local repository. 
 
@@ -109,7 +109,7 @@ is a {{{Maven Build}}}, right-click that and choose {{{New}}}. Fill in the root 
 
 Note however that there is an issue with persistencing the data when you're running from within. The shutdown hook in Simal that ensures that the project data is persisted on disk is not called when shutting down the JVM in Eclipse. This is a bug/feature of Eclipse. See [http://code.google.com/p/simal/issues/detail?id=344 Issue 344] for more info.
 
-=7. Start developing=
+==7. Start developing==
 
 Assuming all tests past you are now ready to start developing.
 Further assistance is available in the relevant sections of the Simal
