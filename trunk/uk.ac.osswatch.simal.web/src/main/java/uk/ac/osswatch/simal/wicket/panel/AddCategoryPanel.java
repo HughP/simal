@@ -50,7 +50,7 @@ public class AddCategoryPanel extends AbstractAddDoapResourcePanel<IDoapCategory
   public static final Logger LOGGER = LoggerFactory
       .getLogger(AddCategoryPanel.class);
 
-  private SelectCategoryInputModel inputModel;
+  private SelectCategoryInputModel<IDoapCategory> inputModel;
   DropDownChoice<IDoapCategory> categoryField;
 
   /**
@@ -76,7 +76,7 @@ public class AddCategoryPanel extends AbstractAddDoapResourcePanel<IDoapCategory
    */
   @Override
   protected void addFormFields(AddDoapResourceForm addDoapResourceForm) {
-    inputModel = new SelectCategoryInputModel();
+    inputModel = new SelectCategoryInputModel<IDoapCategory>();
     Set<IDoapCategory> allCategories;
     try {
       allCategories = SimalRepositoryFactory.getCategoryService().getAll();
