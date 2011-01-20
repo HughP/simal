@@ -63,6 +63,20 @@ RAT can be run manually with the command:
 
 {{{mvn rat:check}}}
 
+== Excluding Files from RAT checks ==
+
+In some cases RAT provides a false positive on licence checks. To avoid these you can add exclusions to the RAT configuration in the projects pom.xml. See:
+
+{{{
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>rat-maven-plugin</artifactId>
+  <configuration>
+    ...
+  </configuration>
+</plugin>
+}}}
+
 == Adding Licence Headers ==
 
 RAT can also be used to automatically add licence headers using:
