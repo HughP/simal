@@ -79,7 +79,7 @@ public class TestOhlohImport extends BaseRepositoryTest {
 			// @refactor if we have no projects and no exception was thrown it means that there has been
 			// a problem importing projects. This is probably because no PAI key has been provided.
 			// At present we swallow this and assume.
-			logger.error("Not retrieved any projects from Ohloh, please see log for more information (probably a missing API key)");
+			logger.error("Not retrieved any projects from Ohloh, please see log for more information (probably a missing API key). To add an API key add 'ohloh.api.key=[YOUR API KEY]' to local.simal.properties. You can get a key from http://www.ohloh.net/api/getting_started");
 		} else {
 			assertTrue("Apache HTTPD project has not been correctly imported", projectAIsValid);
 		}
