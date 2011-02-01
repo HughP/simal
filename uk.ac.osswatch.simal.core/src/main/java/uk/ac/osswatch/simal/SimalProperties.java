@@ -146,7 +146,7 @@ public class SimalProperties {
       logger.debug("Initializing local properties from " + propsFile.getAbsolutePath());
       localProps = getProperties(propsFile);
     } else {
-      logger.debug("No local.simal.properties file was found");
+      logger.debug("No local.simal.properties file was found. Looked in " + propsFile.getAbsolutePath());
       localProps = new Properties();
     }
     localProps.putAll(System.getProperties());
