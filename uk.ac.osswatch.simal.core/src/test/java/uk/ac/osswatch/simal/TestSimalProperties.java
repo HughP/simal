@@ -45,19 +45,25 @@ public class TestSimalProperties extends BaseRepositoryTest {
   private static final Logger LOGGER = LoggerFactory
       .getLogger(TestSimalProperties.class);
   private static final String USER_HOME = "user.home";
+  
+  private static final String SIMAL_HOME = System.getenv(SimalProperties.SIMAL_HOME); 
 
-  @Test
-  public void testSimalDefaultLocation() {
-    String simalHome = System.getenv(SimalProperties.SIMAL_HOME);
+  private String getExpectedPropertiesDir() {
     String expectedDataDir = null;
-    if (simalHome != null && !"".equals(simalHome)
-        && new File(simalHome).listFiles() != null) {
-      LOGGER.info("Testing with SIMAL_HOME set to " + simalHome);
-      expectedDataDir = simalHome;
+    if (SIMAL_HOME != null && !"".equals(SIMAL_HOME)
+        && new File(SIMAL_HOME).listFiles() != null) {
+      LOGGER.info("Testing with SIMAL_HOME set to " + SIMAL_HOME);
+      expectedDataDir = SIMAL_HOME;
     } else {
       LOGGER.info("Testing without SIMAL_HOME set.");
       expectedDataDir = System.getProperty("user.home");
     }
+    return expectedDataDir;
+  }
+  
+  @Test
+  public void testSimalDefaultLocation() {
+    String expectedDataDir = getExpectedPropertiesDir();
     try {
       String rdfDataDir = SimalProperties
           .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR);
@@ -70,19 +76,21 @@ public class TestSimalProperties extends BaseRepositoryTest {
 
   @Test
   public void testUnwritableDir() {
-    String oldUserHome = System.getProperty(USER_HOME);
-    System.setProperty(USER_HOME, "C:\\non\\existing\\path");
+    if (SIMAL_HOME == null || "".equals(SIMAL_HOME)) {
+      String oldUserHome = System.getProperty(USER_HOME);
+      System.setProperty(USER_HOME, "C:\\non\\existing\\path");
 
-    try {
-      SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR);
-      System.setProperty(USER_HOME, oldUserHome);
-      fail("Reading property " + SimalProperties.PROPERTY_RDF_DATA_DIR
-          + " should have failed.");
-    } catch (Exception e) {
-      if (!(e instanceof SimalRepositoryException)) {
-        fail("Wrong exception thrown : " + e.getMessage());
+      try {
+        SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR);
+        System.setProperty(USER_HOME, oldUserHome);
+        fail("Reading property " + SimalProperties.PROPERTY_RDF_DATA_DIR
+            + " should have failed.");
+      } catch (Exception e) {
+        if (!(e instanceof SimalRepositoryException)) {
+          fail("Wrong exception thrown : " + e.getMessage());
+        }
+        System.setProperty(USER_HOME, oldUserHome);
       }
-      System.setProperty(USER_HOME, oldUserHome);
     }
   }
 
@@ -107,8 +115,8 @@ public class TestSimalProperties extends BaseRepositoryTest {
   public void testDefaults() throws SimalRepositoryException {
     assertEquals("false", SimalProperties
         .getProperty(SimalProperties.PROPERTY_TEST));
-    String dataDir = System.getProperty("user.home");
-    ;
+    String dataDir = getExpectedPropertiesDir();
+
     assertEquals(dataDir, SimalProperties
         .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR));
   }
