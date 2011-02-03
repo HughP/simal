@@ -553,17 +553,18 @@ public class JenaProjectService extends JenaService implements IProjectService {
       project = findExistingProjectBySeeAlso(sourceProjectRoot);
     }
 
+    if (uri == null || uri.equals("")) {
+      // we don't allow blank project nodes
+      uri = RDFUtils.getDefaultProjectURI(getNewProjectID());
+      sourceProjectRoot.setAttributeNS(RDFUtils.RDF_NS, "about", uri);
+    }
+
     if (project == null) {
-      if (uri == null || uri.equals("")) {
-        // we don't allow blank project nodes
-        uri = RDFUtils.getDefaultProjectURI(getNewProjectID());
-        sourceProjectRoot.setAttributeNS(RDFUtils.RDF_NS, "about", uri);
-      }
       project = createSimalProject(uri);
     } else {
       LOGGER.debug("Updating an existing simal:Project instance with URI "
           + project.getURI());
-      try {
+      try { 
         project.addSeeAlso(new URI(uri));
       } catch (URISyntaxException e) {
         throw new SimalRepositoryException(
