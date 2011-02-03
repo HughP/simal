@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.integrationTest.model.repository;
 
 import java.net.URISyntaxException;
 
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 import uk.ac.osswatch.simal.SimalProperties;
@@ -120,6 +121,17 @@ public abstract class BaseRepositoryTest {
     SimalProperties.deleteLocalProperties();
     
     initRepository();
+  }
+
+  @AfterClass
+  public static void tearDownAfterClass() {
+    if (repository != null) {
+      try {
+        repository.destroy();
+      } catch (SimalRepositoryException e) {
+        // Don't care if failing to destroy repo 
+      }
+    }
   }
 
   protected static void initRepository() throws SimalRepositoryException,

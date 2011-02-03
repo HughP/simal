@@ -45,6 +45,7 @@ public class TestInternetAddress extends AbstractJenaModelTest {
 
   @BeforeClass
   public static void setUpBeforeClass() throws Exception {
+    AbstractJenaModelTest.setUpBeforeClass();
     EXPECTED_OBFUSCATED_EMAILS.put("mailto:rgardler@apache.org",
         "mailto:rgardler [at] apache...org");
     EXPECTED_OBFUSCATED_EMAILS.put("mailto:ross.gardler@oucs.ox.ac.uk",
