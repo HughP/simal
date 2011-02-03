@@ -35,6 +35,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.integrationTest.model.repository.BaseRepositoryTest;
+import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 public class TestSimalProperties extends BaseRepositoryTest {
@@ -152,7 +153,7 @@ public class TestSimalProperties extends BaseRepositoryTest {
   public void testLocalFile() throws URISyntaxException,
       SimalRepositoryException {
     String version = "Simal-UnitTests";
-    URL propertiesURL = TestSimalProperties.class.getClassLoader().getResource(
+    URL propertiesURL = ISimalRepository.class.getClassLoader().getResource(
         "testData/local.unitTest.properties");
     assertNotNull("Can't find the properties file for tests", propertiesURL);
     File propsFile = new File(propertiesURL.toURI());
