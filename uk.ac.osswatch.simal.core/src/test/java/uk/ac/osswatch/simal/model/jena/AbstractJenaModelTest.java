@@ -20,6 +20,8 @@ package uk.ac.osswatch.simal.model.jena;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.ModelSupport;
@@ -31,6 +33,9 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
  */
 public abstract class AbstractJenaModelTest {
 
+  private static final Logger LOGGER = LoggerFactory
+      .getLogger(AbstractJenaModelTest.class);
+
   protected static ISimalRepository repository;
   private static final String TEST_OSS_WATCH_DOAP = "testData/ossWatchDOAP.xml";
 
@@ -40,7 +45,7 @@ public abstract class AbstractJenaModelTest {
       try {
         repository.destroy();
       } catch (SimalRepositoryException e) {
-        // Don't care if failing to destroy repo 
+        LOGGER.warn("Destroying repository unexpectedly failed.", e); 
       }
     }
   }

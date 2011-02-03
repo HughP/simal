@@ -19,6 +19,8 @@ import java.net.URISyntaxException;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalProperties;
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
@@ -34,6 +36,9 @@ import uk.ac.osswatch.simal.rdf.io.RDFUtils;
  * 
  */
 public abstract class BaseRepositoryTest {
+
+  private static final Logger LOGGER = LoggerFactory
+      .getLogger(BaseRepositoryTest.class);
 
   public static final String TEST_PROJECT_URI = "http://simal.oss-watch.ac.uk/simalTest#";
   public static final String TEST_SIMAL_PROJECT_NAME = "Simal DOAP Test";
@@ -129,7 +134,7 @@ public abstract class BaseRepositoryTest {
       try {
         repository.destroy();
       } catch (SimalRepositoryException e) {
-        // Don't care if failing to destroy repo 
+        LOGGER.warn("Destroying repository unexpectedly failed.", e); 
       }
     }
   }
