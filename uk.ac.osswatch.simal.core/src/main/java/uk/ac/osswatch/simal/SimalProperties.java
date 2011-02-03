@@ -149,7 +149,6 @@ public class SimalProperties {
       logger.debug("No local.simal.properties file was found. Looked in " + propsFile.getAbsolutePath());
       localProps = new Properties();
     }
-    localProps.putAll(System.getProperties());
   }
 
   /**
@@ -289,7 +288,7 @@ public class SimalProperties {
       }
     }
 
-    String value = null;
+    String value = System.getProperty(key);
     if (localProps != null) {
       value = localProps.getProperty(key);
     }
