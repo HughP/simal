@@ -36,7 +36,15 @@ If you do not currently have eclipse installed we recommend that you download an
 If you already have eclipse then you will need to ensure that you also
 have the Web Standards Tools (WST) plugin installed (use the WTP
 [http://download.eclipse.org/webtools/updates/ update site]).
-    
+
+===Configure JDK===
+The m2eclipse plugin you're about to install requires Eclipse to be run in a JDK.
+ # Download and install a JDK if you don't have one already, from oracle.com.
+ # Add these two lines to the eclipse.ini file, adjusting the path as necessary:
+ 
+{{{-vm 
+C:\java\jdk1.6.0_23\bin\javaw.exe}}}
+
 ==2. Get Eclipse Plugins==
 The easiest way to get the Simal code into Eclipse is as follows.
 ==Subclipse==
@@ -62,6 +70,8 @@ a plugin that makes working with Wicket files easier. It can be installed
 from the [http://www.laughingpanda.org/svn/wicket-bench/trunk/wicket-bench-site update site]
 using the method described above.
 
+TODO describe how to use this.
+
 ==3. Get Simal Sources==
 The first thing you need to do is checkout the Simal source code. To do this
 use the [http://simal.googlecode.com/svn/wiki/DevelopSimal.attach/simal.psf simal.psf] team set.
@@ -83,21 +93,15 @@ After importing the files from SVN you will need to tell Eclipse to use Maven to
 
 ==5. Test Setup So Far==
 
-Assuming everything has compiled OK we are now ready to run
+To verify that everything compiles and builds correctly, let's now run
 some tests:
 
  * Right click on {{{uk.ac.osswatch.simal.core/src/test/java}}} and select {{{Run As -> JUnit Test}}}
-
- * Wait for the tests to run, you should get a green bar for all tests
-
+ * Wait for the tests to run. On the "JUnit" tab, you should get a green bar for all tests.
  * Right click on {{{uk.ac.osswatch.simal.rest/src/test/java}}} and select {{{Run As -> JUnit Test}}}
-
- * Wait for the tests to run, you should get a green bar for all tests
-
+ * Wait for the tests to run. On the "JUnit" tab, you should get a green bar for all tests.
  * Right click on {{{uk.ac.osswatch.simal.web/src/test/java}}} and select {{{Run As -> JUnit Test}}}
-
- * Wait for the tests to run, you should get a green bar for all tests
-
+ * Wait for the tests to run. On the "JUnit" tab, you should get a green bar for all tests.
 
 ==6. Building and Running from within Eclipse==
 ===Build===
@@ -110,6 +114,15 @@ This installs the core module in the local repository.
 
 ===Deploy===
 To deploy the webapp from within Eclipse you can also use the m2eclipse run configuration.
+
+ # Go to {{{Run -> Run Configurations...}}} from the main menu. 
+ # Right-click {{{Maven Build}}} and choose {{{New}}}
+ # Use "{{{Browse Workspace...}}} to select {{{uk.ac.osswatch.simal.web}}}
+ # Enter {{{jetty:run}}} in {{{Goals:}}}. 
+ 
+Now you can debug the webapp from within Eclipse.
+
+ # Select {{{Run -> Run}}} from the main menu.
 
  # Go to {{{Run -> Run Configurations...}}} from the main menu. 
  # Right-click {{{Maven Build}}} and choose {{{New}}}
@@ -134,6 +147,13 @@ For information about how to contribute patches to the Simal team, see:
 
 For more information:
 http://code.google.com/p/simal/wiki/GettingStarted
+
+===Updating source===
+Don't forget to regularly (perhaps daily) check for updates in the Subversion repository:
+
+ # Right-click the {{{uk.ac.osswatch.simal.core}}} node
+ # Select Team > Update to HEAD
+ # Repeat for the other modules.
 
 ==8. Optional Steps==
 
