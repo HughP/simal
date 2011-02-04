@@ -25,19 +25,9 @@ http://simal.googlecode.com/svn/wiki/ReleaseManagement.attach/releaseProcessTime
 = Schedule =
 
 || *#* || *Iteration Focus* || *Start Date* || *End Date* || *Release Type* ||
-||1|| Provide SPARQL endpoint ||2010-01-04||2010-01-15||Soft Release||
-||2|| Improve SPARQL endpoint ||2010-01-16||2010-01-29||Soft Release||
-||3|| Enhance frontend data entry  ||2010-02-01||2010-02-12||Candidate Release||
-||4|| Binary Release ||2010-02-15||2010-02-26|| *Binary Release* ||
-||5|| Patching and signing Release ||2010-03-01||2010-03-12|| *Binary Release* ||
-||1|| Categorise URLs ||2010-03-15||2010-03-26||Soft Release||
-||2|| DOAP form JISC projects ||2010-04-12||2010-04-23||Soft Release||
-||3|| Finalise Use Case 1 ||2010-05-10||2010-05-21||Soft Release||
-||4|| Finalise Use Case 1 (2) ||2010-05-25||2010-06-04||Candidate Release||
-||5|| Binary Release ||2010-06-07||2010-06-18|| *Binary Release* ||
-||1|| Improve DOAP form & add data scripts ||2010-07-19||2010-08-01||Soft Release||
-||2|| Review data design ||2010-08-02||2010-08-15||Soft Release||
-||3|| CMS and documentation ||2010-08-16||2010-08-29||Soft Release||
+||3|| Make project details editable  ||2011-02-07||2011-02-20||Candidate Release||
+||4|| Binary Release ||2011-02-21||2011-03-06|| *Binary Release* ||
+||5|| Patching and signing Release ||2011-03-07||2011-03-20|| *Binary Release* ||
 
 
 = Useful Links =
