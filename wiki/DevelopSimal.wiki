@@ -47,7 +47,7 @@ C:\java\jdk1.6.0_23\bin\javaw.exe}}}
 
 ==2. Get Eclipse Plugins==
 The easiest way to get the Simal code into Eclipse is as follows.
-==Subclipse==
+===Subclipse===
 We use a Subversion repository for our source code, therefore you need
 an SVN plugin like Subclipse for working with the repository. Install it as follows:
 
