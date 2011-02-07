@@ -1,5 +1,6 @@
 #summary How to add categories to the system.
 #labels Phase-Support
+#sidebar DeveloperTOC
 
 This document tells you about the various ways you can manage the categories on your own installation.
 
