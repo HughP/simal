@@ -32,9 +32,10 @@ import uk.ac.osswatch.simal.wicket.panel.AbstractAddDoapResourcePanel;
 import uk.ac.osswatch.simal.wicket.panel.PersonListPanel;
 
 /**
- * Container for adding a new person. This is an AJAX enabled container that
+ * Panel for adding a new person. This is an AJAX enabled panel that
  * either shows the form for entering data about a person or a command link to
- * display the form.
+ * display the form. It is used, for example, in PersonListPanel to allow new people
+ * to be added to an existing project.
  */
 public class AddPersonPanel extends AbstractAddDoapResourcePanel<IPerson> {
   private static final long serialVersionUID = 8348295085251890400L;
