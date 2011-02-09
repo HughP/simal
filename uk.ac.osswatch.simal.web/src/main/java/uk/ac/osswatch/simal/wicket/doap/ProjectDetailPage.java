@@ -45,6 +45,7 @@ import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
+import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 import uk.ac.osswatch.simal.wicket.panel.ReviewListPanel;
 import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel;
 import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
@@ -57,8 +58,7 @@ public class ProjectDetailPage extends BasePage {
       UserApplication.class, "style/googleFeedAPI.css");
   private IProject project;
   
-  // FIXME Logged in for editing this page.
-  private boolean isLoggedIn = true;
+  private boolean isLoggedIn = SimalSession.get().isAuthenticated();
   
 
   public ProjectDetailPage(PageParameters parameters) {
