@@ -69,7 +69,7 @@ public class UserApplication extends WebApplication {
 	private static WookieServerConnection wookieServerConnection;
 
 	public UserApplication() {
-		setScheduledPtswStatus(true);
+		setScheduledPtswStatus(false);
 	}
 
 	@Override
