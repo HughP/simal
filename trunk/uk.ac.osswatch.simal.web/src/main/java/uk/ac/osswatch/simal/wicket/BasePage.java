@@ -30,6 +30,7 @@ import org.apache.wicket.markup.html.resources.CompressedResourceReference;
 import org.apache.wicket.markup.repeater.RepeatingView;
 
 import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.wicket.authentication.LoginPage;
 import uk.ac.osswatch.simal.wicket.doap.CategoryBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.DoapFormPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectBrowserPage;
@@ -68,6 +69,8 @@ public class BasePage extends WebPage {
         ProjectsSummaryReportPage.class));
     add(new BookmarkablePageLink<ToolsPage>("toolsLink", ToolsPage.class));
     add(getAddProjectLink());
+    add(new BookmarkablePageLink<LoginPage>("loginLink",
+        LoginPage.class));
     add(new StandardFooter("footer"));
   }
 
