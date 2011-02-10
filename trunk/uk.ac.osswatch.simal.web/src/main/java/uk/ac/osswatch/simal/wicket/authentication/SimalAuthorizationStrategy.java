@@ -25,12 +25,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.wicket.ToolsPage;
+import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
 
 public class SimalAuthorizationStrategy implements IAuthorizationStrategy,
 		IUnauthorizedComponentInstantiationListener {
    private static final Logger logger = LoggerFactory.getLogger(SimalAuthorizationStrategy.class);
 
 	public boolean isActionAuthorized(Component component, Action action) {
+	  if (component instanceof AddReviewPanel && action.getName().equals(Action.RENDER)) {
+	    return SimalSession.get().isAuthenticated();
+    }
 		return true;
 	}
 
