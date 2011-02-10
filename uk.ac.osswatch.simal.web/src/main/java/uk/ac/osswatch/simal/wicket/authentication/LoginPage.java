@@ -16,6 +16,7 @@ package uk.ac.osswatch.simal.wicket.authentication;
  * under the License.                                                *
  */
 
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -30,6 +31,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.wicket.BasePage;
+import uk.ac.osswatch.simal.wicket.UserApplication;
 
 /**
  * A page for logging into the system. Display a login form and process the
@@ -67,7 +69,9 @@ public class LoginPage extends BasePage {
 				if (!sessionData.isAuthenticated()) {
 					error("Invalid username/password");
 				} else {
-					getPageMap().continueToOriginalDestination();
+				  if (!getPageMap().continueToOriginalDestination()) {
+				    throw new RestartResponseException(UserApplication.get().getHomePage()); 
+				  }
 				}
 			}
 		});
