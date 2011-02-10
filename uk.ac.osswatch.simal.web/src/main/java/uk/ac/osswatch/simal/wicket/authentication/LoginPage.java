@@ -34,6 +34,8 @@ import uk.ac.osswatch.simal.wicket.BasePage;
 /**
  * A page for logging into the system. Display a login form and process the
  * login request accordingly.
+ * 
+ * @refactor: Issue 385 replace signin panel with org.apache.wicket.authentication.panel.SignInPanel 
  */
 public class LoginPage extends BasePage {
 	public static final String DUPLICATE_USERNAME_ERROR = "Username not available. Please choose another.";
