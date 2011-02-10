@@ -87,14 +87,14 @@ public class TestDocumentSetPanel extends TestBase {
   
   @Test
   public void testAddHomepage() {
-    tester.assertInvisible("panel:addWebsitePanel:newLink");
-    tester.assertInvisible("panel:addWebsitePanel");
+    tester.assertInvisible("panel:addDocumentPanel:newLink");
+    tester.assertInvisible("panel:addDocumentPanel");
     testPanel.setEditingOn(true);
-    tester.assertVisible("panel:addWebsitePanel");
-    tester.assertVisible("panel:addWebsitePanel:newLink");
+    tester.assertVisible("panel:addDocumentPanel");
+    tester.assertVisible("panel:addDocumentPanel:newLink");
     tester.assertVisible("panel:dataTable:rows:1");
     tester.assertVisible("panel:dataTable:rows:2");
-    tester.clickLink("panel:addWebsitePanel:newLink", true);
+    tester.clickLink("panel:addDocumentPanel:newLink", true);
     // Rows repopulated with new ids
     tester.assertVisible("panel:dataTable:rows:3");
     tester.assertVisible("panel:dataTable:rows:4");
@@ -106,7 +106,7 @@ public class TestDocumentSetPanel extends TestBase {
       // ignore as we expect this exception
     }
     
-    FormTester formTester = tester.newFormTester("panel:addWebsitePanel:doapResourceForm");
+    FormTester formTester = tester.newFormTester("panel:addDocumentPanel:doapResourceForm");
     formTester.setValue("name", "Test Webpage");
     formTester.setValue("url", "http://test.foo.org");
     // submit should work but nothing is actually added

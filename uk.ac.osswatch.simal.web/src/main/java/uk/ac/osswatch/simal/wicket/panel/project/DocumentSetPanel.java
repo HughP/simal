@@ -74,7 +74,7 @@ public abstract class DocumentSetPanel extends AbstractEditableResourcesPanel<ID
     this.project = project;
     this.documents = (Set<IDocument>) resources;
 
-    addAddDoapResourcePanel(new AddIResourcePanel("addWebsitePanel", this, isEditingAllowed()));
+    addAddDoapResourcePanel(new AddIResourcePanel("addDocumentPanel", this, isEditingAllowed()));
     addDocumentsList();
   }
 
