@@ -26,7 +26,7 @@ public class TestToolsPage extends TestBasePage {
 
 	  @Before
 	  public void initTester() throws SimalRepositoryException {
-	    tester = Tester.get();
+	    tester = SimalTester.get();
 	    tester.startPage(ToolsPage.class);
 	    tester.login();
       tester.assertRenderedPage(ToolsPage.class);

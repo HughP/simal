@@ -22,13 +22,12 @@ import org.apache.wicket.util.tester.WicketTester;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.authentication.LoginPage;
-import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 
-public class Tester extends WicketTester {
+public class SimalTester extends WicketTester {
 
-  private static Tester instance;
+  private static SimalTester instance;
 
-  private Tester() throws SimalRepositoryException {
+  private SimalTester() throws SimalRepositoryException {
     super(new UserApplication());
   }
 
@@ -38,9 +37,9 @@ public class Tester extends WicketTester {
    * @return
    * @throws SimalRepositoryException 
    */
-  public static Tester get() throws SimalRepositoryException {
+  public static SimalTester get() throws SimalRepositoryException {
     if (instance == null) {
-      instance = new Tester();
+      instance = new SimalTester();
     }
     return instance;
   }

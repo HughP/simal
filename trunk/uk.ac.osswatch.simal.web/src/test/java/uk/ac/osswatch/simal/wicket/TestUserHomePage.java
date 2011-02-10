@@ -42,7 +42,7 @@ public class TestUserHomePage extends TestBase {
   @Before
   public void initTester() throws SimalRepositoryException {
     logProjectData("before");
-    tester = Tester.get();
+    tester = SimalTester.get();
     tester.startPage(UserHomePage.class);
     tester.assertRenderedPage(UserHomePage.class);
   }
