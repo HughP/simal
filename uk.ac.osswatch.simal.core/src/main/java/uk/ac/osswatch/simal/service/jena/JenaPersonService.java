@@ -340,7 +340,6 @@ public class JenaPersonService extends JenaService implements
 	public IPerson findBySha1Sum(String sha1sum)
 			throws SimalRepositoryException {
     String queryStr = "PREFIX foaf: <" + RDFUtils.FOAF_NS + "> "
-        + "PREFIX rdf: <" + AbstractSimalRepository.RDF_NAMESPACE_URI + ">"
         + "SELECT DISTINCT ?person WHERE { " + "?person foaf:mbox_sha1sum \""
         + sha1sum + "\"}";
 
@@ -348,6 +347,16 @@ public class JenaPersonService extends JenaService implements
 
     return person;
 	}
+
+  public IPerson findByUsername(String username) {
+    String queryStr = "PREFIX simal: <" + SimalOntology.NS + "> "
+    + "SELECT DISTINCT ?person WHERE { " + "?person simal:username \""
+    + username + "\"}";
+
+    IPerson person = findBySPARQL(queryStr);
+    
+    return person;
+  }
 
 	public IPerson get(String uri) throws SimalRepositoryException {
 		Model model = ((JenaSimalRepository)getRepository()).getModel();
