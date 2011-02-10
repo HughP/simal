@@ -71,6 +71,12 @@ public class SimalOntology {
 
   public static final Property PERSON_ID = m_model
       .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#personId");
+  
+  public static final Property PERSON_USERNAME =  m_model
+      .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#username");
+
+  public static final Property PERSON_PASSWORD =  m_model
+      .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#password");
 
   public static final Property PROJECT_ID = m_model
       .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#projectId");
@@ -83,4 +89,5 @@ public class SimalOntology {
 
   public static final Property TYPE = m_model
     .createProperty("http://oss-watch.ac.uk/ns/0.2/simal#type");
+
 }

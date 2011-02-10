@@ -18,6 +18,7 @@ package uk.ac.osswatch.simal.integrationTest.model;
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.net.URI;
@@ -180,6 +181,17 @@ public class TestPerson extends BaseRepositoryTest {
   public void testGetSimalID() throws SimalRepositoryException {
     String id = developer.getUniqueSimalID();
     assertEquals("Simal ID of person is incorrect", testDeveloperID, id);
+  }
+  
+  @Test
+  public void testUser() throws SimalRepositoryException {
+    String username = developer.getUsername();
+    assertNull("Developer should not have a username", username);
+    
+    username = documentor.getUsername();
+    assertNotNull("Documentor should have a username", username);
+    String password = documentor.getPassword();
+    assertEquals("Documentor password is incorrect", "password", password);
   }
 
 }
