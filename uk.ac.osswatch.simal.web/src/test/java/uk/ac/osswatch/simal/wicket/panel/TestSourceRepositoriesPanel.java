@@ -42,8 +42,8 @@ public class TestSourceRepositoriesPanel extends TestBase {
       public Panel getTestPanel(String panelId) {
         try {
           IProject project =  SimalRepositoryFactory.getProjectService().getProject(projectURI);
-          ReadOnlyStyleBehavior rosb = new EditProjectPanel(panelId, project, true).new ReadOnlyStyleBehavior();
-          return new SourceRepositoriesPanel(panelId, "Source Repositories", project.getRepositories(), rosb, true, project);
+          ReadOnlyStyleBehavior rosb = new EditProjectPanel(panelId, project).new ReadOnlyStyleBehavior();
+          return new SourceRepositoriesPanel(panelId, "Source Repositories", project.getRepositories(), rosb, project);
         } catch (SimalRepositoryException e) {
           fail(e.getMessage());
           return null;

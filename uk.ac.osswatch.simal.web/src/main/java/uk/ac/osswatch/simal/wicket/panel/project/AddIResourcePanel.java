@@ -56,8 +56,8 @@ public class AddIResourcePanel extends AbstractAddDoapResourcePanel<IDocument> {
    *          the container that should be updated when the website has been
    *          added (must have setOutputMarkupId(true)
    */
-  public AddIResourcePanel(String wicketid, DocumentSetPanel updatePanel, boolean editingAllowed) {
-    super(wicketid, updatePanel, editingAllowed);
+  public AddIResourcePanel(String wicketid, DocumentSetPanel updatePanel) {
+    super(wicketid, updatePanel);
     setOutputMarkupId(true);
   }
 

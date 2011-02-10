@@ -41,7 +41,7 @@ public class TestReleasesPanel extends TestBase {
       public Panel getTestPanel(String panelId) {
         try {
           IProject project = SimalRepositoryFactory.getProjectService().getProject(projectURI);
-          EditProjectPanel editProjectPanel = new EditProjectPanel("editProjectPanel", project, true);
+          EditProjectPanel editProjectPanel = new EditProjectPanel("editProjectPanel", project);
           return new ReleasesPanel(panelId, project.getReleases(), editProjectPanel.new ReadOnlyStyleBehavior());
         } catch (SimalRepositoryException e) {
           fail(e.getMessage());

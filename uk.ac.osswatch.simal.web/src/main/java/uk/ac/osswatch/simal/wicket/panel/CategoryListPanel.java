@@ -59,17 +59,17 @@ public class CategoryListPanel extends AbstractEditableResourcesPanel<IDoapCateg
     // of the page however is not a project so the panel makes no real sense.
     // For generic pages like the CategoryBrowsePage I imagine a different generic 
     // AddCategoryPanel that will allow the addition of Categories to the system.
-    addAddDoapResourcePanel(new AddCategoryPanel("addCategoryPanel", this, false));
+    addAddDoapResourcePanel(new AddCategoryPanel("addCategoryPanel", this));
   }
 
-  public CategoryListPanel(String id, String title, Set<IDoapCategory> categories, boolean editingAllowed, IProject project) {
-    super(id, title, editingAllowed);
+  public CategoryListPanel(String id, String title, Set<IDoapCategory> categories, IProject project) {
+    super(id, title);
     this.categories = categories;
     this.project = project;
     SortableDataProvider<IResource> dataProvider = new SortableCategoryDataProvider(
         categories);
     addCategoryList(dataProvider);
-    addAddDoapResourcePanel(new AddCategoryPanel("addCategoryPanel", this, editingAllowed));
+    addAddDoapResourcePanel(new AddCategoryPanel("addCategoryPanel", this));
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })

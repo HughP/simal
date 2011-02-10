@@ -108,6 +108,13 @@ public class SimalSession extends WebSession {
 		}
 	}
 	
+	public void logout() {
+	  if (isAuthenticated()) {
+  	  setUsername("guest");
+  	  setAuthenticated(false);
+	  }
+	}
+	
 	/**
 	 * Get the current session.
 	 * 

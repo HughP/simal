@@ -59,18 +59,12 @@ public abstract class AbstractAddDoapResourcePanel<T extends IResource> extends 
    * @param updatePanel
    *          the panel that should be updated when the DOAP resource has been
    *          added (must have setOutputMarkupId(true)
-   * @param editingAllowed 
    */
   public AbstractAddDoapResourcePanel(String wicketid, AbstractEditableResourcesPanel<T> updatePanel) {
-    this(wicketid, updatePanel,true);
-  }
-    
-  public AbstractAddDoapResourcePanel(String wicketid, AbstractEditableResourcesPanel<T> updatePanel, boolean editingAllowed) {
     super(wicketid);
     this.updatePanel = updatePanel;
     setOutputMarkupId(true);
     NewDoapResourceLink newLink = new NewDoapResourceLink("newLink");
-    newLink.setVisibilityAllowed(editingAllowed);
     add(newLink);
     add(new AddDoapResourceForm("doapResourceForm"));
   }
@@ -105,7 +99,6 @@ public abstract class AbstractAddDoapResourcePanel<T extends IResource> extends 
   protected void onShowForm(AjaxRequestTarget target) {
     this.formVisible = true;
     target.addComponent(this);
-    this.updatePanel.setEditingOn(true);
     target.addComponent(this.updatePanel);
   }
 
@@ -117,7 +110,6 @@ public abstract class AbstractAddDoapResourcePanel<T extends IResource> extends 
    */
   protected void onHideForm(AjaxRequestTarget target) {
     formVisible = false;
-    updatePanel.setEditingOn(false);
     if (target != null) {
       target.addComponent(this);
       target.addComponent(updatePanel);

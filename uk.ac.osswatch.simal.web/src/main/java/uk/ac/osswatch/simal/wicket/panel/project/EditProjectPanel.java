@@ -58,6 +58,7 @@ import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
+import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 import uk.ac.osswatch.simal.wicket.doap.ExhibitProjectBrowserPage;
 import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.foaf.AddPersonPanel;
@@ -84,7 +85,6 @@ public class EditProjectPanel extends Panel {
   private IProject project;
   private ReadOnlyStyleBehavior rosb;
 
-  private boolean loggedIn;
   private boolean readOnly;
   
   /**
@@ -97,10 +97,9 @@ public class EditProjectPanel extends Panel {
    *          the panel that should be updated when the category has been added
    *          (must have setOutputMarkupId(true)
    */
-  public EditProjectPanel(String id, IProject project, boolean loggedIn) {
+  public EditProjectPanel(String id, IProject project) {
     super(id);
     this.project = project;
-    this.loggedIn = loggedIn;
     this.readOnly = true;
     this.rosb = new ReadOnlyStyleBehavior();
 
@@ -148,9 +147,6 @@ public class EditProjectPanel extends Panel {
       } else {
         submitButton.getModel().setObject("Save");
       }
-      for (AbstractEditableResourcesPanel<? extends IResource> panel : editablePanels) {
-        panel.setEditingOn(!readOnly);
-      }
     }
 
     private void addEditablePanel(AbstractEditableResourcesPanel<? extends IResource> panel) {
@@ -182,7 +178,7 @@ public class EditProjectPanel extends Panel {
 
       //this.homepages = project.getHomepages();
       DocumentSetPanel homepageList = new DocumentSetPanel(
-          "homepageList", "Web Pages", project.getHomepages(), loggedIn, project) {
+          "homepageList", "Web Pages", project.getHomepages(), project) {
         private static final long serialVersionUID = -6849401011037784163L;
 
         public void addToModel(IDocument document)
@@ -200,7 +196,7 @@ public class EditProjectPanel extends Panel {
       // Community tools
       //this.issueTrackers = project.getIssueTrackers();
       DocumentSetPanel issueTrackerList = new DocumentSetPanel(
-          "issueTrackerList", "Issue Trackers", project.getIssueTrackers(), loggedIn, project) {
+          "issueTrackerList", "Issue Trackers", project.getIssueTrackers(), project) {
         private static final long serialVersionUID = -1120710361889351081L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -217,7 +213,7 @@ public class EditProjectPanel extends Panel {
 
       // FIXME Add mailing list panel project.getMailingLists()
 //      DocumentSetPanel mailingListsPanel = new DocumentSetPanel(
-//      "mailingLists", "Mailing lists", project.getWikis(), loggedIn, project) {
+//      "mailingLists", "Mailing lists", project.getWikis(), project) {
 //        
 //        private static final long serialVersionUID = 7634775797786719275L;
 //
@@ -240,7 +236,7 @@ public class EditProjectPanel extends Panel {
       
       // this.wikis = project.getWikis();
       DocumentSetPanel wikiListPanel = new DocumentSetPanel("wikiLists",
-          "Wikis", project.getWikis(), loggedIn, project) {
+          "Wikis", project.getWikis(), project) {
         private static final long serialVersionUID = 4574870021749081067L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -257,7 +253,7 @@ public class EditProjectPanel extends Panel {
       // download
       //this.downloads = project.getDownloadPages();
       DocumentSetPanel downloadsListPanel = new DocumentSetPanel("downloadPagesList",
-          "Downloads", project.getDownloadPages(), loggedIn, project) {
+          "Downloads", project.getDownloadPages(), project) {
         private static final long serialVersionUID = -7922957837006958358L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -273,7 +269,7 @@ public class EditProjectPanel extends Panel {
       
       //this.downloadMirrors = project.getDownloadMirrors();
       DocumentSetPanel downloadMirrorsListPanel = new DocumentSetPanel("downloadMirrorsList",
-          "Download Mirrors", project.getDownloadMirrors(), loggedIn, project) {
+          "Download Mirrors", project.getDownloadMirrors(), project) {
         private static final long serialVersionUID = -6222494226582096467L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -289,7 +285,7 @@ public class EditProjectPanel extends Panel {
       
       try {
         SourceRepositoriesPanel sourceRepositoriesPanel = new SourceRepositoriesPanel("sourceRepositories", 
-            "Source Repositories", project.getRepositories(), rosb, loggedIn, project); 
+            "Source Repositories", project.getRepositories(), rosb, project); 
         addEditablePanel(sourceRepositoriesPanel);
       } catch (SimalRepositoryException e) {
         UserReportableException error = new UserReportableException(
@@ -301,7 +297,7 @@ public class EditProjectPanel extends Panel {
       
 //      this.screenshots = project.getScreenshots();
       DocumentSetPanel screenshotsListPanel = new DocumentSetPanel("screenshotsList",
-          "Screenshots", project.getScreenshots(), loggedIn, project) {
+          "Screenshots", project.getScreenshots(), project) {
         private static final long serialVersionUID = -7837486995158569663L;
 
         public void addToModel(IDocument document) throws SimalException {
@@ -338,7 +334,7 @@ public class EditProjectPanel extends Panel {
 
         @Override
         public boolean isVisible() {
-          return loggedIn;
+          return SimalSession.get().isAuthenticated();
         }
 
       };
@@ -361,7 +357,7 @@ public class EditProjectPanel extends Panel {
 
         @Override
         public boolean isVisible() {
-          return (loggedIn && !readOnly);
+          return (!readOnly && SimalSession.get().isAuthenticated());
         }
 
       };
@@ -370,7 +366,7 @@ public class EditProjectPanel extends Panel {
       add(new ReleasesPanel("releasepanel", project.getReleases(), rosb));
 
       CategoryListPanel categoryList = new CategoryListPanel("categoryList",
-          "Categories", project.getCategories(), loggedIn, project);
+          "Categories", project.getCategories(), project);
       addEditablePanel(categoryList);
 
       //this.oses = project.getOSes();
@@ -389,32 +385,30 @@ public class EditProjectPanel extends Panel {
     private void addPersonsColumn() {
       PersonListPanel maintainerList = new PersonListPanel("maintainers",
           "Maintainers", project.getMaintainers(), 4, project,
-          AddPersonPanel.MAINTAINER, loggedIn);
+          AddPersonPanel.MAINTAINER);
       addEditablePanel(maintainerList);
 
       PersonListPanel developerList = new PersonListPanel("developers",
           "Developers", project.getDevelopers(), 7, project,
-          AddPersonPanel.DEVELOPER, loggedIn);
+          AddPersonPanel.DEVELOPER);
       addEditablePanel(developerList);
 
       PersonListPanel testerList = new PersonListPanel("testers", "Testers",
-          project.getTesters(), 4, project, AddPersonPanel.TESTER,
-          loggedIn);
+          project.getTesters(), 4, project, AddPersonPanel.TESTER);
       addEditablePanel(testerList);
 
       PersonListPanel helperList = new PersonListPanel("helpers", "Helpers",
-          project.getHelpers(), 4, project, AddPersonPanel.HELPER,
-          loggedIn);
+          project.getHelpers(), 4, project, AddPersonPanel.HELPER);
       addEditablePanel(helperList);
 
       PersonListPanel documentorList = new PersonListPanel("documenters",
           "Documentors", project.getDocumenters(), 4, project,
-          AddPersonPanel.DOCUMENTOR, loggedIn);
+          AddPersonPanel.DOCUMENTOR);
       addEditablePanel(documentorList);
 
       PersonListPanel translatorList = new PersonListPanel("translators",
           "Translators", project.getTranslators(), 4, project,
-          AddPersonPanel.TRANSLATOR, loggedIn);
+          AddPersonPanel.TRANSLATOR);
       addEditablePanel(translatorList);
     }
 
