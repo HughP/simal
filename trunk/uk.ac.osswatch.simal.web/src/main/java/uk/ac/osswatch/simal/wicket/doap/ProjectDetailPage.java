@@ -57,9 +57,6 @@ public class ProjectDetailPage extends BasePage {
       UserApplication.class, "style/googleFeedAPI.css");
   private IProject project;
   
-  private boolean isLoggedIn = true;
-  
-
   public ProjectDetailPage(PageParameters parameters) {
     String id = null;
     if (parameters.containsKey("simalID")) {
@@ -172,7 +169,7 @@ public class ProjectDetailPage extends BasePage {
     } catch (SimalRepositoryException e) {
         add(new Label("opennessRating", "Not reviewed"));
     }
-    add(new EditProjectPanel("editProjectPanel", project, isLoggedIn));
+    add(new EditProjectPanel("editProjectPanel", project));
     
     // sources
     add(getRepeatingDataSourcePanel("sources", "seeAlso", project.getSources()));

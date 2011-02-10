@@ -127,9 +127,8 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
   }
 
   public PersonListPanel(String id, String title,
-      Set<IPerson> people, int numberOfPeople, IProject project, int role,
-      boolean isLoggedIn) {
-    super(id, title, isLoggedIn);
+      Set<IPerson> people, int numberOfPeople, IProject project, int role) {
+    super(id, title);
     this.people = people;
     populatePanel(numberOfPeople);
     addAddDoapResourcePanel(new AddPersonPanel("addPersonPanel", project,

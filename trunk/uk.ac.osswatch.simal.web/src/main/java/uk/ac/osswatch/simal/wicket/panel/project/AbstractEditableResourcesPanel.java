@@ -37,9 +37,6 @@ public abstract class AbstractEditableResourcesPanel<T extends IResource> extend
   public static final Logger LOGGER = LoggerFactory
       .getLogger(AbstractEditableResourcesPanel.class);
   
-  private boolean editingOn;
-  private boolean editingAllowed;
-
   private AbstractAddDoapResourcePanel<T> addDoapResourcePanel;
 
   /**
@@ -53,38 +50,16 @@ public abstract class AbstractEditableResourcesPanel<T extends IResource> extend
    *          the number of homepages to display per page
    * @throws SimalRepositoryException
    */
-  public AbstractEditableResourcesPanel(String id, String title,
-      boolean editingAllowed) {
+  public AbstractEditableResourcesPanel(String id, String title) {
     super(id);
-    this.editingAllowed = editingAllowed;
-    this.editingOn = false;
 
     add(new Label("title", title));
     setOutputMarkupId(true);
   }
 
-  /**
-   * Create a panel that lists a set of pages.
-   * 
-   * @param id
-   *          the wicket ID for the component
-   * @param title
-   *          the title if this list
-   * @param pages
-   *          the pages to include in the list
-   * @param numberOfPages
-   *          the number of homepages to display per page
-   * @throws SimalRepositoryException
-   */
-  public AbstractEditableResourcesPanel(String id, String title) {
-    // TODO By default no editing allowed
-    this(id, title, false);
-  }
-
   public void addAddDoapResourcePanel(
       AbstractAddDoapResourcePanel<T> addDoapResourcePanel) {
     this.addDoapResourcePanel = addDoapResourcePanel;
-    addDoapResourcePanel.setVisible(isEditingOn());
     add(addDoapResourcePanel);
     setOutputMarkupId(true);
   }
@@ -92,24 +67,6 @@ public abstract class AbstractEditableResourcesPanel<T extends IResource> extend
   public abstract void addToDisplayList(T doapResource);
 
   public abstract void addToModel(T doapResource) throws SimalException;
-
-  /**
-   * @param editMode
-   */
-  public void setEditingOn(boolean editMode) {
-    this.editingOn = (editMode && this.editingAllowed);
-    if (this.addDoapResourcePanel != null) {
-      this.addDoapResourcePanel.setVisible(this.editingOn);
-    }
-  }
-  
-  protected boolean isEditingOn() {
-    return this.editingOn;
-  }
-  
-  protected boolean isEditingAllowed() {
-    return this.editingAllowed;
-  }
 
   public AbstractAddDoapResourcePanel<T> getAddDoapResourcePanel() {
     return this.addDoapResourcePanel;

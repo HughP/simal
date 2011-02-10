@@ -48,8 +48,8 @@ public class SourceRepositoriesPanel extends AbstractEditableResourcesPanel<IDoa
   private IProject project;
   
   public SourceRepositoriesPanel(String panelId, String title,
-      Set<IDoapRepository> repositories, ReadOnlyStyleBehavior rosb, boolean loggedIn, IProject project) {
-    super(panelId, title, loggedIn);
+      Set<IDoapRepository> repositories, ReadOnlyStyleBehavior rosb, IProject project) {
+    super(panelId, title);
     this.rosb = rosb;
     this.project = project;
     populateRepeatingLinks(repositories);
@@ -58,7 +58,7 @@ public class SourceRepositoriesPanel extends AbstractEditableResourcesPanel<IDoa
 
   private void populatePage(Set<IDoapRepository> repositories) {
     add(repeating);
-    addAddDoapResourcePanel(new AddSourceRepositoryPanel("addRepositoryPanel", this, true));
+    addAddDoapResourcePanel(new AddSourceRepositoryPanel("addRepositoryPanel", this));
   }
 
   /**

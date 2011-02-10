@@ -63,8 +63,8 @@ public class AddCategoryPanel extends AbstractAddDoapResourcePanel<IDoapCategory
    *          the panel that should be updated when the category has been added
    *          (must have setOutputMarkupId(true)
    */
-  public AddCategoryPanel(String wicketid, CategoryListPanel updatePanel, boolean editingAllowed) {
-    super(wicketid, updatePanel, editingAllowed);
+  public AddCategoryPanel(String wicketid, CategoryListPanel updatePanel) {
+    super(wicketid, updatePanel);
   }
 
   /*

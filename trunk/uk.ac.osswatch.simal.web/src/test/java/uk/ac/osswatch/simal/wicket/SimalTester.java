@@ -22,6 +22,7 @@ import org.apache.wicket.util.tester.WicketTester;
 
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.wicket.authentication.LoginPage;
+import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 
 public class SimalTester extends WicketTester {
 
@@ -45,7 +46,7 @@ public class SimalTester extends WicketTester {
   }
 
   /**
-   * If we are on a login page then enter login details and submit.
+   * Log the test user in.
    * 
    * @throws SimalRepositoryException
    */
@@ -57,6 +58,15 @@ public class SimalTester extends WicketTester {
       formTester.setValue("password", "simal");
       formTester.submit("login");
     }
+    SimalSession.get().authenticate("simal", "simal");
   }
 
+  /**
+   * If the test user is logged in then log them out.
+   * 
+   * @throws SimalRepositoryException
+   */
+  public void logout() throws SimalRepositoryException {
+    SimalSession.get().logout();
+  }
 }

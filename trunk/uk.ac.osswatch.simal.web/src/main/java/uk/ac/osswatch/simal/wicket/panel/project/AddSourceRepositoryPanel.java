@@ -48,8 +48,8 @@ public class AddSourceRepositoryPanel extends AbstractAddDoapResourcePanel<IDoap
   private SourceRepositoryInputModel inputModel;
 
   public AddSourceRepositoryPanel(String wicketid,
-      SourceRepositoriesPanel updatePanel, boolean editingAllowed) {
-    super(wicketid, updatePanel, editingAllowed);
+      SourceRepositoriesPanel updatePanel) {
+    super(wicketid, updatePanel);
     setOutputMarkupId(true);
   }
 

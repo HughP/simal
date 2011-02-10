@@ -44,15 +44,24 @@ public class TestDocumentSetPanel extends TestBase {
   private DocumentSetPanel testPanel;
   
   @Before
+  public void setUpPanel() throws SimalRepositoryException {
+    setUpPanel(false);
+  }
+  
   @SuppressWarnings("serial")
-  public void setUpPanel() {
+  public void setUpPanel(boolean isLoggedIn) throws SimalRepositoryException {
+    if (isLoggedIn) {
+      tester.login();
+    } else {
+      tester.logout();
+    }
+    
     Panel panel = tester.startPanel(new TestPanelSource() {
       public Panel getTestPanel(String panelId) {
-        // FIXME Add proper testing code.
         try {
           IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
           Set<IDocument> homepages = project.getHomepages();
-          return new DocumentSetPanel(panelId, "Homepage List", homepages, true, project) {
+          return new DocumentSetPanel(panelId, "Homepage List", homepages, project) {
 
             public void addToModel(IDocument document) throws SimalException {
               getProject().addHomepage(document);
@@ -86,10 +95,10 @@ public class TestDocumentSetPanel extends TestBase {
   }
   
   @Test
-  public void testAddHomepage() {
+  public void testAddHomepage() throws SimalRepositoryException {
     tester.assertInvisible("panel:addDocumentPanel:newLink");
     tester.assertInvisible("panel:addDocumentPanel");
-    testPanel.setEditingOn(true);
+    setUpPanel(true);
     tester.assertVisible("panel:addDocumentPanel");
     tester.assertVisible("panel:addDocumentPanel:newLink");
     tester.assertVisible("panel:dataTable:rows:1");

@@ -69,32 +69,13 @@ public abstract class DocumentSetPanel extends AbstractEditableResourcesPanel<ID
    * @throws SimalRepositoryException
    */
   public DocumentSetPanel(String id, String title,
-      Set<IDocument> resources, boolean editingAllowed, IProject project) {
-    super(id, title, editingAllowed);
+      Set<IDocument> resources, IProject project) {
+    super(id, title);
     this.project = project;
     this.documents = (Set<IDocument>) resources;
 
-    addAddDoapResourcePanel(new AddIResourcePanel("addDocumentPanel", this, isEditingAllowed()));
+    addAddDoapResourcePanel(new AddIResourcePanel("addDocumentPanel", this));
     addDocumentsList();
-  }
-
-  /**
-   * Create a panel that lists a set of pages.
-   * 
-   * @param id
-   *          the wicket ID for the component
-   * @param title
-   *          the title if this list
-   * @param pages
-   *          the pages to include in the list
-   * @param numberOfPages
-   *          the number of homepages to display per page
-   * @throws SimalRepositoryException
-   */
-  public DocumentSetPanel(String id, String title,
-      Set<IDocument> resources) {
-    // TODO By default no editing allowed
-    this(id, title, resources, false, null);
   }
 
   @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -147,10 +128,6 @@ public abstract class DocumentSetPanel extends AbstractEditableResourcesPanel<ID
           }
         };
         cellItem.add(deleteLink);
-      }
-      
-      public String getCssClass() {
-        return (isEditingOn()) ? "visiblecell" : "invisiblecell";
       }
       
     };

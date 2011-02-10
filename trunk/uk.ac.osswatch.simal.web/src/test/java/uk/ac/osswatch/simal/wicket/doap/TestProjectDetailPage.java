@@ -32,9 +32,20 @@ import uk.ac.osswatch.simal.wicket.TestBase;
  */
 public class TestProjectDetailPage extends TestBase {
 
-  @SuppressWarnings("serial")
   @Before
   public void initTester() throws SimalRepositoryException {
+    initTester(false);
+  }
+  
+  
+  @SuppressWarnings("serial")
+  public void initTester(boolean isLoggedIn) throws SimalRepositoryException {
+    if (isLoggedIn) {
+      tester.login();
+    } else {
+      tester.logout();
+    }
+    
     tester.startPage(new ITestPageSource() {
       public Page getTestPage() {
         try {
@@ -45,8 +56,6 @@ public class TestProjectDetailPage extends TestBase {
         }
       }
     });
-    tester.login();
-    tester.assertRenderedPage(ProjectDetailPage.class);
   }
   
   @Test
@@ -79,7 +88,10 @@ public class TestProjectDetailPage extends TestBase {
   }
   
   @Test
-  public void testShowHideReviewForm() {
+  public void testShowHideReviewForm() throws SimalRepositoryException {
+      tester.assertInvisible("addReviewPanel");
+      
+      initTester(true);
 	    tester.assertVisible("addReviewPanel");
 	    tester.assertVisible("addReviewPanel:newLink");
 
@@ -94,7 +106,10 @@ public class TestProjectDetailPage extends TestBase {
   }
 
   @Test
-  public void testAddReview() {
+  public void testAddReview() throws SimalRepositoryException {
+      tester.assertInvisible("addReviewPanel:newLink");
+            
+      initTester(true);
 	    tester.clickLink("addReviewPanel:newLink");
 	    FormTester formTester = tester.newFormTester("addReviewPanel:reviewForm");
 	    
@@ -110,7 +125,8 @@ public class TestProjectDetailPage extends TestBase {
   public void testAddCategory() throws SimalRepositoryException {
     String addCategoryPanel = "editProjectPanel:editProjectForm:categoryList:addCategoryPanel";
     tester.assertInvisible(addCategoryPanel);
-    turnEditingOn();
+    
+    initTester(true);
     tester.assertVisible(addCategoryPanel);
     tester.assertVisible(addCategoryPanel + ":newLink");
 
@@ -135,7 +151,8 @@ public class TestProjectDetailPage extends TestBase {
   public void testAddMaintainer() throws SimalRepositoryException {
     String addMaintainerPanel = "editProjectPanel:editProjectForm:maintainers:addPersonPanel";
     tester.assertInvisible(addMaintainerPanel);
-    turnEditingOn();
+    
+    initTester(true);
     tester.assertVisible(addMaintainerPanel);
     
     tester.assertVisible(addMaintainerPanel + ":newLink");
@@ -186,10 +203,5 @@ public class TestProjectDetailPage extends TestBase {
   public void testOpennessRating() {
     tester.assertVisible("opennessRating");
     tester.assertLabel("opennessRating", "100%");
-  }
-  
-  private void turnEditingOn() throws SimalRepositoryException {
-    tester.assertVisible("editProjectPanel:editProjectForm:editProjectActionLink");
-    tester.executeAjaxEvent("editProjectPanel:editProjectForm:editProjectActionLink", "onclick");
   }
 }
