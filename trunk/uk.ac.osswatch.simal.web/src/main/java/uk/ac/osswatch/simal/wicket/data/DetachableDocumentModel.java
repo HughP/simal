@@ -22,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
-import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IncompatibleTypeException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 

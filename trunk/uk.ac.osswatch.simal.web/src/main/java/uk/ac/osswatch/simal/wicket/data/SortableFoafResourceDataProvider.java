@@ -20,8 +20,6 @@ package uk.ac.osswatch.simal.wicket.data;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 
-import uk.ac.osswatch.simal.model.IFoafResource;
-
 /**
  * A FOAF resource data provider that allows the FOAF Resources to be sorted.
  * 
