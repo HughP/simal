@@ -58,7 +58,7 @@ public class ProjectDetailPage extends BasePage {
       UserApplication.class, "style/googleFeedAPI.css");
   private IProject project;
   
-  private boolean isLoggedIn = SimalSession.get().isAuthenticated();
+  private boolean isLoggedIn = true;
   
 
   public ProjectDetailPage(PageParameters parameters) {
