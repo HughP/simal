@@ -175,4 +175,12 @@ public interface IPersonService extends IService {
 	    */
 	   public IPerson createFromFoaf(Node node) throws SimalRepositoryException;
 
+	  /**
+	   * Find and return a Person that is attached to a known username. 
+	   *  
+	   * @param username
+	   * @return the person using this username or null if none exists
+	   */
+    public IPerson findByUsername(String username);
+
 }

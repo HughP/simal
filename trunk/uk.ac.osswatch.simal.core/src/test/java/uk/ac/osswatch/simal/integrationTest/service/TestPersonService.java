@@ -20,6 +20,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertNotNull;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
@@ -134,5 +135,14 @@ public class TestPersonService extends BaseRepositoryTest {
           person);
       assertEquals("Developer URI is not as expected ", RDFUtils
           .getDefaultPersonURI(testDeveloperID), person.getURI());
+    }
+    
+    @Test
+    public void testGetByUsername() {
+      IPerson person = service.findByUsername("nobodybythisname");
+      assertNull("Shouldn't have a person with the username nobodybythisname", person);
+      
+      person = service.findByUsername("author");
+      assertNotNull("Should have a person with the username 'author'", person);
     }
 }
