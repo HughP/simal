@@ -22,11 +22,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.apache.wicket.util.tester.FormTester;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.wicket.authentication.LoginPage;
 import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 import uk.ac.osswatch.simal.wicket.doap.ProjectBrowserPage;
@@ -35,7 +37,7 @@ public class TestLoginPage extends TestBasePage {
 
 	@Before
 	public void initTester() throws SimalRepositoryException {
-		tester = new WicketTester(new UserApplication());
+		tester = Tester.get();
 		tester.startPage(LoginPage.class);
 		tester.assertRenderedPage(LoginPage.class);
 	}
@@ -82,4 +84,70 @@ public class TestLoginPage extends TestBasePage {
 		assertEquals("username is not correct", "simal", sessionData
 				.getUsername());
 	}
+	
+	@Test
+	public void testGoodRegistration() throws SimalRepositoryException {
+	  FormTester formTester = tester.newFormTester("registrationForm");
+    String username = "NewUser";
+    formTester.setValue("usernameRequested", username);
+    formTester.setValue("passwordRequested", "newuser");
+    formTester.setValue("passwordConfirm", "newuser");
+    formTester.submit("register");
+
+    tester.assertRenderedPage(LoginPage.class);
+
+    tester.assertNoErrorMessage();
+    SimalSession sessionData = SimalSession.get();
+    assertTrue("User not authenticated", sessionData.isAuthenticated());
+
+    assertEquals("username is not correct", username, sessionData
+        .getUsername());
+    
+    IPersonService service = SimalRepositoryFactory.getPersonService();
+    IPerson user = service.findByUsername(username);
+    user.delete();
+	}
+	
+  @Test
+  public void testUnavailbleUsernameRegistration() throws SimalRepositoryException {
+    FormTester formTester = tester.newFormTester("registrationForm");
+    String username = "duplicateUser";
+    formTester.setValue("usernameRequested", username);
+    formTester.setValue("passwordRequested", "newuser");
+    formTester.setValue("passwordConfirm", "newuser");
+    formTester.submit("register");
+
+    tester.assertRenderedPage(LoginPage.class);
+    SimalSession sessionData = SimalSession.get();
+    assertTrue("User not authenticated", sessionData.isAuthenticated());
+    
+    formTester = tester.newFormTester("registrationForm");
+    formTester.setValue("usernameRequested", username);
+    formTester.setValue("passwordRequested", "newuser");
+    formTester.setValue("passwordConfirm", "newuser");
+    formTester.submit("register");    
+
+    tester.assertRenderedPage(LoginPage.class);
+
+    String[] errors = {LoginPage.DUPLICATE_USERNAME_ERROR};
+    tester.assertErrorMessages(errors);
+    
+    IPersonService service = SimalRepositoryFactory.getPersonService();
+    IPerson user = service.findByUsername(username);
+    user.delete();
+  }
+  
+  @Test
+  public void testMismatchedPasswordRegistration() {
+    FormTester formTester = tester.newFormTester("registrationForm");
+    formTester.setValue("usernameRequested", "MismatchedPasswords");
+    formTester.setValue("passwordRequested", "RealPassword");
+    formTester.setValue("passwordConfirm", "MismatchedPassword");
+    formTester.submit("register");
+
+    tester.assertRenderedPage(LoginPage.class);
+
+    String[] errors = {LoginPage.MISMATCHED_PASSWORD_ERROR};
+    tester.assertErrorMessages(errors);
+  }
 }

@@ -23,7 +23,12 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IPerson;
+import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.wicket.BasePage;
 
 /**
@@ -31,8 +36,14 @@ import uk.ac.osswatch.simal.wicket.BasePage;
  * login request accordingly.
  */
 public class LoginPage extends BasePage {
-	private String username;
+	public static final String DUPLICATE_USERNAME_ERROR = "Username not available. Please choose another.";
+	public static final String MISMATCHED_PASSWORD_ERROR = "Your passwords don't match. Please try again.";
+	
+  private String username;
 	private String password;
+	private String usernameRequested;
+	private String passwordRequested;
+	private String passwordConfirm;
 
 	@SuppressWarnings("unchecked")
 	public LoginPage() {
@@ -59,6 +70,58 @@ public class LoginPage extends BasePage {
 			}
 		});
 		form.add(new FeedbackPanel("feedback"));
+		
+		// Add registartion form
+    Form regForm;
+    add(regForm = new Form("registrationForm", new CompoundPropertyModel(this)));
+    regForm.add(new TextField("usernameRequested"));
+    regForm.add(new PasswordTextField("passwordRequested"));
+    regForm.add(new PasswordTextField("passwordConfirm"));
+    regForm.add(new Button("register") {
+      private static final long serialVersionUID = 1L;
+
+      public void onSubmit() {
+        if (passwordRequested.equals(passwordConfirm)) {
+          try {
+            IPersonService service = SimalRepositoryFactory.getPersonService();
+            IPerson user = service.findByUsername(usernameRequested);
+            if (user == null) {
+              String id = SimalRepositoryFactory.getPersonService().getNewID();
+              String uri = RDFUtils.getDefaultPersonURI(id);
+              IPerson person = service.create(uri);
+              person.setUsername(usernameRequested);
+              person.setPassword(passwordRequested);
+              
+              SimalSession.get().authenticate(usernameRequested, passwordRequested);
+            } else {
+              error(DUPLICATE_USERNAME_ERROR);
+            }
+          } catch (SimalRepositoryException e) {
+            error("Problem communicating with the repository. Please try again in a few minutes.");
+          } catch (DuplicateURIException e) {
+            error("Problem creating your user account. Please try again in a few minutes.");
+          }
+        } else {
+          error(MISMATCHED_PASSWORD_ERROR);
+        }
+        
+/*
+        SimalSession sessionData = SimalSession.get();
+        try {
+          sessionData.authenticate(username, password);
+        } catch (SimalRepositoryException e) {
+          error("Problem checking user credentials, please try again in a few minutes.");
+        }
+        
+        if (!sessionData.isAuthenticated()) {
+          error("Invalid username/password");
+        } else {
+          getPageMap().continueToOriginalDestination();
+        }
+        */
+        
+      }
+    });
 	}
 
 }

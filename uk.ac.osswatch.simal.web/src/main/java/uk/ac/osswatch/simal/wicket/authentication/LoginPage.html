@@ -39,6 +39,29 @@
 		</tr>
 	</table>
 	</form>
+	
+	<h1>Register</h1>
+	<form wicket:id="registrationForm">
+	<table>
+		<tr>
+			<td>User name:</td>
+			<td><input type="text" wicket:id="usernameRequested"></input></td>
+		</tr>
+		<tr>
+			<td>Password:</td>
+			<td><input type="password" wicket:id="passwordRequested"></input></td>
+		</tr>
+		<tr>
+			<td>Password (confirmation):</td>
+			<td><input type="password" wicket:id="passwordConfirm"></input></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><input type="submit"
+				value="Register" wicket:id="register"></input></td>
+		</tr>
+	</table>
+	</form>
+	
 </wicket:extend>
 </body>
 </html>
