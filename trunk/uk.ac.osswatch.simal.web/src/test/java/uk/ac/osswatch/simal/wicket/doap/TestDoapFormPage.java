@@ -25,7 +25,6 @@ import java.util.Set;
 
 import org.apache.wicket.util.file.File;
 import org.apache.wicket.util.tester.FormTester;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -36,6 +35,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.TestBase;
+import uk.ac.osswatch.simal.wicket.Tester;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class TestDoapFormPage extends TestBase {
@@ -96,7 +96,7 @@ public class TestDoapFormPage extends TestBase {
   @Before
   public void initTester() throws SimalRepositoryException {
     logProjectData("before");
-    tester = new WicketTester();
+    tester = Tester.get();
     tester.startPage(DoapFormPage.class);
     tester.assertRenderedPage(DoapFormPage.class);
   }
@@ -120,12 +120,12 @@ public class TestDoapFormPage extends TestBase {
    * Ensure the Raw RDF form is being cleared between executions.
    * ISSUE 104
    */
-  public void testRawRDFFormCleared() {
+  public void testRawRDFFormCleared() throws SimalRepositoryException {
     FormTester formTester = tester.newFormTester("rawRDFForm");
     formTester.setValue("rawRDF", "This is not a valid entry");
     formTester.submit();
 
-    tester = new WicketTester();
+    tester = Tester.get();
     tester.startPage(DoapFormPage.class);
     tester.assertRenderedPage(DoapFormPage.class);
     formTester = tester.newFormTester("rawRDFForm");

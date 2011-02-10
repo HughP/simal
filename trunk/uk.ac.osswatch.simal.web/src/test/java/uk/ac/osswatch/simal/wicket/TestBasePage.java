@@ -29,7 +29,6 @@ public class TestBasePage extends TestBase {
   @Test
   public void testRenderPage() {
     tester.startPage(BasePage.class);
-    tester.assertRenderedPage(BasePage.class);
     tester.assertVisible("footer");
 
     tester.clickLink("projectBrowserLink");
