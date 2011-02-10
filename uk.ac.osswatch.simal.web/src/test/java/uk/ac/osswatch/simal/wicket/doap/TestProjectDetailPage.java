@@ -45,6 +45,7 @@ public class TestProjectDetailPage extends TestBase {
         }
       }
     });
+    tester.login();
     tester.assertRenderedPage(ProjectDetailPage.class);
   }
   
@@ -187,7 +188,7 @@ public class TestProjectDetailPage extends TestBase {
     tester.assertLabel("opennessRating", "100%");
   }
   
-  private void turnEditingOn() {
+  private void turnEditingOn() throws SimalRepositoryException {
     tester.assertVisible("editProjectPanel:editProjectForm:editProjectActionLink");
     tester.executeAjaxEvent("editProjectPanel:editProjectForm:editProjectActionLink", "onclick");
   }

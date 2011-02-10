@@ -20,7 +20,6 @@ package uk.ac.osswatch.simal.wicket;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.slf4j.Logger;
@@ -39,7 +38,7 @@ public abstract class TestBase {
   protected static String projectURI;
   protected static String developerURI;
 
-  protected WicketTester tester;
+  protected Tester tester;
 
   private static final Logger logger = LoggerFactory.getLogger(TestBase.class);
 
@@ -58,8 +57,8 @@ public abstract class TestBase {
   }
 
   @Before
-  public void setUp() {
-    tester = new WicketTester();
+  public void setUp() throws SimalRepositoryException {
+    tester = Tester.get();
   }
 
   public static void logProjectData(String beforeOrAfter)

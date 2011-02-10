@@ -18,7 +18,6 @@ package uk.ac.osswatch.simal.wicket;
  */
 
 import org.apache.wicket.util.tester.FormTester;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.Test;
@@ -43,7 +42,7 @@ public class TestUserHomePage extends TestBase {
   @Before
   public void initTester() throws SimalRepositoryException {
     logProjectData("before");
-    tester = new WicketTester();
+    tester = Tester.get();
     tester.startPage(UserHomePage.class);
     tester.assertRenderedPage(UserHomePage.class);
   }
