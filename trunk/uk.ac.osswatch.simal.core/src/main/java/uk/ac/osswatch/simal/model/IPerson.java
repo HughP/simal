@@ -116,4 +116,30 @@ public interface IPerson extends IFoafResource {
    */
   public void addSHA1Sum(String sha1);
 
+  /**
+   * Get the username of this person. The username is the name used to login to an
+   * account on Simal. If the person does not have a user account then this will return null.
+   * 
+   * @return username or null (if no user account)
+   */
+  public String getUsername();
+
+  /**
+   * Get the password for this persons Simal account. 
+   * 
+   * @return password or null (if no user account)
+   */
+  public String getPassword();
+
+  /**
+   * Set the username this person will use as an account on Simal.
+   * @param username
+   */
+  public void setUsername(String username);
+
+  /**
+   * Set the password this person will use to login to an account on Simal.
+   * @param password - the requested password
+   */
+  public void setPassword(String password);
 }

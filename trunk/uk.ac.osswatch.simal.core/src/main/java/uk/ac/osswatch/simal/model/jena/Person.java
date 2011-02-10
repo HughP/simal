@@ -258,5 +258,34 @@ public class Person extends FoafResource implements IPerson {
         FOAF.mbox_sha1sum, sha1);
     model.add(statement);
   }
+  
+  public String getUsername() {
+    Statement statement = getJenaResource().getProperty(
+        SimalOntology.PERSON_USERNAME);
+    if (statement == null) {
+      return null;
+    } else {
+      return statement.getString();
+    }
+  }
+  
+  public String getPassword() {
+    Statement statement = getJenaResource().getProperty(
+        SimalOntology.PERSON_PASSWORD);
+    if (statement == null) {
+      return null;
+    } else {
+      return statement.getString();
+    }
+  }
+
+  public void setPassword(String password) {
+    getJenaResource().addLiteral(SimalOntology.PERSON_PASSWORD, password);
+  }
+
+  public void setUsername(String username) {
+    getJenaResource().addLiteral(SimalOntology.PERSON_USERNAME, username);
+    
+  }
 
 }

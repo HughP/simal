@@ -152,6 +152,8 @@ public abstract class BaseRepositoryTest {
     testDeveloperEMail = developer.getEmail().iterator().next().getAddress();
     
     IPerson documentor = SimalRepositoryFactory.getPersonService().findBySeeAlso("http://foo.org/~documentor/#me");
+    documentor.setUsername("author");
+    documentor.setPassword("password");
     String documentorID = documentor.getUniqueSimalID();
 
     testProjectID = project1.getUniqueSimalID();
