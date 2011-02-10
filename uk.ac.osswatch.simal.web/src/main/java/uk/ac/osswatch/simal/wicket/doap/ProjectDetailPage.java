@@ -45,7 +45,6 @@ import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 import uk.ac.osswatch.simal.wicket.UserHomePage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
-import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 import uk.ac.osswatch.simal.wicket.panel.ReviewListPanel;
 import uk.ac.osswatch.simal.wicket.panel.project.EditProjectPanel;
 import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
