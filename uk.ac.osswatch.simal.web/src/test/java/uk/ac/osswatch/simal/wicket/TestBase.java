@@ -38,7 +38,7 @@ public abstract class TestBase {
   protected static String projectURI;
   protected static String developerURI;
 
-  protected Tester tester;
+  protected SimalTester tester;
 
   private static final Logger logger = LoggerFactory.getLogger(TestBase.class);
 
@@ -58,7 +58,7 @@ public abstract class TestBase {
 
   @Before
   public void setUp() throws SimalRepositoryException {
-    tester = Tester.get();
+    tester = SimalTester.get();
   }
 
   public static void logProjectData(String beforeOrAfter)

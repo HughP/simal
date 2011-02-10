@@ -35,7 +35,7 @@ import uk.ac.osswatch.simal.model.IProject;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
 import uk.ac.osswatch.simal.wicket.TestBase;
-import uk.ac.osswatch.simal.wicket.Tester;
+import uk.ac.osswatch.simal.wicket.SimalTester;
 import uk.ac.osswatch.simal.wicket.UserApplication;
 
 public class TestDoapFormPage extends TestBase {
@@ -96,7 +96,7 @@ public class TestDoapFormPage extends TestBase {
   @Before
   public void initTester() throws SimalRepositoryException {
     logProjectData("before");
-    tester = Tester.get();
+    tester = SimalTester.get();
     tester.startPage(DoapFormPage.class);
     tester.assertRenderedPage(DoapFormPage.class);
   }
@@ -125,7 +125,7 @@ public class TestDoapFormPage extends TestBase {
     formTester.setValue("rawRDF", "This is not a valid entry");
     formTester.submit();
 
-    tester = Tester.get();
+    tester = SimalTester.get();
     tester.startPage(DoapFormPage.class);
     tester.assertRenderedPage(DoapFormPage.class);
     formTester = tester.newFormTester("rawRDFForm");
