@@ -18,9 +18,13 @@ package uk.ac.osswatch.simal.wicket.authentication;
  */
 
 import org.apache.wicket.Request;
+import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 
+import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.IPerson;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.service.IPersonService;
 import uk.ac.osswatch.simal.wicket.SimalWebProperties;
 
 /**
@@ -82,13 +86,25 @@ public class SimalSession extends WebSession {
 	 * @throws SimalRepositoryException 
 	 */
 	public void authenticate(String username, String password) throws SimalRepositoryException {
-		setUsername(username);
+	  // FIXME: remove admin username and password from properties file and have the account created on startup.
 		String adminUsername = SimalWebProperties.getProperty(SimalWebProperties.ADMIN_USERNAME, "simal");
 		String adminPassword = SimalWebProperties.getProperty(SimalWebProperties.ADMIN_PASSWORD, "simal");
 		if (username.equals(adminUsername) && password.equals(adminPassword)) {
-			setAuthenticated(true);
+		  setUsername(username);
+		  setAuthenticated(true);
 		} else {
-			setAuthenticated(false);
+		  IPersonService service = SimalRepositoryFactory.getPersonService();
+      IPerson user = service.findByUsername(username);
+      if (user == null) {
+        setAuthenticated(false);
+      } else {
+        if (user.getPassword().equals(password)) {
+          setAuthenticated(true);
+          setUsername(username);
+        } else {
+          setAuthenticated(false);
+        }
+      }
 		}
 	}
 	
@@ -98,6 +114,7 @@ public class SimalSession extends WebSession {
 	 * @return
 	 */
 	public static SimalSession get() { 
-	  return (SimalSession)WebSession.get(); 
+	  Session session = WebSession.get();
+	  return (SimalSession)session; 
 	} 
 }
