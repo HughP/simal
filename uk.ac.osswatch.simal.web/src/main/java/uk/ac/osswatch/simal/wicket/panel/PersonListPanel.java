@@ -126,6 +126,17 @@ public class PersonListPanel extends AbstractEditableResourcesPanel<IPerson> {
     add(new Label("addPersonPanel", ""));
   }
 
+  /**
+   * Create a panel for displaying people associated with a specifc role
+   * on a specific project.
+   * 
+   * @param id - wicketID of the element
+   * @param title - title to display in the panel, if any
+   * @param people - the initial set of people to display
+   * @param numberOfPeople - the number of people to display on each page
+   * @param project - the project these people are associated with
+   * @param role - the role they have with that project.
+   */
   public PersonListPanel(String id, String title,
       Set<IPerson> people, int numberOfPeople, IProject project, int role) {
     super(id, title);
