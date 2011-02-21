@@ -228,7 +228,7 @@ public class ProjectDetailPage extends BasePage {
     return project;
   }
 
-  private static class DeleteLink extends Link<IProject> {
+  public static class DeleteLink extends Link<IProject> {
     IProject project;
 
     public DeleteLink(String id, IProject project) {

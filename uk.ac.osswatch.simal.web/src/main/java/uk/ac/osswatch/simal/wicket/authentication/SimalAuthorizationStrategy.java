@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.wicket.ToolsPage;
+import uk.ac.osswatch.simal.wicket.doap.ProjectDetailPage;
 import uk.ac.osswatch.simal.wicket.panel.AbstractAddDoapResourcePanel;
 import uk.ac.osswatch.simal.wicket.panel.project.AddIResourcePanel;
 import uk.ac.osswatch.simal.wicket.simal.AddReviewPanel;
@@ -39,6 +40,8 @@ public class SimalAuthorizationStrategy implements IAuthorizationStrategy,
     } else if (component instanceof AddIResourcePanel && action.getName().equals(Action.RENDER)) {
       return SimalSession.get().isAuthenticated();
     } else if (component instanceof AbstractAddDoapResourcePanel<?> && action.getName().equals(Action.RENDER)) {
+      return SimalSession.get().isAuthenticated();
+    } else if (component instanceof ProjectDetailPage.DeleteLink  && action.getName().equals(Action.RENDER)) {
       return SimalSession.get().isAuthenticated();
     }
 		return true;
