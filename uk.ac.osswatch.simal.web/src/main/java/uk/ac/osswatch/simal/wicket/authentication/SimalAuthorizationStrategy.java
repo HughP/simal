@@ -35,13 +35,13 @@ public class SimalAuthorizationStrategy implements IAuthorizationStrategy,
    private static final Logger logger = LoggerFactory.getLogger(SimalAuthorizationStrategy.class);
 
 	public boolean isActionAuthorized(Component component, Action action) {
-	  if (component instanceof AddReviewPanel && action.getName().equals(Action.RENDER)) {
+	  if (component instanceof AddReviewPanel && action.equals(Component.RENDER)) {
 	    return SimalSession.get().isAuthenticated();
-    } else if (component instanceof AddIResourcePanel && action.getName().equals(Action.RENDER)) {
+    } else if (component instanceof AddIResourcePanel && action.equals(Component.RENDER)) {
       return SimalSession.get().isAuthenticated();
-    } else if (component instanceof AbstractAddDoapResourcePanel<?> && action.getName().equals(Action.RENDER)) {
+    } else if (component instanceof AbstractAddDoapResourcePanel<?> && action.equals(Component.RENDER)) {
       return SimalSession.get().isAuthenticated();
-    } else if (component instanceof ProjectDetailPage.DeleteLink  && action.getName().equals(Action.RENDER)) {
+    } else if (component instanceof ProjectDetailPage.DeleteLink  && action.equals(Component.RENDER)) {
       return SimalSession.get().isAuthenticated();
     }
 		return true;
