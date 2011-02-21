@@ -119,8 +119,6 @@ public class EditProjectPanel extends Panel {
   private class EditProjectForm extends Form<IProject> {
     private static final long serialVersionUID = 5903165424353929310L;
 
-    private Set<AbstractEditableResourcesPanel<? extends IResource>> editablePanels = new HashSet<AbstractEditableResourcesPanel<? extends IResource>>();
-
     private TextArea<String> description;
     private AjaxFallbackButton submitButton;
 
@@ -147,11 +145,6 @@ public class EditProjectPanel extends Panel {
       } else {
         submitButton.getModel().setObject("Save");
       }
-    }
-
-    private void addEditablePanel(AbstractEditableResourcesPanel<? extends IResource> panel) {
-      editablePanels.add(panel);
-      add(panel);
     }
 
     /**
@@ -191,7 +184,7 @@ public class EditProjectPanel extends Panel {
           getProject().removeHomepage(document);
         }
       };
-      addEditablePanel(homepageList);
+      add(homepageList);
 
       // Community tools
       //this.issueTrackers = project.getIssueTrackers();
@@ -208,7 +201,7 @@ public class EditProjectPanel extends Panel {
           getProject().removeIssueTracker(document);
         }
       };
-      addEditablePanel(issueTrackerList);
+      add(issueTrackerList);
 
 
       // FIXME Add mailing list panel project.getMailingLists()
@@ -248,7 +241,7 @@ public class EditProjectPanel extends Panel {
           getProject().removeWiki(document);
         }
       };
-      addEditablePanel(wikiListPanel);
+      add(wikiListPanel);
 
       // download
       //this.downloads = project.getDownloadPages();
@@ -265,7 +258,7 @@ public class EditProjectPanel extends Panel {
           getProject().removeDownloadPage(document);
         }
       };
-      addEditablePanel(downloadsListPanel);
+      add(downloadsListPanel);
       
       //this.downloadMirrors = project.getDownloadMirrors();
       DocumentSetPanel downloadMirrorsListPanel = new DocumentSetPanel("downloadMirrorsList",
@@ -281,12 +274,12 @@ public class EditProjectPanel extends Panel {
           getProject().removeDownloadMirror(document);
         }
       };
-      addEditablePanel(downloadMirrorsListPanel);
+      add(downloadMirrorsListPanel);
       
       try {
         SourceRepositoriesPanel sourceRepositoriesPanel = new SourceRepositoriesPanel("sourceRepositories", 
             "Source Repositories", project.getRepositories(), rosb, project); 
-        addEditablePanel(sourceRepositoriesPanel);
+        add(sourceRepositoriesPanel);
       } catch (SimalRepositoryException e) {
         UserReportableException error = new UserReportableException(
             "Unable to get project releases from the repository",
@@ -309,7 +302,7 @@ public class EditProjectPanel extends Panel {
           getProject().removeScreenshot(document);
         }
       };
-      addEditablePanel(screenshotsListPanel);
+      add(screenshotsListPanel);
 
     }
 
@@ -367,7 +360,7 @@ public class EditProjectPanel extends Panel {
 
       CategoryListPanel categoryList = new CategoryListPanel("categoryList",
           "Categories", project.getCategories(), project);
-      addEditablePanel(categoryList);
+      add(categoryList);
 
       //this.oses = project.getOSes();
       addRepeatingInputs("OSes", project.getOSes());
@@ -386,30 +379,30 @@ public class EditProjectPanel extends Panel {
       PersonListPanel maintainerList = new PersonListPanel("maintainers",
           "Maintainers", project.getMaintainers(), 4, project,
           AddPersonPanel.MAINTAINER);
-      addEditablePanel(maintainerList);
+      add(maintainerList);
 
       PersonListPanel developerList = new PersonListPanel("developers",
           "Developers", project.getDevelopers(), 7, project,
           AddPersonPanel.DEVELOPER);
-      addEditablePanel(developerList);
+      add(developerList);
 
       PersonListPanel testerList = new PersonListPanel("testers", "Testers",
           project.getTesters(), 4, project, AddPersonPanel.TESTER);
-      addEditablePanel(testerList);
+      add(testerList);
 
       PersonListPanel helperList = new PersonListPanel("helpers", "Helpers",
           project.getHelpers(), 4, project, AddPersonPanel.HELPER);
-      addEditablePanel(helperList);
+      add(helperList);
 
       PersonListPanel documentorList = new PersonListPanel("documenters",
           "Documentors", project.getDocumenters(), 4, project,
           AddPersonPanel.DOCUMENTOR);
-      addEditablePanel(documentorList);
+      add(documentorList);
 
       PersonListPanel translatorList = new PersonListPanel("translators",
           "Translators", project.getTranslators(), 4, project,
           AddPersonPanel.TRANSLATOR);
-      addEditablePanel(translatorList);
+      add(translatorList);
     }
 
     private void addLicences(Set<IDoapLicence> licences) throws SimalRepositoryException {
