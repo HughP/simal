@@ -19,7 +19,6 @@ package uk.ac.osswatch.simal.wicket.panel.project;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -52,7 +51,6 @@ import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapLicence;
 import uk.ac.osswatch.simal.model.IDocument;
 import uk.ac.osswatch.simal.model.IProject;
-import uk.ac.osswatch.simal.model.IResource;
 import uk.ac.osswatch.simal.model.utils.DoapResourceByNameComparator;
 import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
@@ -105,6 +103,38 @@ public class EditProjectPanel extends Panel {
 
     add(new EditProjectForm("editProjectForm",
         new CompoundPropertyModel<IProject>(project)));
+    addPersonsColumn();
+  }
+  
+
+  private void addPersonsColumn() {
+    PersonListPanel maintainerList = new PersonListPanel("maintainers",
+        "Maintainers", project.getMaintainers(), 4, project,
+        AddPersonPanel.MAINTAINER);
+    add(maintainerList);
+
+    PersonListPanel developerList = new PersonListPanel("developers",
+        "Developers", project.getDevelopers(), 7, project,
+        AddPersonPanel.DEVELOPER);
+    add(developerList);
+
+    PersonListPanel testerList = new PersonListPanel("testers", "Testers",
+        project.getTesters(), 4, project, AddPersonPanel.TESTER);
+    add(testerList);
+
+    PersonListPanel helperList = new PersonListPanel("helpers", "Helpers",
+        project.getHelpers(), 4, project, AddPersonPanel.HELPER);
+    add(helperList);
+
+    PersonListPanel documentorList = new PersonListPanel("documenters",
+        "Documentors", project.getDocumenters(), 4, project,
+        AddPersonPanel.DOCUMENTOR);
+    add(documentorList);
+
+    PersonListPanel translatorList = new PersonListPanel("translators",
+        "Translators", project.getTranslators(), 4, project,
+        AddPersonPanel.TRANSLATOR);
+    add(translatorList);
   }
 
   /**
@@ -156,7 +186,6 @@ public class EditProjectPanel extends Panel {
     private void addFormFields(IModel<IProject> model) {
       addLeftColumn();
       addRightColumn();
-      addPersonsColumn();
     }
     
     private void addLeftColumn() {
@@ -374,38 +403,7 @@ public class EditProjectPanel extends Panel {
         LOGGER.warn("Could not get licences from repository. ",e);
       }
     }
-    
-    private void addPersonsColumn() {
-      PersonListPanel maintainerList = new PersonListPanel("maintainers",
-          "Maintainers", project.getMaintainers(), 4, project,
-          AddPersonPanel.MAINTAINER);
-      add(maintainerList);
-
-      PersonListPanel developerList = new PersonListPanel("developers",
-          "Developers", project.getDevelopers(), 7, project,
-          AddPersonPanel.DEVELOPER);
-      add(developerList);
-
-      PersonListPanel testerList = new PersonListPanel("testers", "Testers",
-          project.getTesters(), 4, project, AddPersonPanel.TESTER);
-      add(testerList);
-
-      PersonListPanel helperList = new PersonListPanel("helpers", "Helpers",
-          project.getHelpers(), 4, project, AddPersonPanel.HELPER);
-      add(helperList);
-
-      PersonListPanel documentorList = new PersonListPanel("documenters",
-          "Documentors", project.getDocumenters(), 4, project,
-          AddPersonPanel.DOCUMENTOR);
-      add(documentorList);
-
-      PersonListPanel translatorList = new PersonListPanel("translators",
-          "Translators", project.getTranslators(), 4, project,
-          AddPersonPanel.TRANSLATOR);
-      add(translatorList);
-    }
-
-    private void addLicences(Set<IDoapLicence> licences) throws SimalRepositoryException {
+        private void addLicences(Set<IDoapLicence> licences) throws SimalRepositoryException {
       
       List<SelectCategoryInputModel<IDoapLicence>> data = new ArrayList<SelectCategoryInputModel<IDoapLicence>>();
 
