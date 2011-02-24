@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.doap;
 
 /*
- * Copyright 2008-9 University of Oxford
+ * Copyright 2008-2011 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");   *
  * you may not use this file except in compliance with the License.  *
@@ -21,7 +21,7 @@ import org.apache.wicket.PageParameters;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
 import uk.ac.osswatch.simal.model.IDoapCategory;
-import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
+import uk.ac.osswatch.simal.rdf.SimalException;
 import uk.ac.osswatch.simal.wicket.BasePage;
 import uk.ac.osswatch.simal.wicket.ErrorReportPage;
 import uk.ac.osswatch.simal.wicket.UserReportableException;
@@ -39,7 +39,7 @@ public class CategoryDetailPage extends BasePage {
   public CategoryDetailPage(IDoapCategory category) {
     try {
       populatePage(category);
-    } catch (SimalRepositoryException e) {
+    } catch (SimalException e) {
       UserReportableException error = new UserReportableException(
           "Unable to create category detail page", CategoryDetailPage.class, e);
       setResponsePage(new ErrorReportPage(error));
@@ -54,7 +54,7 @@ public class CategoryDetailPage extends BasePage {
       try {
         category = SimalRepositoryFactory.getCategoryService().findById(id);
         populatePage(category);
-      } catch (SimalRepositoryException e) {
+      } catch (SimalException e) {
         UserReportableException error = new UserReportableException(
             "Unable to get category from the repository",
             CategoryDetailPage.class, e);
@@ -68,9 +68,13 @@ public class CategoryDetailPage extends BasePage {
   }
 
   private void populatePage(IDoapCategory category)
-      throws SimalRepositoryException {
-    add(new CategorySummaryPanel("summary", category));
-    add(new ProjectListPanel("projectList", category.getProjects(), 15));
-    add(new PersonListPanel("peopleList", "People working in this category", category.getPeople(), 15));
+      throws SimalException {
+    if (category != null) {
+      add(new CategorySummaryPanel("summary", category));
+      add(new ProjectListPanel("projectList", category.getProjects(), 15));
+      add(new PersonListPanel("peopleList", "People working in this category", category.getPeople(), 15));
+    } else {
+      throw new SimalException("Cannot populate page with null category.");
+    }
   }
 }
