@@ -248,6 +248,9 @@ public class ToolsPage extends BasePage {
    */
   private void removeAllData() throws UserReportableException {
     ISimalRepository repo;
+
+    logger.warn("Removing all data from the repository.");
+    
     try {
       repo = UserApplication.getRepository();
     } catch (SimalRepositoryException e) {
@@ -259,6 +262,9 @@ public class ToolsPage extends BasePage {
 
   private void importTestData() throws UserReportableException {
     ISimalRepository repo;
+
+    logger.info("Importing the test data in the repository.");
+    
     try {
       repo = UserApplication.getRepository();
     } catch (SimalRepositoryException e) {
