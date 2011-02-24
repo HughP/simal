@@ -131,49 +131,14 @@ public class PersonAPI extends AbstractHandler {
     String response;
     StringBuffer result = new StringBuffer();
     IPerson person;
-    Set<IPerson> colleaguesAndFriends;
-    Iterator<IPerson> friends = null;
     try {
       person = SimalRepositoryFactory.getPersonService().findById(
           getRepository().getUniqueSimalID(id));
 
-      colleaguesAndFriends = person.getColleagues();
-      colleaguesAndFriends.addAll(person.getKnows());
-      friends = colleaguesAndFriends.iterator();
-
-      if (cmd.isJSON()) {
-        while (friends.hasNext()) {
-          result.append("{ \"items\": [");
-          result.append(friends.next().toJSON(true));
-          result.append("]}");
-        }
-      } else if (cmd.isXML()) {
-        result.append("<container>");
-
-        result.append("<people>");
-        result.append("<person id=\"" + person.getSimalID() + "\" name=\""
-            + person.getGivennames() + "\">");
-        IPerson friend;
-        while (friends.hasNext()) {
-          friend = friends.next();
-          result.append("<friend>");
-          result.append(friend.getSimalID());
-          result.append("</friend>");
-        }
-        result.append("</person>");
-
-        friends = colleaguesAndFriends.iterator();
-        while (friends.hasNext()) {
-          friend = friends.next();
-          result.append("<person id=\"" + friend.getSimalID() + "\" name=\""
-              + friend.getGivennames() + "\">");
-          result.append("</person>");
-        }
-        result.append("</people>");
-
-        result.append("</container>");
+      if(person != null) {
+        result = processPersonColleagues(person, cmd);
       } else {
-        throw new SimalAPIException("Unkown format requested - " + cmd);
+        throw new SimalAPIException("Person with id " + id + " not found.");
       }
     } catch (SimalRepositoryException e) {
       throw new SimalAPIException(
@@ -181,6 +146,61 @@ public class PersonAPI extends AbstractHandler {
     }
     response = result.toString();
     return response;
+  }
+
+  /**
+   * Retrieve the colleagues from the person and create a result based on the
+   * format requested.
+   * @param person 
+   * @param cmd
+   * @return formatted response containing all colleagues of person. 
+   * @throws SimalRepositoryException
+   * @throws SimalAPIException
+   */
+  private StringBuffer processPersonColleagues(IPerson person, RESTCommand cmd) throws SimalRepositoryException, SimalAPIException {
+    StringBuffer result = new StringBuffer();
+    Set<IPerson> colleaguesAndFriends;
+    Iterator<IPerson> friends = null;
+    
+    colleaguesAndFriends = person.getColleagues();
+    colleaguesAndFriends.addAll(person.getKnows());
+    friends = colleaguesAndFriends.iterator();
+
+    if (cmd.isJSON()) {
+      while (friends.hasNext()) {
+        result.append("{ \"items\": [");
+        result.append(friends.next().toJSON(true));
+        result.append("]}");
+      }
+    } else if (cmd.isXML()) {
+      result.append("<container>");
+
+      result.append("<people>");
+      result.append("<person id=\"" + person.getSimalID() + "\" name=\""
+          + person.getGivennames() + "\">");
+      IPerson friend;
+      while (friends.hasNext()) {
+        friend = friends.next();
+        result.append("<friend>");
+        result.append(friend.getSimalID());
+        result.append("</friend>");
+      }
+      result.append("</person>");
+
+      friends = colleaguesAndFriends.iterator();
+      while (friends.hasNext()) {
+        friend = friends.next();
+        result.append("<person id=\"" + friend.getSimalID() + "\" name=\""
+            + friend.getGivennames() + "\">");
+        result.append("</person>");
+      }
+      result.append("</people>");
+
+      result.append("</container>");
+    } else {
+      throw new SimalAPIException("Unkown format requested - " + cmd);
+    }
+    return result;
   }
 
   /**
