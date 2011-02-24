@@ -88,6 +88,18 @@ This will tell you the status of all your local files that have changed. The out
 
 For information about the other symbols in the status see the [http://svnbook.red-bean.com/en/1.4/svn-book.html#svn.ref.svn.c.status Subversion Book].
 
+== Create the patch ==
+Now tell Subversion to summarise all these changes in one file:
+
+{{{
+svn diff > myPatch.diff
+}}}
+
+== Send it in ==
+If your patch resolves an issue in the Issues register, attach it as a file there. Otherwise, create a new issue of type 'Patch' and attach it there. Describe in it, as fully as possible, the intended purpose of this patch. 
+
+Note that by submitting a patch to this issue tracker you agree to assign copyright of your work to the University of Oxford. If this is not acceptable to you please contact the developer list at simal-contributors@googlegroups.com before submitting your patch as you may need to sign a Contributor Licence Agreement in order to grant a licence to the University.
+
 = Further Reading =
 
 The Subversion book has a chapter that expands on the [http://svnbook.red-bean.com/en/1.1/ch03s05.html basic work cycle] with version control.
