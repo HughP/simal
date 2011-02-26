@@ -13,13 +13,13 @@
     * GettingStarted
     * DoapCreatorWidget
     * DevelopSimal
+    * [SimalRESTAPI]
     * JavaDocs
     * CreatePatch
     * ContributionProcess
     * [FAQ]
   * Design
     * [Schema]
-    * [SimalRESTAPI]
     * UseCases
     * [WhyDOAP]
     * [Imports]
