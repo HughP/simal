@@ -14,8 +14,6 @@
  * the License.
  */
 
-var simalRestRoot = "http://localhost:8080/simal-rest/";
-
 /**
  * The Project model for working with project instances.
  */ 
@@ -30,7 +28,7 @@ var ProjectService = {
   //Find all projects in the repository
   projects: [],
   findAll:function() {
-	var loc = simalRestRoot + "allProjects/json";    
+	var loc = Properties.getWookieRestURL() + "allProjects/json";    
 	loc = Widget.proxify(loc);
 	$.getJSON(loc, function(data) {
 		  $('#projectList').empty();
