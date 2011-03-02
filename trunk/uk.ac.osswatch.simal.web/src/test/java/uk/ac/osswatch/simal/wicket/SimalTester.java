@@ -26,8 +26,6 @@ import uk.ac.osswatch.simal.wicket.authentication.SimalSession;
 
 public class SimalTester extends WicketTester {
 
-  private static SimalTester instance;
-
   private SimalTester() throws SimalRepositoryException {
     super(new UserApplication());
   }
@@ -39,10 +37,7 @@ public class SimalTester extends WicketTester {
    * @throws SimalRepositoryException 
    */
   public static SimalTester get() throws SimalRepositoryException {
-    if (instance == null) {
-      instance = new SimalTester();
-    }
-    return instance;
+    return new SimalTester();
   }
 
   /**
