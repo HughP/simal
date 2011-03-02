@@ -21,5 +21,14 @@
 var Controller = {
 	init:function() {
 		ProjectService.findAll();
+	},
+
+	/**
+	 * Update the data currently displayed.
+	 * 
+	 * @FIXME: currently we don't update just the items that are displayed
+	 */
+	update:function() {
+		ProjectService.findAll();
 	}
 }
