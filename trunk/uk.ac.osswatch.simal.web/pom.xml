@@ -298,6 +298,7 @@
             <exclude>local.simal.properties</exclude>
             <exclude>local.simal.test.properties</exclude>
             <exclude>src/main/webapp/joseki/**/*</exclude>
+            <exclude>**/jquery.js</exclude>
           </excludes>
         </configuration>
         <executions>
