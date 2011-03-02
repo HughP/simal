@@ -75,7 +75,7 @@ public class TestLoginPage extends TestBasePage {
 		formTester.setValue("password", "simal");
 		formTester.submit("login");
 
-		tester.assertRenderedPage(LoginPage.class);
+		tester.assertRenderedPage(UserHomePage.class);
 
 		tester.assertNoErrorMessage();
 		SimalSession sessionData = SimalSession.get();
