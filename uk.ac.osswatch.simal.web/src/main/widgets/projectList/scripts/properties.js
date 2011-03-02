@@ -20,23 +20,23 @@
 var Properties = {
 	
 	submitForm: function() {
-		var wookieURL = dwr.util.getValue("wookieURL");
-		Widget.preferences.setItem("wookieURL", wookieURL);
+		var simalURL = dwr.util.getValue("simalURL");
+		Widget.preferences.setItem("simalURL", simalURL);
 	},
 
 	/**
-	 * Get the base URL for the Wookie REST interface.
+	 * Get the base URL for the Simal REST interface.
 	 */
-	getWookieRestURL: function() {
-		var wookieURL = widget.preferences.getItem("wookieURL");
-		if (wookieURL == undefined) {
-			wookieURL = "http://localhost:8080";
+	getSimalRestURL: function() {
+		var simalURL = widget.preferences.getItem("simalURL");
+		if (simalURL == undefined) {
+			simalURL = "http://localhost:8080";
 		}
-		if (wookieURL.match(/\/$/)) {
-			wookieURL = wookieURL + "simal-rest/";
+		if (simalURL.match(/\/$/)) {
+			simalURL = simalURL + "simal-rest/";
 		} else {
-			wookieURL = wookieURL + "/simal-rest/";
+			simalURL = simalURL + "/simal-rest/";
 		}
-		return wookieURL;
+		return simalURL;
 	}		
 }
