@@ -21,6 +21,22 @@ var Properties = {
 	
 	submitForm: function() {
 		var wookieURL = dwr.util.getValue("wookieURL");
-		Widget.preferences.setItem("wookieURLt", wookieURL);
-	}
+		Widget.preferences.setItem("wookieURL", wookieURL);
+	},
+
+	/**
+	 * Get the base URL for the Wookie REST interface.
+	 */
+	getWookieRestURL: function() {
+		var wookieURL = widget.preferences.getItem("wookieURL");
+		if (wookieURL == undefined) {
+			wookieURL = "http://localhost:8080";
+		}
+		if (wookieURL.match(/\/$/)) {
+			wookieURL = wookieURL + "simal-rest/";
+		} else {
+			wookieURL = wookieURL + "/simal-rest/";
+		}
+		return wookieURL;
+	}		
 }
