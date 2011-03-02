@@ -66,7 +66,7 @@ public class TestProjectDetailPage extends TestBase {
     tester.assertVisible("editProjectPanel:editProjectForm:homepageList");
     tester.assertVisible("editProjectPanel:editProjectForm:categoryList");
 
-    tester.assertVisible("editProjectPanel:editProjectForm:developers");
+    tester.assertVisible("editProjectPanel:developers");
 
     tester.assertVisible("created");
 
@@ -149,7 +149,7 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testAddMaintainer() throws SimalRepositoryException {
-    String addMaintainerPanel = "editProjectPanel:editProjectForm:maintainers:addPersonPanel";
+    String addMaintainerPanel = "editProjectPanel:maintainers:addPersonPanel";
     tester.assertInvisible(addMaintainerPanel);
     
     initTester(true);
@@ -196,7 +196,7 @@ public class TestProjectDetailPage extends TestBase {
    */
   @Test
   public void testMaintainers() {
-    tester.assertVisible("editProjectPanel:editProjectForm:maintainers");
+    tester.assertVisible("editProjectPanel:maintainers");
   }
 
   @Test
