@@ -28,6 +28,7 @@ var ProjectService = {
   //Find all projects in the repository
   projects: [],
   findAll:function() {
+	$.mobile.pageLoading();
 	var loc = Properties.getSimalRestURL() + "allProjects/json";    
 	loc = Widget.proxify(loc);
 	$.getJSON(loc, function(data) {
@@ -59,9 +60,9 @@ var ProjectService = {
 		  	    		  				  .append(header)
 		  	    		  				  .append(content));
 		  	      $('#' + project.id).page();
-
 			  });
 		  });
+		  $.mobile.pageLoading(true);
 		});
   }
 }
