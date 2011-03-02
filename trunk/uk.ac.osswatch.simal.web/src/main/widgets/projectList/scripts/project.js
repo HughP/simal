@@ -28,7 +28,7 @@ var ProjectService = {
   //Find all projects in the repository
   projects: [],
   findAll:function() {
-	var loc = Properties.getWookieRestURL() + "allProjects/json";    
+	var loc = Properties.getSimalRestURL() + "allProjects/json";    
 	loc = Widget.proxify(loc);
 	$.getJSON(loc, function(data) {
 		  $('#projectList').empty();
