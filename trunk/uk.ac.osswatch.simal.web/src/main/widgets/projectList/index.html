@@ -32,18 +32,42 @@
 	<body onLoad="Controller.init()">
 		<div data-role="page" data-theme="b" id="jqm-home">
 		
-		    <!--
-			<div data-role="header" data-position="fixed">
-				<h4>Header</h4>
-			</div> /header -->
+		    <div data-role="header" data-position="fixed">
+				<h4>Projects</h4>
+				<a href="#settings" data-role="button" data-icon="gear" data-iconpos="notext">Settings</a>
+			</div> <!-- /header -->
 		
-			<div data-role="content" class="ui-content" id="wookie-content">	
+			<div data-role="content" class="ui-content">	
   		        <ul id='projectList' data-role='listview' data-filter='true'>
   		          <li>Foo Project</li>
   		          <li>Bar Project</li>
   		          <li>FooBar Project</li>
   		          <li>BarFoo Project</li>
   		        </ul>
+			</div><!-- /content -->
+		
+			<!--
+			<div data-role="footer" data-position="fixed">
+				<h4>Footer</h4>
+			</div> /footer -->
+		</div><!-- /page -->
+		
+		<div data-role="page" id="settings">
+		
+			<div data-role="header" data-position="fixed">
+				<h4>Settings</h4>
+			</div> <!-- /header -->
+		
+			<div data-role="content" class="ui-content" id="settings-content">	
+  		        <form action="" method="post">
+  		        	<div data-role="fieldcontain">
+						<label for="name">Wookie base url:</label>
+    					<input type="url" name="wookieURL" id="wookieURL"  />
+					</div>
+					<div data-role="fieldcontain">
+						<button type="submit" onClick="alert('Not saving settings yet')" value="save-settings" name="save-settings">Save</button>
+					</div>
+  		        </form>
 			</div><!-- /content -->
 		
 			<!--
