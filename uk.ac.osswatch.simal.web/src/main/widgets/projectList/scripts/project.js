@@ -42,27 +42,30 @@ var ProjectService = {
 			      // Add to list view
 			      $('#projectList').append($("<li/>")
 			    		  				   .append($("<a/>")
-			    		  						   .attr("href", "#" + project.id)
+			    		  						   .attr('onClick', 'ProjectService.showProjectDetail("' + project.id + '")')
 					      				           .text(project.name)));	        
-		  	      $('#projectList').listview('refresh');
-		  	      
-		  	      // add details page
-		  	      var header = $('<div data-role="header" data-position="fixed"></div>')
-		  	                   .append("<h4>" + project.name + "</h4>")
-		  	      //var footer = $('<div data-role="footer" data-position="fixed"><h4>Footer<h4></div>');
-		  	      var content = $("<div data-role='content'/>")
-	  		          .append($("<h2>" + project.name + "</h2>"))
-	  		          .append($("<p>" + project.shortDesc + "</p>"))
-	  		          
-		  	      $.mobile.pageContainer.append($("<div data-role='page'/>")
-		  	    		  				  .attr("id", project.id)
-		  	    		  				  .attr("data-url", project.id)
-		  	    		  				  .append(header)
-		  	    		  				  .append(content));
-		  	      $('#' + project.id).page();
+		  	      $('#projectList').listview('refresh');		  	      
 			  });
 		  });
 		  $.mobile.pageLoading(true);
 		});
+  },
+  
+  showProjectDetail:function(projectID) {
+	  var project = ProjectService.projects[projectID];
+	  var header = $('<div data-role="header" data-position="fixed"></div>')
+                   .append("<h4>" + project.name + "</h4>")
+	  //var footer = $('<div data-role="footer" data-position="fixed"><h4>Footer<h4></div>');
+	  var content = $("<div data-role='content'/>")
+		            .append($("<h2>" + project.name + "</h2>"))
+		            .append($("<p>" + project.shortDesc + "</p>"))
+		
+	  $.mobile.pageContainer.append($("<div data-role='page'/>")
+		 				  .attr("id", projectID)
+		 				  .attr("data-url", projectID)
+		 				  .append(header)
+		 				  .append(content));
+	  $('#' + projectID).page();
+	  $.mobile.changePage("#" + projectID);
   }
 }
