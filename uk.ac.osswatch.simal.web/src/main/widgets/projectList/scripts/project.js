@@ -52,14 +52,36 @@ var ProjectService = {
   },
   
   showProjectDetail:function(projectID) {
+	  /*
+	   * FIXME: show all the data we have
+	   * 
+	   * Example of JSON from Simal:
+	   * 
+	   * [{
+       * "id":"http://simal.oss-watch.ac.uk/doap/simal:test-prj1430#Project",
+       * "label":"Simal Project Catalogue System",
+       * "name":"Simal Project Catalogue System",
+       * "shortdesc":"Simal is a tool for building and tracking projects and the people involved in those projects.", 
+       * "simalID":"prj1430", 
+       * "category":["XML", "JISC Learning and Teaching committee", "Digital Libraries in the Classroom Programme", "E-Learning Frameworks and Tools", "Focus on Access to Institutional Resources (FAIR) Programme", "Shared Infrastructure Services Strand", "E-Resources Theme", "Users & Innovation programme: Personalising technologies", "E-Learning Capital Programme", "Build Management", "Portals Programme", "E-Learning Innovation Programme", "SWaNI interoperability pilots 2 programme", "Core Middleware Infrastructure Programme", "SFC E-Learning Transformation Programme", "Database", "Support for e-research", "Distributed E-Learning Programme", "Presentation Programme", "Web Framework", "MLEs for Lifelong Learning: building MLEs across HE and FE", "Network Server", "HTTP", "Digital Library Infrastructure Programme", "Linking Digital Libraries with VLEs Programme", "E-Administration Theme", "Digitisation Programme", "Social News", "Network Client", "Virtual Research Environments Programme", "E-Research Theme", "Core Middleware: Technology Development Programme", "Repositories and Preservation Programme", "PALS Metadata and Interoperability Programme phase one", "Supporting Institutional Records Management Programme", "PALS Metadata and Interoperability Programme phase two", "Exchange for Learning (X4L) Programme", "Information Environment Theme", "Access Management", "E-Learning Theme", "E-Learning Pedagogy Programme", "Digital Repositories Programme 2005-7", "Grid OGC Collision Programme", "Digital Preservation and Records Management Programme", "JISC Organisational Support Work Programme", "Social Bookmarking", "Social Networking", "Graphics", "Authentication, Authorisation and Accounting Programme", "E-Infrastructure Programme"], 
+       * "person":["Ross Gardler", "Gavin McDonald"], 
+       * "programmingLanguage":["XML", "Java"]}
+	   */
 	  var project = ProjectService.projects[projectID];
 	  var header = $('<div data-role="header" data-position="fixed"></div>')
                    .append("<h4>" + project.name + "</h4>")
 	  //var footer = $('<div data-role="footer" data-position="fixed"><h4>Footer<h4></div>');
+      var people = $('<div data-role="collapsible" data-collapsed="true"/>')
+                   .append($('<h3>Participants</h3>'))
+                   .append($('<p>FIXME: Add participants</p>'));
+	  var categories = $('<div data-role="collapsible" data-collapsed="true"/>')
+                       .append($('<h3>Categories</h3>'))
+                       .append($('<p>FIXME: Add categories</p>'));
 	  var content = $("<div data-role='content'/>")
 		            .append($("<h2>" + project.name + "</h2>"))
 		            .append($("<p>" + project.shortDesc + "</p>"))
-		
+		            .append(categories)
+		            .append(people)
 	  $.mobile.pageContainer.append($("<div data-role='page'/>")
 		 				  .attr("id", projectID)
 		 				  .attr("data-url", projectID)
