@@ -152,6 +152,13 @@ public class ProjectDetailPage extends BasePage {
       String rdfLink = "<link href=\"" + cmd.getURL()
           + "\" rel=\"meta\" title=\"DOAP\" type=\"application/rdf+xml\" />";
       add(new StringHeaderContributor(rdfLink));
+      
+      cmd = RESTCommand.createGetProject(project.getSimalID(),
+      RESTCommand.TYPE_SIMAL, RESTCommand.FORMAT_JSON);
+      add(new ExternalLink("jsonLink", cmd.getURL()));
+      String jsonLink = "<link href=\"" + cmd.getURL()
+          + "\" rel=\"meta\" title=\"JSON\" type=\"application/json\" />";
+      add(new StringHeaderContributor(rdfLink));
     } catch (SimalRepositoryException e) {
       UserReportableException error = new UserReportableException(
           "Unable to get new person ID from the repository",
