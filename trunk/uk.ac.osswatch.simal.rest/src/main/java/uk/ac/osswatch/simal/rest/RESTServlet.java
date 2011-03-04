@@ -186,7 +186,7 @@ public class RESTServlet extends HttpServlet {
    */
   private String errorResponse(String response, Exception e) {
     response += " - ERROR: " + e.getMessage();
-    logger.warn(response);
+    logger.debug(response, e);
     return response;
   }
 }
