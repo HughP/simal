@@ -36,6 +36,10 @@ To retrieve the details of a single project use:
 
 {{{http://foo.com/simal-rest/project/project-ID/FORMAT}}}
 
+====Retrieve a featured project====
+
+By calling the method to retrieve a single project with a project-ID of "featured" you will retrieve a single featured project.
+
 ===All Projects===
 
 To retrieve all projects from the standard SIMAL repository use:
