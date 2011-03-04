@@ -37,14 +37,26 @@ To deploy your widget run:
 
 {{{
 cd [Path to Web Module]/src/main/widgets
-ant seed-widget
+ant deploy-widget
 }}}
 
-You will be asked the name of the widget to deploy, once supplied it will be deployed to a locally running instance. Note that if you are not running Wookie from source located in the same directory as your Simal modules then you will need to configure the build system accordingly. Contact us on the developer list for assistance.
+You will be asked the name of the widget to deploy, once supplied the appropriate widget will be deployed to a locally running instance. Note that if you are not running Wookie from source located in the same directory as your Simal modules then you will need to configure the build system accordingly. Contact us on the developer list for assistance.
+
+If you don't want to type in the widget name each time then you can supply it in  the command line:
+
+{{{
+ant deploy-widget -Dwidget.shortname=[widget name]
+}}}
 
 = Building the widget package =
 
 To build the widget package you just need to run {{{ant}}} and provide the name of the widget to build. Your widget package will be located in {{{[Path to Web Module]/target/widgets/[widget name].wgt}}}
+
+As with deploying widgets you can supply the widget name at the command line:
+
+{{{
+ant -Dwidget.shortname=[widget name]
+}}}
 
 = Testing and developing your widget =
 
