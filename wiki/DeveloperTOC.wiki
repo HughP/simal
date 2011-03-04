@@ -11,7 +11,9 @@
     * AboutSimal
   * [GettingStarted Developer Documentation]
     * GettingStarted
-    * DoapCreatorWidget
+    * Widgets
+      * BuildingWidgets
+      * DoapCreatorWidget
     * DevelopSimal
     * [SimalRESTAPI]
     * JavaDocs
