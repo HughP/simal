@@ -17,7 +17,7 @@
 -->
 <project default="build-widget" basedir="." name="widget build file">
 	<property name="wookie.widgets.dir" location="../"/>
-	<property name="widget.shortname" value="featuredProject"/>
+	<property name="widget.shortname" value="@widget.shortname@"/>
 	
 	<import file="../build.xml"/>
 </project>
