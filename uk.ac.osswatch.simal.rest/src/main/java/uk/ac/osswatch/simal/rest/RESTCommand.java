@@ -73,6 +73,12 @@ public final class RESTCommand {
   /**
    * This class should not be instantiated directly, use the create*(...)
    * methods instead.
+   * 
+   * @param resourceID of the entity to manipulate, use "featured" to get a featured project
+   * @param source the source of the data
+   * @param command the type of command to run
+   * @param format the required format of the response
+   * 
    */
   private RESTCommand(String resourceID, String source, String command,
       String format) {
