@@ -16,6 +16,8 @@ All REST URLs are of the same form:
 
 Where COMMAND is the command you wish to execute, NAME_VALUE_PAIRS is zero or more parameter names and value pairs and FORMAT is a format code that specifies the format of the response document.
 
+NAME_VALUE_PAIRS take the form of name-value. For example, to provide a project identifier you would use something like {{{project-prj126}}}. Name value pairs can be provided in any order.
+
 ==Format==
 
 Currently, only {{{json}}} and {{{xml}}} are supported as valid data FORMATs.
@@ -36,9 +38,11 @@ To retrieve the details of a single project use:
 
 {{{http://foo.com/simal-rest/project/project-ID/FORMAT}}}
 
+Where ID is the project identifier and FORMAT is an approved format.
+
 ====Retrieve a featured project====
 
-By calling the method to retrieve a single project with a project-ID of "featured" you will retrieve a single featured project.
+By calling the method to retrieve a single project with an ID of "featured" you will retrieve a single featured project.
 
 ===All Projects===
 
@@ -54,6 +58,8 @@ To retrieve the details of a single person use:
 
 {{{http://foo.com/simal-rest/person/person-ID/FORMAT}}}
 
+Where ID is the person identifier and FORMAT is an approved format.
+
 ===All Colleagues of a Person===
 
 A colleague is defined as someone who works on any of the projects our target person works on.
@@ -62,7 +68,7 @@ To retrieve all colleagues from the standard SIMAL repository use:
 
 {{{http://foo.com/simal-rest/allColleagues/person-ID/FORMAT}}}
 
-Where PERSON_ID is replaced with the Simal ID of the person we are interested in.
+Where ID is replaced with the Simal ID of the person we are interested in.
 
 ===Retrieve all People===
 
