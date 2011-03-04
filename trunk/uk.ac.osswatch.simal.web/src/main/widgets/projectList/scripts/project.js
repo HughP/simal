@@ -17,12 +17,13 @@
 /**
  * The Project model for working with project instances.
  */ 
-function Project(id, name, shortDesc, people, categories){
+function Project(id, name, shortDesc, people, categories, languages){
     this.id = id;
     this.name = name;
     this.shortDesc = shortDesc;
     this.people = people;
     this.categories = categories;
+    this.languages = languages;
 }
 
 var ProjectService = {
@@ -38,7 +39,7 @@ var ProjectService = {
 		  $.each(data, function(key, val) {
 			  $.each(val, function(key, val) {
 			      // Create project and store for future use
-				  var project = new Project(val.simalID, val.name, val.shortdesc, val.person, val.category);
+				  var project = new Project(val.simalID, val.name, val.shortdesc, val.person, val.category, val.programmingLanguage);
 			      ProjectService.projects[project.id] = project;
 			      
 			      // Add to list view
@@ -54,40 +55,47 @@ var ProjectService = {
   },
   
   showProjectDetail:function(projectID) {
-	  /*
-	   * FIXME: show all the data we have
-	   * 
-	   * Example of JSON from Simal:
-	   * 
-	   * [{
-       * "id":"http://simal.oss-watch.ac.uk/doap/simal:test-prj1430#Project",
-       * "label":"Simal Project Catalogue System",
-       * "name":"Simal Project Catalogue System",
-       * "shortdesc":"Simal is a tool for building and tracking projects and the people involved in those projects.", 
-       * "simalID":"prj1430", 
-       * "category":["XML", "JISC Learning and Teaching committee", "Digital Libraries in the Classroom Programme", "E-Learning Frameworks and Tools", "Focus on Access to Institutional Resources (FAIR) Programme", "Shared Infrastructure Services Strand", "E-Resources Theme", "Users & Innovation programme: Personalising technologies", "E-Learning Capital Programme", "Build Management", "Portals Programme", "E-Learning Innovation Programme", "SWaNI interoperability pilots 2 programme", "Core Middleware Infrastructure Programme", "SFC E-Learning Transformation Programme", "Database", "Support for e-research", "Distributed E-Learning Programme", "Presentation Programme", "Web Framework", "MLEs for Lifelong Learning: building MLEs across HE and FE", "Network Server", "HTTP", "Digital Library Infrastructure Programme", "Linking Digital Libraries with VLEs Programme", "E-Administration Theme", "Digitisation Programme", "Social News", "Network Client", "Virtual Research Environments Programme", "E-Research Theme", "Core Middleware: Technology Development Programme", "Repositories and Preservation Programme", "PALS Metadata and Interoperability Programme phase one", "Supporting Institutional Records Management Programme", "PALS Metadata and Interoperability Programme phase two", "Exchange for Learning (X4L) Programme", "Information Environment Theme", "Access Management", "E-Learning Theme", "E-Learning Pedagogy Programme", "Digital Repositories Programme 2005-7", "Grid OGC Collision Programme", "Digital Preservation and Records Management Programme", "JISC Organisational Support Work Programme", "Social Bookmarking", "Social Networking", "Graphics", "Authentication, Authorisation and Accounting Programme", "E-Infrastructure Programme"], 
-       * "person":["Ross Gardler", "Gavin McDonald"], 
-       * "programmingLanguage":["XML", "Java"]}
-	   */
 	  var project = ProjectService.projects[projectID];
 	  var header = $('<div data-role="header" data-position="fixed"></div>')
                    .append("<h4>" + project.name + "</h4>")
 	  //var footer = $('<div data-role="footer" data-position="fixed"><h4>Footer<h4></div>');
-      var people = $('<div data-role="collapsible" data-collapsed="true"/>')
-                   .append($('<h3>Participants</h3>'));
+      
+      // create people section     
+      var personList =  $('<ul data-role="listview"/>');
 	  $.each(project.people, function(key, person) {
-		  people.append($('<p>' + person + '</p>'));
+		  personList.append($('<li>' + person + '</li>'));
 	  });
-	  var categories = $('<div data-role="collapsible" data-collapsed="true"/>')
-                       .append($('<h3>Categories</h3>'));
+      var peopleSection = $('<div data-role="collapsible" data-collapsed="true"/>')
+                   .append($('<h3>Participants</h3>'))
+                   .append(personList);
+	  
+	  // create category section
+	  var categoryList = $('<ul data-role="listview"/>');
 	  $.each(project.categories, function(key, category) {
-		  categories.append($('<p>' + category + '</p>'));
+		  categoryList.append($('<li>' + category + '</li>'));
 	  });
+	  var categorySection = $('<div data-role="collapsible" data-collapsed="true"/>')
+      .append($('<h3>Categories</h3>'))
+      .append(categoryList);
+	  
+	  // Create language section
+	  var languageList = $('<ul data-role="listview"/>');
+	  $.each(project.languages, function(key, language) {
+          languageList.append($('<li>' + language + '</li>'));
+      });
+	  var languageSection = $('<div data-role="collapsible" data-collapsed="true"/>')
+                            .append($('<h3>Languages</h3>'))
+                            .append(languageList);
+	  
+	  // create content
 	  var content = $("<div data-role='content'/>")
 		            .append($("<h2>" + project.name + "</h2>"))
 		            .append($("<p>" + project.shortDesc + "</p>"))
-		            .append(categories)
-		            .append(people)
+		            .append(categorySection)
+		            .append(peopleSection)
+		            .append(languageSection);
+	  
+	  // create the page
 	  $.mobile.pageContainer.append($("<div data-role='page'/>")
 		 				  .attr("id", projectID)
 		 				  .attr("data-url", projectID)
