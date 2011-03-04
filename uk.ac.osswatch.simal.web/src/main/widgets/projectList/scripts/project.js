@@ -17,10 +17,11 @@
 /**
  * The Project model for working with project instances.
  */ 
-function Project(id, name, shortDesc){
+function Project(id, name, shortDesc, people){
     this.id = id;
     this.name = name;
     this.shortDesc = shortDesc;
+    this.people = people;
 }
 
 var ProjectService = {
@@ -36,7 +37,7 @@ var ProjectService = {
 		  $.each(data, function(key, val) {
 			  $.each(val, function(key, val) {
 			      // Create project and store for future use
-				  var project = new Project(val.simalID, val.name, val.shortdesc);
+				  var project = new Project(val.simalID, val.name, val.shortdesc, val.person);
 			      ProjectService.projects[project.id] = project;
 			      
 			      // Add to list view
@@ -72,8 +73,10 @@ var ProjectService = {
                    .append("<h4>" + project.name + "</h4>")
 	  //var footer = $('<div data-role="footer" data-position="fixed"><h4>Footer<h4></div>');
       var people = $('<div data-role="collapsible" data-collapsed="true"/>')
-                   .append($('<h3>Participants</h3>'))
-                   .append($('<p>FIXME: Add participants</p>'));
+                   .append($('<h3>Participants</h3>'));
+	  $.each(project.people, function(key, person) {
+		  people.append($('<p>' + person + '</p>'));
+	  });
 	  var categories = $('<div data-role="collapsible" data-collapsed="true"/>')
                        .append($('<h3>Categories</h3>'))
                        .append($('<p>FIXME: Add categories</p>'));
