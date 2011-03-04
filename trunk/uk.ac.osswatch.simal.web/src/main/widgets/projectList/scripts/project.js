@@ -60,32 +60,47 @@ var ProjectService = {
                    .append("<h4>" + project.name + "</h4>")
 	  //var footer = $('<div data-role="footer" data-position="fixed"><h4>Footer<h4></div>');
       
-      // create people section     
-      var personList =  $('<ul data-role="listview"/>');
-	  $.each(project.people, function(key, person) {
-		  personList.append($('<li>' + person + '</li>'));
-	  });
-      var peopleSection = $('<div data-role="collapsible" data-collapsed="true"/>')
-                   .append($('<h3>Participants</h3>'))
-                   .append(personList);
+      // create people section
+      var peopleSection;
+      if (project.people.length > 0) { 
+	      var personList =  $('<ul data-role="listview"/>');
+		  $.each(project.people, function(key, person) {
+			  personList.append($('<li>' + person + '</li>'));
+		  });
+	      peopleSection = $('<div data-role="collapsible" data-collapsed="true"/>')
+	                      .append($('<h3>Participants</h3>'))
+	                      .append(personList);
+      } else {
+    	  peopleSection = $('<!-- No people recorded against this project -->');
+      }
 	  
 	  // create category section
-	  var categoryList = $('<ul data-role="listview"/>');
-	  $.each(project.categories, function(key, category) {
-		  categoryList.append($('<li>' + category + '</li>'));
-	  });
-	  var categorySection = $('<div data-role="collapsible" data-collapsed="true"/>')
-      .append($('<h3>Categories</h3>'))
-      .append(categoryList);
-	  
+      var categorySection;
+      if (project.categories.length) {
+		  var categoryList = $('<ul data-role="listview"/>');
+		  $.each(project.categories, function(key, category) {
+			  categoryList.append($('<li>' + category + '</li>'));
+		  });
+		  categorySection = $('<div data-role="collapsible" data-collapsed="true"/>')
+	                        .append($('<h3>Categories</h3>'))
+	                        .append(categoryList);
+      } else {
+    	  categorySection = $('<!-- No categories recorded against this project -->');
+      }
+      
 	  // Create language section
-	  var languageList = $('<ul data-role="listview"/>');
-	  $.each(project.languages, function(key, language) {
-          languageList.append($('<li>' + language + '</li>'));
-      });
-	  var languageSection = $('<div data-role="collapsible" data-collapsed="true"/>')
-                            .append($('<h3>Languages</h3>'))
-                            .append(languageList);
+      var languageSection;
+	      if (project.languages.length > 0) {
+		  var languageList = $('<ul data-role="listview"/>');
+		  $.each(project.languages, function(key, language) {
+	          languageList.append($('<li>' + language + '</li>'));
+	      });
+	      languageSection = $('<div data-role="collapsible" data-collapsed="true"/>')
+	                        .append($('<h3>Languages</h3>'))
+	                        .append(languageList);
+      } else {
+    	  languageSection = $('<!-- No language recorded against this project -->');
+      }
 	  
 	  // create content
 	  var content = $("<div data-role='content'/>")
