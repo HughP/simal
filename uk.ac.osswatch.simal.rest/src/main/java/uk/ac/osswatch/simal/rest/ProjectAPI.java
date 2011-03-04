@@ -104,6 +104,9 @@ public class ProjectAPI extends AbstractHandler {
    */
   private String getProject(RESTCommand command) throws SimalAPIException {
     String id = command.getProjectID();
+    if (id == null) {
+      id = "featured";
+    }
     IProject project;
     
     try {
