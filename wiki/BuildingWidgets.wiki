@@ -1,0 +1,47 @@
+#summary An introduction to building widgets for Simal
+#labels Phase-Implementation
+#sidebar DeveloperTOC
+
+= Introduction =
+
+In version 0.2.4 we introduced the ability to embed W3C Widgets, served by Apache Wookie. It is our intention to add new functionality to the Wookie UI using Widgets wherever possible. This means that the same UI components cna be used in any environemnt that supports W3C Widgets. Thanks to Apache Wookie this means pretty much anywhere we can include HTML.
+
+This document describes how to build a new widget.
+
+= Requirements =
+
+Access to an instance of Simal, if you run your own instance you can use that, if not we suggest you use our [http://registry.oss-watch.ac.uk public instance].
+
+At present the widget code is part of the web module, so you will need to check that out from our version control system.
+
+You will also need an instance of [http://incubator.apache.org/wookie Apache Wookie] that you are able to deploy widgets to. During development we recommend running a local instance of Wookie. We also recommend installing this in the same directory that your Simal modules are located.
+
+We use [http://ant.apache.org Apache Ant] as a build system to assist in the development of widgets.
+
+= Creating a widget from the template =
+
+We have provided a widget template to get you started. This provides the bare minimum of functionality you need to create a widget that behaves like all other Simal widgets and come equipped with key scripts for working with the Simal REST API.
+
+To create your template run the following commands at the command line:
+
+{{{
+cd [Path to Web Module]/src/main/widgets
+ant seed-widget
+}}}
+
+You will be asked a few questions about the widget you wish to build. Once complete you will find your widget in a subdirectory with the same name as the widget (this will have been provided in answer to one of the questions).
+
+= Deploy your widget =
+
+To deploy your widget run:
+
+{{{
+cd [Path to Web Module]/src/main/widgets
+ant seed-widget
+}}}
+
+You will be asked the name of the widget to deploy, once supplied it will be deployed to a locally running instance. Note that if you are not running Wookie from source located in the same directory as your Simal modules then you will need to configure the build system accordingly. Contact us on the developer list for assistance.
+
+= Testing and developing your widget =
+
+The testing and development processes are no different from any other Wookie widget. So at this point we simply refer you to the [http://incubator.apache.org/wookie Wookie] documentation and community.
