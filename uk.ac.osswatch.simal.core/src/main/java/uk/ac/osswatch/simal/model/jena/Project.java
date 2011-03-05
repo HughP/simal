@@ -277,6 +277,17 @@ public class Project extends DoapResource implements IProject {
 
     json.append(", \"simalID\":\"" + getSimalID() + "\"");
 
+    // community resources
+    json.append(", \"repository\":" + toJSONValues(getRepositories()));
+    json.append(", \"homepage\":" + toJSONValues(getHomepages()));
+    json.append(", \"issueTracker\":" + toJSONValues(getIssueTrackers()));
+    json.append(", \"repository\":" + toJSONValues(getRepositories()));
+    json.append(", \"wiki\":" + toJSONValues(getWikis()));
+    json.append(", \"downloadPage\":" + toJSONValues(getDownloadPages()));
+    json.append(", \"downloadMirror\":" + toJSONValues(getDownloadMirrors()));
+    json.append(", \"screenshot\":" + toJSONValues(getScreenshots()));
+    json.append(", \"downloadPages\":" + toJSONValues(getDownloadPages()));
+    
     json.append(", \"category\":" + toJSONValues(getCategories()));
 
     HashSet<IPerson> people;
