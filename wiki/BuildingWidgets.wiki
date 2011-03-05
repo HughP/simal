@@ -12,7 +12,7 @@ This document describes how to build a new widget.
 
 Access to an instance of Simal, if you run your own instance you can use that, if not we suggest you use our [http://registry.oss-watch.ac.uk public instance].
 
-At present the widget code is part of the web module, so you will need to check that out from our version control system.
+All widget code is in the {{{uk.ac.osswatch.simal.widget}}} module, so you'll need to check this out as a minimum.
 
 You will also need an instance of [http://incubator.apache.org/wookie Apache Wookie] that you are able to deploy widgets to. During development we recommend running a local instance of Wookie. We also recommend installing this in the same directory that your Simal modules are located.
 
