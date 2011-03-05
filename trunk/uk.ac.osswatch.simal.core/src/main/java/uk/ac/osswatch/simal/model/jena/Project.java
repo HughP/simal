@@ -278,7 +278,6 @@ public class Project extends DoapResource implements IProject {
     json.append(", \"simalID\":\"" + getSimalID() + "\"");
 
     // community resources
-    json.append(", \"repository\":" + toJSONValues(getRepositories()));
     json.append(", \"homepage\":" + toJSONValues(getHomepages()));
     json.append(", \"issueTracker\":" + toJSONValues(getIssueTrackers()));
     json.append(", \"repository\":" + toJSONValues(getRepositories()));
