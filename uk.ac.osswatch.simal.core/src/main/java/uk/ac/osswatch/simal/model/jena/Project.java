@@ -285,7 +285,6 @@ public class Project extends DoapResource implements IProject {
     json.append(", \"downloadPage\":" + toJSONValues(getDownloadPages()));
     json.append(", \"downloadMirror\":" + toJSONValues(getDownloadMirrors()));
     json.append(", \"screenshot\":" + toJSONValues(getScreenshots()));
-    json.append(", \"downloadPages\":" + toJSONValues(getDownloadPages()));
     
     json.append(", \"category\":" + toJSONValues(getCategories()));
 
