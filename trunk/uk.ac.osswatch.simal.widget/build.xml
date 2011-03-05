@@ -16,8 +16,8 @@
   limitations under the License.
 -->
 <project default="build-widget" basedir="." name="Wookie_widgets_build_file">
-	<property name="wookie.src.dir" location="../../Apache Wookie"/>
-	<property name="widget.deploy.dir" location="../../Apache Wookie/build/webapp/wookie/deploy"/>
+	<property name="wookie.src.dir" location="../Apache Wookie"/>
+	<property name="widget.deploy.dir" location="../Apache Wookie/build/webapp/wookie/deploy"/>
     <property name="project.build.dir" location="./build"/>
 	<property name="wookie.widgets.dir" location="."/>
 	<property name="widget.template.dir" value="."/>
