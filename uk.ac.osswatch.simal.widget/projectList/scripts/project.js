@@ -17,13 +17,14 @@
 /**
  * The Project model for working with project instances.
  */ 
-function Project(id, name, shortDesc, people, categories, languages){
+function Project(id, name, shortDesc, people, categories, languages, repositories){
     this.id = id;
     this.name = name;
     this.shortDesc = shortDesc;
     this.people = people;
     this.categories = categories;
     this.languages = languages;
+    this.repository = repositories;
 }
 
 var ProjectService = {
@@ -39,7 +40,13 @@ var ProjectService = {
 		  $.each(data, function(key, val) {
 			  $.each(val, function(key, val) {
 			      // Create project and store for future use
-				  var project = new Project(val.simalID, val.name, val.shortdesc, val.person, val.category, val.programmingLanguage);
+				  var project = new Project(val.simalID, 
+						                    val.name, 
+						                    val.shortdesc, 
+						                    val.person, 
+						                    val.category, 
+						                    val.programmingLanguage,
+						                    val.repository);
 			      ProjectService.projects[project.id] = project;
 			      
 			      // Add to list view
@@ -59,6 +66,21 @@ var ProjectService = {
 	  var header = $('<div data-role="header" data-position="fixed"></div>')
                    .append("<h4>" + project.name + "</h4>")
 	  //var footer = $('<div data-role="footer" data-position="fixed"><h4>Footer<h4></div>');
+	  
+	  // create community resources section
+      // FIXME: add repository, homepage, issueTracker, repository, wiki, downloadPage, DownloadMirror, screenshot
+      var communitySection = $('<div data-role="collapsible" data-collapsed="true"/>')
+                             .append($('<h3>Community</h3>'))
+      var subsection;
+	  if (project.repository.length > 0) {
+		  subsection = $('<div data-role="collapsible" data-collapsed="true"/>')
+                       .append($('<h3>Source Code</h3>'))
+		  subsection.append($('<ul data-role="listview"/>'));
+		  $.each(project.repository, function(key, repository) {
+			  subsection.append($('<li>' + repository + '</li>'));
+		  });
+		  communitySection.append(subsection);
+      }
       
       // create people section
       var peopleSection;
@@ -76,7 +98,7 @@ var ProjectService = {
 	  
 	  // create category section
       var categorySection;
-      if (project.categories.length) {
+      if (project.categories.length > 0) {
 		  var categoryList = $('<ul data-role="listview"/>');
 		  $.each(project.categories, function(key, category) {
 			  categoryList.append($('<li>' + category + '</li>'));
@@ -106,6 +128,7 @@ var ProjectService = {
 	  var content = $("<div data-role='content'/>")
 		            .append($("<h2>" + project.name + "</h2>"))
 		            .append($("<p>" + project.shortDesc + "</p>"))
+		            .append(communitySection)
 		            .append(categorySection)
 		            .append(peopleSection)
 		            .append(languageSection);
