@@ -303,8 +303,9 @@ public class Project extends DoapResource implements IProject {
    * 
    * @param resources
    * @return
+   * @throws SimalRepositoryException 
    */
-  private String toJSONValues(Set<?> resources) {
+  private String toJSONValues(Set<?> resources) throws SimalRepositoryException {
     if (resources == null) {
       return null;
     }
@@ -315,7 +316,7 @@ public class Project extends DoapResource implements IProject {
     while (itr.hasNext()) {
       resource = itr.next();
       if (resource instanceof IDoapResource) {
-        values.append(((IDoapResource) resource).toJSON(true));
+        values.append(((IDoapResource) resource).toJSON());
       } else {
         values.append("\"" + resource.toString() + "\"");
       }

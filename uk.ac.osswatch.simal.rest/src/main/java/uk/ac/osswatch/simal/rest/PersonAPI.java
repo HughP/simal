@@ -111,7 +111,13 @@ public class PersonAPI extends AbstractHandler {
             e);
       }
     } else if (command.isJSON()) {
-        return person.toJSON(false);
+      try {
+        return person.toJSON();
+      } catch (SimalRepositoryException e) {
+        throw new SimalAPIException(
+            "Unable to get XML representation of project from the repository",
+            e);
+      }
     } else {
       throw new SimalAPIException("Unkown format requested - " + command);
     }
@@ -169,7 +175,7 @@ public class PersonAPI extends AbstractHandler {
     if (cmd.isJSON()) {
       while (friends.hasNext()) {
         result.append("{ \"items\": [");
-        result.append(friends.next().toJSON(true));
+        result.append(friends.next().toJSON());
         result.append("]}");
       }
     } else if (cmd.isXML()) {

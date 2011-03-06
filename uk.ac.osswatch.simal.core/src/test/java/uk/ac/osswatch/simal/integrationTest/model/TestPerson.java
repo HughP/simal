@@ -98,8 +98,8 @@ public class TestPerson extends BaseRepositoryTest {
   }
 
   @Test
-  public void testToJSON() {
-    String json = developer.toJSON(false);
+  public void testToJSON() throws SimalRepositoryException {
+    String json = developer.toJSON();
     assertTrue("JSON does not include person name: JSON = " + json, json
         .contains("\"label\":\"" + developer.getLabel() + "\""));
   }

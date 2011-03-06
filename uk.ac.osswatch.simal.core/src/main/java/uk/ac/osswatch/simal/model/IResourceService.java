@@ -29,12 +29,9 @@ public interface IResourceService {
 
   /**
    * Create a JSON representation of this resource.
-   * 
-   * @param asRecord
-   *          set to true if this is a record within another JSON file or false
-   *          if you want this to be a complete JSON file.
+   * @throws SimalRepositoryException 
    */
-  public String toJSON(boolean asRecord);
+  public String toJSON() throws SimalRepositoryException;
 
   /**
    * Create an XML representation of this resource.

@@ -74,11 +74,9 @@ public abstract class AbstractResource implements IResource {
 		}
 	}
 
-	public String toJSON(boolean asRecord) {
+	public String toJSON() throws SimalRepositoryException {
 		StringBuffer json = new StringBuffer();
-		if (!asRecord) {
-			json.append("{ \"items\": [");
-		}
+	  json.append("{ \"items\": [");
 		json.append("{");
 		json.append("\"id\":\"" + getURI() + "\",");
 		json
@@ -86,9 +84,7 @@ public abstract class AbstractResource implements IResource {
 						+ StringEscapeUtils.escapeJavaScript(getLabel().trim())
 						+ "\",");
 		json.append("}");
-		if (!asRecord) {
-			json.append("]}");
-		}
+		json.append("]}");
 		return json.toString();
 	}
 
