@@ -130,6 +130,9 @@ public class TestModelProject extends BaseRepositoryTest {
 
     assertTrue("JSON record (incorrectly) has items structure: : " + json,
         !json.startsWith("{ \"items\": ["));
+    
+    assertTrue("JSON appears to have incorrect repository details: " + json, 
+               json.contains("\"id\":\"" + TEST_SIMAL_PROJECT_REPOSITORIES));
 
     json = project1.toJSON();
     logger.debug("Project JSON file is :\n" + json);
