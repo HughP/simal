@@ -315,7 +315,7 @@ public class Project extends DoapResource implements IProject {
     while (itr.hasNext()) {
       resource = itr.next();
       if (resource instanceof IDoapResource) {
-        values.append("\"" + ((IDoapResource) resource).getLabel() + "\"");
+        values.append(((IDoapResource) resource).toJSON(true));
       } else {
         values.append("\"" + resource.toString() + "\"");
       }
