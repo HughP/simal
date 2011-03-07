@@ -32,7 +32,6 @@ function Project(id, name, shortDesc, people, categories, languages){
 
 var ProjectService = {
 
-  //Find all projects in the repository
   projects: [],  
   currentProject: undefined,
   updateFeaturedProject:function() {
