@@ -284,18 +284,22 @@ public class Simal {
    * @throws SimalRepositoryException 
    */
   private static void getProjects(CommandLine cl) throws SimalRepositoryException {
+    String filter;
     if (cl.hasOption('n')) {
-      String filter = cl.getOptionValue('n');
-      Set<IProject> projects = SimalRepositoryFactory.getProjectService().filterByName(filter);
-      if (projects == null || projects.size() == 0) {
-        logger.info("No projects match the regular expression '" + filter + "'");
-      } else {
-        Iterator<IProject> itr = projects.iterator();
-        while(itr.hasNext()) {
-          IProject project = itr.next();
-          dump(project, cl);
-          logger.info("\n\n============================================\n============================================\n\n");
-        }
+      filter = cl.getOptionValue('n');
+    } else {
+      filter = ".*"; // if no filter, return all projects.
+    }
+      
+    Set<IProject> projects = SimalRepositoryFactory.getProjectService().filterByName(filter);
+    if (projects == null || projects.size() == 0) {
+      logger.info("No projects match the regular expression '" + filter + "'");
+    } else {
+      Iterator<IProject> itr = projects.iterator();
+      while(itr.hasNext()) {
+        IProject project = itr.next();
+        dump(project, cl);
+        logger.info("\n\n============================================\n============================================\n\n");
       }
     }
   }
@@ -461,7 +465,7 @@ public class Simal {
       try {
         repository.addProject(fileURL, "");
       } catch (SimalException e) {
-        logger.error("Unable to add an RDF/XML documet {}", fileURL
+        logger.error("Unable to add an RDF/XML document {}", fileURL
             .toExternalForm(), e);
         System.exit(1);
       }
@@ -470,7 +474,7 @@ public class Simal {
       System.exit(1);
     }
     logger.info("DOAP data succesffuly added via the CLI.");
-    System.out.println("DOAP data succesffuly added.");
+    System.out.println("DOAP data succesfully added.");
   }
 
   private static void initRepository(String dir) {
