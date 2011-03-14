@@ -2,6 +2,8 @@
 #labels Phase-Design
 #sidebar DeveloperTOC
 
+<wiki:toc max_depth="2" />
+
 = Introduction =
 
 This page describes the Simal REST API. Note that by default the REST API is accessible by anyone. If you wish to secure it your only option, at the time of writing, is to use {{{.htaccess}}} see below for more details.
