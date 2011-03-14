@@ -4,7 +4,7 @@
 
 = Introduction =
 
-This page describes the Simal REST API. 
+This page describes the Simal REST API. Note that by default the REST API is accessible by anyone. If you wish to secure it your only option, at the time of writing, is to use {{{.htaccess}}} see below for more details.
 
 = Details =
 
@@ -81,3 +81,17 @@ To retrieve the details of all people use:
 Simal can retrieve data from sources other than the standard Simal repository. Such as the MyExperiment social networking tool for scientific research. In order to use alternative data sources use the "source" parameter as follows:
 
 {{{http://foo.com/simal-rest/allColleagues/source-myExperiment/PERSON-ID/FORMAT}}}
+
+= Securing =
+
+At present there are no security features for the REST API, therefore, if you need to lock it down then you need to use {{{.htaccess}}}. For example, in httpd.conf add:
+
+{{{
+ProxyPass /simal-rest !
+}}}
+
+To block all direct access to port 8080:
+
+{{{
+iptables -A INPUT -j DROP -p tcp --destination-port 8080 -i eth0
+}}}
