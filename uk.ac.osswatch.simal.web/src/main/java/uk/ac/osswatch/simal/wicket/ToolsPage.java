@@ -198,7 +198,7 @@ public class ToolsPage extends BasePage {
   private void populateWookiePanel() {
 
     WookieServerConnection wookieServerConnection = UserApplication
-        .getWookieServerConnection();
+        .getWookieServerConnection(true);
     
     // Trick to (re)connect to Wookie server in case it has
     // been (re)started after Simal's initial connection setup. 

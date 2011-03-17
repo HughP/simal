@@ -41,7 +41,7 @@ public class InstantiateWidgetPage extends BasePage {
 	public InstantiateWidgetPage(Widget widget) {
       WidgetInstance instance;
 	  try {
-		  instance = UserApplication.getWookieServerConnection().getOrCreateInstance(widget);
+		  instance = UserApplication.getWookieServerConnection(false).getOrCreateInstance(widget);
 		  populatePage(instance);
 	  } catch (SimalException e) {
     	  UserReportableException error = new UserReportableException(

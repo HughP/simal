@@ -82,7 +82,7 @@ public class BasePage extends WebPage {
    */
   private Link<? extends BasePage> getAddProjectLink() {
     Link<? extends BasePage> link;
-    WidgetInstance instance = UserApplication.getWookieServerConnection()
+    WidgetInstance instance = UserApplication.getWookieServerConnection(false)
         .getInstance(getAddProjectWidgetName());
     if (instance != null) {
       link = WidgetInstancePage.getPageLink("addProjectLink", instance);
