@@ -95,8 +95,7 @@ public class UserApplication extends WebApplication {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	public Class getHomePage() {
+	public Class<UserHomePage> getHomePage() {
 		return UserHomePage.class;
 	}
 	
@@ -203,10 +202,11 @@ public class UserApplication extends WebApplication {
 
 	/**
 	 * Get a connection to the Wookie Server used for gadget rendering.
+	 * @param forceNew to indicate if always a new connection should be made.
 	 * @return
 	 */
-	public static WookieServerConnection getWookieServerConnection() {
-		if (wookieServerConnection == null) {
+	public static WookieServerConnection getWookieServerConnection(boolean forceNew) {
+		if (wookieServerConnection == null || forceNew) {
 			wookieServerConnection = new WookieServerConnection();
 		}
 		return wookieServerConnection;

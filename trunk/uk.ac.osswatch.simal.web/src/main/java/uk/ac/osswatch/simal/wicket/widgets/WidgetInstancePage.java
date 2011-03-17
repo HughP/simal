@@ -54,7 +54,7 @@ public class WidgetInstancePage extends BasePage {
 
     if (parameters.containsKey(WIDGET_KEY)) {
       String id = parameters.getString(WIDGET_KEY);
-      WidgetInstance instance = UserApplication.getWookieServerConnection()
+      WidgetInstance instance = UserApplication.getWookieServerConnection(false)
           .getInstance(id);
       populatePage(instance);
     } else {

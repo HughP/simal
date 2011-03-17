@@ -48,7 +48,7 @@ public class WookieWidgetGalleryPanel extends Panel {
    */
   public WookieWidgetGalleryPanel(String id) throws SimalException {
     super(id);
-    populatePanel(UserApplication.getWookieServerConnection().getAvailableWidgets());
+    populatePanel(UserApplication.getWookieServerConnection(false).getAvailableWidgets());
   }
   
   /**
