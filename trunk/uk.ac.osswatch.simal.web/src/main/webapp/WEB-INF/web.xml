@@ -52,34 +52,6 @@ Copyright 2008 University of Oxford
 
   </servlet>
 
-  <!-- Validator -->
-
-  <servlet>
-    <servlet-name>Validator</servlet-name>
-    <servlet-class>
-      org.joseki.validator.Validator
-    </servlet-class>
-  </servlet>
-
-  <!-- Well-known servlets for testing -->
-
-  <servlet>
-    <servlet-name>Dumper</servlet-name>
-    <servlet-class>
-      org.joseki.servlets.DumpServlet
-    </servlet-class>
-  </servlet>
-
-  <servlet>
-    <servlet-name>DumpBody</servlet-name>
-    <servlet-class>
-      org.joseki.servlets.DumpBodyServlet
-    </servlet-class>
-  </servlet>
-
-  <!-- end The Joseki SPARQL servlet -->
-
-
   <!-- Simal REST API -->
   <servlet>
       <servlet-name>Simal REST API</servlet-name>
@@ -108,22 +80,6 @@ Copyright 2008 University of Oxford
     <url-pattern>/joseki/service/*</url-pattern>
   </servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>Validator</servlet-name>
-    <url-pattern>/joseki/validator</url-pattern>
-  </servlet-mapping>
-
-  <!-- A few utilities -->
-
-  <servlet-mapping>
-    <servlet-name>Dumper</servlet-name>
-    <url-pattern>/joseki/dump</url-pattern>
-  </servlet-mapping>
-
-  <servlet-mapping>
-    <servlet-name>DumpBody</servlet-name>
-    <url-pattern>/joseki/dump-body</url-pattern>
-  </servlet-mapping>
 
 
 </web-app>
