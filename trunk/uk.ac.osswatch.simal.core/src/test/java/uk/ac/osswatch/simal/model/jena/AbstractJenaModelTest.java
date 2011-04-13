@@ -55,7 +55,7 @@ public abstract class AbstractJenaModelTest {
     repository = SimalRepositoryFactory
         .getInstance(SimalRepositoryFactory.JENA);
     if (!repository.isInitialised()) {
-      repository.initialise(null);
+      repository.initialise(System.getProperty("java.io.tmpdir"));
     }
     
     repository.addProject(ISimalRepository.class.getClassLoader().getResource(
