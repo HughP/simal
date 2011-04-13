@@ -289,7 +289,7 @@ public class SimalProperties {
     }
 
     String value = System.getProperty(key);
-    if (localProps != null) {
+    if (value == null && localProps != null) {
       value = localProps.getProperty(key);
     }
 
