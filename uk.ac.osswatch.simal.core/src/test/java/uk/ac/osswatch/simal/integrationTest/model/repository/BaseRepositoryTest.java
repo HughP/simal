@@ -144,7 +144,7 @@ public abstract class BaseRepositoryTest {
     repository = SimalRepositoryFactory.getInstance(SimalRepositoryFactory.JENA);
     if (!repository.isInitialised()) {
       repository.setIsTest(true);
-      repository.initialise(null);
+      repository.initialise(System.getProperty("java.io.tmpdir"));
     }
     project1 = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_URI);
     IPerson developer = SimalRepositoryFactory.getPersonService().findBySeeAlso("http://foo.org/~developer/#me");
