@@ -44,8 +44,9 @@ public abstract class TestBase {
 
   @BeforeClass
   public static void setUpBeforeClass() throws SimalRepositoryException {
+    logger.error(" *************  QQQQQQQQQQQQQQ ********");
     UserApplication.setIsTest(true);
-    UserApplication.getRepository(); // this initialises the repository and adds test data
+    UserApplication.initRepository(); // this initialises the repository and adds test data
 
     IProject project = SimalRepositoryFactory.getProjectService().findProjectBySeeAlso(TEST_PROJECT_SEEALSO);
     projectURI = project.getURI();
