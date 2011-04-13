@@ -30,6 +30,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import uk.ac.osswatch.simal.SimalProperties;
+import uk.ac.osswatch.simal.model.jena.simal.JenaDatabaseSupport.JenaDatabaseType;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 
 import com.hp.hpl.jena.db.ModelRDB;
@@ -43,11 +45,13 @@ public class TestJenaDatabaseSupport {
   public static final Logger LOGGER = LoggerFactory
       .getLogger(JenaSimalRepository.class);
 
+  private static final String TEST_DIR = System.getProperty("java.io.tmpdir");
+
   @AfterClass
   public static void removeTestDatabases() {
-    deleteTestDatabase("SDB", "");
-    deleteTestDatabase("TDB", "");
-    deleteTestDatabase("RDB", "");
+    deleteTestDatabase("SDB", TEST_DIR);
+    deleteTestDatabase("TDB", TEST_DIR);
+    deleteTestDatabase("RDB", TEST_DIR);
   }
 
   /**
@@ -71,15 +75,20 @@ public class TestJenaDatabaseSupport {
       fail("Could not contruct database path from directory " + directory);
     }
   }
-
+  
   @Test
   public void testDatabaseInitialisationSDB() {
+    assertEquals(null, JenaDatabaseSupport.getDatabasePath());
     performDatabaseInitialisationTest("SDB", ModelCom.class);
   }
 
   @Test
-  public void testDatabaseInitialisationTDB() {
+  public void testDatabaseInitialisationTDB() throws SimalRepositoryException {
     performDatabaseInitialisationTest("TDB", ModelCom.class);
+    assertEquals(TEST_DIR
+            + System.getProperty("file.separator")
+            + SimalProperties.getProperty(SimalProperties.PROPERTY_RDF_DATA_FILENAME)
+            + "_TDB", JenaDatabaseSupport.getDatabasePath());
   }
 
   @Test
@@ -87,15 +96,14 @@ public class TestJenaDatabaseSupport {
     performDatabaseInitialisationTest("RDB", ModelRDB.class);
   }
 
-  @SuppressWarnings("unchecked")
   private void performDatabaseInitialisationTest(String dbType,
-      Class expectedClass) {
-    String directory = "";
-    deleteTestDatabase(dbType, directory);
+      Class<? extends Model> expectedClass) {
+    deleteTestDatabase(dbType, TEST_DIR);
     JenaDatabaseSupport jenaDatabaseSupport = new JenaDatabaseSupport();
     try {
-      Model model = jenaDatabaseSupport.initialiseDatabase(dbType, directory);
+      Model model = jenaDatabaseSupport.initialiseDatabase(dbType, TEST_DIR);
       assertEquals(expectedClass, model.getClass());
+      assertEquals(JenaDatabaseType.valueOf(dbType), JenaDatabaseSupport.getType());
       jenaDatabaseSupport.removeAllData(model);
       model.close();
       model = null;
