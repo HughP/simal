@@ -17,6 +17,7 @@ package uk.ac.osswatch.simal.wicket;
  * under the License.                                                *
  */
 
+import java.io.IOError;
 import java.net.URL;
 import java.util.Timer;
 
@@ -30,10 +31,19 @@ import org.apache.wicket.extensions.ajax.markup.html.form.upload.UploadWebReques
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.util.convert.ConverterLocator;
+import org.joseki.DatasetDesc;
+import org.joseki.Processor;
+import org.joseki.RDFServer;
+import org.joseki.Registry;
+import org.joseki.Service;
+import org.joseki.ServiceRegistry;
+import org.joseki.processors.SPARQL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.ac.osswatch.simal.SimalRepositoryFactory;
+import uk.ac.osswatch.simal.model.jena.simal.JenaDatabaseSupport;
+import uk.ac.osswatch.simal.model.jena.simal.JenaDatabaseSupport.JenaDatabaseType;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.schedule.ImportPTSWTask;
@@ -48,6 +58,15 @@ import uk.ac.osswatch.simal.wicket.foaf.ExhibitPersonBrowserPage;
 import uk.ac.osswatch.simal.wicket.foaf.PersonDetailPage;
 import uk.ac.osswatch.simal.wicket.widgets.WidgetInstancePage;
 import uk.ac.osswatch.simal.wicket.widgets.WookieServerConnection;
+
+import com.hp.hpl.jena.assembler.JA;
+import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
+import com.hp.hpl.jena.tdb.TDB;
+import com.hp.hpl.jena.vocabulary.RDF;
+import com.hp.hpl.jena.vocabulary.RDFS;
 
 /**
  * The UserApp is the main user facing appliation. This application allows users
@@ -92,7 +111,16 @@ public class UserApplication extends WebApplication {
     mountBookmarkablePage("/category", CategoryDetailPage.class);
 
     mountBookmarkablePage("/widgets", WidgetInstancePage.class);
-	}
+    
+    try {
+      initRepository(true);
+      initSparqlQueryEngine();
+    } catch (SimalRepositoryException e) {
+      LOGGER.error("Could not initialize repository. Error: " + e.getMessage(), e);
+      // TODO there must be a more elegant way in Wicket, but couldn't find it:
+      throw new IOError(e);
+    }
+  }
 
 	@Override
 	public Class<UserHomePage> getHomePage() {
@@ -117,14 +145,37 @@ public class UserApplication extends WebApplication {
 	public static ISimalRepository getRepository()
 			throws SimalRepositoryException {
 		if (repository == null) {
-			repository = SimalRepositoryFactory.getInstance();
-			repository.setIsTest(isTest);
-			if (!repository.isInitialised()) {
-				repository.initialise();
-			}
+		  initRepository(true);
 		}
 		return repository;
 	}
+
+	/**
+	 * Initialise the Simal repository, if not yet initialised.
+	 * @throws SimalRepositoryException
+	 */
+	public static void initRepository() throws SimalRepositoryException { 
+	  initRepository(false);
+	}
+	
+  /**
+   * Initialise the Simal repository.
+   * 
+   * @param forceInit
+   *          If true, force initialisation, if false don't initialise if
+   *          already done so.
+   * @throws SimalRepositoryException
+   */
+  private static void initRepository(boolean forceInit)
+      throws SimalRepositoryException {
+    if (repository == null || forceInit) {
+      repository = SimalRepositoryFactory.getInstance();
+      repository.setIsTest(isTest);
+      if (!repository.isInitialised()) {
+        repository.initialise();
+      }
+    }
+  }
 
 	/**
 	 * Destroy the repository object used by this application.
@@ -211,4 +262,40 @@ public class UserApplication extends WebApplication {
 		}
 		return wookieServerConnection;
 	}
+	
+  /**
+   * Initialise Joseki configuration to allow SPARQL querying of the 
+   * Jena back-end. 
+   */
+  private void initSparqlQueryEngine() {
+    ServiceRegistry myReg = new ServiceRegistry();
+    Processor proc = new SPARQL();
+    String baseRootURI = "#dataset";
+    String serviceURI = "joseki/sparql";
+
+    String dbPath = JenaDatabaseSupport.getDatabasePath();
+
+    if (dbPath != null
+        && JenaDatabaseSupport.getType().equals(JenaDatabaseType.TDB)) {
+      Model model = ModelFactory.createDefaultModel();
+      Resource baseResource = model.createResource(baseRootURI);
+      Resource datasetTDB = ResourceFactory.createResource(TDB.namespace
+          + "DatasetTDB");
+      model.add(baseResource, RDF.type, datasetTDB);
+      model.add(baseResource,
+          ResourceFactory.createProperty(TDB.namespace, "location"), dbPath);
+      model.add(datasetTDB, RDFS.subClassOf,
+          ResourceFactory.createResource(JA.uri + "RDFDataset"));
+
+      DatasetDesc datasetDesc = new DatasetDesc(baseResource);
+      datasetDesc.initialize();
+
+      Service handler = new Service(proc, serviceURI, datasetDesc);
+      myReg.add(serviceURI, handler);
+
+      Registry.add(RDFServer.ServiceRegistryName, myReg);
+    } else {
+      LOGGER.warn("Could not initialise Joseki, dbPath == " + dbPath);
+    }
+  }
 }

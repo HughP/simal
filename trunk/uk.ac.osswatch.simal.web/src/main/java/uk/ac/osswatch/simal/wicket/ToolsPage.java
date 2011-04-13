@@ -46,6 +46,7 @@ import uk.ac.osswatch.simal.importData.Ohloh;
 import uk.ac.osswatch.simal.importData.PTSWImport;
 import uk.ac.osswatch.simal.importData.Pims;
 import uk.ac.osswatch.simal.model.ModelSupport;
+import uk.ac.osswatch.simal.model.jena.simal.JenaDatabaseSupport;
 import uk.ac.osswatch.simal.rdf.DuplicateURIException;
 import uk.ac.osswatch.simal.rdf.ISimalRepository;
 import uk.ac.osswatch.simal.rdf.SimalException;
@@ -93,8 +94,7 @@ public class ToolsPage extends BasePage {
           .getProperty(SimalProperties.PROPERTY_SIMAL_INSTANCE_ID)));
       add(new Label("propertiesFile", SimalProperties.getLocalPropertiesFile()
           .toString()));
-      add(new Label("repositoryDir", SimalProperties
-          .getProperty(SimalProperties.PROPERTY_RDF_DATA_DIR)));
+      add(new Label("repositoryLocation", JenaDatabaseSupport.getDatabasePath()));
       if (UserApplication.getScheduledPtswStatus()) {
         add(new Label("PTSWUpdaterStatus", "True"));
       } else {
