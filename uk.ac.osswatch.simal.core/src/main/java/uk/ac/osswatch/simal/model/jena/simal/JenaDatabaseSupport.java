@@ -47,6 +47,8 @@ public class JenaDatabaseSupport {
   public static final Logger LOGGER = LoggerFactory
       .getLogger(JenaSimalRepository.class);
 
+  private static String databasePath = null;
+  
   /**
    * Token for the type of database; determined at
    * runtime. These are all the database types that
@@ -56,7 +58,7 @@ public class JenaDatabaseSupport {
     RDB, SDB, TDB;
   };
 
-  private JenaDatabaseType type = null;
+  private static JenaDatabaseType type = null;
   
   private StoreDesc cachedStoreDesc = null;
   
@@ -200,6 +202,8 @@ public class JenaDatabaseSupport {
     databasePath.append('_');
     databasePath.append(dbType);
 
+    JenaDatabaseSupport.databasePath = databasePath.toString(); 
+    
     return databasePath.toString();
   }
 
@@ -241,4 +245,20 @@ public class JenaDatabaseSupport {
     return newModel;
   }
 
+  /**
+   * Get the path to the database to allow tools such as Joseki 
+   * to access it.
+   * @return path to the database, may be null if not initialised.
+   */
+  public static String getDatabasePath() {
+    return databasePath;
+  }
+
+  /**
+   * Get the type of the Jena database.
+   * @return type if initialised, otherwise null.
+   */
+  public static JenaDatabaseType getType() { 
+    return type;
+  }
 }
