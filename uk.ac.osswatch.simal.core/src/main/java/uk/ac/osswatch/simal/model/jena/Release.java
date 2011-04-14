@@ -2,7 +2,7 @@ package uk.ac.osswatch.simal.model.jena;
 
 /*
  * 
- Copyright 2007 University of Oxford * 
+ Copyright 2007, 2011 University of Oxford * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -28,7 +28,7 @@ import uk.ac.osswatch.simal.rdf.Doap;
 import com.hp.hpl.jena.rdf.model.Statement;
 
 public class Release extends DoapResource implements IDoapRelease {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = -7818587719288772500L;
 
   public Release(com.hp.hpl.jena.rdf.model.Resource resource) {
     super(resource);
@@ -41,6 +41,10 @@ public class Release extends DoapResource implements IDoapRelease {
       revisions.add(statements.next().getString());
     }
     return revisions;
+  }
+
+  public void setRevisions(Set<String> revisions) {
+    replaceLiteralStatements(Doap.REVISION, revisions);
   }
 
 }

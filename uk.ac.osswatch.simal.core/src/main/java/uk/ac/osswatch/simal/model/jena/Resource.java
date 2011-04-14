@@ -37,6 +37,7 @@ import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFWriter;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.ResourceUtils;
@@ -257,10 +258,7 @@ public class Resource extends AbstractResource {
   }
 
   protected void addLiteralStatement(Property property, String literal) {
-    Model model = getJenaResource().getModel();
-    Statement statement = model.createStatement(getJenaResource(),
-        property, literal);
-    model.add(statement);
+    getJenaResource().getModel().add(getJenaResource(), property, literal);
   }
   
   protected void replaceLiteralStatements(Property property, Set<String> literals) {
@@ -301,23 +299,29 @@ public class Resource extends AbstractResource {
     }
   }
 
-public void addSeeAlso(URI uri) {
-  com.hp.hpl.jena.rdf.model.Resource resource = getJenaResource().getModel().createResource(uri.toASCIIString());
-  getJenaResource().addProperty(RDFS.seeAlso, resource);
-}
+  public void addSeeAlso(URI uri) {
+    com.hp.hpl.jena.rdf.model.Resource resource = getJenaResource().getModel()
+        .createResource(uri.toASCIIString());
+    getJenaResource().addProperty(RDFS.seeAlso, resource);
+  }
 
-public void setComment(String comment) {
-	// TODO Auto-generated method stub
-	
-}
+  public void setComment(String comment) {
+    getJenaResource().removeAll(RDFS.comment);
+    getJenaResource().addLiteral(RDFS.comment, comment);
+  }
 
-public void setLabel(String label) {
-	// TODO Auto-generated method stub
-	
-}
+  public void setLabel(String label) {
+    getJenaResource().removeAll(RDFS.label);
+    getJenaResource().addLiteral(RDFS.label, label);
+  }
 
-public void setSeeAlso(Set<URI> seeAlso) {
-	// TODO Auto-generated method stub
-	
-}
+  public void setSeeAlso(Set<URI> seeAlsos) {
+    getJenaResource().removeAll(RDFS.seeAlso);
+    for (URI literal : seeAlsos) {
+      com.hp.hpl.jena.rdf.model.Resource seeAlso = ResourceFactory
+          .createResource(literal.toString());
+      getJenaResource().getModel()
+          .add(getJenaResource(), RDFS.seeAlso, seeAlso);
+    }
+  }
 }
