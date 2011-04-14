@@ -15,16 +15,16 @@ package uk.ac.osswatch.simal.model;
  * limitations under the License.
  */
 import java.net.MalformedURLException;
-import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
-import com.hp.hpl.jena.rdf.model.RDFWriter;
-import com.hp.hpl.jena.xmloutput.impl.BaseXMLWriter;
-
 import uk.ac.osswatch.simal.rdf.SimalRepositoryException;
 import uk.ac.osswatch.simal.rdf.io.RDFUtils;
+
+import com.hp.hpl.jena.rdf.model.RDFWriter;
+import com.hp.hpl.jena.xmloutput.impl.BaseXMLWriter;
 
 public abstract class AbstractResource implements IResource {
 	private static final long serialVersionUID = 1L;
@@ -45,7 +45,6 @@ public abstract class AbstractResource implements IResource {
 		if (!simalID.startsWith("/")) {
 			simalID = "/" + simalID;
 		}
-		setPath(simalID);
 		setSimalID(simalID);
 	}
 
@@ -96,22 +95,6 @@ public abstract class AbstractResource implements IResource {
       return getUniqueSimalID();
     }
     
-
-	/** The JCR Path of this object **/
-    String path;
-    public String getPath() {
-    	return path;
-    }
-    
-    protected void setPath(URI uri) {
-    	// path = "/" + uri.getHost() + uri.getPath();
-    	path = "/myFolder";
-    }
-    
-    public void setPath(String path) {
-    	this.path = path;
-    }
-
     /**
      * Set namespace prefixes for more readable XML output.
      * @param writer
@@ -135,7 +118,6 @@ public abstract class AbstractResource implements IResource {
     public int hashCode() {
       final int prime = 31;
       int result = 1;
-      result = prime * result + ((path == null) ? 0 : path.hashCode());
       result = prime * result + ((uri == null) ? 0 : uri.hashCode());
       return result;
     }
@@ -152,11 +134,6 @@ public abstract class AbstractResource implements IResource {
       if (getClass() != obj.getClass())
         return false;
       AbstractResource other = (AbstractResource) obj;
-      if (path == null) {
-        if (other.path != null)
-          return false;
-      } else if (!path.equals(other.path))
-        return false;
       if (uri == null) {
         if (other.uri != null)
           return false;
