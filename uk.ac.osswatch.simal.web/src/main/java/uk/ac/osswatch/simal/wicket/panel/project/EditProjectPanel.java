@@ -19,7 +19,6 @@ package uk.ac.osswatch.simal.wicket.panel.project;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -457,31 +456,24 @@ public class EditProjectPanel extends Panel {
      * @return
      */
     private void addRepeatingInputs(String labelWicketID, Set<String> labels) {
-      Iterator<String> itr = labels.iterator();
-      List<GenericSetWrapper<String>> data = new ArrayList<GenericSetWrapper<String>>();
 
-      while (itr.hasNext()) {
-        GenericSetWrapper<String> gsw = new GenericSetWrapper<String>(labels,
-            itr.next());
-        data.add(gsw);
-      }
+      List<String> editableList = new ArrayList<String>(labels);
+      editableList.add(NEW_ITEM);
+      GenericSetWrapper<String> editableListWrapper = new GenericSetWrapper<String>(new ArrayList<String>(editableList));
+      
 
-      // Add empty one for new
-      data.add(new GenericSetWrapper<String>(labels, NEW_ITEM));
-
-      ListView<GenericSetWrapper<String>> listView = new ListView<GenericSetWrapper<String>>(
-          labelWicketID, data) {
+      ListView<String> listView = new ListView<String>(
+          labelWicketID, new PropertyModel<List<String>>(editableListWrapper, "editableList")) {
         private static final long serialVersionUID = 154815894763179933L;
 
-        protected void populateItem(ListItem<GenericSetWrapper<String>> item) {
-          GenericSetWrapper<String> wrapper = (GenericSetWrapper<String>) item
-              .getModelObject();
+        protected void populateItem(ListItem<String> item) {
+          String wrapper = (String) item.getModelObject();
           TextField<String> setItemValue = new TextField<String>(
-              "setItemValue", new PropertyModel<String>(wrapper, "value"));
+              "setItemValue", item.getModel());
           setItemValue.add(new ReadOnlyStyleBehavior());
           item.add(setItemValue);
           item.add(generateDeleteItemButton(!NEW_ITEM
-              .equals(wrapper.getValue()), item));
+              .equals(wrapper), item));
         }
       };
       listView.setReuseItems(true);
@@ -490,7 +482,7 @@ public class EditProjectPanel extends Panel {
 
 
     private AjaxFallbackButton generateDeleteItemButton(
-        boolean visibilityAllowed, ListItem<GenericSetWrapper<String>> item) {
+        boolean visibilityAllowed, ListItem<String> item) {
       AjaxFallbackButton deleteItemButton = new AjaxFallbackDeleteItemButton(
           "deleteItem", new Model<String>("X"), this, item);
 
@@ -506,7 +498,7 @@ public class EditProjectPanel extends Panel {
 
     private static final long serialVersionUID = -6395239712922873605L;
 
-    private ListItem<GenericSetWrapper<String>> item;
+    private ListItem<String> item;
 
     /**
      * @param id
@@ -514,14 +506,14 @@ public class EditProjectPanel extends Panel {
      * @param form
      */
     public AjaxFallbackDeleteItemButton(String id, IModel<String> model,
-        Form<?> form, ListItem<GenericSetWrapper<String>> item) {
+        Form<?> form, ListItem<String> item) {
       super(id, model, form);
       this.item = item;
     }
 
     @Override
     protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-      item.getModel().getObject().setValue(null);
+      // FIXME item.getModel().getObject().setValue(null);
       item.setVisible(false);
       setVisible(false);
       target.addComponent(form);

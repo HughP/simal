@@ -1,7 +1,7 @@
 package uk.ac.osswatch.simal.wicket.panel.project;
 
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 
 /*
  * Copyright 2010 University of Oxford
@@ -31,43 +31,20 @@ public class GenericSetWrapper<T> implements Serializable {
 
   private static final long serialVersionUID = 7273060956309086010L;
 
-  private Set<T> parentSet;
+  private List<T> editableList;
 
-  private T localValue;
-
-  /**
-   * Create a new wrapper for a set and an item in the set.
-   * Reference to the parentSet is retained to be able to update
-   * the parentSet from this wrapper. 
-   * 
-   * @param parentSet
-   * @param value
-   */
-  public GenericSetWrapper(Set<T> parentSet, T value) {
-    this.parentSet = parentSet;
-    this.localValue = value;
+  public GenericSetWrapper(List<T> editableList) {
+    this.editableList = editableList;
   }
 
-  /**
-   * Set the value and update the parent Set.
-   * 
-   * @param value
-   */
-  public void setValue(T value) {
-    parentSet.remove(this.localValue);
-    if (value != null) {
-      parentSet.add(value);
-    }
-    this.localValue = value;
+  public List<T> getEditableList() {
+    return editableList;
   }
 
-  /**
-   * Return the locally retained value.
-   * 
-   * @return
-   */
-  public T getValue() {
-    return localValue;
+  public void setEditableList(List<T> editableList) {
+    // FIXME this setter is not called because the 
+    // ListItemModel.setObject works directly on the List.
+    this.editableList = editableList;
   }
 
 }
