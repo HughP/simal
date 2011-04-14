@@ -50,7 +50,7 @@ public class TestReleasesPanel extends TestBase {
       }
     });
     tester.assertVisible("panel:releases");
-    tester.assertVisible("panel:releases:1:name");
+    tester.assertVisible("panel:releases:1:names");
     // FIXME: we can't predict which release will be first
     // tester.assertLabel("panel:releases:1:name", "Simal Project Registry");
 
