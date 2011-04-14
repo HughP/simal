@@ -1,5 +1,5 @@
 /*
- * Copyright 2007 University of Oxford
+ * Copyright 2007, 2011 University of Oxford
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,8 +18,8 @@ package uk.ac.osswatch.simal.model;
 import java.util.Set;
 
 /**
- * A release of a project. It is a resource used to define the doap:release
- * entries of doap:Project.
+ * A release of a project. It is a resource used to define the doap:Version
+ * entries that are tied to instances of doap:Project using doap:release.
  * 
  */
 public interface IDoapRelease extends IDoapResource {
@@ -29,4 +29,10 @@ public interface IDoapRelease extends IDoapResource {
    * version number. In DOAP it corresponds to doap:revision.
    */
   public Set<String> getRevisions();
+
+  /**
+   * Set all the version identifiers for this release. A version identifier is a
+   * version number. In DOAP it corresponds to doap:revision.
+   */
+  public void setRevisions(Set<String> revisions);
 }
