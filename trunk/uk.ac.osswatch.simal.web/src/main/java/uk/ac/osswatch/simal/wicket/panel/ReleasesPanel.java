@@ -54,10 +54,9 @@ public class ReleasesPanel extends Panel {
       
       item.add(new Label("releaseHeader", release.getURI()));
       
-      TextField<String> nameInput = new TextField<String>(
-          "name", new PropertyModel<String>(release, "name"));
-      nameInput.add(this.rosb);
-      item.add(nameInput);
+      item.add(getRepeatingLabels("names", "name", release
+          .getNames()));
+      
 
       TextField<String> createdInput = new TextField<String>(
           "created", new PropertyModel<String>(release, "created"));
