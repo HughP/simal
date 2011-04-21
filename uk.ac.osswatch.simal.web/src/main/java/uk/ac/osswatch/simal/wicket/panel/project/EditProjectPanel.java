@@ -19,7 +19,6 @@ package uk.ac.osswatch.simal.wicket.panel.project;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +37,6 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListItemModel;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -461,88 +459,11 @@ public class EditProjectPanel extends Panel {
 
       List<String> editableList = new ArrayList<String>(labels);
       editableList.add(NEW_ITEM);
-      //GenericSetWrapper<String> editableListWrapper = new GenericSetWrapper<String>(new ArrayList<String>(editableList));
       
-      final PropertyModel<Set<String>> projectModel = new PropertyModel<Set<String>>(project, labelWicketID);
-
-      ListView<String> listView = new ListView<String>(
-          labelWicketID, editableList) {
-        private static final long serialVersionUID = 154815894763179933L;
-
-        protected void populateItem(ListItem<String> item) {
-          String wrapper = (String) item.getModelObject();
-          TextField<String> setItemValue = new TextField<String>(
-              "setItemValue", item.getModel());
-          setItemValue.add(new ReadOnlyStyleBehavior());
-          item.add(setItemValue);
-          item.add(generateDeleteItemButton(!NEW_ITEM
-              .equals(wrapper), item));
-        }
-
-        @Override
-        protected IModel<String> getListItemModel(
-            IModel<? extends List<String>> listViewModel, int index) {
-          this.getModelObject();
-          
-          return new ListItemModel<String>(this, index) {
-            private static final long serialVersionUID = 2563628936377112626L;
-
-            @Override
-            public void setObject(String object) {
-              super.setObject(object);
-              
-              Set<String> updatedSet = new HashSet<String>();
-              updatedSet.add(object);
-              projectModel.setObject(updatedSet);
-            }
-            
-          };
-        }
-        
-        
-      };
-      listView.setReuseItems(true);
-      add(listView);
+      add(new EditableListView (
+          labelWicketID, editableList, project, rosb, this));
     }
 
-
-    private AjaxFallbackButton generateDeleteItemButton(
-        boolean visibilityAllowed, ListItem<String> item) {
-      AjaxFallbackButton deleteItemButton = new AjaxFallbackDeleteItemButton(
-          "deleteItem", new Model<String>("X"), this, item);
-
-      deleteItemButton.setVisibilityAllowed(visibilityAllowed);
-      deleteItemButton.add(new ReadOnlyStyleBehavior());
-      return deleteItemButton;
-
-    }
-
-  }
-
-  private static class AjaxFallbackDeleteItemButton extends AjaxFallbackButton {
-
-    private static final long serialVersionUID = -6395239712922873605L;
-
-    private ListItem<String> item;
-
-    /**
-     * @param id
-     * @param model
-     * @param form
-     */
-    public AjaxFallbackDeleteItemButton(String id, IModel<String> model,
-        Form<?> form, ListItem<String> item) {
-      super(id, model, form);
-      this.item = item;
-    }
-
-    @Override
-    protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-      // FIXME item.getModel().getObject().setValue(null);
-      item.setVisible(false);
-      setVisible(false);
-      target.addComponent(form);
-    }
   }
 
   public class ReadOnlyStyleBehavior extends AbstractBehavior {
